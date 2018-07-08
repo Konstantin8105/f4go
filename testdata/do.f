@@ -5,8 +5,7 @@ c
       double precision r
 c
       sum = 0
-      write (*,*) 'How many terms ?'
-      read *, n
+      n   = 5
  
       do i = 1, n
         sum = sum + i

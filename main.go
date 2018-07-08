@@ -68,36 +68,40 @@ func parseBlock(block []string) (err error) {
 	if len(block) == 0 {
 		return
 	}
-	fmt.Println("---------------------------------")
-
-	for i, l := range block {
-		if i == 0 {
-			fmt.Println("NAME : ", l)
-			continue
-		}
-		fmt.Printf("\n")
-		fmt.Println(l)
-
-		/*
-			var n node
-			n, err = parse(l)
-			if err != nil {
-				return
-			}
-			fmt.Println("n: ", n)
-		*/
-
-		rr := strings.Split(strings.TrimSpace(l), " ")
-		for _, t := range rr {
-			t := strings.TrimSpace(t)
-			if t == "" {
-				continue
-			}
-			fmt.Printf("|%s|\n", t)
-		}
-
-	}
-
+	// fmt.Println("---------------------------------")
+	//
+	// for i, l := range block {
+	//
+	// 	if i == 0 {
+	// 		fmt.Println("NAME : ", l)
+	// 		continue
+	// 	}
+	//
+	// 	fmt.Printf("\n")
+	// 	fmt.Println(l)
+	//
+	// 	/*
+	// 		var n node
+	// 		n, err = parse(l)
+	// 		if err != nil {
+	// 			return
+	// 		}
+	// 		fmt.Println("n: ", n)
+	// 	*/
+	//
+	// 	/*
+	// 		rr := strings.Split(strings.TrimSpace(l), " ")
+	// 		for _, t := range rr {
+	// 			t := strings.TrimSpace(t)
+	// 			if t == "" {
+	// 				continue
+	// 			}
+	// 			fmt.Printf("|%s|\n", t)
+	// 		}
+	// 	*/
+	//
+	// }
+	//
 	return
 }
 

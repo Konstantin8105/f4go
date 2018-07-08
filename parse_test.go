@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os/exec"
 	"path/filepath"
 	"testing"
 )
@@ -20,8 +21,22 @@ func TestParse(t *testing.T) {
 		t.Run(file, func(t *testing.T) {
 			err = transpile(file)
 			if err != nil {
-				t.Error(err)
+				t.Fatal(err)
 			}
+
+			err = exec.Command("gfortran",
+				file).Run()
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			var out []byte
+			out, err = exec.Command("./a.out").CombinedOutput()
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			fmt.Println(string(out))
 		})
 	}
 }
