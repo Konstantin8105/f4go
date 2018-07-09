@@ -59,9 +59,10 @@ func parseBlock(block []string) (err error) {
 		if err != nil {
 			return
 		}
-		fmt.Printf("\n")
-		fmt.Println(l)
-		fmt.Println("n: ", n)
+		_ = n
+		// fmt.Printf("\n")
+		// fmt.Println(l)
+		// fmt.Println("n: ", n)
 
 		/*
 			rr := strings.Split(strings.TrimSpace(l), " ")
@@ -124,11 +125,24 @@ func parse(line string) (n interface{}, err error) {
 	// 	}
 	// }
 
-	switch line[begin:index] {
-	case "identifier_node":
-		n = parse_identifier_node(line[index:])
-	default:
-		fmt.Println("Undefine")
+	p := map[string]func(string) interface{}{
+		"identifier_node": parse_identifier_node,
+		"integer_cst":     parse_integer_cst,
+		"type_decl":       parse_type_decl,
+		"function_decl":   parse_function_decl,
+		"integer_type":    parse_integer_type,
+		"function_type":   parse_function_type,
+		"tree_list":       parse_tree_list,
+		"void_type":       parse_void_type,
+		"var_decl":        parse_var_decl,
+		"modify_expr":     parse_modify_expr,
+		"bind_expr":       parse_bind_expr,
+	}
+
+	if f, ok := p[line[begin:index]]; ok {
+		n = f(line[index:])
+	} else {
+		fmt.Println(line[begin:index], "\t", line[index:])
 	}
 
 	// for {
