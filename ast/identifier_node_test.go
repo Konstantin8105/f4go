@@ -12,9 +12,8 @@ func TestIdentifierNode(t *testing.T) {
 		expected identifier_node
 	}{
 		{
-			line: "@26     identifier_node  strg: integer(kind=4)         lngt: 15   ",
+			line: "strg: integer(kind=4)         lngt: 15   ",
 			expected: identifier_node{
-				link: "@26",
 				strg: "integer(kind=4)",
 				lngt: "15",
 			},
