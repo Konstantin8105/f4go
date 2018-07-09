@@ -11,8 +11,8 @@ type Bind_expr struct {
 func parse_bind_expr(line string) (n interface{}) {
 	groups := groupsFromRegex(
 		`
-		type:(?P<type>.*)
-		vars:(?P<vars>.*)
+		type:(?P<type> @[0-9]+) +
+		(vars:(?P<vars>.*) +)?
 		body:(?P<body>.*)
 		`,
 		line,

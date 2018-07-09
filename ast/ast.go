@@ -17,6 +17,8 @@ func ParseAST(treeFile string) (nss [][]interface{}, err error) {
 	var block []string
 
 	scanner := bufio.NewScanner(file)
+
+	var ns []interface{}
 	for scanner.Scan() {
 		line := scanner.Text()
 		if line[0] == ' ' {
@@ -27,14 +29,24 @@ func ParseAST(treeFile string) (nss [][]interface{}, err error) {
 			block = append(block, line)
 			continue
 		}
-		var ns []interface{}
+		// if len(block) == 0 {
+		// 	block = []string{line}
+		// 	continue
+		// }
 		ns, err = parseBlock(block)
+		fmt.Println("err = ", err)
 		if err != nil {
 			return
 		}
 		nss = append(nss, ns)
 		block = []string{line}
 	}
+	ns, err = parseBlock(block)
+	fmt.Println("err = ", err)
+	if err != nil {
+		return
+	}
+	nss = append(nss, ns)
 
 	if err := scanner.Err(); err != nil {
 		return nil, err
