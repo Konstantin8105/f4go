@@ -45,54 +45,41 @@ func parseBlock(block []string) (err error) {
 	if len(block) == 0 {
 		return
 	}
-	// fmt.Println("---------------------------------")
-	//
-	// for i, l := range block {
-	//
-	// 	if i == 0 {
-	// 		fmt.Println("NAME : ", l)
-	// 		continue
-	// 	}
-	//
-	// 	fmt.Printf("\n")
-	// 	fmt.Println(l)
-	//
-	// 	/*
-	// 		var n node
-	// 		n, err = parse(l)
-	// 		if err != nil {
-	// 			return
-	// 		}
-	// 		fmt.Println("n: ", n)
-	// 	*/
-	//
-	// 	/*
-	// 		rr := strings.Split(strings.TrimSpace(l), " ")
-	// 		for _, t := range rr {
-	// 			t := strings.TrimSpace(t)
-	// 			if t == "" {
-	// 				continue
-	// 			}
-	// 			fmt.Printf("|%s|\n", t)
-	// 		}
-	// 	*/
-	//
-	// }
-	//
+	fmt.Println("---------------------------------")
+
+	for i, l := range block {
+
+		if i == 0 {
+			fmt.Println("NAME : ", l)
+			continue
+		}
+
+		var n interface{}
+		n, err = parse(l)
+		if err != nil {
+			return
+		}
+		fmt.Printf("\n")
+		fmt.Println(l)
+		fmt.Println("n: ", n)
+
+		/*
+			rr := strings.Split(strings.TrimSpace(l), " ")
+			for _, t := range rr {
+				t := strings.TrimSpace(t)
+				if t == "" {
+					continue
+				}
+				fmt.Printf("|%s|\n", t)
+			}
+		*/
+
+	}
+
 	return
 }
 
-type property struct {
-	key, value string
-}
-
-type node struct {
-	link       string
-	name       string
-	properties []property
-}
-
-func parse(line string) (n node, err error) {
+func parse(line string) (n interface{}, err error) {
 	if line[0] != '@' {
 		err = fmt.Errorf("Not @")
 		return
@@ -106,7 +93,7 @@ func parse(line string) (n node, err error) {
 		}
 		index++
 	}
-	n.link = line[:index]
+	// n.link = line[:index]
 
 	// go to not space
 	for {
@@ -123,43 +110,50 @@ func parse(line string) (n node, err error) {
 		}
 		index++
 	}
-	n.name = line[begin:index]
+	// n.name = line[begin:index]
+	//
+	// ll := strings.Split(line[index+1:], ":")
+	// for _, r := range ll {
+	// 	rr := strings.Split(strings.TrimSpace(r), " ")
+	// 	for _, t := range rr {
+	// 		t := strings.TrimSpace(t)
+	// 		if t == "" {
+	// 			continue
+	// 		}
+	// 		fmt.Println(t)
+	// 	}
+	// }
 
-	ll := strings.Split(line[index+1:], ":")
-	for _, r := range ll {
-		rr := strings.Split(strings.TrimSpace(r), " ")
-		for _, t := range rr {
-			t := strings.TrimSpace(t)
-			if t == "" {
-				continue
-			}
-			fmt.Println(t)
-		}
+	switch line[begin:index] {
+	case "identifier_node":
+		n = parse_identifier_node(line[index:])
+	default:
+		fmt.Println("Undefine")
 	}
 
-	for {
-		begin = index
-		// go to :
-		for {
-			if index == len(line) {
-				return
-			}
-			if line[index] == ':' {
-				break
-			}
-			index++
-		}
-		if index-begin == 0 {
-			index++
-			continue
-		}
-		var p property
-		p.key = line[begin:index]
-		p.value = line[index:]
-		fmt.Println("---- ", p.key, " ----- ", p.value)
-
-		n.properties = append(n.properties, p)
-	}
+	// for {
+	// 	begin = index
+	// 	// go to :
+	// 	for {
+	// 		if index == len(line) {
+	// 			return
+	// 		}
+	// 		if line[index] == ':' {
+	// 			break
+	// 		}
+	// 		index++
+	// 	}
+	// 	if index-begin == 0 {
+	// 		index++
+	// 		continue
+	// 	}
+	// 	var p property
+	// 	p.key = line[begin:index]
+	// 	p.value = line[index:]
+	// 	fmt.Println("---- ", p.key, " ----- ", p.value)
+	//
+	// 	n.properties = append(n.properties, p)
+	// }
 
 	return
 }
