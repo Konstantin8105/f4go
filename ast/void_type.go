@@ -2,11 +2,11 @@ package ast
 
 import "strings"
 
-type void_type struct {
-	name string
-	qual string
-	unql string
-	algn string
+type Void_type struct {
+	Name string
+	Qual string
+	Unql string
+	Algn string
 }
 
 func parse_void_type(line string) (n interface{}) {
@@ -20,10 +20,10 @@ func parse_void_type(line string) (n interface{}) {
 		line,
 	)
 
-	return void_type{
-		name: strings.TrimSpace(groups["name"]),
-		qual: strings.TrimSpace(groups["qual"]),
-		unql: strings.TrimSpace(groups["unql"]),
-		algn: strings.TrimSpace(groups["algn"]),
+	return Void_type{
+		Name: strings.TrimSpace(groups["name"]),
+		Qual: strings.TrimSpace(groups["qual"]),
+		Unql: strings.TrimSpace(groups["unql"]),
+		Algn: strings.TrimSpace(groups["algn"]),
 	}
 }

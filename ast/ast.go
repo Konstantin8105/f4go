@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func ParseAST(treeFile string) (err error) {
+func ParseAST(treeFile string) (nss [][]interface{}, err error) {
 	file, err := os.Open(treeFile)
 	if err != nil {
 		return
@@ -27,21 +27,23 @@ func ParseAST(treeFile string) (err error) {
 			block = append(block, line)
 			continue
 		}
-		err = parseBlock(block)
+		var ns []interface{}
+		ns, err = parseBlock(block)
 		if err != nil {
 			return
 		}
+		nss = append(nss, ns)
 		block = []string{line}
 	}
 
 	if err := scanner.Err(); err != nil {
-		return err
+		return nil, err
 	}
 
 	return
 }
 
-func parseBlock(block []string) (err error) {
+func parseBlock(block []string) (ns []interface{}, err error) {
 	if len(block) == 0 {
 		return
 	}
@@ -59,7 +61,7 @@ func parseBlock(block []string) (err error) {
 		if err != nil {
 			return
 		}
-		_ = n
+		ns = append(ns, n)
 		// fmt.Printf("\n")
 		// fmt.Println(l)
 		// fmt.Println("n: ", n)
@@ -126,23 +128,27 @@ func parse(line string) (n interface{}, err error) {
 	// }
 
 	p := map[string]func(string) interface{}{
-		"identifier_node": parse_identifier_node,
-		"integer_cst":     parse_integer_cst,
-		"type_decl":       parse_type_decl,
-		"function_decl":   parse_function_decl,
-		"integer_type":    parse_integer_type,
-		"function_type":   parse_function_type,
-		"tree_list":       parse_tree_list,
-		"void_type":       parse_void_type,
-		"var_decl":        parse_var_decl,
-		"modify_expr":     parse_modify_expr,
-		"bind_expr":       parse_bind_expr,
+		"identifier_node":       parse_identifier_node,
+		"integer_cst":           parse_integer_cst,
+		"type_decl":             parse_type_decl,
+		"function_decl":         parse_function_decl,
+		"integer_type":          parse_integer_type,
+		"function_type":         parse_function_type,
+		"tree_list":             parse_tree_list,
+		"void_type":             parse_void_type,
+		"var_decl":              parse_var_decl,
+		"modify_expr":           parse_modify_expr,
+		"bind_expr":             parse_bind_expr,
+		"translation_unit_decl": parse_translation_unit_decl,
 	}
 
 	if f, ok := p[line[begin:index]]; ok {
 		n = f(line[index:])
 	} else {
-		fmt.Println(line[begin:index], "\t", line[index:])
+		fmt.Println("Undefined:",
+			line[begin:index],
+			"\t",
+			line[index:])
 	}
 
 	// for {

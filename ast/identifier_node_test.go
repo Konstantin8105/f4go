@@ -9,11 +9,11 @@ import (
 func TestIdentifierNode(t *testing.T) {
 	tcs := []struct {
 		line     string
-		expected identifier_node
+		expected Identifier_node
 	}{
 		{
 			line: "strg: integer(kind=4)         lngt: 15   ",
-			expected: identifier_node{
+			expected: Identifier_node{
 				strg: "integer(kind=4)",
 				lngt: "15",
 			},

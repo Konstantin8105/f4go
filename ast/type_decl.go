@@ -2,10 +2,10 @@ package ast
 
 import "strings"
 
-type type_decl struct {
-	name    string
-	varType string
-	srcp    string
+type Type_decl struct {
+	Name    string
+	VarType string
+	Srcp    string
 }
 
 func parse_type_decl(line string) (n interface{}) {
@@ -14,9 +14,9 @@ func parse_type_decl(line string) (n interface{}) {
 		line,
 	)
 
-	return type_decl{
-		name:    strings.TrimSpace(groups["name"]),
-		varType: strings.TrimSpace(groups["type"]),
-		srcp:    strings.TrimSpace(groups["srcp"]),
+	return Type_decl{
+		Name:    strings.TrimSpace(groups["name"]),
+		VarType: strings.TrimSpace(groups["type"]),
+		Srcp:    strings.TrimSpace(groups["srcp"]),
 	}
 }

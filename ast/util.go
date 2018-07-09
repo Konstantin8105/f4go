@@ -2,6 +2,7 @@ package ast
 
 import (
 	"regexp"
+	"strconv"
 	"strings"
 	"sync"
 )
@@ -53,4 +54,16 @@ func GetRegex(rx string) *regexp.Regexp {
 	cr.m[rx] = regexp.MustCompile(rx)
 	cr.Unlock()
 	return GetRegex(rx)
+}
+
+func IsLink(s string) (index int, ok bool) {
+	if len(s) < 2 {
+		return
+	}
+	var err error
+	index, err = strconv.Atoi(s[1:])
+	if err != nil {
+		return
+	}
+	return index, true
 }

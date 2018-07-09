@@ -2,9 +2,9 @@ package ast
 
 import "strings"
 
-type integer_cst struct {
-	varType string
-	varInt  string
+type Integer_cst struct {
+	VarType string
+	VarInt  string
 }
 
 func parse_integer_cst(line string) (n interface{}) {
@@ -13,8 +13,8 @@ func parse_integer_cst(line string) (n interface{}) {
 		line,
 	)
 
-	return integer_cst{
-		varType: strings.TrimSpace(groups["type"]),
-		varInt:  strings.TrimSpace(groups["int"]),
+	return Integer_cst{
+		VarType: strings.TrimSpace(groups["type"]),
+		VarInt:  strings.TrimSpace(groups["int"]),
 	}
 }

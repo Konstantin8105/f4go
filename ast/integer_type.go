@@ -2,14 +2,14 @@ package ast
 
 import "strings"
 
-type integer_type struct {
-	name string
-	size string
-	algn string
-	prec string
-	sign string
-	min  string
-	max  string
+type Integer_type struct {
+	Name string
+	Size string
+	Algn string
+	Prec string
+	Sign string
+	Min  string
+	Max  string
 }
 
 func parse_integer_type(line string) (n interface{}) {
@@ -26,13 +26,13 @@ func parse_integer_type(line string) (n interface{}) {
 		line,
 	)
 
-	return integer_type{
-		name: strings.TrimSpace(groups["name"]),
-		size: strings.TrimSpace(groups["size"]),
-		algn: strings.TrimSpace(groups["algn"]),
-		prec: strings.TrimSpace(groups["prec"]),
-		sign: strings.TrimSpace(groups["sign"]),
-		min:  strings.TrimSpace(groups["min"]),
-		max:  strings.TrimSpace(groups["max"]),
+	return Integer_type{
+		Name: strings.TrimSpace(groups["name"]),
+		Size: strings.TrimSpace(groups["size"]),
+		Algn: strings.TrimSpace(groups["algn"]),
+		Prec: strings.TrimSpace(groups["prec"]),
+		Sign: strings.TrimSpace(groups["sign"]),
+		Min:  strings.TrimSpace(groups["min"]),
+		Max:  strings.TrimSpace(groups["max"]),
 	}
 }

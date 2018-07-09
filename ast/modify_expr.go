@@ -2,10 +2,10 @@ package ast
 
 import "strings"
 
-type modify_expr struct {
-	typeD string
-	op0   string
-	op1   string
+type Modify_expr struct {
+	TypeD string
+	Op0   string
+	Op1   string
 }
 
 func parse_modify_expr(line string) (n interface{}) {
@@ -18,9 +18,9 @@ func parse_modify_expr(line string) (n interface{}) {
 		line,
 	)
 
-	return modify_expr{
-		typeD: strings.TrimSpace(groups["type"]),
-		op0:   strings.TrimSpace(groups["op0"]),
-		op1:   strings.TrimSpace(groups["op1"]),
+	return Modify_expr{
+		TypeD: strings.TrimSpace(groups["type"]),
+		Op0:   strings.TrimSpace(groups["op0"]),
+		Op1:   strings.TrimSpace(groups["op1"]),
 	}
 }

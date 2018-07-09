@@ -4,10 +4,10 @@ import (
 	"strings"
 )
 
-type identifier_node struct {
-	link string
-	strg string
-	lngt string
+type Identifier_node struct {
+	Link string
+	Strg string
+	Lngt string
 }
 
 func parse_identifier_node(line string) (n interface{}) {
@@ -16,8 +16,8 @@ func parse_identifier_node(line string) (n interface{}) {
 		line,
 	)
 
-	return identifier_node{
-		strg: strings.TrimSpace(groups["strg"]),
-		lngt: strings.TrimSpace(groups["lngt"]),
+	return Identifier_node{
+		Strg: strings.TrimSpace(groups["strg"]),
+		Lngt: strings.TrimSpace(groups["lngt"]),
 	}
 }

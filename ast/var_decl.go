@@ -2,14 +2,14 @@ package ast
 
 import "strings"
 
-type var_decl struct {
-	name  string
-	typeD string
-	scpe  string
-	srcp  string
-	note  string
-	size  string
-	used  string
+type Var_decl struct {
+	Name  string
+	TypeD string
+	Scpe  string
+	Srcp  string
+	Note  string
+	Size  string
+	Used  string
 }
 
 func parse_var_decl(line string) (n interface{}) {
@@ -26,13 +26,13 @@ func parse_var_decl(line string) (n interface{}) {
 		line,
 	)
 
-	return var_decl{
-		name:  strings.TrimSpace(groups["name"]),
-		typeD: strings.TrimSpace(groups["type"]),
-		scpe:  strings.TrimSpace(groups["scpe"]),
-		srcp:  strings.TrimSpace(groups["srcp"]),
-		note:  strings.TrimSpace(groups["note"]),
-		size:  strings.TrimSpace(groups["size"]),
-		used:  strings.TrimSpace(groups["used"]),
+	return Var_decl{
+		Name:  strings.TrimSpace(groups["name"]),
+		TypeD: strings.TrimSpace(groups["type"]),
+		Scpe:  strings.TrimSpace(groups["scpe"]),
+		Srcp:  strings.TrimSpace(groups["srcp"]),
+		Note:  strings.TrimSpace(groups["note"]),
+		Size:  strings.TrimSpace(groups["size"]),
+		Used:  strings.TrimSpace(groups["used"]),
 	}
 }

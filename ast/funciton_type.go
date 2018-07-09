@@ -2,11 +2,11 @@ package ast
 
 import "strings"
 
-type function_type struct {
-	size string
-	algn string
-	retn string
-	prms string
+type Function_type struct {
+	Size string
+	Algn string
+	Retn string
+	Prms string
 }
 
 func parse_function_type(line string) (n interface{}) {
@@ -20,10 +20,10 @@ func parse_function_type(line string) (n interface{}) {
 		line,
 	)
 
-	return function_type{
-		size: strings.TrimSpace(groups["size"]),
-		algn: strings.TrimSpace(groups["algn"]),
-		retn: strings.TrimSpace(groups["retn"]),
-		prms: strings.TrimSpace(groups["prms"]),
+	return Function_type{
+		Size: strings.TrimSpace(groups["size"]),
+		Algn: strings.TrimSpace(groups["algn"]),
+		Retn: strings.TrimSpace(groups["retn"]),
+		Prms: strings.TrimSpace(groups["prms"]),
 	}
 }

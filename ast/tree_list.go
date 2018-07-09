@@ -2,8 +2,8 @@ package ast
 
 import "strings"
 
-type tree_list struct {
-	valu string
+type Tree_list struct {
+	Valu string
 }
 
 func parse_tree_list(line string) (n interface{}) {
@@ -14,7 +14,7 @@ func parse_tree_list(line string) (n interface{}) {
 		line,
 	)
 
-	return tree_list{
-		valu: strings.TrimSpace(groups["valu"]),
+	return Tree_list{
+		Valu: strings.TrimSpace(groups["valu"]),
 	}
 }
