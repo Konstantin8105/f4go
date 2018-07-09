@@ -28,7 +28,6 @@ func transpile(file string) (err error) {
 	}
 
 	for _, ns := range nss {
-		fmt.Println("ns = ", ns)
 		err = trans(ns)
 		if err != nil {
 			return
