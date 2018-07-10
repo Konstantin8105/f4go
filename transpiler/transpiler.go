@@ -24,7 +24,7 @@ func TranspileAST(nss [][]ast.Node) (err error) {
 		if err != nil {
 			return
 		}
-		goast.Print(token.NewFileSet(), fd)
+		// goast.Print(token.NewFileSet(), fd)
 		file.Decls = append(file.Decls, &fd)
 	}
 
@@ -32,7 +32,7 @@ func TranspileAST(nss [][]ast.Node) (err error) {
 	if err = format.Node(&buf, token.NewFileSet(), &file); err != nil {
 		return
 	}
-	fmt.Println("Code:\n", buf.String())
+	fmt.Printf("Code:\n%v", buf.String())
 
 	return
 }
@@ -166,6 +166,10 @@ func getName(n ast.Node, ns []ast.Node) (name string, err error) {
 		name = n.Name
 	case ast.Integer_cst:
 		name = n.VarInt
+	case ast.Addr_expr:
+		name = n.Op0
+	case ast.Function_decl:
+		name = n.Name
 	default:
 		fmt.Printf("Name is not found: %#v\n", n)
 	}
@@ -255,6 +259,23 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 	decls []goast.Stmt, err error) {
 
 	switch n := n.(type) {
+
+	case ast.Call_expr:
+
+		var name string
+		if index, ok := ast.IsLink(n.Fn); ok {
+			name, err = getName(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+
+		var call goast.CallExpr
+		call.Fun = goast.NewIdent(name)
+		call.Lparen = 1
+		call.Rparen = 1
+
+		decls = append(decls, &goast.ExprStmt{X: &call})
 
 	case ast.Bind_expr:
 		var b goast.BlockStmt
