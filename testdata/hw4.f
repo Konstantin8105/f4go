@@ -1,3 +1,3 @@
-      program hello
+      program main
       write (*,*) 'Hello, world!'
       end

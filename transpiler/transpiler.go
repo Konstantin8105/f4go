@@ -71,63 +71,16 @@ func trans(ns []ast.Node) (fd goast.FuncDecl, err error) {
 
 	// function body
 	if index, ok := ast.IsLink(n.Body); ok {
-		var blockStmt goast.BlockStmt
-		blockStmt, err = parseBlock(ns[index-1], ns)
+		var stmts []goast.Stmt
+		stmts, err = transpileStmt(ns[index-1], ns)
 		if err != nil {
 			return
 		}
-		fd.Body = &blockStmt
-	}
-
-	return
-}
-
-func parseBlock(n ast.Node, ns []ast.Node) (b goast.BlockStmt, err error) {
-	fmt.Printf("|| Block : %#v\n", n)
-
-	b.Rbrace = 1
-	b.Lbrace = 1
-
-	switch n := n.(type) {
-	case ast.Bind_expr:
-		// parse var_decl
-		fmt.Println("-----------")
-		if index, ok := ast.IsLink(n.Vars); ok {
-			fmt.Printf("Var decl= %#v\n", ns[index-1])
-
-			var decl goast.Decl
-			decl, err = transpileVarDecl(ns[index-1].(ast.Var_decl), ns)
-			if err != nil {
-				return
-			}
-
-			if decl != nil {
-				b.List = append(b.List, &goast.DeclStmt{Decl: decl})
-			} else {
-				fmt.Println("Decl is null")
-			}
+		fd.Body = &goast.BlockStmt{
+			Lbrace: 1,
+			List:   stmts,
+			Rbrace: 1,
 		}
-		fmt.Println("++++++++++++")
-
-		// parse body
-		fmt.Println("-----------")
-		if index, ok := ast.IsLink(n.Body); ok {
-
-			fmt.Printf("Expr = %#v\n", ns[index-1])
-			var decls []goast.Stmt
-			decls, err = transpileStmt(ns[index-1], ns)
-			if err != nil {
-				return
-			}
-			if isNull(decls) {
-				fmt.Println("Decl is null")
-			} else {
-				b.List = append(b.List, decls...)
-			}
-		}
-		fmt.Println("++++++++++++")
-	default:
-		err = fmt.Errorf("Cannot parse block : %#v", n)
 	}
 
 	return
@@ -302,8 +255,53 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 	decls []goast.Stmt, err error) {
 
 	switch n := n.(type) {
+
+	case ast.Bind_expr:
+		var b goast.BlockStmt
+		b.Rbrace = 1
+		b.Lbrace = 1
+
+		// parse var_decl
+		fmt.Println("-----------")
+		if index, ok := ast.IsLink(n.Vars); ok {
+			// fmt.Printf("Var decl= %#v\n", ns[index-1])
+
+			var decl goast.Decl
+			decl, err = transpileVarDecl(ns[index-1].(ast.Var_decl), ns)
+			if err != nil {
+				return
+			}
+
+			if decl != nil {
+				b.List = append(b.List, &goast.DeclStmt{Decl: decl})
+			} else {
+				fmt.Println("Decl is null")
+			}
+		}
+		fmt.Println("++++++++++++")
+
+		// parse body
+		fmt.Println("-----------")
+		if index, ok := ast.IsLink(n.Body); ok {
+
+			// fmt.Printf("Expr = %#v\n", ns[index-1])
+			var ds []goast.Stmt
+			ds, err = transpileStmt(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+			if isNull(ds) {
+				fmt.Println("Decl is null")
+			} else {
+				b.List = append(b.List, ds...)
+			}
+		}
+		fmt.Println("++++++++++++")
+
+		decls = append(decls, &b)
+
 	case ast.Modify_expr:
-		fmt.Printf("%#v\n", n)
+		// fmt.Printf("%#v\n", n)
 
 		var left goast.Expr
 		if index, ok := ast.IsLink(n.Op0); ok {
@@ -320,7 +318,7 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 				return
 			}
 		}
-		fmt.Println("Modify_expr: ", left, " = ", right)
+		// fmt.Println("Modify_expr: ", left, " = ", right)
 
 		if left == nil {
 			fmt.Println("left is null")
@@ -349,7 +347,7 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 		}
 
 	default:
-		fmt.Printf("Cannot transpileExpr : %#v\n", n)
+		fmt.Printf("Cannot transpileStmt: %#v\n", n)
 	}
 	return
 }
@@ -363,6 +361,7 @@ func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
 				return
 			}
 		}
+
 	case ast.Type_decl:
 		if index, ok := ast.IsLink(n.Name); ok {
 			t, err = transpileType(ns[index-1], ns)
@@ -370,6 +369,15 @@ func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
 				return
 			}
 		}
+
+	case ast.Record_type:
+		if index, ok := ast.IsLink(n.Name); ok {
+			t, err = transpileType(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+
 	case ast.Identifier_node:
 		t = n.Strg
 	default:
