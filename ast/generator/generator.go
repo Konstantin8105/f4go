@@ -93,7 +93,7 @@ import "strings"
 	fmt.Fprintln(output, "}")
 
 	//
-	fmt.Println("==================")
+	fmt.Println("=====================")
 	fmt.Printf("\"%v\":parse_%v,\n", identificator, identificator)
 }
 
