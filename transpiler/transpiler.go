@@ -205,7 +205,7 @@ func transpileVarDecl(n ast.Var_decl, ns []ast.Node) (decl goast.Decl, err error
 }
 
 func getName(n ast.Node, ns []ast.Node) (name string, err error) {
-	fmt.Printf("getName: %#v\n", n)
+	// fmt.Printf("getName: %#v\n", n)
 	switch n := n.(type) {
 	case ast.Identifier_node:
 		name = n.Strg
@@ -214,11 +214,11 @@ func getName(n ast.Node, ns []ast.Node) (name string, err error) {
 	case ast.Integer_cst:
 		name = n.VarInt
 	default:
-		fmt.Printf("Type is not found: %#v\n", n)
+		fmt.Printf("Name is not found: %#v\n", n)
 	}
-	fmt.Println("name = ", name)
+	// fmt.Println("name = ", name)
 	if index, ok := ast.IsLink(name); ok {
-		fmt.Println(">>> ", index, ok)
+		// fmt.Println(">>> ", index, ok)
 		return getName(ns[index-1], ns)
 	}
 	return
@@ -239,26 +239,26 @@ func transpileDecl(n ast.Node, ns []ast.Node) (name, t string, err error) {
 func arithOperation(n0, n1 string, tk token.Token, ns []ast.Node) (
 	expr goast.Expr, err error) {
 
-	var left, right string
+	var left, right goast.Expr
 
 	if index, ok := ast.IsLink(n0); ok {
-		left, err = getName(ns[index-1], ns)
+		left, err = transpileExpr(ns[index-1], ns)
 		if err != nil {
 			return
 		}
 	}
 
 	if index, ok := ast.IsLink(n1); ok {
-		right, err = getName(ns[index-1], ns)
+		right, err = transpileExpr(ns[index-1], ns)
 		if err != nil {
 			return
 		}
 	}
 
 	expr = &goast.BinaryExpr{
-		X:  goast.NewIdent(left),
+		X:  left,
 		Op: tk,
-		Y:  goast.NewIdent(right),
+		Y:  right,
 	}
 
 	return
@@ -275,11 +275,22 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 		}
 		expr = goast.NewIdent(name)
 
+	case ast.Var_decl:
+		var name string
+		name, err = getName(n, ns)
+		if err != nil {
+			return
+		}
+		expr = goast.NewIdent(name)
+
 	case ast.Plus_expr:
 		expr, err = arithOperation(n.Op0, n.Op1, token.ADD, ns)
 
 	case ast.Mult_expr:
 		expr, err = arithOperation(n.Op0, n.Op1, token.MUL, ns)
+
+	case ast.Trunc_div_expr:
+		expr, err = arithOperation(n.Op0, n.Op1, token.QUO, ns)
 
 	default:
 		fmt.Printf("Cannot transpileExpr: %#v\n", n)
@@ -294,9 +305,9 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 	case ast.Modify_expr:
 		fmt.Printf("%#v\n", n)
 
-		var left string
+		var left goast.Expr
 		if index, ok := ast.IsLink(n.Op0); ok {
-			left, err = getName(ns[index-1], ns)
+			left, err = transpileExpr(ns[index-1], ns)
 			if err != nil {
 				return
 			}
@@ -311,14 +322,14 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 		}
 		fmt.Println("Modify_expr: ", left, " = ", right)
 
-		if left == "" {
+		if left == nil {
 			fmt.Println("left is null")
 		}
 		if right == nil {
 			fmt.Println("right is null")
 		}
 		decl := &goast.AssignStmt{
-			Lhs: []goast.Expr{goast.NewIdent(left)},
+			Lhs: []goast.Expr{left},
 			Tok: token.ASSIGN,
 			Rhs: []goast.Expr{right},
 		}
