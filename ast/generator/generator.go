@@ -25,6 +25,17 @@ func main() {
 	filename := arg[:index] + ".go"
 	fmt.Printf("Filename: `%v`\n", filename)
 
+	var output *os.File
+	if _, err := os.Stat("ast/" + filename); err == nil {
+		output = os.Stdout
+	} else {
+		output, err = os.Create("ast/" + filename)
+		if err != nil {
+			fmt.Println("err = ", err)
+			return
+		}
+	}
+
 	var types []string
 	// find all types
 	for {
@@ -47,39 +58,39 @@ func main() {
 	fmt.Println("=====================")
 
 	// create header
-	fmt.Println(`
+	fmt.Fprintln(output, `
 package ast
 
 import "strings"
 `)
 
 	// create struct
-	fmt.Printf("type %s struct {\n", structName)
+	fmt.Fprintf(output, "type %s struct {\n", structName)
 	for _, t := range types {
-		fmt.Printf("\t%v string\n", firstUpper(t))
+		fmt.Fprintf(output, "\t%v string\n", firstUpper(t))
 	}
-	fmt.Println("}\n")
+	fmt.Fprintln(output, "}\n")
 
 	// create function
-	fmt.Printf("func parse_%s(line string) (n interface{}) {\n", identificator)
+	fmt.Fprintf(output, "func parse_%s(line string) (n interface{}) {\n", identificator)
 
 	// create a group
-	fmt.Printf("\tgroups := groupsFromRegex(\n\t`\n")
+	fmt.Fprintf(output, "\tgroups := groupsFromRegex(\n\t`\n")
 	for _, t := range types {
-		fmt.Printf("\t%v:(?P<%v>.*) +\n", t, t)
+		fmt.Fprintf(output, "\t%v:(?P<%v>.*) +\n", t, t)
 	}
-	fmt.Printf("\t`,\n\tline,\n\t)\n")
+	fmt.Fprintf(output, "\t`,\n\tline,\n\t)\n")
 
 	// create return struct
-	fmt.Printf("\treturn %v{\n", structName)
+	fmt.Fprintf(output, "\treturn %v{\n", structName)
 	for _, t := range types {
-		fmt.Printf("\t\t%v: strings.TrimSpace(groups[\"%v\"]),\n",
+		fmt.Fprintf(output, "\t\t%v: strings.TrimSpace(groups[\"%v\"]),\n",
 			firstUpper(t), t)
 	}
-	fmt.Printf("\t}\n")
+	fmt.Fprintf(output, "\t}\n")
 
 	// end of function
-	fmt.Println("}")
+	fmt.Fprintln(output, "}")
 
 	//
 	fmt.Println("==================")
