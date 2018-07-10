@@ -29,12 +29,8 @@ func ParseAST(treeFile string) (nss [][]Node, err error) {
 			block = append(block, line)
 			continue
 		}
-		// if len(block) == 0 {
-		// 	block = []string{line}
-		// 	continue
-		// }
+
 		ns, err = parseBlock(block)
-		fmt.Println("err = ", err)
 		if err != nil {
 			return
 		}
@@ -42,7 +38,6 @@ func ParseAST(treeFile string) (nss [][]Node, err error) {
 		block = []string{line}
 	}
 	ns, err = parseBlock(block)
-	fmt.Println("err = ", err)
 	if err != nil {
 		return
 	}
@@ -59,12 +54,9 @@ func parseBlock(block []string) (ns []Node, err error) {
 	if len(block) == 0 {
 		return
 	}
-	fmt.Println("---------------------------------")
 
 	for i, l := range block {
-
 		if i == 0 {
-			fmt.Println("NAME : ", l)
 			continue
 		}
 
@@ -74,21 +66,6 @@ func parseBlock(block []string) (ns []Node, err error) {
 			return
 		}
 		ns = append(ns, n)
-		// fmt.Printf("\n")
-		// fmt.Println(l)
-		// fmt.Println("n: ", n)
-
-		/*
-			rr := strings.Split(strings.TrimSpace(l), " ")
-			for _, t := range rr {
-				t := strings.TrimSpace(t)
-				if t == "" {
-					continue
-				}
-				fmt.Printf("|%s|\n", t)
-			}
-		*/
-
 	}
 
 	return
@@ -118,6 +95,7 @@ func parse(line string) (n interface{}, err error) {
 		index++
 	}
 	begin := index
+
 	// go to space
 	for {
 		if line[index] == ' ' {
@@ -125,19 +103,6 @@ func parse(line string) (n interface{}, err error) {
 		}
 		index++
 	}
-	// n.name = line[begin:index]
-	//
-	// ll := strings.Split(line[index+1:], ":")
-	// for _, r := range ll {
-	// 	rr := strings.Split(strings.TrimSpace(r), " ")
-	// 	for _, t := range rr {
-	// 		t := strings.TrimSpace(t)
-	// 		if t == "" {
-	// 			continue
-	// 		}
-	// 		fmt.Println(t)
-	// 	}
-	// }
 
 	p := map[string]func(string) Node{
 		"identifier_node":       parse_identifier_node,
@@ -197,30 +162,6 @@ func parse(line string) (n interface{}, err error) {
 			"\t",
 			line[index:])
 	}
-
-	// for {
-	// 	begin = index
-	// 	// go to :
-	// 	for {
-	// 		if index == len(line) {
-	// 			return
-	// 		}
-	// 		if line[index] == ':' {
-	// 			break
-	// 		}
-	// 		index++
-	// 	}
-	// 	if index-begin == 0 {
-	// 		index++
-	// 		continue
-	// 	}
-	// 	var p property
-	// 	p.key = line[begin:index]
-	// 	p.value = line[index:]
-	// 	fmt.Println("---- ", p.key, " ----- ", p.value)
-	//
-	// 	n.properties = append(n.properties, p)
-	// }
 
 	return
 }

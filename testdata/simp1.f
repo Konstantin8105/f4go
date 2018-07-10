@@ -1,6 +1,6 @@
        PROGRAM cows
-          INTEGER :: func_name
-C          INTEGER :: func_name2
-          func_name = 306
-C          func_name2 = func_name + 2
+          INTEGER :: n
+C          INTEGER :: n2
+          n = 306
+C          n2 = n + 2
        END PROGRAM

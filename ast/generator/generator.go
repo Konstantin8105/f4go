@@ -11,7 +11,7 @@ func main() {
 		fmt.Println("Arguments not found")
 		return
 	}
-	arg := os.Args[1]
+	arg := strings.TrimSpace(os.Args[1])
 	fmt.Printf("Take argument: `%v`\n", arg)
 
 	// find filename
