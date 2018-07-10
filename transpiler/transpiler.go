@@ -275,6 +275,8 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 		call.Lparen = 1
 		call.Rparen = 1
 
+		//TODO: need type and arguments
+
 		decls = append(decls, &goast.ExprStmt{X: &call})
 
 	case ast.Bind_expr:
@@ -298,6 +300,8 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 			} else {
 				fmt.Println("Decl is null")
 			}
+
+			// TODO : need all initialization
 		}
 		fmt.Println("++++++++++++")
 
