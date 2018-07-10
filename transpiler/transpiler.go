@@ -236,6 +236,34 @@ func transpileDecl(n ast.Node, ns []ast.Node) (name, t string, err error) {
 	return
 }
 
+func arithOperation(n0, n1 string, tk token.Token, ns []ast.Node) (
+	expr goast.Expr, err error) {
+
+	var left, right string
+
+	if index, ok := ast.IsLink(n0); ok {
+		left, err = getName(ns[index-1], ns)
+		if err != nil {
+			return
+		}
+	}
+
+	if index, ok := ast.IsLink(n1); ok {
+		right, err = getName(ns[index-1], ns)
+		if err != nil {
+			return
+		}
+	}
+
+	expr = &goast.BinaryExpr{
+		X:  goast.NewIdent(left),
+		Op: tk,
+		Y:  goast.NewIdent(right),
+	}
+
+	return
+}
+
 func transpileExpr(n ast.Node, ns []ast.Node) (
 	expr goast.Expr, err error) {
 	switch n := n.(type) {
@@ -248,27 +276,10 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 		expr = goast.NewIdent(name)
 
 	case ast.Plus_expr:
-		var left, right string
+		expr, err = arithOperation(n.Op0, n.Op1, token.ADD, ns)
 
-		if index, ok := ast.IsLink(n.Op0); ok {
-			left, err = getName(ns[index-1], ns)
-			if err != nil {
-				return
-			}
-		}
-
-		if index, ok := ast.IsLink(n.Op1); ok {
-			right, err = getName(ns[index-1], ns)
-			if err != nil {
-				return
-			}
-		}
-
-		expr = &goast.BinaryExpr{
-			X:  goast.NewIdent(left),
-			Op: token.ADD,
-			Y:  goast.NewIdent(right),
-		}
+	case ast.Mult_expr:
+		expr, err = arithOperation(n.Op0, n.Op1, token.MUL, ns)
 
 	default:
 		fmt.Printf("Cannot transpileExpr: %#v\n", n)
