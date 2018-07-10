@@ -152,6 +152,16 @@ func parse(line string) (n interface{}, err error) {
 		"modify_expr":           parse_modify_expr,
 		"bind_expr":             parse_bind_expr,
 		"translation_unit_decl": parse_translation_unit_decl,
+		"pointer_type":          parse_pointer_type,
+
+		"result_decl": parse_result_decl,
+		"parm_decl":   parse_parm_decl,
+		"addr_expr":   parse_addr_expr,
+		"return_expr": parse_return_expr,
+		"call_expr":   parse_call_expr,
+		"array_ref":   parse_array_ref,
+		"array_type":  parse_array_type,
+		"constructor": parse_constructor,
 	}
 
 	if f, ok := p[line[begin:index]]; ok {
