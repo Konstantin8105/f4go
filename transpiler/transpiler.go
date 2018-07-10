@@ -24,7 +24,7 @@ func TranspileAST(nss [][]ast.Node) (err error) {
 		if err != nil {
 			return
 		}
-		// goast.Print(token.NewFileSet(), fd)
+		goast.Print(token.NewFileSet(), fd)
 		file.Decls = append(file.Decls, &fd)
 	}
 
@@ -100,8 +100,12 @@ func parseBlock(n ast.Node, ns []ast.Node) (b goast.BlockStmt, err error) {
 			if err != nil {
 				return
 			}
-			b.List = append(b.List, &goast.DeclStmt{Decl: decl})
-			// fmt.Println("Create var: ", n, t)
+
+			if decl != nil {
+				b.List = append(b.List, &goast.DeclStmt{Decl: decl})
+			} else {
+				fmt.Println("Decl is null")
+			}
 		}
 		fmt.Println("++++++++++++")
 
@@ -110,9 +114,15 @@ func parseBlock(n ast.Node, ns []ast.Node) (b goast.BlockStmt, err error) {
 		if index, ok := ast.IsLink(n.Body); ok {
 
 			fmt.Printf("Expr = %#v\n", ns[index-1])
-			err = transpileExpr(ns[index-1], ns)
+			var decls []goast.Stmt
+			decls, err = transpileStmt(ns[index-1], ns)
 			if err != nil {
 				return
+			}
+			if isNull(decls) {
+				fmt.Println("Decl is null")
+			} else {
+				b.List = append(b.List, decls...)
 			}
 		}
 		fmt.Println("++++++++++++")
@@ -121,6 +131,15 @@ func parseBlock(n ast.Node, ns []ast.Node) (b goast.BlockStmt, err error) {
 	}
 
 	return
+}
+
+func isNull(ds []goast.Stmt) bool {
+	for i := range ds {
+		if ds[i] == nil {
+			return true
+		}
+	}
+	return false
 }
 
 func transpileIntegerCast(n ast.Integer_cst, ns []ast.Node) (name, t string, err error) {
@@ -186,11 +205,21 @@ func transpileVarDecl(n ast.Var_decl, ns []ast.Node) (decl goast.Decl, err error
 }
 
 func getName(n ast.Node, ns []ast.Node) (name string, err error) {
+	fmt.Printf("getName: %#v\n", n)
 	switch n := n.(type) {
 	case ast.Identifier_node:
 		name = n.Strg
+	case ast.Var_decl:
+		name = n.Name
+	case ast.Integer_cst:
+		name = n.VarInt
 	default:
-		err = fmt.Errorf("Type is not found: %#v", n)
+		fmt.Printf("Type is not found: %#v\n", n)
+	}
+	fmt.Println("name = ", name)
+	if index, ok := ast.IsLink(name); ok {
+		fmt.Println(">>> ", index, ok)
+		return getName(ns[index-1], ns)
 	}
 	return
 }
@@ -207,27 +236,94 @@ func transpileDecl(n ast.Node, ns []ast.Node) (name, t string, err error) {
 	return
 }
 
-func transpileExpr(n ast.Node, ns []ast.Node) (err error) {
+func transpileExpr(n ast.Node, ns []ast.Node) (
+	expr goast.Expr, err error) {
+	switch n := n.(type) {
+	case ast.Integer_cst:
+		var name string
+		name, err = getName(n, ns)
+		if err != nil {
+			return
+		}
+		expr = goast.NewIdent(name)
+
+	case ast.Plus_expr:
+		var left, right string
+
+		if index, ok := ast.IsLink(n.Op0); ok {
+			left, err = getName(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+
+		if index, ok := ast.IsLink(n.Op1); ok {
+			right, err = getName(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+
+		expr = &goast.BinaryExpr{
+			X:  goast.NewIdent(left),
+			Op: token.ADD,
+			Y:  goast.NewIdent(right),
+		}
+
+	default:
+		fmt.Printf("Cannot transpileExpr: %#v\n", n)
+	}
+	return
+}
+
+func transpileStmt(n ast.Node, ns []ast.Node) (
+	decls []goast.Stmt, err error) {
+
 	switch n := n.(type) {
 	case ast.Modify_expr:
 		fmt.Printf("%#v\n", n)
 
+		var left string
 		if index, ok := ast.IsLink(n.Op0); ok {
-			var name, t string
-			name, t, err = transpileDecl(ns[index-1], ns)
+			left, err = getName(ns[index-1], ns)
 			if err != nil {
 				return
 			}
-			fmt.Println("Decl ", name, t)
 		}
 
+		var right goast.Expr
 		if index, ok := ast.IsLink(n.Op1); ok {
-			var name, t string
-			name, t, err = transpileDecl(ns[index-1], ns)
+			right, err = transpileExpr(ns[index-1], ns)
 			if err != nil {
 				return
 			}
-			fmt.Println("Decl ", name, t)
+		}
+		fmt.Println("Modify_expr: ", left, " = ", right)
+
+		if left == "" {
+			fmt.Println("left is null")
+		}
+		if right == nil {
+			fmt.Println("right is null")
+		}
+		decl := &goast.AssignStmt{
+			Lhs: []goast.Expr{goast.NewIdent(left)},
+			Tok: token.ASSIGN,
+			Rhs: []goast.Expr{right},
+		}
+		decls = append(decls, decl)
+
+	case ast.Statement_list:
+
+		for i := range n.Vals {
+			if index, ok := ast.IsLink(n.Vals[i]); ok {
+				var decl []goast.Stmt
+				decl, err = transpileStmt(ns[index-1], ns)
+				if err != nil {
+					return
+				}
+				decls = append(decls, decl...)
+			}
 		}
 
 	default:

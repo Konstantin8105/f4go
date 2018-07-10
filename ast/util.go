@@ -60,6 +60,9 @@ func IsLink(s string) (index int, ok bool) {
 	if len(s) < 2 {
 		return
 	}
+	if s[0] != '@' {
+		return
+	}
 	var err error
 	index, err = strconv.Atoi(s[1:])
 	if err != nil {
