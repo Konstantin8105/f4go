@@ -1,6 +1,8 @@
 package ast
 
-import "strings"
+import (
+	"strings"
+)
 
 type Record_type struct {
 	Name string
@@ -16,7 +18,7 @@ func parse_record_type(line string) (n interface{}) {
 	name:(?P<name>.*) +
 	size:(?P<size>.*) +
 	algn:(?P<algn>.*) +
-	tag:(?P<tag>.*) +
+	tag :(?P<tag>.*) +
 	flds:(?P<flds>.*) +
 	`,
 		line,

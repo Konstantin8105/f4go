@@ -170,6 +170,16 @@ func parse(line string) (n interface{}, err error) {
 		"plus_expr":      parse_plus_expr,
 		"boolean_type":   parse_boolean_type,
 		"loop_expr":      parse_loop_expr,
+		"label_decl":     parse_label_decl,
+		"nop_expr":       parse_nop_expr,
+		"cond_expr":      parse_cond_expr,
+		"le_expr":        parse_le_expr,
+		"float_expr":     parse_float_expr,
+		"goto_expr":      parse_goto_expr,
+		"trunc_div_expr": parse_trunc_div_expr,
+		"eq_expr":        parse_eq_expr,
+		"label_expr":     parse_label_expr,
+		"statement_list": parse_statement_list,
 	}
 
 	if f, ok := p[line[begin:index]]; ok {
