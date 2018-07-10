@@ -9,7 +9,7 @@ type Function_type struct {
 	Prms string
 }
 
-func parse_function_type(line string) (n interface{}) {
+func parse_function_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 		size:(?P<size>.*)

@@ -8,7 +8,7 @@ type Trunc_div_expr struct {
 	Op1  string
 }
 
-func parse_trunc_div_expr(line string) (n interface{}) {
+func parse_trunc_div_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

@@ -12,7 +12,7 @@ type Record_type struct {
 	Flds string
 }
 
-func parse_record_type(line string) (n interface{}) {
+func parse_record_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	name:(?P<name>.*) +

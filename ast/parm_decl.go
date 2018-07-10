@@ -13,7 +13,7 @@ type Parm_decl struct {
 	Used string
 }
 
-func parse_parm_decl(line string) (n interface{}) {
+func parse_parm_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	name:(?P<name>.*) +

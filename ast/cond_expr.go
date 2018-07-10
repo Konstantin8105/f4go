@@ -9,7 +9,7 @@ type Cond_expr struct {
 	Op2  string
 }
 
-func parse_cond_expr(line string) (n interface{}) {
+func parse_cond_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

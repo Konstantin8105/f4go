@@ -8,7 +8,7 @@ type Boolean_type struct {
 	Algn string
 }
 
-func parse_boolean_type(line string) (n interface{}) {
+func parse_boolean_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	name:(?P<name>.*) +

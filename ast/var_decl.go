@@ -12,7 +12,7 @@ type Var_decl struct {
 	Used  string
 }
 
-func parse_var_decl(line string) (n interface{}) {
+func parse_var_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 		(name:(?P<name>.*))?

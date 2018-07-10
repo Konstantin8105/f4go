@@ -7,7 +7,7 @@ type Loop_expr struct {
 	Body string
 }
 
-func parse_loop_expr(line string) (n interface{}) {
+func parse_loop_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

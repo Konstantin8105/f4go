@@ -8,7 +8,7 @@ type Mult_expr struct {
 	Op1  string
 }
 
-func parse_mult_expr(line string) (n interface{}) {
+func parse_mult_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

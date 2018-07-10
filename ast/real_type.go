@@ -9,7 +9,7 @@ type Real_type struct {
 	Prec string
 }
 
-func parse_real_type(line string) (n interface{}) {
+func parse_real_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	name:(?P<name>.*) +

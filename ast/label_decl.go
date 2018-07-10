@@ -10,7 +10,7 @@ type Label_decl struct {
 	Note string
 }
 
-func parse_label_decl(line string) (n interface{}) {
+func parse_label_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	name:(?P<name>.*) +

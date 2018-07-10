@@ -9,7 +9,7 @@ type Void_type struct {
 	Algn string
 }
 
-func parse_void_type(line string) (n interface{}) {
+func parse_void_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 		(name:(?P<name>.*))?

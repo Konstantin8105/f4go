@@ -7,7 +7,7 @@ type Goto_expr struct {
 	Labl string
 }
 
-func parse_goto_expr(line string) (n interface{}) {
+func parse_goto_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

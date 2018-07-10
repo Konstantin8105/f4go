@@ -8,7 +8,7 @@ type Component_ref struct {
 	Op1  string
 }
 
-func parse_component_ref(line string) (n interface{}) {
+func parse_component_ref(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

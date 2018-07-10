@@ -6,7 +6,7 @@ type Tree_list struct {
 	Valu string
 }
 
-func parse_tree_list(line string) (n interface{}) {
+func parse_tree_list(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 		valu:(?P<valu>.*)

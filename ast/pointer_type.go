@@ -8,7 +8,7 @@ type Pointer_type struct {
 	Ptd  string
 }
 
-func parse_pointer_type(line string) (n interface{}) {
+func parse_pointer_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 		size:(?P<size>.*)

@@ -7,7 +7,7 @@ type Integer_cst struct {
 	VarInt  string
 }
 
-func parse_integer_cst(line string) (n interface{}) {
+func parse_integer_cst(line string) (n Node) {
 	groups := groupsFromRegex(
 		"type:(?P<type>.*)int:(?P<int>.*)",
 		line,

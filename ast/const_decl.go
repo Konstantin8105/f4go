@@ -9,7 +9,7 @@ type Const_decl struct {
 	Cnst string
 }
 
-func parse_const_decl(line string) (n interface{}) {
+func parse_const_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

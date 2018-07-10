@@ -1,4 +1,3 @@
-
 package ast
 
 import "strings"
@@ -9,14 +8,14 @@ type String_cst struct {
 	Lngt string
 }
 
-func parse_string_cst(line string) (n interface{}) {
+func parse_string_cst(line string) (n Node) {
 	groups := groupsFromRegex(
-	`
+		`
 	type:(?P<type>.*) +
 	strg:(?P<strg>.*) +
 	lngt:(?P<lngt>.*) +
 	`,
-	line,
+		line,
 	)
 	return String_cst{
 		Type: strings.TrimSpace(groups["type"]),

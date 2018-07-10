@@ -9,7 +9,7 @@ type Array_type struct {
 	Domn string
 }
 
-func parse_array_type(line string) (n interface{}) {
+func parse_array_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	size:(?P<size>.*) +

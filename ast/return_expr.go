@@ -7,7 +7,7 @@ type Return_expr struct {
 	Expr string
 }
 
-func parse_return_expr(line string) (n interface{}) {
+func parse_return_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

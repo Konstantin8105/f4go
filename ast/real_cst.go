@@ -1,4 +1,3 @@
-
 package ast
 
 import "strings"
@@ -8,13 +7,13 @@ type Real_cst struct {
 	Valu string
 }
 
-func parse_real_cst(line string) (n interface{}) {
+func parse_real_cst(line string) (n Node) {
 	groups := groupsFromRegex(
-	`
+		`
 	type:(?P<type>.*) +
 	valu:(?P<valu>.*) +
 	`,
-	line,
+		line,
 	)
 	return Real_cst{
 		Type: strings.TrimSpace(groups["type"]),

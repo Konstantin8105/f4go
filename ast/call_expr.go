@@ -7,7 +7,7 @@ type Call_expr struct {
 	Fn   string
 }
 
-func parse_call_expr(line string) (n interface{}) {
+func parse_call_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

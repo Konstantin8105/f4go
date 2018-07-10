@@ -7,7 +7,7 @@ type Label_expr struct {
 	Name string
 }
 
-func parse_label_expr(line string) (n interface{}) {
+func parse_label_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

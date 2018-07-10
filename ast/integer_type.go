@@ -12,7 +12,7 @@ type Integer_type struct {
 	Max  string
 }
 
-func parse_integer_type(line string) (n interface{}) {
+func parse_integer_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 		(name:(?P<name>.*))?

@@ -11,7 +11,7 @@ type Result_decl struct {
 	Algn string
 }
 
-func parse_result_decl(line string) (n interface{}) {
+func parse_result_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

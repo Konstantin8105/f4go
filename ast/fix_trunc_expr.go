@@ -7,7 +7,7 @@ type Fix_trunc_expr struct {
 	Op0  string
 }
 
-func parse_fix_trunc_expr(line string) (n interface{}) {
+func parse_fix_trunc_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

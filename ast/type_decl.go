@@ -8,7 +8,7 @@ type Type_decl struct {
 	Srcp    string
 }
 
-func parse_type_decl(line string) (n interface{}) {
+func parse_type_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		"name:(?P<name>.*)type:(?P<type>.*)srcp:(?P<srcp>.*)",
 		line,

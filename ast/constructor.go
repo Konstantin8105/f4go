@@ -9,7 +9,7 @@ type Constructor struct {
 	Vals []string
 }
 
-func parse_constructor(line string) (n interface{}) {
+func parse_constructor(line string) (n Node) {
 	var c Constructor
 	var index int
 

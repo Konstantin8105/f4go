@@ -16,7 +16,7 @@ type Function_decl struct {
 	Body     string
 }
 
-func parse_function_decl(line string) (n interface{}) {
+func parse_function_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 		name:(?P<name> @[0-9]+) +

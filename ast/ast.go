@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func ParseAST(treeFile string) (nss [][]interface{}, err error) {
+func ParseAST(treeFile string) (nss [][]Node, err error) {
 	file, err := os.Open(treeFile)
 	if err != nil {
 		return
@@ -18,7 +18,7 @@ func ParseAST(treeFile string) (nss [][]interface{}, err error) {
 
 	scanner := bufio.NewScanner(file)
 
-	var ns []interface{}
+	var ns []Node
 	for scanner.Scan() {
 		line := scanner.Text()
 		if line[0] == ' ' {
@@ -55,7 +55,7 @@ func ParseAST(treeFile string) (nss [][]interface{}, err error) {
 	return
 }
 
-func parseBlock(block []string) (ns []interface{}, err error) {
+func parseBlock(block []string) (ns []Node, err error) {
 	if len(block) == 0 {
 		return
 	}
@@ -139,7 +139,7 @@ func parse(line string) (n interface{}, err error) {
 	// 	}
 	// }
 
-	p := map[string]func(string) interface{}{
+	p := map[string]func(string) Node{
 		"identifier_node":       parse_identifier_node,
 		"integer_cst":           parse_integer_cst,
 		"type_decl":             parse_type_decl,

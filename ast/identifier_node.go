@@ -10,7 +10,7 @@ type Identifier_node struct {
 	Lngt string
 }
 
-func parse_identifier_node(line string) (n interface{}) {
+func parse_identifier_node(line string) (n Node) {
 	groups := groupsFromRegex(
 		"strg:(?P<strg>.*)lngt:(?P<lngt>.*)",
 		line,

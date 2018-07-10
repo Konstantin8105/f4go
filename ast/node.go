@@ -1,4 +1,3 @@
 package ast
 
-type node interface {
-}
+type Node interface{}

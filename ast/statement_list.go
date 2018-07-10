@@ -8,7 +8,7 @@ type Statement_list struct {
 	Vals []string
 }
 
-func parse_statement_list(line string) (n interface{}) {
+func parse_statement_list(line string) (n Node) {
 	var c Statement_list
 	var index int
 	for {

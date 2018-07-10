@@ -8,7 +8,7 @@ type Array_ref struct {
 	Op1  string
 }
 
-func parse_array_ref(line string) (n interface{}) {
+func parse_array_ref(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

@@ -8,7 +8,7 @@ type Plus_expr struct {
 	Op1  string
 }
 
-func parse_plus_expr(line string) (n interface{}) {
+func parse_plus_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +

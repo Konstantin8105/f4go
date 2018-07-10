@@ -8,7 +8,7 @@ type Bind_expr struct {
 	Body  string
 }
 
-func parse_bind_expr(line string) (n interface{}) {
+func parse_bind_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 		type:(?P<type> @[0-9]+) +

@@ -8,7 +8,7 @@ type Reference_type struct {
 	Refd string
 }
 
-func parse_reference_type(line string) (n interface{}) {
+func parse_reference_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	size:(?P<size>.*) +

@@ -7,7 +7,7 @@ type Nop_expr struct {
 	Op0  string
 }
 
-func parse_nop_expr(line string) (n interface{}) {
+func parse_nop_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +
