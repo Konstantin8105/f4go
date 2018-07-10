@@ -145,6 +145,8 @@ func CastToGoType(fortranType string) (goType string, err error) {
 	switch fortranType {
 	case "integer(kind=4)":
 		goType = "int"
+	default:
+		fmt.Printf("Cannot CastToGoType: %v\n", fortranType)
 	}
 	return
 }
@@ -179,12 +181,7 @@ func transpileVarDecl(n ast.Var_decl, ns []ast.Node) (decl goast.Decl, err error
 			},
 		},
 	}
-
 	decl = &genDecl
-
-	// decl = goast.Decl{
-	// 	&genDecl,
-	// }
 	return
 }
 
@@ -204,6 +201,8 @@ func transpileDecl(n ast.Node, ns []ast.Node) (name, t string, err error) {
 	// 	name, t, err = transpileVarDecl(n, ns)
 	case ast.Integer_cst:
 		name, t, err = transpileIntegerCast(n, ns)
+	default:
+		fmt.Printf("Cannot transpileDecl: %#v\n", n)
 	}
 	return
 }
@@ -231,6 +230,8 @@ func transpileExpr(n ast.Node, ns []ast.Node) (err error) {
 			fmt.Println("Decl ", name, t)
 		}
 
+	default:
+		fmt.Printf("Cannot transpileExpr : %#v\n", n)
 	}
 	return
 }
@@ -253,6 +254,8 @@ func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
 		}
 	case ast.Identifier_node:
 		t = n.Strg
+	default:
+		fmt.Printf("Cannot transpileType : %#v\n", n)
 	}
 	return
 }
