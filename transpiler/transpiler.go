@@ -272,6 +272,15 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 	expr goast.Expr, err error) {
 	switch n := n.(type) {
 
+	case ast.Nop_expr:
+		fmt.Println("Cannot TODO: * or &")
+		if index, ok := ast.IsLink(n.Op0); ok {
+			expr, err = transpileExpr(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+
 	case ast.Integer_cst:
 		var name string
 		name, err = getName(n, ns)
