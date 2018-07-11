@@ -64,7 +64,7 @@ func trans(ns []ast.Node) (fd goast.FuncDecl, err error) {
 
 	// funciton type
 	if index, ok := ast.IsLink(n.VarType); ok {
-		fmt.Printf("VarType = %#v\n", ns[index-1])
+		fmt.Printf("Cannot TODO : VarType = %#v\n", ns[index-1])
 
 		fd.Type = &goast.FuncType{}
 
@@ -98,24 +98,6 @@ func isNull(ds []goast.Stmt) bool {
 	return false
 }
 
-func transpileIntegerCast(n ast.Integer_cst, ns []ast.Node) (name, t string, err error) {
-	// if index, ok := ast.IsLink(n.VarInt); ok {
-	// 	fmt.Printf("Name = %#v\n", ns[index-1])
-	// 	name = ns[index-1].(ast.Identifier_node).Strg
-	// }
-	name = n.VarInt
-
-	if index, ok := ast.IsLink(n.VarType); ok {
-		t, err = transpileType(ns[index-1], ns)
-		if err != nil {
-			return
-		}
-		fmt.Printf("Type = %v\n", t)
-	}
-
-	return
-}
-
 func CastToGoType(fortranType string) (goType string, err error) {
 	switch fortranType {
 	case "integer(kind=4)":
@@ -136,7 +118,6 @@ func transpileVarDecl(n ast.Var_decl, ns []ast.Node) (decl goast.Decl, err error
 	var t, name string
 
 	if index, ok := ast.IsLink(n.Name); ok {
-		fmt.Printf("Name = %#v\n", ns[index-1])
 		name = ns[index-1].(ast.Identifier_node).Strg
 	}
 
@@ -149,7 +130,6 @@ func transpileVarDecl(n ast.Var_decl, ns []ast.Node) (decl goast.Decl, err error
 		if err != nil {
 			return
 		}
-		fmt.Printf("Type = %v\n", t)
 	}
 
 	if t == "" {
@@ -185,8 +165,28 @@ func getName(n ast.Node, ns []ast.Node) (name string, err error) {
 		name = n.Op0
 	case ast.Function_decl:
 		name = n.Name
+	case ast.Parm_decl:
+		name = n.Name
+	case ast.String_cst:
+		name = "\"" + n.Strg + "\""
+	case ast.Array_ref:
+		if index, ok := ast.IsLink(n.Op0); ok {
+			name, err = getName(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+		var location string
+		if index, ok := ast.IsLink(n.Op1); ok {
+			location, err = getName(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+		name = fmt.Sprintf("%s[%s]", name, location)
 	default:
 		fmt.Printf("Name is not found: %#v\n", n)
+		name = f4goUndefined + "GetNameFunction"
 	}
 	// fmt.Println("name = ", name)
 	if index, ok := ast.IsLink(name); ok {
@@ -201,7 +201,19 @@ func transpileDecl(n ast.Node, ns []ast.Node) (name, t string, err error) {
 	// case ast.Var_decl:
 	// 	name, t, err = transpileVarDecl(n, ns)
 	case ast.Integer_cst:
-		name, t, err = transpileIntegerCast(n, ns)
+		name = n.VarInt
+
+		if index, ok := ast.IsLink(n.VarType); ok {
+			t, err = transpileType(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+		t, err = CastToGoType(t)
+		if err != nil {
+			return
+		}
+
 	default:
 		fmt.Printf("Cannot transpileDecl: %#v\n", n)
 	}
@@ -265,6 +277,16 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 		}
 		expr = goast.NewIdent(name)
 
+	case ast.Addr_expr:
+		var name string
+		if index, ok := ast.IsLink(n.Op0); ok {
+			name, err = getName(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+		expr = goast.NewIdent(name)
+
 	case ast.Call_expr:
 		var name string
 		if index, ok := ast.IsLink(n.Fn); ok {
@@ -289,9 +311,16 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 				var e goast.Expr
 				e, err = transpileExpr(ns[index-1], ns)
 				if err != nil {
-					return
+					// return
+					err = nil // ignore
+				}
+				if e == nil {
+					e = goast.NewIdent(f4goUndefined + "DefaultArgExpr")
 				}
 				call.Args = append(call.Args, e)
+			} else {
+				call.Args = append(call.Args,
+					goast.NewIdent(f4goUndefined+"DefaultArg"))
 			}
 		}
 
