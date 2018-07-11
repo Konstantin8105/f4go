@@ -35,6 +35,10 @@ func parse_constructor(line string) (n Node) {
 				c.Vals = append(c.Vals, line[begin:i])
 				break
 			}
+			if i == len(line)-1 {
+				c.Vals = append(c.Vals, line[begin:])
+				break
+			}
 		}
 	}
 
