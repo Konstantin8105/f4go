@@ -7,6 +7,10 @@ type Float_expr struct {
 	Op0  string
 }
 
+func (a Float_expr) GenNodeName() string {
+	return "Float_expr "
+}
+
 func parse_float_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

@@ -8,6 +8,10 @@ type Bind_expr struct {
 	Body  string
 }
 
+func (a Bind_expr) GenNodeName() string {
+	return "Bind_expr "
+}
+
 func parse_bind_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

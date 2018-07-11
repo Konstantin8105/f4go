@@ -9,6 +9,10 @@ type Real_type struct {
 	Prec string
 }
 
+func (a Real_type) GenNodeName() string {
+	return "Real_type "
+}
+
 func parse_real_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

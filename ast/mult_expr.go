@@ -8,6 +8,10 @@ type Mult_expr struct {
 	Op1  string
 }
 
+func (a Mult_expr) GenNodeName() string {
+	return "Mult_expr "
+}
+
 func parse_mult_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

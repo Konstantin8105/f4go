@@ -11,6 +11,10 @@ type Field_decl struct {
 	Bpos string
 }
 
+func (a Field_decl) GenNodeName() string {
+	return "Field_decl "
+}
+
 func parse_field_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

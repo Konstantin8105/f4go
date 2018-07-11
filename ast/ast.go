@@ -60,7 +60,7 @@ func parseBlock(block []string) (ns []Node, err error) {
 			continue
 		}
 
-		var n interface{}
+		var n Node
 		n, err = parse(l)
 		if err != nil {
 			return
@@ -71,7 +71,7 @@ func parseBlock(block []string) (ns []Node, err error) {
 	return
 }
 
-func parse(line string) (n interface{}, err error) {
+func parse(line string) (n Node, err error) {
 	if line[0] != '@' {
 		err = fmt.Errorf("Not @")
 		return

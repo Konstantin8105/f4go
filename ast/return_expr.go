@@ -7,6 +7,10 @@ type Return_expr struct {
 	Expr string
 }
 
+func (a Return_expr) GenNodeName() string {
+	return "Return_expr "
+}
+
 func parse_return_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

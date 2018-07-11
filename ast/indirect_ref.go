@@ -7,6 +7,10 @@ type Indirect_ref struct {
 	Op0  string
 }
 
+func (a Indirect_ref) GenNodeName() string {
+	return "Indirect_ref "
+}
+
 func parse_indirect_ref(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

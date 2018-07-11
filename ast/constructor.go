@@ -9,6 +9,10 @@ type Constructor struct {
 	Vals []string
 }
 
+func (a Constructor) GenNodeName() string {
+	return "Constructor "
+}
+
 func parse_constructor(line string) (n Node) {
 	var c Constructor
 	var index int

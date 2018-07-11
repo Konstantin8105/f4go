@@ -8,6 +8,10 @@ type Array_ref struct {
 	Op1  string
 }
 
+func (a Array_ref) GenNodeName() string {
+	return "Array_ref"
+}
+
 func parse_array_ref(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

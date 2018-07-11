@@ -8,6 +8,10 @@ type Boolean_type struct {
 	Algn string
 }
 
+func (a Boolean_type) GenNodeName() string {
+	return "Boolean_type "
+}
+
 func parse_boolean_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

@@ -8,6 +8,10 @@ type Component_ref struct {
 	Op1  string
 }
 
+func (a Component_ref) GenNodeName() string {
+	return "Component_ref "
+}
+
 func parse_component_ref(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

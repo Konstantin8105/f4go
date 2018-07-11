@@ -8,6 +8,10 @@ type String_cst struct {
 	Lngt string
 }
 
+func (a String_cst) GenNodeName() string {
+	return "String_cst "
+}
+
 func parse_string_cst(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

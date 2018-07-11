@@ -12,6 +12,10 @@ type Record_type struct {
 	Flds string
 }
 
+func (a Record_type) GenNodeName() string {
+	return "Record_type "
+}
+
 func parse_record_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

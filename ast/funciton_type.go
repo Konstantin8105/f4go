@@ -9,6 +9,10 @@ type Function_type struct {
 	Prms string
 }
 
+func (a Function_type) GenNodeName() string {
+	return "Function_type "
+}
+
 func parse_function_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

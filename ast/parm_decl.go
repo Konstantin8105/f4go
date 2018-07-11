@@ -13,6 +13,10 @@ type Parm_decl struct {
 	Used string
 }
 
+func (a Parm_decl) GenNodeName() string {
+	return "Parm_decl "
+}
+
 func parse_parm_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

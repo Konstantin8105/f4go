@@ -11,6 +11,10 @@ type Result_decl struct {
 	Algn string
 }
 
+func (a Result_decl) GenNodeName() string {
+	return "Result_decl "
+}
+
 func parse_result_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

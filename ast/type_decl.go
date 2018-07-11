@@ -8,6 +8,10 @@ type Type_decl struct {
 	Srcp    string
 }
 
+func (a Type_decl) GenNodeName() string {
+	return "Type_decl "
+}
+
 func parse_type_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		"name:(?P<name>.*)type:(?P<type>.*)srcp:(?P<srcp>.*)",

@@ -8,6 +8,10 @@ type Statement_list struct {
 	Vals []string
 }
 
+func (a Statement_list) GenNodeName() string {
+	return "Statement_list "
+}
+
 func parse_statement_list(line string) (n Node) {
 	var c Statement_list
 	var index int

@@ -12,6 +12,10 @@ type Integer_type struct {
 	Max  string
 }
 
+func (a Integer_type) GenNodeName() string {
+	return "Integer_type "
+}
+
 func parse_integer_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

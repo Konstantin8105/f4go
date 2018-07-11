@@ -1,3 +1,5 @@
 package ast
 
-type Node interface{}
+type Node interface {
+	GenNodeName() string
+}

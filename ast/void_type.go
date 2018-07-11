@@ -9,6 +9,10 @@ type Void_type struct {
 	Algn string
 }
 
+func (a Void_type) GenNodeName() string {
+	return "Void_type "
+}
+
 func parse_void_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

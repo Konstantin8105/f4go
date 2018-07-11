@@ -8,6 +8,10 @@ type Trunc_div_expr struct {
 	Op1  string
 }
 
+func (a Trunc_div_expr) GenNodeName() string {
+	return "Trunc_div_expr "
+}
+
 func parse_trunc_div_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

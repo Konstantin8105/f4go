@@ -7,6 +7,10 @@ type Goto_expr struct {
 	Labl string
 }
 
+func (a Goto_expr) GenNodeName() string {
+	return "Goto_expr "
+}
+
 func parse_goto_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

@@ -9,6 +9,10 @@ type Const_decl struct {
 	Cnst string
 }
 
+func (a Const_decl) GenNodeName() string {
+	return "Const_decl "
+}
+
 func parse_const_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

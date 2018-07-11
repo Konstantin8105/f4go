@@ -16,6 +16,10 @@ type Function_decl struct {
 	Body     string
 }
 
+func (a Function_decl) GenNodeName() string {
+	return "Function_decl "
+}
+
 func parse_function_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

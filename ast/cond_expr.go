@@ -9,6 +9,10 @@ type Cond_expr struct {
 	Op2  string
 }
 
+func (a Cond_expr) GenNodeName() string {
+	return "Cond_expr "
+}
+
 func parse_cond_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

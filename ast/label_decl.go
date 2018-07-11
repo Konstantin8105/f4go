@@ -10,6 +10,10 @@ type Label_decl struct {
 	Note string
 }
 
+func (a Label_decl) GenNodeName() string {
+	return "Label_decl "
+}
+
 func parse_label_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

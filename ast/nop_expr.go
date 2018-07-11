@@ -7,6 +7,10 @@ type Nop_expr struct {
 	Op0  string
 }
 
+func (a Nop_expr) GenNodeName() string {
+	return "Nop_expr "
+}
+
 func parse_nop_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

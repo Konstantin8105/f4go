@@ -11,6 +11,10 @@ type Call_expr struct {
 	Vals []string
 }
 
+func (a Call_expr) GenNodeName() string {
+	return "Call_expr "
+}
+
 func parse_call_expr(line string) (n Node) {
 
 	var c Call_expr

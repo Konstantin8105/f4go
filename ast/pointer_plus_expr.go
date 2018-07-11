@@ -8,6 +8,10 @@ type Pointer_plus_expr struct {
 	Op1  string
 }
 
+func (a Pointer_plus_expr) GenNodeName() string {
+	return "Pointer_plus_expr "
+}
+
 func parse_pointer_plus_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

@@ -8,6 +8,10 @@ type Reference_type struct {
 	Refd string
 }
 
+func (a Reference_type) GenNodeName() string {
+	return "Reference_type "
+}
+
 func parse_reference_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

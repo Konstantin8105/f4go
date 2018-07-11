@@ -7,6 +7,10 @@ type Label_expr struct {
 	Name string
 }
 
+func (a Label_expr) GenNodeName() string {
+	return "Label_expr "
+}
+
 func parse_label_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

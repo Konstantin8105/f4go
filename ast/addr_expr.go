@@ -7,6 +7,10 @@ type Addr_expr struct {
 	Op0  string
 }
 
+func (a Addr_expr) GenNodeName() string {
+	return "Addr_expr"
+}
+
 func parse_addr_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

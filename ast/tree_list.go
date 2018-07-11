@@ -6,6 +6,10 @@ type Tree_list struct {
 	Valu string
 }
 
+func (a Tree_list) GenNodeName() string {
+	return "Tree_list "
+}
+
 func parse_tree_list(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

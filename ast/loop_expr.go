@@ -7,6 +7,10 @@ type Loop_expr struct {
 	Body string
 }
 
+func (a Loop_expr) GenNodeName() string {
+	return "Loop_expr"
+}
+
 func parse_loop_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

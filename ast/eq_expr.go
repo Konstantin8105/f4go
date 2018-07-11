@@ -8,6 +8,10 @@ type Eq_expr struct {
 	Op1  string
 }
 
+func (a Eq_expr) GenNodeName() string {
+	return "Eq_expr "
+}
+
 func parse_eq_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

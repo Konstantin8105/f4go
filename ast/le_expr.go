@@ -8,6 +8,10 @@ type Le_expr struct {
 	Op1  string
 }
 
+func (a Le_expr) GenNodeName() string {
+	return "Le_expr "
+}
+
 func parse_le_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

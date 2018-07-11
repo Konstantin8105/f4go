@@ -8,6 +8,10 @@ type Pointer_type struct {
 	Ptd  string
 }
 
+func (a Pointer_type) GenNodeName() string {
+	return "Pointer_type "
+}
+
 func parse_pointer_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

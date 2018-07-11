@@ -14,6 +14,10 @@ type Var_decl struct {
 	Used  string
 }
 
+func (a Var_decl) GenNodeName() string {
+	return "Var_decl "
+}
+
 func parse_var_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

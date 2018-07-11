@@ -7,6 +7,10 @@ type Real_cst struct {
 	Valu string
 }
 
+func (a Real_cst) GenNodeName() string {
+	return "Real_cst "
+}
+
 func parse_real_cst(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

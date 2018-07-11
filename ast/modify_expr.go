@@ -8,6 +8,10 @@ type Modify_expr struct {
 	Op1   string
 }
 
+func (a Modify_expr) GenNodeName() string {
+	return "Modify_expr "
+}
+
 func parse_modify_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

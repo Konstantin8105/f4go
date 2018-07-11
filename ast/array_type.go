@@ -9,6 +9,10 @@ type Array_type struct {
 	Domn string
 }
 
+func (a Array_type) GenNodeName() string {
+	return "Array_type "
+}
+
 func parse_array_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`

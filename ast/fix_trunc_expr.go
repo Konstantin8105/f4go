@@ -7,6 +7,10 @@ type Fix_trunc_expr struct {
 	Op0  string
 }
 
+func (a Fix_trunc_expr) GenNodeName() string {
+	return "Fix_trunc_expr "
+}
+
 func parse_fix_trunc_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
