@@ -265,6 +265,7 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 				return
 			}
 			fmt.Printf("Cannot TODO : Call > %#v\n", ns[index-1])
+			reflectClarification(ns[index-1], ns)
 		}
 
 		var call goast.CallExpr
@@ -517,6 +518,7 @@ func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
 		t = n.Strg
 	default:
 		fmt.Printf("Cannot transpileType : %#v\n", n)
+		reflectClarification(n, ns)
 	}
 	return
 }
