@@ -23,6 +23,10 @@ func parse_statement_list(line string) (n Node) {
 				c.Vals = append(c.Vals, line[begin:i])
 				break
 			}
+			if i == len(line)-1 {
+				c.Vals = append(c.Vals, line[begin:])
+				break
+			}
 		}
 	}
 
