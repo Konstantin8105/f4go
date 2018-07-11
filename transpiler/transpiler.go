@@ -67,7 +67,30 @@ func trans(ns []ast.Node) (fd goast.FuncDecl, err error) {
 		fmt.Printf("Cannot TODO : VarType = %#v\n", ns[index-1])
 		reflectClarification(ns[index-1], ns)
 
-		fd.Type = &goast.FuncType{}
+		n := ns[index-1].(ast.Function_type)
+
+		var typ string
+		if index, ok := ast.IsLink(n.Retn); ok {
+			typ, err = transpileType(ns[index-1], ns)
+			if err != nil {
+				err = nil
+				typ = "UndefineVarType"
+			}
+		}
+
+		if typ != "void" {
+			fd.Type = &goast.FuncType{
+				Results: &goast.FieldList{
+					List: []*goast.Field{
+						&goast.Field{
+							Type: goast.NewIdent(typ),
+						},
+					},
+				},
+			}
+		} else {
+			fd.Type = &goast.FuncType{}
+		}
 
 	} else {
 		fmt.Println("--- not found var type")
@@ -597,6 +620,14 @@ func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
 		}
 
 	case ast.Record_type:
+		if index, ok := ast.IsLink(n.Name); ok {
+			t, err = transpileType(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+
+	case ast.Void_type:
 		if index, ok := ast.IsLink(n.Name); ok {
 			t, err = transpileType(ns[index-1], ns)
 			if err != nil {
