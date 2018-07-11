@@ -3,6 +3,7 @@ package transpiler
 import (
 	"bytes"
 	"fmt"
+	"reflect"
 
 	goast "go/ast"
 	"go/format"
@@ -263,6 +264,7 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 			if err != nil {
 				return
 			}
+			fmt.Printf("Cannot TODO : Call > %#v\n", ns[index-1])
 		}
 
 		var call goast.CallExpr
@@ -296,6 +298,7 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 
 	default:
 		fmt.Printf("Cannot transpileExpr: %#v\n", n)
+		reflectClarification(n, ns)
 		expr = goast.NewIdent(f4goUndefined)
 	}
 	return
@@ -440,8 +443,20 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 
 	default:
 		fmt.Printf("Cannot transpileStmt: %#v\n", n)
+		reflectClarification(n, ns)
 	}
 	return
+}
+
+func reflectClarification(n ast.Node, ns []ast.Node) {
+	// reflect clarification
+	val := reflect.Indirect(reflect.ValueOf(n))
+	for i := 0; i < val.NumField(); i++ {
+		f := val.Field(i)
+		if index, ok := ast.IsLink(f.String()); ok {
+			fmt.Printf("\t%d: %s\t--> %#v\n", i, f.String(), ns[index-1])
+		}
+	}
 }
 
 func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
