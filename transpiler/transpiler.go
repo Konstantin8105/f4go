@@ -119,6 +119,7 @@ func CastToGoType(fortranType string) (goType string, err error) {
 		goType = "int"
 	default:
 		fmt.Printf("Cannot CastToGoType: %v\n", fortranType)
+		goType = fortranType
 	}
 	return
 }
@@ -402,6 +403,26 @@ func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
 				return
 			}
 		}
+
+	case ast.Array_type:
+		var size, typ string
+		if index, ok := ast.IsLink(n.Size); ok {
+			size, err = getName(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+		if index, ok := ast.IsLink(n.Elts); ok {
+			typ, err = transpileType(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+		typ, err = CastToGoType(typ)
+		if err != nil {
+			return
+		}
+		t = fmt.Sprintf("[%v]%v", size, typ)
 
 	case ast.Identifier_node:
 		t = n.Strg
