@@ -26,7 +26,7 @@ func TranspileAST(nss [][]ast.Node) (err error) {
 		if err != nil {
 			return
 		}
-		goast.Print(token.NewFileSet(), fd)
+		// goast.Print(token.NewFileSet(), fd)
 		file.Decls = append(file.Decls, &fd)
 	}
 
@@ -121,6 +121,8 @@ func CastToGoType(fortranType string) (goType string, err error) {
 		goType = "int"
 	case "real(kind=4)":
 		goType = "float64"
+	case "character(kind=1)":
+		goType = "byte"
 	default:
 		fmt.Printf("Cannot CastToGoType: %v\n", fortranType)
 		goType = fortranType
@@ -147,6 +149,13 @@ func transpileVarDecl(n ast.Var_decl, ns []ast.Node) (decl goast.Decl, err error
 			return
 		}
 		fmt.Printf("Type = %v\n", t)
+	}
+
+	if t == "" {
+		t = f4goUndefined
+	}
+	if name == "" {
+		name = f4goUndefined
 	}
 
 	genDecl := goast.GenDecl{
@@ -206,15 +215,24 @@ func arithOperation(n0, n1 string, tk token.Token, ns []ast.Node) (
 	if index, ok := ast.IsLink(n0); ok {
 		left, err = transpileExpr(ns[index-1], ns)
 		if err != nil {
-			return
+			// return
+			err = nil // ignore
 		}
 	}
 
 	if index, ok := ast.IsLink(n1); ok {
 		right, err = transpileExpr(ns[index-1], ns)
 		if err != nil {
-			return
+			// return
+			err = nil // ignore
 		}
+	}
+
+	if left == nil {
+		left = goast.NewIdent(f4goUndefined)
+	}
+	if right == nil {
+		right = goast.NewIdent(f4goUndefined)
 	}
 
 	expr = &goast.BinaryExpr{
@@ -377,7 +395,8 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 		if index, ok := ast.IsLink(n.Op0); ok {
 			left, err = transpileExpr(ns[index-1], ns)
 			if err != nil {
-				return
+				// return
+				err = nil // ignore
 			}
 		}
 
@@ -385,18 +404,19 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 		if index, ok := ast.IsLink(n.Op1); ok {
 			right, err = transpileExpr(ns[index-1], ns)
 			if err != nil {
-				return
+				// return
+				err = nil // ignore
 			}
 		}
 		// fmt.Println("Modify_expr: ", left, " = ", right)
 
 		if left == nil {
 			fmt.Println("left is null")
-			return
+			left = goast.NewIdent(f4goUndefined)
 		}
 		if right == nil {
 			fmt.Println("right is null")
-			return
+			right = goast.NewIdent(f4goUndefined)
 		}
 		decl := &goast.AssignStmt{
 			Lhs: []goast.Expr{left},
