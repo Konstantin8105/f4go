@@ -79,6 +79,10 @@ func trans(ns []ast.Node) (fd goast.FuncDecl, err error) {
 		}
 
 		if typ != "void" {
+			typ, err = CastToGoType(typ)
+			if err != nil {
+				return
+			}
 			fd.Type = &goast.FuncType{
 				Results: &goast.FieldList{
 					List: []*goast.Field{
@@ -162,6 +166,16 @@ func transpileField(n ast.Node, ns []ast.Node) (
 	field *goast.Field, next string, err error) {
 
 	switch n := n.(type) {
+
+	case ast.Tree_list:
+		next = n.Chan
+		if index, ok := ast.IsLink(n.Valu); ok {
+			field, _, err = transpileField(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+
 	default:
 		fmt.Printf("Cannot transpileField : %#v\n", n)
 		reflectClarification(n, ns)
