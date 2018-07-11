@@ -71,8 +71,16 @@ import "strings"
 	}
 	fmt.Fprintln(output, "}\n")
 
+	// create method
+	fmt.Fprintf(output,
+		`
+func (a %v) GenNodeName() string {
+	return "%v"
+}
+`, structName, structName)
+
 	// create function
-	fmt.Fprintf(output, "func parse_%s(line string) (n interface{}) {\n", identificator)
+	fmt.Fprintf(output, "func parse_%s(line string) (n Node) {\n", identificator)
 
 	// create a group
 	fmt.Fprintf(output, "\tgroups := groupsFromRegex(\n\t`\n")

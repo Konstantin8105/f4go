@@ -152,6 +152,7 @@ func parse(line string) (n Node, err error) {
 		"fix_trunc_expr":    parse_fix_trunc_expr,
 		"const_decl":        parse_const_decl,
 		"string_cst":        parse_string_cst,
+		"minus_expr":        parse_minus_expr,
 	}
 
 	if f, ok := p[line[begin:index]]; ok {

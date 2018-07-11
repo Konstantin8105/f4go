@@ -113,12 +113,18 @@ func CastToGoType(fortranType string) (goType string, err error) {
 	return
 }
 
+const tempVarF4GO string = "tempVarF4GO"
+
 func transpileVarDecl(n ast.Var_decl, ns []ast.Node) (decl goast.Decl, err error) {
 
 	var t, name string
 
-	if index, ok := ast.IsLink(n.Name); ok {
-		name = ns[index-1].(ast.Identifier_node).Strg
+	if n.Name == "" {
+		name = tempVarF4GO
+	} else {
+		if index, ok := ast.IsLink(n.Name); ok {
+			name = ns[index-1].(ast.Identifier_node).Strg
+		}
 	}
 
 	if index, ok := ast.IsLink(n.TypeD); ok {
@@ -159,6 +165,9 @@ func getName(n ast.Node, ns []ast.Node) (name string, err error) {
 		name = n.Strg
 	case ast.Var_decl:
 		name = n.Name
+		if n.Name == "" {
+			name = tempVarF4GO
+		}
 	case ast.Integer_cst:
 		name = n.VarInt
 	case ast.Addr_expr:
@@ -365,6 +374,9 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 		}
 		expr = goast.NewIdent(name)
 
+	case ast.Minus_expr:
+		expr, err = arithOperation(n.Op0, n.Op1, token.SUB, ns)
+
 	case ast.Plus_expr:
 		expr, err = arithOperation(n.Op0, n.Op1, token.ADD, ns)
 
@@ -528,6 +540,15 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 
 // reflect clarification
 func reflectClarification(n ast.Node, ns []ast.Node) {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("recover : ", r)
+		}
+	}()
+	if n == nil {
+		fmt.Println("Cannot reflectClarification : ", n)
+		return
+	}
 	val := reflect.Indirect(reflect.ValueOf(n))
 	for i := 0; i < val.NumField(); i++ {
 		f := val.Field(i)
