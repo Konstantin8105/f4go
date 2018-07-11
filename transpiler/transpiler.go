@@ -133,10 +133,10 @@ func transpileVarDecl(n ast.Var_decl, ns []ast.Node) (decl goast.Decl, err error
 	}
 
 	if t == "" {
-		t = f4goUndefined
+		t = f4goUndefined + "Type" + n.GenNodeName()
 	}
 	if name == "" {
-		name = f4goUndefined
+		name = f4goUndefined + "Name" + n.GenNodeName()
 	}
 
 	genDecl := goast.GenDecl{
@@ -169,6 +169,8 @@ func getName(n ast.Node, ns []ast.Node) (name string, err error) {
 		name = n.Name
 	case ast.String_cst:
 		name = "\"" + n.Strg + "\""
+	case ast.Field_decl:
+		name = n.Name
 	case ast.Array_ref:
 		if index, ok := ast.IsLink(n.Op0); ok {
 			name, err = getName(ns[index-1], ns)
@@ -242,10 +244,10 @@ func arithOperation(n0, n1 string, tk token.Token, ns []ast.Node) (
 	}
 
 	if left == nil {
-		left = goast.NewIdent(f4goUndefined)
+		left = goast.NewIdent(f4goUndefined + "L")
 	}
 	if right == nil {
-		right = goast.NewIdent(f4goUndefined)
+		right = goast.NewIdent(f4goUndefined + "R")
 	}
 
 	expr = &goast.BinaryExpr{
@@ -286,6 +288,27 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 			}
 		}
 		expr = goast.NewIdent(name)
+
+	case ast.Component_ref:
+		var base goast.Expr
+		var field string
+		if index, ok := ast.IsLink(n.Op0); ok {
+			base, err = transpileExpr(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+		if index, ok := ast.IsLink(n.Op1); ok {
+			field, err = getName(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+		}
+
+		expr = &goast.SelectorExpr{
+			X:   base,
+			Sel: goast.NewIdent(field),
+		}
 
 	case ast.Call_expr:
 		var name string
@@ -338,7 +361,7 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 			return
 		}
 		if name == "" {
-			name = f4goUndefined
+			name = f4goUndefined + n.GenNodeName()
 		}
 		expr = goast.NewIdent(name)
 
@@ -354,7 +377,7 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 	default:
 		fmt.Printf("Cannot transpileExpr: %#v\n", n)
 		reflectClarification(n, ns)
-		expr = goast.NewIdent(f4goUndefined)
+		expr = goast.NewIdent(f4goUndefined + n.GenNodeName())
 	}
 	return
 }
@@ -377,7 +400,7 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 		}
 		if expr == nil {
 			fmt.Printf("ReturnStmt is nil\n")
-			expr = goast.NewIdent(f4goUndefined)
+			expr = goast.NewIdent(f4goUndefined + n.GenNodeName())
 		}
 		decls = append(decls, &goast.ReturnStmt{
 			Results: []goast.Expr{expr},
@@ -470,11 +493,11 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 
 		if left == nil {
 			fmt.Println("left is null")
-			left = goast.NewIdent(f4goUndefined)
+			left = goast.NewIdent(f4goUndefined + "L" + n.GenNodeName())
 		}
 		if right == nil {
 			fmt.Println("right is null")
-			right = goast.NewIdent(f4goUndefined)
+			right = goast.NewIdent(f4goUndefined + "R" + n.GenNodeName())
 		}
 		decl := &goast.AssignStmt{
 			Lhs: []goast.Expr{left},
