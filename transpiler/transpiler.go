@@ -65,6 +65,7 @@ func trans(ns []ast.Node) (fd goast.FuncDecl, err error) {
 	// funciton type
 	if index, ok := ast.IsLink(n.VarType); ok {
 		fmt.Printf("Cannot TODO : VarType = %#v\n", ns[index-1])
+		reflectClarification(ns[index-1], ns)
 
 		fd.Type = &goast.FuncType{}
 
