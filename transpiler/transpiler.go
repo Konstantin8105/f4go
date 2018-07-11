@@ -92,6 +92,27 @@ func trans(ns []ast.Node) (fd goast.FuncDecl, err error) {
 			fd.Type = &goast.FuncType{}
 		}
 
+		var param []*goast.Field
+		next := n.Prms
+
+	AGAIN:
+		if index, ok := ast.IsLink(next); ok {
+			var field *goast.Field
+			field, next, err = transpileField(ns[index-1], ns)
+			if err != nil {
+				return
+			}
+			if field != (*goast.Field)(nil) {
+				param = append(param, field)
+			}
+			if next != "" {
+				goto AGAIN
+			}
+		}
+
+		fd.Type.Params = &goast.FieldList{}
+		fd.Type.Params.List = param
+
 	} else {
 		fmt.Println("--- not found var type")
 	}
@@ -133,6 +154,17 @@ func CastToGoType(fortranType string) (goType string, err error) {
 	default:
 		fmt.Printf("Cannot CastToGoType: %v\n", fortranType)
 		goType = fortranType
+	}
+	return
+}
+
+func transpileField(n ast.Node, ns []ast.Node) (
+	field *goast.Field, next string, err error) {
+
+	switch n := n.(type) {
+	default:
+		fmt.Printf("Cannot transpileField : %#v\n", n)
+		reflectClarification(n, ns)
 	}
 	return
 }
