@@ -257,6 +257,14 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 		}
 		expr = goast.NewIdent(name)
 
+	case ast.Parm_decl:
+		var name string
+		name, err = getName(n, ns)
+		if err != nil {
+			return
+		}
+		expr = goast.NewIdent(name)
+
 	case ast.Call_expr:
 		var name string
 		if index, ok := ast.IsLink(n.Fn); ok {
@@ -264,14 +272,28 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 			if err != nil {
 				return
 			}
-			fmt.Printf("Cannot TODO : Call > %#v\n", ns[index-1])
-			reflectClarification(ns[index-1], ns)
 		}
+
+		// fmt.Printf("Cannot TODO : Call <%s> %#v\n", name, n)
+		// reflectClarification(n, ns)
 
 		var call goast.CallExpr
 		call.Fun = goast.NewIdent(name)
 		call.Lparen = 1
 		call.Rparen = 1
+
+		for _, v := range n.Vals {
+			// fmt.Printf("Vals -> %#v\n", v)
+			if index, ok := ast.IsLink(v); ok {
+				// fmt.Printf("\t%#v\n", ns[index-1])
+				var e goast.Expr
+				e, err = transpileExpr(ns[index-1], ns)
+				if err != nil {
+					return
+				}
+				call.Args = append(call.Args, e)
+			}
+		}
 
 		//TODO: need type and arguments
 
@@ -285,6 +307,9 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 		name, err = getName(n, ns)
 		if err != nil {
 			return
+		}
+		if name == "" {
+			name = f4goUndefined
 		}
 		expr = goast.NewIdent(name)
 
@@ -449,13 +474,15 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 	return
 }
 
+// reflect clarification
 func reflectClarification(n ast.Node, ns []ast.Node) {
-	// reflect clarification
 	val := reflect.Indirect(reflect.ValueOf(n))
 	for i := 0; i < val.NumField(); i++ {
 		f := val.Field(i)
 		if index, ok := ast.IsLink(f.String()); ok {
 			fmt.Printf("\t%d: %s\t--> %#v\n", i, f.String(), ns[index-1])
+		} else {
+			fmt.Printf("\t%d: %#v\n", i, f.Interface())
 		}
 	}
 }

@@ -1,6 +1,8 @@
 package ast
 
-import "strings"
+import (
+	"strings"
+)
 
 type Var_decl struct {
 	Name  string
@@ -15,13 +17,13 @@ type Var_decl struct {
 func parse_var_decl(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
-		(name:(?P<name>.*))?
-		type:(?P<type>.*)
-		scpe:(?P<scpe>.*)
-		srcp:(?P<srcp>.*)
-		(note:(?P<note>.*))?
-		size:(?P<size>.*)
-		used:(?P<used>.*)
+		(name: (?P<name>.*))?
+		type: (?P<type>.*) +
+		scpe: (?P<scpe>.*) +
+		srcp: (?P<srcp>.*) +
+		(note: (?P<note>.*) +)?
+		size: (?P<size>.*) +
+		used: (?P<used>.*)
 		`,
 		line,
 	)
