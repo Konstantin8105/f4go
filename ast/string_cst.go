@@ -17,7 +17,7 @@ func parse_string_cst(line string) (n Node) {
 		`
 	type:(?P<type>.*) +
 	strg:(?P<strg>.*) +
-	lngt:(?P<lngt>.*) +
+	lngt:(?P<lngt>.*) *
 	`,
 		line,
 	)

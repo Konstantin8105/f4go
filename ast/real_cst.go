@@ -15,7 +15,7 @@ func parse_real_cst(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +
-	valu:(?P<valu>.*) +
+	valu:(?P<valu>.*) *
 	`,
 		line,
 	)

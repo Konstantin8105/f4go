@@ -20,12 +20,12 @@ func parse_integer_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 		(name:(?P<name>.*))?
-		size:(?P<size>.*)
-		algn:(?P<algn>.*)
-		prec:(?P<prec>.*)
-		sign:(?P<sign>.*)
-		min :(?P<min>.*)
-		max :(?P<max>.*)
+		size:(?P<size>.*) +
+		algn:(?P<algn>.*) +
+		prec:(?P<prec>.*) +
+		sign:(?P<sign>.*) +
+		min :(?P<min>.*) +
+		max :(?P<max>.*) *
 		`,
 		line,
 	)

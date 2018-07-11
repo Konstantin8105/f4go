@@ -21,7 +21,7 @@ func parse_label_decl(line string) (n Node) {
 	type:(?P<type>.*) +
 	scpe:(?P<scpe>.*) +
 	srcp:(?P<srcp>.*) +
-	note:(?P<note>.*) +
+	note:(?P<note>.*) *
 	`,
 		line,
 	)

@@ -17,7 +17,7 @@ func parse_boolean_type(line string) (n Node) {
 		`
 	name:(?P<name>.*) +
 	size:(?P<size>.*) +
-	algn:(?P<algn>.*) +
+	algn:(?P<algn>.*) *
 	`,
 		line,
 	)

@@ -15,7 +15,7 @@ func parse_goto_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +
-	labl:(?P<labl>.*) +
+	labl:(?P<labl>.*) *
 	`,
 		line,
 	)

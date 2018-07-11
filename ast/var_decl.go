@@ -27,7 +27,7 @@ func parse_var_decl(line string) (n Node) {
 		srcp: (?P<srcp>.*) +
 		(note: (?P<note>.*) +)?
 		size: (?P<size>.*) +
-		used: (?P<used>.*)
+		used: (?P<used>.*) *
 		`,
 		line,
 	)

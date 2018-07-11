@@ -15,7 +15,7 @@ func parse_indirect_ref(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +
-	op 0:(?P<op0>.*) +
+	op 0:(?P<op0>.*) *
 	`,
 		line,
 	)

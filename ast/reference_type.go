@@ -17,7 +17,7 @@ func parse_reference_type(line string) (n Node) {
 		`
 	size:(?P<size>.*) +
 	algn:(?P<algn>.*) +
-	refd:(?P<refd>.*) +
+	refd:(?P<refd>.*) *
 	`,
 		line,
 	)

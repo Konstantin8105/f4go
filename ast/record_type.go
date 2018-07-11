@@ -23,7 +23,7 @@ func parse_record_type(line string) (n Node) {
 	size:(?P<size>.*) +
 	algn:(?P<algn>.*) +
 	tag :(?P<tag>.*) +
-	flds:(?P<flds>.*) +
+	flds:(?P<flds>.*) *
 	`,
 		line,
 	)

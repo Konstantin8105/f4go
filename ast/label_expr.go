@@ -15,7 +15,7 @@ func parse_label_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +
-	name:(?P<name>.*) +
+	name:(?P<name>.*) *
 	`,
 		line,
 	)

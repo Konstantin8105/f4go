@@ -15,7 +15,7 @@ func parse_loop_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
 	type:(?P<type>.*) +
-	body:(?P<body>.*) +
+	body:(?P<body>.*) *
 	`,
 		line,
 	)

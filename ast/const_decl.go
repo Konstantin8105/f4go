@@ -19,7 +19,7 @@ func parse_const_decl(line string) (n Node) {
 	type:(?P<type>.*) +
 	scpe:(?P<scpe>.*) +
 	srcp:(?P<srcp>.*) +
-	cnst:(?P<cnst>.*) +
+	cnst:(?P<cnst>.*) *
 	`,
 		line,
 	)

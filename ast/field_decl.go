@@ -23,7 +23,7 @@ func parse_field_decl(line string) (n Node) {
 	scpe:(?P<scpe>.*) +
 	size:(?P<size>.*) +
 	algn:(?P<algn>.*) +
-	bpos:(?P<bpos>.*) +
+	bpos:(?P<bpos>.*) *
 	`,
 		line,
 	)

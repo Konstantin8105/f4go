@@ -19,7 +19,7 @@ func parse_real_type(line string) (n Node) {
 	name:(?P<name>.*) +
 	size:(?P<size>.*) +
 	algn:(?P<algn>.*) +
-	prec:(?P<prec>.*) +
+	prec:(?P<prec>.*) *
 	`,
 		line,
 	)

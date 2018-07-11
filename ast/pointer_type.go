@@ -15,9 +15,9 @@ func (a Pointer_type) GenNodeName() string {
 func parse_pointer_type(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
-		size:(?P<size>.*)
-		algn:(?P<algn>.*)
-		ptd :(?P<ptd>.*)
+		size:(?P<size>.*) +
+		algn:(?P<algn>.*) +
+		ptd :(?P<ptd>.*) *
 		`,
 		line,
 	)

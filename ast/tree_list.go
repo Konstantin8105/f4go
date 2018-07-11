@@ -13,7 +13,7 @@ func (a Tree_list) GenNodeName() string {
 func parse_tree_list(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
-		valu:(?P<valu>.*)
+		valu:(?P<valu>.*) *
 		`,
 		line,
 	)

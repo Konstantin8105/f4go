@@ -19,7 +19,7 @@ func parse_array_type(line string) (n Node) {
 	size:(?P<size>.*) +
 	algn:(?P<algn>.*) +
 	elts:(?P<elts>.*) +
-	domn:(?P<domn>.*) +
+	domn:(?P<domn>.*) *
 	`,
 		line,
 	)

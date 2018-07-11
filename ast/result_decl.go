@@ -23,7 +23,7 @@ func parse_result_decl(line string) (n Node) {
 	srcp:(?P<srcp>.*) +
 	note:(?P<note>.*) +
 	size:(?P<size>.*) +
-	algn:(?P<algn>.*) +
+	algn:(?P<algn>.*) *
 	`,
 		line,
 	)

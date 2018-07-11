@@ -17,7 +17,7 @@ func parse_bind_expr(line string) (n Node) {
 		`
 		type:(?P<type> @[0-9]+) +
 		(vars:(?P<vars>.*) +)?
-		body:(?P<body>.*)
+		body:(?P<body>.*) *
 		`,
 		line,
 	)

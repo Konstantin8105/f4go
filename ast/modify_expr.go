@@ -15,9 +15,9 @@ func (a Modify_expr) GenNodeName() string {
 func parse_modify_expr(line string) (n Node) {
 	groups := groupsFromRegex(
 		`
-		type:(?P<type>.*)
-		op 0:(?P<op0>.*)
-		op 1:(?P<op1>.*)
+		type:(?P<type>.*) +
+		op 0:(?P<op0>.*) +
+		op 1:(?P<op1>.*) *
 		`,
 		line,
 	)

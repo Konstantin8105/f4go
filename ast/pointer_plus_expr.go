@@ -17,7 +17,7 @@ func parse_pointer_plus_expr(line string) (n Node) {
 		`
 	type:(?P<type>.*) +
 	op 0:(?P<op0>.*) +
-	op 1:(?P<op1>.*) +
+	op 1:(?P<op1>.*) *
 	`,
 		line,
 	)

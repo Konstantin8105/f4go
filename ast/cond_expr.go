@@ -1,6 +1,8 @@
 package ast
 
-import "strings"
+import (
+	"strings"
+)
 
 type Cond_expr struct {
 	Type string
@@ -19,10 +21,11 @@ func parse_cond_expr(line string) (n Node) {
 	type:(?P<type>.*) +
 	op 0:(?P<op0>.*) +
 	op 1:(?P<op1>.*) +
-	op 2:(?P<op2>.*) +
+	op 2:(?P<op2>.*) *
 	`,
 		line,
 	)
+
 	return Cond_expr{
 		Type: strings.TrimSpace(groups["type"]),
 		Op0:  strings.TrimSpace(groups["op0"]),

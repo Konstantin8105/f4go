@@ -27,7 +27,7 @@ func parse_parm_decl(line string) (n Node) {
 	argt:(?P<argt>.*) +
 	size:(?P<size>.*) +
 	algn:(?P<algn>.*) +
-	used:(?P<used>.*) +
+	used:(?P<used>.*) *
 	`,
 		line,
 	)
