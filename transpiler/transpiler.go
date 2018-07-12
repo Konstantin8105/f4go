@@ -52,7 +52,7 @@ func TranspileAST(nss [][]ast.Node) (err error) {
 }
 
 func (tr *transpiler) trans() (fd goast.FuncDecl, err error) {
-	if len(tr.ns) < 1 {
+	if len(tr.ns) < 2 {
 		return
 	}
 	if _, ok := tr.ns[1].(ast.Function_decl); !ok {
