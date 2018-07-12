@@ -239,7 +239,7 @@ func getName(n ast.Node, ns []ast.Node) (name string, err error) {
 			name = tempVarF4GO
 		}
 	case ast.Integer_cst:
-		name = n.VarInt
+		name = n.Int
 	case ast.Addr_expr:
 		name = n.Op0
 	case ast.Function_decl:
@@ -282,9 +282,9 @@ func transpileDecl(n ast.Node, ns []ast.Node) (name, t string, err error) {
 	// case ast.Var_decl:
 	// 	name, t, err = transpileVarDecl(n, ns)
 	case ast.Integer_cst:
-		name = n.VarInt
+		name = n.Int
 
-		if index, ok := ast.IsLink(n.VarType); ok {
+		if index, ok := ast.IsLink(n.Type); ok {
 			t, err = transpileType(ns[index-1], ns)
 			if err != nil {
 				return
