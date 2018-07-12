@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"reflect"
+	"strconv"
 
 	goast "go/ast"
 	"go/format"
@@ -11,6 +12,10 @@ import (
 
 	"github.com/Konstantin8105/f4go/ast"
 )
+
+type transpiler struct {
+	ns []ast.Node
+}
 
 const f4goUndefined string = "f4goUndefined"
 
@@ -23,7 +28,13 @@ func TranspileAST(nss [][]ast.Node) (err error) {
 			continue
 		}
 		var fd goast.FuncDecl
-		fd, err = trans(ns)
+		fmt.Println("\n\n==== NEXT FUNC DECL =====\n\n")
+
+		t := transpiler{
+			ns: ns,
+		}
+
+		fd, err = t.trans()
 		if err != nil {
 			return
 		}
@@ -40,20 +51,20 @@ func TranspileAST(nss [][]ast.Node) (err error) {
 	return
 }
 
-func trans(ns []ast.Node) (fd goast.FuncDecl, err error) {
-	if len(ns) < 1 {
+func (tr *transpiler) trans() (fd goast.FuncDecl, err error) {
+	if len(tr.ns) < 1 {
 		return
 	}
-	if _, ok := ns[0].(ast.Function_decl); !ok {
-		err = fmt.Errorf("Not function_decl : %#v", ns[0])
+	if _, ok := tr.ns[0].(ast.Function_decl); !ok {
+		err = fmt.Errorf("Not function_decl : %#v", tr.ns[0])
 		return
 	}
-	n := ns[0].(ast.Function_decl)
+	n := tr.ns[0].(ast.Function_decl)
 
 	// function name
 	if index, ok := ast.IsLink(n.Name); ok {
 		var name string
-		name, err = getName(ns[index-1], ns)
+		name, err = tr.getName(tr.ns[index-1], index-1)
 		if err != nil {
 			return
 		}
@@ -63,15 +74,17 @@ func trans(ns []ast.Node) (fd goast.FuncDecl, err error) {
 	}
 
 	// funciton type
+	tr.reflectClarification(n)
 	if index, ok := ast.IsLink(n.Type); ok {
-		fmt.Printf("Cannot TODO : VarType = %#v\n", ns[index-1])
-		reflectClarification(ns[index-1], ns)
+		fmt.Printf("Cannot TODO : VarType = %#v\n", tr.ns[index-1])
+		tr.reflectClarification(tr.ns[index-1])
 
-		n := ns[index-1].(ast.Function_type)
+		n := tr.ns[index-1].(ast.Function_type)
 
+		// add Return type
 		var typ string
 		if index, ok := ast.IsLink(n.Retn); ok {
-			typ, err = transpileType(ns[index-1], ns)
+			typ, err = tr.transpileType(tr.ns[index-1])
 			if err != nil {
 				err = nil
 				typ = "UndefineVarType"
@@ -95,6 +108,7 @@ func trans(ns []ast.Node) (fd goast.FuncDecl, err error) {
 		} else {
 			fd.Type = &goast.FuncType{}
 		}
+		// end of return  type
 
 		var param []*goast.Field
 		next := n.Prms
@@ -102,7 +116,7 @@ func trans(ns []ast.Node) (fd goast.FuncDecl, err error) {
 	AGAIN:
 		if index, ok := ast.IsLink(next); ok {
 			var field *goast.Field
-			field, next, err = transpileField(ns[index-1], ns)
+			field, next, err = tr.transpileField(tr.ns[index-1])
 			if err != nil {
 				return
 			}
@@ -124,10 +138,16 @@ func trans(ns []ast.Node) (fd goast.FuncDecl, err error) {
 	// function body
 	if index, ok := ast.IsLink(n.Body); ok {
 		var stmts []goast.Stmt
-		stmts, err = transpileStmt(ns[index-1], ns)
+		stmts, err = tr.transpileStmt(tr.ns[index-1], index-1)
 		if err != nil {
 			return
 		}
+		var varsStmts []goast.Stmt
+		// varsStmts, err = parseVarDecls(ns)
+		// if err != nil {
+		// 	return
+		// }
+		stmts = append(varsStmts, stmts...)
 		fd.Body = &goast.BlockStmt{
 			Lbrace: 1,
 			List:   stmts,
@@ -135,6 +155,25 @@ func trans(ns []ast.Node) (fd goast.FuncDecl, err error) {
 		}
 	}
 
+	return
+}
+
+func (tr *transpiler) parseVarDecls() (stmts []goast.Stmt, err error) {
+	for i := range tr.ns {
+		if vd, ok := tr.ns[i].(ast.Var_decl); ok {
+			var decl goast.Decl
+			decl, err = tr.transpileVarDecl(vd, i)
+			if err != nil {
+				return
+			}
+
+			if decl != nil {
+				stmts = append(stmts, &goast.DeclStmt{Decl: decl})
+			} else {
+				fmt.Println("Decl is null")
+			}
+		}
+	}
 	return
 }
 
@@ -162,7 +201,7 @@ func CastToGoType(fortranType string) (goType string, err error) {
 	return
 }
 
-func transpileField(n ast.Node, ns []ast.Node) (
+func (tr *transpiler) transpileField(n ast.Node) (
 	field *goast.Field, next string, err error) {
 
 	switch n := n.(type) {
@@ -170,7 +209,7 @@ func transpileField(n ast.Node, ns []ast.Node) (
 	case ast.Tree_list:
 		next = n.Chan
 		if index, ok := ast.IsLink(n.Valu); ok {
-			field, _, err = transpileField(ns[index-1], ns)
+			field, _, err = tr.transpileField(tr.ns[index-1])
 			if err != nil {
 				return
 			}
@@ -178,27 +217,27 @@ func transpileField(n ast.Node, ns []ast.Node) (
 
 	default:
 		fmt.Printf("Cannot transpileField : %#v\n", n)
-		reflectClarification(n, ns)
+		tr.reflectClarification(n)
 	}
 	return
 }
 
 const tempVarF4GO string = "tempVarF4GO"
 
-func transpileVarDecl(n ast.Var_decl, ns []ast.Node) (decl goast.Decl, err error) {
+func (tr *transpiler) transpileVarDecl(n ast.Var_decl, position int) (decl goast.Decl, err error) {
 
 	var t, name string
 
 	if n.Name == "" {
-		name = tempVarF4GO
+		name = tempVarF4GO + "_" + strconv.Itoa(position)
 	} else {
 		if index, ok := ast.IsLink(n.Name); ok {
-			name = ns[index-1].(ast.Identifier_node).Strg
+			name = tr.ns[index-1].(ast.Identifier_node).Strg
 		}
 	}
 
 	if index, ok := ast.IsLink(n.Type); ok {
-		t, err = transpileType(ns[index-1], ns)
+		t, err = tr.transpileType(tr.ns[index-1])
 		if err != nil {
 			return
 		}
@@ -228,7 +267,7 @@ func transpileVarDecl(n ast.Var_decl, ns []ast.Node) (decl goast.Decl, err error
 	return
 }
 
-func getName(n ast.Node, ns []ast.Node) (name string, err error) {
+func (tr *transpiler) getName(n ast.Node, position int) (name string, err error) {
 	// fmt.Printf("getName: %#v\n", n)
 	switch n := n.(type) {
 	case ast.Identifier_node:
@@ -236,7 +275,7 @@ func getName(n ast.Node, ns []ast.Node) (name string, err error) {
 	case ast.Var_decl:
 		name = n.Name
 		if n.Name == "" {
-			name = tempVarF4GO
+			name = tempVarF4GO + "_" + strconv.Itoa(position)
 		}
 	case ast.Integer_cst:
 		name = n.Int
@@ -252,14 +291,14 @@ func getName(n ast.Node, ns []ast.Node) (name string, err error) {
 		name = n.Name
 	case ast.Array_ref:
 		if index, ok := ast.IsLink(n.Op0); ok {
-			name, err = getName(ns[index-1], ns)
+			name, err = tr.getName(tr.ns[index-1], index-1)
 			if err != nil {
 				return
 			}
 		}
 		var location string
 		if index, ok := ast.IsLink(n.Op1); ok {
-			location, err = getName(ns[index-1], ns)
+			location, err = tr.getName(tr.ns[index-1], index-1)
 			if err != nil {
 				return
 			}
@@ -272,20 +311,20 @@ func getName(n ast.Node, ns []ast.Node) (name string, err error) {
 	// fmt.Println("name = ", name)
 	if index, ok := ast.IsLink(name); ok {
 		// fmt.Println(">>> ", index, ok)
-		return getName(ns[index-1], ns)
+		return tr.getName(tr.ns[index-1], index-1)
 	}
 	return
 }
 
-func transpileDecl(n ast.Node, ns []ast.Node) (name, t string, err error) {
+func (tr *transpiler) transpileDecl(n ast.Node) (name, t string, err error) {
 	switch n := n.(type) {
 	// case ast.Var_decl:
-	// 	name, t, err = transpileVarDecl(n, ns)
+	// 	name, t, err = tr.transpileVarDecl(n, tr.ns)
 	case ast.Integer_cst:
 		name = n.Int
 
 		if index, ok := ast.IsLink(n.Type); ok {
-			t, err = transpileType(ns[index-1], ns)
+			t, err = tr.transpileType(tr.ns[index-1])
 			if err != nil {
 				return
 			}
@@ -301,13 +340,13 @@ func transpileDecl(n ast.Node, ns []ast.Node) (name, t string, err error) {
 	return
 }
 
-func arithOperation(n0, n1 string, tk token.Token, ns []ast.Node) (
+func (tr *transpiler) arithOperation(n0, n1 string, tk token.Token) (
 	expr goast.Expr, err error) {
 
 	var left, right goast.Expr
 
 	if index, ok := ast.IsLink(n0); ok {
-		left, err = transpileExpr(ns[index-1], ns)
+		left, err = tr.transpileExpr(tr.ns[index-1], index-1)
 		if err != nil {
 			// return
 			err = nil // ignore
@@ -315,7 +354,7 @@ func arithOperation(n0, n1 string, tk token.Token, ns []ast.Node) (
 	}
 
 	if index, ok := ast.IsLink(n1); ok {
-		right, err = transpileExpr(ns[index-1], ns)
+		right, err = tr.transpileExpr(tr.ns[index-1], index-1)
 		if err != nil {
 			// return
 			err = nil // ignore
@@ -338,14 +377,14 @@ func arithOperation(n0, n1 string, tk token.Token, ns []ast.Node) (
 	return
 }
 
-func transpileExpr(n ast.Node, ns []ast.Node) (
+func (tr *transpiler) transpileExpr(n ast.Node, position int) (
 	expr goast.Expr, err error) {
 	switch n := n.(type) {
 
 	case ast.Nop_expr:
 		fmt.Println("Cannot TODO: * or &")
 		if index, ok := ast.IsLink(n.Op0); ok {
-			expr, err = transpileExpr(ns[index-1], ns)
+			expr, err = tr.transpileExpr(tr.ns[index-1], index-1)
 			if err != nil {
 				return
 			}
@@ -353,7 +392,7 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 
 	case ast.Integer_cst:
 		var name string
-		name, err = getName(n, ns)
+		name, err = tr.getName(n, position)
 		if err != nil {
 			return
 		}
@@ -361,7 +400,7 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 
 	case ast.Parm_decl:
 		var name string
-		name, err = getName(n, ns)
+		name, err = tr.getName(n, position)
 		if err != nil {
 			return
 		}
@@ -370,7 +409,7 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 	case ast.Addr_expr:
 		var name string
 		if index, ok := ast.IsLink(n.Op0); ok {
-			name, err = getName(ns[index-1], ns)
+			name, err = tr.getName(tr.ns[index-1], index-1)
 			if err != nil {
 				return
 			}
@@ -381,13 +420,13 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 		var base goast.Expr
 		var field string
 		if index, ok := ast.IsLink(n.Op0); ok {
-			base, err = transpileExpr(ns[index-1], ns)
+			base, err = tr.transpileExpr(tr.ns[index-1], index-1)
 			if err != nil {
 				return
 			}
 		}
 		if index, ok := ast.IsLink(n.Op1); ok {
-			field, err = getName(ns[index-1], ns)
+			field, err = tr.getName(tr.ns[index-1], index-1)
 			if err != nil {
 				return
 			}
@@ -401,14 +440,14 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 	case ast.Call_expr:
 		var name string
 		if index, ok := ast.IsLink(n.Fn); ok {
-			name, err = getName(ns[index-1], ns)
+			name, err = tr.getName(tr.ns[index-1], index-1)
 			if err != nil {
 				return
 			}
 		}
 
 		// fmt.Printf("Cannot TODO : Call <%s> %#v\n", name, n)
-		// reflectClarification(n, ns)
+		// tr.reflectCarification(n, tr.ns)
 
 		var call goast.CallExpr
 		call.Fun = goast.NewIdent(name)
@@ -418,9 +457,9 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 		for _, v := range n.Vals {
 			// fmt.Printf("Vals -> %#v\n", v)
 			if index, ok := ast.IsLink(v); ok {
-				// fmt.Printf("\t%#v\n", ns[index-1])
+				// fmt.Printf("\t%#v\n", tr.ns[index-1])
 				var e goast.Expr
-				e, err = transpileExpr(ns[index-1], ns)
+				e, err = tr.transpileExpr(tr.ns[index-1], index-1)
 				if err != nil {
 					// return
 					err = nil // ignore
@@ -444,7 +483,7 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 
 	case ast.Var_decl:
 		var name string
-		name, err = getName(n, ns)
+		name, err = tr.getName(n, position)
 		if err != nil {
 			return
 		}
@@ -454,26 +493,26 @@ func transpileExpr(n ast.Node, ns []ast.Node) (
 		expr = goast.NewIdent(name)
 
 	case ast.Minus_expr:
-		expr, err = arithOperation(n.Op0, n.Op1, token.SUB, ns)
+		expr, err = tr.arithOperation(n.Op0, n.Op1, token.SUB)
 
 	case ast.Plus_expr:
-		expr, err = arithOperation(n.Op0, n.Op1, token.ADD, ns)
+		expr, err = tr.arithOperation(n.Op0, n.Op1, token.ADD)
 
 	case ast.Mult_expr:
-		expr, err = arithOperation(n.Op0, n.Op1, token.MUL, ns)
+		expr, err = tr.arithOperation(n.Op0, n.Op1, token.MUL)
 
 	case ast.Trunc_div_expr:
-		expr, err = arithOperation(n.Op0, n.Op1, token.QUO, ns)
+		expr, err = tr.arithOperation(n.Op0, n.Op1, token.QUO)
 
 	default:
 		fmt.Printf("Cannot transpileExpr: %#v\n", n)
-		reflectClarification(n, ns)
+		tr.reflectClarification(n)
 		expr = goast.NewIdent(f4goUndefined + n.GenNodeName())
 	}
 	return
 }
 
-func transpileStmt(n ast.Node, ns []ast.Node) (
+func (tr *transpiler) transpileStmt(n ast.Node, position int) (
 	decls []goast.Stmt, err error) {
 
 	switch n := n.(type) {
@@ -481,12 +520,12 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 	case ast.Return_expr:
 		var expr goast.Expr
 		if index, ok := ast.IsLink(n.Expr); ok {
-			expr, err = transpileExpr(ns[index-1], ns)
+			expr, err = tr.transpileExpr(tr.ns[index-1], index-1)
 			if err != nil {
 				return
 			}
 			if expr == nil {
-				fmt.Printf("ReturnStmt is nil. %#v\n", ns[index-1])
+				fmt.Printf("ReturnStmt is nil. %#v\n", tr.ns[index-1])
 			}
 		}
 		if expr == nil {
@@ -499,7 +538,7 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 
 	case ast.Call_expr:
 		var expr goast.Expr
-		expr, err = transpileExpr(n, ns)
+		expr, err = tr.transpileExpr(n, position)
 		if err != nil {
 			return
 		}
@@ -514,10 +553,10 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 		// parse var_decl
 		// fmt.Println("-----------")
 		if index, ok := ast.IsLink(n.Vars); ok {
-			// fmt.Printf("Var decl= %#v\n", ns[index-1])
+			// fmt.Printf("Var decl= %#v\n", tr.ns[index-1])
 
 			var decl goast.Decl
-			decl, err = transpileVarDecl(ns[index-1].(ast.Var_decl), ns)
+			decl, err = tr.transpileVarDecl(tr.ns[index-1].(ast.Var_decl), index-1)
 			if err != nil {
 				return
 			}
@@ -536,9 +575,9 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 		// fmt.Println("-----------")
 		if index, ok := ast.IsLink(n.Body); ok {
 
-			// fmt.Printf("Expr = %#v\n", ns[index-1])
+			// fmt.Printf("Expr = %#v\n", tr.ns[index-1])
 			var ds []goast.Stmt
-			ds, err = transpileStmt(ns[index-1], ns)
+			ds, err = tr.transpileStmt(tr.ns[index-1], index-1)
 			if err != nil {
 				return
 			}
@@ -554,7 +593,7 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 
 	// case ast.Modify_expr:
 	// 	var expr goast.Expr
-	// 	expr, err = transpileExpr(n, ns)
+	// 	expr, err = tr.transpileExpr(n, tr.ns)
 	// 	if err != nil {
 	// 		return
 	// 	}
@@ -565,7 +604,7 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 
 		var left goast.Expr
 		if index, ok := ast.IsLink(n.Op0); ok {
-			left, err = transpileExpr(ns[index-1], ns)
+			left, err = tr.transpileExpr(tr.ns[index-1], index-1)
 			if err != nil {
 				// return
 				err = nil // ignore
@@ -574,7 +613,7 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 
 		var right goast.Expr
 		if index, ok := ast.IsLink(n.Op1); ok {
-			right, err = transpileExpr(ns[index-1], ns)
+			right, err = tr.transpileExpr(tr.ns[index-1], index-1)
 			if err != nil {
 				// return
 				err = nil // ignore
@@ -602,7 +641,7 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 		for i := range n.Vals {
 			if index, ok := ast.IsLink(n.Vals[i]); ok {
 				var decl []goast.Stmt
-				decl, err = transpileStmt(ns[index-1], ns)
+				decl, err = tr.transpileStmt(tr.ns[index-1], index-1)
 				if err != nil {
 					return
 				}
@@ -612,13 +651,13 @@ func transpileStmt(n ast.Node, ns []ast.Node) (
 
 	default:
 		fmt.Printf("Cannot transpileStmt: %#v\n", n)
-		reflectClarification(n, ns)
+		tr.reflectClarification(n)
 	}
 	return
 }
 
 // reflect clarification
-func reflectClarification(n ast.Node, ns []ast.Node) {
+func (tr *transpiler) reflectClarification(n ast.Node) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("recover : ", r)
@@ -628,22 +667,23 @@ func reflectClarification(n ast.Node, ns []ast.Node) {
 		fmt.Println("Cannot reflectClarification : ", n)
 		return
 	}
+	fmt.Printf("Reflect clarification for : %#v\n", n)
 	val := reflect.Indirect(reflect.ValueOf(n))
 	for i := 0; i < val.NumField(); i++ {
 		f := val.Field(i)
 		if index, ok := ast.IsLink(f.String()); ok {
-			fmt.Printf("\t%d: %s\t--> %#v\n", i, f.String(), ns[index-1])
+			fmt.Printf("\t%d: %s\t--> %#v\n", i, f.String(), tr.ns[index-1])
 		} else {
 			fmt.Printf("\t%d: %#v\n", i, f.Interface())
 		}
 	}
 }
 
-func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
+func (tr *transpiler) transpileType(n ast.Node) (t string, err error) {
 	switch n := n.(type) {
 	case ast.Integer_type:
 		if index, ok := ast.IsLink(n.Name); ok {
-			t, err = transpileType(ns[index-1], ns)
+			t, err = tr.transpileType(tr.ns[index-1])
 			if err != nil {
 				return
 			}
@@ -651,7 +691,7 @@ func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
 
 	case ast.Type_decl:
 		if index, ok := ast.IsLink(n.Name); ok {
-			t, err = transpileType(ns[index-1], ns)
+			t, err = tr.transpileType(tr.ns[index-1])
 			if err != nil {
 				return
 			}
@@ -659,7 +699,7 @@ func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
 
 	case ast.Real_type:
 		if index, ok := ast.IsLink(n.Name); ok {
-			t, err = transpileType(ns[index-1], ns)
+			t, err = tr.transpileType(tr.ns[index-1])
 			if err != nil {
 				return
 			}
@@ -667,7 +707,7 @@ func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
 
 	case ast.Record_type:
 		if index, ok := ast.IsLink(n.Name); ok {
-			t, err = transpileType(ns[index-1], ns)
+			t, err = tr.transpileType(tr.ns[index-1])
 			if err != nil {
 				return
 			}
@@ -675,7 +715,7 @@ func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
 
 	case ast.Void_type:
 		if index, ok := ast.IsLink(n.Name); ok {
-			t, err = transpileType(ns[index-1], ns)
+			t, err = tr.transpileType(tr.ns[index-1])
 			if err != nil {
 				return
 			}
@@ -684,13 +724,13 @@ func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
 	case ast.Array_type:
 		var size, typ string
 		if index, ok := ast.IsLink(n.Size); ok {
-			size, err = getName(ns[index-1], ns)
+			size, err = tr.getName(tr.ns[index-1], index-1)
 			if err != nil {
 				return
 			}
 		}
 		if index, ok := ast.IsLink(n.Elts); ok {
-			typ, err = transpileType(ns[index-1], ns)
+			typ, err = tr.transpileType(tr.ns[index-1])
 			if err != nil {
 				return
 			}
@@ -705,7 +745,7 @@ func transpileType(n ast.Node, ns []ast.Node) (t string, err error) {
 		t = n.Strg
 	default:
 		fmt.Printf("Cannot transpileType : %#v\n", n)
-		reflectClarification(n, ns)
+		tr.reflectClarification(n)
 	}
 	return
 }
