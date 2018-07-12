@@ -8,7 +8,24 @@ import (
 )
 
 func ParseAST(treeFile string) (nss [][]Node, err error) {
-	file, err := os.Open(treeFile)
+	var blocks [][]string
+	blocks, err = GetBlocks(treeFile)
+	if err != nil {
+		return
+	}
+	for _, block := range blocks {
+		var ns []Node
+		ns, err = parseBlock(block)
+		if err != nil {
+			return
+		}
+		nss = append(nss, ns)
+	}
+	return
+}
+
+func GetBlocks(filename string) (blocks [][]string, err error) {
+	file, err := os.Open(filename)
 	if err != nil {
 		return
 	}
@@ -18,7 +35,6 @@ func ParseAST(treeFile string) (nss [][]Node, err error) {
 
 	scanner := bufio.NewScanner(file)
 
-	var ns []Node
 	for scanner.Scan() {
 		line := scanner.Text()
 		if line[0] == ' ' {
@@ -29,19 +45,10 @@ func ParseAST(treeFile string) (nss [][]Node, err error) {
 			block = append(block, line)
 			continue
 		}
-
-		ns, err = parseBlock(block)
-		if err != nil {
-			return
-		}
-		nss = append(nss, ns)
+		blocks = append(blocks, block)
 		block = []string{line}
 	}
-	ns, err = parseBlock(block)
-	if err != nil {
-		return
-	}
-	nss = append(nss, ns)
+	blocks = append(blocks, block)
 
 	if err := scanner.Err(); err != nil {
 		return nil, err
@@ -164,10 +171,10 @@ func parse(line string) (n Node, err error) {
 	if f, ok := p[line[begin:index]]; ok {
 		n = f(line[index:])
 	} else {
-		fmt.Println("Undefined:",
+		fmt.Printf("go run ./ast/generator/generator.go")
+		panic(fmt.Errorf("Undefined: %s\t%s",
 			line[begin:index],
-			"\t",
-			line[index:])
+			line[index:]))
 	}
 
 	return

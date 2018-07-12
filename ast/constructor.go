@@ -10,7 +10,7 @@ type Constructor struct {
 }
 
 func (a Constructor) GenNodeName() string {
-	return "Constructor "
+	return "constructor"
 }
 
 func parse_constructor(line string) (n Node) {

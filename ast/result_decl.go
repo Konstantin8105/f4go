@@ -1,38 +1,26 @@
 package ast
 
-import "strings"
-
 type Result_decl struct {
-	Type string
-	Scpe string
-	Srcp string
-	Note string
-	Size string
 	Algn string
+	Name string
+	Note string
+	Scpe string
+	Size string
+	Srcp string
+	Type string
 }
 
 func (a Result_decl) GenNodeName() string {
-	return "Result_decl "
+	return "result_decl"
 }
-
 func parse_result_decl(line string) (n Node) {
-	groups := groupsFromRegex(
-		`
-	type:(?P<type>.*) +
-	scpe:(?P<scpe>.*) +
-	srcp:(?P<srcp>.*) +
-	note:(?P<note>.*) +
-	size:(?P<size>.*) +
-	algn:(?P<algn>.*) *
-	`,
-		line,
-	)
 	return Result_decl{
-		Type: strings.TrimSpace(groups["type"]),
-		Scpe: strings.TrimSpace(groups["scpe"]),
-		Srcp: strings.TrimSpace(groups["srcp"]),
-		Note: strings.TrimSpace(groups["note"]),
-		Size: strings.TrimSpace(groups["size"]),
-		Algn: strings.TrimSpace(groups["algn"]),
+		Algn: findVal("algn:", &line),
+		Name: findVal("name:", &line),
+		Note: findVal("note:", &line),
+		Scpe: findVal("scpe:", &line),
+		Size: findVal("size:", &line),
+		Srcp: findVal("srcp:", &line),
+		Type: findVal("type:", &line),
 	}
 }

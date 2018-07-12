@@ -1,30 +1,18 @@
 package ast
 
-import "strings"
-
 type Modify_expr struct {
-	TypeD string
-	Op0   string
-	Op1   string
+	Op0  string
+	Op1  string
+	Type string
 }
 
 func (a Modify_expr) GenNodeName() string {
-	return "Modify_expr "
+	return "modify_expr"
 }
-
 func parse_modify_expr(line string) (n Node) {
-	groups := groupsFromRegex(
-		`
-		type:(?P<type>.*) +
-		op 0:(?P<op0>.*) +
-		op 1:(?P<op1>.*) *
-		`,
-		line,
-	)
-
 	return Modify_expr{
-		TypeD: strings.TrimSpace(groups["type"]),
-		Op0:   strings.TrimSpace(groups["op0"]),
-		Op1:   strings.TrimSpace(groups["op1"]),
+		Op0:  findVal("op 0:", &line),
+		Op1:  findVal("op 1:", &line),
+		Type: findVal("type:", &line),
 	}
 }

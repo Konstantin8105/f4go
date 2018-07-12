@@ -1,44 +1,28 @@
 package ast
 
-import "strings"
-
 type Parm_decl struct {
-	Name string
-	Type string
-	Scpe string
-	Srcp string
-	Argt string
-	Size string
 	Algn string
+	Argt string
+	Name string
+	Scpe string
+	Size string
+	Srcp string
+	Type string
 	Used string
 }
 
 func (a Parm_decl) GenNodeName() string {
-	return "Parm_decl "
+	return "parm_decl"
 }
-
 func parse_parm_decl(line string) (n Node) {
-	groups := groupsFromRegex(
-		`
-	name:(?P<name>.*) +
-	type:(?P<type>.*) +
-	scpe:(?P<scpe>.*) +
-	srcp:(?P<srcp>.*) +
-	argt:(?P<argt>.*) +
-	size:(?P<size>.*) +
-	algn:(?P<algn>.*) +
-	used:(?P<used>.*) *
-	`,
-		line,
-	)
 	return Parm_decl{
-		Name: strings.TrimSpace(groups["name"]),
-		Type: strings.TrimSpace(groups["type"]),
-		Scpe: strings.TrimSpace(groups["scpe"]),
-		Srcp: strings.TrimSpace(groups["srcp"]),
-		Argt: strings.TrimSpace(groups["argt"]),
-		Size: strings.TrimSpace(groups["size"]),
-		Algn: strings.TrimSpace(groups["algn"]),
-		Used: strings.TrimSpace(groups["used"]),
+		Algn: findVal("algn:", &line),
+		Argt: findVal("argt:", &line),
+		Name: findVal("name:", &line),
+		Scpe: findVal("scpe:", &line),
+		Size: findVal("size:", &line),
+		Srcp: findVal("srcp:", &line),
+		Type: findVal("type:", &line),
+		Used: findVal("used:", &line),
 	}
 }

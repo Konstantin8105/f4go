@@ -1,32 +1,20 @@
 package ast
 
-import "strings"
-
 type Array_type struct {
-	Size string
 	Algn string
-	Elts string
 	Domn string
+	Elts string
+	Size string
 }
 
 func (a Array_type) GenNodeName() string {
-	return "Array_type "
+	return "array_type"
 }
-
 func parse_array_type(line string) (n Node) {
-	groups := groupsFromRegex(
-		`
-	size:(?P<size>.*) +
-	algn:(?P<algn>.*) +
-	elts:(?P<elts>.*) +
-	domn:(?P<domn>.*) *
-	`,
-		line,
-	)
 	return Array_type{
-		Size: strings.TrimSpace(groups["size"]),
-		Algn: strings.TrimSpace(groups["algn"]),
-		Elts: strings.TrimSpace(groups["elts"]),
-		Domn: strings.TrimSpace(groups["domn"]),
+		Algn: findVal("algn:", &line),
+		Domn: findVal("domn:", &line),
+		Elts: findVal("elts:", &line),
+		Size: findVal("size:", &line),
 	}
 }

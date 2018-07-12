@@ -63,7 +63,7 @@ func trans(ns []ast.Node) (fd goast.FuncDecl, err error) {
 	}
 
 	// funciton type
-	if index, ok := ast.IsLink(n.VarType); ok {
+	if index, ok := ast.IsLink(n.Type); ok {
 		fmt.Printf("Cannot TODO : VarType = %#v\n", ns[index-1])
 		reflectClarification(ns[index-1], ns)
 
@@ -197,7 +197,7 @@ func transpileVarDecl(n ast.Var_decl, ns []ast.Node) (decl goast.Decl, err error
 		}
 	}
 
-	if index, ok := ast.IsLink(n.TypeD); ok {
+	if index, ok := ast.IsLink(n.Type); ok {
 		t, err = transpileType(ns[index-1], ns)
 		if err != nil {
 			return

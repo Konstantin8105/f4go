@@ -9,7 +9,7 @@ type Statement_list struct {
 }
 
 func (a Statement_list) GenNodeName() string {
-	return "Statement_list "
+	return "statement_list"
 }
 
 func parse_statement_list(line string) (n Node) {

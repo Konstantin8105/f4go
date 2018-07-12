@@ -1,30 +1,18 @@
 package ast
 
-import "strings"
-
 type Pointer_type struct {
-	Size string
 	Algn string
 	Ptd  string
+	Size string
 }
 
 func (a Pointer_type) GenNodeName() string {
-	return "Pointer_type "
+	return "pointer_type"
 }
-
 func parse_pointer_type(line string) (n Node) {
-	groups := groupsFromRegex(
-		`
-		size:(?P<size>.*) +
-		algn:(?P<algn>.*) +
-		ptd :(?P<ptd>.*) *
-		`,
-		line,
-	)
-
 	return Pointer_type{
-		Size: strings.TrimSpace(groups["size"]),
-		Algn: strings.TrimSpace(groups["algn"]),
-		Ptd:  strings.TrimSpace(groups["ptd"]),
+		Algn: findVal("algn:", &line),
+		Ptd:  findVal("ptd :", &line),
+		Size: findVal("size:", &line),
 	}
 }
