@@ -14,7 +14,25 @@ import (
 )
 
 type transpiler struct {
-	ns []ast.Node
+	ns          []ast.Node
+	initVarDecl map[string]bool
+}
+
+func (tr *transpiler) isVarDeclInit(name string) bool {
+	if tr.initVarDecl == nil {
+		tr.initVarDecl = map[string]bool{}
+	}
+	_, ok := tr.initVarDecl[name]
+	// fmt.Println("CHECK : ", name, ok, tr.initVarDecl)
+	return ok
+}
+
+func (tr *transpiler) addVarDecl(name string) {
+	if tr.initVarDecl == nil {
+		tr.initVarDecl = map[string]bool{}
+	}
+	tr.initVarDecl[name] = true
+	// fmt.Println("ADD: ", name, tr.initVarDecl)
 }
 
 const f4goUndefined string = "f4goUndefined"
@@ -142,12 +160,12 @@ func (tr *transpiler) trans() (fd goast.FuncDecl, err error) {
 		if err != nil {
 			return
 		}
-		var varsStmts []goast.Stmt
-		// varsStmts, err = parseVarDecls(ns)
+		// var varsStmts []goast.Stmt
+		// varsStmts, err = tr.parseVarDecls()
 		// if err != nil {
 		// 	return
 		// }
-		stmts = append(varsStmts, stmts...)
+		// stmts = append(varsStmts, stmts...)
 		fd.Body = &goast.BlockStmt{
 			Lbrace: 1,
 			List:   stmts,
@@ -158,24 +176,24 @@ func (tr *transpiler) trans() (fd goast.FuncDecl, err error) {
 	return
 }
 
-func (tr *transpiler) parseVarDecls() (stmts []goast.Stmt, err error) {
-	for i := range tr.ns {
-		if vd, ok := tr.ns[i].(ast.Var_decl); ok {
-			var decl goast.Decl
-			decl, err = tr.transpileVarDecl(vd, i)
-			if err != nil {
-				return
-			}
-
-			if decl != nil {
-				stmts = append(stmts, &goast.DeclStmt{Decl: decl})
-			} else {
-				fmt.Println("Decl is null")
-			}
-		}
-	}
-	return
-}
+// func (tr *transpiler) parseVarDecls() (stmts []goast.Stmt, err error) {
+// 	for i := range tr.ns {
+// 		if vd, ok := tr.ns[i].(ast.Var_decl); ok {
+// 			var decl goast.Decl
+// 			decl, err = tr.transpileVarDecl(vd, i)
+// 			if err != nil {
+// 				return
+// 			}
+//
+// 			if decl != nil {
+// 				stmts = append(stmts, &goast.DeclStmt{Decl: decl})
+// 			} else {
+// 				fmt.Println("Decl is null")
+// 			}
+// 		}
+// 	}
+// 	return
+// }
 
 func isNull(ds []goast.Stmt) bool {
 	for i := range ds {
@@ -209,7 +227,8 @@ func (tr *transpiler) transpileField(n ast.Node) (
 
 const tempVarF4GO string = "tempVarF4GO"
 
-func (tr *transpiler) transpileVarDecl(n ast.Var_decl, position int) (decl goast.Decl, err error) {
+func (tr *transpiler) transpileVarDecl(n ast.Var_decl, position int) (
+	decl goast.Decl, err error) {
 
 	var t, name string
 
@@ -248,12 +267,14 @@ func (tr *transpiler) transpileVarDecl(n ast.Var_decl, position int) (decl goast
 			},
 		},
 	}
+	tr.addVarDecl(name)
 	decl = &genDecl
 	return
 }
 
 func (tr *transpiler) getName(n ast.Node, position int) (name string, err error) {
 	// fmt.Printf("getName: %#v\n", n)
+
 	switch n := n.(type) {
 	case ast.Identifier_node:
 		name = n.Strg
@@ -291,7 +312,7 @@ func (tr *transpiler) getName(n ast.Node, position int) (name string, err error)
 		name = fmt.Sprintf("%s[%s]", name, location)
 	default:
 		fmt.Printf("Name is not found: %#v\n", n)
-		name = f4goUndefined + "GetNameFunction"
+		name = f4goUndefined + "GetNameFunction" + n.GenNodeName()
 	}
 	// fmt.Println("name = ", name)
 	if index, ok := ast.IsLink(name); ok {
@@ -473,8 +494,9 @@ func (tr *transpiler) transpileExpr(n ast.Node, position int) (
 			return
 		}
 		if name == "" {
-			name = f4goUndefined + n.GenNodeName()
+			name = tempVarF4GO + "_" + strconv.Itoa(position)
 		}
+
 		expr = goast.NewIdent(name)
 
 	case ast.Minus_expr:
@@ -589,6 +611,21 @@ func (tr *transpiler) transpileStmt(n ast.Node, position int) (
 
 		var left goast.Expr
 		if index, ok := ast.IsLink(n.Op0); ok {
+			if vd, ok := tr.ns[index].(ast.Var_decl); ok {
+				var name string
+				name, err = tr.getName(vd, index)
+				if err != nil {
+					return
+				}
+				if !tr.isVarDeclInit(name) {
+					var decl goast.Decl
+					decl, err = tr.transpileVarDecl(vd, index)
+					if err != nil {
+						return
+					}
+					decls = append(decls, &goast.DeclStmt{Decl: decl})
+				}
+			}
 			left, err = tr.transpileExpr(tr.ns[index], index)
 			if err != nil {
 				// return
@@ -614,12 +651,11 @@ func (tr *transpiler) transpileStmt(n ast.Node, position int) (
 			fmt.Println("right is null")
 			right = goast.NewIdent(f4goUndefined + "R" + n.GenNodeName())
 		}
-		decl := &goast.AssignStmt{
+		decls = append(decls, &goast.AssignStmt{
 			Lhs: []goast.Expr{left},
 			Tok: token.ASSIGN,
 			Rhs: []goast.Expr{right},
-		}
-		decls = append(decls, decl)
+		})
 
 	case ast.Statement_list:
 
