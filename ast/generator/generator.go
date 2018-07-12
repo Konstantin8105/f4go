@@ -61,7 +61,6 @@ func main() {
 	fmt.Fprintln(output, `
 package ast
 
-import "strings"
 `)
 
 	// create struct
@@ -82,17 +81,10 @@ func (a %v) GenNodeName() string {
 	// create function
 	fmt.Fprintf(output, "func parse_%s(line string) (n Node) {\n", identificator)
 
-	// create a group
-	fmt.Fprintf(output, "\tgroups := groupsFromRegex(\n\t`\n")
-	for _, t := range types {
-		fmt.Fprintf(output, "\t%v:(?P<%v>.*) +\n", t, t)
-	}
-	fmt.Fprintf(output, "\t`,\n\tline,\n\t)\n")
-
 	// create return struct
 	fmt.Fprintf(output, "\treturn %v{\n", structName)
 	for _, t := range types {
-		fmt.Fprintf(output, "\t\t%v: strings.TrimSpace(groups[\"%v\"]),\n",
+		fmt.Fprintf(output, "\t\t%v: findVal(\"%v\", &line),\n",
 			firstUpper(t), t)
 	}
 	fmt.Fprintf(output, "\t}\n")

@@ -1,11 +1,47 @@
 package ast
 
 import (
+	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
 	"sync"
 )
+
+func findVal(pattern string, line *string) (out string) {
+	if len(pattern) != 5 {
+		panic(fmt.Errorf("Pattern must have 5 letters: `%s`", pattern))
+	}
+	if pattern[4] != ':' {
+		panic(fmt.Errorf("Pattern must end on letter `:` : `%s`", pattern))
+	}
+	index := strings.Index(*line, pattern)
+	if index < 0 {
+		return ""
+	}
+	defer func() {
+		out = strings.TrimSpace(out)
+	}()
+	// Example:
+	// pattern : `algn:`
+	// begin   : `algn: `
+	// ----------------^
+	begin := index + 5
+	var ignoreSpace bool = true
+	for i := begin; i < len(*line); i++ {
+		if (*line)[i] != ' ' && ignoreSpace {
+			ignoreSpace = false
+			continue
+		}
+		if (*line)[i] == ' ' && ignoreSpace {
+			continue
+		}
+		if (*line)[i] == ' ' {
+			return (*line)[begin:i]
+		}
+	}
+	return (*line)[begin:]
+}
 
 func groupsFromRegex(rx, line string) map[string]string {
 	// We remove tabs and newlines from the regex. This is purely cosmetic,
