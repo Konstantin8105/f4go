@@ -92,7 +92,7 @@ func (tr *transpiler) trans() (fd goast.FuncDecl, err error) {
 		}
 
 		if typ != "void" {
-			typ, err = CastToGoType(typ)
+			typ, err = castToGoType(typ)
 			if err != nil {
 				return
 			}
@@ -186,21 +186,6 @@ func isNull(ds []goast.Stmt) bool {
 	return false
 }
 
-func CastToGoType(fortranType string) (goType string, err error) {
-	switch fortranType {
-	case "integer(kind=4)":
-		goType = "int"
-	case "real(kind=4)":
-		goType = "float64"
-	case "character(kind=1)":
-		goType = "byte"
-	default:
-		fmt.Printf("Cannot CastToGoType: %v\n", fortranType)
-		goType = fortranType
-	}
-	return
-}
-
 func (tr *transpiler) transpileField(n ast.Node) (
 	field *goast.Field, next string, err error) {
 
@@ -241,7 +226,7 @@ func (tr *transpiler) transpileVarDecl(n ast.Var_decl, position int) (decl goast
 		if err != nil {
 			return
 		}
-		t, err = CastToGoType(t)
+		t, err = castToGoType(t)
 		if err != nil {
 			return
 		}
@@ -329,7 +314,7 @@ func (tr *transpiler) transpileDecl(n ast.Node) (name, t string, err error) {
 				return
 			}
 		}
-		t, err = CastToGoType(t)
+		t, err = castToGoType(t)
 		if err != nil {
 			return
 		}
@@ -735,7 +720,7 @@ func (tr *transpiler) transpileType(n ast.Node) (t string, err error) {
 				return
 			}
 		}
-		typ, err = CastToGoType(typ)
+		typ, err = castToGoType(typ)
 		if err != nil {
 			return
 		}
