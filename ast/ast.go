@@ -64,6 +64,7 @@ func parseBlock(block []string) (ns []Node, err error) {
 
 	for i, l := range block {
 		if i == 0 {
+			ns = append(ns, FunctionLine{Line: l})
 			continue
 		}
 
