@@ -398,6 +398,34 @@ func (tr *transpiler) transpileExpr(n ast.Node, position int) (
 			}
 		}
 
+	case ast.Fix_trunc_expr:
+		if index, ok := ast.IsLink(n.Op0); ok {
+			expr, err = tr.transpileExpr(tr.ns[index], index)
+			if err != nil {
+				return
+			}
+		}
+
+	case ast.Indirect_ref:
+		if index, ok := ast.IsLink(n.Op0); ok {
+			expr, err = tr.transpileExpr(tr.ns[index], index)
+			if err != nil {
+				return
+			}
+			expr = &goast.StarExpr{
+				Star: 1,
+				X:    expr,
+			}
+		}
+
+	case ast.Float_expr:
+		if index, ok := ast.IsLink(n.Op0); ok {
+			expr, err = tr.transpileExpr(tr.ns[index], index)
+			if err != nil {
+				return
+			}
+		}
+
 	case ast.Integer_cst:
 		var name string
 		name, err = tr.getName(n, position)

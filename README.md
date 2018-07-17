@@ -35,11 +35,11 @@ func func() int {
 		{
 			var tempVarF4GO_34 int
 			var tempVarF4GO_44 int
-			tempVarF4GO_44 = f4goUndefinedindirect_ref
+			tempVarF4GO_44 = *i
 			var tempVarF4GO_46 int
 			tempVarF4GO_46 = tempVarF4GO_44 * tempVarF4GO_44
 			var tempVarF4GO_48 int
-			tempVarF4GO_48 = f4goUndefinedindirect_ref
+			tempVarF4GO_48 = *i
 			var tempVarF4GO_50 int
 			tempVarF4GO_50 = tempVarF4GO_48 * tempVarF4GO_48
 			tempVarF4GO_34 = tempVarF4GO_48 * tempVarF4GO_50
