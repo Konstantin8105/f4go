@@ -2,6 +2,7 @@ package main
 
 import (
 	"io/ioutil"
+	"os"
 	"os/exec"
 
 	"github.com/Konstantin8105/f4go/ast"
@@ -16,6 +17,7 @@ func main() {
 
 func transpile(file string) (err error) {
 	treeFile := file + ".out"
+	_ = os.Remove(treeFile)
 	err = exec.Command("gfortran",
 		"-fdump-tree-original-raw="+treeFile,
 		"-c",
