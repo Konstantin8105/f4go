@@ -74,5 +74,4 @@ func TestScanner(t *testing.T) {
 			}
 		})
 	}
-
 }
