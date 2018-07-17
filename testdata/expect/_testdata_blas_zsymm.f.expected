@@ -187,7 +187,7 @@ COMMENT	*>     Sven Hammarling, Numerical Algorithms Group Ltd.
 COMMENT	*> \endverbatim
 COMMENT	*>
 COMMENT	*  =====================================================================
-IDENT	SUBROUTINE
+token(96)	SUBROUTINE
 IDENT	ZSYMM
 (	(
 IDENT	SIDE

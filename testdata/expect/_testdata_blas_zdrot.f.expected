@@ -96,7 +96,7 @@ COMMENT	*
 COMMENT	*> \ingroup complex16_blas_level1
 COMMENT	*
 COMMENT	*  =====================================================================
-IDENT	SUBROUTINE
+token(96)	SUBROUTINE
 IDENT	ZDROT
 (	(
 IDENT	N

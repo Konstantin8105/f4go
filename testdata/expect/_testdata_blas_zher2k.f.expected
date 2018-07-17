@@ -196,7 +196,7 @@ COMMENT	*>     Ed Anderson, Cray Research Inc.
 COMMENT	*> \endverbatim
 COMMENT	*>
 COMMENT	*  =====================================================================
-IDENT	SUBROUTINE
+token(96)	SUBROUTINE
 IDENT	ZHER2K
 (	(
 IDENT	UPLO

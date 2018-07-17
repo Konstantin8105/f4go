@@ -67,7 +67,7 @@ COMMENT	*>     jack dongarra, linpack, 3/11/78.
 COMMENT	*> \endverbatim
 COMMENT	*>
 COMMENT	*  =====================================================================
-IDENT	SUBROUTINE
+token(96)	SUBROUTINE
 IDENT	DROTG
 (	(
 IDENT	DA

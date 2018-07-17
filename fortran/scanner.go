@@ -209,9 +209,9 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		}
 	}
 
-	// if buf.String() == "SUBROUTINE" {
-	// 	return SUBROUTINE, buf.String()
-	// }
+	if buf.String() == "SUBROUTINE" {
+		return SUBROUTINE, buf.String()
+	}
 
 	// Otherwise return as a regular identifier.
 	return token.IDENT, buf.String()

@@ -145,7 +145,7 @@ COMMENT	*>     Richard Hanson, Sandia National Labs.
 COMMENT	*> \endverbatim
 COMMENT	*>
 COMMENT	*  =====================================================================
-IDENT	SUBROUTINE
+token(96)	SUBROUTINE
 IDENT	STRMV
 (	(
 IDENT	UPLO

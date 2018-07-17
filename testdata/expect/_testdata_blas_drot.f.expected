@@ -90,7 +90,7 @@ COMMENT	*>     modified 12/3/93, array(1) declarations changed to array(*)
 COMMENT	*> \endverbatim
 COMMENT	*>
 COMMENT	*  =====================================================================
-IDENT	SUBROUTINE
+token(96)	SUBROUTINE
 IDENT	DROT
 (	(
 IDENT	N

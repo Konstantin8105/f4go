@@ -1,7 +1,7 @@
 COMMENT	*** for old version, "send otqlrat from eispack"
 COMMENT	** From dana!moler Tue, 1 Sep 87 10:15:40 PDT
 COMMENT	** New TQLRAT
-IDENT	SUBROUTINE
+token(96)	SUBROUTINE
 IDENT	TQLRAT
 (	(
 IDENT	N

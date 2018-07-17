@@ -88,7 +88,7 @@ COMMENT	*
 COMMENT	*> \ingroup double_blas_level1
 COMMENT	*
 COMMENT	*  =====================================================================
-IDENT	SUBROUTINE
+token(96)	SUBROUTINE
 IDENT	DROTMG
 (	(
 IDENT	DD1

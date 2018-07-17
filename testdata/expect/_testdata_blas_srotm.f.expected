@@ -95,7 +95,7 @@ COMMENT	*
 COMMENT	*> \ingroup single_blas_level1
 COMMENT	*
 COMMENT	*  =====================================================================
-IDENT	SUBROUTINE
+token(96)	SUBROUTINE
 IDENT	SROTM
 (	(
 IDENT	N

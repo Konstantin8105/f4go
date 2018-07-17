@@ -78,7 +78,7 @@ COMMENT	*
 COMMENT	*> \ingroup aux_blas
 COMMENT	*
 COMMENT	*  =====================================================================
-IDENT	SUBROUTINE
+token(96)	SUBROUTINE
 IDENT	XERBLA_ARRAY
 (	(
 IDENT	SRNAME_ARRAY
