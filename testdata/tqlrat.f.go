@@ -36,7 +36,7 @@ func tqlrat() {
 		f = 0.0
 		var t real(kind=8)
 		t = 0.0
-		f4goUndefinedarray_ref = 0.0
+		(*e2)[*n+-1] = 0.0
 		{
 			var tempVarF4GO_96 int
 			tempVarF4GO_96 = *n

@@ -418,6 +418,14 @@ func (tr *transpiler) transpileExpr(n ast.Node, position int) (
 			}
 		}
 
+	case ast.Non_lvalue_expr:
+		if index, ok := ast.IsLink(n.Op0); ok {
+			expr, err = tr.transpileExpr(tr.ns[index], index)
+			if err != nil {
+				return
+			}
+		}
+
 	case ast.Float_expr:
 		if index, ok := ast.IsLink(n.Op0); ok {
 			expr, err = tr.transpileExpr(tr.ns[index], index)
@@ -433,6 +441,26 @@ func (tr *transpiler) transpileExpr(n ast.Node, position int) (
 			return
 		}
 		expr = goast.NewIdent(name)
+
+	case ast.Array_ref:
+		var name goast.Expr
+		if index, ok := ast.IsLink(n.Op0); ok {
+			name, err = tr.transpileExpr(tr.ns[index], index)
+			if err != nil {
+				return
+			}
+		}
+		var location goast.Expr
+		if index, ok := ast.IsLink(n.Op1); ok {
+			location, err = tr.transpileExpr(tr.ns[index], index)
+			if err != nil {
+				return
+			}
+		}
+		expr = &goast.IndexExpr{
+			X:     name,
+			Index: location,
+		}
 
 	case ast.Parm_decl:
 		var name string
