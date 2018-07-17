@@ -50,6 +50,9 @@ func (s *Scanner) Scan() (tok token.Token, lit string) {
 
 	// Otherwise read the individual character.
 	switch ch {
+	case '$':
+		// contiguous line
+		return s.Scan()
 	case eof:
 		return token.EOF, ""
 	case '(':
