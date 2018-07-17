@@ -4,7 +4,7 @@ Transpiling fortran code to golang code
 
 AST from `gfortran`. Example:
 ```bash
-	gfortran -fdump-tree-original-raw=ast.tree hello.f
+	gfortran -fdump-tree-original-raw=ast.tree -c hello.f
 ```
 
 Present result:
