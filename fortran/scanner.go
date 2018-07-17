@@ -9,30 +9,33 @@ import (
 
 // Scanner represents a lexical scanner.
 type Scanner struct {
-	r *bufio.Reader
+	r     *bufio.Reader
+	start bool
 }
 
 // NewScanner returns a new instance of Scanner.
 func NewScanner(r io.Reader) *Scanner {
-	return &Scanner{r: bufio.NewReader(r)}
-}
-
-func (s *Scanner) ignoreWhitespace() {
-	for {
-		if ch := s.read(); ch == eof {
-			break
-		} else if !isWhitespace(ch) {
-			s.unread()
-			break
-		}
+	return &Scanner{
+		r:     bufio.NewReader(r),
+		start: true,
 	}
 }
 
 // Scan returns the next token and literal value.
 func (s *Scanner) Scan() (tok token.Token, lit string) {
 	// Read the next rune.
-	s.ignoreWhitespace()
+	firstLetterInLine := s.ignoreWhitespace()
+	if firstLetterInLine == 'C' || firstLetterInLine == '*' {
+		return s.scanComment()
+	}
 	ch := s.read()
+
+	if s.start {
+		s.start = false
+		if ch == 'C' || ch == '*' {
+			return s.scanComment()
+		}
+	}
 
 	// If we see whitespace then consume all contiguous whitespace.
 	// If we see a letter then consume as an ident or reserved word.
@@ -71,6 +74,22 @@ func (s *Scanner) Scan() (tok token.Token, lit string) {
 	}
 
 	return token.ILLEGAL, string(ch)
+}
+
+func (s *Scanner) ignoreWhitespace() (firstLetterInLine rune) {
+	for {
+		if ch := s.read(); ch == eof {
+			break
+		} else if ch != ' ' && ch != '\t' && ch != '\n' {
+			s.unread()
+			break
+		} else if ch == '\n' {
+			firstLetterInLine = s.read()
+			s.unread()
+		}
+	}
+
+	return
 }
 
 func (s *Scanner) scanStar() (tok token.Token, lit string) {
@@ -134,7 +153,7 @@ func (s *Scanner) scanString() (tok token.Token, lit string) {
 	}
 
 	// Otherwise return as a regular identifier.
-	return token.COMMENT, buf.String()
+	return token.STRING, buf.String()
 }
 
 func (s *Scanner) scanComment() (tok token.Token, lit string) {
@@ -145,7 +164,10 @@ func (s *Scanner) scanComment() (tok token.Token, lit string) {
 	// Read every subsequent ident character into the buffer.
 	// Non-ident characters and EOF will cause the loop to exit.
 	for {
-		if ch := s.read(); ch == eof || ch == '\n' {
+		if ch := s.read(); ch == eof {
+			break
+		} else if ch == '\n' {
+			s.unread()
 			break
 		} else {
 			_, _ = buf.WriteRune(ch)
@@ -153,7 +175,7 @@ func (s *Scanner) scanComment() (tok token.Token, lit string) {
 	}
 
 	// Otherwise return as a regular identifier.
-	return token.STRING, buf.String()
+	return token.COMMENT, buf.String()
 }
 
 // scanIdent consumes the current rune and all contiguous ident runes.
@@ -191,9 +213,6 @@ func (s *Scanner) read() rune {
 
 // unread places the previously read rune back on the reader.
 func (s *Scanner) unread() { _ = s.r.UnreadRune() }
-
-// isWhitespace returns true if the rune is a space, tab, or newline.
-func isWhitespace(ch rune) bool { return ch == ' ' || ch == '\t' || ch == '\n' }
 
 // isLetter returns true if the rune is a letter.
 func isLetter(ch rune) bool { return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') }
