@@ -2,6 +2,11 @@
 
 Transpiling fortran code to golang code
 
+AST from `gfortran`. Example:
+```bash
+	gfortran -fdump-tree-original-raw=ast.tree hello.f
+```
+
 Present result:
 ```fortran
         function func(i) result(j)
