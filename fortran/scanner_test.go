@@ -3,6 +3,7 @@ package fortran
 import (
 	"bufio"
 	"fmt"
+	"go/token"
 	"os"
 	"path/filepath"
 	"testing"
@@ -28,7 +29,7 @@ func TestScanner(t *testing.T) {
 			s := NewScanner(bufio.NewReader(file))
 			for {
 				tok, lit := s.Scan()
-				if tok == ILLEGAL || tok == EOF {
+				if tok == token.ILLEGAL || tok == token.EOF {
 					fmt.Println("->", lit)
 					break
 				}

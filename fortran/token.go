@@ -1,27 +1,7 @@
 package fortran
 
-// Token represents a lexical token.
-type Token int
+import "go/token"
 
 const (
-	// Special tokens
-	ILLEGAL Token = iota
-	EOF
-	WS
-
-	// Literals
-	IDENT // fields, table_name
-
-	// Other
-	OPEN  // (
-	CLOSE // )
-	COMMA // ,
-
-	DOUBLE_POINTS // :
-
-	COMMENT // !
-
-	EQUAL // =
-	STAR  // *
-	NUMBER
+	DOUBLE_STAR token.Token = iota + token.VAR + 1 // **
 )

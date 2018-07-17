@@ -3,6 +3,7 @@ package fortran
 import (
 	"bufio"
 	"bytes"
+	"go/token"
 	"io"
 )
 
@@ -16,18 +17,27 @@ func NewScanner(r io.Reader) *Scanner {
 	return &Scanner{r: bufio.NewReader(r)}
 }
 
+func (s *Scanner) ignoreWhitespace() {
+	for {
+		if ch := s.read(); ch == eof {
+			break
+		} else if !isWhitespace(ch) {
+			s.unread()
+			break
+		}
+	}
+}
+
 // Scan returns the next token and literal value.
-func (s *Scanner) Scan() (tok Token, lit string) {
+func (s *Scanner) Scan() (tok token.Token, lit string) {
 	// Read the next rune.
+	s.ignoreWhitespace()
 	ch := s.read()
 
 	// If we see whitespace then consume all contiguous whitespace.
 	// If we see a letter then consume as an ident or reserved word.
 	// If we see a digit then consume as a number.
-	if isWhitespace(ch) {
-		s.unread()
-		return s.scanWhitespace()
-	} else if isLetter(ch) {
+	if isLetter(ch) {
 		s.unread()
 		return s.scanIdent()
 	} else if isDigit(ch) {
@@ -38,50 +48,52 @@ func (s *Scanner) Scan() (tok Token, lit string) {
 	// Otherwise read the individual character.
 	switch ch {
 	case eof:
-		return EOF, ""
+		return token.EOF, ""
 	case '(':
-		return OPEN, string(ch)
+		return token.LPAREN, string(ch)
 	case ')':
-		return CLOSE, string(ch)
+		return token.RPAREN, string(ch)
 	case ',':
-		return COMMA, string(ch)
+		return token.COMMA, string(ch)
 	case ':':
-		return DOUBLE_POINTS, string(ch)
+		return token.COLON, string(ch)
 	case '=':
-		return EQUAL, string(ch)
+		return token.ASSIGN, string(ch)
 	case '*':
-		return STAR, string(ch)
+		s.unread()
+		return s.scanStar()
 	case '!':
 		s.unread()
 		return s.scanComment()
+	case '"':
+		s.unread()
+		return s.scanString()
 	}
 
-	return ILLEGAL, string(ch)
+	return token.ILLEGAL, string(ch)
 }
 
-// scanWhitespace consumes the current rune and all contiguous whitespace.
-func (s *Scanner) scanWhitespace() (tok Token, lit string) {
+func (s *Scanner) scanStar() (tok token.Token, lit string) {
 	// Create a buffer and read the current character into it.
 	var buf bytes.Buffer
 	buf.WriteRune(s.read())
 
-	// Read every subsequent whitespace character into the buffer.
-	// Non-whitespace characters and EOF will cause the loop to exit.
-	for {
-		if ch := s.read(); ch == eof {
-			break
-		} else if !isWhitespace(ch) {
-			s.unread()
-			break
-		} else {
-			buf.WriteRune(ch)
-		}
+	// Read every subsequent ident character into the buffer.
+	// Non-ident characters and EOF will cause the loop to exit.
+	ch := s.read()
+	_, _ = buf.WriteRune(ch)
+
+	ch = s.read()
+	if ch == '*' {
+		return DOUBLE_STAR, buf.String()
+	} else {
+		s.unread()
 	}
 
-	return WS, buf.String()
+	return token.MUL, buf.String()
 }
 
-func (s *Scanner) scanNumber() (tok Token, lit string) {
+func (s *Scanner) scanNumber() (tok token.Token, lit string) {
 	// Create a buffer and read the current character into it.
 	var buf bytes.Buffer
 	buf.WriteRune(s.read())
@@ -100,10 +112,32 @@ func (s *Scanner) scanNumber() (tok Token, lit string) {
 	}
 
 	// Otherwise return as a regular identifier.
-	return COMMENT, buf.String()
+	return token.IDENT, buf.String()
 }
 
-func (s *Scanner) scanComment() (tok Token, lit string) {
+func (s *Scanner) scanString() (tok token.Token, lit string) {
+	// Create a buffer and read the current character into it.
+	var buf bytes.Buffer
+	buf.WriteRune(s.read())
+
+	// Read every subsequent ident character into the buffer.
+	// Non-ident characters and EOF will cause the loop to exit.
+	for {
+		if ch := s.read(); ch == eof {
+			break
+		} else if ch == '"' {
+			_, _ = buf.WriteRune(ch)
+			break
+		} else {
+			_, _ = buf.WriteRune(ch)
+		}
+	}
+
+	// Otherwise return as a regular identifier.
+	return token.COMMENT, buf.String()
+}
+
+func (s *Scanner) scanComment() (tok token.Token, lit string) {
 	// Create a buffer and read the current character into it.
 	var buf bytes.Buffer
 	buf.WriteRune(s.read())
@@ -119,11 +153,11 @@ func (s *Scanner) scanComment() (tok Token, lit string) {
 	}
 
 	// Otherwise return as a regular identifier.
-	return COMMENT, buf.String()
+	return token.STRING, buf.String()
 }
 
 // scanIdent consumes the current rune and all contiguous ident runes.
-func (s *Scanner) scanIdent() (tok Token, lit string) {
+func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 	// Create a buffer and read the current character into it.
 	var buf bytes.Buffer
 	buf.WriteRune(s.read())
@@ -142,7 +176,7 @@ func (s *Scanner) scanIdent() (tok Token, lit string) {
 	}
 
 	// Otherwise return as a regular identifier.
-	return IDENT, buf.String()
+	return token.IDENT, buf.String()
 }
 
 // read reads the next rune from the buffered reader.
