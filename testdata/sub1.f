@@ -11,4 +11,5 @@
            i = 4
            call square_cube(i,isq,icub)
            print*,"i,i^2,i^3=",i,isq,icub
+           print*,"i,i^2,i^3=",i,isq,icub
        end program xx
