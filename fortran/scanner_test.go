@@ -16,7 +16,9 @@ import (
 func getFortranTestFiles() (files []string, err error) {
 	locations := []string{
 		"../testdata/*.f",
+		"../testdata/*.f90",
 		"../testdata/ftnchek/*.f",
+		"../testdata/ftnchek/*.f90",
 	}
 	for _, loc := range locations {
 		var fs []string
