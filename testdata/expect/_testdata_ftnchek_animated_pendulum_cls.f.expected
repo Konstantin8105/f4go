@@ -1,4 +1,4 @@
-IDENT	SubRoutine
+token(96)	SubRoutine
 IDENT	CLS
 COMMENT	*
 COMMENT	*     Clears the screen.

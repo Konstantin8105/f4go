@@ -1,4 +1,4 @@
-IDENT	program
+token(97)	program
 IDENT	hello_world
 IDENT	implicit
 IDENT	none

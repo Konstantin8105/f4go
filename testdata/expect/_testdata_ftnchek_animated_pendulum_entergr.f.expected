@@ -1,4 +1,4 @@
-IDENT	SubRoutine
+token(96)	SubRoutine
 IDENT	EnterGraphicsMode
 COMMENT	!
 COMMENT	!       Enter ReGIS, clear screen

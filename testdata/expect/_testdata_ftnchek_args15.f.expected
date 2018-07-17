@@ -5,7 +5,7 @@ IDENT	5
 IDENT	hjunky
 )	)
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	suba
 (	(
 IDENT	i

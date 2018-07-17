@@ -1,4 +1,4 @@
-IDENT	program
+token(97)	program
 IDENT	test1
 IDENT	c
 IDENT	character

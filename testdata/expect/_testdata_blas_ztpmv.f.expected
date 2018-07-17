@@ -164,7 +164,7 @@ COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd
 COMMENT	*     December 2016
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	INCX
 ,	,
 IDENT	N
@@ -221,7 +221,7 @@ IDENT	COMPLEX
 *	*1
 IDENT	6
 IDENT	TEMP
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	I
 ,	,
 IDENT	INFO

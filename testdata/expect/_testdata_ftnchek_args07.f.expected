@@ -17,7 +17,7 @@ IDENT	suba
 IDENT	c
 )	)
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	suba
 (	(
 IDENT	c

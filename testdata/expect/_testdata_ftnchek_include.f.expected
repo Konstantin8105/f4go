@@ -8,7 +8,7 @@ COMMENT	C     This program is an example word counter that makes use of several
 COMMENT	C     Fortran intrinsic functions and data structures, such as; 
 COMMENT	C     common, sub-routines, functions, inplied do loops, and much, much more.
 COMMENT	C
-IDENT	Program
+token(97)	Program
 IDENT	WC
 COMMENT	CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 COMMENT	C     Program:    Word_Count_And_Other_Stuff                                 C
@@ -38,7 +38,7 @@ IDENT	End
 COMMENT	C
 COMMENT	C     SubRoutine to get all kinds of neat statistics.
 COMMENT	C
-IDENT	SubRoutine
+token(96)	SubRoutine
 IDENT	GetStats
 (	(
 IDENT	Fname
@@ -225,7 +225,7 @@ IDENT	End
 COMMENT	C
 COMMENT	C     SubRoutine to print to terminal all of these neat statistics.
 COMMENT	C
-IDENT	SubRoutine
+token(96)	SubRoutine
 IDENT	PrintStats
 IDENT	Include
 STRING	'stats.h'
@@ -436,7 +436,7 @@ IDENT	End
 COMMENT	C
 COMMENT	C     SubRoutine to prompt for and return a filename.
 COMMENT	C
-IDENT	SubRoutine
+token(96)	SubRoutine
 IDENT	GetFileName
 (	(
 IDENT	Fname
@@ -481,7 +481,7 @@ IDENT	End
 COMMENT	C
 COMMENT	C     SubRoutine to initailize globally used variables.
 COMMENT	C
-IDENT	SubRoutine
+token(96)	SubRoutine
 IDENT	Initialize
 IDENT	Common
 /	/

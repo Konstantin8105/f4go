@@ -1,4 +1,4 @@
-IDENT	subroutine
+token(96)	subroutine
 IDENT	foo
 (	(
 IDENT	d
@@ -21,7 +21,7 @@ IDENT	character
 *	*1
 IDENT	7
 IDENT	xx
-IDENT	integer
+token(98)	integer
 IDENT	a
 (	(
 IDENT	1
@@ -49,7 +49,7 @@ IDENT	k
 +	+
 IDENT	1
 )	)
-IDENT	integer
+token(98)	integer
 IDENT	d
 (	(
 token(95)	*,

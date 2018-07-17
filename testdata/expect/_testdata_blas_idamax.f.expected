@@ -69,7 +69,7 @@ COMMENT	*>     modified 12/3/93, array(1) declarations changed to array(*)
 COMMENT	*> \endverbatim
 COMMENT	*>
 COMMENT	*  =====================================================================
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	FUNCTION
 IDENT	IDAMAX
 (	(
@@ -86,7 +86,7 @@ COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd
 COMMENT	*     November 2017
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	INCX
 ,	,
 IDENT	N
@@ -105,7 +105,7 @@ COMMENT	*     .. Local Scalars ..
 IDENT	DOUBLE
 IDENT	PRECISION
 IDENT	DMAX
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	I
 ,	,
 IDENT	IX

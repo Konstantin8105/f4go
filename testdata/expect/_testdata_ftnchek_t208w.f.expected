@@ -176,7 +176,7 @@ IDENT	precision
 IDENT	x
 ,	,
 IDENT	y
-IDENT	integer
+token(98)	integer
 IDENT	a
 ,	,
 IDENT	b
@@ -191,7 +191,7 @@ IDENT	a
 IDENT	b
 ,	,
 IDENT	c
-IDENT	integer
+token(98)	integer
 IDENT	d
 ,	,
 IDENT	e
@@ -206,7 +206,7 @@ IDENT	d
 IDENT	e
 ,	,
 IDENT	f
-IDENT	integer
+token(98)	integer
 IDENT	g
 ,	,
 IDENT	h

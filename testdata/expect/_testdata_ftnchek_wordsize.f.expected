@@ -19,7 +19,7 @@ IDENT	a
 IDENT	b
 IDENT	return
 IDENT	end
-IDENT	program
+token(97)	program
 IDENT	main
 IDENT	real
 *	*8

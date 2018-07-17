@@ -1,4 +1,4 @@
-IDENT	integer
+token(98)	integer
 IDENT	MAXTOK
 IDENT	parameter
 (	(

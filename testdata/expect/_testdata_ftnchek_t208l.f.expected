@@ -1,4 +1,4 @@
-IDENT	subroutine
+token(96)	subroutine
 IDENT	foo
 (	(
 IDENT	a
@@ -7,7 +7,7 @@ IDENT	m
 ,	,
 IDENT	n
 )	)
-IDENT	integer
+token(98)	integer
 IDENT	m
 ,	,
 IDENT	n

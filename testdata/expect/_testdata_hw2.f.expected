@@ -1,4 +1,4 @@
-IDENT	program
+token(97)	program
 IDENT	hello_world2
 IDENT	implicit
 IDENT	none
@@ -8,7 +8,7 @@ IDENT	hello
 IDENT	call
 IDENT	hello
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	hello
 IDENT	implicit
 IDENT	none

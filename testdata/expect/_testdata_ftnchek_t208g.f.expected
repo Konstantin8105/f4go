@@ -1,6 +1,6 @@
-IDENT	subroutine
+token(96)	subroutine
 IDENT	foo
-IDENT	integer
+token(98)	integer
 IDENT	n
 IDENT	n
 =	=

@@ -1,4 +1,4 @@
-IDENT	SubRoutine
+token(96)	SubRoutine
 IDENT	ExitGraphicsMode
 COMMENT	C  Go out of graphics mode back to
 COMMENT	C  text mode.

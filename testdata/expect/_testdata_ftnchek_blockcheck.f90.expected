@@ -1,9 +1,9 @@
-IDENT	program
+token(97)	program
 IDENT	blocks
 COMMENT	! program to check parsing of block structures
 IDENT	real
 IDENT	x
-IDENT	integer
+token(98)	integer
 IDENT	n
 IDENT	x
 =	=
@@ -244,7 +244,7 @@ IDENT	case2
 IDENT	end
 IDENT	if
 IDENT	end
-IDENT	program
+token(97)	program
 IDENT	blocks
 IDENT	function
 IDENT	bar
@@ -336,7 +336,7 @@ IDENT	d
 IDENT	end
 IDENT	function
 IDENT	bar
-IDENT	subroutine
+token(96)	subroutine
 IDENT	baz
 (	(
 IDENT	c
@@ -439,5 +439,5 @@ IDENT	c
 ,	,
 IDENT	d
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	baz

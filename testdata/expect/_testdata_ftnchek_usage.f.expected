@@ -1,4 +1,4 @@
-IDENT	program
+token(97)	program
 IDENT	yacctest
 IDENT	c
 IDENT	c
@@ -12,7 +12,7 @@ COMMENT	*  Should pass the current version.
 COMMENT	C  It is also a legal, though not especially meaningful, program
 COMMENT	*
 IDENT	implicit
-IDENT	integer
+token(98)	integer
 (	(
 IDENT	u
 -	-
@@ -117,8 +117,8 @@ IDENT	real
 (	(
 IDENT	r
 )	)
-IDENT	integer
-IDENT	program
+token(98)	integer
+token(97)	program
 (	(
 IDENT	3
 ,	,
@@ -193,7 +193,7 @@ IDENT	9
 )	)
 ,	,
 IDENT	ifa
-IDENT	integer
+token(98)	integer
 IDENT	xray
 IDENT	external
 IDENT	xray
@@ -311,7 +311,7 @@ IDENT	t
 IDENT	hurt
 IDENT	a
 IDENT	bit
-IDENT	integer
+token(98)	integer
 IDENT	function
 IDENT	xray
 (	(
@@ -337,7 +337,7 @@ IDENT	1
 IDENT	0
 IDENT	D0
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	home
 (	(
 IDENT	x

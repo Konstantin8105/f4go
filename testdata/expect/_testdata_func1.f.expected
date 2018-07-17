@@ -7,7 +7,7 @@ IDENT	result
 (	(
 IDENT	j
 )	)
-IDENT	integer
+token(98)	integer
 ,	,
 IDENT	intent
 (	(
@@ -17,7 +17,7 @@ IDENT	in
 :	:
 IDENT	i
 COMMENT	! input
-IDENT	integer
+token(98)	integer
 :	:
 :	:
 IDENT	j
@@ -34,15 +34,15 @@ IDENT	3
 IDENT	end
 IDENT	function
 IDENT	func
-IDENT	program
+token(97)	program
 IDENT	xfunc
 IDENT	implicit
 IDENT	none
-IDENT	integer
+token(98)	integer
 :	:
 :	:
 IDENT	i
-IDENT	integer
+token(98)	integer
 :	:
 :	:
 IDENT	func
@@ -62,5 +62,5 @@ IDENT	func
 IDENT	i
 )	)
 IDENT	end
-IDENT	program
+token(97)	program
 IDENT	xfunc

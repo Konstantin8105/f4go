@@ -1,11 +1,11 @@
 COMMENT	 This program tickled a bug in gcc under DEC Unix for Alpha
-IDENT	PROGRAM
+token(97)	PROGRAM
 IDENT	X
 IDENT	CHARACTER
 *	*8
 IDENT	0
 IDENT	LINE
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	LSTART
 ,	,
 IDENT	LEND

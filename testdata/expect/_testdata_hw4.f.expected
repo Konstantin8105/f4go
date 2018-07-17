@@ -1,4 +1,4 @@
-IDENT	program
+token(97)	program
 IDENT	main
 IDENT	write
 (	(

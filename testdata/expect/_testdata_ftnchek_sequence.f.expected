@@ -6,7 +6,7 @@ IDENT	1
 .	.
 IDENT	0
 /	/
-IDENT	integer
+token(98)	integer
 IDENT	a
 ,	,
 IDENT	b

@@ -111,7 +111,7 @@ COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
 IDENT	REAL
 IDENT	SA
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	INCX
 ,	,
 IDENT	INCY
@@ -132,7 +132,7 @@ COMMENT	*
 COMMENT	*  =====================================================================
 COMMENT	*
 COMMENT	*     .. Local Scalars ..
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	I
 ,	,
 IDENT	IX

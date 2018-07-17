@@ -1,10 +1,10 @@
 IDENT	implicit
 IDENT	none
-IDENT	integer
+token(98)	integer
 IDENT	M
 ,	,
 IDENT	numprimes
-IDENT	integer
+token(98)	integer
 IDENT	MAXPRIMES
 IDENT	parameter
 (	(
@@ -12,12 +12,12 @@ IDENT	MAXPRIMES
 =	=
 IDENT	10000
 )	)
-IDENT	integer
+token(98)	integer
 IDENT	primes
 (	(
 IDENT	MAXPRIMES
 )	)
-IDENT	integer
+token(98)	integer
 IDENT	makeprimes
 IDENT	write
 (	(
@@ -51,7 +51,7 @@ IDENT	primes
 IDENT	numprimes
 )	)
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	printarray
 (	(
 IDENT	heading
@@ -66,7 +66,7 @@ IDENT	character
 token(95)	*(
 )	)
 IDENT	heading
-IDENT	integer
+token(98)	integer
 IDENT	i
 ,	,
 IDENT	n
@@ -100,7 +100,7 @@ IDENT	i
 IDENT	end
 IDENT	do
 IDENT	end
-IDENT	integer
+token(98)	integer
 IDENT	function
 IDENT	makeprimes
 (	(
@@ -114,7 +114,7 @@ COMMENT	C computes array of primes less than or equal to n.
 COMMENT	C note: max = limit of number of primes, must be at least 1.
 IDENT	implicit
 IDENT	none
-IDENT	integer
+token(98)	integer
 IDENT	n
 ,	,
 IDENT	max
@@ -123,7 +123,7 @@ IDENT	p
 (	(
 IDENT	max
 )	)
-IDENT	integer
+token(98)	integer
 IDENT	i
 ,	,
 IDENT	numprimes
@@ -216,7 +216,7 @@ IDENT	nump
 )	)
 IDENT	implicit
 IDENT	none
-IDENT	integer
+token(98)	integer
 IDENT	n
 ,	,
 IDENT	nump
@@ -225,7 +225,7 @@ IDENT	p
 (	(
 IDENT	1
 )	)
-IDENT	integer
+token(98)	integer
 IDENT	i
 IDENT	do
 IDENT	i

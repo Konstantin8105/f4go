@@ -1,9 +1,9 @@
 COMMENT	  Testing syntax recognition and assignment type checking of
 COMMENT	C  standard and non-standard initializing declarations.
 COMMENT	C  Here we use modern standard F90 initializers
-IDENT	subroutine
+token(96)	subroutine
 IDENT	f90
-IDENT	integer
+token(98)	integer
 :	:
 :	:
 IDENT	m
@@ -12,7 +12,7 @@ IDENT	n
 =	=
 IDENT	100
 COMMENT	C ftnchek does not recognize the following one yet
-IDENT	integer
+token(98)	integer
 ,	,
 IDENT	dimension
 (	(
@@ -51,7 +51,7 @@ IDENT	c
 =	=
 IDENT	32
 COMMENT	! type mismatch
-IDENT	integer
+token(98)	integer
 :	:
 :	:
 IDENT	q
@@ -78,9 +78,9 @@ IDENT	c
 IDENT	q
 IDENT	end
 COMMENT	C  Here we use archaic but standard F77 separate type decls and data stmts
-IDENT	subroutine
+token(96)	subroutine
 IDENT	f77
-IDENT	integer
+token(98)	integer
 IDENT	m
 ,	,
 IDENT	n
@@ -93,7 +93,7 @@ IDENT	real
 IDENT	pi
 IDENT	character
 IDENT	c
-IDENT	integer
+token(98)	integer
 IDENT	q
 IDENT	data
 IDENT	n
@@ -153,9 +153,9 @@ IDENT	c
 IDENT	q
 IDENT	end
 COMMENT	C  This one uses "bastard" initializer form.
-IDENT	subroutine
+token(96)	subroutine
 IDENT	bastard
-IDENT	integer
+token(98)	integer
 IDENT	m
 ,	,
 IDENT	n
@@ -192,7 +192,7 @@ IDENT	c
 IDENT	32
 /	/
 COMMENT	! type mismatch
-IDENT	integer
+token(98)	integer
 IDENT	q
 /	/
 STRING	'hello'
@@ -218,7 +218,7 @@ IDENT	c
 IDENT	q
 IDENT	end
 COMMENT	C  Main program just suppresses "never invoked" warnings.
-IDENT	program
+token(97)	program
 IDENT	main
 IDENT	call
 IDENT	f90

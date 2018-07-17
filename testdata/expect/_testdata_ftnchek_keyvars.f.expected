@@ -24,9 +24,9 @@ IDENT	save
 ,	,
 IDENT	stop
 ,	,
-IDENT	program
+token(97)	program
 IDENT	character
-IDENT	integer
+token(98)	integer
 ,	,
 IDENT	data
 ,	,
@@ -36,7 +36,7 @@ IDENT	format
 (	(
 IDENT	10
 )	)
-IDENT	integer
+token(98)	integer
 IDENT	external
 ,	,
 IDENT	implicit
@@ -107,7 +107,7 @@ IDENT	implicit
 IDENT	intrinsic
 -	-
 IDENT	pause
-IDENT	program
+token(97)	program
 =	=
 IDENT	stop
 .	.
@@ -207,7 +207,7 @@ IDENT	data
 IDENT	return
 =	=
 IDENT	real
-IDENT	subroutine
+token(96)	subroutine
 =	=
 IDENT	then
 IDENT	call
@@ -217,11 +217,11 @@ IDENT	complex
 ,	,
 IDENT	endif
 )	)
-IDENT	integer
+token(98)	integer
 =	=
 IDENT	data
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	call
 (	(
 IDENT	function

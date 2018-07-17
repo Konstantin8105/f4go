@@ -112,7 +112,7 @@ COMMENT	*     .. Scalar Arguments ..
 IDENT	DOUBLE
 IDENT	PRECISION
 IDENT	DA
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	INCX
 ,	,
 IDENT	INCY
@@ -134,7 +134,7 @@ COMMENT	*
 COMMENT	*  =====================================================================
 COMMENT	*
 COMMENT	*     .. Local Scalars ..
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	I
 ,	,
 IDENT	IX

@@ -1,4 +1,4 @@
-IDENT	subroutine
+token(96)	subroutine
 IDENT	foo
 (	(
 IDENT	argchr
@@ -56,7 +56,7 @@ IDENT	s
 =	=
 STRING	'hello'
 )	)
-IDENT	integer
+token(98)	integer
 IDENT	MAXTOK
 IDENT	parameter
 (	(

@@ -85,13 +85,6 @@ func TestScanner(t *testing.T) {
 					t.Fatalf("error: %s", err)
 				}
 			}
-
-			// Update tests
-			// UPDATE_SNAPSHOTS=true go test ./fortran/...
-			// err = cupaloy.SnapshotMulti(testName, buf.String())
-			// if err != nil {
-			// 	t.Fatalf("error: %s", err)
-			// }
 		})
 	}
 }

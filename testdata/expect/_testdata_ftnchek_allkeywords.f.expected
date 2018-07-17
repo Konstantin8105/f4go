@@ -1,5 +1,5 @@
 COMMENT	! All the keywords recognized by ftnchek as of 21 July 2000
-IDENT	PROGRAM
+token(97)	PROGRAM
 IDENT	allkeys
 IDENT	IMPLICIT
 IDENT	NONE
@@ -28,7 +28,7 @@ IDENT	f
 IDENT	foo
 ,	,
 IDENT	iftn_calloc
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	i
 ,	,
 IDENT	l
@@ -44,7 +44,7 @@ IDENT	ptr
 ,	,
 IDENT	ptee
 )	)
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	ptee
 (	(
 *	*)
@@ -465,7 +465,7 @@ IDENT	END
 token(96)	SUBROUTINE
 IDENT	foo
 IDENT	IMPLICIT
-IDENT	INTEGER
+token(98)	INTEGER
 (	(
 IDENT	A
 -	-

@@ -1,4 +1,4 @@
-IDENT	program
+token(97)	program
 IDENT	main
 IDENT	call
 IDENT	test
@@ -6,15 +6,15 @@ IDENT	test
 IDENT	100
 )	)
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	test
 (	(
 IDENT	n
 )	)
-IDENT	integer
+token(98)	integer
 IDENT	n
 COMMENT	C the following local array cannot have variable bounds.
-IDENT	integer
+token(98)	integer
 IDENT	auto
 (	(
 IDENT	n

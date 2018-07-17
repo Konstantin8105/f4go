@@ -1,9 +1,9 @@
-IDENT	program
+token(97)	program
 IDENT	som
 IDENT	implicit
 IDENT	none
 IDENT	c
-IDENT	integer
+token(98)	integer
 IDENT	n
 ,	,
 IDENT	i

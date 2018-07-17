@@ -1,9 +1,9 @@
-IDENT	program
+token(97)	program
 IDENT	blocks
 COMMENT	! program with various errors in balancing block structures
 IDENT	real
 IDENT	x
-IDENT	integer
+token(98)	integer
 IDENT	n
 IDENT	x
 =	=
@@ -300,7 +300,7 @@ IDENT	end
 IDENT	select
 COMMENT	! should be end if
 IDENT	end
-IDENT	program
+token(97)	program
 IDENT	blocks
 IDENT	function
 IDENT	bar
@@ -390,8 +390,8 @@ IDENT	bar
 IDENT	d
 *	*b
 IDENT	end
-IDENT	subroutine
-IDENT	subroutine
+token(96)	subroutine
+token(96)	subroutine
 IDENT	baz
 (	(
 IDENT	c
@@ -493,5 +493,5 @@ IDENT	c
 ,	,
 IDENT	d
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	bazz

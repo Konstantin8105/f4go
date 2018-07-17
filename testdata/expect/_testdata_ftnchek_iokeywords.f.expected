@@ -1,5 +1,5 @@
 COMMENT	  Exerciser for recognition and flagging of various I/O keywords.
-IDENT	program
+token(97)	program
 IDENT	iokeywds
 IDENT	call
 IDENT	vms_isms
@@ -8,7 +8,7 @@ IDENT	direct_access
 IDENT	call
 IDENT	f90_stuff
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	vms_isms
 IDENT	character
 *	*5
@@ -139,7 +139,7 @@ IDENT	unit
 IDENT	2
 )	)
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	direct_access
 IDENT	character
 IDENT	inline
@@ -249,9 +249,9 @@ IDENT	unit
 IDENT	5
 )	)
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	f90_stuff
-IDENT	integer
+token(98)	integer
 IDENT	unit
 ,	,
 IDENT	inputsize

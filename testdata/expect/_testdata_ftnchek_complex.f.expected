@@ -124,14 +124,14 @@ IDENT	789
 )	)
 )	)
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	abc
 (	(
 IDENT	x
 ,	,
 IDENT	z
 )	)
-IDENT	integer
+token(98)	integer
 IDENT	x
 IDENT	complex
 IDENT	z

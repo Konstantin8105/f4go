@@ -1,6 +1,6 @@
-IDENT	PROGRAM
+token(97)	PROGRAM
 IDENT	cows
-IDENT	INTEGER
+token(98)	INTEGER
 :	:
 :	:
 IDENT	n
@@ -10,4 +10,4 @@ IDENT	n
 IDENT	306
 COMMENT	C          n2 = n + 2
 IDENT	END
-IDENT	PROGRAM
+token(97)	PROGRAM

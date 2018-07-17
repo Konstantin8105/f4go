@@ -90,7 +90,7 @@ COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd
 COMMENT	*     November 2017
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	INCX
 ,	,
 IDENT	N
@@ -139,7 +139,7 @@ IDENT	SCALE
 IDENT	SSQ
 ,	,
 IDENT	TEMP
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	IX
 COMMENT	*     ..
 COMMENT	*     .. Intrinsic Functions ..

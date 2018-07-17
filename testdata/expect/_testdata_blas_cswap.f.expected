@@ -99,7 +99,7 @@ COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd
 COMMENT	*     November 2017
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	INCX
 ,	,
 IDENT	INCY
@@ -122,7 +122,7 @@ COMMENT	*
 COMMENT	*     .. Local Scalars ..
 IDENT	COMPLEX
 IDENT	CTEMP
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	I
 ,	,
 IDENT	IX

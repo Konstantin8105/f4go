@@ -1,4 +1,4 @@
-IDENT	integer
+token(98)	integer
 IDENT	c
 (	(
 IDENT	100
@@ -15,12 +15,12 @@ IDENT	suba
 IDENT	c
 )	)
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	suba
 (	(
 IDENT	c
 )	)
-IDENT	integer
+token(98)	integer
 IDENT	c
 (	(
 IDENT	10

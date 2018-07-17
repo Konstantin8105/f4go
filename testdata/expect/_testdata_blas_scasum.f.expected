@@ -87,7 +87,7 @@ COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd
 COMMENT	*     November 2017
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	INCX
 ,	,
 IDENT	N
@@ -104,7 +104,7 @@ COMMENT	*
 COMMENT	*     .. Local Scalars ..
 IDENT	REAL
 IDENT	STEMP
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	I
 ,	,
 IDENT	NINCX

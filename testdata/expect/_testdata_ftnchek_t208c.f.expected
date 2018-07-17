@@ -53,9 +53,9 @@ IDENT	logical
 IDENT	logvar2
 IDENT	logical
 IDENT	lognl
-IDENT	integer
+token(98)	integer
 *	*2
 IDENT	short
-IDENT	integer
+token(98)	integer
 IDENT	shortnl
 IDENT	end

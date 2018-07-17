@@ -14,7 +14,7 @@ IDENT	x
 =	=
 IDENT	abc
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	sub1
 IDENT	common
 /	/
@@ -53,7 +53,7 @@ IDENT	0
 IDENT	2
 )	)
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	sub2
 (	(
 IDENT	a

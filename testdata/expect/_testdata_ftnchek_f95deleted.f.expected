@@ -1,5 +1,5 @@
 COMMENT	  Tests flagging of deleted features in Fortran 95
-IDENT	integer
+token(98)	integer
 IDENT	i
 ,	,
 IDENT	j

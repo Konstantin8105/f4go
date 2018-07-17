@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"go/token"
 	"io"
+	"strings"
 )
 
 // Scanner represents a lexical scanner.
@@ -209,8 +210,13 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		}
 	}
 
-	if buf.String() == "SUBROUTINE" {
+	switch strings.ToUpper(buf.String()) {
+	case "SUBROUTINE":
 		return SUBROUTINE, buf.String()
+	case "PROGRAM":
+		return PROGRAM, buf.String()
+	case "INTEGER":
+		return INTEGER, buf.String()
 	}
 
 	// Otherwise return as a regular identifier.

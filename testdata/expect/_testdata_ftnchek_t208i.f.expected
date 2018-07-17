@@ -1,4 +1,4 @@
-IDENT	subroutine
+token(96)	subroutine
 IDENT	foo
 (	(
 IDENT	x

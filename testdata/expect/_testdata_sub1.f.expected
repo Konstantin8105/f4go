@@ -1,4 +1,4 @@
-IDENT	subroutine
+token(96)	subroutine
 IDENT	square_cube
 (	(
 IDENT	i
@@ -7,7 +7,7 @@ IDENT	isquare
 ,	,
 IDENT	icube
 )	)
-IDENT	integer
+token(98)	integer
 ,	,
 IDENT	intent
 (	(
@@ -17,7 +17,7 @@ IDENT	in
 :	:
 IDENT	i
 COMMENT	! input
-IDENT	integer
+token(98)	integer
 ,	,
 IDENT	intent
 (	(
@@ -40,13 +40,13 @@ IDENT	i
 *	**
 IDENT	3
 IDENT	end
-IDENT	subroutine
+token(96)	subroutine
 IDENT	square_cube
-IDENT	program
+token(97)	program
 IDENT	xx
 IDENT	implicit
 IDENT	none
-IDENT	integer
+token(98)	integer
 :	:
 :	:
 IDENT	i
@@ -85,5 +85,5 @@ IDENT	isq
 ,	,
 IDENT	icub
 IDENT	end
-IDENT	program
+token(97)	program
 IDENT	xx

@@ -1,4 +1,4 @@
-IDENT	SubRoutine
+token(96)	SubRoutine
 IDENT	PlotBall
 (	(
 IDENT	Theta
@@ -18,7 +18,7 @@ IDENT	circle
 IDENT	Double
 IDENT	Precision
 IDENT	Theta
-IDENT	Integer
+token(98)	Integer
 IDENT	Row
 ,	,
 IDENT	Col

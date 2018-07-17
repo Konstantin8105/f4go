@@ -1,5 +1,5 @@
 COMMENT	 Famous difficult cases in Fortran syntax
-IDENT	INTEGER
+token(98)	INTEGER
 IDENT	FORMAT
 (	(
 IDENT	10

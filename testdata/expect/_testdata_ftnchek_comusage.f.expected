@@ -1,4 +1,4 @@
-IDENT	Program
+token(97)	Program
 IDENT	Main
 IDENT	common
 IDENT	a
@@ -20,7 +20,7 @@ IDENT	Comp
 IDENT	Call
 IDENT	Output
 IDENT	End
-IDENT	Subroutine
+token(96)	Subroutine
 IDENT	Input
 IDENT	Common
 /	/
@@ -67,7 +67,7 @@ IDENT	y2
 IDENT	y3
 IDENT	Return
 IDENT	End
-IDENT	Subroutine
+token(96)	Subroutine
 IDENT	Comp
 IDENT	Common
 /	/
@@ -113,7 +113,7 @@ IDENT	C
 IDENT	3
 IDENT	Return
 IDENT	End
-IDENT	Subroutine
+token(96)	Subroutine
 IDENT	Output
 IDENT	Common
 /	/

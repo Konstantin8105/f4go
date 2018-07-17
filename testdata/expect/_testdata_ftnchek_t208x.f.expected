@@ -93,7 +93,7 @@ IDENT	Adapted
 IDENT	from
 IDENT	a
 IDENT	benchmark
-IDENT	program
+token(97)	program
 IDENT	at
 IDENT	the
 IDENT	University

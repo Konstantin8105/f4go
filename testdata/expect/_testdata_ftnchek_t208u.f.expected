@@ -1,4 +1,4 @@
-IDENT	integer
+token(98)	integer
 IDENT	MAXTOK
 IDENT	parameter
 (	(
@@ -54,7 +54,7 @@ IDENT	MAXTOK
 *	**
 IDENT	2
 )	)
-IDENT	integer
+token(98)	integer
 IDENT	MAXTK1
 IDENT	parameter
 (	(
@@ -89,7 +89,7 @@ IDENT	MAXTK1
 IDENT	2
 )	)
 COMMENT	*     Test with blank lines between continuation lines
-IDENT	integer
+token(98)	integer
 IDENT	MAXTK2
 IDENT	parameter
 (	(

@@ -2,7 +2,7 @@ IDENT	external
 IDENT	ex
 IDENT	real
 IDENT	ex
-IDENT	integer
+token(98)	integer
 IDENT	in
 ,	,
 IDENT	iarg

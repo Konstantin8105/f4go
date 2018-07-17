@@ -5,7 +5,7 @@ IDENT	propagation
 IDENT	of
 IDENT	type
 IDENT	sizes
-IDENT	subroutine
+token(96)	subroutine
 IDENT	sizeprop
 (	(
 IDENT	cadj
@@ -52,13 +52,13 @@ IDENT	11
 IDENT	Hhello
 IDENT	there
 IDENT	end
-IDENT	integer
+token(98)	integer
 IDENT	i
 ,	,
 IDENT	j
 ,	,
 IDENT	n
-IDENT	integer
+token(98)	integer
 *	*4
 IDENT	m
 IDENT	parameter
@@ -77,10 +77,10 @@ IDENT	real
 IDENT	x
 ,	,
 IDENT	y
-IDENT	integer
+token(98)	integer
 *	*2
 IDENT	i2
-IDENT	integer
+token(98)	integer
 *	*4
 IDENT	i4
 IDENT	logical
