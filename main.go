@@ -18,6 +18,7 @@ func transpile(file string) (err error) {
 	treeFile := file + ".out"
 	err = exec.Command("gfortran",
 		"-fdump-tree-original-raw="+treeFile,
+		"-c",
 		file).Run()
 	if err != nil {
 		return

@@ -12,3 +12,4 @@
 *.out
 testdata/*.out
 testdata/*.go
+*.o

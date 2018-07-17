@@ -113,6 +113,7 @@ func parse(line string) (n Node, err error) {
 	}
 
 	p := map[string]func(string) Node{
+		"abs_expr":          parse_abs_expr,
 		"addr_expr":         parse_addr_expr,
 		"bind_expr":         parse_bind_expr,
 		"call_expr":         parse_call_expr,
@@ -121,16 +122,23 @@ func parse(line string) (n Node, err error) {
 		"fix_trunc_expr":    parse_fix_trunc_expr,
 		"float_expr":        parse_float_expr,
 		"goto_expr":         parse_goto_expr,
+		"gt_expr":           parse_gt_expr,
 		"label_expr":        parse_label_expr,
 		"le_expr":           parse_le_expr,
 		"loop_expr":         parse_loop_expr,
+		"max_expr":          parse_max_expr,
 		"minus_expr":        parse_minus_expr,
 		"modify_expr":       parse_modify_expr,
 		"mult_expr":         parse_mult_expr,
+		"ne_expr":           parse_ne_expr,
+		"non_lvalue_expr":   parse_non_lvalue_expr,
 		"nop_expr":          parse_nop_expr,
+		"paren_expr":        parse_paren_expr,
 		"plus_expr":         parse_plus_expr,
 		"pointer_plus_expr": parse_pointer_plus_expr,
+		"rdiv_expr":         parse_rdiv_expr,
 		"return_expr":       parse_return_expr,
+		"save_expr":         parse_save_expr,
 		"trunc_div_expr":    parse_trunc_div_expr,
 
 		"array_type":     parse_array_type,
