@@ -1,0 +1,1 @@
+(string) (len=214) "IDENT\tinteger\nIDENT\tMAXTOK\nIDENT\tparameter\n(\t(\nIDENT\tMAXTOK\n=\t=\nIDENT\t10\n)\t)\nIDENT\tcharacter\n*\t*(\nIDENT\tMAXTOK\n)\t)\nCOMMENT\t*     intervening comment\nCOMMENT\t*     intervening comment\nIDENT\tx\nIDENT\ttoklst\nIDENT\tend\n"

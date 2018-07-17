@@ -1,0 +1,1 @@
+(string) (len=175) "IDENT\tinteger\nIDENT\tmaxdim\n,\t,\nIDENT\tmaxarr\nIDENT\tparameter\n(\t(\nIDENT\tmaxdim\n=\t=\nIDENT\t100\n+\t+\nIDENT\t200\n,\t,\nIDENT\tx\nIDENT\tmaxarr\n=\t=\nIDENT\tmaxdim\n+\t+\nIDENT\t100\n)\t)\nIDENT\tend\n"

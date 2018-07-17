@@ -1,0 +1,1 @@
+(string) (len=160) "IDENT\tcall\nIDENT\tsuba\n(\t(\nIDENT\t4\nIDENT\thjunk\n)\t)\nIDENT\tend\nIDENT\tsubroutine\nIDENT\tsuba\n(\t(\nIDENT\ti\n)\t)\nIDENT\twrite\n(\t(\n*\t*,\nSTRING\t'(a)'\n)\t)\nIDENT\ti\nIDENT\tend\n"

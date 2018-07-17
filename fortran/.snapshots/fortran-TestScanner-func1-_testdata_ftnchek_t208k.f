@@ -1,0 +1,1 @@
+(string) (len=163) "IDENT\tcharacter\n*\t*3\nIDENT\tfunction\nIDENT\tfoo\n(\t(\nIDENT\ts\n)\t)\nIDENT\tcharacter\ntoken(95)\t*(\n)\t)\nIDENT\ts\nIDENT\tfoo\n=\t=\nIDENT\ts\n(\t(\nIDENT\t1\n:\t:\nIDENT\t3\n)\t)\nIDENT\tend\n"

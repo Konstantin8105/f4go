@@ -1,0 +1,1 @@
+(string) (len=278) "IDENT\texternal\nIDENT\tex\nIDENT\treal\nIDENT\tex\nIDENT\tinteger\nIDENT\tin\n,\t,\nIDENT\tiarg\nIDENT\tin\n(\t(\nIDENT\tiarg\n)\t)\n=\t=\nIDENT\tiabs\n(\t(\nIDENT\tiarg\n)\t)\nIDENT\twrite\n(\t(\nIDENT\t6\n,\t,\n*\t*)\nIDENT\tin\n(\t(\n-\t-\nIDENT\t3\n)\t)\nIDENT\twrite\n(\t(\nIDENT\t6\n,\t,\n*\t*)\nIDENT\tex\n(\t(\n-\t-\nIDENT\t3\n)\t)\nIDENT\tend\n"

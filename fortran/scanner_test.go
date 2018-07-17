@@ -13,9 +13,26 @@ import (
 	"github.com/bradleyjkemp/cupaloy"
 )
 
+func getFortranTestFiles() (files []string, err error) {
+	locations := []string{
+		"../testdata/*.f",
+		"../testdata/ftnchek/*.f",
+	}
+	for _, loc := range locations {
+		var fs []string
+		fs, err = filepath.Glob(loc)
+		if err != nil {
+			fmt.Println("err = ", err)
+			return
+		}
+		files = append(files, fs...)
+	}
+	return
+}
+
 func TestScanner(t *testing.T) {
 
-	files, err := filepath.Glob("../testdata/*.f")
+	files, err := getFortranTestFiles()
 	if err != nil {
 		fmt.Println("err = ", err)
 		return
