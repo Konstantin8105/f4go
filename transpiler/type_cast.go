@@ -4,9 +4,9 @@ import "fmt"
 
 func castToGoType(fortranType string) (goType string, err error) {
 	switch fortranType {
-	case "integer(kind=4)":
+	case "integer(kind=4)", "integer(kind=8)":
 		goType = "int"
-	case "real(kind=4)":
+	case "real(kind=4)", "real(kind=8)":
 		goType = "float64"
 	case "character(kind=1)":
 		goType = "byte"
