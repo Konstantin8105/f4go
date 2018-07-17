@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"os/exec"
 
 	"github.com/Konstantin8105/f4go/ast"
@@ -27,7 +28,14 @@ func transpile(file string) (err error) {
 		return
 	}
 
-	err = transpiler.TranspileAST(nss)
+	var gocode string
+	gocode, err = transpiler.TranspileAST(nss)
+	if err != nil {
+		return
+	}
+
+	goFile := file + ".go"
+	err = ioutil.WriteFile(goFile, []byte(gocode), 0644)
 	if err != nil {
 		return
 	}

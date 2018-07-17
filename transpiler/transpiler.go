@@ -37,7 +37,7 @@ func (tr *transpiler) addVarDecl(name string) {
 
 const f4goUndefined string = "f4goUndefined"
 
-func TranspileAST(nss [][]ast.Node) (err error) {
+func TranspileAST(nss [][]ast.Node) (gocode string, err error) {
 	var file goast.File
 	file.Name = goast.NewIdent("main")
 
@@ -65,6 +65,8 @@ func TranspileAST(nss [][]ast.Node) (err error) {
 		return
 	}
 	fmt.Printf("Code:\n%v", buf.String())
+
+	gocode = buf.String()
 
 	return
 }
