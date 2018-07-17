@@ -50,6 +50,8 @@ func main() {
 
 	m := map[string]map[string]bool{}
 
+	out := map[string]map[string]bool{}
+
 	for i := range bigBlock {
 		ts := getType(bigBlock[i])
 		if i == 0 {
@@ -72,7 +74,21 @@ func main() {
 			}
 			continue
 		}
-		checkStruct(name, ts)
+		notFound := checkStruct(name, ts)
+		for _, f := range notFound {
+			if out[name] == nil {
+				out[name] = map[string]bool{}
+			}
+			out[name][f] = true
+		}
+	}
+
+	for name, types := range out {
+		var typesLine string
+		for t, _ := range types {
+			typesLine += fmt.Sprintf("%v ", t)
+		}
+		fmt.Println("Not found in :", name, " types:", typesLine)
 	}
 
 	// create structs
@@ -87,7 +103,7 @@ func main() {
 	}
 }
 
-func checkStruct(name string, types []string) {
+func checkStruct(name string, types []string) (notFoundTypes []string) {
 	filename := "ast/" + name + ".go"
 
 	dat, err := ioutil.ReadFile(filename)
@@ -113,10 +129,10 @@ func checkStruct(name string, types []string) {
 			}
 		}
 		if !found {
-			fmt.Println(">>> ", name, ": Not found :", t)
+			notFoundTypes = append(notFoundTypes, t)
 		}
 	}
-
+	return
 }
 
 // find all types

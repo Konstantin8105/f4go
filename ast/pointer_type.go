@@ -4,6 +4,8 @@ type Pointer_type struct {
 	Algn string
 	Ptd  string
 	Size string
+	Qual string
+	Unql string
 }
 
 func (a Pointer_type) GenNodeName() string {
@@ -14,5 +16,7 @@ func parse_pointer_type(line string) (n Node) {
 		Algn: findVal("algn:", &line),
 		Ptd:  findVal("ptd :", &line),
 		Size: findVal("size:", &line),
+		Qual: findVal("qual:", &line),
+		Unql: findVal("unql:", &line),
 	}
 }
