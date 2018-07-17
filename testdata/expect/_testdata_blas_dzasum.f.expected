@@ -1,0 +1,219 @@
+COMMENT	> \brief \b DZASUM
+COMMENT	*
+COMMENT	*  =========== DOCUMENTATION ===========
+COMMENT	*
+COMMENT	* Online html documentation available at
+COMMENT	*            http://www.netlib.org/lapack/explore-html/
+COMMENT	*
+COMMENT	*  Definition:
+COMMENT	*  ===========
+COMMENT	*
+COMMENT	*       DOUBLE PRECISION FUNCTION DZASUM(N,ZX,INCX)
+COMMENT	*
+COMMENT	*       .. Scalar Arguments ..
+COMMENT	*       INTEGER INCX,N
+COMMENT	*       ..
+COMMENT	*       .. Array Arguments ..
+COMMENT	*       COMPLEX*16 ZX(*)
+COMMENT	*       ..
+COMMENT	*
+COMMENT	*
+COMMENT	*> \par Purpose:
+COMMENT	*  =============
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*>    DZASUM takes the sum of the (|Re(.)| + |Im(.)|)'s of a complex vector and
+COMMENT	*>    returns a single precision result.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Arguments:
+COMMENT	*  ==========
+COMMENT	*
+COMMENT	*> \param[in] N
+COMMENT	*> \verbatim
+COMMENT	*>          N is INTEGER
+COMMENT	*>         number of elements in input vector(s)
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in,out] ZX
+COMMENT	*> \verbatim
+COMMENT	*>          ZX is COMPLEX*16 array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INCX
+COMMENT	*> \verbatim
+COMMENT	*>          INCX is INTEGER
+COMMENT	*>         storage spacing between elements of ZX
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Authors:
+COMMENT	*  ========
+COMMENT	*
+COMMENT	*> \author Univ. of Tennessee
+COMMENT	*> \author Univ. of California Berkeley
+COMMENT	*> \author Univ. of Colorado Denver
+COMMENT	*> \author NAG Ltd.
+COMMENT	*
+COMMENT	*> \date November 2017
+COMMENT	*
+COMMENT	*> \ingroup double_blas_level1
+COMMENT	*
+COMMENT	*> \par Further Details:
+COMMENT	*  =====================
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*>     jack dongarra, 3/11/78.
+COMMENT	*>     modified 3/93 to return if incx .le. 0.
+COMMENT	*>     modified 12/3/93, array(1) declarations changed to array(*)
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*  =====================================================================
+IDENT	DOUBLE
+IDENT	PRECISION
+IDENT	FUNCTION
+IDENT	DZASUM
+(	(
+IDENT	N
+,	,
+IDENT	ZX
+,	,
+IDENT	INCX
+)	)
+COMMENT	*
+COMMENT	*  -- Reference BLAS level1 routine (version 3.8.0) --
+COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT	*     November 2017
+COMMENT	*
+COMMENT	*     .. Scalar Arguments ..
+IDENT	INTEGER
+IDENT	INCX
+,	,
+IDENT	N
+COMMENT	*     ..
+COMMENT	*     .. Array Arguments ..
+IDENT	COMPLEX
+*	*1
+IDENT	6
+IDENT	ZX
+(	(
+*	*)
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*  =====================================================================
+COMMENT	*
+COMMENT	*     .. Local Scalars ..
+IDENT	DOUBLE
+IDENT	PRECISION
+IDENT	STEMP
+IDENT	INTEGER
+IDENT	I
+,	,
+IDENT	NINCX
+COMMENT	*     ..
+COMMENT	*     .. External Functions ..
+IDENT	DOUBLE
+IDENT	PRECISION
+IDENT	DCABS1
+IDENT	EXTERNAL
+IDENT	DCABS1
+COMMENT	*     ..
+IDENT	DZASUM
+=	=
+IDENT	0
+.	.
+IDENT	0
+IDENT	d0
+IDENT	STEMP
+=	=
+IDENT	0
+.	.
+IDENT	0
+IDENT	d0
+IDENT	IF
+(	(
+IDENT	N
+.	.
+IDENT	LE
+.	.
+IDENT	0
+.	.
+IDENT	OR
+.	.
+IDENT	INCX
+.	.
+IDENT	LE
+.	.
+IDENT	0
+)	)
+IDENT	RETURN
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+COMMENT	*
+COMMENT	*        code for increment equal to 1
+COMMENT	*
+IDENT	DO
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	STEMP
+=	=
+IDENT	STEMP
++	+
+IDENT	DCABS1
+(	(
+IDENT	ZX
+(	(
+IDENT	I
+)	)
+)	)
+IDENT	END
+IDENT	DO
+IDENT	ELSE
+COMMENT	*
+COMMENT	*        code for increment not equal to 1
+COMMENT	*
+IDENT	NINCX
+=	=
+IDENT	N
+*	*I
+IDENT	NCX
+IDENT	DO
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	NINCX
+,	,
+IDENT	INCX
+IDENT	STEMP
+=	=
+IDENT	STEMP
++	+
+IDENT	DCABS1
+(	(
+IDENT	ZX
+(	(
+IDENT	I
+)	)
+)	)
+IDENT	END
+IDENT	DO
+IDENT	END
+IDENT	IF
+IDENT	DZASUM
+=	=
+IDENT	STEMP
+IDENT	RETURN
+IDENT	END

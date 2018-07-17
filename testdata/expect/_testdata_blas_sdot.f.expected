@@ -1,0 +1,413 @@
+COMMENT	> \brief \b SDOT
+COMMENT	*
+COMMENT	*  =========== DOCUMENTATION ===========
+COMMENT	*
+COMMENT	* Online html documentation available at
+COMMENT	*            http://www.netlib.org/lapack/explore-html/
+COMMENT	*
+COMMENT	*  Definition:
+COMMENT	*  ===========
+COMMENT	*
+COMMENT	*       REAL FUNCTION SDOT(N,SX,INCX,SY,INCY)
+COMMENT	*
+COMMENT	*       .. Scalar Arguments ..
+COMMENT	*       INTEGER INCX,INCY,N
+COMMENT	*       ..
+COMMENT	*       .. Array Arguments ..
+COMMENT	*       REAL SX(*),SY(*)
+COMMENT	*       ..
+COMMENT	*
+COMMENT	*
+COMMENT	*> \par Purpose:
+COMMENT	*  =============
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*>    SDOT forms the dot product of two vectors.
+COMMENT	*>    uses unrolled loops for increments equal to one.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Arguments:
+COMMENT	*  ==========
+COMMENT	*
+COMMENT	*> \param[in] N
+COMMENT	*> \verbatim
+COMMENT	*>          N is INTEGER
+COMMENT	*>         number of elements in input vector(s)
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] SX
+COMMENT	*> \verbatim
+COMMENT	*>          SX is REAL array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INCX
+COMMENT	*> \verbatim
+COMMENT	*>          INCX is INTEGER
+COMMENT	*>         storage spacing between elements of SX
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] SY
+COMMENT	*> \verbatim
+COMMENT	*>          SY is REAL array, dimension ( 1 + ( N - 1 )*abs( INCY ) )
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INCY
+COMMENT	*> \verbatim
+COMMENT	*>          INCY is INTEGER
+COMMENT	*>         storage spacing between elements of SY
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Authors:
+COMMENT	*  ========
+COMMENT	*
+COMMENT	*> \author Univ. of Tennessee
+COMMENT	*> \author Univ. of California Berkeley
+COMMENT	*> \author Univ. of Colorado Denver
+COMMENT	*> \author NAG Ltd.
+COMMENT	*
+COMMENT	*> \date November 2017
+COMMENT	*
+COMMENT	*> \ingroup single_blas_level1
+COMMENT	*
+COMMENT	*> \par Further Details:
+COMMENT	*  =====================
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*>     jack dongarra, linpack, 3/11/78.
+COMMENT	*>     modified 12/3/93, array(1) declarations changed to array(*)
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*  =====================================================================
+IDENT	REAL
+IDENT	FUNCTION
+IDENT	SDOT
+(	(
+IDENT	N
+,	,
+IDENT	SX
+,	,
+IDENT	INCX
+,	,
+IDENT	SY
+,	,
+IDENT	INCY
+)	)
+COMMENT	*
+COMMENT	*  -- Reference BLAS level1 routine (version 3.8.0) --
+COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT	*     November 2017
+COMMENT	*
+COMMENT	*     .. Scalar Arguments ..
+IDENT	INTEGER
+IDENT	INCX
+,	,
+IDENT	INCY
+,	,
+IDENT	N
+COMMENT	*     ..
+COMMENT	*     .. Array Arguments ..
+IDENT	REAL
+IDENT	SX
+(	(
+*	*)
+,	,
+IDENT	SY
+(	(
+*	*)
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*  =====================================================================
+COMMENT	*
+COMMENT	*     .. Local Scalars ..
+IDENT	REAL
+IDENT	STEMP
+IDENT	INTEGER
+IDENT	I
+,	,
+IDENT	IX
+,	,
+IDENT	IY
+,	,
+IDENT	M
+,	,
+IDENT	MP1
+COMMENT	*     ..
+COMMENT	*     .. Intrinsic Functions ..
+IDENT	INTRINSIC
+IDENT	MOD
+COMMENT	*     ..
+IDENT	STEMP
+=	=
+IDENT	0
+.	.
+IDENT	0
+IDENT	e0
+IDENT	SDOT
+=	=
+IDENT	0
+.	.
+IDENT	0
+IDENT	e0
+IDENT	IF
+(	(
+IDENT	N
+.	.
+IDENT	LE
+.	.
+IDENT	0
+)	)
+IDENT	RETURN
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+.	.
+IDENT	AND
+.	.
+IDENT	INCY
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+COMMENT	*
+COMMENT	*        code for both increments equal to 1
+COMMENT	*
+COMMENT	*
+COMMENT	*        clean-up loop
+COMMENT	*
+IDENT	M
+=	=
+IDENT	MOD
+(	(
+IDENT	N
+,	,
+IDENT	5
+)	)
+IDENT	IF
+(	(
+IDENT	M
+.	.
+IDENT	NE
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	M
+IDENT	STEMP
+=	=
+IDENT	STEMP
++	+
+IDENT	SX
+(	(
+IDENT	I
+)	)
+*	*S
+IDENT	Y
+(	(
+IDENT	I
+)	)
+IDENT	END
+IDENT	DO
+IDENT	IF
+(	(
+IDENT	N
+.	.
+IDENT	LT
+.	.
+IDENT	5
+)	)
+IDENT	THEN
+IDENT	SDOT
+=	=
+IDENT	STEMP
+IDENT	RETURN
+IDENT	END
+IDENT	IF
+IDENT	END
+IDENT	IF
+IDENT	MP1
+=	=
+IDENT	M
++	+
+IDENT	1
+IDENT	DO
+IDENT	I
+=	=
+IDENT	MP1
+,	,
+IDENT	N
+,	,
+IDENT	5
+IDENT	STEMP
+=	=
+IDENT	STEMP
++	+
+IDENT	SX
+(	(
+IDENT	I
+)	)
+*	*S
+IDENT	Y
+(	(
+IDENT	I
+)	)
++	+
+IDENT	SX
+(	(
+IDENT	I
++	+
+IDENT	1
+)	)
+*	*S
+IDENT	Y
+(	(
+IDENT	I
++	+
+IDENT	1
+)	)
++	+
+IDENT	SX
+(	(
+IDENT	I
++	+
+IDENT	2
+)	)
+*	*S
+IDENT	Y
+(	(
+IDENT	I
++	+
+IDENT	2
+)	)
++	+
+IDENT	SX
+(	(
+IDENT	I
++	+
+IDENT	3
+)	)
+*	*S
+IDENT	Y
+(	(
+IDENT	I
++	+
+IDENT	3
+)	)
++	+
+IDENT	SX
+(	(
+IDENT	I
++	+
+IDENT	4
+)	)
+*	*S
+IDENT	Y
+(	(
+IDENT	I
++	+
+IDENT	4
+)	)
+IDENT	END
+IDENT	DO
+IDENT	ELSE
+COMMENT	*
+COMMENT	*        code for unequal increments or equal increments
+COMMENT	*          not equal to 1
+COMMENT	*
+IDENT	IX
+=	=
+IDENT	1
+IDENT	IY
+=	=
+IDENT	1
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	LT
+.	.
+IDENT	0
+)	)
+IDENT	IX
+=	=
+(	(
+-	-
+IDENT	N
++	+
+IDENT	1
+)	)
+*	*I
+IDENT	NCX
++	+
+IDENT	1
+IDENT	IF
+(	(
+IDENT	INCY
+.	.
+IDENT	LT
+.	.
+IDENT	0
+)	)
+IDENT	IY
+=	=
+(	(
+-	-
+IDENT	N
++	+
+IDENT	1
+)	)
+*	*I
+IDENT	NCY
++	+
+IDENT	1
+IDENT	DO
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	STEMP
+=	=
+IDENT	STEMP
++	+
+IDENT	SX
+(	(
+IDENT	IX
+)	)
+*	*S
+IDENT	Y
+(	(
+IDENT	IY
+)	)
+IDENT	IX
+=	=
+IDENT	IX
++	+
+IDENT	INCX
+IDENT	IY
+=	=
+IDENT	IY
++	+
+IDENT	INCY
+IDENT	END
+IDENT	DO
+IDENT	END
+IDENT	IF
+IDENT	SDOT
+=	=
+IDENT	STEMP
+IDENT	RETURN
+IDENT	END

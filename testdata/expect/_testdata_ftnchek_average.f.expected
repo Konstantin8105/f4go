@@ -1,0 +1,121 @@
+COMMENT	       AUTHORS: MIKE MYERS AND LUCIA SPAGNUOLO
+COMMENT	C       DATE:    MAY 8, 1989
+COMMENT	C       Variables:
+COMMENT	C               SCORE -> an array of test scores
+COMMENT	C               SUM ->   sum of the test scores
+COMMENT	C               COUNT -> counter of scores read in
+COMMENT	C               I ->     loop counter
+IDENT	REAL
+IDENT	FUNCTION
+IDENT	COMPAV
+(	(
+IDENT	SCORE
+,	,
+IDENT	COUNT
+)	)
+IDENT	INTEGER
+IDENT	SUM
+,	,
+IDENT	COUNT
+,	,
+IDENT	J
+,	,
+IDENT	SCORE
+(	(
+IDENT	5
+)	)
+IDENT	DO
+IDENT	30
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	COUNT
+IDENT	SUM
+=	=
+IDENT	SUM
++	+
+IDENT	SCORE
+(	(
+IDENT	I
+)	)
+IDENT	30
+IDENT	CONTINUE
+IDENT	COMPAV
+=	=
+IDENT	SUM
+/	/
+IDENT	COUNT
+IDENT	END
+IDENT	PROGRAM
+IDENT	AVENUM
+COMMENT	C
+COMMENT	C                       MAIN PROGRAM
+COMMENT	C
+COMMENT	C       AUTHOR:   LOIS BIGBIE
+COMMENT	C       DATE:     MAY 15, 1990
+COMMENT	C
+COMMENT	C       Variables:
+COMMENT	C               MAXNOS -> maximum number of input values
+COMMENT	C               NUMS    -> an array of numbers
+COMMENT	C               COUNT   -> exact number of input values
+COMMENT	C               AVG     -> average returned by COMPAV
+COMMENT	C               I       -> loop counter
+COMMENT	C
+IDENT	PARAMETER
+(	(
+IDENT	MAXNOS
+=	=
+IDENT	5
+)	)
+IDENT	INTEGER
+IDENT	I
+,	,
+IDENT	COUNT
+IDENT	REAL
+IDENT	NUMS
+(	(
+IDENT	MAXNOS
+)	)
+,	,
+IDENT	AVG
+IDENT	COUNT
+=	=
+IDENT	0
+IDENT	DO
+IDENT	80
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	MAXNOS
+IDENT	READ
+(	(
+IDENT	5
+,	,
+*	*,
+IDENT	END
+=	=
+IDENT	100
+)	)
+IDENT	NUMS
+(	(
+IDENT	I
+)	)
+IDENT	COUNT
+=	=
+IDENT	COUNT
++	+
+IDENT	1
+IDENT	80
+IDENT	CONTINUE
+IDENT	100
+IDENT	AVG
+=	=
+IDENT	COMPAV
+(	(
+IDENT	NUMS
+,	,
+IDENT	COUNT
+)	)
+IDENT	END

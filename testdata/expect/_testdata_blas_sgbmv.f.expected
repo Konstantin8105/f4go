@@ -1,0 +1,1155 @@
+COMMENT	> \brief \b SGBMV
+COMMENT	*
+COMMENT	*  =========== DOCUMENTATION ===========
+COMMENT	*
+COMMENT	* Online html documentation available at
+COMMENT	*            http://www.netlib.org/lapack/explore-html/
+COMMENT	*
+COMMENT	*  Definition:
+COMMENT	*  ===========
+COMMENT	*
+COMMENT	*       SUBROUTINE SGBMV(TRANS,M,N,KL,KU,ALPHA,A,LDA,X,INCX,BETA,Y,INCY)
+COMMENT	*
+COMMENT	*       .. Scalar Arguments ..
+COMMENT	*       REAL ALPHA,BETA
+COMMENT	*       INTEGER INCX,INCY,KL,KU,LDA,M,N
+COMMENT	*       CHARACTER TRANS
+COMMENT	*       ..
+COMMENT	*       .. Array Arguments ..
+COMMENT	*       REAL A(LDA,*),X(*),Y(*)
+COMMENT	*       ..
+COMMENT	*
+COMMENT	*
+COMMENT	*> \par Purpose:
+COMMENT	*  =============
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*> SGBMV  performs one of the matrix-vector operations
+COMMENT	*>
+COMMENT	*>    y := alpha*A*x + beta*y,   or   y := alpha*A**T*x + beta*y,
+COMMENT	*>
+COMMENT	*> where alpha and beta are scalars, x and y are vectors and A is an
+COMMENT	*> m by n band matrix, with kl sub-diagonals and ku super-diagonals.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Arguments:
+COMMENT	*  ==========
+COMMENT	*
+COMMENT	*> \param[in] TRANS
+COMMENT	*> \verbatim
+COMMENT	*>          TRANS is CHARACTER*1
+COMMENT	*>           On entry, TRANS specifies the operation to be performed as
+COMMENT	*>           follows:
+COMMENT	*>
+COMMENT	*>              TRANS = 'N' or 'n'   y := alpha*A*x + beta*y.
+COMMENT	*>
+COMMENT	*>              TRANS = 'T' or 't'   y := alpha*A**T*x + beta*y.
+COMMENT	*>
+COMMENT	*>              TRANS = 'C' or 'c'   y := alpha*A**T*x + beta*y.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] M
+COMMENT	*> \verbatim
+COMMENT	*>          M is INTEGER
+COMMENT	*>           On entry, M specifies the number of rows of the matrix A.
+COMMENT	*>           M must be at least zero.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] N
+COMMENT	*> \verbatim
+COMMENT	*>          N is INTEGER
+COMMENT	*>           On entry, N specifies the number of columns of the matrix A.
+COMMENT	*>           N must be at least zero.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] KL
+COMMENT	*> \verbatim
+COMMENT	*>          KL is INTEGER
+COMMENT	*>           On entry, KL specifies the number of sub-diagonals of the
+COMMENT	*>           matrix A. KL must satisfy  0 .le. KL.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] KU
+COMMENT	*> \verbatim
+COMMENT	*>          KU is INTEGER
+COMMENT	*>           On entry, KU specifies the number of super-diagonals of the
+COMMENT	*>           matrix A. KU must satisfy  0 .le. KU.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] ALPHA
+COMMENT	*> \verbatim
+COMMENT	*>          ALPHA is REAL
+COMMENT	*>           On entry, ALPHA specifies the scalar alpha.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] A
+COMMENT	*> \verbatim
+COMMENT	*>          A is REAL array, dimension ( LDA, N )
+COMMENT	*>           Before entry, the leading ( kl + ku + 1 ) by n part of the
+COMMENT	*>           array A must contain the matrix of coefficients, supplied
+COMMENT	*>           column by column, with the leading diagonal of the matrix in
+COMMENT	*>           row ( ku + 1 ) of the array, the first super-diagonal
+COMMENT	*>           starting at position 2 in row ku, the first sub-diagonal
+COMMENT	*>           starting at position 1 in row ( ku + 2 ), and so on.
+COMMENT	*>           Elements in the array A that do not correspond to elements
+COMMENT	*>           in the band matrix (such as the top left ku by ku triangle)
+COMMENT	*>           are not referenced.
+COMMENT	*>           The following program segment will transfer a band matrix
+COMMENT	*>           from conventional full matrix storage to band storage:
+COMMENT	*>
+COMMENT	*>                 DO 20, J = 1, N
+COMMENT	*>                    K = KU + 1 - J
+COMMENT	*>                    DO 10, I = MAX( 1, J - KU ), MIN( M, J + KL )
+COMMENT	*>                       A( K + I, J ) = matrix( I, J )
+COMMENT	*>              10    CONTINUE
+COMMENT	*>              20 CONTINUE
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] LDA
+COMMENT	*> \verbatim
+COMMENT	*>          LDA is INTEGER
+COMMENT	*>           On entry, LDA specifies the first dimension of A as declared
+COMMENT	*>           in the calling (sub) program. LDA must be at least
+COMMENT	*>           ( kl + ku + 1 ).
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] X
+COMMENT	*> \verbatim
+COMMENT	*>          X is REAL array, dimension at least
+COMMENT	*>           ( 1 + ( n - 1 )*abs( INCX ) ) when TRANS = 'N' or 'n'
+COMMENT	*>           and at least
+COMMENT	*>           ( 1 + ( m - 1 )*abs( INCX ) ) otherwise.
+COMMENT	*>           Before entry, the incremented array X must contain the
+COMMENT	*>           vector x.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INCX
+COMMENT	*> \verbatim
+COMMENT	*>          INCX is INTEGER
+COMMENT	*>           On entry, INCX specifies the increment for the elements of
+COMMENT	*>           X. INCX must not be zero.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] BETA
+COMMENT	*> \verbatim
+COMMENT	*>          BETA is REAL
+COMMENT	*>           On entry, BETA specifies the scalar beta. When BETA is
+COMMENT	*>           supplied as zero then Y need not be set on input.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in,out] Y
+COMMENT	*> \verbatim
+COMMENT	*>          Y is REAL array, dimension at least
+COMMENT	*>           ( 1 + ( m - 1 )*abs( INCY ) ) when TRANS = 'N' or 'n'
+COMMENT	*>           and at least
+COMMENT	*>           ( 1 + ( n - 1 )*abs( INCY ) ) otherwise.
+COMMENT	*>           Before entry, the incremented array Y must contain the
+COMMENT	*>           vector y. On exit, Y is overwritten by the updated vector y.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INCY
+COMMENT	*> \verbatim
+COMMENT	*>          INCY is INTEGER
+COMMENT	*>           On entry, INCY specifies the increment for the elements of
+COMMENT	*>           Y. INCY must not be zero.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Authors:
+COMMENT	*  ========
+COMMENT	*
+COMMENT	*> \author Univ. of Tennessee
+COMMENT	*> \author Univ. of California Berkeley
+COMMENT	*> \author Univ. of Colorado Denver
+COMMENT	*> \author NAG Ltd.
+COMMENT	*
+COMMENT	*> \date December 2016
+COMMENT	*
+COMMENT	*> \ingroup single_blas_level2
+COMMENT	*
+COMMENT	*> \par Further Details:
+COMMENT	*  =====================
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*>  Level 2 Blas routine.
+COMMENT	*>  The vector and matrix arguments are not referenced when N = 0, or M = 0
+COMMENT	*>
+COMMENT	*>  -- Written on 22-October-1986.
+COMMENT	*>     Jack Dongarra, Argonne National Lab.
+COMMENT	*>     Jeremy Du Croz, Nag Central Office.
+COMMENT	*>     Sven Hammarling, Nag Central Office.
+COMMENT	*>     Richard Hanson, Sandia National Labs.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*  =====================================================================
+IDENT	SUBROUTINE
+IDENT	SGBMV
+(	(
+IDENT	TRANS
+,	,
+IDENT	M
+,	,
+IDENT	N
+,	,
+IDENT	KL
+,	,
+IDENT	KU
+,	,
+IDENT	ALPHA
+,	,
+IDENT	A
+,	,
+IDENT	LDA
+,	,
+IDENT	X
+,	,
+IDENT	INCX
+,	,
+IDENT	BETA
+,	,
+IDENT	Y
+,	,
+IDENT	INCY
+)	)
+COMMENT	*
+COMMENT	*  -- Reference BLAS level2 routine (version 3.7.0) --
+COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT	*     December 2016
+COMMENT	*
+COMMENT	*     .. Scalar Arguments ..
+IDENT	REAL
+IDENT	ALPHA
+,	,
+IDENT	BETA
+IDENT	INTEGER
+IDENT	INCX
+,	,
+IDENT	INCY
+,	,
+IDENT	KL
+,	,
+IDENT	KU
+,	,
+IDENT	LDA
+,	,
+IDENT	M
+,	,
+IDENT	N
+IDENT	CHARACTER
+IDENT	TRANS
+COMMENT	*     ..
+COMMENT	*     .. Array Arguments ..
+IDENT	REAL
+IDENT	A
+(	(
+IDENT	LDA
+,	,
+*	*)
+,	,
+IDENT	X
+(	(
+*	*)
+,	,
+IDENT	Y
+(	(
+*	*)
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*  =====================================================================
+COMMENT	*
+COMMENT	*     .. Parameters ..
+IDENT	REAL
+IDENT	ONE
+,	,
+IDENT	ZERO
+IDENT	PARAMETER
+(	(
+IDENT	ONE
+=	=
+IDENT	1
+.	.
+IDENT	0
+IDENT	E
++	+
+IDENT	0
+,	,
+IDENT	ZERO
+=	=
+IDENT	0
+.	.
+IDENT	0
+IDENT	E
++	+
+IDENT	0
+)	)
+COMMENT	*     ..
+COMMENT	*     .. Local Scalars ..
+IDENT	REAL
+IDENT	TEMP
+IDENT	INTEGER
+IDENT	I
+,	,
+IDENT	INFO
+,	,
+IDENT	IX
+,	,
+IDENT	IY
+,	,
+IDENT	J
+,	,
+IDENT	JX
+,	,
+IDENT	JY
+,	,
+IDENT	K
+,	,
+IDENT	KUP1
+,	,
+IDENT	KX
+,	,
+IDENT	KY
+,	,
+IDENT	LENX
+,	,
+IDENT	LENY
+COMMENT	*     ..
+COMMENT	*     .. External Functions ..
+IDENT	LOGICAL
+IDENT	LSAME
+IDENT	EXTERNAL
+IDENT	LSAME
+COMMENT	*     ..
+COMMENT	*     .. External Subroutines ..
+IDENT	EXTERNAL
+IDENT	XERBLA
+COMMENT	*     ..
+COMMENT	*     .. Intrinsic Functions ..
+IDENT	INTRINSIC
+IDENT	MAX
+,	,
+IDENT	MIN
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*     Test the input parameters.
+COMMENT	*
+IDENT	INFO
+=	=
+IDENT	0
+IDENT	IF
+(	(
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	TRANS
+,	,
+STRING	'N'
+)	)
+.	.
+IDENT	AND
+.	.
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	TRANS
+,	,
+STRING	'T'
+)	)
+.	.
+IDENT	AND
+.	.
++	+
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	TRANS
+,	,
+STRING	'C'
+)	)
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	1
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	M
+.	.
+IDENT	LT
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	2
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	N
+.	.
+IDENT	LT
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	3
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	KL
+.	.
+IDENT	LT
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	4
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	KU
+.	.
+IDENT	LT
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	5
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	LDA
+.	.
+IDENT	LT
+.	.
+(	(
+IDENT	KL
++	+
+IDENT	KU
++	+
+IDENT	1
+)	)
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	8
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	10
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	INCY
+.	.
+IDENT	EQ
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	13
+IDENT	END
+IDENT	IF
+IDENT	IF
+(	(
+IDENT	INFO
+.	.
+IDENT	NE
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	CALL
+IDENT	XERBLA
+(	(
+STRING	'SGBMV '
+,	,
+IDENT	INFO
+)	)
+IDENT	RETURN
+IDENT	END
+IDENT	IF
+COMMENT	*
+COMMENT	*     Quick return if possible.
+COMMENT	*
+IDENT	IF
+(	(
+(	(
+IDENT	M
+.	.
+IDENT	EQ
+.	.
+IDENT	0
+)	)
+.	.
+IDENT	OR
+.	.
+(	(
+IDENT	N
+.	.
+IDENT	EQ
+.	.
+IDENT	0
+)	)
+.	.
+IDENT	OR
+.	.
++	+
+(	(
+(	(
+IDENT	ALPHA
+.	.
+IDENT	EQ
+.	.
+IDENT	ZERO
+)	)
+.	.
+IDENT	AND
+.	.
+(	(
+IDENT	BETA
+.	.
+IDENT	EQ
+.	.
+IDENT	ONE
+)	)
+)	)
+)	)
+IDENT	RETURN
+COMMENT	*
+COMMENT	*     Set  LENX  and  LENY, the lengths of the vectors x and y, and set
+COMMENT	*     up the start points in  X  and  Y.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	LSAME
+(	(
+IDENT	TRANS
+,	,
+STRING	'N'
+)	)
+)	)
+IDENT	THEN
+IDENT	LENX
+=	=
+IDENT	N
+IDENT	LENY
+=	=
+IDENT	M
+IDENT	ELSE
+IDENT	LENX
+=	=
+IDENT	M
+IDENT	LENY
+=	=
+IDENT	N
+IDENT	END
+IDENT	IF
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	GT
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	KX
+=	=
+IDENT	1
+IDENT	ELSE
+IDENT	KX
+=	=
+IDENT	1
+-	-
+(	(
+IDENT	LENX
+-	-
+IDENT	1
+)	)
+*	*I
+IDENT	NCX
+IDENT	END
+IDENT	IF
+IDENT	IF
+(	(
+IDENT	INCY
+.	.
+IDENT	GT
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	KY
+=	=
+IDENT	1
+IDENT	ELSE
+IDENT	KY
+=	=
+IDENT	1
+-	-
+(	(
+IDENT	LENY
+-	-
+IDENT	1
+)	)
+*	*I
+IDENT	NCY
+IDENT	END
+IDENT	IF
+COMMENT	*
+COMMENT	*     Start the operations. In this version the elements of A are
+COMMENT	*     accessed sequentially with one pass through the band part of A.
+COMMENT	*
+COMMENT	*     First form  y := beta*y.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	BETA
+.	.
+IDENT	NE
+.	.
+IDENT	ONE
+)	)
+IDENT	THEN
+IDENT	IF
+(	(
+IDENT	INCY
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+IDENT	IF
+(	(
+IDENT	BETA
+.	.
+IDENT	EQ
+.	.
+IDENT	ZERO
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	10
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	LENY
+IDENT	Y
+(	(
+IDENT	I
+)	)
+=	=
+IDENT	ZERO
+IDENT	10
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	DO
+IDENT	20
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	LENY
+IDENT	Y
+(	(
+IDENT	I
+)	)
+=	=
+IDENT	BETA
+*	*Y
+(	(
+IDENT	I
+)	)
+IDENT	20
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	ELSE
+IDENT	IY
+=	=
+IDENT	KY
+IDENT	IF
+(	(
+IDENT	BETA
+.	.
+IDENT	EQ
+.	.
+IDENT	ZERO
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	30
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	LENY
+IDENT	Y
+(	(
+IDENT	IY
+)	)
+=	=
+IDENT	ZERO
+IDENT	IY
+=	=
+IDENT	IY
++	+
+IDENT	INCY
+IDENT	30
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	DO
+IDENT	40
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	LENY
+IDENT	Y
+(	(
+IDENT	IY
+)	)
+=	=
+IDENT	BETA
+*	*Y
+(	(
+IDENT	IY
+)	)
+IDENT	IY
+=	=
+IDENT	IY
++	+
+IDENT	INCY
+IDENT	40
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	END
+IDENT	IF
+IDENT	END
+IDENT	IF
+IDENT	IF
+(	(
+IDENT	ALPHA
+.	.
+IDENT	EQ
+.	.
+IDENT	ZERO
+)	)
+IDENT	RETURN
+IDENT	KUP1
+=	=
+IDENT	KU
++	+
+IDENT	1
+IDENT	IF
+(	(
+IDENT	LSAME
+(	(
+IDENT	TRANS
+,	,
+STRING	'N'
+)	)
+)	)
+IDENT	THEN
+COMMENT	*
+COMMENT	*        Form  y := alpha*A*x + y.
+COMMENT	*
+IDENT	JX
+=	=
+IDENT	KX
+IDENT	IF
+(	(
+IDENT	INCY
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	60
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	TEMP
+=	=
+IDENT	ALPHA
+*	*X
+(	(
+IDENT	JX
+)	)
+IDENT	K
+=	=
+IDENT	KUP1
+-	-
+IDENT	J
+IDENT	DO
+IDENT	50
+IDENT	I
+=	=
+IDENT	MAX
+(	(
+IDENT	1
+,	,
+IDENT	J
+-	-
+IDENT	KU
+)	)
+,	,
+IDENT	MIN
+(	(
+IDENT	M
+,	,
+IDENT	J
++	+
+IDENT	KL
+)	)
+IDENT	Y
+(	(
+IDENT	I
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	I
+)	)
++	+
+IDENT	TEMP
+*	*A
+(	(
+IDENT	K
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+IDENT	50
+IDENT	CONTINUE
+IDENT	JX
+=	=
+IDENT	JX
++	+
+IDENT	INCX
+IDENT	60
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	DO
+IDENT	80
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	TEMP
+=	=
+IDENT	ALPHA
+*	*X
+(	(
+IDENT	JX
+)	)
+IDENT	IY
+=	=
+IDENT	KY
+IDENT	K
+=	=
+IDENT	KUP1
+-	-
+IDENT	J
+IDENT	DO
+IDENT	70
+IDENT	I
+=	=
+IDENT	MAX
+(	(
+IDENT	1
+,	,
+IDENT	J
+-	-
+IDENT	KU
+)	)
+,	,
+IDENT	MIN
+(	(
+IDENT	M
+,	,
+IDENT	J
++	+
+IDENT	KL
+)	)
+IDENT	Y
+(	(
+IDENT	IY
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	IY
+)	)
++	+
+IDENT	TEMP
+*	*A
+(	(
+IDENT	K
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+IDENT	IY
+=	=
+IDENT	IY
++	+
+IDENT	INCY
+IDENT	70
+IDENT	CONTINUE
+IDENT	JX
+=	=
+IDENT	JX
++	+
+IDENT	INCX
+IDENT	IF
+(	(
+IDENT	J
+.	.
+IDENT	GT
+.	.
+IDENT	KU
+)	)
+IDENT	KY
+=	=
+IDENT	KY
++	+
+IDENT	INCY
+IDENT	80
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	ELSE
+COMMENT	*
+COMMENT	*        Form  y := alpha*A**T*x + y.
+COMMENT	*
+IDENT	JY
+=	=
+IDENT	KY
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	100
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	TEMP
+=	=
+IDENT	ZERO
+IDENT	K
+=	=
+IDENT	KUP1
+-	-
+IDENT	J
+IDENT	DO
+IDENT	90
+IDENT	I
+=	=
+IDENT	MAX
+(	(
+IDENT	1
+,	,
+IDENT	J
+-	-
+IDENT	KU
+)	)
+,	,
+IDENT	MIN
+(	(
+IDENT	M
+,	,
+IDENT	J
++	+
+IDENT	KL
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
++	+
+IDENT	A
+(	(
+IDENT	K
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+*	*X
+(	(
+IDENT	I
+)	)
+IDENT	90
+IDENT	CONTINUE
+IDENT	Y
+(	(
+IDENT	JY
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	JY
+)	)
++	+
+IDENT	ALPHA
+*	*T
+IDENT	EMP
+IDENT	JY
+=	=
+IDENT	JY
++	+
+IDENT	INCY
+IDENT	100
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	DO
+IDENT	120
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	TEMP
+=	=
+IDENT	ZERO
+IDENT	IX
+=	=
+IDENT	KX
+IDENT	K
+=	=
+IDENT	KUP1
+-	-
+IDENT	J
+IDENT	DO
+IDENT	110
+IDENT	I
+=	=
+IDENT	MAX
+(	(
+IDENT	1
+,	,
+IDENT	J
+-	-
+IDENT	KU
+)	)
+,	,
+IDENT	MIN
+(	(
+IDENT	M
+,	,
+IDENT	J
++	+
+IDENT	KL
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
++	+
+IDENT	A
+(	(
+IDENT	K
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+*	*X
+(	(
+IDENT	IX
+)	)
+IDENT	IX
+=	=
+IDENT	IX
++	+
+IDENT	INCX
+IDENT	110
+IDENT	CONTINUE
+IDENT	Y
+(	(
+IDENT	JY
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	JY
+)	)
++	+
+IDENT	ALPHA
+*	*T
+IDENT	EMP
+IDENT	JY
+=	=
+IDENT	JY
++	+
+IDENT	INCY
+IDENT	IF
+(	(
+IDENT	J
+.	.
+IDENT	GT
+.	.
+IDENT	KU
+)	)
+IDENT	KX
+=	=
+IDENT	KX
++	+
+IDENT	INCX
+IDENT	120
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	END
+IDENT	IF
+COMMENT	*
+IDENT	RETURN
+COMMENT	*
+COMMENT	*     End of SGBMV .
+COMMENT	*
+IDENT	END

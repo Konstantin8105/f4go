@@ -1,0 +1,407 @@
+COMMENT	> \brief \b LSAME
+COMMENT	*
+COMMENT	*  =========== DOCUMENTATION ===========
+COMMENT	*
+COMMENT	* Online html documentation available at
+COMMENT	*            http://www.netlib.org/lapack/explore-html/
+COMMENT	*
+COMMENT	*  Definition:
+COMMENT	*  ===========
+COMMENT	*
+COMMENT	*       LOGICAL FUNCTION LSAME(CA,CB)
+COMMENT	*
+COMMENT	*       .. Scalar Arguments ..
+COMMENT	*       CHARACTER CA,CB
+COMMENT	*       ..
+COMMENT	*
+COMMENT	*
+COMMENT	*> \par Purpose:
+COMMENT	*  =============
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*> LSAME returns .TRUE. if CA is the same letter as CB regardless of
+COMMENT	*> case.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Arguments:
+COMMENT	*  ==========
+COMMENT	*
+COMMENT	*> \param[in] CA
+COMMENT	*> \verbatim
+COMMENT	*>          CA is CHARACTER*1
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] CB
+COMMENT	*> \verbatim
+COMMENT	*>          CB is CHARACTER*1
+COMMENT	*>          CA and CB specify the single characters to be compared.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Authors:
+COMMENT	*  ========
+COMMENT	*
+COMMENT	*> \author Univ. of Tennessee
+COMMENT	*> \author Univ. of California Berkeley
+COMMENT	*> \author Univ. of Colorado Denver
+COMMENT	*> \author NAG Ltd.
+COMMENT	*
+COMMENT	*> \date December 2016
+COMMENT	*
+COMMENT	*> \ingroup aux_blas
+COMMENT	*
+COMMENT	*  =====================================================================
+IDENT	LOGICAL
+IDENT	FUNCTION
+IDENT	LSAME
+(	(
+IDENT	CA
+,	,
+IDENT	CB
+)	)
+COMMENT	*
+COMMENT	*  -- Reference BLAS level1 routine (version 3.1) --
+COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT	*     December 2016
+COMMENT	*
+COMMENT	*     .. Scalar Arguments ..
+IDENT	CHARACTER
+IDENT	CA
+,	,
+IDENT	CB
+COMMENT	*     ..
+COMMENT	*
+COMMENT	* =====================================================================
+COMMENT	*
+COMMENT	*     .. Intrinsic Functions ..
+IDENT	INTRINSIC
+IDENT	ICHAR
+COMMENT	*     ..
+COMMENT	*     .. Local Scalars ..
+IDENT	INTEGER
+IDENT	INTA
+,	,
+IDENT	INTB
+,	,
+IDENT	ZCODE
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*     Test if the characters are equal
+COMMENT	*
+IDENT	LSAME
+=	=
+IDENT	CA
+.	.
+IDENT	EQ
+.	.
+IDENT	CB
+IDENT	IF
+(	(
+IDENT	LSAME
+)	)
+IDENT	RETURN
+COMMENT	*
+COMMENT	*     Now test for equivalence if both characters are alphabetic.
+COMMENT	*
+IDENT	ZCODE
+=	=
+IDENT	ICHAR
+(	(
+STRING	'Z'
+)	)
+COMMENT	*
+COMMENT	*     Use 'Z' rather than 'A' so that ASCII can be detected on Prime
+COMMENT	*     machines, on which ICHAR returns a value with bit 8 set.
+COMMENT	*     ICHAR('A') on Prime machines returns 193 which is the same as
+COMMENT	*     ICHAR('A') on an EBCDIC machine.
+COMMENT	*
+IDENT	INTA
+=	=
+IDENT	ICHAR
+(	(
+IDENT	CA
+)	)
+IDENT	INTB
+=	=
+IDENT	ICHAR
+(	(
+IDENT	CB
+)	)
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	ZCODE
+.	.
+IDENT	EQ
+.	.
+IDENT	90
+.	.
+IDENT	OR
+.	.
+IDENT	ZCODE
+.	.
+IDENT	EQ
+.	.
+IDENT	122
+)	)
+IDENT	THEN
+COMMENT	*
+COMMENT	*        ASCII is assumed - ZCODE is the ASCII code of either lower or
+COMMENT	*        upper case 'Z'.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	INTA
+.	.
+IDENT	GE
+.	.
+IDENT	97
+.	.
+IDENT	AND
+.	.
+IDENT	INTA
+.	.
+IDENT	LE
+.	.
+IDENT	122
+)	)
+IDENT	INTA
+=	=
+IDENT	INTA
+-	-
+IDENT	32
+IDENT	IF
+(	(
+IDENT	INTB
+.	.
+IDENT	GE
+.	.
+IDENT	97
+.	.
+IDENT	AND
+.	.
+IDENT	INTB
+.	.
+IDENT	LE
+.	.
+IDENT	122
+)	)
+IDENT	INTB
+=	=
+IDENT	INTB
+-	-
+IDENT	32
+COMMENT	*
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	ZCODE
+.	.
+IDENT	EQ
+.	.
+IDENT	233
+.	.
+IDENT	OR
+.	.
+IDENT	ZCODE
+.	.
+IDENT	EQ
+.	.
+IDENT	169
+)	)
+IDENT	THEN
+COMMENT	*
+COMMENT	*        EBCDIC is assumed - ZCODE is the EBCDIC code of either lower or
+COMMENT	*        upper case 'Z'.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	INTA
+.	.
+IDENT	GE
+.	.
+IDENT	129
+.	.
+IDENT	AND
+.	.
+IDENT	INTA
+.	.
+IDENT	LE
+.	.
+IDENT	137
+.	.
+IDENT	OR
+.	.
++	+
+IDENT	INTA
+.	.
+IDENT	GE
+.	.
+IDENT	145
+.	.
+IDENT	AND
+.	.
+IDENT	INTA
+.	.
+IDENT	LE
+.	.
+IDENT	153
+.	.
+IDENT	OR
+.	.
++	+
+IDENT	INTA
+.	.
+IDENT	GE
+.	.
+IDENT	162
+.	.
+IDENT	AND
+.	.
+IDENT	INTA
+.	.
+IDENT	LE
+.	.
+IDENT	169
+)	)
+IDENT	INTA
+=	=
+IDENT	INTA
++	+
+IDENT	64
+IDENT	IF
+(	(
+IDENT	INTB
+.	.
+IDENT	GE
+.	.
+IDENT	129
+.	.
+IDENT	AND
+.	.
+IDENT	INTB
+.	.
+IDENT	LE
+.	.
+IDENT	137
+.	.
+IDENT	OR
+.	.
++	+
+IDENT	INTB
+.	.
+IDENT	GE
+.	.
+IDENT	145
+.	.
+IDENT	AND
+.	.
+IDENT	INTB
+.	.
+IDENT	LE
+.	.
+IDENT	153
+.	.
+IDENT	OR
+.	.
++	+
+IDENT	INTB
+.	.
+IDENT	GE
+.	.
+IDENT	162
+.	.
+IDENT	AND
+.	.
+IDENT	INTB
+.	.
+IDENT	LE
+.	.
+IDENT	169
+)	)
+IDENT	INTB
+=	=
+IDENT	INTB
++	+
+IDENT	64
+COMMENT	*
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	ZCODE
+.	.
+IDENT	EQ
+.	.
+IDENT	218
+.	.
+IDENT	OR
+.	.
+IDENT	ZCODE
+.	.
+IDENT	EQ
+.	.
+IDENT	250
+)	)
+IDENT	THEN
+COMMENT	*
+COMMENT	*        ASCII is assumed, on Prime machines - ZCODE is the ASCII code
+COMMENT	*        plus 128 of either lower or upper case 'Z'.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	INTA
+.	.
+IDENT	GE
+.	.
+IDENT	225
+.	.
+IDENT	AND
+.	.
+IDENT	INTA
+.	.
+IDENT	LE
+.	.
+IDENT	250
+)	)
+IDENT	INTA
+=	=
+IDENT	INTA
+-	-
+IDENT	32
+IDENT	IF
+(	(
+IDENT	INTB
+.	.
+IDENT	GE
+.	.
+IDENT	225
+.	.
+IDENT	AND
+.	.
+IDENT	INTB
+.	.
+IDENT	LE
+.	.
+IDENT	250
+)	)
+IDENT	INTB
+=	=
+IDENT	INTB
+-	-
+IDENT	32
+IDENT	END
+IDENT	IF
+IDENT	LSAME
+=	=
+IDENT	INTA
+.	.
+IDENT	EQ
+.	.
+IDENT	INTB
+COMMENT	*
+COMMENT	*     RETURN
+COMMENT	*
+COMMENT	*     End of LSAME
+COMMENT	*
+IDENT	END

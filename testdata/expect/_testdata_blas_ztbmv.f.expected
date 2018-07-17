@@ -1,0 +1,1745 @@
+COMMENT	> \brief \b ZTBMV
+COMMENT	*
+COMMENT	*  =========== DOCUMENTATION ===========
+COMMENT	*
+COMMENT	* Online html documentation available at
+COMMENT	*            http://www.netlib.org/lapack/explore-html/
+COMMENT	*
+COMMENT	*  Definition:
+COMMENT	*  ===========
+COMMENT	*
+COMMENT	*       SUBROUTINE ZTBMV(UPLO,TRANS,DIAG,N,K,A,LDA,X,INCX)
+COMMENT	*
+COMMENT	*       .. Scalar Arguments ..
+COMMENT	*       INTEGER INCX,K,LDA,N
+COMMENT	*       CHARACTER DIAG,TRANS,UPLO
+COMMENT	*       ..
+COMMENT	*       .. Array Arguments ..
+COMMENT	*       COMPLEX*16 A(LDA,*),X(*)
+COMMENT	*       ..
+COMMENT	*
+COMMENT	*
+COMMENT	*> \par Purpose:
+COMMENT	*  =============
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*> ZTBMV  performs one of the matrix-vector operations
+COMMENT	*>
+COMMENT	*>    x := A*x,   or   x := A**T*x,   or   x := A**H*x,
+COMMENT	*>
+COMMENT	*> where x is an n element vector and  A is an n by n unit, or non-unit,
+COMMENT	*> upper or lower triangular band matrix, with ( k + 1 ) diagonals.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Arguments:
+COMMENT	*  ==========
+COMMENT	*
+COMMENT	*> \param[in] UPLO
+COMMENT	*> \verbatim
+COMMENT	*>          UPLO is CHARACTER*1
+COMMENT	*>           On entry, UPLO specifies whether the matrix is an upper or
+COMMENT	*>           lower triangular matrix as follows:
+COMMENT	*>
+COMMENT	*>              UPLO = 'U' or 'u'   A is an upper triangular matrix.
+COMMENT	*>
+COMMENT	*>              UPLO = 'L' or 'l'   A is a lower triangular matrix.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] TRANS
+COMMENT	*> \verbatim
+COMMENT	*>          TRANS is CHARACTER*1
+COMMENT	*>           On entry, TRANS specifies the operation to be performed as
+COMMENT	*>           follows:
+COMMENT	*>
+COMMENT	*>              TRANS = 'N' or 'n'   x := A*x.
+COMMENT	*>
+COMMENT	*>              TRANS = 'T' or 't'   x := A**T*x.
+COMMENT	*>
+COMMENT	*>              TRANS = 'C' or 'c'   x := A**H*x.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] DIAG
+COMMENT	*> \verbatim
+COMMENT	*>          DIAG is CHARACTER*1
+COMMENT	*>           On entry, DIAG specifies whether or not A is unit
+COMMENT	*>           triangular as follows:
+COMMENT	*>
+COMMENT	*>              DIAG = 'U' or 'u'   A is assumed to be unit triangular.
+COMMENT	*>
+COMMENT	*>              DIAG = 'N' or 'n'   A is not assumed to be unit
+COMMENT	*>                                  triangular.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] N
+COMMENT	*> \verbatim
+COMMENT	*>          N is INTEGER
+COMMENT	*>           On entry, N specifies the order of the matrix A.
+COMMENT	*>           N must be at least zero.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] K
+COMMENT	*> \verbatim
+COMMENT	*>          K is INTEGER
+COMMENT	*>           On entry with UPLO = 'U' or 'u', K specifies the number of
+COMMENT	*>           super-diagonals of the matrix A.
+COMMENT	*>           On entry with UPLO = 'L' or 'l', K specifies the number of
+COMMENT	*>           sub-diagonals of the matrix A.
+COMMENT	*>           K must satisfy  0 .le. K.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] A
+COMMENT	*> \verbatim
+COMMENT	*>          A is COMPLEX*16 array, dimension ( LDA, N ).
+COMMENT	*>           Before entry with UPLO = 'U' or 'u', the leading ( k + 1 )
+COMMENT	*>           by n part of the array A must contain the upper triangular
+COMMENT	*>           band part of the matrix of coefficients, supplied column by
+COMMENT	*>           column, with the leading diagonal of the matrix in row
+COMMENT	*>           ( k + 1 ) of the array, the first super-diagonal starting at
+COMMENT	*>           position 2 in row k, and so on. The top left k by k triangle
+COMMENT	*>           of the array A is not referenced.
+COMMENT	*>           The following program segment will transfer an upper
+COMMENT	*>           triangular band matrix from conventional full matrix storage
+COMMENT	*>           to band storage:
+COMMENT	*>
+COMMENT	*>                 DO 20, J = 1, N
+COMMENT	*>                    M = K + 1 - J
+COMMENT	*>                    DO 10, I = MAX( 1, J - K ), J
+COMMENT	*>                       A( M + I, J ) = matrix( I, J )
+COMMENT	*>              10    CONTINUE
+COMMENT	*>              20 CONTINUE
+COMMENT	*>
+COMMENT	*>           Before entry with UPLO = 'L' or 'l', the leading ( k + 1 )
+COMMENT	*>           by n part of the array A must contain the lower triangular
+COMMENT	*>           band part of the matrix of coefficients, supplied column by
+COMMENT	*>           column, with the leading diagonal of the matrix in row 1 of
+COMMENT	*>           the array, the first sub-diagonal starting at position 1 in
+COMMENT	*>           row 2, and so on. The bottom right k by k triangle of the
+COMMENT	*>           array A is not referenced.
+COMMENT	*>           The following program segment will transfer a lower
+COMMENT	*>           triangular band matrix from conventional full matrix storage
+COMMENT	*>           to band storage:
+COMMENT	*>
+COMMENT	*>                 DO 20, J = 1, N
+COMMENT	*>                    M = 1 - J
+COMMENT	*>                    DO 10, I = J, MIN( N, J + K )
+COMMENT	*>                       A( M + I, J ) = matrix( I, J )
+COMMENT	*>              10    CONTINUE
+COMMENT	*>              20 CONTINUE
+COMMENT	*>
+COMMENT	*>           Note that when DIAG = 'U' or 'u' the elements of the array A
+COMMENT	*>           corresponding to the diagonal elements of the matrix are not
+COMMENT	*>           referenced, but are assumed to be unity.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] LDA
+COMMENT	*> \verbatim
+COMMENT	*>          LDA is INTEGER
+COMMENT	*>           On entry, LDA specifies the first dimension of A as declared
+COMMENT	*>           in the calling (sub) program. LDA must be at least
+COMMENT	*>           ( k + 1 ).
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in,out] X
+COMMENT	*> \verbatim
+COMMENT	*>          X is COMPLEX*16 array, dimension at least
+COMMENT	*>           ( 1 + ( n - 1 )*abs( INCX ) ).
+COMMENT	*>           Before entry, the incremented array X must contain the n
+COMMENT	*>           element vector x. On exit, X is overwritten with the
+COMMENT	*>           transformed vector x.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INCX
+COMMENT	*> \verbatim
+COMMENT	*>          INCX is INTEGER
+COMMENT	*>           On entry, INCX specifies the increment for the elements of
+COMMENT	*>           X. INCX must not be zero.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Authors:
+COMMENT	*  ========
+COMMENT	*
+COMMENT	*> \author Univ. of Tennessee
+COMMENT	*> \author Univ. of California Berkeley
+COMMENT	*> \author Univ. of Colorado Denver
+COMMENT	*> \author NAG Ltd.
+COMMENT	*
+COMMENT	*> \date December 2016
+COMMENT	*
+COMMENT	*> \ingroup complex16_blas_level2
+COMMENT	*
+COMMENT	*> \par Further Details:
+COMMENT	*  =====================
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*>  Level 2 Blas routine.
+COMMENT	*>  The vector and matrix arguments are not referenced when N = 0, or M = 0
+COMMENT	*>
+COMMENT	*>  -- Written on 22-October-1986.
+COMMENT	*>     Jack Dongarra, Argonne National Lab.
+COMMENT	*>     Jeremy Du Croz, Nag Central Office.
+COMMENT	*>     Sven Hammarling, Nag Central Office.
+COMMENT	*>     Richard Hanson, Sandia National Labs.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*  =====================================================================
+IDENT	SUBROUTINE
+IDENT	ZTBMV
+(	(
+IDENT	UPLO
+,	,
+IDENT	TRANS
+,	,
+IDENT	DIAG
+,	,
+IDENT	N
+,	,
+IDENT	K
+,	,
+IDENT	A
+,	,
+IDENT	LDA
+,	,
+IDENT	X
+,	,
+IDENT	INCX
+)	)
+COMMENT	*
+COMMENT	*  -- Reference BLAS level2 routine (version 3.7.0) --
+COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT	*     December 2016
+COMMENT	*
+COMMENT	*     .. Scalar Arguments ..
+IDENT	INTEGER
+IDENT	INCX
+,	,
+IDENT	K
+,	,
+IDENT	LDA
+,	,
+IDENT	N
+IDENT	CHARACTER
+IDENT	DIAG
+,	,
+IDENT	TRANS
+,	,
+IDENT	UPLO
+COMMENT	*     ..
+COMMENT	*     .. Array Arguments ..
+IDENT	COMPLEX
+*	*1
+IDENT	6
+IDENT	A
+(	(
+IDENT	LDA
+,	,
+*	*)
+,	,
+IDENT	X
+(	(
+*	*)
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*  =====================================================================
+COMMENT	*
+COMMENT	*     .. Parameters ..
+IDENT	COMPLEX
+*	*1
+IDENT	6
+IDENT	ZERO
+IDENT	PARAMETER
+(	(
+IDENT	ZERO
+=	=
+(	(
+IDENT	0
+.	.
+IDENT	0
+IDENT	D
++	+
+IDENT	0
+,	,
+IDENT	0
+.	.
+IDENT	0
+IDENT	D
++	+
+IDENT	0
+)	)
+)	)
+COMMENT	*     ..
+COMMENT	*     .. Local Scalars ..
+IDENT	COMPLEX
+*	*1
+IDENT	6
+IDENT	TEMP
+IDENT	INTEGER
+IDENT	I
+,	,
+IDENT	INFO
+,	,
+IDENT	IX
+,	,
+IDENT	J
+,	,
+IDENT	JX
+,	,
+IDENT	KPLUS1
+,	,
+IDENT	KX
+,	,
+IDENT	L
+IDENT	LOGICAL
+IDENT	NOCONJ
+,	,
+IDENT	NOUNIT
+COMMENT	*     ..
+COMMENT	*     .. External Functions ..
+IDENT	LOGICAL
+IDENT	LSAME
+IDENT	EXTERNAL
+IDENT	LSAME
+COMMENT	*     ..
+COMMENT	*     .. External Subroutines ..
+IDENT	EXTERNAL
+IDENT	XERBLA
+COMMENT	*     ..
+COMMENT	*     .. Intrinsic Functions ..
+IDENT	INTRINSIC
+IDENT	DCONJG
+,	,
+IDENT	MAX
+,	,
+IDENT	MIN
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*     Test the input parameters.
+COMMENT	*
+IDENT	INFO
+=	=
+IDENT	0
+IDENT	IF
+(	(
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	UPLO
+,	,
+STRING	'U'
+)	)
+.	.
+IDENT	AND
+.	.
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	UPLO
+,	,
+STRING	'L'
+)	)
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	1
+IDENT	ELSE
+IDENT	IF
+(	(
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	TRANS
+,	,
+STRING	'N'
+)	)
+.	.
+IDENT	AND
+.	.
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	TRANS
+,	,
+STRING	'T'
+)	)
+.	.
+IDENT	AND
+.	.
++	+
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	TRANS
+,	,
+STRING	'C'
+)	)
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	2
+IDENT	ELSE
+IDENT	IF
+(	(
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	DIAG
+,	,
+STRING	'U'
+)	)
+.	.
+IDENT	AND
+.	.
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	DIAG
+,	,
+STRING	'N'
+)	)
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	3
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	N
+.	.
+IDENT	LT
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	4
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	K
+.	.
+IDENT	LT
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	5
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	LDA
+.	.
+IDENT	LT
+.	.
+(	(
+IDENT	K
++	+
+IDENT	1
+)	)
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	7
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	9
+IDENT	END
+IDENT	IF
+IDENT	IF
+(	(
+IDENT	INFO
+.	.
+IDENT	NE
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	CALL
+IDENT	XERBLA
+(	(
+STRING	'ZTBMV '
+,	,
+IDENT	INFO
+)	)
+IDENT	RETURN
+IDENT	END
+IDENT	IF
+COMMENT	*
+COMMENT	*     Quick return if possible.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	N
+.	.
+IDENT	EQ
+.	.
+IDENT	0
+)	)
+IDENT	RETURN
+COMMENT	*
+IDENT	NOCONJ
+=	=
+IDENT	LSAME
+(	(
+IDENT	TRANS
+,	,
+STRING	'T'
+)	)
+IDENT	NOUNIT
+=	=
+IDENT	LSAME
+(	(
+IDENT	DIAG
+,	,
+STRING	'N'
+)	)
+COMMENT	*
+COMMENT	*     Set up the start point in X if the increment is not unity. This
+COMMENT	*     will be  ( N - 1 )*INCX   too small for descending loops.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	LE
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	KX
+=	=
+IDENT	1
+-	-
+(	(
+IDENT	N
+-	-
+IDENT	1
+)	)
+*	*I
+IDENT	NCX
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	NE
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+IDENT	KX
+=	=
+IDENT	1
+IDENT	END
+IDENT	IF
+COMMENT	*
+COMMENT	*     Start the operations. In this version the elements of A are
+COMMENT	*     accessed sequentially with one pass through A.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	LSAME
+(	(
+IDENT	TRANS
+,	,
+STRING	'N'
+)	)
+)	)
+IDENT	THEN
+COMMENT	*
+COMMENT	*         Form  x := A*x.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	LSAME
+(	(
+IDENT	UPLO
+,	,
+STRING	'U'
+)	)
+)	)
+IDENT	THEN
+IDENT	KPLUS1
+=	=
+IDENT	K
++	+
+IDENT	1
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	20
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	IF
+(	(
+IDENT	X
+(	(
+IDENT	J
+)	)
+.	.
+IDENT	NE
+.	.
+IDENT	ZERO
+)	)
+IDENT	THEN
+IDENT	TEMP
+=	=
+IDENT	X
+(	(
+IDENT	J
+)	)
+IDENT	L
+=	=
+IDENT	KPLUS1
+-	-
+IDENT	J
+IDENT	DO
+IDENT	10
+IDENT	I
+=	=
+IDENT	MAX
+(	(
+IDENT	1
+,	,
+IDENT	J
+-	-
+IDENT	K
+)	)
+,	,
+IDENT	J
+-	-
+IDENT	1
+IDENT	X
+(	(
+IDENT	I
+)	)
+=	=
+IDENT	X
+(	(
+IDENT	I
+)	)
++	+
+IDENT	TEMP
+*	*A
+(	(
+IDENT	L
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+IDENT	10
+IDENT	CONTINUE
+IDENT	IF
+(	(
+IDENT	NOUNIT
+)	)
+IDENT	X
+(	(
+IDENT	J
+)	)
+=	=
+IDENT	X
+(	(
+IDENT	J
+)	)
+*	*A
+(	(
+IDENT	KPLUS1
+,	,
+IDENT	J
+)	)
+IDENT	END
+IDENT	IF
+IDENT	20
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	JX
+=	=
+IDENT	KX
+IDENT	DO
+IDENT	40
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	IF
+(	(
+IDENT	X
+(	(
+IDENT	JX
+)	)
+.	.
+IDENT	NE
+.	.
+IDENT	ZERO
+)	)
+IDENT	THEN
+IDENT	TEMP
+=	=
+IDENT	X
+(	(
+IDENT	JX
+)	)
+IDENT	IX
+=	=
+IDENT	KX
+IDENT	L
+=	=
+IDENT	KPLUS1
+-	-
+IDENT	J
+IDENT	DO
+IDENT	30
+IDENT	I
+=	=
+IDENT	MAX
+(	(
+IDENT	1
+,	,
+IDENT	J
+-	-
+IDENT	K
+)	)
+,	,
+IDENT	J
+-	-
+IDENT	1
+IDENT	X
+(	(
+IDENT	IX
+)	)
+=	=
+IDENT	X
+(	(
+IDENT	IX
+)	)
++	+
+IDENT	TEMP
+*	*A
+(	(
+IDENT	L
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+IDENT	IX
+=	=
+IDENT	IX
++	+
+IDENT	INCX
+IDENT	30
+IDENT	CONTINUE
+IDENT	IF
+(	(
+IDENT	NOUNIT
+)	)
+IDENT	X
+(	(
+IDENT	JX
+)	)
+=	=
+IDENT	X
+(	(
+IDENT	JX
+)	)
+*	*A
+(	(
+IDENT	KPLUS1
+,	,
+IDENT	J
+)	)
+IDENT	END
+IDENT	IF
+IDENT	JX
+=	=
+IDENT	JX
++	+
+IDENT	INCX
+IDENT	IF
+(	(
+IDENT	J
+.	.
+IDENT	GT
+.	.
+IDENT	K
+)	)
+IDENT	KX
+=	=
+IDENT	KX
++	+
+IDENT	INCX
+IDENT	40
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	60
+IDENT	J
+=	=
+IDENT	N
+,	,
+IDENT	1
+,	,
+-	-
+IDENT	1
+IDENT	IF
+(	(
+IDENT	X
+(	(
+IDENT	J
+)	)
+.	.
+IDENT	NE
+.	.
+IDENT	ZERO
+)	)
+IDENT	THEN
+IDENT	TEMP
+=	=
+IDENT	X
+(	(
+IDENT	J
+)	)
+IDENT	L
+=	=
+IDENT	1
+-	-
+IDENT	J
+IDENT	DO
+IDENT	50
+IDENT	I
+=	=
+IDENT	MIN
+(	(
+IDENT	N
+,	,
+IDENT	J
++	+
+IDENT	K
+)	)
+,	,
+IDENT	J
++	+
+IDENT	1
+,	,
+-	-
+IDENT	1
+IDENT	X
+(	(
+IDENT	I
+)	)
+=	=
+IDENT	X
+(	(
+IDENT	I
+)	)
++	+
+IDENT	TEMP
+*	*A
+(	(
+IDENT	L
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+IDENT	50
+IDENT	CONTINUE
+IDENT	IF
+(	(
+IDENT	NOUNIT
+)	)
+IDENT	X
+(	(
+IDENT	J
+)	)
+=	=
+IDENT	X
+(	(
+IDENT	J
+)	)
+*	*A
+(	(
+IDENT	1
+,	,
+IDENT	J
+)	)
+IDENT	END
+IDENT	IF
+IDENT	60
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	KX
+=	=
+IDENT	KX
++	+
+(	(
+IDENT	N
+-	-
+IDENT	1
+)	)
+*	*I
+IDENT	NCX
+IDENT	JX
+=	=
+IDENT	KX
+IDENT	DO
+IDENT	80
+IDENT	J
+=	=
+IDENT	N
+,	,
+IDENT	1
+,	,
+-	-
+IDENT	1
+IDENT	IF
+(	(
+IDENT	X
+(	(
+IDENT	JX
+)	)
+.	.
+IDENT	NE
+.	.
+IDENT	ZERO
+)	)
+IDENT	THEN
+IDENT	TEMP
+=	=
+IDENT	X
+(	(
+IDENT	JX
+)	)
+IDENT	IX
+=	=
+IDENT	KX
+IDENT	L
+=	=
+IDENT	1
+-	-
+IDENT	J
+IDENT	DO
+IDENT	70
+IDENT	I
+=	=
+IDENT	MIN
+(	(
+IDENT	N
+,	,
+IDENT	J
++	+
+IDENT	K
+)	)
+,	,
+IDENT	J
++	+
+IDENT	1
+,	,
+-	-
+IDENT	1
+IDENT	X
+(	(
+IDENT	IX
+)	)
+=	=
+IDENT	X
+(	(
+IDENT	IX
+)	)
++	+
+IDENT	TEMP
+*	*A
+(	(
+IDENT	L
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+IDENT	IX
+=	=
+IDENT	IX
+-	-
+IDENT	INCX
+IDENT	70
+IDENT	CONTINUE
+IDENT	IF
+(	(
+IDENT	NOUNIT
+)	)
+IDENT	X
+(	(
+IDENT	JX
+)	)
+=	=
+IDENT	X
+(	(
+IDENT	JX
+)	)
+*	*A
+(	(
+IDENT	1
+,	,
+IDENT	J
+)	)
+IDENT	END
+IDENT	IF
+IDENT	JX
+=	=
+IDENT	JX
+-	-
+IDENT	INCX
+IDENT	IF
+(	(
+(	(
+IDENT	N
+-	-
+IDENT	J
+)	)
+.	.
+IDENT	GE
+.	.
+IDENT	K
+)	)
+IDENT	KX
+=	=
+IDENT	KX
+-	-
+IDENT	INCX
+IDENT	80
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	END
+IDENT	IF
+IDENT	ELSE
+COMMENT	*
+COMMENT	*        Form  x := A**T*x  or  x := A**H*x.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	LSAME
+(	(
+IDENT	UPLO
+,	,
+STRING	'U'
+)	)
+)	)
+IDENT	THEN
+IDENT	KPLUS1
+=	=
+IDENT	K
++	+
+IDENT	1
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	110
+IDENT	J
+=	=
+IDENT	N
+,	,
+IDENT	1
+,	,
+-	-
+IDENT	1
+IDENT	TEMP
+=	=
+IDENT	X
+(	(
+IDENT	J
+)	)
+IDENT	L
+=	=
+IDENT	KPLUS1
+-	-
+IDENT	J
+IDENT	IF
+(	(
+IDENT	NOCONJ
+)	)
+IDENT	THEN
+IDENT	IF
+(	(
+IDENT	NOUNIT
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
+*	*A
+(	(
+IDENT	KPLUS1
+,	,
+IDENT	J
+)	)
+IDENT	DO
+IDENT	90
+IDENT	I
+=	=
+IDENT	J
+-	-
+IDENT	1
+,	,
+IDENT	MAX
+(	(
+IDENT	1
+,	,
+IDENT	J
+-	-
+IDENT	K
+)	)
+,	,
+-	-
+IDENT	1
+IDENT	TEMP
+=	=
+IDENT	TEMP
++	+
+IDENT	A
+(	(
+IDENT	L
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+*	*X
+(	(
+IDENT	I
+)	)
+IDENT	90
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	NOUNIT
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
+*	*D
+IDENT	CONJG
+(	(
+IDENT	A
+(	(
+IDENT	KPLUS1
+,	,
+IDENT	J
+)	)
+)	)
+IDENT	DO
+IDENT	100
+IDENT	I
+=	=
+IDENT	J
+-	-
+IDENT	1
+,	,
+IDENT	MAX
+(	(
+IDENT	1
+,	,
+IDENT	J
+-	-
+IDENT	K
+)	)
+,	,
+-	-
+IDENT	1
+IDENT	TEMP
+=	=
+IDENT	TEMP
++	+
+IDENT	DCONJG
+(	(
+IDENT	A
+(	(
+IDENT	L
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+)	)
+*	*X
+(	(
+IDENT	I
+)	)
+IDENT	100
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	X
+(	(
+IDENT	J
+)	)
+=	=
+IDENT	TEMP
+IDENT	110
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	KX
+=	=
+IDENT	KX
++	+
+(	(
+IDENT	N
+-	-
+IDENT	1
+)	)
+*	*I
+IDENT	NCX
+IDENT	JX
+=	=
+IDENT	KX
+IDENT	DO
+IDENT	140
+IDENT	J
+=	=
+IDENT	N
+,	,
+IDENT	1
+,	,
+-	-
+IDENT	1
+IDENT	TEMP
+=	=
+IDENT	X
+(	(
+IDENT	JX
+)	)
+IDENT	KX
+=	=
+IDENT	KX
+-	-
+IDENT	INCX
+IDENT	IX
+=	=
+IDENT	KX
+IDENT	L
+=	=
+IDENT	KPLUS1
+-	-
+IDENT	J
+IDENT	IF
+(	(
+IDENT	NOCONJ
+)	)
+IDENT	THEN
+IDENT	IF
+(	(
+IDENT	NOUNIT
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
+*	*A
+(	(
+IDENT	KPLUS1
+,	,
+IDENT	J
+)	)
+IDENT	DO
+IDENT	120
+IDENT	I
+=	=
+IDENT	J
+-	-
+IDENT	1
+,	,
+IDENT	MAX
+(	(
+IDENT	1
+,	,
+IDENT	J
+-	-
+IDENT	K
+)	)
+,	,
+-	-
+IDENT	1
+IDENT	TEMP
+=	=
+IDENT	TEMP
++	+
+IDENT	A
+(	(
+IDENT	L
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+*	*X
+(	(
+IDENT	IX
+)	)
+IDENT	IX
+=	=
+IDENT	IX
+-	-
+IDENT	INCX
+IDENT	120
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	NOUNIT
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
+*	*D
+IDENT	CONJG
+(	(
+IDENT	A
+(	(
+IDENT	KPLUS1
+,	,
+IDENT	J
+)	)
+)	)
+IDENT	DO
+IDENT	130
+IDENT	I
+=	=
+IDENT	J
+-	-
+IDENT	1
+,	,
+IDENT	MAX
+(	(
+IDENT	1
+,	,
+IDENT	J
+-	-
+IDENT	K
+)	)
+,	,
+-	-
+IDENT	1
+IDENT	TEMP
+=	=
+IDENT	TEMP
++	+
+IDENT	DCONJG
+(	(
+IDENT	A
+(	(
+IDENT	L
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+)	)
+*	*X
+(	(
+IDENT	IX
+)	)
+IDENT	IX
+=	=
+IDENT	IX
+-	-
+IDENT	INCX
+IDENT	130
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	X
+(	(
+IDENT	JX
+)	)
+=	=
+IDENT	TEMP
+IDENT	JX
+=	=
+IDENT	JX
+-	-
+IDENT	INCX
+IDENT	140
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	170
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	TEMP
+=	=
+IDENT	X
+(	(
+IDENT	J
+)	)
+IDENT	L
+=	=
+IDENT	1
+-	-
+IDENT	J
+IDENT	IF
+(	(
+IDENT	NOCONJ
+)	)
+IDENT	THEN
+IDENT	IF
+(	(
+IDENT	NOUNIT
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
+*	*A
+(	(
+IDENT	1
+,	,
+IDENT	J
+)	)
+IDENT	DO
+IDENT	150
+IDENT	I
+=	=
+IDENT	J
++	+
+IDENT	1
+,	,
+IDENT	MIN
+(	(
+IDENT	N
+,	,
+IDENT	J
++	+
+IDENT	K
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
++	+
+IDENT	A
+(	(
+IDENT	L
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+*	*X
+(	(
+IDENT	I
+)	)
+IDENT	150
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	NOUNIT
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
+*	*D
+IDENT	CONJG
+(	(
+IDENT	A
+(	(
+IDENT	1
+,	,
+IDENT	J
+)	)
+)	)
+IDENT	DO
+IDENT	160
+IDENT	I
+=	=
+IDENT	J
++	+
+IDENT	1
+,	,
+IDENT	MIN
+(	(
+IDENT	N
+,	,
+IDENT	J
++	+
+IDENT	K
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
++	+
+IDENT	DCONJG
+(	(
+IDENT	A
+(	(
+IDENT	L
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+)	)
+*	*X
+(	(
+IDENT	I
+)	)
+IDENT	160
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	X
+(	(
+IDENT	J
+)	)
+=	=
+IDENT	TEMP
+IDENT	170
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	JX
+=	=
+IDENT	KX
+IDENT	DO
+IDENT	200
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	TEMP
+=	=
+IDENT	X
+(	(
+IDENT	JX
+)	)
+IDENT	KX
+=	=
+IDENT	KX
++	+
+IDENT	INCX
+IDENT	IX
+=	=
+IDENT	KX
+IDENT	L
+=	=
+IDENT	1
+-	-
+IDENT	J
+IDENT	IF
+(	(
+IDENT	NOCONJ
+)	)
+IDENT	THEN
+IDENT	IF
+(	(
+IDENT	NOUNIT
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
+*	*A
+(	(
+IDENT	1
+,	,
+IDENT	J
+)	)
+IDENT	DO
+IDENT	180
+IDENT	I
+=	=
+IDENT	J
++	+
+IDENT	1
+,	,
+IDENT	MIN
+(	(
+IDENT	N
+,	,
+IDENT	J
++	+
+IDENT	K
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
++	+
+IDENT	A
+(	(
+IDENT	L
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+*	*X
+(	(
+IDENT	IX
+)	)
+IDENT	IX
+=	=
+IDENT	IX
++	+
+IDENT	INCX
+IDENT	180
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	NOUNIT
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
+*	*D
+IDENT	CONJG
+(	(
+IDENT	A
+(	(
+IDENT	1
+,	,
+IDENT	J
+)	)
+)	)
+IDENT	DO
+IDENT	190
+IDENT	I
+=	=
+IDENT	J
++	+
+IDENT	1
+,	,
+IDENT	MIN
+(	(
+IDENT	N
+,	,
+IDENT	J
++	+
+IDENT	K
+)	)
+IDENT	TEMP
+=	=
+IDENT	TEMP
++	+
+IDENT	DCONJG
+(	(
+IDENT	A
+(	(
+IDENT	L
++	+
+IDENT	I
+,	,
+IDENT	J
+)	)
+)	)
+*	*X
+(	(
+IDENT	IX
+)	)
+IDENT	IX
+=	=
+IDENT	IX
++	+
+IDENT	INCX
+IDENT	190
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	X
+(	(
+IDENT	JX
+)	)
+=	=
+IDENT	TEMP
+IDENT	JX
+=	=
+IDENT	JX
++	+
+IDENT	INCX
+IDENT	200
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	END
+IDENT	IF
+IDENT	END
+IDENT	IF
+COMMENT	*
+IDENT	RETURN
+COMMENT	*
+COMMENT	*     End of ZTBMV .
+COMMENT	*
+IDENT	END

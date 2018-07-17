@@ -1,0 +1,330 @@
+COMMENT	> \brief \b SASUM
+COMMENT	*
+COMMENT	*  =========== DOCUMENTATION ===========
+COMMENT	*
+COMMENT	* Online html documentation available at
+COMMENT	*            http://www.netlib.org/lapack/explore-html/
+COMMENT	*
+COMMENT	*  Definition:
+COMMENT	*  ===========
+COMMENT	*
+COMMENT	*       REAL FUNCTION SASUM(N,SX,INCX)
+COMMENT	*
+COMMENT	*       .. Scalar Arguments ..
+COMMENT	*       INTEGER INCX,N
+COMMENT	*       ..
+COMMENT	*       .. Array Arguments ..
+COMMENT	*       REAL SX(*)
+COMMENT	*       ..
+COMMENT	*
+COMMENT	*
+COMMENT	*> \par Purpose:
+COMMENT	*  =============
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*>    SASUM takes the sum of the absolute values.
+COMMENT	*>    uses unrolled loops for increment equal to one.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Arguments:
+COMMENT	*  ==========
+COMMENT	*
+COMMENT	*> \param[in] N
+COMMENT	*> \verbatim
+COMMENT	*>          N is INTEGER
+COMMENT	*>         number of elements in input vector(s)
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] SX
+COMMENT	*> \verbatim
+COMMENT	*>          SX is REAL array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INCX
+COMMENT	*> \verbatim
+COMMENT	*>          INCX is INTEGER
+COMMENT	*>         storage spacing between elements of SX
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Authors:
+COMMENT	*  ========
+COMMENT	*
+COMMENT	*> \author Univ. of Tennessee
+COMMENT	*> \author Univ. of California Berkeley
+COMMENT	*> \author Univ. of Colorado Denver
+COMMENT	*> \author NAG Ltd.
+COMMENT	*
+COMMENT	*> \date November 2017
+COMMENT	*
+COMMENT	*> \ingroup single_blas_level1
+COMMENT	*
+COMMENT	*> \par Further Details:
+COMMENT	*  =====================
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*>     jack dongarra, linpack, 3/11/78.
+COMMENT	*>     modified 3/93 to return if incx .le. 0.
+COMMENT	*>     modified 12/3/93, array(1) declarations changed to array(*)
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*  =====================================================================
+IDENT	REAL
+IDENT	FUNCTION
+IDENT	SASUM
+(	(
+IDENT	N
+,	,
+IDENT	SX
+,	,
+IDENT	INCX
+)	)
+COMMENT	*
+COMMENT	*  -- Reference BLAS level1 routine (version 3.8.0) --
+COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT	*     November 2017
+COMMENT	*
+COMMENT	*     .. Scalar Arguments ..
+IDENT	INTEGER
+IDENT	INCX
+,	,
+IDENT	N
+COMMENT	*     ..
+COMMENT	*     .. Array Arguments ..
+IDENT	REAL
+IDENT	SX
+(	(
+*	*)
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*  =====================================================================
+COMMENT	*
+COMMENT	*     .. Local Scalars ..
+IDENT	REAL
+IDENT	STEMP
+IDENT	INTEGER
+IDENT	I
+,	,
+IDENT	M
+,	,
+IDENT	MP1
+,	,
+IDENT	NINCX
+COMMENT	*     ..
+COMMENT	*     .. Intrinsic Functions ..
+IDENT	INTRINSIC
+IDENT	ABS
+,	,
+IDENT	MOD
+COMMENT	*     ..
+IDENT	SASUM
+=	=
+IDENT	0
+.	.
+IDENT	0
+IDENT	e0
+IDENT	STEMP
+=	=
+IDENT	0
+.	.
+IDENT	0
+IDENT	e0
+IDENT	IF
+(	(
+IDENT	N
+.	.
+IDENT	LE
+.	.
+IDENT	0
+.	.
+IDENT	OR
+.	.
+IDENT	INCX
+.	.
+IDENT	LE
+.	.
+IDENT	0
+)	)
+IDENT	RETURN
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+COMMENT	*        code for increment equal to 1
+COMMENT	*
+COMMENT	*
+COMMENT	*        clean-up loop
+COMMENT	*
+IDENT	M
+=	=
+IDENT	MOD
+(	(
+IDENT	N
+,	,
+IDENT	6
+)	)
+IDENT	IF
+(	(
+IDENT	M
+.	.
+IDENT	NE
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	M
+IDENT	STEMP
+=	=
+IDENT	STEMP
++	+
+IDENT	ABS
+(	(
+IDENT	SX
+(	(
+IDENT	I
+)	)
+)	)
+IDENT	END
+IDENT	DO
+IDENT	IF
+(	(
+IDENT	N
+.	.
+IDENT	LT
+.	.
+IDENT	6
+)	)
+IDENT	THEN
+IDENT	SASUM
+=	=
+IDENT	STEMP
+IDENT	RETURN
+IDENT	END
+IDENT	IF
+IDENT	END
+IDENT	IF
+IDENT	MP1
+=	=
+IDENT	M
++	+
+IDENT	1
+IDENT	DO
+IDENT	I
+=	=
+IDENT	MP1
+,	,
+IDENT	N
+,	,
+IDENT	6
+IDENT	STEMP
+=	=
+IDENT	STEMP
++	+
+IDENT	ABS
+(	(
+IDENT	SX
+(	(
+IDENT	I
+)	)
+)	)
++	+
+IDENT	ABS
+(	(
+IDENT	SX
+(	(
+IDENT	I
++	+
+IDENT	1
+)	)
+)	)
++	+
+IDENT	ABS
+(	(
+IDENT	SX
+(	(
+IDENT	I
++	+
+IDENT	2
+)	)
+)	)
++	+
+IDENT	ABS
+(	(
+IDENT	SX
+(	(
+IDENT	I
++	+
+IDENT	3
+)	)
+)	)
++	+
+IDENT	ABS
+(	(
+IDENT	SX
+(	(
+IDENT	I
++	+
+IDENT	4
+)	)
+)	)
++	+
+IDENT	ABS
+(	(
+IDENT	SX
+(	(
+IDENT	I
++	+
+IDENT	5
+)	)
+)	)
+IDENT	END
+IDENT	DO
+IDENT	ELSE
+COMMENT	*
+COMMENT	*        code for increment not equal to 1
+COMMENT	*
+IDENT	NINCX
+=	=
+IDENT	N
+*	*I
+IDENT	NCX
+IDENT	DO
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	NINCX
+,	,
+IDENT	INCX
+IDENT	STEMP
+=	=
+IDENT	STEMP
++	+
+IDENT	ABS
+(	(
+IDENT	SX
+(	(
+IDENT	I
+)	)
+)	)
+IDENT	END
+IDENT	DO
+IDENT	END
+IDENT	IF
+IDENT	SASUM
+=	=
+IDENT	STEMP
+IDENT	RETURN
+IDENT	END

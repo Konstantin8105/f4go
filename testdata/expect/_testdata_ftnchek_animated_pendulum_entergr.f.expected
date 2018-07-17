@@ -1,0 +1,23 @@
+IDENT	SubRoutine
+IDENT	EnterGraphicsMode
+COMMENT	!
+COMMENT	!       Enter ReGIS, clear screen
+COMMENT	! 
+IDENT	character
+*	*1
+IDENT	esc
+IDENT	esc
+=	=
+IDENT	char
+(	(
+IDENT	27
+)	)
+IDENT	write
+(	(
+token(95)	*,
+)	)
+IDENT	esc
+,	,
+STRING	'P0ps(e)'
+IDENT	Return
+IDENT	End

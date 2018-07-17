@@ -1,0 +1,1164 @@
+COMMENT	> \brief \b CHEMV
+COMMENT	*
+COMMENT	*  =========== DOCUMENTATION ===========
+COMMENT	*
+COMMENT	* Online html documentation available at
+COMMENT	*            http://www.netlib.org/lapack/explore-html/
+COMMENT	*
+COMMENT	*  Definition:
+COMMENT	*  ===========
+COMMENT	*
+COMMENT	*       SUBROUTINE CHEMV(UPLO,N,ALPHA,A,LDA,X,INCX,BETA,Y,INCY)
+COMMENT	*
+COMMENT	*       .. Scalar Arguments ..
+COMMENT	*       COMPLEX ALPHA,BETA
+COMMENT	*       INTEGER INCX,INCY,LDA,N
+COMMENT	*       CHARACTER UPLO
+COMMENT	*       ..
+COMMENT	*       .. Array Arguments ..
+COMMENT	*       COMPLEX A(LDA,*),X(*),Y(*)
+COMMENT	*       ..
+COMMENT	*
+COMMENT	*
+COMMENT	*> \par Purpose:
+COMMENT	*  =============
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*> CHEMV  performs the matrix-vector  operation
+COMMENT	*>
+COMMENT	*>    y := alpha*A*x + beta*y,
+COMMENT	*>
+COMMENT	*> where alpha and beta are scalars, x and y are n element vectors and
+COMMENT	*> A is an n by n hermitian matrix.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Arguments:
+COMMENT	*  ==========
+COMMENT	*
+COMMENT	*> \param[in] UPLO
+COMMENT	*> \verbatim
+COMMENT	*>          UPLO is CHARACTER*1
+COMMENT	*>           On entry, UPLO specifies whether the upper or lower
+COMMENT	*>           triangular part of the array A is to be referenced as
+COMMENT	*>           follows:
+COMMENT	*>
+COMMENT	*>              UPLO = 'U' or 'u'   Only the upper triangular part of A
+COMMENT	*>                                  is to be referenced.
+COMMENT	*>
+COMMENT	*>              UPLO = 'L' or 'l'   Only the lower triangular part of A
+COMMENT	*>                                  is to be referenced.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] N
+COMMENT	*> \verbatim
+COMMENT	*>          N is INTEGER
+COMMENT	*>           On entry, N specifies the order of the matrix A.
+COMMENT	*>           N must be at least zero.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] ALPHA
+COMMENT	*> \verbatim
+COMMENT	*>          ALPHA is COMPLEX
+COMMENT	*>           On entry, ALPHA specifies the scalar alpha.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] A
+COMMENT	*> \verbatim
+COMMENT	*>          A is COMPLEX array, dimension ( LDA, N )
+COMMENT	*>           Before entry with  UPLO = 'U' or 'u', the leading n by n
+COMMENT	*>           upper triangular part of the array A must contain the upper
+COMMENT	*>           triangular part of the hermitian matrix and the strictly
+COMMENT	*>           lower triangular part of A is not referenced.
+COMMENT	*>           Before entry with UPLO = 'L' or 'l', the leading n by n
+COMMENT	*>           lower triangular part of the array A must contain the lower
+COMMENT	*>           triangular part of the hermitian matrix and the strictly
+COMMENT	*>           upper triangular part of A is not referenced.
+COMMENT	*>           Note that the imaginary parts of the diagonal elements need
+COMMENT	*>           not be set and are assumed to be zero.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] LDA
+COMMENT	*> \verbatim
+COMMENT	*>          LDA is INTEGER
+COMMENT	*>           On entry, LDA specifies the first dimension of A as declared
+COMMENT	*>           in the calling (sub) program. LDA must be at least
+COMMENT	*>           max( 1, n ).
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] X
+COMMENT	*> \verbatim
+COMMENT	*>          X is COMPLEX array, dimension at least
+COMMENT	*>           ( 1 + ( n - 1 )*abs( INCX ) ).
+COMMENT	*>           Before entry, the incremented array X must contain the n
+COMMENT	*>           element vector x.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INCX
+COMMENT	*> \verbatim
+COMMENT	*>          INCX is INTEGER
+COMMENT	*>           On entry, INCX specifies the increment for the elements of
+COMMENT	*>           X. INCX must not be zero.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] BETA
+COMMENT	*> \verbatim
+COMMENT	*>          BETA is COMPLEX
+COMMENT	*>           On entry, BETA specifies the scalar beta. When BETA is
+COMMENT	*>           supplied as zero then Y need not be set on input.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in,out] Y
+COMMENT	*> \verbatim
+COMMENT	*>          Y is COMPLEX array, dimension at least
+COMMENT	*>           ( 1 + ( n - 1 )*abs( INCY ) ).
+COMMENT	*>           Before entry, the incremented array Y must contain the n
+COMMENT	*>           element vector y. On exit, Y is overwritten by the updated
+COMMENT	*>           vector y.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INCY
+COMMENT	*> \verbatim
+COMMENT	*>          INCY is INTEGER
+COMMENT	*>           On entry, INCY specifies the increment for the elements of
+COMMENT	*>           Y. INCY must not be zero.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Authors:
+COMMENT	*  ========
+COMMENT	*
+COMMENT	*> \author Univ. of Tennessee
+COMMENT	*> \author Univ. of California Berkeley
+COMMENT	*> \author Univ. of Colorado Denver
+COMMENT	*> \author NAG Ltd.
+COMMENT	*
+COMMENT	*> \date December 2016
+COMMENT	*
+COMMENT	*> \ingroup complex_blas_level2
+COMMENT	*
+COMMENT	*> \par Further Details:
+COMMENT	*  =====================
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*>  Level 2 Blas routine.
+COMMENT	*>  The vector and matrix arguments are not referenced when N = 0, or M = 0
+COMMENT	*>
+COMMENT	*>  -- Written on 22-October-1986.
+COMMENT	*>     Jack Dongarra, Argonne National Lab.
+COMMENT	*>     Jeremy Du Croz, Nag Central Office.
+COMMENT	*>     Sven Hammarling, Nag Central Office.
+COMMENT	*>     Richard Hanson, Sandia National Labs.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*  =====================================================================
+IDENT	SUBROUTINE
+IDENT	CHEMV
+(	(
+IDENT	UPLO
+,	,
+IDENT	N
+,	,
+IDENT	ALPHA
+,	,
+IDENT	A
+,	,
+IDENT	LDA
+,	,
+IDENT	X
+,	,
+IDENT	INCX
+,	,
+IDENT	BETA
+,	,
+IDENT	Y
+,	,
+IDENT	INCY
+)	)
+COMMENT	*
+COMMENT	*  -- Reference BLAS level2 routine (version 3.7.0) --
+COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT	*     December 2016
+COMMENT	*
+COMMENT	*     .. Scalar Arguments ..
+IDENT	COMPLEX
+IDENT	ALPHA
+,	,
+IDENT	BETA
+IDENT	INTEGER
+IDENT	INCX
+,	,
+IDENT	INCY
+,	,
+IDENT	LDA
+,	,
+IDENT	N
+IDENT	CHARACTER
+IDENT	UPLO
+COMMENT	*     ..
+COMMENT	*     .. Array Arguments ..
+IDENT	COMPLEX
+IDENT	A
+(	(
+IDENT	LDA
+,	,
+*	*)
+,	,
+IDENT	X
+(	(
+*	*)
+,	,
+IDENT	Y
+(	(
+*	*)
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*  =====================================================================
+COMMENT	*
+COMMENT	*     .. Parameters ..
+IDENT	COMPLEX
+IDENT	ONE
+IDENT	PARAMETER
+(	(
+IDENT	ONE
+=	=
+(	(
+IDENT	1
+.	.
+IDENT	0
+IDENT	E
++	+
+IDENT	0
+,	,
+IDENT	0
+.	.
+IDENT	0
+IDENT	E
++	+
+IDENT	0
+)	)
+)	)
+IDENT	COMPLEX
+IDENT	ZERO
+IDENT	PARAMETER
+(	(
+IDENT	ZERO
+=	=
+(	(
+IDENT	0
+.	.
+IDENT	0
+IDENT	E
++	+
+IDENT	0
+,	,
+IDENT	0
+.	.
+IDENT	0
+IDENT	E
++	+
+IDENT	0
+)	)
+)	)
+COMMENT	*     ..
+COMMENT	*     .. Local Scalars ..
+IDENT	COMPLEX
+IDENT	TEMP1
+,	,
+IDENT	TEMP2
+IDENT	INTEGER
+IDENT	I
+,	,
+IDENT	INFO
+,	,
+IDENT	IX
+,	,
+IDENT	IY
+,	,
+IDENT	J
+,	,
+IDENT	JX
+,	,
+IDENT	JY
+,	,
+IDENT	KX
+,	,
+IDENT	KY
+COMMENT	*     ..
+COMMENT	*     .. External Functions ..
+IDENT	LOGICAL
+IDENT	LSAME
+IDENT	EXTERNAL
+IDENT	LSAME
+COMMENT	*     ..
+COMMENT	*     .. External Subroutines ..
+IDENT	EXTERNAL
+IDENT	XERBLA
+COMMENT	*     ..
+COMMENT	*     .. Intrinsic Functions ..
+IDENT	INTRINSIC
+IDENT	CONJG
+,	,
+IDENT	MAX
+,	,
+IDENT	REAL
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*     Test the input parameters.
+COMMENT	*
+IDENT	INFO
+=	=
+IDENT	0
+IDENT	IF
+(	(
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	UPLO
+,	,
+STRING	'U'
+)	)
+.	.
+IDENT	AND
+.	.
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	UPLO
+,	,
+STRING	'L'
+)	)
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	1
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	N
+.	.
+IDENT	LT
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	2
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	LDA
+.	.
+IDENT	LT
+.	.
+IDENT	MAX
+(	(
+IDENT	1
+,	,
+IDENT	N
+)	)
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	5
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	7
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	INCY
+.	.
+IDENT	EQ
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	10
+IDENT	END
+IDENT	IF
+IDENT	IF
+(	(
+IDENT	INFO
+.	.
+IDENT	NE
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	CALL
+IDENT	XERBLA
+(	(
+STRING	'CHEMV '
+,	,
+IDENT	INFO
+)	)
+IDENT	RETURN
+IDENT	END
+IDENT	IF
+COMMENT	*
+COMMENT	*     Quick return if possible.
+COMMENT	*
+IDENT	IF
+(	(
+(	(
+IDENT	N
+.	.
+IDENT	EQ
+.	.
+IDENT	0
+)	)
+.	.
+IDENT	OR
+.	.
+(	(
+(	(
+IDENT	ALPHA
+.	.
+IDENT	EQ
+.	.
+IDENT	ZERO
+)	)
+.	.
+IDENT	AND
+.	.
+(	(
+IDENT	BETA
+.	.
+IDENT	EQ
+.	.
+IDENT	ONE
+)	)
+)	)
+)	)
+IDENT	RETURN
+COMMENT	*
+COMMENT	*     Set up the start points in  X  and  Y.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	GT
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	KX
+=	=
+IDENT	1
+IDENT	ELSE
+IDENT	KX
+=	=
+IDENT	1
+-	-
+(	(
+IDENT	N
+-	-
+IDENT	1
+)	)
+*	*I
+IDENT	NCX
+IDENT	END
+IDENT	IF
+IDENT	IF
+(	(
+IDENT	INCY
+.	.
+IDENT	GT
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	KY
+=	=
+IDENT	1
+IDENT	ELSE
+IDENT	KY
+=	=
+IDENT	1
+-	-
+(	(
+IDENT	N
+-	-
+IDENT	1
+)	)
+*	*I
+IDENT	NCY
+IDENT	END
+IDENT	IF
+COMMENT	*
+COMMENT	*     Start the operations. In this version the elements of A are
+COMMENT	*     accessed sequentially with one pass through the triangular part
+COMMENT	*     of A.
+COMMENT	*
+COMMENT	*     First form  y := beta*y.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	BETA
+.	.
+IDENT	NE
+.	.
+IDENT	ONE
+)	)
+IDENT	THEN
+IDENT	IF
+(	(
+IDENT	INCY
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+IDENT	IF
+(	(
+IDENT	BETA
+.	.
+IDENT	EQ
+.	.
+IDENT	ZERO
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	10
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	Y
+(	(
+IDENT	I
+)	)
+=	=
+IDENT	ZERO
+IDENT	10
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	DO
+IDENT	20
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	Y
+(	(
+IDENT	I
+)	)
+=	=
+IDENT	BETA
+*	*Y
+(	(
+IDENT	I
+)	)
+IDENT	20
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	ELSE
+IDENT	IY
+=	=
+IDENT	KY
+IDENT	IF
+(	(
+IDENT	BETA
+.	.
+IDENT	EQ
+.	.
+IDENT	ZERO
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	30
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	Y
+(	(
+IDENT	IY
+)	)
+=	=
+IDENT	ZERO
+IDENT	IY
+=	=
+IDENT	IY
++	+
+IDENT	INCY
+IDENT	30
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	DO
+IDENT	40
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	Y
+(	(
+IDENT	IY
+)	)
+=	=
+IDENT	BETA
+*	*Y
+(	(
+IDENT	IY
+)	)
+IDENT	IY
+=	=
+IDENT	IY
++	+
+IDENT	INCY
+IDENT	40
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	END
+IDENT	IF
+IDENT	END
+IDENT	IF
+IDENT	IF
+(	(
+IDENT	ALPHA
+.	.
+IDENT	EQ
+.	.
+IDENT	ZERO
+)	)
+IDENT	RETURN
+IDENT	IF
+(	(
+IDENT	LSAME
+(	(
+IDENT	UPLO
+,	,
+STRING	'U'
+)	)
+)	)
+IDENT	THEN
+COMMENT	*
+COMMENT	*        Form  y  when A is stored in upper triangle.
+COMMENT	*
+IDENT	IF
+(	(
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+.	.
+IDENT	AND
+.	.
+(	(
+IDENT	INCY
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	60
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	TEMP1
+=	=
+IDENT	ALPHA
+*	*X
+(	(
+IDENT	J
+)	)
+IDENT	TEMP2
+=	=
+IDENT	ZERO
+IDENT	DO
+IDENT	50
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	J
+-	-
+IDENT	1
+IDENT	Y
+(	(
+IDENT	I
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	I
+)	)
++	+
+IDENT	TEMP1
+*	*A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
+IDENT	TEMP2
+=	=
+IDENT	TEMP2
++	+
+IDENT	CONJG
+(	(
+IDENT	A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
+)	)
+*	*X
+(	(
+IDENT	I
+)	)
+IDENT	50
+IDENT	CONTINUE
+IDENT	Y
+(	(
+IDENT	J
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	J
+)	)
++	+
+IDENT	TEMP1
+*	*R
+IDENT	EAL
+(	(
+IDENT	A
+(	(
+IDENT	J
+,	,
+IDENT	J
+)	)
+)	)
++	+
+IDENT	ALPHA
+*	*T
+IDENT	EMP2
+IDENT	60
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	JX
+=	=
+IDENT	KX
+IDENT	JY
+=	=
+IDENT	KY
+IDENT	DO
+IDENT	80
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	TEMP1
+=	=
+IDENT	ALPHA
+*	*X
+(	(
+IDENT	JX
+)	)
+IDENT	TEMP2
+=	=
+IDENT	ZERO
+IDENT	IX
+=	=
+IDENT	KX
+IDENT	IY
+=	=
+IDENT	KY
+IDENT	DO
+IDENT	70
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	J
+-	-
+IDENT	1
+IDENT	Y
+(	(
+IDENT	IY
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	IY
+)	)
++	+
+IDENT	TEMP1
+*	*A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
+IDENT	TEMP2
+=	=
+IDENT	TEMP2
++	+
+IDENT	CONJG
+(	(
+IDENT	A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
+)	)
+*	*X
+(	(
+IDENT	IX
+)	)
+IDENT	IX
+=	=
+IDENT	IX
++	+
+IDENT	INCX
+IDENT	IY
+=	=
+IDENT	IY
++	+
+IDENT	INCY
+IDENT	70
+IDENT	CONTINUE
+IDENT	Y
+(	(
+IDENT	JY
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	JY
+)	)
++	+
+IDENT	TEMP1
+*	*R
+IDENT	EAL
+(	(
+IDENT	A
+(	(
+IDENT	J
+,	,
+IDENT	J
+)	)
+)	)
++	+
+IDENT	ALPHA
+*	*T
+IDENT	EMP2
+IDENT	JX
+=	=
+IDENT	JX
++	+
+IDENT	INCX
+IDENT	JY
+=	=
+IDENT	JY
++	+
+IDENT	INCY
+IDENT	80
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	ELSE
+COMMENT	*
+COMMENT	*        Form  y  when A is stored in lower triangle.
+COMMENT	*
+IDENT	IF
+(	(
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+.	.
+IDENT	AND
+.	.
+(	(
+IDENT	INCY
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	100
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	TEMP1
+=	=
+IDENT	ALPHA
+*	*X
+(	(
+IDENT	J
+)	)
+IDENT	TEMP2
+=	=
+IDENT	ZERO
+IDENT	Y
+(	(
+IDENT	J
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	J
+)	)
++	+
+IDENT	TEMP1
+*	*R
+IDENT	EAL
+(	(
+IDENT	A
+(	(
+IDENT	J
+,	,
+IDENT	J
+)	)
+)	)
+IDENT	DO
+IDENT	90
+IDENT	I
+=	=
+IDENT	J
++	+
+IDENT	1
+,	,
+IDENT	N
+IDENT	Y
+(	(
+IDENT	I
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	I
+)	)
++	+
+IDENT	TEMP1
+*	*A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
+IDENT	TEMP2
+=	=
+IDENT	TEMP2
++	+
+IDENT	CONJG
+(	(
+IDENT	A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
+)	)
+*	*X
+(	(
+IDENT	I
+)	)
+IDENT	90
+IDENT	CONTINUE
+IDENT	Y
+(	(
+IDENT	J
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	J
+)	)
++	+
+IDENT	ALPHA
+*	*T
+IDENT	EMP2
+IDENT	100
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	JX
+=	=
+IDENT	KX
+IDENT	JY
+=	=
+IDENT	KY
+IDENT	DO
+IDENT	120
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	TEMP1
+=	=
+IDENT	ALPHA
+*	*X
+(	(
+IDENT	JX
+)	)
+IDENT	TEMP2
+=	=
+IDENT	ZERO
+IDENT	Y
+(	(
+IDENT	JY
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	JY
+)	)
++	+
+IDENT	TEMP1
+*	*R
+IDENT	EAL
+(	(
+IDENT	A
+(	(
+IDENT	J
+,	,
+IDENT	J
+)	)
+)	)
+IDENT	IX
+=	=
+IDENT	JX
+IDENT	IY
+=	=
+IDENT	JY
+IDENT	DO
+IDENT	110
+IDENT	I
+=	=
+IDENT	J
++	+
+IDENT	1
+,	,
+IDENT	N
+IDENT	IX
+=	=
+IDENT	IX
++	+
+IDENT	INCX
+IDENT	IY
+=	=
+IDENT	IY
++	+
+IDENT	INCY
+IDENT	Y
+(	(
+IDENT	IY
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	IY
+)	)
++	+
+IDENT	TEMP1
+*	*A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
+IDENT	TEMP2
+=	=
+IDENT	TEMP2
++	+
+IDENT	CONJG
+(	(
+IDENT	A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
+)	)
+*	*X
+(	(
+IDENT	IX
+)	)
+IDENT	110
+IDENT	CONTINUE
+IDENT	Y
+(	(
+IDENT	JY
+)	)
+=	=
+IDENT	Y
+(	(
+IDENT	JY
+)	)
++	+
+IDENT	ALPHA
+*	*T
+IDENT	EMP2
+IDENT	JX
+=	=
+IDENT	JX
++	+
+IDENT	INCX
+IDENT	JY
+=	=
+IDENT	JY
++	+
+IDENT	INCY
+IDENT	120
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	END
+IDENT	IF
+COMMENT	*
+IDENT	RETURN
+COMMENT	*
+COMMENT	*     End of CHEMV .
+COMMENT	*
+IDENT	END

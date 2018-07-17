@@ -1,0 +1,286 @@
+COMMENT	> \brief \b SROTG
+COMMENT	*
+COMMENT	*  =========== DOCUMENTATION ===========
+COMMENT	*
+COMMENT	* Online html documentation available at
+COMMENT	*            http://www.netlib.org/lapack/explore-html/
+COMMENT	*
+COMMENT	*  Definition:
+COMMENT	*  ===========
+COMMENT	*
+COMMENT	*       SUBROUTINE SROTG(SA,SB,C,S)
+COMMENT	*
+COMMENT	*       .. Scalar Arguments ..
+COMMENT	*       REAL C,S,SA,SB
+COMMENT	*       ..
+COMMENT	*
+COMMENT	*
+COMMENT	*> \par Purpose:
+COMMENT	*  =============
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*>    SROTG construct givens plane rotation.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Arguments:
+COMMENT	*  ==========
+COMMENT	*
+COMMENT	*> \param[in] SA
+COMMENT	*> \verbatim
+COMMENT	*>          SA is REAL
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] SB
+COMMENT	*> \verbatim
+COMMENT	*>          SB is REAL
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[out] C
+COMMENT	*> \verbatim
+COMMENT	*>          C is REAL
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[out] S
+COMMENT	*> \verbatim
+COMMENT	*>          S is REAL
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Authors:
+COMMENT	*  ========
+COMMENT	*
+COMMENT	*> \author Univ. of Tennessee
+COMMENT	*> \author Univ. of California Berkeley
+COMMENT	*> \author Univ. of Colorado Denver
+COMMENT	*> \author NAG Ltd.
+COMMENT	*
+COMMENT	*> \date November 2017
+COMMENT	*
+COMMENT	*> \ingroup single_blas_level1
+COMMENT	*
+COMMENT	*> \par Further Details:
+COMMENT	*  =====================
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*>     jack dongarra, linpack, 3/11/78.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*  =====================================================================
+IDENT	SUBROUTINE
+IDENT	SROTG
+(	(
+IDENT	SA
+,	,
+IDENT	SB
+,	,
+IDENT	C
+,	,
+IDENT	S
+)	)
+COMMENT	*
+COMMENT	*  -- Reference BLAS level1 routine (version 3.8.0) --
+COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT	*     November 2017
+COMMENT	*
+COMMENT	*     .. Scalar Arguments ..
+IDENT	REAL
+IDENT	C
+,	,
+IDENT	S
+,	,
+IDENT	SA
+,	,
+IDENT	SB
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*  =====================================================================
+COMMENT	*
+COMMENT	*     .. Local Scalars ..
+IDENT	REAL
+IDENT	R
+,	,
+IDENT	ROE
+,	,
+IDENT	SCALE
+,	,
+IDENT	Z
+COMMENT	*     ..
+COMMENT	*     .. Intrinsic Functions ..
+IDENT	INTRINSIC
+IDENT	ABS
+,	,
+IDENT	SIGN
+,	,
+IDENT	SQRT
+COMMENT	*     ..
+IDENT	ROE
+=	=
+IDENT	SB
+IDENT	IF
+(	(
+IDENT	ABS
+(	(
+IDENT	SA
+)	)
+.	.
+IDENT	GT
+.	.
+IDENT	ABS
+(	(
+IDENT	SB
+)	)
+)	)
+IDENT	ROE
+=	=
+IDENT	SA
+IDENT	SCALE
+=	=
+IDENT	ABS
+(	(
+IDENT	SA
+)	)
++	+
+IDENT	ABS
+(	(
+IDENT	SB
+)	)
+IDENT	IF
+(	(
+IDENT	SCALE
+.	.
+IDENT	EQ
+.	.
+IDENT	0
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	C
+=	=
+IDENT	1
+.	.
+IDENT	0
+IDENT	S
+=	=
+IDENT	0
+.	.
+IDENT	0
+IDENT	R
+=	=
+IDENT	0
+.	.
+IDENT	0
+IDENT	Z
+=	=
+IDENT	0
+.	.
+IDENT	0
+IDENT	ELSE
+IDENT	R
+=	=
+IDENT	SCALE
+*	*S
+IDENT	QRT
+(	(
+(	(
+IDENT	SA
+/	/
+IDENT	SCALE
+)	)
+*	**
+IDENT	2
++	+
+(	(
+IDENT	SB
+/	/
+IDENT	SCALE
+)	)
+*	**
+IDENT	2
+)	)
+IDENT	R
+=	=
+IDENT	SIGN
+(	(
+IDENT	1
+.	.
+IDENT	0
+,	,
+IDENT	ROE
+)	)
+*	*R
+IDENT	C
+=	=
+IDENT	SA
+/	/
+IDENT	R
+IDENT	S
+=	=
+IDENT	SB
+/	/
+IDENT	R
+IDENT	Z
+=	=
+IDENT	1
+.	.
+IDENT	0
+IDENT	IF
+(	(
+IDENT	ABS
+(	(
+IDENT	SA
+)	)
+.	.
+IDENT	GT
+.	.
+IDENT	ABS
+(	(
+IDENT	SB
+)	)
+)	)
+IDENT	Z
+=	=
+IDENT	S
+IDENT	IF
+(	(
+IDENT	ABS
+(	(
+IDENT	SB
+)	)
+.	.
+IDENT	GE
+.	.
+IDENT	ABS
+(	(
+IDENT	SA
+)	)
+.	.
+IDENT	AND
+.	.
+IDENT	C
+.	.
+IDENT	NE
+.	.
+IDENT	0
+.	.
+IDENT	0
+)	)
+IDENT	Z
+=	=
+IDENT	1
+.	.
+IDENT	0
+/	/
+IDENT	C
+IDENT	END
+IDENT	IF
+IDENT	SA
+=	=
+IDENT	R
+IDENT	SB
+=	=
+IDENT	Z
+IDENT	RETURN
+IDENT	END

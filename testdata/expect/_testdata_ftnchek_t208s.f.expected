@@ -1,0 +1,11 @@
+IDENT	character
+token(95)	*(
+)	)
+IDENT	s
+IDENT	parameter
+(	(
+IDENT	s
+=	=
+STRING	'hello'
+)	)
+IDENT	end

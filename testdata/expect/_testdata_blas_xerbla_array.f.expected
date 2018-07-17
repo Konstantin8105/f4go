@@ -1,0 +1,175 @@
+COMMENT	> \brief \b XERBLA_ARRAY
+COMMENT	*
+COMMENT	*  =========== DOCUMENTATION ===========
+COMMENT	*
+COMMENT	* Online html documentation available at
+COMMENT	*            http://www.netlib.org/lapack/explore-html/
+COMMENT	*
+COMMENT	*  Definition:
+COMMENT	*  ===========
+COMMENT	*
+COMMENT	*       SUBROUTINE XERBLA_ARRAY(SRNAME_ARRAY, SRNAME_LEN, INFO)
+COMMENT	*
+COMMENT	*       .. Scalar Arguments ..
+COMMENT	*       INTEGER SRNAME_LEN, INFO
+COMMENT	*       ..
+COMMENT	*       .. Array Arguments ..
+COMMENT	*       CHARACTER(1) SRNAME_ARRAY(SRNAME_LEN)
+COMMENT	*       ..
+COMMENT	*
+COMMENT	*
+COMMENT	*> \par Purpose:
+COMMENT	*  =============
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*> XERBLA_ARRAY assists other languages in calling XERBLA, the LAPACK
+COMMENT	*> and BLAS error handler.  Rather than taking a Fortran string argument
+COMMENT	*> as the function's name, XERBLA_ARRAY takes an array of single
+COMMENT	*> characters along with the array's length.  XERBLA_ARRAY then copies
+COMMENT	*> up to 32 characters of that array into a Fortran string and passes
+COMMENT	*> that to XERBLA.  If called with a non-positive SRNAME_LEN,
+COMMENT	*> XERBLA_ARRAY will call XERBLA with a string of all blank characters.
+COMMENT	*>
+COMMENT	*> Say some macro or other device makes XERBLA_ARRAY available to C99
+COMMENT	*> by a name lapack_xerbla and with a common Fortran calling convention.
+COMMENT	*> Then a C99 program could invoke XERBLA via:
+COMMENT	*>    {
+COMMENT	*>      int flen = strlen(__func__);
+COMMENT	*>      lapack_xerbla(__func__, &flen, &info);
+COMMENT	*>    }
+COMMENT	*>
+COMMENT	*> Providing XERBLA_ARRAY is not necessary for intercepting LAPACK
+COMMENT	*> errors.  XERBLA_ARRAY calls XERBLA.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Arguments:
+COMMENT	*  ==========
+COMMENT	*
+COMMENT	*> \param[in] SRNAME_ARRAY
+COMMENT	*> \verbatim
+COMMENT	*>          SRNAME_ARRAY is CHARACTER(1) array, dimension (SRNAME_LEN)
+COMMENT	*>          The name of the routine which called XERBLA_ARRAY.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] SRNAME_LEN
+COMMENT	*> \verbatim
+COMMENT	*>          SRNAME_LEN is INTEGER
+COMMENT	*>          The length of the name in SRNAME_ARRAY.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INFO
+COMMENT	*> \verbatim
+COMMENT	*>          INFO is INTEGER
+COMMENT	*>          The position of the invalid parameter in the parameter list
+COMMENT	*>          of the calling routine.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Authors:
+COMMENT	*  ========
+COMMENT	*
+COMMENT	*> \author Univ. of Tennessee
+COMMENT	*> \author Univ. of California Berkeley
+COMMENT	*> \author Univ. of Colorado Denver
+COMMENT	*> \author NAG Ltd.
+COMMENT	*
+COMMENT	*> \date December 2016
+COMMENT	*
+COMMENT	*> \ingroup aux_blas
+COMMENT	*
+COMMENT	*  =====================================================================
+IDENT	SUBROUTINE
+IDENT	XERBLA_ARRAY
+(	(
+IDENT	SRNAME_ARRAY
+,	,
+IDENT	SRNAME_LEN
+,	,
+IDENT	INFO
+)	)
+COMMENT	*
+COMMENT	*  -- Reference BLAS level1 routine (version 3.7.0) --
+COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT	*     December 2016
+COMMENT	*
+COMMENT	*     .. Scalar Arguments ..
+IDENT	INTEGER
+IDENT	SRNAME_LEN
+,	,
+IDENT	INFO
+COMMENT	*     ..
+COMMENT	*     .. Array Arguments ..
+IDENT	CHARACTER
+(	(
+IDENT	1
+)	)
+IDENT	SRNAME_ARRAY
+(	(
+IDENT	SRNAME_LEN
+)	)
+COMMENT	*     ..
+COMMENT	*
+COMMENT	* =====================================================================
+COMMENT	*
+COMMENT	*     ..
+COMMENT	*     .. Local Scalars ..
+IDENT	INTEGER
+IDENT	I
+COMMENT	*     ..
+COMMENT	*     .. Local Arrays ..
+IDENT	CHARACTER
+*	*3
+IDENT	2
+IDENT	SRNAME
+COMMENT	*     ..
+COMMENT	*     .. Intrinsic Functions ..
+IDENT	INTRINSIC
+IDENT	MIN
+,	,
+IDENT	LEN
+COMMENT	*     ..
+COMMENT	*     .. External Functions ..
+IDENT	EXTERNAL
+IDENT	XERBLA
+COMMENT	*     ..
+COMMENT	*     .. Executable Statements ..
+IDENT	SRNAME
+=	=
+STRING	''
+IDENT	DO
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	MIN
+(	(
+IDENT	SRNAME_LEN
+,	,
+IDENT	LEN
+(	(
+IDENT	SRNAME
+)	)
+)	)
+IDENT	SRNAME
+(	(
+IDENT	I
+:	:
+IDENT	I
+)	)
+=	=
+IDENT	SRNAME_ARRAY
+(	(
+IDENT	I
+)	)
+IDENT	END
+IDENT	DO
+IDENT	CALL
+IDENT	XERBLA
+(	(
+IDENT	SRNAME
+,	,
+IDENT	INFO
+)	)
+IDENT	RETURN
+IDENT	END

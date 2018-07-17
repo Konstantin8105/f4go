@@ -1,0 +1,451 @@
+COMMENT	> \brief \b SDSDOT
+COMMENT	*
+COMMENT	*  =========== DOCUMENTATION ===========
+COMMENT	*
+COMMENT	* Online html documentation available at
+COMMENT	*            http://www.netlib.org/lapack/explore-html/
+COMMENT	*
+COMMENT	*  Definition:
+COMMENT	*  ===========
+COMMENT	*
+COMMENT	*       REAL FUNCTION SDSDOT(N,SB,SX,INCX,SY,INCY)
+COMMENT	*
+COMMENT	*       .. Scalar Arguments ..
+COMMENT	*       REAL SB
+COMMENT	*       INTEGER INCX,INCY,N
+COMMENT	*       ..
+COMMENT	*       .. Array Arguments ..
+COMMENT	*       REAL SX(*),SY(*)
+COMMENT	*       ..
+COMMENT	*
+COMMENT	*> \par Purpose:
+COMMENT	*  =============
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*    Compute the inner product of two vectors with extended
+COMMENT	*    precision accumulation.
+COMMENT	*
+COMMENT	*    Returns S.P. result with dot product accumulated in D.P.
+COMMENT	*    SDSDOT = SB + sum for I = 0 to N-1 of SX(LX+I*INCX)*SY(LY+I*INCY),
+COMMENT	*    where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and LY is
+COMMENT	*    defined in a similar way using INCY.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Arguments:
+COMMENT	*  ==========
+COMMENT	*
+COMMENT	*> \param[in] N
+COMMENT	*> \verbatim
+COMMENT	*>          N is INTEGER
+COMMENT	*>          number of elements in input vector(s)
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] SB
+COMMENT	*> \verbatim
+COMMENT	*>          SB is REAL
+COMMENT	*>          single precision scalar to be added to inner product
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] SX
+COMMENT	*> \verbatim
+COMMENT	*>          SX is REAL array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
+COMMENT	*>          single precision vector with N elements
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INCX
+COMMENT	*> \verbatim
+COMMENT	*>          INCX is INTEGER
+COMMENT	*>          storage spacing between elements of SX
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] SY
+COMMENT	*> \verbatim
+COMMENT	*>          SY is REAL array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
+COMMENT	*>          single precision vector with N elements
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INCY
+COMMENT	*> \verbatim
+COMMENT	*>          INCY is INTEGER
+COMMENT	*>          storage spacing between elements of SY
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Authors:
+COMMENT	*  ========
+COMMENT	*
+COMMENT	*> \author Lawson, C. L., (JPL), Hanson, R. J., (SNLA),
+COMMENT	*> \author Kincaid, D. R., (U. of Texas), Krogh, F. T., (JPL)
+COMMENT	*
+COMMENT	*> \ingroup complex_blas_level1
+COMMENT	*
+COMMENT	*> \par Further Details:
+COMMENT	*  =====================
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*>    REFERENCES
+COMMENT	*>
+COMMENT	*>    C. L. Lawson, R. J. Hanson, D. R. Kincaid and F. T.
+COMMENT	*>    Krogh, Basic linear algebra subprograms for Fortran
+COMMENT	*>    usage, Algorithm No. 539, Transactions on Mathematical
+COMMENT	*>    Software 5, 3 (September 1979), pp. 308-323.
+COMMENT	*>
+COMMENT	*>    REVISION HISTORY  (YYMMDD)
+COMMENT	*>
+COMMENT	*>    791001  DATE WRITTEN
+COMMENT	*>    890531  Changed all specific intrinsics to generic.  (WRB)
+COMMENT	*>    890831  Modified array declarations.  (WRB)
+COMMENT	*>    890831  REVISION DATE from Version 3.2
+COMMENT	*>    891214  Prologue converted to Version 4.0 format.  (BAB)
+COMMENT	*>    920310  Corrected definition of LX in DESCRIPTION.  (WRB)
+COMMENT	*>    920501  Reformatted the REFERENCES section.  (WRB)
+COMMENT	*>    070118  Reformat to LAPACK coding style
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*    =====================================================================
+COMMENT	*
+COMMENT	*       .. Local Scalars ..
+COMMENT	*       DOUBLE PRECISION DSDOT
+COMMENT	*       INTEGER I,KX,KY,NS
+COMMENT	*       ..
+COMMENT	*       .. Intrinsic Functions ..
+COMMENT	*       INTRINSIC DBLE
+COMMENT	*       ..
+COMMENT	*       DSDOT = SB
+COMMENT	*       IF (N.LE.0) THEN
+COMMENT	*          SDSDOT = DSDOT
+COMMENT	*          RETURN
+COMMENT	*       END IF
+COMMENT	*       IF (INCX.EQ.INCY .AND. INCX.GT.0) THEN
+COMMENT	*
+COMMENT	*       Code for equal and positive increments.
+COMMENT	*
+COMMENT	*          NS = N*INCX
+COMMENT	*          DO I = 1,NS,INCX
+COMMENT	*             DSDOT = DSDOT + DBLE(SX(I))*DBLE(SY(I))
+COMMENT	*          END DO
+COMMENT	*       ELSE
+COMMENT	*
+COMMENT	*       Code for unequal or nonpositive increments.
+COMMENT	*
+COMMENT	*          KX = 1
+COMMENT	*          KY = 1
+COMMENT	*          IF (INCX.LT.0) KX = 1 + (1-N)*INCX
+COMMENT	*          IF (INCY.LT.0) KY = 1 + (1-N)*INCY
+COMMENT	*          DO I = 1,N
+COMMENT	*             DSDOT = DSDOT + DBLE(SX(KX))*DBLE(SY(KY))
+COMMENT	*             KX = KX + INCX
+COMMENT	*             KY = KY + INCY
+COMMENT	*          END DO
+COMMENT	*       END IF
+COMMENT	*       SDSDOT = DSDOT
+COMMENT	*       RETURN
+COMMENT	*       END
+COMMENT	*
+COMMENT	*> \par Purpose:
+COMMENT	*  =============
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Authors:
+COMMENT	*  ========
+COMMENT	*
+COMMENT	*> \author Univ. of Tennessee
+COMMENT	*> \author Univ. of California Berkeley
+COMMENT	*> \author Univ. of Colorado Denver
+COMMENT	*> \author NAG Ltd.
+COMMENT	*
+COMMENT	*> \date November 2017
+COMMENT	*
+COMMENT	*> \ingroup single_blas_level1
+COMMENT	*
+COMMENT	*  =====================================================================
+IDENT	REAL
+IDENT	FUNCTION
+IDENT	SDSDOT
+(	(
+IDENT	N
+,	,
+IDENT	SB
+,	,
+IDENT	SX
+,	,
+IDENT	INCX
+,	,
+IDENT	SY
+,	,
+IDENT	INCY
+)	)
+COMMENT	*
+COMMENT	*  -- Reference BLAS level1 routine (version 3.8.0) --
+COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT	*     November 2017
+COMMENT	*
+COMMENT	*     .. Scalar Arguments ..
+IDENT	REAL
+IDENT	SB
+IDENT	INTEGER
+IDENT	INCX
+,	,
+IDENT	INCY
+,	,
+IDENT	N
+COMMENT	*     ..
+COMMENT	*     .. Array Arguments ..
+IDENT	REAL
+IDENT	SX
+(	(
+*	*)
+,	,
+IDENT	SY
+(	(
+*	*)
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*  PURPOSE
+COMMENT	*  =======
+COMMENT	*
+COMMENT	*  Compute the inner product of two vectors with extended
+COMMENT	*  precision accumulation.
+COMMENT	*
+COMMENT	*  Returns S.P. result with dot product accumulated in D.P.
+COMMENT	*  SDSDOT = SB + sum for I = 0 to N-1 of SX(LX+I*INCX)*SY(LY+I*INCY),
+COMMENT	*  where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and LY is
+COMMENT	*  defined in a similar way using INCY.
+COMMENT	*
+COMMENT	*  AUTHOR
+COMMENT	*  ======
+COMMENT	*  Lawson, C. L., (JPL), Hanson, R. J., (SNLA),
+COMMENT	*  Kincaid, D. R., (U. of Texas), Krogh, F. T., (JPL)
+COMMENT	*
+COMMENT	*  ARGUMENTS
+COMMENT	*  =========
+COMMENT	*
+COMMENT	*  N      (input) INTEGER
+COMMENT	*         number of elements in input vector(s)
+COMMENT	*
+COMMENT	*  SB     (input) REAL
+COMMENT	*         single precision scalar to be added to inner product
+COMMENT	*
+COMMENT	*  SX     (input) REAL array, dimension (N)
+COMMENT	*         single precision vector with N elements
+COMMENT	*
+COMMENT	*  INCX   (input) INTEGER
+COMMENT	*         storage spacing between elements of SX
+COMMENT	*
+COMMENT	*  SY     (input) REAL array, dimension (N)
+COMMENT	*         single precision vector with N elements
+COMMENT	*
+COMMENT	*  INCY   (input) INTEGER
+COMMENT	*         storage spacing between elements of SY
+COMMENT	*
+COMMENT	*  SDSDOT (output) REAL
+COMMENT	*         single precision dot product (SB if N .LE. 0)
+COMMENT	*
+COMMENT	*  Further Details
+COMMENT	*  ===============
+COMMENT	*
+COMMENT	*  REFERENCES
+COMMENT	*
+COMMENT	*  C. L. Lawson, R. J. Hanson, D. R. Kincaid and F. T.
+COMMENT	*  Krogh, Basic linear algebra subprograms for Fortran
+COMMENT	*  usage, Algorithm No. 539, Transactions on Mathematical
+COMMENT	*  Software 5, 3 (September 1979), pp. 308-323.
+COMMENT	*
+COMMENT	*  REVISION HISTORY  (YYMMDD)
+COMMENT	*
+COMMENT	*  791001  DATE WRITTEN
+COMMENT	*  890531  Changed all specific intrinsics to generic.  (WRB)
+COMMENT	*  890831  Modified array declarations.  (WRB)
+COMMENT	*  890831  REVISION DATE from Version 3.2
+COMMENT	*  891214  Prologue converted to Version 4.0 format.  (BAB)
+COMMENT	*  920310  Corrected definition of LX in DESCRIPTION.  (WRB)
+COMMENT	*  920501  Reformatted the REFERENCES section.  (WRB)
+COMMENT	*  070118  Reformat to LAPACK coding style
+COMMENT	*
+COMMENT	*  =====================================================================
+COMMENT	*
+COMMENT	*     .. Local Scalars ..
+IDENT	DOUBLE
+IDENT	PRECISION
+IDENT	DSDOT
+IDENT	INTEGER
+IDENT	I
+,	,
+IDENT	KX
+,	,
+IDENT	KY
+,	,
+IDENT	NS
+COMMENT	*     ..
+COMMENT	*     .. Intrinsic Functions ..
+IDENT	INTRINSIC
+IDENT	DBLE
+COMMENT	*     ..
+IDENT	DSDOT
+=	=
+IDENT	SB
+IDENT	IF
+(	(
+IDENT	N
+.	.
+IDENT	LE
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	SDSDOT
+=	=
+IDENT	DSDOT
+IDENT	RETURN
+IDENT	END
+IDENT	IF
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	INCY
+.	.
+IDENT	AND
+.	.
+IDENT	INCX
+.	.
+IDENT	GT
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+COMMENT	*
+COMMENT	*     Code for equal and positive increments.
+COMMENT	*
+IDENT	NS
+=	=
+IDENT	N
+*	*I
+IDENT	NCX
+IDENT	DO
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	NS
+,	,
+IDENT	INCX
+IDENT	DSDOT
+=	=
+IDENT	DSDOT
++	+
+IDENT	DBLE
+(	(
+IDENT	SX
+(	(
+IDENT	I
+)	)
+)	)
+*	*D
+IDENT	BLE
+(	(
+IDENT	SY
+(	(
+IDENT	I
+)	)
+)	)
+IDENT	END
+IDENT	DO
+IDENT	ELSE
+COMMENT	*
+COMMENT	*     Code for unequal or nonpositive increments.
+COMMENT	*
+IDENT	KX
+=	=
+IDENT	1
+IDENT	KY
+=	=
+IDENT	1
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	LT
+.	.
+IDENT	0
+)	)
+IDENT	KX
+=	=
+IDENT	1
++	+
+(	(
+IDENT	1
+-	-
+IDENT	N
+)	)
+*	*I
+IDENT	NCX
+IDENT	IF
+(	(
+IDENT	INCY
+.	.
+IDENT	LT
+.	.
+IDENT	0
+)	)
+IDENT	KY
+=	=
+IDENT	1
++	+
+(	(
+IDENT	1
+-	-
+IDENT	N
+)	)
+*	*I
+IDENT	NCY
+IDENT	DO
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	DSDOT
+=	=
+IDENT	DSDOT
++	+
+IDENT	DBLE
+(	(
+IDENT	SX
+(	(
+IDENT	KX
+)	)
+)	)
+*	*D
+IDENT	BLE
+(	(
+IDENT	SY
+(	(
+IDENT	KY
+)	)
+)	)
+IDENT	KX
+=	=
+IDENT	KX
++	+
+IDENT	INCX
+IDENT	KY
+=	=
+IDENT	KY
++	+
+IDENT	INCY
+IDENT	END
+IDENT	DO
+IDENT	END
+IDENT	IF
+IDENT	SDSDOT
+=	=
+IDENT	DSDOT
+IDENT	RETURN
+IDENT	END

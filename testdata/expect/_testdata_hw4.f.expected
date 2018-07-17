@@ -1,0 +1,8 @@
+IDENT	program
+IDENT	main
+IDENT	write
+(	(
+token(95)	*,
+)	)
+STRING	'Hello, world!'
+IDENT	end

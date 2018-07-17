@@ -1,0 +1,19 @@
+IDENT	subroutine
+IDENT	foo
+(	(
+IDENT	x
+)	)
+IDENT	real
+IDENT	r1mach
+COMMENT	*     ftnchek types sqrt() as generic here; I think it should be REAL.
+COMMENT	*     This results in loss of a declaration "REAL SQRT"
+IDENT	x
+=	=
+IDENT	sqrt
+(	(
+IDENT	r1mach
+(	(
+IDENT	3
+)	)
+)	)
+IDENT	end

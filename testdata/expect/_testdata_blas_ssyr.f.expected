@@ -1,0 +1,710 @@
+COMMENT	> \brief \b SSYR
+COMMENT	*
+COMMENT	*  =========== DOCUMENTATION ===========
+COMMENT	*
+COMMENT	* Online html documentation available at
+COMMENT	*            http://www.netlib.org/lapack/explore-html/
+COMMENT	*
+COMMENT	*  Definition:
+COMMENT	*  ===========
+COMMENT	*
+COMMENT	*       SUBROUTINE SSYR(UPLO,N,ALPHA,X,INCX,A,LDA)
+COMMENT	*
+COMMENT	*       .. Scalar Arguments ..
+COMMENT	*       REAL ALPHA
+COMMENT	*       INTEGER INCX,LDA,N
+COMMENT	*       CHARACTER UPLO
+COMMENT	*       ..
+COMMENT	*       .. Array Arguments ..
+COMMENT	*       REAL A(LDA,*),X(*)
+COMMENT	*       ..
+COMMENT	*
+COMMENT	*
+COMMENT	*> \par Purpose:
+COMMENT	*  =============
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*> SSYR   performs the symmetric rank 1 operation
+COMMENT	*>
+COMMENT	*>    A := alpha*x*x**T + A,
+COMMENT	*>
+COMMENT	*> where alpha is a real scalar, x is an n element vector and A is an
+COMMENT	*> n by n symmetric matrix.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Arguments:
+COMMENT	*  ==========
+COMMENT	*
+COMMENT	*> \param[in] UPLO
+COMMENT	*> \verbatim
+COMMENT	*>          UPLO is CHARACTER*1
+COMMENT	*>           On entry, UPLO specifies whether the upper or lower
+COMMENT	*>           triangular part of the array A is to be referenced as
+COMMENT	*>           follows:
+COMMENT	*>
+COMMENT	*>              UPLO = 'U' or 'u'   Only the upper triangular part of A
+COMMENT	*>                                  is to be referenced.
+COMMENT	*>
+COMMENT	*>              UPLO = 'L' or 'l'   Only the lower triangular part of A
+COMMENT	*>                                  is to be referenced.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] N
+COMMENT	*> \verbatim
+COMMENT	*>          N is INTEGER
+COMMENT	*>           On entry, N specifies the order of the matrix A.
+COMMENT	*>           N must be at least zero.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] ALPHA
+COMMENT	*> \verbatim
+COMMENT	*>          ALPHA is REAL
+COMMENT	*>           On entry, ALPHA specifies the scalar alpha.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] X
+COMMENT	*> \verbatim
+COMMENT	*>          X is REAL array, dimension at least
+COMMENT	*>           ( 1 + ( n - 1 )*abs( INCX ) ).
+COMMENT	*>           Before entry, the incremented array X must contain the n
+COMMENT	*>           element vector x.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INCX
+COMMENT	*> \verbatim
+COMMENT	*>          INCX is INTEGER
+COMMENT	*>           On entry, INCX specifies the increment for the elements of
+COMMENT	*>           X. INCX must not be zero.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in,out] A
+COMMENT	*> \verbatim
+COMMENT	*>          A is REAL array, dimension ( LDA, N )
+COMMENT	*>           Before entry with  UPLO = 'U' or 'u', the leading n by n
+COMMENT	*>           upper triangular part of the array A must contain the upper
+COMMENT	*>           triangular part of the symmetric matrix and the strictly
+COMMENT	*>           lower triangular part of A is not referenced. On exit, the
+COMMENT	*>           upper triangular part of the array A is overwritten by the
+COMMENT	*>           upper triangular part of the updated matrix.
+COMMENT	*>           Before entry with UPLO = 'L' or 'l', the leading n by n
+COMMENT	*>           lower triangular part of the array A must contain the lower
+COMMENT	*>           triangular part of the symmetric matrix and the strictly
+COMMENT	*>           upper triangular part of A is not referenced. On exit, the
+COMMENT	*>           lower triangular part of the array A is overwritten by the
+COMMENT	*>           lower triangular part of the updated matrix.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] LDA
+COMMENT	*> \verbatim
+COMMENT	*>          LDA is INTEGER
+COMMENT	*>           On entry, LDA specifies the first dimension of A as declared
+COMMENT	*>           in the calling (sub) program. LDA must be at least
+COMMENT	*>           max( 1, n ).
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Authors:
+COMMENT	*  ========
+COMMENT	*
+COMMENT	*> \author Univ. of Tennessee
+COMMENT	*> \author Univ. of California Berkeley
+COMMENT	*> \author Univ. of Colorado Denver
+COMMENT	*> \author NAG Ltd.
+COMMENT	*
+COMMENT	*> \date December 2016
+COMMENT	*
+COMMENT	*> \ingroup single_blas_level2
+COMMENT	*
+COMMENT	*> \par Further Details:
+COMMENT	*  =====================
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*>  Level 2 Blas routine.
+COMMENT	*>
+COMMENT	*>  -- Written on 22-October-1986.
+COMMENT	*>     Jack Dongarra, Argonne National Lab.
+COMMENT	*>     Jeremy Du Croz, Nag Central Office.
+COMMENT	*>     Sven Hammarling, Nag Central Office.
+COMMENT	*>     Richard Hanson, Sandia National Labs.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*  =====================================================================
+IDENT	SUBROUTINE
+IDENT	SSYR
+(	(
+IDENT	UPLO
+,	,
+IDENT	N
+,	,
+IDENT	ALPHA
+,	,
+IDENT	X
+,	,
+IDENT	INCX
+,	,
+IDENT	A
+,	,
+IDENT	LDA
+)	)
+COMMENT	*
+COMMENT	*  -- Reference BLAS level2 routine (version 3.7.0) --
+COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT	*     December 2016
+COMMENT	*
+COMMENT	*     .. Scalar Arguments ..
+IDENT	REAL
+IDENT	ALPHA
+IDENT	INTEGER
+IDENT	INCX
+,	,
+IDENT	LDA
+,	,
+IDENT	N
+IDENT	CHARACTER
+IDENT	UPLO
+COMMENT	*     ..
+COMMENT	*     .. Array Arguments ..
+IDENT	REAL
+IDENT	A
+(	(
+IDENT	LDA
+,	,
+*	*)
+,	,
+IDENT	X
+(	(
+*	*)
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*  =====================================================================
+COMMENT	*
+COMMENT	*     .. Parameters ..
+IDENT	REAL
+IDENT	ZERO
+IDENT	PARAMETER
+(	(
+IDENT	ZERO
+=	=
+IDENT	0
+.	.
+IDENT	0
+IDENT	E
++	+
+IDENT	0
+)	)
+COMMENT	*     ..
+COMMENT	*     .. Local Scalars ..
+IDENT	REAL
+IDENT	TEMP
+IDENT	INTEGER
+IDENT	I
+,	,
+IDENT	INFO
+,	,
+IDENT	IX
+,	,
+IDENT	J
+,	,
+IDENT	JX
+,	,
+IDENT	KX
+COMMENT	*     ..
+COMMENT	*     .. External Functions ..
+IDENT	LOGICAL
+IDENT	LSAME
+IDENT	EXTERNAL
+IDENT	LSAME
+COMMENT	*     ..
+COMMENT	*     .. External Subroutines ..
+IDENT	EXTERNAL
+IDENT	XERBLA
+COMMENT	*     ..
+COMMENT	*     .. Intrinsic Functions ..
+IDENT	INTRINSIC
+IDENT	MAX
+COMMENT	*     ..
+COMMENT	*
+COMMENT	*     Test the input parameters.
+COMMENT	*
+IDENT	INFO
+=	=
+IDENT	0
+IDENT	IF
+(	(
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	UPLO
+,	,
+STRING	'U'
+)	)
+.	.
+IDENT	AND
+.	.
+.	.
+IDENT	NOT
+.	.
+IDENT	LSAME
+(	(
+IDENT	UPLO
+,	,
+STRING	'L'
+)	)
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	1
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	N
+.	.
+IDENT	LT
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	2
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	5
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	LDA
+.	.
+IDENT	LT
+.	.
+IDENT	MAX
+(	(
+IDENT	1
+,	,
+IDENT	N
+)	)
+)	)
+IDENT	THEN
+IDENT	INFO
+=	=
+IDENT	7
+IDENT	END
+IDENT	IF
+IDENT	IF
+(	(
+IDENT	INFO
+.	.
+IDENT	NE
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	CALL
+IDENT	XERBLA
+(	(
+STRING	'SSYR  '
+,	,
+IDENT	INFO
+)	)
+IDENT	RETURN
+IDENT	END
+IDENT	IF
+COMMENT	*
+COMMENT	*     Quick return if possible.
+COMMENT	*
+IDENT	IF
+(	(
+(	(
+IDENT	N
+.	.
+IDENT	EQ
+.	.
+IDENT	0
+)	)
+.	.
+IDENT	OR
+.	.
+(	(
+IDENT	ALPHA
+.	.
+IDENT	EQ
+.	.
+IDENT	ZERO
+)	)
+)	)
+IDENT	RETURN
+COMMENT	*
+COMMENT	*     Set the start point in X if the increment is not unity.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	LE
+.	.
+IDENT	0
+)	)
+IDENT	THEN
+IDENT	KX
+=	=
+IDENT	1
+-	-
+(	(
+IDENT	N
+-	-
+IDENT	1
+)	)
+*	*I
+IDENT	NCX
+IDENT	ELSE
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	NE
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+IDENT	KX
+=	=
+IDENT	1
+IDENT	END
+IDENT	IF
+COMMENT	*
+COMMENT	*     Start the operations. In this version the elements of A are
+COMMENT	*     accessed sequentially with one pass through the triangular part
+COMMENT	*     of A.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	LSAME
+(	(
+IDENT	UPLO
+,	,
+STRING	'U'
+)	)
+)	)
+IDENT	THEN
+COMMENT	*
+COMMENT	*        Form  A  when A is stored in upper triangle.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	20
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	IF
+(	(
+IDENT	X
+(	(
+IDENT	J
+)	)
+.	.
+IDENT	NE
+.	.
+IDENT	ZERO
+)	)
+IDENT	THEN
+IDENT	TEMP
+=	=
+IDENT	ALPHA
+*	*X
+(	(
+IDENT	J
+)	)
+IDENT	DO
+IDENT	10
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	J
+IDENT	A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
+=	=
+IDENT	A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
++	+
+IDENT	X
+(	(
+IDENT	I
+)	)
+*	*T
+IDENT	EMP
+IDENT	10
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	20
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	JX
+=	=
+IDENT	KX
+IDENT	DO
+IDENT	40
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	IF
+(	(
+IDENT	X
+(	(
+IDENT	JX
+)	)
+.	.
+IDENT	NE
+.	.
+IDENT	ZERO
+)	)
+IDENT	THEN
+IDENT	TEMP
+=	=
+IDENT	ALPHA
+*	*X
+(	(
+IDENT	JX
+)	)
+IDENT	IX
+=	=
+IDENT	KX
+IDENT	DO
+IDENT	30
+IDENT	I
+=	=
+IDENT	1
+,	,
+IDENT	J
+IDENT	A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
+=	=
+IDENT	A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
++	+
+IDENT	X
+(	(
+IDENT	IX
+)	)
+*	*T
+IDENT	EMP
+IDENT	IX
+=	=
+IDENT	IX
++	+
+IDENT	INCX
+IDENT	30
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	JX
+=	=
+IDENT	JX
++	+
+IDENT	INCX
+IDENT	40
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	ELSE
+COMMENT	*
+COMMENT	*        Form  A  when A is stored in lower triangle.
+COMMENT	*
+IDENT	IF
+(	(
+IDENT	INCX
+.	.
+IDENT	EQ
+.	.
+IDENT	1
+)	)
+IDENT	THEN
+IDENT	DO
+IDENT	60
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	IF
+(	(
+IDENT	X
+(	(
+IDENT	J
+)	)
+.	.
+IDENT	NE
+.	.
+IDENT	ZERO
+)	)
+IDENT	THEN
+IDENT	TEMP
+=	=
+IDENT	ALPHA
+*	*X
+(	(
+IDENT	J
+)	)
+IDENT	DO
+IDENT	50
+IDENT	I
+=	=
+IDENT	J
+,	,
+IDENT	N
+IDENT	A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
+=	=
+IDENT	A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
++	+
+IDENT	X
+(	(
+IDENT	I
+)	)
+*	*T
+IDENT	EMP
+IDENT	50
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	60
+IDENT	CONTINUE
+IDENT	ELSE
+IDENT	JX
+=	=
+IDENT	KX
+IDENT	DO
+IDENT	80
+IDENT	J
+=	=
+IDENT	1
+,	,
+IDENT	N
+IDENT	IF
+(	(
+IDENT	X
+(	(
+IDENT	JX
+)	)
+.	.
+IDENT	NE
+.	.
+IDENT	ZERO
+)	)
+IDENT	THEN
+IDENT	TEMP
+=	=
+IDENT	ALPHA
+*	*X
+(	(
+IDENT	JX
+)	)
+IDENT	IX
+=	=
+IDENT	JX
+IDENT	DO
+IDENT	70
+IDENT	I
+=	=
+IDENT	J
+,	,
+IDENT	N
+IDENT	A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
+=	=
+IDENT	A
+(	(
+IDENT	I
+,	,
+IDENT	J
+)	)
++	+
+IDENT	X
+(	(
+IDENT	IX
+)	)
+*	*T
+IDENT	EMP
+IDENT	IX
+=	=
+IDENT	IX
++	+
+IDENT	INCX
+IDENT	70
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	JX
+=	=
+IDENT	JX
++	+
+IDENT	INCX
+IDENT	80
+IDENT	CONTINUE
+IDENT	END
+IDENT	IF
+IDENT	END
+IDENT	IF
+COMMENT	*
+IDENT	RETURN
+COMMENT	*
+COMMENT	*     End of SSYR  .
+COMMENT	*
+IDENT	END

@@ -1,0 +1,14 @@
+IDENT	intrinsic
+IDENT	sqrt
+IDENT	a
+=	=
+IDENT	sqrt
+(	(
+IDENT	cos
+(	(
+IDENT	0
+.	.
+IDENT	35
+)	)
+)	)
+IDENT	end

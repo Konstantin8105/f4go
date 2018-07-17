@@ -1,0 +1,49 @@
+COMMENT	  Testing of recognition of CYCLE and EXIT statements.
+COMMENT	C  Also tests that no-path warning is generated.
+IDENT	do
+IDENT	i
+=	=
+IDENT	1
+,	,
+IDENT	100
+IDENT	if
+(	(
+IDENT	mod
+(	(
+IDENT	i
+,	,
+IDENT	2
+)	)
+.	.
+IDENT	eq
+.	.
+IDENT	0
+)	)
+IDENT	then
+IDENT	print
+*	*,
+IDENT	i
+IDENT	cycle
+IDENT	print
+*	*,
+IDENT	i
+*	*i
+COMMENT	! no path to this statement
+IDENT	endif
+IDENT	if
+(	(
+IDENT	i
+.	.
+IDENT	gt
+.	.
+IDENT	10
+)	)
+IDENT	exit
+IDENT	print
+*	*,
+IDENT	i
+*	*i
+COMMENT	! there is a path to this statement
+IDENT	end
+IDENT	do
+IDENT	end

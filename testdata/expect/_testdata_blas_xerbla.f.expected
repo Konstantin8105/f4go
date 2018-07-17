@@ -1,0 +1,130 @@
+COMMENT	> \brief \b XERBLA
+COMMENT	*
+COMMENT	*  =========== DOCUMENTATION ===========
+COMMENT	*
+COMMENT	* Online html documentation available at
+COMMENT	*            http://www.netlib.org/lapack/explore-html/
+COMMENT	*
+COMMENT	*  Definition:
+COMMENT	*  ===========
+COMMENT	*
+COMMENT	*       SUBROUTINE XERBLA( SRNAME, INFO )
+COMMENT	*
+COMMENT	*       .. Scalar Arguments ..
+COMMENT	*       CHARACTER*(*)      SRNAME
+COMMENT	*       INTEGER            INFO
+COMMENT	*       ..
+COMMENT	*
+COMMENT	*
+COMMENT	*> \par Purpose:
+COMMENT	*  =============
+COMMENT	*>
+COMMENT	*> \verbatim
+COMMENT	*>
+COMMENT	*> XERBLA  is an error handler for the LAPACK routines.
+COMMENT	*> It is called by an LAPACK routine if an input parameter has an
+COMMENT	*> invalid value.  A message is printed and execution stops.
+COMMENT	*>
+COMMENT	*> Installers may consider modifying the STOP statement in order to
+COMMENT	*> call system-specific exception-handling facilities.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Arguments:
+COMMENT	*  ==========
+COMMENT	*
+COMMENT	*> \param[in] SRNAME
+COMMENT	*> \verbatim
+COMMENT	*>          SRNAME is CHARACTER*(*)
+COMMENT	*>          The name of the routine which called XERBLA.
+COMMENT	*> \endverbatim
+COMMENT	*>
+COMMENT	*> \param[in] INFO
+COMMENT	*> \verbatim
+COMMENT	*>          INFO is INTEGER
+COMMENT	*>          The position of the invalid parameter in the parameter list
+COMMENT	*>          of the calling routine.
+COMMENT	*> \endverbatim
+COMMENT	*
+COMMENT	*  Authors:
+COMMENT	*  ========
+COMMENT	*
+COMMENT	*> \author Univ. of Tennessee
+COMMENT	*> \author Univ. of California Berkeley
+COMMENT	*> \author Univ. of Colorado Denver
+COMMENT	*> \author NAG Ltd.
+COMMENT	*
+COMMENT	*> \date December 2016
+COMMENT	*
+COMMENT	*> \ingroup aux_blas
+COMMENT	*
+COMMENT	*  =====================================================================
+IDENT	SUBROUTINE
+IDENT	XERBLA
+(	(
+IDENT	SRNAME
+,	,
+IDENT	INFO
+)	)
+COMMENT	*
+COMMENT	*  -- Reference BLAS level1 routine (version 3.7.0) --
+COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT	*     December 2016
+COMMENT	*
+COMMENT	*     .. Scalar Arguments ..
+IDENT	CHARACTER
+token(95)	*(
+)	)
+IDENT	SRNAME
+IDENT	INTEGER
+IDENT	INFO
+COMMENT	*     ..
+COMMENT	*
+COMMENT	* =====================================================================
+COMMENT	*
+COMMENT	*     .. Intrinsic Functions ..
+IDENT	INTRINSIC
+IDENT	LEN_TRIM
+COMMENT	*     ..
+COMMENT	*     .. Executable Statements ..
+COMMENT	*
+IDENT	WRITE
+(	(
+*	*,
+IDENT	FMT
+=	=
+IDENT	9999
+)	)
+IDENT	SRNAME
+(	(
+IDENT	1
+:	:
+IDENT	LEN_TRIM
+(	(
+IDENT	SRNAME
+)	)
+)	)
+,	,
+IDENT	INFO
+COMMENT	*
+IDENT	STOP
+COMMENT	*
+IDENT	9999
+IDENT	FORMAT
+(	(
+STRING	' ** On entry to '
+,	,
+IDENT	A
+,	,
+STRING	' parameter number '
+,	,
+IDENT	I2
+,	,
+STRING	' had '
+,	,
+STRING	'an illegal value'
+)	)
+COMMENT	*
+COMMENT	*     End of XERBLA
+COMMENT	*
+IDENT	END

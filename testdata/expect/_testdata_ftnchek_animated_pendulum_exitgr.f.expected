@@ -1,0 +1,26 @@
+IDENT	SubRoutine
+IDENT	ExitGraphicsMode
+COMMENT	C  Go out of graphics mode back to
+COMMENT	C  text mode.
+IDENT	character
+*	*1
+IDENT	esc
+IDENT	esc
+=	=
+IDENT	char
+(	(
+IDENT	27
+)	)
+IDENT	write
+(	(
+token(95)	*,
+)	)
+IDENT	esc
+,	,
+STRING	'\'
+,	,
+IDENT	esc
+,	,
+STRING	'[15H'
+IDENT	Return
+IDENT	End

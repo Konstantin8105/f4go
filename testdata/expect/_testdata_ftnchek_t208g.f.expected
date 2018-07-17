@@ -1,0 +1,11 @@
+IDENT	subroutine
+IDENT	foo
+IDENT	integer
+IDENT	n
+IDENT	n
+=	=
+IDENT	i1mach
+(	(
+IDENT	3
+)	)
+IDENT	end
