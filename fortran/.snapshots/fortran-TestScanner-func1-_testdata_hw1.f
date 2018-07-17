@@ -1,0 +1,1 @@
+(string) (len=217) "IDENT\tprogram\nIDENT\thello_world\nIDENT\timplicit\nIDENT\tnone\nIDENT\tc\nIDENT\tcharacter\n*\t*3\nIDENT\t2\nIDENT\ttext\nIDENT\tc\nIDENT\ttext\n=\t=\nSTRING\t'Hello\\nA\\n World'\nIDENT\twrite\n(\t(\ntoken(95)\t*,\n)\t)\nIDENT\ttext\nIDENT\tc\nIDENT\tend\n"

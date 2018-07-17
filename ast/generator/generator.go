@@ -178,7 +178,7 @@ func createStruct(name string, types []string) {
 	for _, t := range types {
 		fmt.Fprintf(output, "\t%v string\n", firstUpper(t))
 	}
-	fmt.Fprintln(output, "}\n")
+	fmt.Fprintf(output, "}\n")
 
 	// create method
 	fmt.Fprintf(output,

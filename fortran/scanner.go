@@ -62,13 +62,21 @@ func (s *Scanner) Scan() (tok token.Token, lit string) {
 		return token.COLON, string(ch)
 	case '=':
 		return token.ASSIGN, string(ch)
+	case '/':
+		return token.QUO, string(ch)
+	case '+':
+		return token.ADD, string(ch)
+	case '-':
+		return token.SUB, string(ch)
+	case '.':
+		return token.PERIOD, string(ch)
 	case '*':
 		s.unread()
 		return s.scanStar()
 	case '!':
 		s.unread()
 		return s.scanComment()
-	case '"':
+	case '"', '\'':
 		s.unread()
 		return s.scanString()
 	}
@@ -137,14 +145,15 @@ func (s *Scanner) scanNumber() (tok token.Token, lit string) {
 func (s *Scanner) scanString() (tok token.Token, lit string) {
 	// Create a buffer and read the current character into it.
 	var buf bytes.Buffer
-	buf.WriteRune(s.read())
+	symbol := s.read()
+	buf.WriteRune(symbol)
 
 	// Read every subsequent ident character into the buffer.
 	// Non-ident characters and EOF will cause the loop to exit.
 	for {
 		if ch := s.read(); ch == eof {
 			break
-		} else if ch == '"' {
+		} else if ch == symbol {
 			_, _ = buf.WriteRune(ch)
 			break
 		} else {

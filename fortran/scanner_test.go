@@ -2,11 +2,15 @@ package fortran
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"go/token"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
+
+	"github.com/bradleyjkemp/cupaloy"
 )
 
 func TestScanner(t *testing.T) {
@@ -18,7 +22,9 @@ func TestScanner(t *testing.T) {
 	}
 
 	for _, filename := range files {
-		t.Run(filename, func(t *testing.T) {
+		testName := strings.Replace(filename, "..", "", -1)
+		testName = strings.Replace(testName, "/", "_", -1)
+		t.Run(testName, func(t *testing.T) {
 			file, err := os.Open(filename)
 			if err != nil {
 				t.Fatal(err)
@@ -27,15 +33,25 @@ func TestScanner(t *testing.T) {
 			defer file.Close()
 
 			s := NewScanner(bufio.NewReader(file))
+			buf := &bytes.Buffer{}
 			for {
 				tok, lit := s.Scan()
-				if tok == token.ILLEGAL || tok == token.EOF {
-					fmt.Println("->", lit)
+				if tok == token.ILLEGAL {
+					t.Fatalf("ILLEGAL literal : %v", lit)
+					return
+				}
+				if tok == token.EOF {
 					break
 				}
-				fmt.Printf("%v\t%v\n", tok, lit)
+				buf.WriteString(fmt.Sprintf("%v\t%v\n", tok, lit))
 			}
 
+			// Update tests
+			// UPDATE_SNAPSHOTS=true go test ./fortran/...
+			err = cupaloy.SnapshotMulti(testName, buf.String())
+			if err != nil {
+				t.Fatalf("error: %s", err)
+			}
 		})
 	}
 
