@@ -3,6 +3,7 @@ package fortran
 import (
 	"bufio"
 	"bytes"
+	"fmt"
 	"go/token"
 	"io"
 	"strings"
@@ -78,8 +79,16 @@ func (s *Scanner) Scan() (tok token.Token, lit string) {
 		return token.ADD, string(ch)
 	case '-':
 		return token.SUB, string(ch)
+
 	case '.':
-		return token.PERIOD, string(ch)
+		s.unread()
+		return s.scanPeriod()
+
+	case '>':
+		return token.GTR, string(ch)
+	case '<':
+		return token.LSS, string(ch)
+
 	case '*':
 		s.unread()
 		return s.scanStar()
@@ -126,6 +135,48 @@ func (s *Scanner) scanStar() (tok token.Token, lit string) {
 	}
 
 	return token.MUL, buf.String()
+}
+
+func (s *Scanner) scanPeriod() (tok token.Token, lit string) {
+	var buf bytes.Buffer
+
+	for i := 0; i < 5; i++ {
+		if ch := s.read(); ch == eof {
+			break
+		} else if ch == '.' && i != 0 {
+			_, _ = buf.WriteRune(ch)
+			break
+		} else {
+			_, _ = buf.WriteRune(ch)
+		}
+	}
+
+	switch strings.ToUpper(buf.String()) {
+	case ".LT.":
+		return token.LSS, buf.String()
+	case ".GT.":
+		return token.GTR, buf.String()
+	case ".LE.":
+		return token.LEQ, buf.String()
+	case ".GE.":
+		return token.GEQ, buf.String()
+	case ".NOT.", ".NE.":
+		return token.NEQ, buf.String()
+	case ".EQ.":
+		return token.EQL, buf.String()
+	case ".AND.":
+		return token.LAND, buf.String()
+	case ".OR.":
+		return token.LOR, buf.String()
+	}
+	fmt.Println(">>> ", buf.String())
+
+	for i := 0; i < buf.Len()-1; i++ {
+		s.unread()
+	}
+
+	// Otherwise return as a regular identifier.
+	return token.PERIOD, "."
 }
 
 func (s *Scanner) scanColon() (tok token.Token, lit string) {

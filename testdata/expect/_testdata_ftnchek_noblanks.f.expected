@@ -89,9 +89,7 @@ COMMENT             	c
 if                  	if
 (                   	(
 IDENT               	n
-.                   	.
-IDENT               	gt
-.                   	.
+>                   	.gt.
 INT                 	0
 )                   	)
 IDENT               	goto10
@@ -136,9 +134,7 @@ IDENT               	dx
 IDENT               	i
 )                   	)
 )                   	)
-.                   	.
-IDENT               	gt
-.                   	.
+>                   	.gt.
 IDENT               	cutlo
 )                   	)
 IDENT               	goto85
@@ -156,9 +152,7 @@ IDENT               	dx
 (                   	(
 IDENT               	i
 )                   	)
-.                   	.
-IDENT               	eq
-.                   	.
+==                  	.eq.
 IDENT               	zero
 )                   	)
 IDENT               	goto200
@@ -171,9 +165,7 @@ IDENT               	dx
 IDENT               	i
 )                   	)
 )                   	)
-.                   	.
-IDENT               	gt
-.                   	.
+>                   	.gt.
 IDENT               	cutlo
 )                   	)
 IDENT               	goto85
@@ -229,9 +221,7 @@ IDENT               	dx
 IDENT               	i
 )                   	)
 )                   	)
-.                   	.
-IDENT               	gt
-.                   	.
+>                   	.gt.
 IDENT               	cutlo
 )                   	)
 IDENT               	goto75
@@ -249,9 +239,7 @@ IDENT               	dx
 IDENT               	i
 )                   	)
 )                   	)
-.                   	.
-IDENT               	le
-.                   	.
+<=                  	.le.
 IDENT               	xmax
 )                   	)
 IDENT               	goto115
@@ -345,9 +333,7 @@ IDENT               	dx
 IDENT               	j
 )                   	)
 )                   	)
-.                   	.
-IDENT               	ge
-.                   	.
+>=                  	.ge.
 IDENT               	hitest
 )                   	)
 IDENT               	goto100
@@ -380,9 +366,7 @@ IDENT               	incx
 if                  	if
 (                   	(
 IDENT               	i
-.                   	.
-IDENT               	le
-.                   	.
+<=                  	.le.
 IDENT               	nn
 )                   	)
 IDENT               	goto20

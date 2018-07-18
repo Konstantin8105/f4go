@@ -120,9 +120,7 @@ IDENT               	CDABS
 (                   	(
 IDENT               	CA
 )                   	)
-.                   	.
-IDENT               	EQ
-.                   	.
+==                  	.EQ.
 FLOAT               	0.0
 IDENT               	d0
 )                   	)

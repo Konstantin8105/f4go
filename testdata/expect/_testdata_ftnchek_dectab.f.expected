@@ -19,9 +19,7 @@ IDENT               	c
 if                  	if
 (                   	(
 IDENT               	a
-.                   	.
-IDENT               	ge
-.                   	.
+>=                  	.ge.
 IDENT               	b
 )                   	)
 IDENT               	a

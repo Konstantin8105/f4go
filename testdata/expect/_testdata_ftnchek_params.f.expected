@@ -19,8 +19,8 @@ IDENT               	parameter
 (                   	(
 IDENT               	pi
 =                   	=
-.                   	.
-INT                 	31415926535897932
+.                   	.3141
+INT                 	15926535897932
 IDENT               	D
 +                   	+
 INT                 	01
@@ -30,9 +30,8 @@ IDENT               	parameter
 IDENT               	minus1
 =                   	=
 -                   	-
-.                   	.
-INT                 	01
-IDENT               	D2
+.                   	.01D2
+INT                 	2
 )                   	)
 IDENT               	parameter
 (                   	(

@@ -205,9 +205,7 @@ IDENT               	TKIOLL
 (                   	(
 IDENT               	DUMMY
 )                   	)
-.                   	.
-IDENT               	GT
-.                   	.
+>                   	.GT.
 INT                 	64
 )                   	)
 IDENT               	CALL
@@ -239,9 +237,7 @@ COMMENT             	C
 if                  	IF
 (                   	(
 IDENT               	IX
-.                   	.
-IDENT               	EQ
-.                   	.
+==                  	.EQ.
 IDENT               	LASTX
 )                   	)
 IDENT               	GO
@@ -250,9 +246,7 @@ INT                 	10
 if                  	IF
 (                   	(
 IDENT               	IY
-.                   	.
-IDENT               	EQ
-.                   	.
+==                  	.EQ.
 IDENT               	LASTY
 )                   	)
 IDENT               	GO
@@ -340,9 +334,10 @@ IDENT               	LASTY
 IDENT               	IY
 IDENT               	VILAST
 =                   	=
+.                   	.TRUE
+IDENT               	E
 .                   	.
-IDENT               	TRUE
-.                   	.
+   
 IDENT               	MAXX
 =                   	=
 IDENT               	MAX0

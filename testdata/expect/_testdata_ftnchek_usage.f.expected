@@ -194,10 +194,11 @@ IDENT               	compl1
 IDENT               	compl2
 IDENT               	test
 =                   	=
+.                   	.true
+IDENT               	e
 .                   	.
-IDENT               	true
-.                   	.
-IDENT               	data
+	da
+IDENT               	ata
 (                   	(
 (                   	(
 IDENT               	a123
@@ -252,9 +253,7 @@ FLOAT               	5.2
 INT                 	4
 IDENT               	habcd
 ,                   	,
-.                   	.
-INT                 	1
-,                   	,
+.                   	.1, 1
 FLOAT               	1.
 /                   	/
 if                  	if
@@ -375,9 +374,7 @@ INT                 	4
 if                  	if
 (                   	(
 IDENT               	stop
-.                   	.
-IDENT               	and
-.                   	.
+&&                  	.and.
 IDENT               	save
 )                   	)
 IDENT               	then
@@ -409,9 +406,7 @@ INT                 	1
 ,                   	,
 INT                 	1
 )                   	)
-.                   	.
-IDENT               	eq
-.                   	.
+==                  	.eq.
 IDENT               	xyz
 (                   	(
 INT                 	2
@@ -475,10 +470,11 @@ INT                 	3
 IDENT               	endif
 IDENT               	test
 =                   	=
+.                   	.fals
+IDENT               	se
 .                   	.
-IDENT               	false
-.                   	.
-IDENT               	dbl1
+	db
+IDENT               	bl1
 =                   	=
 FLOAT               	1.2345
 IDENT               	write
@@ -492,9 +488,8 @@ INT                 	900
 IDENT               	format
 (                   	(
 IDENT               	f10
-.                   	.
-INT                 	2
-)                   	)
+.                   	.2)
+	
 if                  	if
 (                   	(
 IDENT               	test
@@ -580,9 +575,7 @@ INT                 	4
 +                   	+
 IDENT               	com6
 )                   	)
-.                   	.
-IDENT               	gt
-.                   	.
+>                   	.gt.
 IDENT               	com3
 )                   	)
 IDENT               	then

@@ -14,9 +14,7 @@ IDENT               	i
 ,                   	,
 INT                 	2
 )                   	)
-.                   	.
-IDENT               	eq
-.                   	.
+==                  	.eq.
 INT                 	0
 )                   	)
 IDENT               	then
@@ -36,9 +34,7 @@ IDENT               	endif
 if                  	if
 (                   	(
 IDENT               	i
-.                   	.
-IDENT               	gt
-.                   	.
+>                   	.gt.
 INT                 	10
 )                   	)
 IDENT               	exit

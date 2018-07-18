@@ -194,9 +194,7 @@ IDENT               	i
 if                  	IF
 (                   	(
 IDENT               	x
-.                   	.
-IDENT               	eq
-.                   	.
+==                  	.eq.
 IDENT               	i
 )                   	)
 IDENT               	GOTO
@@ -244,9 +242,10 @@ INT                 	10
 )                   	)
 IDENT               	bool
 =                   	=
+.                   	.TRUE
+IDENT               	E
 .                   	.
-IDENT               	TRUE
-.                   	.
+   
 if                  	IF
 (                   	(
 IDENT               	bool
@@ -265,13 +264,10 @@ IDENT               	y
 IDENT               	z
 IDENT               	ELSEIF
 (                   	(
-.                   	.
-IDENT               	NOT
-.                   	.
-.                   	.
-IDENT               	FALSE
-.                   	.
-)                   	)
+!=                  	.NOT.
+.                   	.FALS
+IDENT               	SE
+.                   	. ) T
 IDENT               	THEN
 IDENT               	WRITE
 (                   	(
@@ -300,9 +296,7 @@ IDENT               	ENDIF
 IDENT               	DOWHILE
 (                   	(
 IDENT               	i
-.                   	.
-IDENT               	lt
-.                   	.
+<                   	.lt.
 INT                 	100
 )                   	)
 if                  	IF
@@ -311,9 +305,7 @@ IDENT               	f
 (                   	(
 IDENT               	d
 )                   	)
-.                   	.
-IDENT               	gt
-.                   	.
+>                   	.gt.
 FLOAT               	3.14
 )                   	)
 IDENT               	THEN
@@ -330,9 +322,7 @@ token(103)          	DO
 IDENT               	WHILE
 (                   	(
 IDENT               	i
-.                   	.
-IDENT               	lt
-.                   	.
+<                   	.lt.
 INT                 	100
 )                   	)
 IDENT               	i
@@ -347,9 +337,7 @@ INT                 	300
 IDENT               	WHILE
 (                   	(
 IDENT               	x
-.                   	.
-IDENT               	gt
-.                   	.
+>                   	.gt.
 FLOAT               	0.0
 )                   	)
 IDENT               	TYPE
@@ -366,9 +354,7 @@ INT                 	4321
 IDENT               	WHILE
 (                   	(
 IDENT               	x
-.                   	.
-IDENT               	gt
-.                   	.
+>                   	.gt.
 FLOAT               	0.0
 )                   	)
 IDENT               	TYPE

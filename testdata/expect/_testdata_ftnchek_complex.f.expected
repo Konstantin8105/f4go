@@ -64,9 +64,8 @@ IDENT               	x
 ,                   	,
 INT                 	2
 IDENT               	f10
-.                   	.
-INT                 	2
-)                   	)
+.                   	.2)
+ 
 IDENT               	print
 INT                 	22
 ,                   	,
@@ -97,15 +96,9 @@ IDENT               	x
 ,                   	,
 INT                 	2
 IDENT               	e10
-.                   	.
-INT                 	3
-,                   	,
-INT                 	2
+.                   	.3,2f
 IDENT               	f10
-.                   	.
-INT                 	2
-,                   	,
-INT                 	4
+.                   	.2,4i
 IDENT               	i4
 )                   	)
 IDENT               	call

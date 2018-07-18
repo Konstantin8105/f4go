@@ -48,9 +48,7 @@ COMMENT             	* this logical if is OK
 if                  	IF
 (                   	(
 IDENT               	M
-.                   	.
-IDENT               	eq
-.                   	.
+==                  	.eq.
 INT                 	3
 )                   	)
 IDENT               	L
@@ -129,9 +127,7 @@ COMMENT             	* violate an arithmetic if statement
 if                  	IF
 (                   	(
 IDENT               	L
-.                   	.
-IDENT               	EQ
-.                   	.
+==                  	.EQ.
 INT                 	3
 )                   	)
 INT                 	200

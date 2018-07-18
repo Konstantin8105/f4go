@@ -159,9 +159,7 @@ IDENT               	n
 INT                 	2
 if                  	if
 (                   	(
-.                   	.
-IDENT               	not
-.                   	.
+!=                  	.not.
 IDENT               	divisible
 (                   	(
 IDENT               	i
@@ -180,9 +178,7 @@ INT                 	1
 if                  	if
 (                   	(
 IDENT               	numprimes
-.                   	.
-IDENT               	gt
-.                   	.
+>                   	.gt.
 IDENT               	max
 )                   	)
 IDENT               	then
@@ -255,17 +251,16 @@ IDENT               	p
 IDENT               	i
 )                   	)
 )                   	)
-.                   	.
-IDENT               	eq
-.                   	.
+==                  	.eq.
 INT                 	0
 )                   	)
 IDENT               	then
 IDENT               	divisible
 =                   	=
+.                   	.true
+IDENT               	e
 .                   	.
-IDENT               	true
-.                   	.
+   
 IDENT               	return
 token(102)          	end
 if                  	if
@@ -273,8 +268,9 @@ token(102)          	end
 token(103)          	do
 IDENT               	divisible
 =                   	=
+.                   	.fals
+IDENT               	se
 .                   	.
-IDENT               	false
-.                   	.
+   
 IDENT               	return
 token(102)          	end

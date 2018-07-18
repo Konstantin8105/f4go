@@ -72,10 +72,10 @@ INT                 	999
 token(103)          	Do
 IDENT               	While
 (                   	(
-.                   	.
-IDENT               	TRUE
-.                   	.
-)                   	)
+.                   	.TRUE
+IDENT               	E
+.                   	.)
+  
 IDENT               	Read
 (                   	(
 INT                 	8
@@ -138,19 +138,13 @@ if                  	If
 (                   	(
 (                   	(
 IDENT               	Ch
-.                   	.
-IDENT               	NE
-.                   	.
+!=                  	.NE.
 STRING              	' '
 )                   	)
-.                   	.
-IDENT               	AND
-.                   	.
+&&                  	.AND.
 (                   	(
 IDENT               	Ch
-.                   	.
-IDENT               	NE
-.                   	.
+!=                  	.NE.
 STRING              	'.'
 )                   	)
 )                   	)
@@ -163,9 +157,7 @@ INT                 	1
 IDENT               	ElseIf
 (                   	(
 IDENT               	Ch
-.                   	.
-IDENT               	EQ
-.                   	.
+==                  	.EQ.
 STRING              	'.'
 )                   	)
 IDENT               	Then
@@ -340,17 +332,15 @@ INT                 	1
 IDENT               	X
 STRING              	'Average characters per word = '
 IDENT               	F6
-.                   	.
-INT                 	2
-/                   	/
+.                   	.2/
+ 
 INT                 	2
 INT                 	1
 IDENT               	X
 STRING              	'Average words per sentence  = '
 IDENT               	F6
-.                   	.
-INT                 	2
-/                   	/
+.                   	.2/
+ 
 INT                 	3
 INT                 	1
 IDENT               	X
@@ -550,22 +540,16 @@ if                  	If
 (                   	(
 (                   	(
 IDENT               	I
-.                   	.
-IDENT               	LE
-.                   	.
+<=                  	.LE.
 IDENT               	ICHAR
 (                   	(
 STRING              	'z'
 )                   	)
 )                   	)
-.                   	.
-IDENT               	AND
-.                   	.
+&&                  	.AND.
 (                   	(
 IDENT               	I
-.                   	.
-IDENT               	GE
-.                   	.
+>=                  	.GE.
 IDENT               	ICHAR
 (                   	(
 STRING              	'a'

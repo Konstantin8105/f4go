@@ -49,9 +49,7 @@ INT                 	1
 if                  	if
 (                   	(
 IDENT               	j
-.                   	.
-IDENT               	eq
-.                   	.
+==                  	.eq.
 INT                 	2
 )                   	)
 IDENT               	goto
@@ -91,9 +89,8 @@ IDENT               	x
 ,                   	,
 INT                 	2
 IDENT               	f6
-.                   	.
-INT                 	0
-)                   	)
+.                   	.0)
+ 
 INT                 	91
 IDENT               	format
 (                   	(

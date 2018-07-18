@@ -112,9 +112,7 @@ IDENT               	CABS
 (                   	(
 IDENT               	CA
 )                   	)
-.                   	.
-IDENT               	EQ
-.                   	.
+==                  	.EQ.
 FLOAT               	0.
 )                   	)
 IDENT               	THEN
