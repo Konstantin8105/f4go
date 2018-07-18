@@ -1,4 +1,1 @@
-testdata/*         linguist-vendored=false
-testdata/blas/*    linguist-vendored=false
-testdata/ftnchek/* linguist-vendored=false
-testdata/expect/*  linguist-vendored=false
+/testdata/ export-ignore
