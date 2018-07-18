@@ -1,1 +1,0 @@
-(string) (len=279) "IDENT\tcharacter\nIDENT\tc\n(\t(\nIDENT\t10\n,\t,\nIDENT\t10\n)\t)\nIDENT\tdata\nIDENT\tc\n/\t/\nSTRING\t'1'\n/\t/\nIDENT\tcall\nIDENT\tsuba\n(\t(\nIDENT\tc\n)\t)\nIDENT\tend\nIDENT\tsubroutine\nIDENT\tsuba\n(\t(\nIDENT\tc\n)\t)\nIDENT\tcharacter\ntoken(95)\t*(\n)\t)\nIDENT\tc\n(\t(\nIDENT\t2000\n)\t)\nIDENT\tprint\n*\t*,\nIDENT\tc\nIDENT\tend\n"

@@ -1,1 +1,0 @@
-(string) (len=274) "IDENT\tsubroutine\nIDENT\tfoo\n(\t(\nIDENT\td\n,\t,\nIDENT\te\n,\t,\nIDENT\tf\n)\t)\nIDENT\tcharacter\n*\t*3\nIDENT\ta\n,\t,\nIDENT\tb\n*\t*4\n,\t,\nIDENT\tc\n*\t*5\nIDENT\tcharacter\ntoken(95)\t*(\n)\t)\nIDENT\td\n,\t,\nIDENT\te\n*\t*1\nIDENT\t27\nIDENT\tcharacter\n*\t*2\nIDENT\t55\nIDENT\tf\ntoken(95)\t*(\n)\t)\n,\t,\nIDENT\tg\nIDENT\tend\n"

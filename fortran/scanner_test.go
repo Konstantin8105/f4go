@@ -43,8 +43,8 @@ func TestScanner(t *testing.T) {
 	}
 
 	for _, filename := range files {
-		testName := strings.Replace(filename, "..", "", -1)
-		testName = strings.Replace(testName, "/", "_", -1)
+		index := strings.LastIndex(filename, "/")
+		testName := filename[index+1:]
 		t.Run(testName, func(t *testing.T) {
 			file, err := os.Open(filename)
 			if err != nil {
@@ -67,7 +67,7 @@ func TestScanner(t *testing.T) {
 				buf.WriteString(fmt.Sprintf("%-20s\t%v\n", tok, lit))
 			}
 
-			fileName := "../testdata/expect/" + testName + ".expected"
+			fileName := filename[:index+1] + testName + ".expected"
 
 			var update bool //= true
 

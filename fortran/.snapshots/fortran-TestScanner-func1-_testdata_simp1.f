@@ -1,1 +1,0 @@
-(string) (len=164) "IDENT\tPROGRAM\nIDENT\tcows\nIDENT\tINTEGER\n:\t:\n:\t:\nIDENT\tn\nCOMMENT\tC          INTEGER :: n2\nIDENT\tn\n=\t=\nIDENT\t306\nCOMMENT\tC          n2 = n + 2\nIDENT\tEND\nIDENT\tPROGRAM\n"

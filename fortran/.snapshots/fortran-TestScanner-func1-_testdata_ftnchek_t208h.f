@@ -1,1 +1,0 @@
-(string) (len=280) "IDENT\tsubroutine\nIDENT\tfoo\n(\t(\nIDENT\tx\n)\t)\nIDENT\treal\nIDENT\tr1mach\nCOMMENT\t*     ftnchek types sqrt() as generic here; I think it should be REAL.\nCOMMENT\t*     This results in loss of a declaration \"REAL SQRT\"\nIDENT\tx\n=\t=\nIDENT\tsqrt\n(\t(\nIDENT\tr1mach\n(\t(\nIDENT\t3\n)\t)\n)\t)\nIDENT\tend\n"
