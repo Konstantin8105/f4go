@@ -1,1 +1,3 @@
-testdata/* export-ignore
+testdata/*         export-ignore
+testdata/blas/*    export-ignore
+testdata/ftnchek/* export-ignore
