@@ -1,0 +1,28 @@
+
+ COMPLEX * 16 FUNCTION ZDOTC ( N , ZX , INCX , ZY , INCY )
+ INTEGER INCX , INCY , N
+ COMPLEX * 16 ZX ( * ) , ZY ( * )
+ COMPLEX * 16 ZTEMP
+ INTEGER I , IX , IY
+ INTRINSIC DCONJG
+ ZTEMP = ( 0.0d0 , 0.0d0 )
+ ZDOTC = ( 0.0d0 , 0.0d0 )
+ IF ( N .LE. 0 ) RETURN
+ IF ( INCX .EQ. 1 .AND. INCY .EQ. 1 ) THEN
+ DO I = 1 , N
+ ZTEMP = ZTEMP + DCONJG ( ZX ( I ) ) * ZY ( I )
+ END DO
+ ELSE
+ IX = 1
+ IY = 1
+ IF ( INCX .LT. 0 ) IX = ( - N + 1 ) * INCX + 1
+ IF ( INCY .LT. 0 ) IY = ( - N + 1 ) * INCY + 1
+ DO I = 1 , N
+ ZTEMP = ZTEMP + DCONJG ( ZX ( IX ) ) * ZY ( IY )
+ IX = IX + INCX
+ IY = IY + INCY
+ END DO
+ END IF
+ ZDOTC = ZTEMP
+ RETURN
+ END

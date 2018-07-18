@@ -1,16 +1,6 @@
 package main_test
 
-import (
-	"bytes"
-	"fmt"
-	"go/format"
-	"go/token"
-	"path/filepath"
-	"testing"
-
-	"github.com/Konstantin8105/f4go/fortran"
-	"github.com/Konstantin8105/f4go/util"
-)
+/*
 
 func TestOk(t *testing.T) {
 	files, err := filepath.Glob("testdata/*.f")
@@ -91,3 +81,5 @@ func TestFail(t *testing.T) {
 		})
 	}
 }
+
+*/

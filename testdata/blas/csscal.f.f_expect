@@ -1,0 +1,20 @@
+
+ SUBROUTINE CSSCAL ( N , SA , CX , INCX )
+ REAL SA
+ INTEGER INCX , N
+ COMPLEX CX ( * )
+ INTEGER I , NINCX
+ INTRINSIC AIMAG , CMPLX , REAL
+ IF ( N .LE. 0 .OR. INCX .LE. 0 ) RETURN
+ IF ( INCX .EQ. 1 ) THEN
+ DO I = 1 , N
+ CX ( I ) = CMPLX ( SA * REAL ( CX ( I ) ) , SA * AIMAG ( CX ( I ) ) )
+ END DO
+ ELSE
+ NINCX = N * INCX
+ DO I = 1 , NINCX , INCX
+ CX ( I ) = CMPLX ( SA * REAL ( CX ( I ) ) , SA * AIMAG ( CX ( I ) ) )
+ END DO
+ END IF
+ RETURN
+ END

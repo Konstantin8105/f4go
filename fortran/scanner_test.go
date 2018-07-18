@@ -62,10 +62,22 @@ func TestScanner(t *testing.T) {
 				buf.WriteString(fmt.Sprintf("%-20s\t%v\n", view(tok), lit))
 			}
 
-			fileName := filename[:index+1] + testName + ".expected"
+			fn := filename[:index+1] + testName
 
 			var out string
-			out, err = util.IsDiff(fileName, buf.String())
+			out, err = util.IsDiff(fn+".expected", buf.String())
+			if err != nil {
+				t.Fatal(err)
+			}
+			if out != "" {
+				t.Fatal(out)
+			}
+
+			ns, err := prepare(filename)
+			if err != nil {
+				t.Fatal(err)
+			}
+			out, err = util.IsDiff(fn+".f_expect", a(ns))
 			if err != nil {
 				t.Fatal(err)
 			}

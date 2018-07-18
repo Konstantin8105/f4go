@@ -1,0 +1,19 @@
+
+ SUBROUTINE CSCAL ( N , CA , CX , INCX )
+ COMPLEX CA
+ INTEGER INCX , N
+ COMPLEX CX ( * )
+ INTEGER I , NINCX
+ IF ( N .LE. 0 .OR. INCX .LE. 0 ) RETURN
+ IF ( INCX .EQ. 1 ) THEN
+ DO I = 1 , N
+ CX ( I ) = CA * CX ( I )
+ END DO
+ ELSE
+ NINCX = N * INCX
+ DO I = 1 , NINCX , INCX
+ CX ( I ) = CA * CX ( I )
+ END DO
+ END IF
+ RETURN
+ END

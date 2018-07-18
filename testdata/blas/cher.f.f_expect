@@ -1,0 +1,97 @@
+
+ SUBROUTINE CHER ( UPLO , N , ALPHA , X , INCX , A , LDA )
+ REAL ALPHA
+ INTEGER INCX , LDA , N
+ CHARACTER UPLO
+ COMPLEX A ( LDA , * ) , X ( * )
+ COMPLEX ZERO
+ PARAMETER ( ZERO = ( 0.0E+0 , 0.0E+0 ) )
+ COMPLEX TEMP
+ INTEGER I , INFO , IX , J , JX , KX
+ LOGICAL LSAME
+ EXTERNAL LSAME
+ EXTERNAL XERBLA
+ INTRINSIC CONJG , MAX , REAL
+ INFO = 0
+ IF ( .NOT. LSAME ( UPLO , 'U' ) .AND. .NOT. LSAME ( UPLO , 'L' ) ) THEN
+ INFO = 1
+ ELSE IF ( N .LT. 0 ) THEN
+ INFO = 2
+ ELSE IF ( INCX .EQ. 0 ) THEN
+ INFO = 5
+ ELSE IF ( LDA .LT. MAX ( 1 , N ) ) THEN
+ INFO = 7
+ END IF
+ IF ( INFO .NE. 0 ) THEN
+ CALL XERBLA ( 'CHER  ' , INFO )
+ RETURN
+ END IF
+ IF ( ( N .EQ. 0 ) .OR. ( ALPHA .EQ. REAL ( ZERO ) ) ) RETURN
+ IF ( INCX .LE. 0 ) THEN
+ KX = 1 - ( N - 1 ) * INCX
+ ELSE IF ( INCX .NE. 1 ) THEN
+ KX = 1
+ END IF
+ IF ( LSAME ( UPLO , 'U' ) ) THEN
+ IF ( INCX .EQ. 1 ) THEN
+ DO 20 J = 1 , N
+ IF ( X ( J ) .NE. ZERO ) THEN
+ TEMP = ALPHA * CONJG ( X ( J ) )
+ DO 10 I = 1 , J - 1
+ A ( I , J ) = A ( I , J ) + X ( I ) * TEMP
+ 10 CONTINUE
+ A ( J , J ) = REAL ( A ( J , J ) ) + REAL ( X ( J ) * TEMP )
+ ELSE
+ A ( J , J ) = REAL ( A ( J , J ) )
+ END IF
+ 20 CONTINUE
+ ELSE
+ JX = KX
+ DO 40 J = 1 , N
+ IF ( X ( JX ) .NE. ZERO ) THEN
+ TEMP = ALPHA * CONJG ( X ( JX ) )
+ IX = KX
+ DO 30 I = 1 , J - 1
+ A ( I , J ) = A ( I , J ) + X ( IX ) * TEMP
+ IX = IX + INCX
+ 30 CONTINUE
+ A ( J , J ) = REAL ( A ( J , J ) ) + REAL ( X ( JX ) * TEMP )
+ ELSE
+ A ( J , J ) = REAL ( A ( J , J ) )
+ END IF
+ JX = JX + INCX
+ 40 CONTINUE
+ END IF
+ ELSE
+ IF ( INCX .EQ. 1 ) THEN
+ DO 60 J = 1 , N
+ IF ( X ( J ) .NE. ZERO ) THEN
+ TEMP = ALPHA * CONJG ( X ( J ) )
+ A ( J , J ) = REAL ( A ( J , J ) ) + REAL ( TEMP * X ( J ) )
+ DO 50 I = J + 1 , N
+ A ( I , J ) = A ( I , J ) + X ( I ) * TEMP
+ 50 CONTINUE
+ ELSE
+ A ( J , J ) = REAL ( A ( J , J ) )
+ END IF
+ 60 CONTINUE
+ ELSE
+ JX = KX
+ DO 80 J = 1 , N
+ IF ( X ( JX ) .NE. ZERO ) THEN
+ TEMP = ALPHA * CONJG ( X ( JX ) )
+ A ( J , J ) = REAL ( A ( J , J ) ) + REAL ( TEMP * X ( JX ) )
+ IX = JX
+ DO 70 I = J + 1 , N
+ IX = IX + INCX
+ A ( I , J ) = A ( I , J ) + X ( IX ) * TEMP
+ 70 CONTINUE
+ ELSE
+ A ( J , J ) = REAL ( A ( J , J ) )
+ END IF
+ JX = JX + INCX
+ 80 CONTINUE
+ END IF
+ END IF
+ RETURN
+ END
