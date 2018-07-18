@@ -56,7 +56,7 @@ IDENT               	g
 IDENT               	c1
 =                   	=
 STRING              	'A'
-IDENT               	call
+token(105)          	call
 IDENT               	foo
 token(102)          	end
 token(96)           	subroutine
@@ -119,7 +119,7 @@ IDENT               	o
 IDENT               	c1
 =                   	=
 STRING              	'A'
-IDENT               	call
+token(105)          	call
 IDENT               	bar
 token(102)          	end
 token(96)           	subroutine

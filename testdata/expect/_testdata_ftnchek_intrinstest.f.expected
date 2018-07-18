@@ -40,7 +40,7 @@ IDENT               	not
 IDENT               	i
 )                   	)
 COMMENT             	C  Test recognition of unix intrinsics
-IDENT               	call
+token(105)          	call
 IDENT               	getarg
 (                   	(
 INT                 	1

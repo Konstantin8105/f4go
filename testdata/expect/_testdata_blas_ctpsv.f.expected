@@ -358,7 +358,7 @@ IDENT               	INFO
 INT                 	0
 )                   	)
 IDENT               	THEN
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	XERBLA
 (                   	(
 STRING              	'CTPSV '

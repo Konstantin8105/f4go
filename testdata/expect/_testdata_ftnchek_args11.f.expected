@@ -3,7 +3,7 @@ IDENT               	c
 (                   	(
 INT                 	50
 )                   	)
-IDENT               	call
+token(105)          	call
 IDENT               	suba
 (                   	(
 IDENT               	c

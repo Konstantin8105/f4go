@@ -98,7 +98,7 @@ IDENT               	f10
 .                   	.
 INT                 	4
 )                   	)
-IDENT               	call
+token(105)          	call
 IDENT               	abc
 (                   	(
 INT                 	123

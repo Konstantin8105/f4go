@@ -164,7 +164,7 @@ IDENT               	I
 )                   	)
 token(102)          	END
 token(103)          	DO
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	XERBLA
 (                   	(
 IDENT               	SRNAME

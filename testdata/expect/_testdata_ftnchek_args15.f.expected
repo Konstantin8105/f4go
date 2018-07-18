@@ -1,4 +1,4 @@
-IDENT               	call
+token(105)          	call
 IDENT               	suba
 (                   	(
 INT                 	5

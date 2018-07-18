@@ -202,8 +202,8 @@ IDENT               	real
 token(96)           	subroutine
 =                   	=
 IDENT               	then
-IDENT               	call
-IDENT               	call
+token(105)          	call
+token(105)          	call
 (                   	(
 IDENT               	complex
 ,                   	,
@@ -214,7 +214,7 @@ token(98)           	integer
 IDENT               	data
 token(102)          	end
 token(96)           	subroutine
-IDENT               	call
+token(105)          	call
 (                   	(
 token(101)          	function
 ,                   	,

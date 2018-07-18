@@ -14,11 +14,11 @@ IDENT               	a
 IDENT               	b
 ,                   	,
 IDENT               	c
-IDENT               	Call
+token(105)          	Call
 IDENT               	Input
-IDENT               	Call
+token(105)          	Call
 IDENT               	Comp
-IDENT               	Call
+token(105)          	Call
 IDENT               	Output
 token(102)          	End
 token(96)           	Subroutine

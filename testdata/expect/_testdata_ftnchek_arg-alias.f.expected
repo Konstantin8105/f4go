@@ -24,7 +24,7 @@ IDENT               	C
 IDENT               	A
 =                   	=
 FLOAT               	1.0
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	FOO
 (                   	(
 IDENT               	A
@@ -35,7 +35,7 @@ IDENT               	B
 ,                   	,
 IDENT               	C
 )                   	)
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	FOO
 (                   	(
 IDENT               	A
@@ -46,7 +46,7 @@ IDENT               	C
 ,                   	,
 IDENT               	A
 )                   	)
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	FOO
 (                   	(
 IDENT               	W
@@ -86,7 +86,7 @@ IDENT               	J
 INT                 	1
 ,                   	,
 IDENT               	I
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	SWAP
 (                   	(
 IDENT               	LIST
@@ -115,7 +115,7 @@ IDENT               	C
 ,                   	,
 IDENT               	D
 )                   	)
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	SWAP
 (                   	(
 IDENT               	A

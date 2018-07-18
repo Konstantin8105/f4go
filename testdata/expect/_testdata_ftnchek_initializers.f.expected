@@ -215,10 +215,10 @@ token(102)          	end
 COMMENT             	C  Main program just suppresses "never invoked" warnings.
 token(97)           	program
 IDENT               	main
-IDENT               	call
+token(105)          	call
 IDENT               	f90
-IDENT               	call
+token(105)          	call
 IDENT               	f77
-IDENT               	call
+token(105)          	call
 IDENT               	bastard
 token(102)          	end

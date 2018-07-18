@@ -1,6 +1,6 @@
 token(97)           	program
 IDENT               	main
-IDENT               	call
+token(105)          	call
 IDENT               	test
 (                   	(
 INT                 	100

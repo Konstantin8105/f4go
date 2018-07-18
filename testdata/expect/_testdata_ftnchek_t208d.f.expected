@@ -8314,7 +8314,7 @@ COMMENT             	C
 COMMENT             	C-----------------------------------------------------------------------
 COMMENT             	C---- PROCEDURE (Internal Error)
 INT                 	30013
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	ERRMS
 (                   	(
 INT                 	6
@@ -8328,7 +8328,7 @@ IDENT               	error
 ,                   	,
 INT                 	14
 )                   	)
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	ERRCK
 IDENT               	ERROR
 =                   	=
@@ -8411,7 +8411,7 @@ INT                 	0
 IDENT               	GO
 IDENT               	TO
 INT                 	20154
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	ERRMS
 (                   	(
 INT                 	6
@@ -8430,7 +8430,7 @@ IDENT               	assumed
 ,                   	,
 INT                 	38
 )                   	)
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	ERRAT
 (                   	(
 INT                 	6
@@ -8458,7 +8458,7 @@ INT                 	0
 IDENT               	GO
 IDENT               	TO
 INT                 	20157
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	ERRMS
 (                   	(
 INT                 	6
@@ -8476,7 +8476,7 @@ IDENT               	assumed
 ,                   	,
 INT                 	41
 )                   	)
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	ERRAT
 (                   	(
 INT                 	6
@@ -8504,7 +8504,7 @@ INT                 	0
 IDENT               	GO
 IDENT               	TO
 INT                 	20160
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	ERRMS
 (                   	(
 INT                 	6
@@ -8521,7 +8521,7 @@ IDENT               	assumed
 ,                   	,
 INT                 	32
 )                   	)
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	ERRAT
 (                   	(
 INT                 	6
@@ -8537,7 +8537,7 @@ IDENT               	FVAR
 =                   	=
 INT                 	1
 INT                 	20160
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	ERRCK
 IDENT               	GO
 IDENT               	TO
@@ -8763,7 +8763,7 @@ INT                 	8
 IDENT               	FVAR
 -                   	-
 INT                 	1
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	KARUPK
 (                   	(
 IDENT               	FONTNM

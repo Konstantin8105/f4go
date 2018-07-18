@@ -18,7 +18,7 @@ IDENT               	x
 INT                 	0
 )                   	)
 IDENT               	then
-IDENT               	call
+token(105)          	call
 IDENT               	baz
 (                   	(
 IDENT               	x
@@ -38,7 +38,7 @@ IDENT               	case
 (                   	(
 INT                 	1
 )                   	)
-IDENT               	call
+token(105)          	call
 IDENT               	baz
 (                   	(
 FLOAT               	2.0
@@ -49,7 +49,7 @@ INT                 	2
 :                   	:
 INT                 	10
 )                   	)
-IDENT               	call
+token(105)          	call
 IDENT               	baz
 (                   	(
 FLOAT               	3.0
@@ -65,14 +65,14 @@ INT                 	100
 ,                   	,
 INT                 	300
 )                   	)
-IDENT               	call
+token(105)          	call
 IDENT               	baz
 (                   	(
 FLOAT               	4.0
 )                   	)
 IDENT               	case
 IDENT               	default
-IDENT               	call
+token(105)          	call
 IDENT               	baz
 (                   	(
 FLOAT               	5.0
@@ -161,7 +161,7 @@ IDENT               	case
 INT                 	1
 )                   	)
 IDENT               	case2
-IDENT               	call
+token(105)          	call
 IDENT               	baz
 (                   	(
 FLOAT               	2.0
@@ -173,7 +173,7 @@ INT                 	2
 INT                 	10
 )                   	)
 IDENT               	case2
-IDENT               	call
+token(105)          	call
 IDENT               	baz
 (                   	(
 FLOAT               	3.0
@@ -190,7 +190,7 @@ INT                 	100
 INT                 	300
 )                   	)
 IDENT               	case2
-IDENT               	call
+token(105)          	call
 IDENT               	baz
 (                   	(
 FLOAT               	4.0
@@ -213,7 +213,7 @@ INT                 	7
 )                   	)
 IDENT               	goto
 INT                 	200
-IDENT               	call
+token(105)          	call
 IDENT               	baz
 (                   	(
 FLOAT               	5.0

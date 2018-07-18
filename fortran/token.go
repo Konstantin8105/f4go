@@ -13,4 +13,5 @@ const (
 	END
 	DO
 	ENDDO
+	CALL
 )

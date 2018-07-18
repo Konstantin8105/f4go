@@ -133,7 +133,7 @@ INT                 	1000
 ,                   	,
 INT                 	4
 )                   	)
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	foo
 IDENT               	SELECTCASE
 (                   	(
@@ -286,7 +286,7 @@ IDENT               	x
 IDENT               	a20
 )                   	)
 else                	ELSE
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	bar
 IDENT               	STOP
 IDENT               	ENDIF

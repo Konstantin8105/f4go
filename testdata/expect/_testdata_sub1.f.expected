@@ -54,7 +54,7 @@ IDENT               	icub
 IDENT               	i
 =                   	=
 INT                 	4
-IDENT               	call
+token(105)          	call
 IDENT               	square_cube
 (                   	(
 IDENT               	i

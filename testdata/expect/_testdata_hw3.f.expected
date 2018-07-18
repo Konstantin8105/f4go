@@ -11,7 +11,7 @@ IDENT               	text
 =                   	=
 STRING              	'Hello World'
 COMMENT             	c
-IDENT               	call
+token(105)          	call
 IDENT               	printtext
 (                   	(
 IDENT               	text

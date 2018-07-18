@@ -74,7 +74,7 @@ IDENT               	u
 IDENT               	v
 ,                   	,
 IDENT               	w
-IDENT               	call
+token(105)          	call
 IDENT               	subext
 (                   	(
 IDENT               	extsub
@@ -239,7 +239,7 @@ IDENT               	d
 IDENT               	p
 )                   	)
 COMMENT             	c
-IDENT               	call
+token(105)          	call
 IDENT               	foo
 (                   	(
 IDENT               	f
@@ -307,7 +307,7 @@ IDENT               	z
 INT                 	2
 )                   	)
 )                   	)
-IDENT               	call
+token(105)          	call
 IDENT               	subrtn
 (                   	(
 IDENT               	x

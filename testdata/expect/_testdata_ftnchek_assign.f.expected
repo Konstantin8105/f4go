@@ -198,7 +198,7 @@ IDENT               	z
 IDENT               	i
 =                   	=
 IDENT               	L4
-IDENT               	call
+token(105)          	call
 IDENT               	sizeprop
 (                   	(
 STRING              	'hello'

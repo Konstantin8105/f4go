@@ -1,11 +1,11 @@
 COMMENT             	C  Exerciser for recognition and flagging of various I/O keywords.
 token(97)           	program
 IDENT               	iokeywds
-IDENT               	call
+token(105)          	call
 IDENT               	vms_isms
-IDENT               	call
+token(105)          	call
 IDENT               	direct_access
-IDENT               	call
+token(105)          	call
 IDENT               	f90_stuff
 token(102)          	end
 token(96)           	subroutine

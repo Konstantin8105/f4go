@@ -23,7 +23,7 @@ FLOAT               	2.0
 IDENT               	Z
 =                   	=
 FLOAT               	4.0
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	FOO
 (                   	(
 IDENT               	W
@@ -34,7 +34,7 @@ IDENT               	Y
 ,                   	,
 IDENT               	Z
 )                   	)
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	FOO
 (                   	(
 IDENT               	F
@@ -45,7 +45,7 @@ IDENT               	Y
 ,                   	,
 IDENT               	Z
 )                   	)
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	FOO
 (                   	(
 IDENT               	W
@@ -66,7 +66,7 @@ IDENT               	X
 IDENT               	Y
 ,                   	,
 IDENT               	Z
-IDENT               	CALL
+token(105)          	CALL
 IDENT               	BAR
 (                   	(
 IDENT               	DAT

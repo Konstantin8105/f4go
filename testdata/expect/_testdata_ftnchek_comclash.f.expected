@@ -36,14 +36,14 @@ IDENT               	abc
 (                   	(
 INT                 	1
 )                   	)
-IDENT               	call
+token(105)          	call
 IDENT               	sub2
 (                   	(
 IDENT               	x
 ,                   	,
 IDENT               	y
 )                   	)
-IDENT               	call
+token(105)          	call
 IDENT               	sub2
 (                   	(
 FLOAT               	1.0

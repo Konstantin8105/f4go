@@ -45,7 +45,7 @@ IDENT               	M
 IDENT               	MAXPRIMES
 )                   	)
 COMMENT             	C Print the primes
-IDENT               	call
+token(105)          	call
 IDENT               	printarray
 (                   	(
 STRING              	'Primes'
