@@ -7,6 +7,15 @@ import (
 	"os"
 )
 
+type parser struct {
+	sc  *Scanner
+	buf struct {
+		tok token.Token
+		lit string
+		n   int // buffer
+	}
+}
+
 func Parse(filename string) (ast goast.File, err error) {
 	ast.Name = goast.NewIdent("main")
 
@@ -44,8 +53,30 @@ func parseProgram(sc *Scanner, ast *goast.File) (err error) {
 	if tok == token.IDENT {
 		fd.Name = goast.NewIdent(lit)
 	} else {
-		err = fmt.Errorf("Cannot found name")
+		err = fmt.Errorf("Cannot found name. : %s %s", view(tok), lit)
 		return
+	}
+
+	// body
+	for {
+		tok, _ := sc.Scan()
+		if tok == END {
+			break
+		}
+		if tok == token.EOF {
+			err = fmt.Errorf("Not acceptable EOF")
+			return
+		}
+	}
+	for {
+		tok, _ := sc.Scan()
+		if tok == NEW_LINE {
+			break
+		}
+		if tok == token.EOF {
+			err = fmt.Errorf("Not acceptable EOF")
+			return
+		}
 	}
 
 	fd.Type = &goast.FuncType{}

@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"go/format"
 	"go/token"
-	"io/ioutil"
 	"path/filepath"
 	"testing"
 
@@ -77,19 +76,22 @@ func TestFail(t *testing.T) {
 			}()
 			ast, err := fortran.Parse(filename)
 			if err != nil {
+				fmt.Println("err = ", err)
 				return
 			}
 
 			var buf bytes.Buffer
 			if err = format.Node(&buf, token.NewFileSet(), &ast); err != nil {
+				fmt.Println("err = ", err)
 				return
 			}
 
-			filename += ".go"
-			err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
-			if err != nil {
-				return
-			}
+			// fmt.Println(buf.String())
+			// filename += ".go"
+			// err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+			// if err != nil {
+			// 	return
+			// }
 		})
 	}
 }
