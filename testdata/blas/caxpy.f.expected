@@ -300,7 +300,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 IDENT               	CA
 NEW_LINE            	
 
@@ -318,7 +318,7 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 IDENT               	CX
 (                   	(
 *                   	*

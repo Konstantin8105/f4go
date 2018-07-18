@@ -18,6 +18,7 @@ const (
 	CALL
 	THEN
 	NEW_LINE
+	COMPLEX
 )
 
 func view(t token.Token) string {
@@ -39,4 +40,5 @@ var o = [...]string{
 	CALL:         "CALL",
 	THEN:         "THEN",
 	NEW_LINE:     "NEW_LINE",
+	COMPLEX:      "COMPLEX",
 }

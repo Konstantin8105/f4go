@@ -586,7 +586,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 IDENT               	ALPHA
 NEW_LINE            	
 
@@ -616,7 +616,7 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 IDENT               	A
 (                   	(
 IDENT               	LDA
@@ -683,7 +683,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 IDENT               	TEMP
 NEW_LINE            	
 
@@ -715,7 +715,7 @@ NEW_LINE
 COMMENT             	*     .. Parameters ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 IDENT               	ONE
 NEW_LINE            	
 
@@ -731,7 +731,7 @@ FLOAT               	0.0E+0
 )                   	)
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 IDENT               	ZERO
 NEW_LINE            	
 

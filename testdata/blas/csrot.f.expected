@@ -352,7 +352,7 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 IDENT               	CX
 (                   	(
 *                   	*
@@ -387,7 +387,7 @@ IDENT               	IX
 IDENT               	IY
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 IDENT               	CTEMP
 NEW_LINE            	
 

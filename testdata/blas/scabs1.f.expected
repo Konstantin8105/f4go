@@ -165,7 +165,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 IDENT               	Z
 NEW_LINE            	
 

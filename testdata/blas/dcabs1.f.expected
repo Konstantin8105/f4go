@@ -169,7 +169,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	Z

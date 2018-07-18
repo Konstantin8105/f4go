@@ -291,7 +291,7 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 IDENT               	CX
 (                   	(
 *                   	*
@@ -318,7 +318,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 IDENT               	CTEMP
 NEW_LINE            	
 

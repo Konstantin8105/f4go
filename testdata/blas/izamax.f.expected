@@ -256,7 +256,7 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	ZX

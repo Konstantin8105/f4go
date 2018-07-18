@@ -218,7 +218,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	CA
@@ -248,7 +248,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	ALPHA

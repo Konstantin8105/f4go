@@ -642,7 +642,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	ALPHA
@@ -677,7 +677,7 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	A
@@ -755,7 +755,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	TEMP1
@@ -798,7 +798,7 @@ FLOAT               	1.0D+0
 )                   	)
 NEW_LINE            	
 
-IDENT               	COMPLEX
+COMPLEX             	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	ZERO
