@@ -1,6 +1,6 @@
 token(97)	program
 IDENT	hello_world
-IDENT	implicit
+token(100)	implicit
 IDENT	none
 IDENT	c
 IDENT	character

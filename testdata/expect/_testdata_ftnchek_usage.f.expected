@@ -11,7 +11,7 @@ IDENT	parser
 COMMENT	*  Should pass the current version.
 COMMENT	C  It is also a legal, though not especially meaningful, program
 COMMENT	*
-IDENT	implicit
+token(100)	implicit
 token(98)	integer
 (	(
 IDENT	u
@@ -106,7 +106,7 @@ IDENT	comm6
 IDENT	blk4
 /	/
 IDENT	cc1
-IDENT	implicit
+token(100)	implicit
 IDENT	double
 IDENT	precision
 (	(

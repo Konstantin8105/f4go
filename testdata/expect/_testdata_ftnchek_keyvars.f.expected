@@ -39,7 +39,7 @@ IDENT	10
 token(98)	integer
 IDENT	external
 ,	,
-IDENT	implicit
+token(100)	implicit
 ,	,
 IDENT	intrinsic
 ,	,
@@ -60,7 +60,7 @@ IDENT	data
 /	/
 STRING	'!'
 /	/
-IDENT	implicit
+token(100)	implicit
 =	=
 IDENT	none
 IDENT	assign
@@ -101,7 +101,7 @@ IDENT	entry
 (	(
 IDENT	external
 ,	,
-IDENT	implicit
+token(100)	implicit
 )	)
 =	=
 IDENT	intrinsic

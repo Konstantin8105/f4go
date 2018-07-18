@@ -1,6 +1,6 @@
 token(97)	program
 IDENT	hello_world3
-IDENT	implicit
+token(100)	implicit
 IDENT	none
 IDENT	character
 *	*3
@@ -22,7 +22,7 @@ IDENT	printtext
 (	(
 IDENT	text
 )	)
-IDENT	implicit
+token(100)	implicit
 IDENT	none
 IDENT	character
 *	*3

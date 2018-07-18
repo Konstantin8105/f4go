@@ -68,7 +68,10 @@ func TestScanner(t *testing.T) {
 			}
 
 			fileName := "../testdata/expect/" + testName + ".expected"
-			if _, err := os.Stat(fileName); err == nil {
+
+			var update bool //= true
+
+			if _, err := os.Stat(fileName); err == nil && !update {
 				var expect []byte
 				expect, err = ioutil.ReadFile(fileName)
 				if err != nil {

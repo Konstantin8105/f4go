@@ -6,7 +6,7 @@ COMMENT	*       Written_By: Brian Downing            *
 COMMENT	*                   Fordham University       *
 COMMENT	*       Date:       October 23rd, 1990       *
 COMMENT	**********************************************
-IDENT	Implicit
+token(100)	Implicit
 IDENT	None
 COMMENT	*
 COMMENT	*       Declare double precision variables.

@@ -34,7 +34,7 @@ IDENT	function
 IDENT	func
 token(97)	program
 IDENT	xfunc
-IDENT	implicit
+token(100)	implicit
 IDENT	none
 token(98)	integer
 token(99)	::

@@ -1,6 +1,6 @@
 token(97)	program
 IDENT	hello_world2
-IDENT	implicit
+token(100)	implicit
 IDENT	none
 IDENT	c
 IDENT	call
@@ -10,7 +10,7 @@ IDENT	hello
 IDENT	end
 token(96)	subroutine
 IDENT	hello
-IDENT	implicit
+token(100)	implicit
 IDENT	none
 IDENT	character
 *	*3

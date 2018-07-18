@@ -1,4 +1,4 @@
-IDENT	implicit
+token(100)	implicit
 IDENT	real
 *	*8
 (	(

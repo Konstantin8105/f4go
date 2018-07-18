@@ -1,7 +1,7 @@
 COMMENT	! All the keywords recognized by ftnchek as of 21 July 2000
 token(97)	PROGRAM
 IDENT	allkeys
-IDENT	IMPLICIT
+token(100)	IMPLICIT
 IDENT	NONE
 IDENT	BYTE
 IDENT	b
@@ -464,7 +464,7 @@ IDENT	RETURN
 IDENT	END
 token(96)	SUBROUTINE
 IDENT	foo
-IDENT	IMPLICIT
+token(100)	IMPLICIT
 token(98)	INTEGER
 (	(
 IDENT	A

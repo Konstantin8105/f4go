@@ -1,6 +1,6 @@
 token(97)	program
 IDENT	som
-IDENT	implicit
+token(100)	implicit
 IDENT	none
 IDENT	c
 token(98)	integer

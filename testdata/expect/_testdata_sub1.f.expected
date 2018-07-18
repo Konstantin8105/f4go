@@ -42,7 +42,7 @@ token(96)	subroutine
 IDENT	square_cube
 token(97)	program
 IDENT	xx
-IDENT	implicit
+token(100)	implicit
 IDENT	none
 token(98)	integer
 token(99)	::

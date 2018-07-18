@@ -245,6 +245,8 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		return SUBROUTINE, buf.String()
 	case "PROGRAM":
 		return PROGRAM, buf.String()
+	case "IMPLICIT":
+		return IMPLICIT, buf.String()
 	case "INTEGER":
 		return INTEGER, buf.String()
 	}
