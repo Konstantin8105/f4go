@@ -254,7 +254,7 @@ INT                 	1
 )                   	)
 =                   	=
 IDENT               	SFLAG
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*        REGULAR-CASE..
@@ -707,5 +707,5 @@ INT                 	1
 )                   	)
 =                   	=
 IDENT               	SFLAG
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

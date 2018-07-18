@@ -320,7 +320,7 @@ STRING              	'ZGERC '
 ,                   	,
 IDENT               	INFO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*
@@ -346,7 +346,7 @@ IDENT               	ALPHA
 IDENT               	ZERO
 )                   	)
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     Start the operations. In this version the elements of A are
 COMMENT             	*     accessed sequentially with one pass through A.
@@ -550,7 +550,7 @@ continue            	CONTINUE
 token(102)          	END
 if                  	IF
 COMMENT             	*
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     End of ZGERC .
 COMMENT             	*

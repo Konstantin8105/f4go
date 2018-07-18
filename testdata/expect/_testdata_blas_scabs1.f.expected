@@ -88,5 +88,5 @@ IDENT               	AIMAG
 IDENT               	Z
 )                   	)
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

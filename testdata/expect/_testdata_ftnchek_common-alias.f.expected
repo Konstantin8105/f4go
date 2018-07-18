@@ -104,7 +104,7 @@ IDENT               	T
 IDENT               	B
 +                   	+
 FLOAT               	1.0
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 token(96)           	SUBROUTINE
 IDENT               	BAR

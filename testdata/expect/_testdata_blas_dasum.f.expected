@@ -138,7 +138,7 @@ IDENT               	INCX
 <=                  	.LE.
 INT                 	0
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -195,7 +195,7 @@ token(106)          	THEN
 IDENT               	DASUM
 =                   	=
 IDENT               	DTEMP
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 token(102)          	END
@@ -311,5 +311,5 @@ if                  	IF
 IDENT               	DASUM
 =                   	=
 IDENT               	DTEMP
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

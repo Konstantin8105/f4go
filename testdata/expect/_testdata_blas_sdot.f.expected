@@ -153,7 +153,7 @@ IDENT               	N
 <=                  	.LE.
 INT                 	0
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -217,7 +217,7 @@ token(106)          	THEN
 IDENT               	SDOT
 =                   	=
 IDENT               	STEMP
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 token(102)          	END
@@ -389,5 +389,5 @@ if                  	IF
 IDENT               	SDOT
 =                   	=
 IDENT               	STEMP
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

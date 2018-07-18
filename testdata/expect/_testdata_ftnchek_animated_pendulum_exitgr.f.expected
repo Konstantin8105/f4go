@@ -25,5 +25,5 @@ STRING              	'\'
 IDENT               	esc
 ,                   	,
 STRING              	'[15H'
-IDENT               	Return
+return              	Return
 token(102)          	End

@@ -146,7 +146,7 @@ IDENT               	N
 <=                  	.LE.
 INT                 	0
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -214,7 +214,7 @@ IDENT               	N
 <                   	.LT.
 INT                 	3
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 IDENT               	MP1
@@ -399,5 +399,5 @@ token(102)          	END
 token(103)          	DO
 token(102)          	END
 if                  	IF
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

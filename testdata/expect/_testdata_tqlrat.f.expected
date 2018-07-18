@@ -691,5 +691,5 @@ IDENT               	IERR
 =                   	=
 IDENT               	L
 INT                 	1001
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

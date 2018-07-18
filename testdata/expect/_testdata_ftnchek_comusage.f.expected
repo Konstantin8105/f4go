@@ -70,7 +70,7 @@ IDENT               	x3
 IDENT               	y2
 =                   	=
 IDENT               	y3
-IDENT               	Return
+return              	Return
 token(102)          	End
 token(96)           	Subroutine
 IDENT               	Comp
@@ -116,7 +116,7 @@ IDENT               	C
 )                   	)
 /                   	/
 INT                 	3
-IDENT               	Return
+return              	Return
 token(102)          	End
 token(96)           	Subroutine
 IDENT               	Output
@@ -148,5 +148,5 @@ IDENT               	Averag
 IDENT               	n1
 =                   	=
 INT                 	8
-IDENT               	Return
+return              	Return
 token(102)          	End

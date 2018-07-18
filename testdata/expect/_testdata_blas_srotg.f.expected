@@ -253,5 +253,5 @@ IDENT               	R
 IDENT               	SB
 =                   	=
 IDENT               	Z
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

@@ -300,7 +300,7 @@ token(106)          	THEN
 IDENT               	SDSDOT
 =                   	=
 IDENT               	DSDOT
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 if                  	IF
@@ -437,5 +437,5 @@ if                  	IF
 IDENT               	SDSDOT
 =                   	=
 IDENT               	DSDOT
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

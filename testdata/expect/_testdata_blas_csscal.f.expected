@@ -135,7 +135,7 @@ IDENT               	INCX
 <=                  	.LE.
 INT                 	0
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -229,5 +229,5 @@ token(102)          	END
 token(103)          	DO
 token(102)          	END
 if                  	IF
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

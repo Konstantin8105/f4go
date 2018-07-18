@@ -488,7 +488,7 @@ STRING              	'DSYMM '
 ,                   	,
 IDENT               	INFO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*
@@ -523,7 +523,7 @@ IDENT               	ONE
 )                   	)
 )                   	)
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     And when  alpha.eq.zero.
 COMMENT             	*
@@ -603,7 +603,7 @@ INT                 	40
 continue            	CONTINUE
 token(102)          	END
 if                  	IF
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*
@@ -1144,7 +1144,7 @@ continue            	CONTINUE
 token(102)          	END
 if                  	IF
 COMMENT             	*
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     End of DSYMM .
 COMMENT             	*

@@ -271,7 +271,7 @@ COMMENT             	*
 IDENT               	SNRM2
 =                   	=
 IDENT               	NORM
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     End of SNRM2.
 COMMENT             	*

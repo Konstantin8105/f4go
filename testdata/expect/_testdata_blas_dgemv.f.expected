@@ -398,7 +398,7 @@ STRING              	'DGEMV '
 ,                   	,
 IDENT               	INFO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*
@@ -433,7 +433,7 @@ IDENT               	ONE
 )                   	)
 )                   	)
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     Set  LENX  and  LENY, the lengths of the vectors x and y, and set
 COMMENT             	*     up the start points in  X  and  Y.
@@ -645,7 +645,7 @@ IDENT               	ALPHA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -914,7 +914,7 @@ if                  	IF
 token(102)          	END
 if                  	IF
 COMMENT             	*
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     End of DGEMV .
 COMMENT             	*

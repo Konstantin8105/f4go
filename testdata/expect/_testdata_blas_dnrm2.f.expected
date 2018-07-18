@@ -275,7 +275,7 @@ COMMENT             	*
 IDENT               	DNRM2
 =                   	=
 IDENT               	NORM
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     End of DNRM2.
 COMMENT             	*

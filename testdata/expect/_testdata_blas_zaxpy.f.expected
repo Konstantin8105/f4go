@@ -157,7 +157,7 @@ IDENT               	N
 <=                  	.LE.
 INT                 	0
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	DCABS1
@@ -167,7 +167,7 @@ IDENT               	ZA
 ==                  	.EQ.
 FLOAT               	0.0d0
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -290,5 +290,5 @@ token(103)          	DO
 token(102)          	END
 if                  	IF
 COMMENT             	*
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

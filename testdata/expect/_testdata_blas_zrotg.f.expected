@@ -220,5 +220,5 @@ IDENT               	ALPHA
 IDENT               	NORM
 token(102)          	END
 if                  	IF
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

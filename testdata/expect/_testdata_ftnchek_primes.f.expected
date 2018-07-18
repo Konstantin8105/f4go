@@ -209,7 +209,7 @@ COMMENT             	C return number of primes found
 IDENT               	makeprimes
 =                   	=
 IDENT               	numprimes
-IDENT               	return
+return              	return
 token(102)          	end
 IDENT               	logical
 token(101)          	function
@@ -258,7 +258,7 @@ token(106)          	then
 IDENT               	divisible
 =                   	=
 IDENT               	.true.
-IDENT               	return
+return              	return
 token(102)          	end
 if                  	if
 token(102)          	end
@@ -268,5 +268,5 @@ IDENT               	divisible
 .                   	.
 IDENT               	e
 .                   	.
-IDENT               	return
+return              	return
 token(102)          	end

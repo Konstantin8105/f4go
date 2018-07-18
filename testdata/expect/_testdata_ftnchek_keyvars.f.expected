@@ -196,7 +196,7 @@ IDENT               	i10
 )                   	)
 =                   	=
 IDENT               	data
-IDENT               	return
+return              	return
 =                   	=
 IDENT               	real
 token(96)           	subroutine
@@ -233,7 +233,7 @@ token(101)          	function
 (                   	(
 IDENT               	real
 )                   	)
-IDENT               	return
+return              	return
 token(102)          	end
 token(101)          	function
 IDENT               	complex
@@ -253,5 +253,5 @@ IDENT               	complex
 IDENT               	dimension
 /                   	/
 IDENT               	external
-IDENT               	return
+return              	return
 token(102)          	end

@@ -573,7 +573,7 @@ token(106)          	then
 IDENT               	xray
 =                   	=
 FLOAT               	1.234
-IDENT               	return
+return              	return
 else                	else
 IDENT               	xray
 =                   	=
@@ -596,6 +596,6 @@ IDENT               	com4
 (                   	(
 IDENT               	xray
 )                   	)
-IDENT               	return
+return              	return
 INT                 	1
 token(102)          	end

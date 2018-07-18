@@ -157,14 +157,14 @@ IDENT               	N
 <=                  	.LE.
 INT                 	0
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	DA
 ==                  	.EQ.
 FLOAT               	0.0d0
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -229,7 +229,7 @@ IDENT               	N
 <                   	.LT.
 INT                 	4
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 IDENT               	MP1
 =                   	=
 IDENT               	M
@@ -410,5 +410,5 @@ token(102)          	END
 token(103)          	DO
 token(102)          	END
 if                  	IF
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

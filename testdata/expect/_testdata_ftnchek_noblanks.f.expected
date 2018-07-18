@@ -379,5 +379,5 @@ IDENT               	sum
 )                   	)
 INT                 	300
 continue            	continue
-IDENT               	return
+return              	return
 token(102)          	end

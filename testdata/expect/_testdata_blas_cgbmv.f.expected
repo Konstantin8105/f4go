@@ -476,7 +476,7 @@ STRING              	'CGBMV '
 ,                   	,
 IDENT               	INFO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*
@@ -511,7 +511,7 @@ IDENT               	ONE
 )                   	)
 )                   	)
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 IDENT               	NOCONJ
 =                   	=
@@ -732,7 +732,7 @@ IDENT               	ALPHA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 IDENT               	KUP1
 =                   	=
 IDENT               	KU
@@ -1219,7 +1219,7 @@ if                  	IF
 token(102)          	END
 if                  	IF
 COMMENT             	*
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     End of CGBMV .
 COMMENT             	*

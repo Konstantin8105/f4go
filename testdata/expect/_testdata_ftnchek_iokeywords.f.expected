@@ -359,17 +359,17 @@ IDENT               	close
 (                   	(
 IDENT               	unit
 )                   	)
-IDENT               	return
+return              	return
 INT                 	910
 IDENT               	print
 *                   	*
 ,                   	,
 STRING              	'Error opening file.'
-IDENT               	return
+return              	return
 INT                 	920
 IDENT               	print
 *                   	*
 ,                   	,
 STRING              	'Error reading file.'
-IDENT               	return
+return              	return
 token(102)          	end

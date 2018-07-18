@@ -152,7 +152,7 @@ IDENT               	N
 <=                  	.LE.
 INT                 	0
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	SCABS1
@@ -162,7 +162,7 @@ IDENT               	CA
 ==                  	.EQ.
 FLOAT               	0.0E+0
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -285,5 +285,5 @@ token(103)          	DO
 token(102)          	END
 if                  	IF
 COMMENT             	*
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

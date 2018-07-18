@@ -22,5 +22,5 @@ IDENT               	write
 IDENT               	esc
 ,                   	,
 STRING              	'P0ps(e)'
-IDENT               	Return
+return              	Return
 token(102)          	End

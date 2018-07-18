@@ -158,7 +158,7 @@ IDENT               	N
 <=                  	.LE.
 INT                 	0
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -283,5 +283,5 @@ if                  	IF
 IDENT               	CDOTC
 =                   	=
 IDENT               	CTEMP
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

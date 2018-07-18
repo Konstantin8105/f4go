@@ -374,5 +374,5 @@ COMMENT             	C
 COMMENT             	C     IF (MOD(NPATH,10) .EQ. 0) CALL TKIOWH (2H$N,2)
 COMMENT             	C
 INT                 	40
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

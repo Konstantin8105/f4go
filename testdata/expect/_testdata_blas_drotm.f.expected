@@ -205,7 +205,7 @@ IDENT               	TWO
 IDENT               	ZERO
 )                   	)
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -685,5 +685,5 @@ token(102)          	END
 if                  	IF
 token(102)          	END
 if                  	IF
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

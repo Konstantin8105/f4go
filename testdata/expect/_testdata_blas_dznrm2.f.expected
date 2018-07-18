@@ -334,7 +334,7 @@ COMMENT             	*
 IDENT               	DZNRM2
 =                   	=
 IDENT               	NORM
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     End of DZNRM2.
 COMMENT             	*

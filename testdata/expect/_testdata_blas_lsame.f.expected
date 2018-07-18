@@ -98,7 +98,7 @@ if                  	IF
 (                   	(
 IDENT               	LSAME
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     Now test for equivalence if both characters are alphabetic.
 COMMENT             	*

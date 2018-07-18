@@ -450,7 +450,7 @@ STRING              	'ZSYRK '
 ,                   	,
 IDENT               	INFO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*
@@ -487,7 +487,7 @@ IDENT               	ONE
 )                   	)
 )                   	)
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     And when  alpha.eq.zero.
 COMMENT             	*
@@ -644,7 +644,7 @@ token(102)          	END
 if                  	IF
 token(102)          	END
 if                  	IF
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*
@@ -1120,7 +1120,7 @@ if                  	IF
 token(102)          	END
 if                  	IF
 COMMENT             	*
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     End of ZSYRK .
 COMMENT             	*

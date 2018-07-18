@@ -343,7 +343,7 @@ STRING              	'ZHPR2 '
 ,                   	,
 IDENT               	INFO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*
@@ -363,7 +363,7 @@ IDENT               	ALPHA
 IDENT               	ZERO
 )                   	)
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     Set up the start points in X and Y if the increments are not both
 COMMENT             	*     unity.
@@ -1162,7 +1162,7 @@ if                  	IF
 token(102)          	END
 if                  	IF
 COMMENT             	*
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     End of ZHPR2 .
 COMMENT             	*

@@ -437,7 +437,7 @@ INT                 	1
 )                   	)
 )                   	)
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 token(96)           	SUBROUTINE
 IDENT               	foo
@@ -455,7 +455,7 @@ INT                 	10
 *                   	*
 )                   	)
 STRING              	'foo'
-IDENT               	RETURN
+return              	RETURN
 IDENT               	ENTRY
 IDENT               	bar
 IDENT               	WRITE
@@ -466,7 +466,7 @@ INT                 	10
 )                   	)
 STRING              	'bar'
 IDENT               	PAUSE
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 IDENT               	BLOCKDATA
 IDENT               	bdat1

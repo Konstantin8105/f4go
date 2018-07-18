@@ -433,7 +433,7 @@ STRING              	'CHBMV '
 ,                   	,
 IDENT               	INFO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*
@@ -461,7 +461,7 @@ IDENT               	ONE
 )                   	)
 )                   	)
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     Set up the start points in  X  and  Y.
 COMMENT             	*
@@ -647,7 +647,7 @@ IDENT               	ALPHA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -1242,7 +1242,7 @@ if                  	IF
 token(102)          	END
 if                  	IF
 COMMENT             	*
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     End of CHBMV .
 COMMENT             	*

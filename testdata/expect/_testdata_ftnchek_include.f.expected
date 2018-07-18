@@ -197,7 +197,7 @@ IDENT               	REAL
 (                   	(
 IDENT               	NP
 )                   	)
-IDENT               	Return
+return              	Return
 INT                 	10
 IDENT               	Format
 (                   	(
@@ -418,7 +418,7 @@ STRING              	'@ equals ten characters'
 INT                 	1
 STRING              	', * equals one character.'
 )                   	)
-IDENT               	Return
+return              	Return
 token(102)          	End
 COMMENT             	C
 COMMENT             	C     SubRoutine to prompt for and return a filename.
@@ -464,7 +464,7 @@ IDENT               	Format
 (                   	(
 IDENT               	A
 )                   	)
-IDENT               	Return
+return              	Return
 token(102)          	End
 COMMENT             	C
 COMMENT             	C     SubRoutine to initailize globally used variables.
@@ -522,7 +522,7 @@ INT                 	0
 IDENT               	M
 =                   	=
 INT                 	0
-IDENT               	Return
+return              	Return
 token(102)          	End
 COMMENT             	C
 COMMENT             	C     Function to return integer value of a character in range of uppercase.
@@ -566,5 +566,5 @@ IDENT               	IntUpCase
 =                   	=
 IDENT               	I
 IDENT               	EndIf
-IDENT               	Return
+return              	Return
 token(102)          	End

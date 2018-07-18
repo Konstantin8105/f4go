@@ -304,7 +304,7 @@ STRING              	'SSYR  '
 ,                   	,
 IDENT               	INFO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*
@@ -324,7 +324,7 @@ IDENT               	ALPHA
 IDENT               	ZERO
 )                   	)
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     Set the start point in X if the increment is not unity.
 COMMENT             	*
@@ -668,7 +668,7 @@ if                  	IF
 token(102)          	END
 if                  	IF
 COMMENT             	*
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     End of SSYR  .
 COMMENT             	*

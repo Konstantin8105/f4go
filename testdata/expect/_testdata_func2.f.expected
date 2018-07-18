@@ -23,7 +23,7 @@ IDENT               	a
 )                   	)
 +                   	+
 IDENT               	b
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 token(101)          	FUNCTION
 token(97)           	PROGRAM

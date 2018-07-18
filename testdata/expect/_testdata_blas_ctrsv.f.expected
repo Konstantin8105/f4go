@@ -390,7 +390,7 @@ STRING              	'CTRSV '
 ,                   	,
 IDENT               	INFO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*
@@ -402,7 +402,7 @@ IDENT               	N
 ==                  	.EQ.
 INT                 	0
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 IDENT               	NOCONJ
 =                   	=
@@ -1432,7 +1432,7 @@ if                  	IF
 token(102)          	END
 if                  	IF
 COMMENT             	*
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     End of CTRSV .
 COMMENT             	*

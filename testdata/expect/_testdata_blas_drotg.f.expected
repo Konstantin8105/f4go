@@ -255,5 +255,5 @@ IDENT               	R
 IDENT               	DB
 =                   	=
 IDENT               	Z
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END

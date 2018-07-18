@@ -1372,7 +1372,7 @@ IDENT               	TO
 INT                 	30006
 COMMENT             	C
 INT                 	20006
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	C
 COMMENT             	C-----------------------------------------------------------------------
 COMMENT             	C---- PROCEDURE (Alphanumerics)

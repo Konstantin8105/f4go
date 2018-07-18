@@ -523,7 +523,7 @@ STRING              	'STRSM '
 ,                   	,
 IDENT               	INFO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*
@@ -539,7 +539,7 @@ IDENT               	N
 ==                  	.EQ.
 INT                 	0
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     And when  alpha.eq.zero.
 COMMENT             	*
@@ -576,7 +576,7 @@ INT                 	10
 continue            	CONTINUE
 INT                 	20
 continue            	CONTINUE
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
 if                  	IF
 COMMENT             	*
@@ -1665,7 +1665,7 @@ if                  	IF
 token(102)          	END
 if                  	IF
 COMMENT             	*
-IDENT               	RETURN
+return              	RETURN
 COMMENT             	*
 COMMENT             	*     End of STRSM .
 COMMENT             	*

@@ -171,5 +171,5 @@ IDENT               	SRNAME
 ,                   	,
 IDENT               	INFO
 )                   	)
-IDENT               	RETURN
+return              	RETURN
 token(102)          	END
