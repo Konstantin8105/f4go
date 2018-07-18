@@ -1,96 +1,96 @@
-COMMENT	> \brief \b DCABS1
-COMMENT	*
-COMMENT	*  =========== DOCUMENTATION ===========
-COMMENT	*
-COMMENT	* Online html documentation available at
-COMMENT	*            http://www.netlib.org/lapack/explore-html/
-COMMENT	*
-COMMENT	*  Definition:
-COMMENT	*  ===========
-COMMENT	*
-COMMENT	*       DOUBLE PRECISION FUNCTION DCABS1(Z)
-COMMENT	*
-COMMENT	*       .. Scalar Arguments ..
-COMMENT	*       COMPLEX*16 Z
-COMMENT	*       ..
-COMMENT	*       ..
-COMMENT	*
-COMMENT	*
-COMMENT	*> \par Purpose:
-COMMENT	*  =============
-COMMENT	*>
-COMMENT	*> \verbatim
-COMMENT	*>
-COMMENT	*> DCABS1 computes |Re(.)| + |Im(.)| of a double complex number
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Arguments:
-COMMENT	*  ==========
-COMMENT	*
-COMMENT	*> \param[in] Z
-COMMENT	*> \verbatim
-COMMENT	*>          Z is COMPLEX*16
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Authors:
-COMMENT	*  ========
-COMMENT	*
-COMMENT	*> \author Univ. of Tennessee
-COMMENT	*> \author Univ. of California Berkeley
-COMMENT	*> \author Univ. of Colorado Denver
-COMMENT	*> \author NAG Ltd.
-COMMENT	*
-COMMENT	*> \date November 2017
-COMMENT	*
-COMMENT	*> \ingroup double_blas_level1
-COMMENT	*
-COMMENT	*  =====================================================================
-IDENT	DOUBLE
-IDENT	PRECISION
-token(101)	FUNCTION
-IDENT	DCABS1
-(	(
-IDENT	Z
-)	)
-COMMENT	*
-COMMENT	*  -- Reference BLAS level1 routine (version 3.8.0) --
-COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-COMMENT	*     November 2017
-COMMENT	*
-COMMENT	*     .. Scalar Arguments ..
-IDENT	COMPLEX
-*	*
-IDENT	16
-IDENT	Z
-COMMENT	*     ..
-COMMENT	*     ..
-COMMENT	*  =====================================================================
-COMMENT	*
-COMMENT	*     .. Intrinsic Functions ..
-IDENT	INTRINSIC
-IDENT	ABS
-,	,
-IDENT	DBLE
-,	,
-IDENT	DIMAG
-COMMENT	*
-IDENT	DCABS1
-=	=
-IDENT	ABS
-(	(
-IDENT	DBLE
-(	(
-IDENT	Z
-)	)
-)	)
-+	+
-IDENT	ABS
-(	(
-IDENT	DIMAG
-(	(
-IDENT	Z
-)	)
-)	)
-IDENT	RETURN
-IDENT	END
+COMMENT             	> \brief \b DCABS1
+COMMENT             	*
+COMMENT             	*  =========== DOCUMENTATION ===========
+COMMENT             	*
+COMMENT             	* Online html documentation available at
+COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+COMMENT             	*
+COMMENT             	*  Definition:
+COMMENT             	*  ===========
+COMMENT             	*
+COMMENT             	*       DOUBLE PRECISION FUNCTION DCABS1(Z)
+COMMENT             	*
+COMMENT             	*       .. Scalar Arguments ..
+COMMENT             	*       COMPLEX*16 Z
+COMMENT             	*       ..
+COMMENT             	*       ..
+COMMENT             	*
+COMMENT             	*
+COMMENT             	*> \par Purpose:
+COMMENT             	*  =============
+COMMENT             	*>
+COMMENT             	*> \verbatim
+COMMENT             	*>
+COMMENT             	*> DCABS1 computes |Re(.)| + |Im(.)| of a double complex number
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Arguments:
+COMMENT             	*  ==========
+COMMENT             	*
+COMMENT             	*> \param[in] Z
+COMMENT             	*> \verbatim
+COMMENT             	*>          Z is COMPLEX*16
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Authors:
+COMMENT             	*  ========
+COMMENT             	*
+COMMENT             	*> \author Univ. of Tennessee
+COMMENT             	*> \author Univ. of California Berkeley
+COMMENT             	*> \author Univ. of Colorado Denver
+COMMENT             	*> \author NAG Ltd.
+COMMENT             	*
+COMMENT             	*> \date November 2017
+COMMENT             	*
+COMMENT             	*> \ingroup double_blas_level1
+COMMENT             	*
+COMMENT             	*  =====================================================================
+IDENT               	DOUBLE
+IDENT               	PRECISION
+token(101)          	FUNCTION
+IDENT               	DCABS1
+(                   	(
+IDENT               	Z
+)                   	)
+COMMENT             	*
+COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT             	*     November 2017
+COMMENT             	*
+COMMENT             	*     .. Scalar Arguments ..
+IDENT               	COMPLEX
+*                   	*
+IDENT               	16
+IDENT               	Z
+COMMENT             	*     ..
+COMMENT             	*     ..
+COMMENT             	*  =====================================================================
+COMMENT             	*
+COMMENT             	*     .. Intrinsic Functions ..
+IDENT               	INTRINSIC
+IDENT               	ABS
+,                   	,
+IDENT               	DBLE
+,                   	,
+IDENT               	DIMAG
+COMMENT             	*
+IDENT               	DCABS1
+=                   	=
+IDENT               	ABS
+(                   	(
+IDENT               	DBLE
+(                   	(
+IDENT               	Z
+)                   	)
+)                   	)
++                   	+
+IDENT               	ABS
+(                   	(
+IDENT               	DIMAG
+(                   	(
+IDENT               	Z
+)                   	)
+)                   	)
+IDENT               	RETURN
+IDENT               	END

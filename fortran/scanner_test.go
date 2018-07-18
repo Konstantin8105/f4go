@@ -64,12 +64,12 @@ func TestScanner(t *testing.T) {
 				if tok == token.EOF {
 					break
 				}
-				buf.WriteString(fmt.Sprintf("%v\t%v\n", tok, lit))
+				buf.WriteString(fmt.Sprintf("%-20s\t%v\n", tok, lit))
 			}
 
 			fileName := "../testdata/expect/" + testName + ".expected"
 
-			var update bool //= true
+			var update bool = true
 
 			if _, err := os.Stat(fileName); err == nil && !update {
 				var expect []byte

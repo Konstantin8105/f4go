@@ -1,717 +1,717 @@
-COMMENT	> \brief \b DROTM
-COMMENT	*
-COMMENT	*  =========== DOCUMENTATION ===========
-COMMENT	*
-COMMENT	* Online html documentation available at
-COMMENT	*            http://www.netlib.org/lapack/explore-html/
-COMMENT	*
-COMMENT	*  Definition:
-COMMENT	*  ===========
-COMMENT	*
-COMMENT	*       SUBROUTINE DROTM(N,DX,INCX,DY,INCY,DPARAM)
-COMMENT	*
-COMMENT	*       .. Scalar Arguments ..
-COMMENT	*       INTEGER INCX,INCY,N
-COMMENT	*       ..
-COMMENT	*       .. Array Arguments ..
-COMMENT	*       DOUBLE PRECISION DPARAM(5),DX(*),DY(*)
-COMMENT	*       ..
-COMMENT	*
-COMMENT	*
-COMMENT	*> \par Purpose:
-COMMENT	*  =============
-COMMENT	*>
-COMMENT	*> \verbatim
-COMMENT	*>
-COMMENT	*>    APPLY THE MODIFIED GIVENS TRANSFORMATION, H, TO THE 2 BY N MATRIX
-COMMENT	*>
-COMMENT	*>    (DX**T) , WHERE **T INDICATES TRANSPOSE. THE ELEMENTS OF DX ARE IN
-COMMENT	*>    (DY**T)
-COMMENT	*>
-COMMENT	*>    DX(LX+I*INCX), I = 0 TO N-1, WHERE LX = 1 IF INCX .GE. 0, ELSE
-COMMENT	*>    LX = (-INCX)*N, AND SIMILARLY FOR SY USING LY AND INCY.
-COMMENT	*>    WITH DPARAM(1)=DFLAG, H HAS ONE OF THE FOLLOWING FORMS..
-COMMENT	*>
-COMMENT	*>    DFLAG=-1.D0     DFLAG=0.D0        DFLAG=1.D0     DFLAG=-2.D0
-COMMENT	*>
-COMMENT	*>      (DH11  DH12)    (1.D0  DH12)    (DH11  1.D0)    (1.D0  0.D0)
-COMMENT	*>    H=(          )    (          )    (          )    (          )
-COMMENT	*>      (DH21  DH22),   (DH21  1.D0),   (-1.D0 DH22),   (0.D0  1.D0).
-COMMENT	*>    SEE DROTMG FOR A DESCRIPTION OF DATA STORAGE IN DPARAM.
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Arguments:
-COMMENT	*  ==========
-COMMENT	*
-COMMENT	*> \param[in] N
-COMMENT	*> \verbatim
-COMMENT	*>          N is INTEGER
-COMMENT	*>         number of elements in input vector(s)
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in,out] DX
-COMMENT	*> \verbatim
-COMMENT	*>          DX is DOUBLE PRECISION array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] INCX
-COMMENT	*> \verbatim
-COMMENT	*>          INCX is INTEGER
-COMMENT	*>         storage spacing between elements of DX
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in,out] DY
-COMMENT	*> \verbatim
-COMMENT	*>          DY is DOUBLE PRECISION array, dimension ( 1 + ( N - 1 )*abs( INCY ) )
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] INCY
-COMMENT	*> \verbatim
-COMMENT	*>          INCY is INTEGER
-COMMENT	*>         storage spacing between elements of DY
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] DPARAM
-COMMENT	*> \verbatim
-COMMENT	*>          DPARAM is DOUBLE PRECISION array, dimension (5)
-COMMENT	*>     DPARAM(1)=DFLAG
-COMMENT	*>     DPARAM(2)=DH11
-COMMENT	*>     DPARAM(3)=DH21
-COMMENT	*>     DPARAM(4)=DH12
-COMMENT	*>     DPARAM(5)=DH22
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Authors:
-COMMENT	*  ========
-COMMENT	*
-COMMENT	*> \author Univ. of Tennessee
-COMMENT	*> \author Univ. of California Berkeley
-COMMENT	*> \author Univ. of Colorado Denver
-COMMENT	*> \author NAG Ltd.
-COMMENT	*
-COMMENT	*> \date November 2017
-COMMENT	*
-COMMENT	*> \ingroup double_blas_level1
-COMMENT	*
-COMMENT	*  =====================================================================
-token(96)	SUBROUTINE
-IDENT	DROTM
-(	(
-IDENT	N
-,	,
-IDENT	DX
-,	,
-IDENT	INCX
-,	,
-IDENT	DY
-,	,
-IDENT	INCY
-,	,
-IDENT	DPARAM
-)	)
-COMMENT	*
-COMMENT	*  -- Reference BLAS level1 routine (version 3.8.0) --
-COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-COMMENT	*     November 2017
-COMMENT	*
-COMMENT	*     .. Scalar Arguments ..
-token(98)	INTEGER
-IDENT	INCX
-,	,
-IDENT	INCY
-,	,
-IDENT	N
-COMMENT	*     ..
-COMMENT	*     .. Array Arguments ..
-IDENT	DOUBLE
-IDENT	PRECISION
-IDENT	DPARAM
-(	(
-IDENT	5
-)	)
-,	,
-IDENT	DX
-(	(
-*	*
-)	)
-,	,
-IDENT	DY
-(	(
-*	*
-)	)
-COMMENT	*     ..
-COMMENT	*
-COMMENT	*  =====================================================================
-COMMENT	*
-COMMENT	*     .. Local Scalars ..
-IDENT	DOUBLE
-IDENT	PRECISION
-IDENT	DFLAG
-,	,
-IDENT	DH11
-,	,
-IDENT	DH12
-,	,
-IDENT	DH21
-,	,
-IDENT	DH22
-,	,
-IDENT	TWO
-,	,
-IDENT	W
-,	,
-IDENT	Z
-,	,
-IDENT	ZERO
-token(98)	INTEGER
-IDENT	I
-,	,
-IDENT	KX
-,	,
-IDENT	KY
-,	,
-IDENT	NSTEPS
-COMMENT	*     ..
-COMMENT	*     .. Data statements ..
-IDENT	DATA
-IDENT	ZERO
-,	,
-IDENT	TWO
-/	/
-IDENT	0
-.	.
-IDENT	D0
-,	,
-IDENT	2
-.	.
-IDENT	D0
-/	/
-COMMENT	*     ..
-COMMENT	*
-IDENT	DFLAG
-=	=
-IDENT	DPARAM
-(	(
-IDENT	1
-)	)
-if	IF
-(	(
-IDENT	N
-.	.
-IDENT	LE
-.	.
-IDENT	0
-.	.
-IDENT	OR
-.	.
-(	(
-IDENT	DFLAG
-+	+
-IDENT	TWO
-.	.
-IDENT	EQ
-.	.
-IDENT	ZERO
-)	)
-)	)
-IDENT	RETURN
-if	IF
-(	(
-IDENT	INCX
-.	.
-IDENT	EQ
-.	.
-IDENT	INCY
-.	.
-IDENT	AND
-.	.
-IDENT	INCX
-.	.
-IDENT	GT
-.	.
-IDENT	0
-)	)
-IDENT	THEN
-COMMENT	*
-IDENT	NSTEPS
-=	=
-IDENT	N
-*	*
-IDENT	INCX
-if	IF
-(	(
-IDENT	DFLAG
-.	.
-IDENT	LT
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	DH11
-=	=
-IDENT	DPARAM
-(	(
-IDENT	2
-)	)
-IDENT	DH12
-=	=
-IDENT	DPARAM
-(	(
-IDENT	4
-)	)
-IDENT	DH21
-=	=
-IDENT	DPARAM
-(	(
-IDENT	3
-)	)
-IDENT	DH22
-=	=
-IDENT	DPARAM
-(	(
-IDENT	5
-)	)
-IDENT	DO
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	NSTEPS
-,	,
-IDENT	INCX
-IDENT	W
-=	=
-IDENT	DX
-(	(
-IDENT	I
-)	)
-IDENT	Z
-=	=
-IDENT	DY
-(	(
-IDENT	I
-)	)
-IDENT	DX
-(	(
-IDENT	I
-)	)
-=	=
-IDENT	W
-*	*
-IDENT	DH11
-+	+
-IDENT	Z
-*	*
-IDENT	DH12
-IDENT	DY
-(	(
-IDENT	I
-)	)
-=	=
-IDENT	W
-*	*
-IDENT	DH21
-+	+
-IDENT	Z
-*	*
-IDENT	DH22
-IDENT	END
-IDENT	DO
-else	ELSE
-if	IF
-(	(
-IDENT	DFLAG
-.	.
-IDENT	EQ
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	DH12
-=	=
-IDENT	DPARAM
-(	(
-IDENT	4
-)	)
-IDENT	DH21
-=	=
-IDENT	DPARAM
-(	(
-IDENT	3
-)	)
-IDENT	DO
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	NSTEPS
-,	,
-IDENT	INCX
-IDENT	W
-=	=
-IDENT	DX
-(	(
-IDENT	I
-)	)
-IDENT	Z
-=	=
-IDENT	DY
-(	(
-IDENT	I
-)	)
-IDENT	DX
-(	(
-IDENT	I
-)	)
-=	=
-IDENT	W
-+	+
-IDENT	Z
-*	*
-IDENT	DH12
-IDENT	DY
-(	(
-IDENT	I
-)	)
-=	=
-IDENT	W
-*	*
-IDENT	DH21
-+	+
-IDENT	Z
-IDENT	END
-IDENT	DO
-else	ELSE
-IDENT	DH11
-=	=
-IDENT	DPARAM
-(	(
-IDENT	2
-)	)
-IDENT	DH22
-=	=
-IDENT	DPARAM
-(	(
-IDENT	5
-)	)
-IDENT	DO
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	NSTEPS
-,	,
-IDENT	INCX
-IDENT	W
-=	=
-IDENT	DX
-(	(
-IDENT	I
-)	)
-IDENT	Z
-=	=
-IDENT	DY
-(	(
-IDENT	I
-)	)
-IDENT	DX
-(	(
-IDENT	I
-)	)
-=	=
-IDENT	W
-*	*
-IDENT	DH11
-+	+
-IDENT	Z
-IDENT	DY
-(	(
-IDENT	I
-)	)
-=	=
--	-
-IDENT	W
-+	+
-IDENT	DH22
-*	*
-IDENT	Z
-IDENT	END
-IDENT	DO
-IDENT	END
-if	IF
-else	ELSE
-IDENT	KX
-=	=
-IDENT	1
-IDENT	KY
-=	=
-IDENT	1
-if	IF
-(	(
-IDENT	INCX
-.	.
-IDENT	LT
-.	.
-IDENT	0
-)	)
-IDENT	KX
-=	=
-IDENT	1
-+	+
-(	(
-IDENT	1
--	-
-IDENT	N
-)	)
-*	*
-IDENT	INCX
-if	IF
-(	(
-IDENT	INCY
-.	.
-IDENT	LT
-.	.
-IDENT	0
-)	)
-IDENT	KY
-=	=
-IDENT	1
-+	+
-(	(
-IDENT	1
--	-
-IDENT	N
-)	)
-*	*
-IDENT	INCY
-COMMENT	*
-if	IF
-(	(
-IDENT	DFLAG
-.	.
-IDENT	LT
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	DH11
-=	=
-IDENT	DPARAM
-(	(
-IDENT	2
-)	)
-IDENT	DH12
-=	=
-IDENT	DPARAM
-(	(
-IDENT	4
-)	)
-IDENT	DH21
-=	=
-IDENT	DPARAM
-(	(
-IDENT	3
-)	)
-IDENT	DH22
-=	=
-IDENT	DPARAM
-(	(
-IDENT	5
-)	)
-IDENT	DO
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	N
-IDENT	W
-=	=
-IDENT	DX
-(	(
-IDENT	KX
-)	)
-IDENT	Z
-=	=
-IDENT	DY
-(	(
-IDENT	KY
-)	)
-IDENT	DX
-(	(
-IDENT	KX
-)	)
-=	=
-IDENT	W
-*	*
-IDENT	DH11
-+	+
-IDENT	Z
-*	*
-IDENT	DH12
-IDENT	DY
-(	(
-IDENT	KY
-)	)
-=	=
-IDENT	W
-*	*
-IDENT	DH21
-+	+
-IDENT	Z
-*	*
-IDENT	DH22
-IDENT	KX
-=	=
-IDENT	KX
-+	+
-IDENT	INCX
-IDENT	KY
-=	=
-IDENT	KY
-+	+
-IDENT	INCY
-IDENT	END
-IDENT	DO
-else	ELSE
-if	IF
-(	(
-IDENT	DFLAG
-.	.
-IDENT	EQ
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	DH12
-=	=
-IDENT	DPARAM
-(	(
-IDENT	4
-)	)
-IDENT	DH21
-=	=
-IDENT	DPARAM
-(	(
-IDENT	3
-)	)
-IDENT	DO
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	N
-IDENT	W
-=	=
-IDENT	DX
-(	(
-IDENT	KX
-)	)
-IDENT	Z
-=	=
-IDENT	DY
-(	(
-IDENT	KY
-)	)
-IDENT	DX
-(	(
-IDENT	KX
-)	)
-=	=
-IDENT	W
-+	+
-IDENT	Z
-*	*
-IDENT	DH12
-IDENT	DY
-(	(
-IDENT	KY
-)	)
-=	=
-IDENT	W
-*	*
-IDENT	DH21
-+	+
-IDENT	Z
-IDENT	KX
-=	=
-IDENT	KX
-+	+
-IDENT	INCX
-IDENT	KY
-=	=
-IDENT	KY
-+	+
-IDENT	INCY
-IDENT	END
-IDENT	DO
-else	ELSE
-IDENT	DH11
-=	=
-IDENT	DPARAM
-(	(
-IDENT	2
-)	)
-IDENT	DH22
-=	=
-IDENT	DPARAM
-(	(
-IDENT	5
-)	)
-IDENT	DO
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	N
-IDENT	W
-=	=
-IDENT	DX
-(	(
-IDENT	KX
-)	)
-IDENT	Z
-=	=
-IDENT	DY
-(	(
-IDENT	KY
-)	)
-IDENT	DX
-(	(
-IDENT	KX
-)	)
-=	=
-IDENT	W
-*	*
-IDENT	DH11
-+	+
-IDENT	Z
-IDENT	DY
-(	(
-IDENT	KY
-)	)
-=	=
--	-
-IDENT	W
-+	+
-IDENT	DH22
-*	*
-IDENT	Z
-IDENT	KX
-=	=
-IDENT	KX
-+	+
-IDENT	INCX
-IDENT	KY
-=	=
-IDENT	KY
-+	+
-IDENT	INCY
-IDENT	END
-IDENT	DO
-IDENT	END
-if	IF
-IDENT	END
-if	IF
-IDENT	RETURN
-IDENT	END
+COMMENT             	> \brief \b DROTM
+COMMENT             	*
+COMMENT             	*  =========== DOCUMENTATION ===========
+COMMENT             	*
+COMMENT             	* Online html documentation available at
+COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+COMMENT             	*
+COMMENT             	*  Definition:
+COMMENT             	*  ===========
+COMMENT             	*
+COMMENT             	*       SUBROUTINE DROTM(N,DX,INCX,DY,INCY,DPARAM)
+COMMENT             	*
+COMMENT             	*       .. Scalar Arguments ..
+COMMENT             	*       INTEGER INCX,INCY,N
+COMMENT             	*       ..
+COMMENT             	*       .. Array Arguments ..
+COMMENT             	*       DOUBLE PRECISION DPARAM(5),DX(*),DY(*)
+COMMENT             	*       ..
+COMMENT             	*
+COMMENT             	*
+COMMENT             	*> \par Purpose:
+COMMENT             	*  =============
+COMMENT             	*>
+COMMENT             	*> \verbatim
+COMMENT             	*>
+COMMENT             	*>    APPLY THE MODIFIED GIVENS TRANSFORMATION, H, TO THE 2 BY N MATRIX
+COMMENT             	*>
+COMMENT             	*>    (DX**T) , WHERE **T INDICATES TRANSPOSE. THE ELEMENTS OF DX ARE IN
+COMMENT             	*>    (DY**T)
+COMMENT             	*>
+COMMENT             	*>    DX(LX+I*INCX), I = 0 TO N-1, WHERE LX = 1 IF INCX .GE. 0, ELSE
+COMMENT             	*>    LX = (-INCX)*N, AND SIMILARLY FOR SY USING LY AND INCY.
+COMMENT             	*>    WITH DPARAM(1)=DFLAG, H HAS ONE OF THE FOLLOWING FORMS..
+COMMENT             	*>
+COMMENT             	*>    DFLAG=-1.D0     DFLAG=0.D0        DFLAG=1.D0     DFLAG=-2.D0
+COMMENT             	*>
+COMMENT             	*>      (DH11  DH12)    (1.D0  DH12)    (DH11  1.D0)    (1.D0  0.D0)
+COMMENT             	*>    H=(          )    (          )    (          )    (          )
+COMMENT             	*>      (DH21  DH22),   (DH21  1.D0),   (-1.D0 DH22),   (0.D0  1.D0).
+COMMENT             	*>    SEE DROTMG FOR A DESCRIPTION OF DATA STORAGE IN DPARAM.
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Arguments:
+COMMENT             	*  ==========
+COMMENT             	*
+COMMENT             	*> \param[in] N
+COMMENT             	*> \verbatim
+COMMENT             	*>          N is INTEGER
+COMMENT             	*>         number of elements in input vector(s)
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in,out] DX
+COMMENT             	*> \verbatim
+COMMENT             	*>          DX is DOUBLE PRECISION array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] INCX
+COMMENT             	*> \verbatim
+COMMENT             	*>          INCX is INTEGER
+COMMENT             	*>         storage spacing between elements of DX
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in,out] DY
+COMMENT             	*> \verbatim
+COMMENT             	*>          DY is DOUBLE PRECISION array, dimension ( 1 + ( N - 1 )*abs( INCY ) )
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] INCY
+COMMENT             	*> \verbatim
+COMMENT             	*>          INCY is INTEGER
+COMMENT             	*>         storage spacing between elements of DY
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] DPARAM
+COMMENT             	*> \verbatim
+COMMENT             	*>          DPARAM is DOUBLE PRECISION array, dimension (5)
+COMMENT             	*>     DPARAM(1)=DFLAG
+COMMENT             	*>     DPARAM(2)=DH11
+COMMENT             	*>     DPARAM(3)=DH21
+COMMENT             	*>     DPARAM(4)=DH12
+COMMENT             	*>     DPARAM(5)=DH22
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Authors:
+COMMENT             	*  ========
+COMMENT             	*
+COMMENT             	*> \author Univ. of Tennessee
+COMMENT             	*> \author Univ. of California Berkeley
+COMMENT             	*> \author Univ. of Colorado Denver
+COMMENT             	*> \author NAG Ltd.
+COMMENT             	*
+COMMENT             	*> \date November 2017
+COMMENT             	*
+COMMENT             	*> \ingroup double_blas_level1
+COMMENT             	*
+COMMENT             	*  =====================================================================
+token(96)           	SUBROUTINE
+IDENT               	DROTM
+(                   	(
+IDENT               	N
+,                   	,
+IDENT               	DX
+,                   	,
+IDENT               	INCX
+,                   	,
+IDENT               	DY
+,                   	,
+IDENT               	INCY
+,                   	,
+IDENT               	DPARAM
+)                   	)
+COMMENT             	*
+COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT             	*     November 2017
+COMMENT             	*
+COMMENT             	*     .. Scalar Arguments ..
+token(98)           	INTEGER
+IDENT               	INCX
+,                   	,
+IDENT               	INCY
+,                   	,
+IDENT               	N
+COMMENT             	*     ..
+COMMENT             	*     .. Array Arguments ..
+IDENT               	DOUBLE
+IDENT               	PRECISION
+IDENT               	DPARAM
+(                   	(
+IDENT               	5
+)                   	)
+,                   	,
+IDENT               	DX
+(                   	(
+*                   	*
+)                   	)
+,                   	,
+IDENT               	DY
+(                   	(
+*                   	*
+)                   	)
+COMMENT             	*     ..
+COMMENT             	*
+COMMENT             	*  =====================================================================
+COMMENT             	*
+COMMENT             	*     .. Local Scalars ..
+IDENT               	DOUBLE
+IDENT               	PRECISION
+IDENT               	DFLAG
+,                   	,
+IDENT               	DH11
+,                   	,
+IDENT               	DH12
+,                   	,
+IDENT               	DH21
+,                   	,
+IDENT               	DH22
+,                   	,
+IDENT               	TWO
+,                   	,
+IDENT               	W
+,                   	,
+IDENT               	Z
+,                   	,
+IDENT               	ZERO
+token(98)           	INTEGER
+IDENT               	I
+,                   	,
+IDENT               	KX
+,                   	,
+IDENT               	KY
+,                   	,
+IDENT               	NSTEPS
+COMMENT             	*     ..
+COMMENT             	*     .. Data statements ..
+IDENT               	DATA
+IDENT               	ZERO
+,                   	,
+IDENT               	TWO
+/                   	/
+IDENT               	0
+.                   	.
+IDENT               	D0
+,                   	,
+IDENT               	2
+.                   	.
+IDENT               	D0
+/                   	/
+COMMENT             	*     ..
+COMMENT             	*
+IDENT               	DFLAG
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	1
+)                   	)
+if                  	IF
+(                   	(
+IDENT               	N
+.                   	.
+IDENT               	LE
+.                   	.
+IDENT               	0
+.                   	.
+IDENT               	OR
+.                   	.
+(                   	(
+IDENT               	DFLAG
++                   	+
+IDENT               	TWO
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	ZERO
+)                   	)
+)                   	)
+IDENT               	RETURN
+if                  	IF
+(                   	(
+IDENT               	INCX
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	INCY
+.                   	.
+IDENT               	AND
+.                   	.
+IDENT               	INCX
+.                   	.
+IDENT               	GT
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	THEN
+COMMENT             	*
+IDENT               	NSTEPS
+=                   	=
+IDENT               	N
+*                   	*
+IDENT               	INCX
+if                  	IF
+(                   	(
+IDENT               	DFLAG
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	DH11
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	2
+)                   	)
+IDENT               	DH12
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	4
+)                   	)
+IDENT               	DH21
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	3
+)                   	)
+IDENT               	DH22
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	5
+)                   	)
+IDENT               	DO
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	NSTEPS
+,                   	,
+IDENT               	INCX
+IDENT               	W
+=                   	=
+IDENT               	DX
+(                   	(
+IDENT               	I
+)                   	)
+IDENT               	Z
+=                   	=
+IDENT               	DY
+(                   	(
+IDENT               	I
+)                   	)
+IDENT               	DX
+(                   	(
+IDENT               	I
+)                   	)
+=                   	=
+IDENT               	W
+*                   	*
+IDENT               	DH11
++                   	+
+IDENT               	Z
+*                   	*
+IDENT               	DH12
+IDENT               	DY
+(                   	(
+IDENT               	I
+)                   	)
+=                   	=
+IDENT               	W
+*                   	*
+IDENT               	DH21
++                   	+
+IDENT               	Z
+*                   	*
+IDENT               	DH22
+IDENT               	END
+IDENT               	DO
+else                	ELSE
+if                  	IF
+(                   	(
+IDENT               	DFLAG
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	DH12
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	4
+)                   	)
+IDENT               	DH21
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	3
+)                   	)
+IDENT               	DO
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	NSTEPS
+,                   	,
+IDENT               	INCX
+IDENT               	W
+=                   	=
+IDENT               	DX
+(                   	(
+IDENT               	I
+)                   	)
+IDENT               	Z
+=                   	=
+IDENT               	DY
+(                   	(
+IDENT               	I
+)                   	)
+IDENT               	DX
+(                   	(
+IDENT               	I
+)                   	)
+=                   	=
+IDENT               	W
++                   	+
+IDENT               	Z
+*                   	*
+IDENT               	DH12
+IDENT               	DY
+(                   	(
+IDENT               	I
+)                   	)
+=                   	=
+IDENT               	W
+*                   	*
+IDENT               	DH21
++                   	+
+IDENT               	Z
+IDENT               	END
+IDENT               	DO
+else                	ELSE
+IDENT               	DH11
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	2
+)                   	)
+IDENT               	DH22
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	5
+)                   	)
+IDENT               	DO
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	NSTEPS
+,                   	,
+IDENT               	INCX
+IDENT               	W
+=                   	=
+IDENT               	DX
+(                   	(
+IDENT               	I
+)                   	)
+IDENT               	Z
+=                   	=
+IDENT               	DY
+(                   	(
+IDENT               	I
+)                   	)
+IDENT               	DX
+(                   	(
+IDENT               	I
+)                   	)
+=                   	=
+IDENT               	W
+*                   	*
+IDENT               	DH11
++                   	+
+IDENT               	Z
+IDENT               	DY
+(                   	(
+IDENT               	I
+)                   	)
+=                   	=
+-                   	-
+IDENT               	W
++                   	+
+IDENT               	DH22
+*                   	*
+IDENT               	Z
+IDENT               	END
+IDENT               	DO
+IDENT               	END
+if                  	IF
+else                	ELSE
+IDENT               	KX
+=                   	=
+IDENT               	1
+IDENT               	KY
+=                   	=
+IDENT               	1
+if                  	IF
+(                   	(
+IDENT               	INCX
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	KX
+=                   	=
+IDENT               	1
++                   	+
+(                   	(
+IDENT               	1
+-                   	-
+IDENT               	N
+)                   	)
+*                   	*
+IDENT               	INCX
+if                  	IF
+(                   	(
+IDENT               	INCY
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	KY
+=                   	=
+IDENT               	1
++                   	+
+(                   	(
+IDENT               	1
+-                   	-
+IDENT               	N
+)                   	)
+*                   	*
+IDENT               	INCY
+COMMENT             	*
+if                  	IF
+(                   	(
+IDENT               	DFLAG
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	DH11
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	2
+)                   	)
+IDENT               	DH12
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	4
+)                   	)
+IDENT               	DH21
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	3
+)                   	)
+IDENT               	DH22
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	5
+)                   	)
+IDENT               	DO
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	N
+IDENT               	W
+=                   	=
+IDENT               	DX
+(                   	(
+IDENT               	KX
+)                   	)
+IDENT               	Z
+=                   	=
+IDENT               	DY
+(                   	(
+IDENT               	KY
+)                   	)
+IDENT               	DX
+(                   	(
+IDENT               	KX
+)                   	)
+=                   	=
+IDENT               	W
+*                   	*
+IDENT               	DH11
++                   	+
+IDENT               	Z
+*                   	*
+IDENT               	DH12
+IDENT               	DY
+(                   	(
+IDENT               	KY
+)                   	)
+=                   	=
+IDENT               	W
+*                   	*
+IDENT               	DH21
++                   	+
+IDENT               	Z
+*                   	*
+IDENT               	DH22
+IDENT               	KX
+=                   	=
+IDENT               	KX
++                   	+
+IDENT               	INCX
+IDENT               	KY
+=                   	=
+IDENT               	KY
++                   	+
+IDENT               	INCY
+IDENT               	END
+IDENT               	DO
+else                	ELSE
+if                  	IF
+(                   	(
+IDENT               	DFLAG
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	DH12
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	4
+)                   	)
+IDENT               	DH21
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	3
+)                   	)
+IDENT               	DO
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	N
+IDENT               	W
+=                   	=
+IDENT               	DX
+(                   	(
+IDENT               	KX
+)                   	)
+IDENT               	Z
+=                   	=
+IDENT               	DY
+(                   	(
+IDENT               	KY
+)                   	)
+IDENT               	DX
+(                   	(
+IDENT               	KX
+)                   	)
+=                   	=
+IDENT               	W
++                   	+
+IDENT               	Z
+*                   	*
+IDENT               	DH12
+IDENT               	DY
+(                   	(
+IDENT               	KY
+)                   	)
+=                   	=
+IDENT               	W
+*                   	*
+IDENT               	DH21
++                   	+
+IDENT               	Z
+IDENT               	KX
+=                   	=
+IDENT               	KX
++                   	+
+IDENT               	INCX
+IDENT               	KY
+=                   	=
+IDENT               	KY
++                   	+
+IDENT               	INCY
+IDENT               	END
+IDENT               	DO
+else                	ELSE
+IDENT               	DH11
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	2
+)                   	)
+IDENT               	DH22
+=                   	=
+IDENT               	DPARAM
+(                   	(
+IDENT               	5
+)                   	)
+IDENT               	DO
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	N
+IDENT               	W
+=                   	=
+IDENT               	DX
+(                   	(
+IDENT               	KX
+)                   	)
+IDENT               	Z
+=                   	=
+IDENT               	DY
+(                   	(
+IDENT               	KY
+)                   	)
+IDENT               	DX
+(                   	(
+IDENT               	KX
+)                   	)
+=                   	=
+IDENT               	W
+*                   	*
+IDENT               	DH11
++                   	+
+IDENT               	Z
+IDENT               	DY
+(                   	(
+IDENT               	KY
+)                   	)
+=                   	=
+-                   	-
+IDENT               	W
++                   	+
+IDENT               	DH22
+*                   	*
+IDENT               	Z
+IDENT               	KX
+=                   	=
+IDENT               	KX
++                   	+
+IDENT               	INCX
+IDENT               	KY
+=                   	=
+IDENT               	KY
++                   	+
+IDENT               	INCY
+IDENT               	END
+IDENT               	DO
+IDENT               	END
+if                  	IF
+IDENT               	END
+if                  	IF
+IDENT               	RETURN
+IDENT               	END

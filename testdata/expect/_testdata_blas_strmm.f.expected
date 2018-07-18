@@ -1,1590 +1,1590 @@
-COMMENT	> \brief \b STRMM
-COMMENT	*
-COMMENT	*  =========== DOCUMENTATION ===========
-COMMENT	*
-COMMENT	* Online html documentation available at
-COMMENT	*            http://www.netlib.org/lapack/explore-html/
-COMMENT	*
-COMMENT	*  Definition:
-COMMENT	*  ===========
-COMMENT	*
-COMMENT	*       SUBROUTINE STRMM(SIDE,UPLO,TRANSA,DIAG,M,N,ALPHA,A,LDA,B,LDB)
-COMMENT	*
-COMMENT	*       .. Scalar Arguments ..
-COMMENT	*       REAL ALPHA
-COMMENT	*       INTEGER LDA,LDB,M,N
-COMMENT	*       CHARACTER DIAG,SIDE,TRANSA,UPLO
-COMMENT	*       ..
-COMMENT	*       .. Array Arguments ..
-COMMENT	*       REAL A(LDA,*),B(LDB,*)
-COMMENT	*       ..
-COMMENT	*
-COMMENT	*
-COMMENT	*> \par Purpose:
-COMMENT	*  =============
-COMMENT	*>
-COMMENT	*> \verbatim
-COMMENT	*>
-COMMENT	*> STRMM  performs one of the matrix-matrix operations
-COMMENT	*>
-COMMENT	*>    B := alpha*op( A )*B,   or   B := alpha*B*op( A ),
-COMMENT	*>
-COMMENT	*> where  alpha  is a scalar,  B  is an m by n matrix,  A  is a unit, or
-COMMENT	*> non-unit,  upper or lower triangular matrix  and  op( A )  is one  of
-COMMENT	*>
-COMMENT	*>    op( A ) = A   or   op( A ) = A**T.
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Arguments:
-COMMENT	*  ==========
-COMMENT	*
-COMMENT	*> \param[in] SIDE
-COMMENT	*> \verbatim
-COMMENT	*>          SIDE is CHARACTER*1
-COMMENT	*>           On entry,  SIDE specifies whether  op( A ) multiplies B from
-COMMENT	*>           the left or right as follows:
-COMMENT	*>
-COMMENT	*>              SIDE = 'L' or 'l'   B := alpha*op( A )*B.
-COMMENT	*>
-COMMENT	*>              SIDE = 'R' or 'r'   B := alpha*B*op( A ).
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] UPLO
-COMMENT	*> \verbatim
-COMMENT	*>          UPLO is CHARACTER*1
-COMMENT	*>           On entry, UPLO specifies whether the matrix A is an upper or
-COMMENT	*>           lower triangular matrix as follows:
-COMMENT	*>
-COMMENT	*>              UPLO = 'U' or 'u'   A is an upper triangular matrix.
-COMMENT	*>
-COMMENT	*>              UPLO = 'L' or 'l'   A is a lower triangular matrix.
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] TRANSA
-COMMENT	*> \verbatim
-COMMENT	*>          TRANSA is CHARACTER*1
-COMMENT	*>           On entry, TRANSA specifies the form of op( A ) to be used in
-COMMENT	*>           the matrix multiplication as follows:
-COMMENT	*>
-COMMENT	*>              TRANSA = 'N' or 'n'   op( A ) = A.
-COMMENT	*>
-COMMENT	*>              TRANSA = 'T' or 't'   op( A ) = A**T.
-COMMENT	*>
-COMMENT	*>              TRANSA = 'C' or 'c'   op( A ) = A**T.
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] DIAG
-COMMENT	*> \verbatim
-COMMENT	*>          DIAG is CHARACTER*1
-COMMENT	*>           On entry, DIAG specifies whether or not A is unit triangular
-COMMENT	*>           as follows:
-COMMENT	*>
-COMMENT	*>              DIAG = 'U' or 'u'   A is assumed to be unit triangular.
-COMMENT	*>
-COMMENT	*>              DIAG = 'N' or 'n'   A is not assumed to be unit
-COMMENT	*>                                  triangular.
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] M
-COMMENT	*> \verbatim
-COMMENT	*>          M is INTEGER
-COMMENT	*>           On entry, M specifies the number of rows of B. M must be at
-COMMENT	*>           least zero.
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] N
-COMMENT	*> \verbatim
-COMMENT	*>          N is INTEGER
-COMMENT	*>           On entry, N specifies the number of columns of B.  N must be
-COMMENT	*>           at least zero.
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] ALPHA
-COMMENT	*> \verbatim
-COMMENT	*>          ALPHA is REAL
-COMMENT	*>           On entry,  ALPHA specifies the scalar  alpha. When  alpha is
-COMMENT	*>           zero then  A is not referenced and  B need not be set before
-COMMENT	*>           entry.
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] A
-COMMENT	*> \verbatim
-COMMENT	*>          A is REAL array, dimension ( LDA, k ), where k is m
-COMMENT	*>           when  SIDE = 'L' or 'l'  and is  n  when  SIDE = 'R' or 'r'.
-COMMENT	*>           Before entry  with  UPLO = 'U' or 'u',  the  leading  k by k
-COMMENT	*>           upper triangular part of the array  A must contain the upper
-COMMENT	*>           triangular matrix  and the strictly lower triangular part of
-COMMENT	*>           A is not referenced.
-COMMENT	*>           Before entry  with  UPLO = 'L' or 'l',  the  leading  k by k
-COMMENT	*>           lower triangular part of the array  A must contain the lower
-COMMENT	*>           triangular matrix  and the strictly upper triangular part of
-COMMENT	*>           A is not referenced.
-COMMENT	*>           Note that when  DIAG = 'U' or 'u',  the diagonal elements of
-COMMENT	*>           A  are not referenced either,  but are assumed to be  unity.
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] LDA
-COMMENT	*> \verbatim
-COMMENT	*>          LDA is INTEGER
-COMMENT	*>           On entry, LDA specifies the first dimension of A as declared
-COMMENT	*>           in the calling (sub) program.  When  SIDE = 'L' or 'l'  then
-COMMENT	*>           LDA  must be at least  max( 1, m ),  when  SIDE = 'R' or 'r'
-COMMENT	*>           then LDA must be at least max( 1, n ).
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in,out] B
-COMMENT	*> \verbatim
-COMMENT	*>          B is REAL array, dimension ( LDB, N )
-COMMENT	*>           Before entry,  the leading  m by n part of the array  B must
-COMMENT	*>           contain the matrix  B,  and  on exit  is overwritten  by the
-COMMENT	*>           transformed matrix.
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] LDB
-COMMENT	*> \verbatim
-COMMENT	*>          LDB is INTEGER
-COMMENT	*>           On entry, LDB specifies the first dimension of B as declared
-COMMENT	*>           in  the  calling  (sub)  program.   LDB  must  be  at  least
-COMMENT	*>           max( 1, m ).
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Authors:
-COMMENT	*  ========
-COMMENT	*
-COMMENT	*> \author Univ. of Tennessee
-COMMENT	*> \author Univ. of California Berkeley
-COMMENT	*> \author Univ. of Colorado Denver
-COMMENT	*> \author NAG Ltd.
-COMMENT	*
-COMMENT	*> \date December 2016
-COMMENT	*
-COMMENT	*> \ingroup single_blas_level3
-COMMENT	*
-COMMENT	*> \par Further Details:
-COMMENT	*  =====================
-COMMENT	*>
-COMMENT	*> \verbatim
-COMMENT	*>
-COMMENT	*>  Level 3 Blas routine.
-COMMENT	*>
-COMMENT	*>  -- Written on 8-February-1989.
-COMMENT	*>     Jack Dongarra, Argonne National Laboratory.
-COMMENT	*>     Iain Duff, AERE Harwell.
-COMMENT	*>     Jeremy Du Croz, Numerical Algorithms Group Ltd.
-COMMENT	*>     Sven Hammarling, Numerical Algorithms Group Ltd.
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*  =====================================================================
-token(96)	SUBROUTINE
-IDENT	STRMM
-(	(
-IDENT	SIDE
-,	,
-IDENT	UPLO
-,	,
-IDENT	TRANSA
-,	,
-IDENT	DIAG
-,	,
-IDENT	M
-,	,
-IDENT	N
-,	,
-IDENT	ALPHA
-,	,
-IDENT	A
-,	,
-IDENT	LDA
-,	,
-IDENT	B
-,	,
-IDENT	LDB
-)	)
-COMMENT	*
-COMMENT	*  -- Reference BLAS level3 routine (version 3.7.0) --
-COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-COMMENT	*     December 2016
-COMMENT	*
-COMMENT	*     .. Scalar Arguments ..
-IDENT	REAL
-IDENT	ALPHA
-token(98)	INTEGER
-IDENT	LDA
-,	,
-IDENT	LDB
-,	,
-IDENT	M
-,	,
-IDENT	N
-IDENT	CHARACTER
-IDENT	DIAG
-,	,
-IDENT	SIDE
-,	,
-IDENT	TRANSA
-,	,
-IDENT	UPLO
-COMMENT	*     ..
-COMMENT	*     .. Array Arguments ..
-IDENT	REAL
-IDENT	A
-(	(
-IDENT	LDA
-,	,
-*	*
-)	)
-,	,
-IDENT	B
-(	(
-IDENT	LDB
-,	,
-*	*
-)	)
-COMMENT	*     ..
-COMMENT	*
-COMMENT	*  =====================================================================
-COMMENT	*
-COMMENT	*     .. External Functions ..
-IDENT	LOGICAL
-IDENT	LSAME
-IDENT	EXTERNAL
-IDENT	LSAME
-COMMENT	*     ..
-COMMENT	*     .. External Subroutines ..
-IDENT	EXTERNAL
-IDENT	XERBLA
-COMMENT	*     ..
-COMMENT	*     .. Intrinsic Functions ..
-IDENT	INTRINSIC
-IDENT	MAX
-COMMENT	*     ..
-COMMENT	*     .. Local Scalars ..
-IDENT	REAL
-IDENT	TEMP
-token(98)	INTEGER
-IDENT	I
-,	,
-IDENT	INFO
-,	,
-IDENT	J
-,	,
-IDENT	K
-,	,
-IDENT	NROWA
-IDENT	LOGICAL
-IDENT	LSIDE
-,	,
-IDENT	NOUNIT
-,	,
-IDENT	UPPER
-COMMENT	*     ..
-COMMENT	*     .. Parameters ..
-IDENT	REAL
-IDENT	ONE
-,	,
-IDENT	ZERO
-IDENT	PARAMETER
-(	(
-IDENT	ONE
-=	=
-IDENT	1
-.	.
-IDENT	0
-IDENT	E
-+	+
-IDENT	0
-,	,
-IDENT	ZERO
-=	=
-IDENT	0
-.	.
-IDENT	0
-IDENT	E
-+	+
-IDENT	0
-)	)
-COMMENT	*     ..
-COMMENT	*
-COMMENT	*     Test the input parameters.
-COMMENT	*
-IDENT	LSIDE
-=	=
-IDENT	LSAME
-(	(
-IDENT	SIDE
-,	,
-STRING	'L'
-)	)
-if	IF
-(	(
-IDENT	LSIDE
-)	)
-IDENT	THEN
-IDENT	NROWA
-=	=
-IDENT	M
-else	ELSE
-IDENT	NROWA
-=	=
-IDENT	N
-IDENT	END
-if	IF
-IDENT	NOUNIT
-=	=
-IDENT	LSAME
-(	(
-IDENT	DIAG
-,	,
-STRING	'N'
-)	)
-IDENT	UPPER
-=	=
-IDENT	LSAME
-(	(
-IDENT	UPLO
-,	,
-STRING	'U'
-)	)
-COMMENT	*
-IDENT	INFO
-=	=
-IDENT	0
-if	IF
-(	(
-(	(
-.	.
-IDENT	NOT
-.	.
-IDENT	LSIDE
-)	)
-.	.
-IDENT	AND
-.	.
-(	(
-.	.
-IDENT	NOT
-.	.
-IDENT	LSAME
-(	(
-IDENT	SIDE
-,	,
-STRING	'R'
-)	)
-)	)
-)	)
-IDENT	THEN
-IDENT	INFO
-=	=
-IDENT	1
-else	ELSE
-if	IF
-(	(
-(	(
-.	.
-IDENT	NOT
-.	.
-IDENT	UPPER
-)	)
-.	.
-IDENT	AND
-.	.
-(	(
-.	.
-IDENT	NOT
-.	.
-IDENT	LSAME
-(	(
-IDENT	UPLO
-,	,
-STRING	'L'
-)	)
-)	)
-)	)
-IDENT	THEN
-IDENT	INFO
-=	=
-IDENT	2
-else	ELSE
-if	IF
-(	(
-(	(
-.	.
-IDENT	NOT
-.	.
-IDENT	LSAME
-(	(
-IDENT	TRANSA
-,	,
-STRING	'N'
-)	)
-)	)
-.	.
-IDENT	AND
-.	.
-+	+
-(	(
-.	.
-IDENT	NOT
-.	.
-IDENT	LSAME
-(	(
-IDENT	TRANSA
-,	,
-STRING	'T'
-)	)
-)	)
-.	.
-IDENT	AND
-.	.
-+	+
-(	(
-.	.
-IDENT	NOT
-.	.
-IDENT	LSAME
-(	(
-IDENT	TRANSA
-,	,
-STRING	'C'
-)	)
-)	)
-)	)
-IDENT	THEN
-IDENT	INFO
-=	=
-IDENT	3
-else	ELSE
-if	IF
-(	(
-(	(
-.	.
-IDENT	NOT
-.	.
-IDENT	LSAME
-(	(
-IDENT	DIAG
-,	,
-STRING	'U'
-)	)
-)	)
-.	.
-IDENT	AND
-.	.
-(	(
-.	.
-IDENT	NOT
-.	.
-IDENT	LSAME
-(	(
-IDENT	DIAG
-,	,
-STRING	'N'
-)	)
-)	)
-)	)
-IDENT	THEN
-IDENT	INFO
-=	=
-IDENT	4
-else	ELSE
-if	IF
-(	(
-IDENT	M
-.	.
-IDENT	LT
-.	.
-IDENT	0
-)	)
-IDENT	THEN
-IDENT	INFO
-=	=
-IDENT	5
-else	ELSE
-if	IF
-(	(
-IDENT	N
-.	.
-IDENT	LT
-.	.
-IDENT	0
-)	)
-IDENT	THEN
-IDENT	INFO
-=	=
-IDENT	6
-else	ELSE
-if	IF
-(	(
-IDENT	LDA
-.	.
-IDENT	LT
-.	.
-IDENT	MAX
-(	(
-IDENT	1
-,	,
-IDENT	NROWA
-)	)
-)	)
-IDENT	THEN
-IDENT	INFO
-=	=
-IDENT	9
-else	ELSE
-if	IF
-(	(
-IDENT	LDB
-.	.
-IDENT	LT
-.	.
-IDENT	MAX
-(	(
-IDENT	1
-,	,
-IDENT	M
-)	)
-)	)
-IDENT	THEN
-IDENT	INFO
-=	=
-IDENT	11
-IDENT	END
-if	IF
-if	IF
-(	(
-IDENT	INFO
-.	.
-IDENT	NE
-.	.
-IDENT	0
-)	)
-IDENT	THEN
-IDENT	CALL
-IDENT	XERBLA
-(	(
-STRING	'STRMM '
-,	,
-IDENT	INFO
-)	)
-IDENT	RETURN
-IDENT	END
-if	IF
-COMMENT	*
-COMMENT	*     Quick return if possible.
-COMMENT	*
-if	IF
-(	(
-IDENT	M
-.	.
-IDENT	EQ
-.	.
-IDENT	0
-.	.
-IDENT	OR
-.	.
-IDENT	N
-.	.
-IDENT	EQ
-.	.
-IDENT	0
-)	)
-IDENT	RETURN
-COMMENT	*
-COMMENT	*     And when  alpha.eq.zero.
-COMMENT	*
-if	IF
-(	(
-IDENT	ALPHA
-.	.
-IDENT	EQ
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	DO
-IDENT	20
-IDENT	J
-=	=
-IDENT	1
-,	,
-IDENT	N
-IDENT	DO
-IDENT	10
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	M
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	ZERO
-IDENT	10
-IDENT	CONTINUE
-IDENT	20
-IDENT	CONTINUE
-IDENT	RETURN
-IDENT	END
-if	IF
-COMMENT	*
-COMMENT	*     Start the operations.
-COMMENT	*
-if	IF
-(	(
-IDENT	LSIDE
-)	)
-IDENT	THEN
-if	IF
-(	(
-IDENT	LSAME
-(	(
-IDENT	TRANSA
-,	,
-STRING	'N'
-)	)
-)	)
-IDENT	THEN
-COMMENT	*
-COMMENT	*           Form  B := alpha*A*B.
-COMMENT	*
-if	IF
-(	(
-IDENT	UPPER
-)	)
-IDENT	THEN
-IDENT	DO
-IDENT	50
-IDENT	J
-=	=
-IDENT	1
-,	,
-IDENT	N
-IDENT	DO
-IDENT	40
-IDENT	K
-=	=
-IDENT	1
-,	,
-IDENT	M
-if	IF
-(	(
-IDENT	B
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-.	.
-IDENT	NE
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	TEMP
-=	=
-IDENT	ALPHA
-*	*
-IDENT	B
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-IDENT	DO
-IDENT	30
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	K
--	-
-IDENT	1
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-+	+
-IDENT	TEMP
-*	*
-IDENT	A
-(	(
-IDENT	I
-,	,
-IDENT	K
-)	)
-IDENT	30
-IDENT	CONTINUE
-if	IF
-(	(
-IDENT	NOUNIT
-)	)
-IDENT	TEMP
-=	=
-IDENT	TEMP
-*	*
-IDENT	A
-(	(
-IDENT	K
-,	,
-IDENT	K
-)	)
-IDENT	B
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	TEMP
-IDENT	END
-if	IF
-IDENT	40
-IDENT	CONTINUE
-IDENT	50
-IDENT	CONTINUE
-else	ELSE
-IDENT	DO
-IDENT	80
-IDENT	J
-=	=
-IDENT	1
-,	,
-IDENT	N
-IDENT	DO
-IDENT	70
-IDENT	K
-=	=
-IDENT	M
-,	,
-IDENT	1
-,	,
--	-
-IDENT	1
-if	IF
-(	(
-IDENT	B
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-.	.
-IDENT	NE
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	TEMP
-=	=
-IDENT	ALPHA
-*	*
-IDENT	B
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-IDENT	B
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	TEMP
-if	IF
-(	(
-IDENT	NOUNIT
-)	)
-IDENT	B
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	B
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-*	*
-IDENT	A
-(	(
-IDENT	K
-,	,
-IDENT	K
-)	)
-IDENT	DO
-IDENT	60
-IDENT	I
-=	=
-IDENT	K
-+	+
-IDENT	1
-,	,
-IDENT	M
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-+	+
-IDENT	TEMP
-*	*
-IDENT	A
-(	(
-IDENT	I
-,	,
-IDENT	K
-)	)
-IDENT	60
-IDENT	CONTINUE
-IDENT	END
-if	IF
-IDENT	70
-IDENT	CONTINUE
-IDENT	80
-IDENT	CONTINUE
-IDENT	END
-if	IF
-else	ELSE
-COMMENT	*
-COMMENT	*           Form  B := alpha*A**T*B.
-COMMENT	*
-if	IF
-(	(
-IDENT	UPPER
-)	)
-IDENT	THEN
-IDENT	DO
-IDENT	110
-IDENT	J
-=	=
-IDENT	1
-,	,
-IDENT	N
-IDENT	DO
-IDENT	100
-IDENT	I
-=	=
-IDENT	M
-,	,
-IDENT	1
-,	,
--	-
-IDENT	1
-IDENT	TEMP
-=	=
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-if	IF
-(	(
-IDENT	NOUNIT
-)	)
-IDENT	TEMP
-=	=
-IDENT	TEMP
-*	*
-IDENT	A
-(	(
-IDENT	I
-,	,
-IDENT	I
-)	)
-IDENT	DO
-IDENT	90
-IDENT	K
-=	=
-IDENT	1
-,	,
-IDENT	I
--	-
-IDENT	1
-IDENT	TEMP
-=	=
-IDENT	TEMP
-+	+
-IDENT	A
-(	(
-IDENT	K
-,	,
-IDENT	I
-)	)
-*	*
-IDENT	B
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-IDENT	90
-IDENT	CONTINUE
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	ALPHA
-*	*
-IDENT	TEMP
-IDENT	100
-IDENT	CONTINUE
-IDENT	110
-IDENT	CONTINUE
-else	ELSE
-IDENT	DO
-IDENT	140
-IDENT	J
-=	=
-IDENT	1
-,	,
-IDENT	N
-IDENT	DO
-IDENT	130
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	M
-IDENT	TEMP
-=	=
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-if	IF
-(	(
-IDENT	NOUNIT
-)	)
-IDENT	TEMP
-=	=
-IDENT	TEMP
-*	*
-IDENT	A
-(	(
-IDENT	I
-,	,
-IDENT	I
-)	)
-IDENT	DO
-IDENT	120
-IDENT	K
-=	=
-IDENT	I
-+	+
-IDENT	1
-,	,
-IDENT	M
-IDENT	TEMP
-=	=
-IDENT	TEMP
-+	+
-IDENT	A
-(	(
-IDENT	K
-,	,
-IDENT	I
-)	)
-*	*
-IDENT	B
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-IDENT	120
-IDENT	CONTINUE
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	ALPHA
-*	*
-IDENT	TEMP
-IDENT	130
-IDENT	CONTINUE
-IDENT	140
-IDENT	CONTINUE
-IDENT	END
-if	IF
-IDENT	END
-if	IF
-else	ELSE
-if	IF
-(	(
-IDENT	LSAME
-(	(
-IDENT	TRANSA
-,	,
-STRING	'N'
-)	)
-)	)
-IDENT	THEN
-COMMENT	*
-COMMENT	*           Form  B := alpha*B*A.
-COMMENT	*
-if	IF
-(	(
-IDENT	UPPER
-)	)
-IDENT	THEN
-IDENT	DO
-IDENT	180
-IDENT	J
-=	=
-IDENT	N
-,	,
-IDENT	1
-,	,
--	-
-IDENT	1
-IDENT	TEMP
-=	=
-IDENT	ALPHA
-if	IF
-(	(
-IDENT	NOUNIT
-)	)
-IDENT	TEMP
-=	=
-IDENT	TEMP
-*	*
-IDENT	A
-(	(
-IDENT	J
-,	,
-IDENT	J
-)	)
-IDENT	DO
-IDENT	150
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	M
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	TEMP
-*	*
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-IDENT	150
-IDENT	CONTINUE
-IDENT	DO
-IDENT	170
-IDENT	K
-=	=
-IDENT	1
-,	,
-IDENT	J
--	-
-IDENT	1
-if	IF
-(	(
-IDENT	A
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-.	.
-IDENT	NE
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	TEMP
-=	=
-IDENT	ALPHA
-*	*
-IDENT	A
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-IDENT	DO
-IDENT	160
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	M
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-+	+
-IDENT	TEMP
-*	*
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	K
-)	)
-IDENT	160
-IDENT	CONTINUE
-IDENT	END
-if	IF
-IDENT	170
-IDENT	CONTINUE
-IDENT	180
-IDENT	CONTINUE
-else	ELSE
-IDENT	DO
-IDENT	220
-IDENT	J
-=	=
-IDENT	1
-,	,
-IDENT	N
-IDENT	TEMP
-=	=
-IDENT	ALPHA
-if	IF
-(	(
-IDENT	NOUNIT
-)	)
-IDENT	TEMP
-=	=
-IDENT	TEMP
-*	*
-IDENT	A
-(	(
-IDENT	J
-,	,
-IDENT	J
-)	)
-IDENT	DO
-IDENT	190
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	M
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	TEMP
-*	*
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-IDENT	190
-IDENT	CONTINUE
-IDENT	DO
-IDENT	210
-IDENT	K
-=	=
-IDENT	J
-+	+
-IDENT	1
-,	,
-IDENT	N
-if	IF
-(	(
-IDENT	A
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-.	.
-IDENT	NE
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	TEMP
-=	=
-IDENT	ALPHA
-*	*
-IDENT	A
-(	(
-IDENT	K
-,	,
-IDENT	J
-)	)
-IDENT	DO
-IDENT	200
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	M
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-+	+
-IDENT	TEMP
-*	*
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	K
-)	)
-IDENT	200
-IDENT	CONTINUE
-IDENT	END
-if	IF
-IDENT	210
-IDENT	CONTINUE
-IDENT	220
-IDENT	CONTINUE
-IDENT	END
-if	IF
-else	ELSE
-COMMENT	*
-COMMENT	*           Form  B := alpha*B*A**T.
-COMMENT	*
-if	IF
-(	(
-IDENT	UPPER
-)	)
-IDENT	THEN
-IDENT	DO
-IDENT	260
-IDENT	K
-=	=
-IDENT	1
-,	,
-IDENT	N
-IDENT	DO
-IDENT	240
-IDENT	J
-=	=
-IDENT	1
-,	,
-IDENT	K
--	-
-IDENT	1
-if	IF
-(	(
-IDENT	A
-(	(
-IDENT	J
-,	,
-IDENT	K
-)	)
-.	.
-IDENT	NE
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	TEMP
-=	=
-IDENT	ALPHA
-*	*
-IDENT	A
-(	(
-IDENT	J
-,	,
-IDENT	K
-)	)
-IDENT	DO
-IDENT	230
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	M
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-+	+
-IDENT	TEMP
-*	*
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	K
-)	)
-IDENT	230
-IDENT	CONTINUE
-IDENT	END
-if	IF
-IDENT	240
-IDENT	CONTINUE
-IDENT	TEMP
-=	=
-IDENT	ALPHA
-if	IF
-(	(
-IDENT	NOUNIT
-)	)
-IDENT	TEMP
-=	=
-IDENT	TEMP
-*	*
-IDENT	A
-(	(
-IDENT	K
-,	,
-IDENT	K
-)	)
-if	IF
-(	(
-IDENT	TEMP
-.	.
-IDENT	NE
-.	.
-IDENT	ONE
-)	)
-IDENT	THEN
-IDENT	DO
-IDENT	250
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	M
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	K
-)	)
-=	=
-IDENT	TEMP
-*	*
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	K
-)	)
-IDENT	250
-IDENT	CONTINUE
-IDENT	END
-if	IF
-IDENT	260
-IDENT	CONTINUE
-else	ELSE
-IDENT	DO
-IDENT	300
-IDENT	K
-=	=
-IDENT	N
-,	,
-IDENT	1
-,	,
--	-
-IDENT	1
-IDENT	DO
-IDENT	280
-IDENT	J
-=	=
-IDENT	K
-+	+
-IDENT	1
-,	,
-IDENT	N
-if	IF
-(	(
-IDENT	A
-(	(
-IDENT	J
-,	,
-IDENT	K
-)	)
-.	.
-IDENT	NE
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	TEMP
-=	=
-IDENT	ALPHA
-*	*
-IDENT	A
-(	(
-IDENT	J
-,	,
-IDENT	K
-)	)
-IDENT	DO
-IDENT	270
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	M
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-=	=
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	J
-)	)
-+	+
-IDENT	TEMP
-*	*
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	K
-)	)
-IDENT	270
-IDENT	CONTINUE
-IDENT	END
-if	IF
-IDENT	280
-IDENT	CONTINUE
-IDENT	TEMP
-=	=
-IDENT	ALPHA
-if	IF
-(	(
-IDENT	NOUNIT
-)	)
-IDENT	TEMP
-=	=
-IDENT	TEMP
-*	*
-IDENT	A
-(	(
-IDENT	K
-,	,
-IDENT	K
-)	)
-if	IF
-(	(
-IDENT	TEMP
-.	.
-IDENT	NE
-.	.
-IDENT	ONE
-)	)
-IDENT	THEN
-IDENT	DO
-IDENT	290
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	M
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	K
-)	)
-=	=
-IDENT	TEMP
-*	*
-IDENT	B
-(	(
-IDENT	I
-,	,
-IDENT	K
-)	)
-IDENT	290
-IDENT	CONTINUE
-IDENT	END
-if	IF
-IDENT	300
-IDENT	CONTINUE
-IDENT	END
-if	IF
-IDENT	END
-if	IF
-IDENT	END
-if	IF
-COMMENT	*
-IDENT	RETURN
-COMMENT	*
-COMMENT	*     End of STRMM .
-COMMENT	*
-IDENT	END
+COMMENT             	> \brief \b STRMM
+COMMENT             	*
+COMMENT             	*  =========== DOCUMENTATION ===========
+COMMENT             	*
+COMMENT             	* Online html documentation available at
+COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+COMMENT             	*
+COMMENT             	*  Definition:
+COMMENT             	*  ===========
+COMMENT             	*
+COMMENT             	*       SUBROUTINE STRMM(SIDE,UPLO,TRANSA,DIAG,M,N,ALPHA,A,LDA,B,LDB)
+COMMENT             	*
+COMMENT             	*       .. Scalar Arguments ..
+COMMENT             	*       REAL ALPHA
+COMMENT             	*       INTEGER LDA,LDB,M,N
+COMMENT             	*       CHARACTER DIAG,SIDE,TRANSA,UPLO
+COMMENT             	*       ..
+COMMENT             	*       .. Array Arguments ..
+COMMENT             	*       REAL A(LDA,*),B(LDB,*)
+COMMENT             	*       ..
+COMMENT             	*
+COMMENT             	*
+COMMENT             	*> \par Purpose:
+COMMENT             	*  =============
+COMMENT             	*>
+COMMENT             	*> \verbatim
+COMMENT             	*>
+COMMENT             	*> STRMM  performs one of the matrix-matrix operations
+COMMENT             	*>
+COMMENT             	*>    B := alpha*op( A )*B,   or   B := alpha*B*op( A ),
+COMMENT             	*>
+COMMENT             	*> where  alpha  is a scalar,  B  is an m by n matrix,  A  is a unit, or
+COMMENT             	*> non-unit,  upper or lower triangular matrix  and  op( A )  is one  of
+COMMENT             	*>
+COMMENT             	*>    op( A ) = A   or   op( A ) = A**T.
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Arguments:
+COMMENT             	*  ==========
+COMMENT             	*
+COMMENT             	*> \param[in] SIDE
+COMMENT             	*> \verbatim
+COMMENT             	*>          SIDE is CHARACTER*1
+COMMENT             	*>           On entry,  SIDE specifies whether  op( A ) multiplies B from
+COMMENT             	*>           the left or right as follows:
+COMMENT             	*>
+COMMENT             	*>              SIDE = 'L' or 'l'   B := alpha*op( A )*B.
+COMMENT             	*>
+COMMENT             	*>              SIDE = 'R' or 'r'   B := alpha*B*op( A ).
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] UPLO
+COMMENT             	*> \verbatim
+COMMENT             	*>          UPLO is CHARACTER*1
+COMMENT             	*>           On entry, UPLO specifies whether the matrix A is an upper or
+COMMENT             	*>           lower triangular matrix as follows:
+COMMENT             	*>
+COMMENT             	*>              UPLO = 'U' or 'u'   A is an upper triangular matrix.
+COMMENT             	*>
+COMMENT             	*>              UPLO = 'L' or 'l'   A is a lower triangular matrix.
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] TRANSA
+COMMENT             	*> \verbatim
+COMMENT             	*>          TRANSA is CHARACTER*1
+COMMENT             	*>           On entry, TRANSA specifies the form of op( A ) to be used in
+COMMENT             	*>           the matrix multiplication as follows:
+COMMENT             	*>
+COMMENT             	*>              TRANSA = 'N' or 'n'   op( A ) = A.
+COMMENT             	*>
+COMMENT             	*>              TRANSA = 'T' or 't'   op( A ) = A**T.
+COMMENT             	*>
+COMMENT             	*>              TRANSA = 'C' or 'c'   op( A ) = A**T.
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] DIAG
+COMMENT             	*> \verbatim
+COMMENT             	*>          DIAG is CHARACTER*1
+COMMENT             	*>           On entry, DIAG specifies whether or not A is unit triangular
+COMMENT             	*>           as follows:
+COMMENT             	*>
+COMMENT             	*>              DIAG = 'U' or 'u'   A is assumed to be unit triangular.
+COMMENT             	*>
+COMMENT             	*>              DIAG = 'N' or 'n'   A is not assumed to be unit
+COMMENT             	*>                                  triangular.
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] M
+COMMENT             	*> \verbatim
+COMMENT             	*>          M is INTEGER
+COMMENT             	*>           On entry, M specifies the number of rows of B. M must be at
+COMMENT             	*>           least zero.
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] N
+COMMENT             	*> \verbatim
+COMMENT             	*>          N is INTEGER
+COMMENT             	*>           On entry, N specifies the number of columns of B.  N must be
+COMMENT             	*>           at least zero.
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] ALPHA
+COMMENT             	*> \verbatim
+COMMENT             	*>          ALPHA is REAL
+COMMENT             	*>           On entry,  ALPHA specifies the scalar  alpha. When  alpha is
+COMMENT             	*>           zero then  A is not referenced and  B need not be set before
+COMMENT             	*>           entry.
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] A
+COMMENT             	*> \verbatim
+COMMENT             	*>          A is REAL array, dimension ( LDA, k ), where k is m
+COMMENT             	*>           when  SIDE = 'L' or 'l'  and is  n  when  SIDE = 'R' or 'r'.
+COMMENT             	*>           Before entry  with  UPLO = 'U' or 'u',  the  leading  k by k
+COMMENT             	*>           upper triangular part of the array  A must contain the upper
+COMMENT             	*>           triangular matrix  and the strictly lower triangular part of
+COMMENT             	*>           A is not referenced.
+COMMENT             	*>           Before entry  with  UPLO = 'L' or 'l',  the  leading  k by k
+COMMENT             	*>           lower triangular part of the array  A must contain the lower
+COMMENT             	*>           triangular matrix  and the strictly upper triangular part of
+COMMENT             	*>           A is not referenced.
+COMMENT             	*>           Note that when  DIAG = 'U' or 'u',  the diagonal elements of
+COMMENT             	*>           A  are not referenced either,  but are assumed to be  unity.
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] LDA
+COMMENT             	*> \verbatim
+COMMENT             	*>          LDA is INTEGER
+COMMENT             	*>           On entry, LDA specifies the first dimension of A as declared
+COMMENT             	*>           in the calling (sub) program.  When  SIDE = 'L' or 'l'  then
+COMMENT             	*>           LDA  must be at least  max( 1, m ),  when  SIDE = 'R' or 'r'
+COMMENT             	*>           then LDA must be at least max( 1, n ).
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in,out] B
+COMMENT             	*> \verbatim
+COMMENT             	*>          B is REAL array, dimension ( LDB, N )
+COMMENT             	*>           Before entry,  the leading  m by n part of the array  B must
+COMMENT             	*>           contain the matrix  B,  and  on exit  is overwritten  by the
+COMMENT             	*>           transformed matrix.
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] LDB
+COMMENT             	*> \verbatim
+COMMENT             	*>          LDB is INTEGER
+COMMENT             	*>           On entry, LDB specifies the first dimension of B as declared
+COMMENT             	*>           in  the  calling  (sub)  program.   LDB  must  be  at  least
+COMMENT             	*>           max( 1, m ).
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Authors:
+COMMENT             	*  ========
+COMMENT             	*
+COMMENT             	*> \author Univ. of Tennessee
+COMMENT             	*> \author Univ. of California Berkeley
+COMMENT             	*> \author Univ. of Colorado Denver
+COMMENT             	*> \author NAG Ltd.
+COMMENT             	*
+COMMENT             	*> \date December 2016
+COMMENT             	*
+COMMENT             	*> \ingroup single_blas_level3
+COMMENT             	*
+COMMENT             	*> \par Further Details:
+COMMENT             	*  =====================
+COMMENT             	*>
+COMMENT             	*> \verbatim
+COMMENT             	*>
+COMMENT             	*>  Level 3 Blas routine.
+COMMENT             	*>
+COMMENT             	*>  -- Written on 8-February-1989.
+COMMENT             	*>     Jack Dongarra, Argonne National Laboratory.
+COMMENT             	*>     Iain Duff, AERE Harwell.
+COMMENT             	*>     Jeremy Du Croz, Numerical Algorithms Group Ltd.
+COMMENT             	*>     Sven Hammarling, Numerical Algorithms Group Ltd.
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*  =====================================================================
+token(96)           	SUBROUTINE
+IDENT               	STRMM
+(                   	(
+IDENT               	SIDE
+,                   	,
+IDENT               	UPLO
+,                   	,
+IDENT               	TRANSA
+,                   	,
+IDENT               	DIAG
+,                   	,
+IDENT               	M
+,                   	,
+IDENT               	N
+,                   	,
+IDENT               	ALPHA
+,                   	,
+IDENT               	A
+,                   	,
+IDENT               	LDA
+,                   	,
+IDENT               	B
+,                   	,
+IDENT               	LDB
+)                   	)
+COMMENT             	*
+COMMENT             	*  -- Reference BLAS level3 routine (version 3.7.0) --
+COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT             	*     December 2016
+COMMENT             	*
+COMMENT             	*     .. Scalar Arguments ..
+IDENT               	REAL
+IDENT               	ALPHA
+token(98)           	INTEGER
+IDENT               	LDA
+,                   	,
+IDENT               	LDB
+,                   	,
+IDENT               	M
+,                   	,
+IDENT               	N
+IDENT               	CHARACTER
+IDENT               	DIAG
+,                   	,
+IDENT               	SIDE
+,                   	,
+IDENT               	TRANSA
+,                   	,
+IDENT               	UPLO
+COMMENT             	*     ..
+COMMENT             	*     .. Array Arguments ..
+IDENT               	REAL
+IDENT               	A
+(                   	(
+IDENT               	LDA
+,                   	,
+*                   	*
+)                   	)
+,                   	,
+IDENT               	B
+(                   	(
+IDENT               	LDB
+,                   	,
+*                   	*
+)                   	)
+COMMENT             	*     ..
+COMMENT             	*
+COMMENT             	*  =====================================================================
+COMMENT             	*
+COMMENT             	*     .. External Functions ..
+IDENT               	LOGICAL
+IDENT               	LSAME
+IDENT               	EXTERNAL
+IDENT               	LSAME
+COMMENT             	*     ..
+COMMENT             	*     .. External Subroutines ..
+IDENT               	EXTERNAL
+IDENT               	XERBLA
+COMMENT             	*     ..
+COMMENT             	*     .. Intrinsic Functions ..
+IDENT               	INTRINSIC
+IDENT               	MAX
+COMMENT             	*     ..
+COMMENT             	*     .. Local Scalars ..
+IDENT               	REAL
+IDENT               	TEMP
+token(98)           	INTEGER
+IDENT               	I
+,                   	,
+IDENT               	INFO
+,                   	,
+IDENT               	J
+,                   	,
+IDENT               	K
+,                   	,
+IDENT               	NROWA
+IDENT               	LOGICAL
+IDENT               	LSIDE
+,                   	,
+IDENT               	NOUNIT
+,                   	,
+IDENT               	UPPER
+COMMENT             	*     ..
+COMMENT             	*     .. Parameters ..
+IDENT               	REAL
+IDENT               	ONE
+,                   	,
+IDENT               	ZERO
+IDENT               	PARAMETER
+(                   	(
+IDENT               	ONE
+=                   	=
+IDENT               	1
+.                   	.
+IDENT               	0
+IDENT               	E
++                   	+
+IDENT               	0
+,                   	,
+IDENT               	ZERO
+=                   	=
+IDENT               	0
+.                   	.
+IDENT               	0
+IDENT               	E
++                   	+
+IDENT               	0
+)                   	)
+COMMENT             	*     ..
+COMMENT             	*
+COMMENT             	*     Test the input parameters.
+COMMENT             	*
+IDENT               	LSIDE
+=                   	=
+IDENT               	LSAME
+(                   	(
+IDENT               	SIDE
+,                   	,
+STRING              	'L'
+)                   	)
+if                  	IF
+(                   	(
+IDENT               	LSIDE
+)                   	)
+IDENT               	THEN
+IDENT               	NROWA
+=                   	=
+IDENT               	M
+else                	ELSE
+IDENT               	NROWA
+=                   	=
+IDENT               	N
+IDENT               	END
+if                  	IF
+IDENT               	NOUNIT
+=                   	=
+IDENT               	LSAME
+(                   	(
+IDENT               	DIAG
+,                   	,
+STRING              	'N'
+)                   	)
+IDENT               	UPPER
+=                   	=
+IDENT               	LSAME
+(                   	(
+IDENT               	UPLO
+,                   	,
+STRING              	'U'
+)                   	)
+COMMENT             	*
+IDENT               	INFO
+=                   	=
+IDENT               	0
+if                  	IF
+(                   	(
+(                   	(
+.                   	.
+IDENT               	NOT
+.                   	.
+IDENT               	LSIDE
+)                   	)
+.                   	.
+IDENT               	AND
+.                   	.
+(                   	(
+.                   	.
+IDENT               	NOT
+.                   	.
+IDENT               	LSAME
+(                   	(
+IDENT               	SIDE
+,                   	,
+STRING              	'R'
+)                   	)
+)                   	)
+)                   	)
+IDENT               	THEN
+IDENT               	INFO
+=                   	=
+IDENT               	1
+else                	ELSE
+if                  	IF
+(                   	(
+(                   	(
+.                   	.
+IDENT               	NOT
+.                   	.
+IDENT               	UPPER
+)                   	)
+.                   	.
+IDENT               	AND
+.                   	.
+(                   	(
+.                   	.
+IDENT               	NOT
+.                   	.
+IDENT               	LSAME
+(                   	(
+IDENT               	UPLO
+,                   	,
+STRING              	'L'
+)                   	)
+)                   	)
+)                   	)
+IDENT               	THEN
+IDENT               	INFO
+=                   	=
+IDENT               	2
+else                	ELSE
+if                  	IF
+(                   	(
+(                   	(
+.                   	.
+IDENT               	NOT
+.                   	.
+IDENT               	LSAME
+(                   	(
+IDENT               	TRANSA
+,                   	,
+STRING              	'N'
+)                   	)
+)                   	)
+.                   	.
+IDENT               	AND
+.                   	.
++                   	+
+(                   	(
+.                   	.
+IDENT               	NOT
+.                   	.
+IDENT               	LSAME
+(                   	(
+IDENT               	TRANSA
+,                   	,
+STRING              	'T'
+)                   	)
+)                   	)
+.                   	.
+IDENT               	AND
+.                   	.
++                   	+
+(                   	(
+.                   	.
+IDENT               	NOT
+.                   	.
+IDENT               	LSAME
+(                   	(
+IDENT               	TRANSA
+,                   	,
+STRING              	'C'
+)                   	)
+)                   	)
+)                   	)
+IDENT               	THEN
+IDENT               	INFO
+=                   	=
+IDENT               	3
+else                	ELSE
+if                  	IF
+(                   	(
+(                   	(
+.                   	.
+IDENT               	NOT
+.                   	.
+IDENT               	LSAME
+(                   	(
+IDENT               	DIAG
+,                   	,
+STRING              	'U'
+)                   	)
+)                   	)
+.                   	.
+IDENT               	AND
+.                   	.
+(                   	(
+.                   	.
+IDENT               	NOT
+.                   	.
+IDENT               	LSAME
+(                   	(
+IDENT               	DIAG
+,                   	,
+STRING              	'N'
+)                   	)
+)                   	)
+)                   	)
+IDENT               	THEN
+IDENT               	INFO
+=                   	=
+IDENT               	4
+else                	ELSE
+if                  	IF
+(                   	(
+IDENT               	M
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	THEN
+IDENT               	INFO
+=                   	=
+IDENT               	5
+else                	ELSE
+if                  	IF
+(                   	(
+IDENT               	N
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	THEN
+IDENT               	INFO
+=                   	=
+IDENT               	6
+else                	ELSE
+if                  	IF
+(                   	(
+IDENT               	LDA
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	MAX
+(                   	(
+IDENT               	1
+,                   	,
+IDENT               	NROWA
+)                   	)
+)                   	)
+IDENT               	THEN
+IDENT               	INFO
+=                   	=
+IDENT               	9
+else                	ELSE
+if                  	IF
+(                   	(
+IDENT               	LDB
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	MAX
+(                   	(
+IDENT               	1
+,                   	,
+IDENT               	M
+)                   	)
+)                   	)
+IDENT               	THEN
+IDENT               	INFO
+=                   	=
+IDENT               	11
+IDENT               	END
+if                  	IF
+if                  	IF
+(                   	(
+IDENT               	INFO
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	THEN
+IDENT               	CALL
+IDENT               	XERBLA
+(                   	(
+STRING              	'STRMM '
+,                   	,
+IDENT               	INFO
+)                   	)
+IDENT               	RETURN
+IDENT               	END
+if                  	IF
+COMMENT             	*
+COMMENT             	*     Quick return if possible.
+COMMENT             	*
+if                  	IF
+(                   	(
+IDENT               	M
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	0
+.                   	.
+IDENT               	OR
+.                   	.
+IDENT               	N
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	RETURN
+COMMENT             	*
+COMMENT             	*     And when  alpha.eq.zero.
+COMMENT             	*
+if                  	IF
+(                   	(
+IDENT               	ALPHA
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	DO
+IDENT               	20
+IDENT               	J
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	N
+IDENT               	DO
+IDENT               	10
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	M
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	ZERO
+IDENT               	10
+IDENT               	CONTINUE
+IDENT               	20
+IDENT               	CONTINUE
+IDENT               	RETURN
+IDENT               	END
+if                  	IF
+COMMENT             	*
+COMMENT             	*     Start the operations.
+COMMENT             	*
+if                  	IF
+(                   	(
+IDENT               	LSIDE
+)                   	)
+IDENT               	THEN
+if                  	IF
+(                   	(
+IDENT               	LSAME
+(                   	(
+IDENT               	TRANSA
+,                   	,
+STRING              	'N'
+)                   	)
+)                   	)
+IDENT               	THEN
+COMMENT             	*
+COMMENT             	*           Form  B := alpha*A*B.
+COMMENT             	*
+if                  	IF
+(                   	(
+IDENT               	UPPER
+)                   	)
+IDENT               	THEN
+IDENT               	DO
+IDENT               	50
+IDENT               	J
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	N
+IDENT               	DO
+IDENT               	40
+IDENT               	K
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	M
+if                  	IF
+(                   	(
+IDENT               	B
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	TEMP
+=                   	=
+IDENT               	ALPHA
+*                   	*
+IDENT               	B
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+IDENT               	DO
+IDENT               	30
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	K
+-                   	-
+IDENT               	1
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
++                   	+
+IDENT               	TEMP
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	K
+)                   	)
+IDENT               	30
+IDENT               	CONTINUE
+if                  	IF
+(                   	(
+IDENT               	NOUNIT
+)                   	)
+IDENT               	TEMP
+=                   	=
+IDENT               	TEMP
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	K
+)                   	)
+IDENT               	B
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	TEMP
+IDENT               	END
+if                  	IF
+IDENT               	40
+IDENT               	CONTINUE
+IDENT               	50
+IDENT               	CONTINUE
+else                	ELSE
+IDENT               	DO
+IDENT               	80
+IDENT               	J
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	N
+IDENT               	DO
+IDENT               	70
+IDENT               	K
+=                   	=
+IDENT               	M
+,                   	,
+IDENT               	1
+,                   	,
+-                   	-
+IDENT               	1
+if                  	IF
+(                   	(
+IDENT               	B
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	TEMP
+=                   	=
+IDENT               	ALPHA
+*                   	*
+IDENT               	B
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+IDENT               	B
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	TEMP
+if                  	IF
+(                   	(
+IDENT               	NOUNIT
+)                   	)
+IDENT               	B
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	B
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	K
+)                   	)
+IDENT               	DO
+IDENT               	60
+IDENT               	I
+=                   	=
+IDENT               	K
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	M
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
++                   	+
+IDENT               	TEMP
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	K
+)                   	)
+IDENT               	60
+IDENT               	CONTINUE
+IDENT               	END
+if                  	IF
+IDENT               	70
+IDENT               	CONTINUE
+IDENT               	80
+IDENT               	CONTINUE
+IDENT               	END
+if                  	IF
+else                	ELSE
+COMMENT             	*
+COMMENT             	*           Form  B := alpha*A**T*B.
+COMMENT             	*
+if                  	IF
+(                   	(
+IDENT               	UPPER
+)                   	)
+IDENT               	THEN
+IDENT               	DO
+IDENT               	110
+IDENT               	J
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	N
+IDENT               	DO
+IDENT               	100
+IDENT               	I
+=                   	=
+IDENT               	M
+,                   	,
+IDENT               	1
+,                   	,
+-                   	-
+IDENT               	1
+IDENT               	TEMP
+=                   	=
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+if                  	IF
+(                   	(
+IDENT               	NOUNIT
+)                   	)
+IDENT               	TEMP
+=                   	=
+IDENT               	TEMP
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	I
+)                   	)
+IDENT               	DO
+IDENT               	90
+IDENT               	K
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	I
+-                   	-
+IDENT               	1
+IDENT               	TEMP
+=                   	=
+IDENT               	TEMP
++                   	+
+IDENT               	A
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	I
+)                   	)
+*                   	*
+IDENT               	B
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+IDENT               	90
+IDENT               	CONTINUE
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	ALPHA
+*                   	*
+IDENT               	TEMP
+IDENT               	100
+IDENT               	CONTINUE
+IDENT               	110
+IDENT               	CONTINUE
+else                	ELSE
+IDENT               	DO
+IDENT               	140
+IDENT               	J
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	N
+IDENT               	DO
+IDENT               	130
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	M
+IDENT               	TEMP
+=                   	=
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+if                  	IF
+(                   	(
+IDENT               	NOUNIT
+)                   	)
+IDENT               	TEMP
+=                   	=
+IDENT               	TEMP
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	I
+)                   	)
+IDENT               	DO
+IDENT               	120
+IDENT               	K
+=                   	=
+IDENT               	I
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	M
+IDENT               	TEMP
+=                   	=
+IDENT               	TEMP
++                   	+
+IDENT               	A
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	I
+)                   	)
+*                   	*
+IDENT               	B
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+IDENT               	120
+IDENT               	CONTINUE
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	ALPHA
+*                   	*
+IDENT               	TEMP
+IDENT               	130
+IDENT               	CONTINUE
+IDENT               	140
+IDENT               	CONTINUE
+IDENT               	END
+if                  	IF
+IDENT               	END
+if                  	IF
+else                	ELSE
+if                  	IF
+(                   	(
+IDENT               	LSAME
+(                   	(
+IDENT               	TRANSA
+,                   	,
+STRING              	'N'
+)                   	)
+)                   	)
+IDENT               	THEN
+COMMENT             	*
+COMMENT             	*           Form  B := alpha*B*A.
+COMMENT             	*
+if                  	IF
+(                   	(
+IDENT               	UPPER
+)                   	)
+IDENT               	THEN
+IDENT               	DO
+IDENT               	180
+IDENT               	J
+=                   	=
+IDENT               	N
+,                   	,
+IDENT               	1
+,                   	,
+-                   	-
+IDENT               	1
+IDENT               	TEMP
+=                   	=
+IDENT               	ALPHA
+if                  	IF
+(                   	(
+IDENT               	NOUNIT
+)                   	)
+IDENT               	TEMP
+=                   	=
+IDENT               	TEMP
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	J
+,                   	,
+IDENT               	J
+)                   	)
+IDENT               	DO
+IDENT               	150
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	M
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	TEMP
+*                   	*
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+IDENT               	150
+IDENT               	CONTINUE
+IDENT               	DO
+IDENT               	170
+IDENT               	K
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	J
+-                   	-
+IDENT               	1
+if                  	IF
+(                   	(
+IDENT               	A
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	TEMP
+=                   	=
+IDENT               	ALPHA
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+IDENT               	DO
+IDENT               	160
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	M
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
++                   	+
+IDENT               	TEMP
+*                   	*
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	K
+)                   	)
+IDENT               	160
+IDENT               	CONTINUE
+IDENT               	END
+if                  	IF
+IDENT               	170
+IDENT               	CONTINUE
+IDENT               	180
+IDENT               	CONTINUE
+else                	ELSE
+IDENT               	DO
+IDENT               	220
+IDENT               	J
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	N
+IDENT               	TEMP
+=                   	=
+IDENT               	ALPHA
+if                  	IF
+(                   	(
+IDENT               	NOUNIT
+)                   	)
+IDENT               	TEMP
+=                   	=
+IDENT               	TEMP
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	J
+,                   	,
+IDENT               	J
+)                   	)
+IDENT               	DO
+IDENT               	190
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	M
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	TEMP
+*                   	*
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+IDENT               	190
+IDENT               	CONTINUE
+IDENT               	DO
+IDENT               	210
+IDENT               	K
+=                   	=
+IDENT               	J
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	N
+if                  	IF
+(                   	(
+IDENT               	A
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	TEMP
+=                   	=
+IDENT               	ALPHA
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	J
+)                   	)
+IDENT               	DO
+IDENT               	200
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	M
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
++                   	+
+IDENT               	TEMP
+*                   	*
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	K
+)                   	)
+IDENT               	200
+IDENT               	CONTINUE
+IDENT               	END
+if                  	IF
+IDENT               	210
+IDENT               	CONTINUE
+IDENT               	220
+IDENT               	CONTINUE
+IDENT               	END
+if                  	IF
+else                	ELSE
+COMMENT             	*
+COMMENT             	*           Form  B := alpha*B*A**T.
+COMMENT             	*
+if                  	IF
+(                   	(
+IDENT               	UPPER
+)                   	)
+IDENT               	THEN
+IDENT               	DO
+IDENT               	260
+IDENT               	K
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	N
+IDENT               	DO
+IDENT               	240
+IDENT               	J
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	K
+-                   	-
+IDENT               	1
+if                  	IF
+(                   	(
+IDENT               	A
+(                   	(
+IDENT               	J
+,                   	,
+IDENT               	K
+)                   	)
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	TEMP
+=                   	=
+IDENT               	ALPHA
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	J
+,                   	,
+IDENT               	K
+)                   	)
+IDENT               	DO
+IDENT               	230
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	M
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
++                   	+
+IDENT               	TEMP
+*                   	*
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	K
+)                   	)
+IDENT               	230
+IDENT               	CONTINUE
+IDENT               	END
+if                  	IF
+IDENT               	240
+IDENT               	CONTINUE
+IDENT               	TEMP
+=                   	=
+IDENT               	ALPHA
+if                  	IF
+(                   	(
+IDENT               	NOUNIT
+)                   	)
+IDENT               	TEMP
+=                   	=
+IDENT               	TEMP
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	K
+)                   	)
+if                  	IF
+(                   	(
+IDENT               	TEMP
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	ONE
+)                   	)
+IDENT               	THEN
+IDENT               	DO
+IDENT               	250
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	M
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	K
+)                   	)
+=                   	=
+IDENT               	TEMP
+*                   	*
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	K
+)                   	)
+IDENT               	250
+IDENT               	CONTINUE
+IDENT               	END
+if                  	IF
+IDENT               	260
+IDENT               	CONTINUE
+else                	ELSE
+IDENT               	DO
+IDENT               	300
+IDENT               	K
+=                   	=
+IDENT               	N
+,                   	,
+IDENT               	1
+,                   	,
+-                   	-
+IDENT               	1
+IDENT               	DO
+IDENT               	280
+IDENT               	J
+=                   	=
+IDENT               	K
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	N
+if                  	IF
+(                   	(
+IDENT               	A
+(                   	(
+IDENT               	J
+,                   	,
+IDENT               	K
+)                   	)
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	TEMP
+=                   	=
+IDENT               	ALPHA
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	J
+,                   	,
+IDENT               	K
+)                   	)
+IDENT               	DO
+IDENT               	270
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	M
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
+=                   	=
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	J
+)                   	)
++                   	+
+IDENT               	TEMP
+*                   	*
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	K
+)                   	)
+IDENT               	270
+IDENT               	CONTINUE
+IDENT               	END
+if                  	IF
+IDENT               	280
+IDENT               	CONTINUE
+IDENT               	TEMP
+=                   	=
+IDENT               	ALPHA
+if                  	IF
+(                   	(
+IDENT               	NOUNIT
+)                   	)
+IDENT               	TEMP
+=                   	=
+IDENT               	TEMP
+*                   	*
+IDENT               	A
+(                   	(
+IDENT               	K
+,                   	,
+IDENT               	K
+)                   	)
+if                  	IF
+(                   	(
+IDENT               	TEMP
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	ONE
+)                   	)
+IDENT               	THEN
+IDENT               	DO
+IDENT               	290
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	M
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	K
+)                   	)
+=                   	=
+IDENT               	TEMP
+*                   	*
+IDENT               	B
+(                   	(
+IDENT               	I
+,                   	,
+IDENT               	K
+)                   	)
+IDENT               	290
+IDENT               	CONTINUE
+IDENT               	END
+if                  	IF
+IDENT               	300
+IDENT               	CONTINUE
+IDENT               	END
+if                  	IF
+IDENT               	END
+if                  	IF
+IDENT               	END
+if                  	IF
+COMMENT             	*
+IDENT               	RETURN
+COMMENT             	*
+COMMENT             	*     End of STRMM .
+COMMENT             	*
+IDENT               	END

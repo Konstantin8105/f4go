@@ -1,307 +1,307 @@
-COMMENT	> \brief \b CDOTC
-COMMENT	*
-COMMENT	*  =========== DOCUMENTATION ===========
-COMMENT	*
-COMMENT	* Online html documentation available at
-COMMENT	*            http://www.netlib.org/lapack/explore-html/
-COMMENT	*
-COMMENT	*  Definition:
-COMMENT	*  ===========
-COMMENT	*
-COMMENT	*       COMPLEX FUNCTION CDOTC(N,CX,INCX,CY,INCY)
-COMMENT	*
-COMMENT	*       .. Scalar Arguments ..
-COMMENT	*       INTEGER INCX,INCY,N
-COMMENT	*       ..
-COMMENT	*       .. Array Arguments ..
-COMMENT	*       COMPLEX CX(*),CY(*)
-COMMENT	*       ..
-COMMENT	*
-COMMENT	*
-COMMENT	*> \par Purpose:
-COMMENT	*  =============
-COMMENT	*>
-COMMENT	*> \verbatim
-COMMENT	*>
-COMMENT	*> CDOTC forms the dot product of two complex vectors
-COMMENT	*>      CDOTC = X^H * Y
-COMMENT	*>
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Arguments:
-COMMENT	*  ==========
-COMMENT	*
-COMMENT	*> \param[in] N
-COMMENT	*> \verbatim
-COMMENT	*>          N is INTEGER
-COMMENT	*>         number of elements in input vector(s)
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] CX
-COMMENT	*> \verbatim
-COMMENT	*>          CX is REAL array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] INCX
-COMMENT	*> \verbatim
-COMMENT	*>          INCX is INTEGER
-COMMENT	*>         storage spacing between elements of CX
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] CY
-COMMENT	*> \verbatim
-COMMENT	*>          CY is REAL array, dimension ( 1 + ( N - 1 )*abs( INCY ) )
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] INCY
-COMMENT	*> \verbatim
-COMMENT	*>          INCY is INTEGER
-COMMENT	*>         storage spacing between elements of CY
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Authors:
-COMMENT	*  ========
-COMMENT	*
-COMMENT	*> \author Univ. of Tennessee
-COMMENT	*> \author Univ. of California Berkeley
-COMMENT	*> \author Univ. of Colorado Denver
-COMMENT	*> \author NAG Ltd.
-COMMENT	*
-COMMENT	*> \date November 2017
-COMMENT	*
-COMMENT	*> \ingroup complex_blas_level1
-COMMENT	*
-COMMENT	*> \par Further Details:
-COMMENT	*  =====================
-COMMENT	*>
-COMMENT	*> \verbatim
-COMMENT	*>
-COMMENT	*>     jack dongarra, linpack,  3/11/78.
-COMMENT	*>     modified 12/3/93, array(1) declarations changed to array(*)
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*  =====================================================================
-IDENT	COMPLEX
-token(101)	FUNCTION
-IDENT	CDOTC
-(	(
-IDENT	N
-,	,
-IDENT	CX
-,	,
-IDENT	INCX
-,	,
-IDENT	CY
-,	,
-IDENT	INCY
-)	)
-COMMENT	*
-COMMENT	*  -- Reference BLAS level1 routine (version 3.8.0) --
-COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-COMMENT	*     November 2017
-COMMENT	*
-COMMENT	*     .. Scalar Arguments ..
-token(98)	INTEGER
-IDENT	INCX
-,	,
-IDENT	INCY
-,	,
-IDENT	N
-COMMENT	*     ..
-COMMENT	*     .. Array Arguments ..
-IDENT	COMPLEX
-IDENT	CX
-(	(
-*	*
-)	)
-,	,
-IDENT	CY
-(	(
-*	*
-)	)
-COMMENT	*     ..
-COMMENT	*
-COMMENT	*  =====================================================================
-COMMENT	*
-COMMENT	*     .. Local Scalars ..
-IDENT	COMPLEX
-IDENT	CTEMP
-token(98)	INTEGER
-IDENT	I
-,	,
-IDENT	IX
-,	,
-IDENT	IY
-COMMENT	*     ..
-COMMENT	*     .. Intrinsic Functions ..
-IDENT	INTRINSIC
-IDENT	CONJG
-COMMENT	*     ..
-IDENT	CTEMP
-=	=
-(	(
-IDENT	0
-.	.
-IDENT	0
-,	,
-IDENT	0
-.	.
-IDENT	0
-)	)
-IDENT	CDOTC
-=	=
-(	(
-IDENT	0
-.	.
-IDENT	0
-,	,
-IDENT	0
-.	.
-IDENT	0
-)	)
-if	IF
-(	(
-IDENT	N
-.	.
-IDENT	LE
-.	.
-IDENT	0
-)	)
-IDENT	RETURN
-if	IF
-(	(
-IDENT	INCX
-.	.
-IDENT	EQ
-.	.
-IDENT	1
-.	.
-IDENT	AND
-.	.
-IDENT	INCY
-.	.
-IDENT	EQ
-.	.
-IDENT	1
-)	)
-IDENT	THEN
-COMMENT	*
-COMMENT	*        code for both increments equal to 1
-COMMENT	*
-IDENT	DO
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	N
-IDENT	CTEMP
-=	=
-IDENT	CTEMP
-+	+
-IDENT	CONJG
-(	(
-IDENT	CX
-(	(
-IDENT	I
-)	)
-)	)
-*	*
-IDENT	CY
-(	(
-IDENT	I
-)	)
-IDENT	END
-IDENT	DO
-else	ELSE
-COMMENT	*
-COMMENT	*        code for unequal increments or equal increments
-COMMENT	*          not equal to 1
-COMMENT	*
-IDENT	IX
-=	=
-IDENT	1
-IDENT	IY
-=	=
-IDENT	1
-if	IF
-(	(
-IDENT	INCX
-.	.
-IDENT	LT
-.	.
-IDENT	0
-)	)
-IDENT	IX
-=	=
-(	(
--	-
-IDENT	N
-+	+
-IDENT	1
-)	)
-*	*
-IDENT	INCX
-+	+
-IDENT	1
-if	IF
-(	(
-IDENT	INCY
-.	.
-IDENT	LT
-.	.
-IDENT	0
-)	)
-IDENT	IY
-=	=
-(	(
--	-
-IDENT	N
-+	+
-IDENT	1
-)	)
-*	*
-IDENT	INCY
-+	+
-IDENT	1
-IDENT	DO
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	N
-IDENT	CTEMP
-=	=
-IDENT	CTEMP
-+	+
-IDENT	CONJG
-(	(
-IDENT	CX
-(	(
-IDENT	IX
-)	)
-)	)
-*	*
-IDENT	CY
-(	(
-IDENT	IY
-)	)
-IDENT	IX
-=	=
-IDENT	IX
-+	+
-IDENT	INCX
-IDENT	IY
-=	=
-IDENT	IY
-+	+
-IDENT	INCY
-IDENT	END
-IDENT	DO
-IDENT	END
-if	IF
-IDENT	CDOTC
-=	=
-IDENT	CTEMP
-IDENT	RETURN
-IDENT	END
+COMMENT             	> \brief \b CDOTC
+COMMENT             	*
+COMMENT             	*  =========== DOCUMENTATION ===========
+COMMENT             	*
+COMMENT             	* Online html documentation available at
+COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+COMMENT             	*
+COMMENT             	*  Definition:
+COMMENT             	*  ===========
+COMMENT             	*
+COMMENT             	*       COMPLEX FUNCTION CDOTC(N,CX,INCX,CY,INCY)
+COMMENT             	*
+COMMENT             	*       .. Scalar Arguments ..
+COMMENT             	*       INTEGER INCX,INCY,N
+COMMENT             	*       ..
+COMMENT             	*       .. Array Arguments ..
+COMMENT             	*       COMPLEX CX(*),CY(*)
+COMMENT             	*       ..
+COMMENT             	*
+COMMENT             	*
+COMMENT             	*> \par Purpose:
+COMMENT             	*  =============
+COMMENT             	*>
+COMMENT             	*> \verbatim
+COMMENT             	*>
+COMMENT             	*> CDOTC forms the dot product of two complex vectors
+COMMENT             	*>      CDOTC = X^H * Y
+COMMENT             	*>
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Arguments:
+COMMENT             	*  ==========
+COMMENT             	*
+COMMENT             	*> \param[in] N
+COMMENT             	*> \verbatim
+COMMENT             	*>          N is INTEGER
+COMMENT             	*>         number of elements in input vector(s)
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] CX
+COMMENT             	*> \verbatim
+COMMENT             	*>          CX is REAL array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] INCX
+COMMENT             	*> \verbatim
+COMMENT             	*>          INCX is INTEGER
+COMMENT             	*>         storage spacing between elements of CX
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] CY
+COMMENT             	*> \verbatim
+COMMENT             	*>          CY is REAL array, dimension ( 1 + ( N - 1 )*abs( INCY ) )
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] INCY
+COMMENT             	*> \verbatim
+COMMENT             	*>          INCY is INTEGER
+COMMENT             	*>         storage spacing between elements of CY
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Authors:
+COMMENT             	*  ========
+COMMENT             	*
+COMMENT             	*> \author Univ. of Tennessee
+COMMENT             	*> \author Univ. of California Berkeley
+COMMENT             	*> \author Univ. of Colorado Denver
+COMMENT             	*> \author NAG Ltd.
+COMMENT             	*
+COMMENT             	*> \date November 2017
+COMMENT             	*
+COMMENT             	*> \ingroup complex_blas_level1
+COMMENT             	*
+COMMENT             	*> \par Further Details:
+COMMENT             	*  =====================
+COMMENT             	*>
+COMMENT             	*> \verbatim
+COMMENT             	*>
+COMMENT             	*>     jack dongarra, linpack,  3/11/78.
+COMMENT             	*>     modified 12/3/93, array(1) declarations changed to array(*)
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*  =====================================================================
+IDENT               	COMPLEX
+token(101)          	FUNCTION
+IDENT               	CDOTC
+(                   	(
+IDENT               	N
+,                   	,
+IDENT               	CX
+,                   	,
+IDENT               	INCX
+,                   	,
+IDENT               	CY
+,                   	,
+IDENT               	INCY
+)                   	)
+COMMENT             	*
+COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT             	*     November 2017
+COMMENT             	*
+COMMENT             	*     .. Scalar Arguments ..
+token(98)           	INTEGER
+IDENT               	INCX
+,                   	,
+IDENT               	INCY
+,                   	,
+IDENT               	N
+COMMENT             	*     ..
+COMMENT             	*     .. Array Arguments ..
+IDENT               	COMPLEX
+IDENT               	CX
+(                   	(
+*                   	*
+)                   	)
+,                   	,
+IDENT               	CY
+(                   	(
+*                   	*
+)                   	)
+COMMENT             	*     ..
+COMMENT             	*
+COMMENT             	*  =====================================================================
+COMMENT             	*
+COMMENT             	*     .. Local Scalars ..
+IDENT               	COMPLEX
+IDENT               	CTEMP
+token(98)           	INTEGER
+IDENT               	I
+,                   	,
+IDENT               	IX
+,                   	,
+IDENT               	IY
+COMMENT             	*     ..
+COMMENT             	*     .. Intrinsic Functions ..
+IDENT               	INTRINSIC
+IDENT               	CONJG
+COMMENT             	*     ..
+IDENT               	CTEMP
+=                   	=
+(                   	(
+IDENT               	0
+.                   	.
+IDENT               	0
+,                   	,
+IDENT               	0
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	CDOTC
+=                   	=
+(                   	(
+IDENT               	0
+.                   	.
+IDENT               	0
+,                   	,
+IDENT               	0
+.                   	.
+IDENT               	0
+)                   	)
+if                  	IF
+(                   	(
+IDENT               	N
+.                   	.
+IDENT               	LE
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	RETURN
+if                  	IF
+(                   	(
+IDENT               	INCX
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	1
+.                   	.
+IDENT               	AND
+.                   	.
+IDENT               	INCY
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	1
+)                   	)
+IDENT               	THEN
+COMMENT             	*
+COMMENT             	*        code for both increments equal to 1
+COMMENT             	*
+IDENT               	DO
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	N
+IDENT               	CTEMP
+=                   	=
+IDENT               	CTEMP
++                   	+
+IDENT               	CONJG
+(                   	(
+IDENT               	CX
+(                   	(
+IDENT               	I
+)                   	)
+)                   	)
+*                   	*
+IDENT               	CY
+(                   	(
+IDENT               	I
+)                   	)
+IDENT               	END
+IDENT               	DO
+else                	ELSE
+COMMENT             	*
+COMMENT             	*        code for unequal increments or equal increments
+COMMENT             	*          not equal to 1
+COMMENT             	*
+IDENT               	IX
+=                   	=
+IDENT               	1
+IDENT               	IY
+=                   	=
+IDENT               	1
+if                  	IF
+(                   	(
+IDENT               	INCX
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	IX
+=                   	=
+(                   	(
+-                   	-
+IDENT               	N
++                   	+
+IDENT               	1
+)                   	)
+*                   	*
+IDENT               	INCX
++                   	+
+IDENT               	1
+if                  	IF
+(                   	(
+IDENT               	INCY
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	IY
+=                   	=
+(                   	(
+-                   	-
+IDENT               	N
++                   	+
+IDENT               	1
+)                   	)
+*                   	*
+IDENT               	INCY
++                   	+
+IDENT               	1
+IDENT               	DO
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	N
+IDENT               	CTEMP
+=                   	=
+IDENT               	CTEMP
++                   	+
+IDENT               	CONJG
+(                   	(
+IDENT               	CX
+(                   	(
+IDENT               	IX
+)                   	)
+)                   	)
+*                   	*
+IDENT               	CY
+(                   	(
+IDENT               	IY
+)                   	)
+IDENT               	IX
+=                   	=
+IDENT               	IX
++                   	+
+IDENT               	INCX
+IDENT               	IY
+=                   	=
+IDENT               	IY
++                   	+
+IDENT               	INCY
+IDENT               	END
+IDENT               	DO
+IDENT               	END
+if                  	IF
+IDENT               	CDOTC
+=                   	=
+IDENT               	CTEMP
+IDENT               	RETURN
+IDENT               	END

@@ -1,365 +1,365 @@
-COMMENT	> \brief \b DZNRM2
-COMMENT	*
-COMMENT	*  =========== DOCUMENTATION ===========
-COMMENT	*
-COMMENT	* Online html documentation available at
-COMMENT	*            http://www.netlib.org/lapack/explore-html/
-COMMENT	*
-COMMENT	*  Definition:
-COMMENT	*  ===========
-COMMENT	*
-COMMENT	*       DOUBLE PRECISION FUNCTION DZNRM2(N,X,INCX)
-COMMENT	*
-COMMENT	*       .. Scalar Arguments ..
-COMMENT	*       INTEGER INCX,N
-COMMENT	*       ..
-COMMENT	*       .. Array Arguments ..
-COMMENT	*       COMPLEX*16 X(*)
-COMMENT	*       ..
-COMMENT	*
-COMMENT	*
-COMMENT	*> \par Purpose:
-COMMENT	*  =============
-COMMENT	*>
-COMMENT	*> \verbatim
-COMMENT	*>
-COMMENT	*> DZNRM2 returns the euclidean norm of a vector via the function
-COMMENT	*> name, so that
-COMMENT	*>
-COMMENT	*>    DZNRM2 := sqrt( x**H*x )
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Arguments:
-COMMENT	*  ==========
-COMMENT	*
-COMMENT	*> \param[in] N
-COMMENT	*> \verbatim
-COMMENT	*>          N is INTEGER
-COMMENT	*>         number of elements in input vector(s)
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] X
-COMMENT	*> \verbatim
-COMMENT	*>          X is COMPLEX*16 array, dimension (N)
-COMMENT	*>         complex vector with N elements
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] INCX
-COMMENT	*> \verbatim
-COMMENT	*>          INCX is INTEGER
-COMMENT	*>         storage spacing between elements of X
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Authors:
-COMMENT	*  ========
-COMMENT	*
-COMMENT	*> \author Univ. of Tennessee
-COMMENT	*> \author Univ. of California Berkeley
-COMMENT	*> \author Univ. of Colorado Denver
-COMMENT	*> \author NAG Ltd.
-COMMENT	*
-COMMENT	*> \date November 2017
-COMMENT	*
-COMMENT	*> \ingroup double_blas_level1
-COMMENT	*
-COMMENT	*> \par Further Details:
-COMMENT	*  =====================
-COMMENT	*>
-COMMENT	*> \verbatim
-COMMENT	*>
-COMMENT	*>  -- This version written on 25-October-1982.
-COMMENT	*>     Modified on 14-October-1993 to inline the call to ZLASSQ.
-COMMENT	*>     Sven Hammarling, Nag Ltd.
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*  =====================================================================
-IDENT	DOUBLE
-IDENT	PRECISION
-token(101)	FUNCTION
-IDENT	DZNRM2
-(	(
-IDENT	N
-,	,
-IDENT	X
-,	,
-IDENT	INCX
-)	)
-COMMENT	*
-COMMENT	*  -- Reference BLAS level1 routine (version 3.8.0) --
-COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-COMMENT	*     November 2017
-COMMENT	*
-COMMENT	*     .. Scalar Arguments ..
-token(98)	INTEGER
-IDENT	INCX
-,	,
-IDENT	N
-COMMENT	*     ..
-COMMENT	*     .. Array Arguments ..
-IDENT	COMPLEX
-*	*
-IDENT	16
-IDENT	X
-(	(
-*	*
-)	)
-COMMENT	*     ..
-COMMENT	*
-COMMENT	*  =====================================================================
-COMMENT	*
-COMMENT	*     .. Parameters ..
-IDENT	DOUBLE
-IDENT	PRECISION
-IDENT	ONE
-,	,
-IDENT	ZERO
-IDENT	PARAMETER
-(	(
-IDENT	ONE
-=	=
-IDENT	1
-.	.
-IDENT	0
-IDENT	D
-+	+
-IDENT	0
-,	,
-IDENT	ZERO
-=	=
-IDENT	0
-.	.
-IDENT	0
-IDENT	D
-+	+
-IDENT	0
-)	)
-COMMENT	*     ..
-COMMENT	*     .. Local Scalars ..
-IDENT	DOUBLE
-IDENT	PRECISION
-IDENT	NORM
-,	,
-IDENT	SCALE
-,	,
-IDENT	SSQ
-,	,
-IDENT	TEMP
-token(98)	INTEGER
-IDENT	IX
-COMMENT	*     ..
-COMMENT	*     .. Intrinsic Functions ..
-IDENT	INTRINSIC
-IDENT	ABS
-,	,
-IDENT	DBLE
-,	,
-IDENT	DIMAG
-,	,
-IDENT	SQRT
-COMMENT	*     ..
-if	IF
-(	(
-IDENT	N
-.	.
-IDENT	LT
-.	.
-IDENT	1
-.	.
-IDENT	OR
-.	.
-IDENT	INCX
-.	.
-IDENT	LT
-.	.
-IDENT	1
-)	)
-IDENT	THEN
-IDENT	NORM
-=	=
-IDENT	ZERO
-else	ELSE
-IDENT	SCALE
-=	=
-IDENT	ZERO
-IDENT	SSQ
-=	=
-IDENT	ONE
-COMMENT	*        The following loop is equivalent to this call to the LAPACK
-COMMENT	*        auxiliary routine:
-COMMENT	*        CALL ZLASSQ( N, X, INCX, SCALE, SSQ )
-COMMENT	*
-IDENT	DO
-IDENT	10
-IDENT	IX
-=	=
-IDENT	1
-,	,
-IDENT	1
-+	+
-(	(
-IDENT	N
--	-
-IDENT	1
-)	)
-*	*
-IDENT	INCX
-,	,
-IDENT	INCX
-if	IF
-(	(
-IDENT	DBLE
-(	(
-IDENT	X
-(	(
-IDENT	IX
-)	)
-)	)
-.	.
-IDENT	NE
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	TEMP
-=	=
-IDENT	ABS
-(	(
-IDENT	DBLE
-(	(
-IDENT	X
-(	(
-IDENT	IX
-)	)
-)	)
-)	)
-if	IF
-(	(
-IDENT	SCALE
-.	.
-IDENT	LT
-.	.
-IDENT	TEMP
-)	)
-IDENT	THEN
-IDENT	SSQ
-=	=
-IDENT	ONE
-+	+
-IDENT	SSQ
-*	*
-(	(
-IDENT	SCALE
-/	/
-IDENT	TEMP
-)	)
-token(95)	**
-IDENT	2
-IDENT	SCALE
-=	=
-IDENT	TEMP
-else	ELSE
-IDENT	SSQ
-=	=
-IDENT	SSQ
-+	+
-(	(
-IDENT	TEMP
-/	/
-IDENT	SCALE
-)	)
-token(95)	**
-IDENT	2
-IDENT	END
-if	IF
-IDENT	END
-if	IF
-if	IF
-(	(
-IDENT	DIMAG
-(	(
-IDENT	X
-(	(
-IDENT	IX
-)	)
-)	)
-.	.
-IDENT	NE
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	TEMP
-=	=
-IDENT	ABS
-(	(
-IDENT	DIMAG
-(	(
-IDENT	X
-(	(
-IDENT	IX
-)	)
-)	)
-)	)
-if	IF
-(	(
-IDENT	SCALE
-.	.
-IDENT	LT
-.	.
-IDENT	TEMP
-)	)
-IDENT	THEN
-IDENT	SSQ
-=	=
-IDENT	ONE
-+	+
-IDENT	SSQ
-*	*
-(	(
-IDENT	SCALE
-/	/
-IDENT	TEMP
-)	)
-token(95)	**
-IDENT	2
-IDENT	SCALE
-=	=
-IDENT	TEMP
-else	ELSE
-IDENT	SSQ
-=	=
-IDENT	SSQ
-+	+
-(	(
-IDENT	TEMP
-/	/
-IDENT	SCALE
-)	)
-token(95)	**
-IDENT	2
-IDENT	END
-if	IF
-IDENT	END
-if	IF
-IDENT	10
-IDENT	CONTINUE
-IDENT	NORM
-=	=
-IDENT	SCALE
-*	*
-IDENT	SQRT
-(	(
-IDENT	SSQ
-)	)
-IDENT	END
-if	IF
-COMMENT	*
-IDENT	DZNRM2
-=	=
-IDENT	NORM
-IDENT	RETURN
-COMMENT	*
-COMMENT	*     End of DZNRM2.
-COMMENT	*
-IDENT	END
+COMMENT             	> \brief \b DZNRM2
+COMMENT             	*
+COMMENT             	*  =========== DOCUMENTATION ===========
+COMMENT             	*
+COMMENT             	* Online html documentation available at
+COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+COMMENT             	*
+COMMENT             	*  Definition:
+COMMENT             	*  ===========
+COMMENT             	*
+COMMENT             	*       DOUBLE PRECISION FUNCTION DZNRM2(N,X,INCX)
+COMMENT             	*
+COMMENT             	*       .. Scalar Arguments ..
+COMMENT             	*       INTEGER INCX,N
+COMMENT             	*       ..
+COMMENT             	*       .. Array Arguments ..
+COMMENT             	*       COMPLEX*16 X(*)
+COMMENT             	*       ..
+COMMENT             	*
+COMMENT             	*
+COMMENT             	*> \par Purpose:
+COMMENT             	*  =============
+COMMENT             	*>
+COMMENT             	*> \verbatim
+COMMENT             	*>
+COMMENT             	*> DZNRM2 returns the euclidean norm of a vector via the function
+COMMENT             	*> name, so that
+COMMENT             	*>
+COMMENT             	*>    DZNRM2 := sqrt( x**H*x )
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Arguments:
+COMMENT             	*  ==========
+COMMENT             	*
+COMMENT             	*> \param[in] N
+COMMENT             	*> \verbatim
+COMMENT             	*>          N is INTEGER
+COMMENT             	*>         number of elements in input vector(s)
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] X
+COMMENT             	*> \verbatim
+COMMENT             	*>          X is COMPLEX*16 array, dimension (N)
+COMMENT             	*>         complex vector with N elements
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] INCX
+COMMENT             	*> \verbatim
+COMMENT             	*>          INCX is INTEGER
+COMMENT             	*>         storage spacing between elements of X
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Authors:
+COMMENT             	*  ========
+COMMENT             	*
+COMMENT             	*> \author Univ. of Tennessee
+COMMENT             	*> \author Univ. of California Berkeley
+COMMENT             	*> \author Univ. of Colorado Denver
+COMMENT             	*> \author NAG Ltd.
+COMMENT             	*
+COMMENT             	*> \date November 2017
+COMMENT             	*
+COMMENT             	*> \ingroup double_blas_level1
+COMMENT             	*
+COMMENT             	*> \par Further Details:
+COMMENT             	*  =====================
+COMMENT             	*>
+COMMENT             	*> \verbatim
+COMMENT             	*>
+COMMENT             	*>  -- This version written on 25-October-1982.
+COMMENT             	*>     Modified on 14-October-1993 to inline the call to ZLASSQ.
+COMMENT             	*>     Sven Hammarling, Nag Ltd.
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*  =====================================================================
+IDENT               	DOUBLE
+IDENT               	PRECISION
+token(101)          	FUNCTION
+IDENT               	DZNRM2
+(                   	(
+IDENT               	N
+,                   	,
+IDENT               	X
+,                   	,
+IDENT               	INCX
+)                   	)
+COMMENT             	*
+COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT             	*     November 2017
+COMMENT             	*
+COMMENT             	*     .. Scalar Arguments ..
+token(98)           	INTEGER
+IDENT               	INCX
+,                   	,
+IDENT               	N
+COMMENT             	*     ..
+COMMENT             	*     .. Array Arguments ..
+IDENT               	COMPLEX
+*                   	*
+IDENT               	16
+IDENT               	X
+(                   	(
+*                   	*
+)                   	)
+COMMENT             	*     ..
+COMMENT             	*
+COMMENT             	*  =====================================================================
+COMMENT             	*
+COMMENT             	*     .. Parameters ..
+IDENT               	DOUBLE
+IDENT               	PRECISION
+IDENT               	ONE
+,                   	,
+IDENT               	ZERO
+IDENT               	PARAMETER
+(                   	(
+IDENT               	ONE
+=                   	=
+IDENT               	1
+.                   	.
+IDENT               	0
+IDENT               	D
++                   	+
+IDENT               	0
+,                   	,
+IDENT               	ZERO
+=                   	=
+IDENT               	0
+.                   	.
+IDENT               	0
+IDENT               	D
++                   	+
+IDENT               	0
+)                   	)
+COMMENT             	*     ..
+COMMENT             	*     .. Local Scalars ..
+IDENT               	DOUBLE
+IDENT               	PRECISION
+IDENT               	NORM
+,                   	,
+IDENT               	SCALE
+,                   	,
+IDENT               	SSQ
+,                   	,
+IDENT               	TEMP
+token(98)           	INTEGER
+IDENT               	IX
+COMMENT             	*     ..
+COMMENT             	*     .. Intrinsic Functions ..
+IDENT               	INTRINSIC
+IDENT               	ABS
+,                   	,
+IDENT               	DBLE
+,                   	,
+IDENT               	DIMAG
+,                   	,
+IDENT               	SQRT
+COMMENT             	*     ..
+if                  	IF
+(                   	(
+IDENT               	N
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	1
+.                   	.
+IDENT               	OR
+.                   	.
+IDENT               	INCX
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	1
+)                   	)
+IDENT               	THEN
+IDENT               	NORM
+=                   	=
+IDENT               	ZERO
+else                	ELSE
+IDENT               	SCALE
+=                   	=
+IDENT               	ZERO
+IDENT               	SSQ
+=                   	=
+IDENT               	ONE
+COMMENT             	*        The following loop is equivalent to this call to the LAPACK
+COMMENT             	*        auxiliary routine:
+COMMENT             	*        CALL ZLASSQ( N, X, INCX, SCALE, SSQ )
+COMMENT             	*
+IDENT               	DO
+IDENT               	10
+IDENT               	IX
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	1
++                   	+
+(                   	(
+IDENT               	N
+-                   	-
+IDENT               	1
+)                   	)
+*                   	*
+IDENT               	INCX
+,                   	,
+IDENT               	INCX
+if                  	IF
+(                   	(
+IDENT               	DBLE
+(                   	(
+IDENT               	X
+(                   	(
+IDENT               	IX
+)                   	)
+)                   	)
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	TEMP
+=                   	=
+IDENT               	ABS
+(                   	(
+IDENT               	DBLE
+(                   	(
+IDENT               	X
+(                   	(
+IDENT               	IX
+)                   	)
+)                   	)
+)                   	)
+if                  	IF
+(                   	(
+IDENT               	SCALE
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	TEMP
+)                   	)
+IDENT               	THEN
+IDENT               	SSQ
+=                   	=
+IDENT               	ONE
++                   	+
+IDENT               	SSQ
+*                   	*
+(                   	(
+IDENT               	SCALE
+/                   	/
+IDENT               	TEMP
+)                   	)
+token(95)           	**
+IDENT               	2
+IDENT               	SCALE
+=                   	=
+IDENT               	TEMP
+else                	ELSE
+IDENT               	SSQ
+=                   	=
+IDENT               	SSQ
++                   	+
+(                   	(
+IDENT               	TEMP
+/                   	/
+IDENT               	SCALE
+)                   	)
+token(95)           	**
+IDENT               	2
+IDENT               	END
+if                  	IF
+IDENT               	END
+if                  	IF
+if                  	IF
+(                   	(
+IDENT               	DIMAG
+(                   	(
+IDENT               	X
+(                   	(
+IDENT               	IX
+)                   	)
+)                   	)
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	TEMP
+=                   	=
+IDENT               	ABS
+(                   	(
+IDENT               	DIMAG
+(                   	(
+IDENT               	X
+(                   	(
+IDENT               	IX
+)                   	)
+)                   	)
+)                   	)
+if                  	IF
+(                   	(
+IDENT               	SCALE
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	TEMP
+)                   	)
+IDENT               	THEN
+IDENT               	SSQ
+=                   	=
+IDENT               	ONE
++                   	+
+IDENT               	SSQ
+*                   	*
+(                   	(
+IDENT               	SCALE
+/                   	/
+IDENT               	TEMP
+)                   	)
+token(95)           	**
+IDENT               	2
+IDENT               	SCALE
+=                   	=
+IDENT               	TEMP
+else                	ELSE
+IDENT               	SSQ
+=                   	=
+IDENT               	SSQ
++                   	+
+(                   	(
+IDENT               	TEMP
+/                   	/
+IDENT               	SCALE
+)                   	)
+token(95)           	**
+IDENT               	2
+IDENT               	END
+if                  	IF
+IDENT               	END
+if                  	IF
+IDENT               	10
+IDENT               	CONTINUE
+IDENT               	NORM
+=                   	=
+IDENT               	SCALE
+*                   	*
+IDENT               	SQRT
+(                   	(
+IDENT               	SSQ
+)                   	)
+IDENT               	END
+if                  	IF
+COMMENT             	*
+IDENT               	DZNRM2
+=                   	=
+IDENT               	NORM
+IDENT               	RETURN
+COMMENT             	*
+COMMENT             	*     End of DZNRM2.
+COMMENT             	*
+IDENT               	END

@@ -1,244 +1,244 @@
-COMMENT	> \brief \b ZROTG
-COMMENT	*
-COMMENT	*  =========== DOCUMENTATION ===========
-COMMENT	*
-COMMENT	* Online html documentation available at
-COMMENT	*            http://www.netlib.org/lapack/explore-html/
-COMMENT	*
-COMMENT	*  Definition:
-COMMENT	*  ===========
-COMMENT	*
-COMMENT	*       SUBROUTINE ZROTG(CA,CB,C,S)
-COMMENT	*
-COMMENT	*       .. Scalar Arguments ..
-COMMENT	*       COMPLEX*16 CA,CB,S
-COMMENT	*       DOUBLE PRECISION C
-COMMENT	*       ..
-COMMENT	*
-COMMENT	*
-COMMENT	*> \par Purpose:
-COMMENT	*  =============
-COMMENT	*>
-COMMENT	*> \verbatim
-COMMENT	*>
-COMMENT	*>    ZROTG determines a double complex Givens rotation.
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Arguments:
-COMMENT	*  ==========
-COMMENT	*
-COMMENT	*> \param[in] CA
-COMMENT	*> \verbatim
-COMMENT	*>          CA is COMPLEX*16
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] CB
-COMMENT	*> \verbatim
-COMMENT	*>          CB is COMPLEX*16
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[out] C
-COMMENT	*> \verbatim
-COMMENT	*>          C is DOUBLE PRECISION
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[out] S
-COMMENT	*> \verbatim
-COMMENT	*>          S is COMPLEX*16
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Authors:
-COMMENT	*  ========
-COMMENT	*
-COMMENT	*> \author Univ. of Tennessee
-COMMENT	*> \author Univ. of California Berkeley
-COMMENT	*> \author Univ. of Colorado Denver
-COMMENT	*> \author NAG Ltd.
-COMMENT	*
-COMMENT	*> \date November 2017
-COMMENT	*
-COMMENT	*> \ingroup complex16_blas_level1
-COMMENT	*
-COMMENT	*  =====================================================================
-token(96)	SUBROUTINE
-IDENT	ZROTG
-(	(
-IDENT	CA
-,	,
-IDENT	CB
-,	,
-IDENT	C
-,	,
-IDENT	S
-)	)
-COMMENT	*
-COMMENT	*  -- Reference BLAS level1 routine (version 3.8.0) --
-COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-COMMENT	*     November 2017
-COMMENT	*
-COMMENT	*     .. Scalar Arguments ..
-IDENT	COMPLEX
-*	*
-IDENT	16
-IDENT	CA
-,	,
-IDENT	CB
-,	,
-IDENT	S
-IDENT	DOUBLE
-IDENT	PRECISION
-IDENT	C
-COMMENT	*     ..
-COMMENT	*
-COMMENT	*  =====================================================================
-COMMENT	*
-COMMENT	*     .. Local Scalars ..
-IDENT	COMPLEX
-*	*
-IDENT	16
-IDENT	ALPHA
-IDENT	DOUBLE
-IDENT	PRECISION
-IDENT	NORM
-,	,
-IDENT	SCALE
-COMMENT	*     ..
-COMMENT	*     .. Intrinsic Functions ..
-IDENT	INTRINSIC
-IDENT	CDABS
-,	,
-IDENT	DCMPLX
-,	,
-IDENT	DCONJG
-,	,
-IDENT	DSQRT
-COMMENT	*     ..
-if	IF
-(	(
-IDENT	CDABS
-(	(
-IDENT	CA
-)	)
-.	.
-IDENT	EQ
-.	.
-IDENT	0
-.	.
-IDENT	0
-IDENT	d0
-)	)
-IDENT	THEN
-IDENT	C
-=	=
-IDENT	0
-.	.
-IDENT	0
-IDENT	d0
-IDENT	S
-=	=
-(	(
-IDENT	1
-.	.
-IDENT	0
-IDENT	d0
-,	,
-IDENT	0
-.	.
-IDENT	0
-IDENT	d0
-)	)
-IDENT	CA
-=	=
-IDENT	CB
-else	ELSE
-IDENT	SCALE
-=	=
-IDENT	CDABS
-(	(
-IDENT	CA
-)	)
-+	+
-IDENT	CDABS
-(	(
-IDENT	CB
-)	)
-IDENT	NORM
-=	=
-IDENT	SCALE
-*	*
-IDENT	DSQRT
-(	(
-(	(
-IDENT	CDABS
-(	(
-IDENT	CA
-/	/
-IDENT	DCMPLX
-(	(
-IDENT	SCALE
-,	,
-IDENT	0
-.	.
-IDENT	0
-IDENT	d0
-)	)
-)	)
-)	)
-token(95)	**
-IDENT	2
-+	+
-(	(
-IDENT	CDABS
-(	(
-IDENT	CB
-/	/
-IDENT	DCMPLX
-(	(
-IDENT	SCALE
-,	,
-IDENT	0
-.	.
-IDENT	0
-IDENT	d0
-)	)
-)	)
-)	)
-token(95)	**
-IDENT	2
-)	)
-IDENT	ALPHA
-=	=
-IDENT	CA
-/	/
-IDENT	CDABS
-(	(
-IDENT	CA
-)	)
-IDENT	C
-=	=
-IDENT	CDABS
-(	(
-IDENT	CA
-)	)
-/	/
-IDENT	NORM
-IDENT	S
-=	=
-IDENT	ALPHA
-*	*
-IDENT	DCONJG
-(	(
-IDENT	CB
-)	)
-/	/
-IDENT	NORM
-IDENT	CA
-=	=
-IDENT	ALPHA
-*	*
-IDENT	NORM
-IDENT	END
-if	IF
-IDENT	RETURN
-IDENT	END
+COMMENT             	> \brief \b ZROTG
+COMMENT             	*
+COMMENT             	*  =========== DOCUMENTATION ===========
+COMMENT             	*
+COMMENT             	* Online html documentation available at
+COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+COMMENT             	*
+COMMENT             	*  Definition:
+COMMENT             	*  ===========
+COMMENT             	*
+COMMENT             	*       SUBROUTINE ZROTG(CA,CB,C,S)
+COMMENT             	*
+COMMENT             	*       .. Scalar Arguments ..
+COMMENT             	*       COMPLEX*16 CA,CB,S
+COMMENT             	*       DOUBLE PRECISION C
+COMMENT             	*       ..
+COMMENT             	*
+COMMENT             	*
+COMMENT             	*> \par Purpose:
+COMMENT             	*  =============
+COMMENT             	*>
+COMMENT             	*> \verbatim
+COMMENT             	*>
+COMMENT             	*>    ZROTG determines a double complex Givens rotation.
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Arguments:
+COMMENT             	*  ==========
+COMMENT             	*
+COMMENT             	*> \param[in] CA
+COMMENT             	*> \verbatim
+COMMENT             	*>          CA is COMPLEX*16
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] CB
+COMMENT             	*> \verbatim
+COMMENT             	*>          CB is COMPLEX*16
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[out] C
+COMMENT             	*> \verbatim
+COMMENT             	*>          C is DOUBLE PRECISION
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[out] S
+COMMENT             	*> \verbatim
+COMMENT             	*>          S is COMPLEX*16
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Authors:
+COMMENT             	*  ========
+COMMENT             	*
+COMMENT             	*> \author Univ. of Tennessee
+COMMENT             	*> \author Univ. of California Berkeley
+COMMENT             	*> \author Univ. of Colorado Denver
+COMMENT             	*> \author NAG Ltd.
+COMMENT             	*
+COMMENT             	*> \date November 2017
+COMMENT             	*
+COMMENT             	*> \ingroup complex16_blas_level1
+COMMENT             	*
+COMMENT             	*  =====================================================================
+token(96)           	SUBROUTINE
+IDENT               	ZROTG
+(                   	(
+IDENT               	CA
+,                   	,
+IDENT               	CB
+,                   	,
+IDENT               	C
+,                   	,
+IDENT               	S
+)                   	)
+COMMENT             	*
+COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT             	*     November 2017
+COMMENT             	*
+COMMENT             	*     .. Scalar Arguments ..
+IDENT               	COMPLEX
+*                   	*
+IDENT               	16
+IDENT               	CA
+,                   	,
+IDENT               	CB
+,                   	,
+IDENT               	S
+IDENT               	DOUBLE
+IDENT               	PRECISION
+IDENT               	C
+COMMENT             	*     ..
+COMMENT             	*
+COMMENT             	*  =====================================================================
+COMMENT             	*
+COMMENT             	*     .. Local Scalars ..
+IDENT               	COMPLEX
+*                   	*
+IDENT               	16
+IDENT               	ALPHA
+IDENT               	DOUBLE
+IDENT               	PRECISION
+IDENT               	NORM
+,                   	,
+IDENT               	SCALE
+COMMENT             	*     ..
+COMMENT             	*     .. Intrinsic Functions ..
+IDENT               	INTRINSIC
+IDENT               	CDABS
+,                   	,
+IDENT               	DCMPLX
+,                   	,
+IDENT               	DCONJG
+,                   	,
+IDENT               	DSQRT
+COMMENT             	*     ..
+if                  	IF
+(                   	(
+IDENT               	CDABS
+(                   	(
+IDENT               	CA
+)                   	)
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	0
+.                   	.
+IDENT               	0
+IDENT               	d0
+)                   	)
+IDENT               	THEN
+IDENT               	C
+=                   	=
+IDENT               	0
+.                   	.
+IDENT               	0
+IDENT               	d0
+IDENT               	S
+=                   	=
+(                   	(
+IDENT               	1
+.                   	.
+IDENT               	0
+IDENT               	d0
+,                   	,
+IDENT               	0
+.                   	.
+IDENT               	0
+IDENT               	d0
+)                   	)
+IDENT               	CA
+=                   	=
+IDENT               	CB
+else                	ELSE
+IDENT               	SCALE
+=                   	=
+IDENT               	CDABS
+(                   	(
+IDENT               	CA
+)                   	)
++                   	+
+IDENT               	CDABS
+(                   	(
+IDENT               	CB
+)                   	)
+IDENT               	NORM
+=                   	=
+IDENT               	SCALE
+*                   	*
+IDENT               	DSQRT
+(                   	(
+(                   	(
+IDENT               	CDABS
+(                   	(
+IDENT               	CA
+/                   	/
+IDENT               	DCMPLX
+(                   	(
+IDENT               	SCALE
+,                   	,
+IDENT               	0
+.                   	.
+IDENT               	0
+IDENT               	d0
+)                   	)
+)                   	)
+)                   	)
+token(95)           	**
+IDENT               	2
++                   	+
+(                   	(
+IDENT               	CDABS
+(                   	(
+IDENT               	CB
+/                   	/
+IDENT               	DCMPLX
+(                   	(
+IDENT               	SCALE
+,                   	,
+IDENT               	0
+.                   	.
+IDENT               	0
+IDENT               	d0
+)                   	)
+)                   	)
+)                   	)
+token(95)           	**
+IDENT               	2
+)                   	)
+IDENT               	ALPHA
+=                   	=
+IDENT               	CA
+/                   	/
+IDENT               	CDABS
+(                   	(
+IDENT               	CA
+)                   	)
+IDENT               	C
+=                   	=
+IDENT               	CDABS
+(                   	(
+IDENT               	CA
+)                   	)
+/                   	/
+IDENT               	NORM
+IDENT               	S
+=                   	=
+IDENT               	ALPHA
+*                   	*
+IDENT               	DCONJG
+(                   	(
+IDENT               	CB
+)                   	)
+/                   	/
+IDENT               	NORM
+IDENT               	CA
+=                   	=
+IDENT               	ALPHA
+*                   	*
+IDENT               	NORM
+IDENT               	END
+if                  	IF
+IDENT               	RETURN
+IDENT               	END

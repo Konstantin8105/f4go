@@ -1,418 +1,418 @@
-COMMENT	> \brief \b DDOT
-COMMENT	*
-COMMENT	*  =========== DOCUMENTATION ===========
-COMMENT	*
-COMMENT	* Online html documentation available at
-COMMENT	*            http://www.netlib.org/lapack/explore-html/
-COMMENT	*
-COMMENT	*  Definition:
-COMMENT	*  ===========
-COMMENT	*
-COMMENT	*       DOUBLE PRECISION FUNCTION DDOT(N,DX,INCX,DY,INCY)
-COMMENT	*
-COMMENT	*       .. Scalar Arguments ..
-COMMENT	*       INTEGER INCX,INCY,N
-COMMENT	*       ..
-COMMENT	*       .. Array Arguments ..
-COMMENT	*       DOUBLE PRECISION DX(*),DY(*)
-COMMENT	*       ..
-COMMENT	*
-COMMENT	*
-COMMENT	*> \par Purpose:
-COMMENT	*  =============
-COMMENT	*>
-COMMENT	*> \verbatim
-COMMENT	*>
-COMMENT	*>    DDOT forms the dot product of two vectors.
-COMMENT	*>    uses unrolled loops for increments equal to one.
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Arguments:
-COMMENT	*  ==========
-COMMENT	*
-COMMENT	*> \param[in] N
-COMMENT	*> \verbatim
-COMMENT	*>          N is INTEGER
-COMMENT	*>         number of elements in input vector(s)
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] DX
-COMMENT	*> \verbatim
-COMMENT	*>          DX is DOUBLE PRECISION array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] INCX
-COMMENT	*> \verbatim
-COMMENT	*>          INCX is INTEGER
-COMMENT	*>         storage spacing between elements of DX
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] DY
-COMMENT	*> \verbatim
-COMMENT	*>          DY is DOUBLE PRECISION array, dimension ( 1 + ( N - 1 )*abs( INCY ) )
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] INCY
-COMMENT	*> \verbatim
-COMMENT	*>          INCY is INTEGER
-COMMENT	*>         storage spacing between elements of DY
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Authors:
-COMMENT	*  ========
-COMMENT	*
-COMMENT	*> \author Univ. of Tennessee
-COMMENT	*> \author Univ. of California Berkeley
-COMMENT	*> \author Univ. of Colorado Denver
-COMMENT	*> \author NAG Ltd.
-COMMENT	*
-COMMENT	*> \date November 2017
-COMMENT	*
-COMMENT	*> \ingroup double_blas_level1
-COMMENT	*
-COMMENT	*> \par Further Details:
-COMMENT	*  =====================
-COMMENT	*>
-COMMENT	*> \verbatim
-COMMENT	*>
-COMMENT	*>     jack dongarra, linpack, 3/11/78.
-COMMENT	*>     modified 12/3/93, array(1) declarations changed to array(*)
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*  =====================================================================
-IDENT	DOUBLE
-IDENT	PRECISION
-token(101)	FUNCTION
-IDENT	DDOT
-(	(
-IDENT	N
-,	,
-IDENT	DX
-,	,
-IDENT	INCX
-,	,
-IDENT	DY
-,	,
-IDENT	INCY
-)	)
-COMMENT	*
-COMMENT	*  -- Reference BLAS level1 routine (version 3.8.0) --
-COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-COMMENT	*     November 2017
-COMMENT	*
-COMMENT	*     .. Scalar Arguments ..
-token(98)	INTEGER
-IDENT	INCX
-,	,
-IDENT	INCY
-,	,
-IDENT	N
-COMMENT	*     ..
-COMMENT	*     .. Array Arguments ..
-IDENT	DOUBLE
-IDENT	PRECISION
-IDENT	DX
-(	(
-*	*
-)	)
-,	,
-IDENT	DY
-(	(
-*	*
-)	)
-COMMENT	*     ..
-COMMENT	*
-COMMENT	*  =====================================================================
-COMMENT	*
-COMMENT	*     .. Local Scalars ..
-IDENT	DOUBLE
-IDENT	PRECISION
-IDENT	DTEMP
-token(98)	INTEGER
-IDENT	I
-,	,
-IDENT	IX
-,	,
-IDENT	IY
-,	,
-IDENT	M
-,	,
-IDENT	MP1
-COMMENT	*     ..
-COMMENT	*     .. Intrinsic Functions ..
-IDENT	INTRINSIC
-IDENT	MOD
-COMMENT	*     ..
-IDENT	DDOT
-=	=
-IDENT	0
-.	.
-IDENT	0
-IDENT	d0
-IDENT	DTEMP
-=	=
-IDENT	0
-.	.
-IDENT	0
-IDENT	d0
-if	IF
-(	(
-IDENT	N
-.	.
-IDENT	LE
-.	.
-IDENT	0
-)	)
-IDENT	RETURN
-if	IF
-(	(
-IDENT	INCX
-.	.
-IDENT	EQ
-.	.
-IDENT	1
-.	.
-IDENT	AND
-.	.
-IDENT	INCY
-.	.
-IDENT	EQ
-.	.
-IDENT	1
-)	)
-IDENT	THEN
-COMMENT	*
-COMMENT	*        code for both increments equal to 1
-COMMENT	*
-COMMENT	*
-COMMENT	*        clean-up loop
-COMMENT	*
-IDENT	M
-=	=
-IDENT	MOD
-(	(
-IDENT	N
-,	,
-IDENT	5
-)	)
-if	IF
-(	(
-IDENT	M
-.	.
-IDENT	NE
-.	.
-IDENT	0
-)	)
-IDENT	THEN
-IDENT	DO
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	M
-IDENT	DTEMP
-=	=
-IDENT	DTEMP
-+	+
-IDENT	DX
-(	(
-IDENT	I
-)	)
-*	*
-IDENT	DY
-(	(
-IDENT	I
-)	)
-IDENT	END
-IDENT	DO
-if	IF
-(	(
-IDENT	N
-.	.
-IDENT	LT
-.	.
-IDENT	5
-)	)
-IDENT	THEN
-IDENT	DDOT
-=	=
-IDENT	DTEMP
-IDENT	RETURN
-IDENT	END
-if	IF
-IDENT	END
-if	IF
-IDENT	MP1
-=	=
-IDENT	M
-+	+
-IDENT	1
-IDENT	DO
-IDENT	I
-=	=
-IDENT	MP1
-,	,
-IDENT	N
-,	,
-IDENT	5
-IDENT	DTEMP
-=	=
-IDENT	DTEMP
-+	+
-IDENT	DX
-(	(
-IDENT	I
-)	)
-*	*
-IDENT	DY
-(	(
-IDENT	I
-)	)
-+	+
-IDENT	DX
-(	(
-IDENT	I
-+	+
-IDENT	1
-)	)
-*	*
-IDENT	DY
-(	(
-IDENT	I
-+	+
-IDENT	1
-)	)
-+	+
-IDENT	DX
-(	(
-IDENT	I
-+	+
-IDENT	2
-)	)
-*	*
-IDENT	DY
-(	(
-IDENT	I
-+	+
-IDENT	2
-)	)
-+	+
-IDENT	DX
-(	(
-IDENT	I
-+	+
-IDENT	3
-)	)
-*	*
-IDENT	DY
-(	(
-IDENT	I
-+	+
-IDENT	3
-)	)
-+	+
-IDENT	DX
-(	(
-IDENT	I
-+	+
-IDENT	4
-)	)
-*	*
-IDENT	DY
-(	(
-IDENT	I
-+	+
-IDENT	4
-)	)
-IDENT	END
-IDENT	DO
-else	ELSE
-COMMENT	*
-COMMENT	*        code for unequal increments or equal increments
-COMMENT	*          not equal to 1
-COMMENT	*
-IDENT	IX
-=	=
-IDENT	1
-IDENT	IY
-=	=
-IDENT	1
-if	IF
-(	(
-IDENT	INCX
-.	.
-IDENT	LT
-.	.
-IDENT	0
-)	)
-IDENT	IX
-=	=
-(	(
--	-
-IDENT	N
-+	+
-IDENT	1
-)	)
-*	*
-IDENT	INCX
-+	+
-IDENT	1
-if	IF
-(	(
-IDENT	INCY
-.	.
-IDENT	LT
-.	.
-IDENT	0
-)	)
-IDENT	IY
-=	=
-(	(
--	-
-IDENT	N
-+	+
-IDENT	1
-)	)
-*	*
-IDENT	INCY
-+	+
-IDENT	1
-IDENT	DO
-IDENT	I
-=	=
-IDENT	1
-,	,
-IDENT	N
-IDENT	DTEMP
-=	=
-IDENT	DTEMP
-+	+
-IDENT	DX
-(	(
-IDENT	IX
-)	)
-*	*
-IDENT	DY
-(	(
-IDENT	IY
-)	)
-IDENT	IX
-=	=
-IDENT	IX
-+	+
-IDENT	INCX
-IDENT	IY
-=	=
-IDENT	IY
-+	+
-IDENT	INCY
-IDENT	END
-IDENT	DO
-IDENT	END
-if	IF
-IDENT	DDOT
-=	=
-IDENT	DTEMP
-IDENT	RETURN
-IDENT	END
+COMMENT             	> \brief \b DDOT
+COMMENT             	*
+COMMENT             	*  =========== DOCUMENTATION ===========
+COMMENT             	*
+COMMENT             	* Online html documentation available at
+COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+COMMENT             	*
+COMMENT             	*  Definition:
+COMMENT             	*  ===========
+COMMENT             	*
+COMMENT             	*       DOUBLE PRECISION FUNCTION DDOT(N,DX,INCX,DY,INCY)
+COMMENT             	*
+COMMENT             	*       .. Scalar Arguments ..
+COMMENT             	*       INTEGER INCX,INCY,N
+COMMENT             	*       ..
+COMMENT             	*       .. Array Arguments ..
+COMMENT             	*       DOUBLE PRECISION DX(*),DY(*)
+COMMENT             	*       ..
+COMMENT             	*
+COMMENT             	*
+COMMENT             	*> \par Purpose:
+COMMENT             	*  =============
+COMMENT             	*>
+COMMENT             	*> \verbatim
+COMMENT             	*>
+COMMENT             	*>    DDOT forms the dot product of two vectors.
+COMMENT             	*>    uses unrolled loops for increments equal to one.
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Arguments:
+COMMENT             	*  ==========
+COMMENT             	*
+COMMENT             	*> \param[in] N
+COMMENT             	*> \verbatim
+COMMENT             	*>          N is INTEGER
+COMMENT             	*>         number of elements in input vector(s)
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] DX
+COMMENT             	*> \verbatim
+COMMENT             	*>          DX is DOUBLE PRECISION array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] INCX
+COMMENT             	*> \verbatim
+COMMENT             	*>          INCX is INTEGER
+COMMENT             	*>         storage spacing between elements of DX
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] DY
+COMMENT             	*> \verbatim
+COMMENT             	*>          DY is DOUBLE PRECISION array, dimension ( 1 + ( N - 1 )*abs( INCY ) )
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] INCY
+COMMENT             	*> \verbatim
+COMMENT             	*>          INCY is INTEGER
+COMMENT             	*>         storage spacing between elements of DY
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Authors:
+COMMENT             	*  ========
+COMMENT             	*
+COMMENT             	*> \author Univ. of Tennessee
+COMMENT             	*> \author Univ. of California Berkeley
+COMMENT             	*> \author Univ. of Colorado Denver
+COMMENT             	*> \author NAG Ltd.
+COMMENT             	*
+COMMENT             	*> \date November 2017
+COMMENT             	*
+COMMENT             	*> \ingroup double_blas_level1
+COMMENT             	*
+COMMENT             	*> \par Further Details:
+COMMENT             	*  =====================
+COMMENT             	*>
+COMMENT             	*> \verbatim
+COMMENT             	*>
+COMMENT             	*>     jack dongarra, linpack, 3/11/78.
+COMMENT             	*>     modified 12/3/93, array(1) declarations changed to array(*)
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*  =====================================================================
+IDENT               	DOUBLE
+IDENT               	PRECISION
+token(101)          	FUNCTION
+IDENT               	DDOT
+(                   	(
+IDENT               	N
+,                   	,
+IDENT               	DX
+,                   	,
+IDENT               	INCX
+,                   	,
+IDENT               	DY
+,                   	,
+IDENT               	INCY
+)                   	)
+COMMENT             	*
+COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT             	*     November 2017
+COMMENT             	*
+COMMENT             	*     .. Scalar Arguments ..
+token(98)           	INTEGER
+IDENT               	INCX
+,                   	,
+IDENT               	INCY
+,                   	,
+IDENT               	N
+COMMENT             	*     ..
+COMMENT             	*     .. Array Arguments ..
+IDENT               	DOUBLE
+IDENT               	PRECISION
+IDENT               	DX
+(                   	(
+*                   	*
+)                   	)
+,                   	,
+IDENT               	DY
+(                   	(
+*                   	*
+)                   	)
+COMMENT             	*     ..
+COMMENT             	*
+COMMENT             	*  =====================================================================
+COMMENT             	*
+COMMENT             	*     .. Local Scalars ..
+IDENT               	DOUBLE
+IDENT               	PRECISION
+IDENT               	DTEMP
+token(98)           	INTEGER
+IDENT               	I
+,                   	,
+IDENT               	IX
+,                   	,
+IDENT               	IY
+,                   	,
+IDENT               	M
+,                   	,
+IDENT               	MP1
+COMMENT             	*     ..
+COMMENT             	*     .. Intrinsic Functions ..
+IDENT               	INTRINSIC
+IDENT               	MOD
+COMMENT             	*     ..
+IDENT               	DDOT
+=                   	=
+IDENT               	0
+.                   	.
+IDENT               	0
+IDENT               	d0
+IDENT               	DTEMP
+=                   	=
+IDENT               	0
+.                   	.
+IDENT               	0
+IDENT               	d0
+if                  	IF
+(                   	(
+IDENT               	N
+.                   	.
+IDENT               	LE
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	RETURN
+if                  	IF
+(                   	(
+IDENT               	INCX
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	1
+.                   	.
+IDENT               	AND
+.                   	.
+IDENT               	INCY
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	1
+)                   	)
+IDENT               	THEN
+COMMENT             	*
+COMMENT             	*        code for both increments equal to 1
+COMMENT             	*
+COMMENT             	*
+COMMENT             	*        clean-up loop
+COMMENT             	*
+IDENT               	M
+=                   	=
+IDENT               	MOD
+(                   	(
+IDENT               	N
+,                   	,
+IDENT               	5
+)                   	)
+if                  	IF
+(                   	(
+IDENT               	M
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	THEN
+IDENT               	DO
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	M
+IDENT               	DTEMP
+=                   	=
+IDENT               	DTEMP
++                   	+
+IDENT               	DX
+(                   	(
+IDENT               	I
+)                   	)
+*                   	*
+IDENT               	DY
+(                   	(
+IDENT               	I
+)                   	)
+IDENT               	END
+IDENT               	DO
+if                  	IF
+(                   	(
+IDENT               	N
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	5
+)                   	)
+IDENT               	THEN
+IDENT               	DDOT
+=                   	=
+IDENT               	DTEMP
+IDENT               	RETURN
+IDENT               	END
+if                  	IF
+IDENT               	END
+if                  	IF
+IDENT               	MP1
+=                   	=
+IDENT               	M
++                   	+
+IDENT               	1
+IDENT               	DO
+IDENT               	I
+=                   	=
+IDENT               	MP1
+,                   	,
+IDENT               	N
+,                   	,
+IDENT               	5
+IDENT               	DTEMP
+=                   	=
+IDENT               	DTEMP
++                   	+
+IDENT               	DX
+(                   	(
+IDENT               	I
+)                   	)
+*                   	*
+IDENT               	DY
+(                   	(
+IDENT               	I
+)                   	)
++                   	+
+IDENT               	DX
+(                   	(
+IDENT               	I
++                   	+
+IDENT               	1
+)                   	)
+*                   	*
+IDENT               	DY
+(                   	(
+IDENT               	I
++                   	+
+IDENT               	1
+)                   	)
++                   	+
+IDENT               	DX
+(                   	(
+IDENT               	I
++                   	+
+IDENT               	2
+)                   	)
+*                   	*
+IDENT               	DY
+(                   	(
+IDENT               	I
++                   	+
+IDENT               	2
+)                   	)
++                   	+
+IDENT               	DX
+(                   	(
+IDENT               	I
++                   	+
+IDENT               	3
+)                   	)
+*                   	*
+IDENT               	DY
+(                   	(
+IDENT               	I
++                   	+
+IDENT               	3
+)                   	)
++                   	+
+IDENT               	DX
+(                   	(
+IDENT               	I
++                   	+
+IDENT               	4
+)                   	)
+*                   	*
+IDENT               	DY
+(                   	(
+IDENT               	I
++                   	+
+IDENT               	4
+)                   	)
+IDENT               	END
+IDENT               	DO
+else                	ELSE
+COMMENT             	*
+COMMENT             	*        code for unequal increments or equal increments
+COMMENT             	*          not equal to 1
+COMMENT             	*
+IDENT               	IX
+=                   	=
+IDENT               	1
+IDENT               	IY
+=                   	=
+IDENT               	1
+if                  	IF
+(                   	(
+IDENT               	INCX
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	IX
+=                   	=
+(                   	(
+-                   	-
+IDENT               	N
++                   	+
+IDENT               	1
+)                   	)
+*                   	*
+IDENT               	INCX
++                   	+
+IDENT               	1
+if                  	IF
+(                   	(
+IDENT               	INCY
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	0
+)                   	)
+IDENT               	IY
+=                   	=
+(                   	(
+-                   	-
+IDENT               	N
++                   	+
+IDENT               	1
+)                   	)
+*                   	*
+IDENT               	INCY
++                   	+
+IDENT               	1
+IDENT               	DO
+IDENT               	I
+=                   	=
+IDENT               	1
+,                   	,
+IDENT               	N
+IDENT               	DTEMP
+=                   	=
+IDENT               	DTEMP
++                   	+
+IDENT               	DX
+(                   	(
+IDENT               	IX
+)                   	)
+*                   	*
+IDENT               	DY
+(                   	(
+IDENT               	IY
+)                   	)
+IDENT               	IX
+=                   	=
+IDENT               	IX
++                   	+
+IDENT               	INCX
+IDENT               	IY
+=                   	=
+IDENT               	IY
++                   	+
+IDENT               	INCY
+IDENT               	END
+IDENT               	DO
+IDENT               	END
+if                  	IF
+IDENT               	DDOT
+=                   	=
+IDENT               	DTEMP
+IDENT               	RETURN
+IDENT               	END

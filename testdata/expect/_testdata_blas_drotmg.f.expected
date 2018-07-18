@@ -1,767 +1,767 @@
-COMMENT	> \brief \b DROTMG
-COMMENT	*
-COMMENT	*  =========== DOCUMENTATION ===========
-COMMENT	*
-COMMENT	* Online html documentation available at
-COMMENT	*            http://www.netlib.org/lapack/explore-html/
-COMMENT	*
-COMMENT	*  Definition:
-COMMENT	*  ===========
-COMMENT	*
-COMMENT	*       SUBROUTINE DROTMG(DD1,DD2,DX1,DY1,DPARAM)
-COMMENT	*
-COMMENT	*       .. Scalar Arguments ..
-COMMENT	*       DOUBLE PRECISION DD1,DD2,DX1,DY1
-COMMENT	*       ..
-COMMENT	*       .. Array Arguments ..
-COMMENT	*       DOUBLE PRECISION DPARAM(5)
-COMMENT	*       ..
-COMMENT	*
-COMMENT	*
-COMMENT	*> \par Purpose:
-COMMENT	*  =============
-COMMENT	*>
-COMMENT	*> \verbatim
-COMMENT	*>
-COMMENT	*>    CONSTRUCT THE MODIFIED GIVENS TRANSFORMATION MATRIX H WHICH ZEROS
-COMMENT	*>    THE SECOND COMPONENT OF THE 2-VECTOR  (DSQRT(DD1)*DX1,DSQRT(DD2)*>    DY2)**T.
-COMMENT	*>    WITH DPARAM(1)=DFLAG, H HAS ONE OF THE FOLLOWING FORMS..
-COMMENT	*>
-COMMENT	*>    DFLAG=-1.D0     DFLAG=0.D0        DFLAG=1.D0     DFLAG=-2.D0
-COMMENT	*>
-COMMENT	*>      (DH11  DH12)    (1.D0  DH12)    (DH11  1.D0)    (1.D0  0.D0)
-COMMENT	*>    H=(          )    (          )    (          )    (          )
-COMMENT	*>      (DH21  DH22),   (DH21  1.D0),   (-1.D0 DH22),   (0.D0  1.D0).
-COMMENT	*>    LOCATIONS 2-4 OF DPARAM CONTAIN DH11, DH21, DH12, AND DH22
-COMMENT	*>    RESPECTIVELY. (VALUES OF 1.D0, -1.D0, OR 0.D0 IMPLIED BY THE
-COMMENT	*>    VALUE OF DPARAM(1) ARE NOT STORED IN DPARAM.)
-COMMENT	*>
-COMMENT	*>    THE VALUES OF GAMSQ AND RGAMSQ SET IN THE DATA STATEMENT MAY BE
-COMMENT	*>    INEXACT.  THIS IS OK AS THEY ARE ONLY USED FOR TESTING THE SIZE
-COMMENT	*>    OF DD1 AND DD2.  ALL ACTUAL SCALING OF DATA IS DONE USING GAM.
-COMMENT	*>
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Arguments:
-COMMENT	*  ==========
-COMMENT	*
-COMMENT	*> \param[in,out] DD1
-COMMENT	*> \verbatim
-COMMENT	*>          DD1 is DOUBLE PRECISION
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in,out] DD2
-COMMENT	*> \verbatim
-COMMENT	*>          DD2 is DOUBLE PRECISION
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in,out] DX1
-COMMENT	*> \verbatim
-COMMENT	*>          DX1 is DOUBLE PRECISION
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] DY1
-COMMENT	*> \verbatim
-COMMENT	*>          DY1 is DOUBLE PRECISION
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[out] DPARAM
-COMMENT	*> \verbatim
-COMMENT	*>          DPARAM is DOUBLE PRECISION array, dimension (5)
-COMMENT	*>     DPARAM(1)=DFLAG
-COMMENT	*>     DPARAM(2)=DH11
-COMMENT	*>     DPARAM(3)=DH21
-COMMENT	*>     DPARAM(4)=DH12
-COMMENT	*>     DPARAM(5)=DH22
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Authors:
-COMMENT	*  ========
-COMMENT	*
-COMMENT	*> \author Univ. of Tennessee
-COMMENT	*> \author Univ. of California Berkeley
-COMMENT	*> \author Univ. of Colorado Denver
-COMMENT	*> \author NAG Ltd.
-COMMENT	*
-COMMENT	*> \date November 2017
-COMMENT	*
-COMMENT	*> \ingroup double_blas_level1
-COMMENT	*
-COMMENT	*  =====================================================================
-token(96)	SUBROUTINE
-IDENT	DROTMG
-(	(
-IDENT	DD1
-,	,
-IDENT	DD2
-,	,
-IDENT	DX1
-,	,
-IDENT	DY1
-,	,
-IDENT	DPARAM
-)	)
-COMMENT	*
-COMMENT	*  -- Reference BLAS level1 routine (version 3.8.0) --
-COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-COMMENT	*     November 2017
-COMMENT	*
-COMMENT	*     .. Scalar Arguments ..
-IDENT	DOUBLE
-IDENT	PRECISION
-IDENT	DD1
-,	,
-IDENT	DD2
-,	,
-IDENT	DX1
-,	,
-IDENT	DY1
-COMMENT	*     ..
-COMMENT	*     .. Array Arguments ..
-IDENT	DOUBLE
-IDENT	PRECISION
-IDENT	DPARAM
-(	(
-IDENT	5
-)	)
-COMMENT	*     ..
-COMMENT	*
-COMMENT	*  =====================================================================
-COMMENT	*
-COMMENT	*     .. Local Scalars ..
-IDENT	DOUBLE
-IDENT	PRECISION
-IDENT	DFLAG
-,	,
-IDENT	DH11
-,	,
-IDENT	DH12
-,	,
-IDENT	DH21
-,	,
-IDENT	DH22
-,	,
-IDENT	DP1
-,	,
-IDENT	DP2
-,	,
-IDENT	DQ1
-,	,
-IDENT	DQ2
-,	,
-IDENT	DTEMP
-,	,
-IDENT	DU
-,	,
-IDENT	GAM
-,	,
-IDENT	GAMSQ
-,	,
-IDENT	ONE
-,	,
-IDENT	RGAMSQ
-,	,
-IDENT	TWO
-,	,
-IDENT	ZERO
-COMMENT	*     ..
-COMMENT	*     .. Intrinsic Functions ..
-IDENT	INTRINSIC
-IDENT	DABS
-COMMENT	*     ..
-COMMENT	*     .. Data statements ..
-COMMENT	*
-IDENT	DATA
-IDENT	ZERO
-,	,
-IDENT	ONE
-,	,
-IDENT	TWO
-/	/
-IDENT	0
-.	.
-IDENT	D0
-,	,
-IDENT	1
-.	.
-IDENT	D0
-,	,
-IDENT	2
-.	.
-IDENT	D0
-/	/
-IDENT	DATA
-IDENT	GAM
-,	,
-IDENT	GAMSQ
-,	,
-IDENT	RGAMSQ
-/	/
-IDENT	4096
-.	.
-IDENT	D0
-,	,
-IDENT	16777216
-.	.
-IDENT	D0
-,	,
-IDENT	5
-.	.
-IDENT	9604645
-IDENT	D
--	-
-IDENT	8
-/	/
-COMMENT	*     ..
-if	IF
-(	(
-IDENT	DD1
-.	.
-IDENT	LT
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-COMMENT	*        GO ZERO-H-D-AND-DX1..
-IDENT	DFLAG
-=	=
--	-
-IDENT	ONE
-IDENT	DH11
-=	=
-IDENT	ZERO
-IDENT	DH12
-=	=
-IDENT	ZERO
-IDENT	DH21
-=	=
-IDENT	ZERO
-IDENT	DH22
-=	=
-IDENT	ZERO
-COMMENT	*
-IDENT	DD1
-=	=
-IDENT	ZERO
-IDENT	DD2
-=	=
-IDENT	ZERO
-IDENT	DX1
-=	=
-IDENT	ZERO
-else	ELSE
-COMMENT	*        CASE-DD1-NONNEGATIVE
-IDENT	DP2
-=	=
-IDENT	DD2
-*	*
-IDENT	DY1
-if	IF
-(	(
-IDENT	DP2
-.	.
-IDENT	EQ
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	DFLAG
-=	=
--	-
-IDENT	TWO
-IDENT	DPARAM
-(	(
-IDENT	1
-)	)
-=	=
-IDENT	DFLAG
-IDENT	RETURN
-IDENT	END
-if	IF
-COMMENT	*        REGULAR-CASE..
-IDENT	DP1
-=	=
-IDENT	DD1
-*	*
-IDENT	DX1
-IDENT	DQ2
-=	=
-IDENT	DP2
-*	*
-IDENT	DY1
-IDENT	DQ1
-=	=
-IDENT	DP1
-*	*
-IDENT	DX1
-COMMENT	*
-if	IF
-(	(
-IDENT	DABS
-(	(
-IDENT	DQ1
-)	)
-.	.
-IDENT	GT
-.	.
-IDENT	DABS
-(	(
-IDENT	DQ2
-)	)
-)	)
-IDENT	THEN
-IDENT	DH21
-=	=
--	-
-IDENT	DY1
-/	/
-IDENT	DX1
-IDENT	DH12
-=	=
-IDENT	DP2
-/	/
-IDENT	DP1
-COMMENT	*
-IDENT	DU
-=	=
-IDENT	ONE
--	-
-IDENT	DH12
-*	*
-IDENT	DH21
-COMMENT	*
-if	IF
-(	(
-IDENT	DU
-.	.
-IDENT	GT
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	DFLAG
-=	=
-IDENT	ZERO
-IDENT	DD1
-=	=
-IDENT	DD1
-/	/
-IDENT	DU
-IDENT	DD2
-=	=
-IDENT	DD2
-/	/
-IDENT	DU
-IDENT	DX1
-=	=
-IDENT	DX1
-*	*
-IDENT	DU
-IDENT	END
-if	IF
-else	ELSE
-if	IF
-(	(
-IDENT	DQ2
-.	.
-IDENT	LT
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-COMMENT	*              GO ZERO-H-D-AND-DX1..
-IDENT	DFLAG
-=	=
--	-
-IDENT	ONE
-IDENT	DH11
-=	=
-IDENT	ZERO
-IDENT	DH12
-=	=
-IDENT	ZERO
-IDENT	DH21
-=	=
-IDENT	ZERO
-IDENT	DH22
-=	=
-IDENT	ZERO
-COMMENT	*
-IDENT	DD1
-=	=
-IDENT	ZERO
-IDENT	DD2
-=	=
-IDENT	ZERO
-IDENT	DX1
-=	=
-IDENT	ZERO
-else	ELSE
-IDENT	DFLAG
-=	=
-IDENT	ONE
-IDENT	DH11
-=	=
-IDENT	DP1
-/	/
-IDENT	DP2
-IDENT	DH22
-=	=
-IDENT	DX1
-/	/
-IDENT	DY1
-IDENT	DU
-=	=
-IDENT	ONE
-+	+
-IDENT	DH11
-*	*
-IDENT	DH22
-IDENT	DTEMP
-=	=
-IDENT	DD2
-/	/
-IDENT	DU
-IDENT	DD2
-=	=
-IDENT	DD1
-/	/
-IDENT	DU
-IDENT	DD1
-=	=
-IDENT	DTEMP
-IDENT	DX1
-=	=
-IDENT	DY1
-*	*
-IDENT	DU
-IDENT	END
-if	IF
-IDENT	END
-if	IF
-COMMENT	*     PROCEDURE..SCALE-CHECK
-if	IF
-(	(
-IDENT	DD1
-.	.
-IDENT	NE
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	DO
-IDENT	WHILE
-(	(
-(	(
-IDENT	DD1
-.	.
-IDENT	LE
-.	.
-IDENT	RGAMSQ
-)	)
-.	.
-IDENT	OR
-.	.
-(	(
-IDENT	DD1
-.	.
-IDENT	GE
-.	.
-IDENT	GAMSQ
-)	)
-)	)
-if	IF
-(	(
-IDENT	DFLAG
-.	.
-IDENT	EQ
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	DH11
-=	=
-IDENT	ONE
-IDENT	DH22
-=	=
-IDENT	ONE
-IDENT	DFLAG
-=	=
--	-
-IDENT	ONE
-else	ELSE
-IDENT	DH21
-=	=
--	-
-IDENT	ONE
-IDENT	DH12
-=	=
-IDENT	ONE
-IDENT	DFLAG
-=	=
--	-
-IDENT	ONE
-IDENT	END
-if	IF
-if	IF
-(	(
-IDENT	DD1
-.	.
-IDENT	LE
-.	.
-IDENT	RGAMSQ
-)	)
-IDENT	THEN
-IDENT	DD1
-=	=
-IDENT	DD1
-*	*
-IDENT	GAM
-token(95)	**
-IDENT	2
-IDENT	DX1
-=	=
-IDENT	DX1
-/	/
-IDENT	GAM
-IDENT	DH11
-=	=
-IDENT	DH11
-/	/
-IDENT	GAM
-IDENT	DH12
-=	=
-IDENT	DH12
-/	/
-IDENT	GAM
-else	ELSE
-IDENT	DD1
-=	=
-IDENT	DD1
-/	/
-IDENT	GAM
-token(95)	**
-IDENT	2
-IDENT	DX1
-=	=
-IDENT	DX1
-*	*
-IDENT	GAM
-IDENT	DH11
-=	=
-IDENT	DH11
-*	*
-IDENT	GAM
-IDENT	DH12
-=	=
-IDENT	DH12
-*	*
-IDENT	GAM
-IDENT	END
-if	IF
-IDENT	ENDDO
-IDENT	END
-if	IF
-if	IF
-(	(
-IDENT	DD2
-.	.
-IDENT	NE
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	DO
-IDENT	WHILE
-(	(
-(	(
-IDENT	DABS
-(	(
-IDENT	DD2
-)	)
-.	.
-IDENT	LE
-.	.
-IDENT	RGAMSQ
-)	)
-.	.
-IDENT	OR
-.	.
-(	(
-IDENT	DABS
-(	(
-IDENT	DD2
-)	)
-.	.
-IDENT	GE
-.	.
-IDENT	GAMSQ
-)	)
-)	)
-if	IF
-(	(
-IDENT	DFLAG
-.	.
-IDENT	EQ
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	DH11
-=	=
-IDENT	ONE
-IDENT	DH22
-=	=
-IDENT	ONE
-IDENT	DFLAG
-=	=
--	-
-IDENT	ONE
-else	ELSE
-IDENT	DH21
-=	=
--	-
-IDENT	ONE
-IDENT	DH12
-=	=
-IDENT	ONE
-IDENT	DFLAG
-=	=
--	-
-IDENT	ONE
-IDENT	END
-if	IF
-if	IF
-(	(
-IDENT	DABS
-(	(
-IDENT	DD2
-)	)
-.	.
-IDENT	LE
-.	.
-IDENT	RGAMSQ
-)	)
-IDENT	THEN
-IDENT	DD2
-=	=
-IDENT	DD2
-*	*
-IDENT	GAM
-token(95)	**
-IDENT	2
-IDENT	DH21
-=	=
-IDENT	DH21
-/	/
-IDENT	GAM
-IDENT	DH22
-=	=
-IDENT	DH22
-/	/
-IDENT	GAM
-else	ELSE
-IDENT	DD2
-=	=
-IDENT	DD2
-/	/
-IDENT	GAM
-token(95)	**
-IDENT	2
-IDENT	DH21
-=	=
-IDENT	DH21
-*	*
-IDENT	GAM
-IDENT	DH22
-=	=
-IDENT	DH22
-*	*
-IDENT	GAM
-IDENT	END
-if	IF
-IDENT	END
-IDENT	DO
-IDENT	END
-if	IF
-IDENT	END
-if	IF
-if	IF
-(	(
-IDENT	DFLAG
-.	.
-IDENT	LT
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	DPARAM
-(	(
-IDENT	2
-)	)
-=	=
-IDENT	DH11
-IDENT	DPARAM
-(	(
-IDENT	3
-)	)
-=	=
-IDENT	DH21
-IDENT	DPARAM
-(	(
-IDENT	4
-)	)
-=	=
-IDENT	DH12
-IDENT	DPARAM
-(	(
-IDENT	5
-)	)
-=	=
-IDENT	DH22
-else	ELSE
-if	IF
-(	(
-IDENT	DFLAG
-.	.
-IDENT	EQ
-.	.
-IDENT	ZERO
-)	)
-IDENT	THEN
-IDENT	DPARAM
-(	(
-IDENT	3
-)	)
-=	=
-IDENT	DH21
-IDENT	DPARAM
-(	(
-IDENT	4
-)	)
-=	=
-IDENT	DH12
-else	ELSE
-IDENT	DPARAM
-(	(
-IDENT	2
-)	)
-=	=
-IDENT	DH11
-IDENT	DPARAM
-(	(
-IDENT	5
-)	)
-=	=
-IDENT	DH22
-IDENT	END
-if	IF
-IDENT	DPARAM
-(	(
-IDENT	1
-)	)
-=	=
-IDENT	DFLAG
-IDENT	RETURN
-IDENT	END
+COMMENT             	> \brief \b DROTMG
+COMMENT             	*
+COMMENT             	*  =========== DOCUMENTATION ===========
+COMMENT             	*
+COMMENT             	* Online html documentation available at
+COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+COMMENT             	*
+COMMENT             	*  Definition:
+COMMENT             	*  ===========
+COMMENT             	*
+COMMENT             	*       SUBROUTINE DROTMG(DD1,DD2,DX1,DY1,DPARAM)
+COMMENT             	*
+COMMENT             	*       .. Scalar Arguments ..
+COMMENT             	*       DOUBLE PRECISION DD1,DD2,DX1,DY1
+COMMENT             	*       ..
+COMMENT             	*       .. Array Arguments ..
+COMMENT             	*       DOUBLE PRECISION DPARAM(5)
+COMMENT             	*       ..
+COMMENT             	*
+COMMENT             	*
+COMMENT             	*> \par Purpose:
+COMMENT             	*  =============
+COMMENT             	*>
+COMMENT             	*> \verbatim
+COMMENT             	*>
+COMMENT             	*>    CONSTRUCT THE MODIFIED GIVENS TRANSFORMATION MATRIX H WHICH ZEROS
+COMMENT             	*>    THE SECOND COMPONENT OF THE 2-VECTOR  (DSQRT(DD1)*DX1,DSQRT(DD2)*>    DY2)**T.
+COMMENT             	*>    WITH DPARAM(1)=DFLAG, H HAS ONE OF THE FOLLOWING FORMS..
+COMMENT             	*>
+COMMENT             	*>    DFLAG=-1.D0     DFLAG=0.D0        DFLAG=1.D0     DFLAG=-2.D0
+COMMENT             	*>
+COMMENT             	*>      (DH11  DH12)    (1.D0  DH12)    (DH11  1.D0)    (1.D0  0.D0)
+COMMENT             	*>    H=(          )    (          )    (          )    (          )
+COMMENT             	*>      (DH21  DH22),   (DH21  1.D0),   (-1.D0 DH22),   (0.D0  1.D0).
+COMMENT             	*>    LOCATIONS 2-4 OF DPARAM CONTAIN DH11, DH21, DH12, AND DH22
+COMMENT             	*>    RESPECTIVELY. (VALUES OF 1.D0, -1.D0, OR 0.D0 IMPLIED BY THE
+COMMENT             	*>    VALUE OF DPARAM(1) ARE NOT STORED IN DPARAM.)
+COMMENT             	*>
+COMMENT             	*>    THE VALUES OF GAMSQ AND RGAMSQ SET IN THE DATA STATEMENT MAY BE
+COMMENT             	*>    INEXACT.  THIS IS OK AS THEY ARE ONLY USED FOR TESTING THE SIZE
+COMMENT             	*>    OF DD1 AND DD2.  ALL ACTUAL SCALING OF DATA IS DONE USING GAM.
+COMMENT             	*>
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Arguments:
+COMMENT             	*  ==========
+COMMENT             	*
+COMMENT             	*> \param[in,out] DD1
+COMMENT             	*> \verbatim
+COMMENT             	*>          DD1 is DOUBLE PRECISION
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in,out] DD2
+COMMENT             	*> \verbatim
+COMMENT             	*>          DD2 is DOUBLE PRECISION
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in,out] DX1
+COMMENT             	*> \verbatim
+COMMENT             	*>          DX1 is DOUBLE PRECISION
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] DY1
+COMMENT             	*> \verbatim
+COMMENT             	*>          DY1 is DOUBLE PRECISION
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[out] DPARAM
+COMMENT             	*> \verbatim
+COMMENT             	*>          DPARAM is DOUBLE PRECISION array, dimension (5)
+COMMENT             	*>     DPARAM(1)=DFLAG
+COMMENT             	*>     DPARAM(2)=DH11
+COMMENT             	*>     DPARAM(3)=DH21
+COMMENT             	*>     DPARAM(4)=DH12
+COMMENT             	*>     DPARAM(5)=DH22
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Authors:
+COMMENT             	*  ========
+COMMENT             	*
+COMMENT             	*> \author Univ. of Tennessee
+COMMENT             	*> \author Univ. of California Berkeley
+COMMENT             	*> \author Univ. of Colorado Denver
+COMMENT             	*> \author NAG Ltd.
+COMMENT             	*
+COMMENT             	*> \date November 2017
+COMMENT             	*
+COMMENT             	*> \ingroup double_blas_level1
+COMMENT             	*
+COMMENT             	*  =====================================================================
+token(96)           	SUBROUTINE
+IDENT               	DROTMG
+(                   	(
+IDENT               	DD1
+,                   	,
+IDENT               	DD2
+,                   	,
+IDENT               	DX1
+,                   	,
+IDENT               	DY1
+,                   	,
+IDENT               	DPARAM
+)                   	)
+COMMENT             	*
+COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT             	*     November 2017
+COMMENT             	*
+COMMENT             	*     .. Scalar Arguments ..
+IDENT               	DOUBLE
+IDENT               	PRECISION
+IDENT               	DD1
+,                   	,
+IDENT               	DD2
+,                   	,
+IDENT               	DX1
+,                   	,
+IDENT               	DY1
+COMMENT             	*     ..
+COMMENT             	*     .. Array Arguments ..
+IDENT               	DOUBLE
+IDENT               	PRECISION
+IDENT               	DPARAM
+(                   	(
+IDENT               	5
+)                   	)
+COMMENT             	*     ..
+COMMENT             	*
+COMMENT             	*  =====================================================================
+COMMENT             	*
+COMMENT             	*     .. Local Scalars ..
+IDENT               	DOUBLE
+IDENT               	PRECISION
+IDENT               	DFLAG
+,                   	,
+IDENT               	DH11
+,                   	,
+IDENT               	DH12
+,                   	,
+IDENT               	DH21
+,                   	,
+IDENT               	DH22
+,                   	,
+IDENT               	DP1
+,                   	,
+IDENT               	DP2
+,                   	,
+IDENT               	DQ1
+,                   	,
+IDENT               	DQ2
+,                   	,
+IDENT               	DTEMP
+,                   	,
+IDENT               	DU
+,                   	,
+IDENT               	GAM
+,                   	,
+IDENT               	GAMSQ
+,                   	,
+IDENT               	ONE
+,                   	,
+IDENT               	RGAMSQ
+,                   	,
+IDENT               	TWO
+,                   	,
+IDENT               	ZERO
+COMMENT             	*     ..
+COMMENT             	*     .. Intrinsic Functions ..
+IDENT               	INTRINSIC
+IDENT               	DABS
+COMMENT             	*     ..
+COMMENT             	*     .. Data statements ..
+COMMENT             	*
+IDENT               	DATA
+IDENT               	ZERO
+,                   	,
+IDENT               	ONE
+,                   	,
+IDENT               	TWO
+/                   	/
+IDENT               	0
+.                   	.
+IDENT               	D0
+,                   	,
+IDENT               	1
+.                   	.
+IDENT               	D0
+,                   	,
+IDENT               	2
+.                   	.
+IDENT               	D0
+/                   	/
+IDENT               	DATA
+IDENT               	GAM
+,                   	,
+IDENT               	GAMSQ
+,                   	,
+IDENT               	RGAMSQ
+/                   	/
+IDENT               	4096
+.                   	.
+IDENT               	D0
+,                   	,
+IDENT               	16777216
+.                   	.
+IDENT               	D0
+,                   	,
+IDENT               	5
+.                   	.
+IDENT               	9604645
+IDENT               	D
+-                   	-
+IDENT               	8
+/                   	/
+COMMENT             	*     ..
+if                  	IF
+(                   	(
+IDENT               	DD1
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+COMMENT             	*        GO ZERO-H-D-AND-DX1..
+IDENT               	DFLAG
+=                   	=
+-                   	-
+IDENT               	ONE
+IDENT               	DH11
+=                   	=
+IDENT               	ZERO
+IDENT               	DH12
+=                   	=
+IDENT               	ZERO
+IDENT               	DH21
+=                   	=
+IDENT               	ZERO
+IDENT               	DH22
+=                   	=
+IDENT               	ZERO
+COMMENT             	*
+IDENT               	DD1
+=                   	=
+IDENT               	ZERO
+IDENT               	DD2
+=                   	=
+IDENT               	ZERO
+IDENT               	DX1
+=                   	=
+IDENT               	ZERO
+else                	ELSE
+COMMENT             	*        CASE-DD1-NONNEGATIVE
+IDENT               	DP2
+=                   	=
+IDENT               	DD2
+*                   	*
+IDENT               	DY1
+if                  	IF
+(                   	(
+IDENT               	DP2
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	DFLAG
+=                   	=
+-                   	-
+IDENT               	TWO
+IDENT               	DPARAM
+(                   	(
+IDENT               	1
+)                   	)
+=                   	=
+IDENT               	DFLAG
+IDENT               	RETURN
+IDENT               	END
+if                  	IF
+COMMENT             	*        REGULAR-CASE..
+IDENT               	DP1
+=                   	=
+IDENT               	DD1
+*                   	*
+IDENT               	DX1
+IDENT               	DQ2
+=                   	=
+IDENT               	DP2
+*                   	*
+IDENT               	DY1
+IDENT               	DQ1
+=                   	=
+IDENT               	DP1
+*                   	*
+IDENT               	DX1
+COMMENT             	*
+if                  	IF
+(                   	(
+IDENT               	DABS
+(                   	(
+IDENT               	DQ1
+)                   	)
+.                   	.
+IDENT               	GT
+.                   	.
+IDENT               	DABS
+(                   	(
+IDENT               	DQ2
+)                   	)
+)                   	)
+IDENT               	THEN
+IDENT               	DH21
+=                   	=
+-                   	-
+IDENT               	DY1
+/                   	/
+IDENT               	DX1
+IDENT               	DH12
+=                   	=
+IDENT               	DP2
+/                   	/
+IDENT               	DP1
+COMMENT             	*
+IDENT               	DU
+=                   	=
+IDENT               	ONE
+-                   	-
+IDENT               	DH12
+*                   	*
+IDENT               	DH21
+COMMENT             	*
+if                  	IF
+(                   	(
+IDENT               	DU
+.                   	.
+IDENT               	GT
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	DFLAG
+=                   	=
+IDENT               	ZERO
+IDENT               	DD1
+=                   	=
+IDENT               	DD1
+/                   	/
+IDENT               	DU
+IDENT               	DD2
+=                   	=
+IDENT               	DD2
+/                   	/
+IDENT               	DU
+IDENT               	DX1
+=                   	=
+IDENT               	DX1
+*                   	*
+IDENT               	DU
+IDENT               	END
+if                  	IF
+else                	ELSE
+if                  	IF
+(                   	(
+IDENT               	DQ2
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+COMMENT             	*              GO ZERO-H-D-AND-DX1..
+IDENT               	DFLAG
+=                   	=
+-                   	-
+IDENT               	ONE
+IDENT               	DH11
+=                   	=
+IDENT               	ZERO
+IDENT               	DH12
+=                   	=
+IDENT               	ZERO
+IDENT               	DH21
+=                   	=
+IDENT               	ZERO
+IDENT               	DH22
+=                   	=
+IDENT               	ZERO
+COMMENT             	*
+IDENT               	DD1
+=                   	=
+IDENT               	ZERO
+IDENT               	DD2
+=                   	=
+IDENT               	ZERO
+IDENT               	DX1
+=                   	=
+IDENT               	ZERO
+else                	ELSE
+IDENT               	DFLAG
+=                   	=
+IDENT               	ONE
+IDENT               	DH11
+=                   	=
+IDENT               	DP1
+/                   	/
+IDENT               	DP2
+IDENT               	DH22
+=                   	=
+IDENT               	DX1
+/                   	/
+IDENT               	DY1
+IDENT               	DU
+=                   	=
+IDENT               	ONE
++                   	+
+IDENT               	DH11
+*                   	*
+IDENT               	DH22
+IDENT               	DTEMP
+=                   	=
+IDENT               	DD2
+/                   	/
+IDENT               	DU
+IDENT               	DD2
+=                   	=
+IDENT               	DD1
+/                   	/
+IDENT               	DU
+IDENT               	DD1
+=                   	=
+IDENT               	DTEMP
+IDENT               	DX1
+=                   	=
+IDENT               	DY1
+*                   	*
+IDENT               	DU
+IDENT               	END
+if                  	IF
+IDENT               	END
+if                  	IF
+COMMENT             	*     PROCEDURE..SCALE-CHECK
+if                  	IF
+(                   	(
+IDENT               	DD1
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	DO
+IDENT               	WHILE
+(                   	(
+(                   	(
+IDENT               	DD1
+.                   	.
+IDENT               	LE
+.                   	.
+IDENT               	RGAMSQ
+)                   	)
+.                   	.
+IDENT               	OR
+.                   	.
+(                   	(
+IDENT               	DD1
+.                   	.
+IDENT               	GE
+.                   	.
+IDENT               	GAMSQ
+)                   	)
+)                   	)
+if                  	IF
+(                   	(
+IDENT               	DFLAG
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	DH11
+=                   	=
+IDENT               	ONE
+IDENT               	DH22
+=                   	=
+IDENT               	ONE
+IDENT               	DFLAG
+=                   	=
+-                   	-
+IDENT               	ONE
+else                	ELSE
+IDENT               	DH21
+=                   	=
+-                   	-
+IDENT               	ONE
+IDENT               	DH12
+=                   	=
+IDENT               	ONE
+IDENT               	DFLAG
+=                   	=
+-                   	-
+IDENT               	ONE
+IDENT               	END
+if                  	IF
+if                  	IF
+(                   	(
+IDENT               	DD1
+.                   	.
+IDENT               	LE
+.                   	.
+IDENT               	RGAMSQ
+)                   	)
+IDENT               	THEN
+IDENT               	DD1
+=                   	=
+IDENT               	DD1
+*                   	*
+IDENT               	GAM
+token(95)           	**
+IDENT               	2
+IDENT               	DX1
+=                   	=
+IDENT               	DX1
+/                   	/
+IDENT               	GAM
+IDENT               	DH11
+=                   	=
+IDENT               	DH11
+/                   	/
+IDENT               	GAM
+IDENT               	DH12
+=                   	=
+IDENT               	DH12
+/                   	/
+IDENT               	GAM
+else                	ELSE
+IDENT               	DD1
+=                   	=
+IDENT               	DD1
+/                   	/
+IDENT               	GAM
+token(95)           	**
+IDENT               	2
+IDENT               	DX1
+=                   	=
+IDENT               	DX1
+*                   	*
+IDENT               	GAM
+IDENT               	DH11
+=                   	=
+IDENT               	DH11
+*                   	*
+IDENT               	GAM
+IDENT               	DH12
+=                   	=
+IDENT               	DH12
+*                   	*
+IDENT               	GAM
+IDENT               	END
+if                  	IF
+IDENT               	ENDDO
+IDENT               	END
+if                  	IF
+if                  	IF
+(                   	(
+IDENT               	DD2
+.                   	.
+IDENT               	NE
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	DO
+IDENT               	WHILE
+(                   	(
+(                   	(
+IDENT               	DABS
+(                   	(
+IDENT               	DD2
+)                   	)
+.                   	.
+IDENT               	LE
+.                   	.
+IDENT               	RGAMSQ
+)                   	)
+.                   	.
+IDENT               	OR
+.                   	.
+(                   	(
+IDENT               	DABS
+(                   	(
+IDENT               	DD2
+)                   	)
+.                   	.
+IDENT               	GE
+.                   	.
+IDENT               	GAMSQ
+)                   	)
+)                   	)
+if                  	IF
+(                   	(
+IDENT               	DFLAG
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	DH11
+=                   	=
+IDENT               	ONE
+IDENT               	DH22
+=                   	=
+IDENT               	ONE
+IDENT               	DFLAG
+=                   	=
+-                   	-
+IDENT               	ONE
+else                	ELSE
+IDENT               	DH21
+=                   	=
+-                   	-
+IDENT               	ONE
+IDENT               	DH12
+=                   	=
+IDENT               	ONE
+IDENT               	DFLAG
+=                   	=
+-                   	-
+IDENT               	ONE
+IDENT               	END
+if                  	IF
+if                  	IF
+(                   	(
+IDENT               	DABS
+(                   	(
+IDENT               	DD2
+)                   	)
+.                   	.
+IDENT               	LE
+.                   	.
+IDENT               	RGAMSQ
+)                   	)
+IDENT               	THEN
+IDENT               	DD2
+=                   	=
+IDENT               	DD2
+*                   	*
+IDENT               	GAM
+token(95)           	**
+IDENT               	2
+IDENT               	DH21
+=                   	=
+IDENT               	DH21
+/                   	/
+IDENT               	GAM
+IDENT               	DH22
+=                   	=
+IDENT               	DH22
+/                   	/
+IDENT               	GAM
+else                	ELSE
+IDENT               	DD2
+=                   	=
+IDENT               	DD2
+/                   	/
+IDENT               	GAM
+token(95)           	**
+IDENT               	2
+IDENT               	DH21
+=                   	=
+IDENT               	DH21
+*                   	*
+IDENT               	GAM
+IDENT               	DH22
+=                   	=
+IDENT               	DH22
+*                   	*
+IDENT               	GAM
+IDENT               	END
+if                  	IF
+IDENT               	END
+IDENT               	DO
+IDENT               	END
+if                  	IF
+IDENT               	END
+if                  	IF
+if                  	IF
+(                   	(
+IDENT               	DFLAG
+.                   	.
+IDENT               	LT
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	DPARAM
+(                   	(
+IDENT               	2
+)                   	)
+=                   	=
+IDENT               	DH11
+IDENT               	DPARAM
+(                   	(
+IDENT               	3
+)                   	)
+=                   	=
+IDENT               	DH21
+IDENT               	DPARAM
+(                   	(
+IDENT               	4
+)                   	)
+=                   	=
+IDENT               	DH12
+IDENT               	DPARAM
+(                   	(
+IDENT               	5
+)                   	)
+=                   	=
+IDENT               	DH22
+else                	ELSE
+if                  	IF
+(                   	(
+IDENT               	DFLAG
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	ZERO
+)                   	)
+IDENT               	THEN
+IDENT               	DPARAM
+(                   	(
+IDENT               	3
+)                   	)
+=                   	=
+IDENT               	DH21
+IDENT               	DPARAM
+(                   	(
+IDENT               	4
+)                   	)
+=                   	=
+IDENT               	DH12
+else                	ELSE
+IDENT               	DPARAM
+(                   	(
+IDENT               	2
+)                   	)
+=                   	=
+IDENT               	DH11
+IDENT               	DPARAM
+(                   	(
+IDENT               	5
+)                   	)
+=                   	=
+IDENT               	DH22
+IDENT               	END
+if                  	IF
+IDENT               	DPARAM
+(                   	(
+IDENT               	1
+)                   	)
+=                   	=
+IDENT               	DFLAG
+IDENT               	RETURN
+IDENT               	END

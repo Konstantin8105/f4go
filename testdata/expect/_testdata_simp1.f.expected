@@ -1,12 +1,12 @@
-token(97)	PROGRAM
-IDENT	cows
-token(98)	INTEGER
-token(99)	::
-IDENT	n
-COMMENT	C          INTEGER :: n2
-IDENT	n
-=	=
-IDENT	306
-COMMENT	C          n2 = n + 2
-IDENT	END
-token(97)	PROGRAM
+token(97)           	PROGRAM
+IDENT               	cows
+token(98)           	INTEGER
+token(99)           	::
+IDENT               	n
+COMMENT             	C          INTEGER :: n2
+IDENT               	n
+=                   	=
+IDENT               	306
+COMMENT             	C          n2 = n + 2
+IDENT               	END
+token(97)           	PROGRAM

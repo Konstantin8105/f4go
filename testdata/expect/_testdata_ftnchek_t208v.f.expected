@@ -1,18 +1,18 @@
-token(98)	integer
-IDENT	MAXTOK
-IDENT	parameter
-(	(
-IDENT	MAXTOK
-=	=
-IDENT	10
-)	)
-IDENT	character
-*	*
-(	(
-IDENT	MAXTOK
-)	)
-COMMENT	*     intervening comment
-COMMENT	*     intervening comment
-IDENT	x
-IDENT	toklst
-IDENT	end
+token(98)           	integer
+IDENT               	MAXTOK
+IDENT               	parameter
+(                   	(
+IDENT               	MAXTOK
+=                   	=
+IDENT               	10
+)                   	)
+IDENT               	character
+*                   	*
+(                   	(
+IDENT               	MAXTOK
+)                   	)
+COMMENT             	*     intervening comment
+COMMENT             	*     intervening comment
+IDENT               	x
+IDENT               	toklst
+IDENT               	end

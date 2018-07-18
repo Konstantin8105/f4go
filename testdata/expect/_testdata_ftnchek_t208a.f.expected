@@ -1,386 +1,386 @@
-token(96)	SUBROUTINE
-IDENT	DDIAPA
-(	(
-IDENT	IX
-,	,
-IDENT	IY
-)	)
-COMMENT	C     (Add to Path)
-COMMENT	C     Add the point (IX,IY) to the current path, which is assumed
-COMMENT	C     to have  already been  started by  a call  to DDIBPA.   The
-COMMENT	C     current point and visibility are updated in COMMON.
-COMMENT	C     (27-May-1991)
-COMMENT	C- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-COMMENT	C
-COMMENT	C     EXTERNAL REFERENCES (FUNCTION,SUBROUTINE,COMMON)
-COMMENT	C
-COMMENT	C     EXTERNAL REFS       TKIOLL,      TKIOWB,      TKIOWH,      TKIOWN
-COMMENT	C
-token(98)	INTEGER
-IDENT	TKIOLL
-COMMENT	C- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-COMMENT	C
-COMMENT	C     NON-COMMON VARIABLES
-COMMENT	C
-COMMENT	C     SETS                BLANK
-COMMENT	C
-token(98)	INTEGER
-IDENT	BLANK
-,	,
-IDENT	DUMMY
-,	,
-IDENT	IX
-,	,
-IDENT	IY
-COMMENT	C
-COMMENT	C-----------------------------------------------------------------------
-COMMENT	C                         P o s t S c r i p t
-COMMENT	C           D i s p l a y   D e v i c e   I n t e r f a c e
-COMMENT	C                       C O M M O N   B l o c k
-COMMENT	C
-COMMENT	C     DSSIZE                   display surface size in cm
-COMMENT	C     IMAGE                    image transformation in effect
-COMMENT	C     (LASTX,LASTY,VILAST)     last position and visibility of pen
-COMMENT	C     LINEIN                   line intensity (0..1 scale)
-COMMENT	C     LINEWT                   line weight (1..25 scale)
-COMMENT	C     MAGFAC                   resolution magnification factor
-COMMENT	C     (MOVEX,MOVEY)            position of first point in path
-COMMENT	C     NPATH                    number of line segments in current page
-COMMENT	C     PLSTEP                   plotter step size in cm
-COMMENT	C     (PSXOFF,PSYOFF)          image offset in PostScript units (bp)
-COMMENT	C     ROTATE                   plot frame is rotated
-COMMENT	C     (SX,SY)                  scale factors (unit square to plot steps)
-COMMENT	C     TIMAGE(*,*)              image transformation matrix
-COMMENT	C     (XMAX,YMAX,ZMAX)         normalized device space extents
-COMMENT	C     (MAXX,MAXY,MINX,MINY)    actual coordinate limits reached
-COMMENT	C
-COMMENT	C-----------------------------------------------------------------------
-token(98)	INTEGER
-IDENT	LASTX
-,	,
-IDENT	LASTY
-,	,
-IDENT	LINEWT
-,	,
-IDENT	MAGFAC
-token(98)	INTEGER
-IDENT	MAXX
-,	,
-IDENT	MAXY
-,	,
-IDENT	MINX
-,	,
-IDENT	MINY
-token(98)	INTEGER
-IDENT	MOVEX
-,	,
-IDENT	MOVEY
-,	,
-IDENT	NPATH
-,	,
-IDENT	PSXOFF
-token(98)	INTEGER
-IDENT	PSYOFF
-COMMENT	C
-IDENT	LOGICAL
-IDENT	DVINIT
-,	,
-IDENT	IMAGE
-,	,
-IDENT	ROTATE
-,	,
-IDENT	VILAST
-COMMENT	C
-IDENT	REAL
-IDENT	DSSIZE
-,	,
-IDENT	LINEIN
-,	,
-IDENT	PLSTEP
-,	,
-IDENT	SX
-IDENT	REAL
-IDENT	SY
-,	,
-IDENT	TIMAGE
-,	,
-IDENT	XMAX
-,	,
-IDENT	YMAX
-IDENT	REAL
-IDENT	ZMAX
-COMMENT	C
-IDENT	COMMON
-/	/
-IDENT	DDI01
-/	/
-IDENT	DSSIZE
-,	,
-IDENT	LINEIN
-,	,
-IDENT	PLSTEP
-,	,
-IDENT	SX
-IDENT	COMMON
-/	/
-IDENT	DDI01
-/	/
-IDENT	SY
-,	,
-IDENT	TIMAGE
-(	(
-IDENT	4
-,	,
-IDENT	4
-)	)
-,	,
-IDENT	XMAX
-,	,
-IDENT	YMAX
-IDENT	COMMON
-/	/
-IDENT	DDI01
-/	/
-IDENT	ZMAX
-,	,
-IDENT	LASTX
-,	,
-IDENT	LASTY
-,	,
-IDENT	LINEWT
-IDENT	COMMON
-/	/
-IDENT	DDI01
-/	/
-IDENT	MAGFAC
-,	,
-IDENT	MAXX
-,	,
-IDENT	MAXY
-,	,
-IDENT	MINX
-IDENT	COMMON
-/	/
-IDENT	DDI01
-/	/
-IDENT	MINY
-,	,
-IDENT	MOVEX
-,	,
-IDENT	MOVEY
-,	,
-IDENT	NPATH
-IDENT	COMMON
-/	/
-IDENT	DDI01
-/	/
-IDENT	PSXOFF
-,	,
-IDENT	PSYOFF
-,	,
-IDENT	DVINIT
-,	,
-IDENT	IMAGE
-IDENT	COMMON
-/	/
-IDENT	DDI01
-/	/
-IDENT	ROTATE
-,	,
-IDENT	VILAST
-COMMENT	C
-COMMENT	C
-IDENT	DATA
-IDENT	BLANK
-/	/
-IDENT	32
-/	/
-COMMENT	C
-COMMENT	C     We can generate an  entry of size "-ddddd -ddddd R "; try to
-COMMENT	C     keep line lengths under 80 characters.
-COMMENT	C
-if	IF
-(	(
-IDENT	TKIOLL
-(	(
-IDENT	DUMMY
-)	)
-.	.
-IDENT	GT
-.	.
-IDENT	64
-)	)
-IDENT	CALL
-IDENT	TKIOWH
-(	(
-IDENT	2
-IDENT	H
-IDENT	N
-,	,
-IDENT	2
-)	)
-COMMENT	C
-COMMENT	C     Use relative coordinates for lines to reduce the  number of
-COMMENT	C     bytes in the  verbose  PostScript  command language.   This
-COMMENT	C     shortens the plot file by 5 to 10 percent.
-COMMENT	C
-COMMENT	C     We optimize output into 3 different forms:
-COMMENT	C
-COMMENT	C     # # R   (relative lineto)
-COMMENT	C     # X     (relative lineto with delta-y = 0)
-COMMENT	C     # Y     (relative lineto with delta-x = 0)
-COMMENT	C
-COMMENT	C     The  latter two cases  occur frequently enough  to be worth
-COMMENT	C     taking advantage of  to compress the  output and reduce the
-COMMENT	C     parsing  time.    We cannot  discard zero length  segments,
-COMMENT	C     however, because that  would discard single  points from  a
-COMMENT	C     point plot.
-COMMENT	C
-if	IF
-(	(
-IDENT	IX
-.	.
-IDENT	EQ
-.	.
-IDENT	LASTX
-)	)
-IDENT	GO
-IDENT	TO
-IDENT	10
-if	IF
-(	(
-IDENT	IY
-.	.
-IDENT	EQ
-.	.
-IDENT	LASTY
-)	)
-IDENT	GO
-IDENT	TO
-IDENT	20
-IDENT	CALL
-IDENT	TKIOWN
-(	(
-IDENT	IX
--	-
-IDENT	LASTX
-)	)
-IDENT	CALL
-IDENT	TKIOWB
-(	(
-IDENT	BLANK
-)	)
-IDENT	CALL
-IDENT	TKIOWN
-(	(
-IDENT	IY
--	-
-IDENT	LASTY
-)	)
-IDENT	CALL
-IDENT	TKIOWH
-(	(
-IDENT	3
-IDENT	H
-IDENT	R
-,	,
-IDENT	3
-)	)
-IDENT	GO
-IDENT	TO
-IDENT	30
-IDENT	10
-IDENT	CALL
-IDENT	TKIOWN
-(	(
-IDENT	IY
--	-
-IDENT	LASTY
-)	)
-IDENT	CALL
-IDENT	TKIOWH
-(	(
-IDENT	3
-IDENT	H
-IDENT	Y
-,	,
-IDENT	3
-)	)
-IDENT	GO
-IDENT	TO
-IDENT	30
-IDENT	20
-IDENT	CALL
-IDENT	TKIOWN
-(	(
-IDENT	IX
--	-
-IDENT	LASTX
-)	)
-IDENT	CALL
-IDENT	TKIOWH
-(	(
-IDENT	3
-IDENT	H
-IDENT	X
-,	,
-IDENT	3
-)	)
-IDENT	30
-IDENT	NPATH
-=	=
-IDENT	NPATH
-+	+
-IDENT	1
-IDENT	LASTX
-=	=
-IDENT	IX
-IDENT	LASTY
-=	=
-IDENT	IY
-IDENT	VILAST
-=	=
-.	.
-IDENT	TRUE
-.	.
-IDENT	MAXX
-=	=
-IDENT	MAX0
-(	(
-IDENT	MAXX
-,	,
-IDENT	IX
-)	)
-IDENT	MINX
-=	=
-IDENT	MIN0
-(	(
-IDENT	MINX
-,	,
-IDENT	IX
-)	)
-IDENT	MAXY
-=	=
-IDENT	MAX0
-(	(
-IDENT	MAXY
-,	,
-IDENT	IY
-)	)
-IDENT	MINY
-=	=
-IDENT	MIN0
-(	(
-IDENT	MINY
-,	,
-IDENT	IY
-)	)
-COMMENT	C
-COMMENT	C     Insert a  line break  periodically to  prevent  excessively
-COMMENT	C     long lines.
-COMMENT	C
-COMMENT	C     IF (MOD(NPATH,10) .EQ. 0) CALL TKIOWH (2H$N,2)
-COMMENT	C
-IDENT	40
-IDENT	RETURN
-IDENT	END
+token(96)           	SUBROUTINE
+IDENT               	DDIAPA
+(                   	(
+IDENT               	IX
+,                   	,
+IDENT               	IY
+)                   	)
+COMMENT             	C     (Add to Path)
+COMMENT             	C     Add the point (IX,IY) to the current path, which is assumed
+COMMENT             	C     to have  already been  started by  a call  to DDIBPA.   The
+COMMENT             	C     current point and visibility are updated in COMMON.
+COMMENT             	C     (27-May-1991)
+COMMENT             	C- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+COMMENT             	C
+COMMENT             	C     EXTERNAL REFERENCES (FUNCTION,SUBROUTINE,COMMON)
+COMMENT             	C
+COMMENT             	C     EXTERNAL REFS       TKIOLL,      TKIOWB,      TKIOWH,      TKIOWN
+COMMENT             	C
+token(98)           	INTEGER
+IDENT               	TKIOLL
+COMMENT             	C- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+COMMENT             	C
+COMMENT             	C     NON-COMMON VARIABLES
+COMMENT             	C
+COMMENT             	C     SETS                BLANK
+COMMENT             	C
+token(98)           	INTEGER
+IDENT               	BLANK
+,                   	,
+IDENT               	DUMMY
+,                   	,
+IDENT               	IX
+,                   	,
+IDENT               	IY
+COMMENT             	C
+COMMENT             	C-----------------------------------------------------------------------
+COMMENT             	C                         P o s t S c r i p t
+COMMENT             	C           D i s p l a y   D e v i c e   I n t e r f a c e
+COMMENT             	C                       C O M M O N   B l o c k
+COMMENT             	C
+COMMENT             	C     DSSIZE                   display surface size in cm
+COMMENT             	C     IMAGE                    image transformation in effect
+COMMENT             	C     (LASTX,LASTY,VILAST)     last position and visibility of pen
+COMMENT             	C     LINEIN                   line intensity (0..1 scale)
+COMMENT             	C     LINEWT                   line weight (1..25 scale)
+COMMENT             	C     MAGFAC                   resolution magnification factor
+COMMENT             	C     (MOVEX,MOVEY)            position of first point in path
+COMMENT             	C     NPATH                    number of line segments in current page
+COMMENT             	C     PLSTEP                   plotter step size in cm
+COMMENT             	C     (PSXOFF,PSYOFF)          image offset in PostScript units (bp)
+COMMENT             	C     ROTATE                   plot frame is rotated
+COMMENT             	C     (SX,SY)                  scale factors (unit square to plot steps)
+COMMENT             	C     TIMAGE(*,*)              image transformation matrix
+COMMENT             	C     (XMAX,YMAX,ZMAX)         normalized device space extents
+COMMENT             	C     (MAXX,MAXY,MINX,MINY)    actual coordinate limits reached
+COMMENT             	C
+COMMENT             	C-----------------------------------------------------------------------
+token(98)           	INTEGER
+IDENT               	LASTX
+,                   	,
+IDENT               	LASTY
+,                   	,
+IDENT               	LINEWT
+,                   	,
+IDENT               	MAGFAC
+token(98)           	INTEGER
+IDENT               	MAXX
+,                   	,
+IDENT               	MAXY
+,                   	,
+IDENT               	MINX
+,                   	,
+IDENT               	MINY
+token(98)           	INTEGER
+IDENT               	MOVEX
+,                   	,
+IDENT               	MOVEY
+,                   	,
+IDENT               	NPATH
+,                   	,
+IDENT               	PSXOFF
+token(98)           	INTEGER
+IDENT               	PSYOFF
+COMMENT             	C
+IDENT               	LOGICAL
+IDENT               	DVINIT
+,                   	,
+IDENT               	IMAGE
+,                   	,
+IDENT               	ROTATE
+,                   	,
+IDENT               	VILAST
+COMMENT             	C
+IDENT               	REAL
+IDENT               	DSSIZE
+,                   	,
+IDENT               	LINEIN
+,                   	,
+IDENT               	PLSTEP
+,                   	,
+IDENT               	SX
+IDENT               	REAL
+IDENT               	SY
+,                   	,
+IDENT               	TIMAGE
+,                   	,
+IDENT               	XMAX
+,                   	,
+IDENT               	YMAX
+IDENT               	REAL
+IDENT               	ZMAX
+COMMENT             	C
+IDENT               	COMMON
+/                   	/
+IDENT               	DDI01
+/                   	/
+IDENT               	DSSIZE
+,                   	,
+IDENT               	LINEIN
+,                   	,
+IDENT               	PLSTEP
+,                   	,
+IDENT               	SX
+IDENT               	COMMON
+/                   	/
+IDENT               	DDI01
+/                   	/
+IDENT               	SY
+,                   	,
+IDENT               	TIMAGE
+(                   	(
+IDENT               	4
+,                   	,
+IDENT               	4
+)                   	)
+,                   	,
+IDENT               	XMAX
+,                   	,
+IDENT               	YMAX
+IDENT               	COMMON
+/                   	/
+IDENT               	DDI01
+/                   	/
+IDENT               	ZMAX
+,                   	,
+IDENT               	LASTX
+,                   	,
+IDENT               	LASTY
+,                   	,
+IDENT               	LINEWT
+IDENT               	COMMON
+/                   	/
+IDENT               	DDI01
+/                   	/
+IDENT               	MAGFAC
+,                   	,
+IDENT               	MAXX
+,                   	,
+IDENT               	MAXY
+,                   	,
+IDENT               	MINX
+IDENT               	COMMON
+/                   	/
+IDENT               	DDI01
+/                   	/
+IDENT               	MINY
+,                   	,
+IDENT               	MOVEX
+,                   	,
+IDENT               	MOVEY
+,                   	,
+IDENT               	NPATH
+IDENT               	COMMON
+/                   	/
+IDENT               	DDI01
+/                   	/
+IDENT               	PSXOFF
+,                   	,
+IDENT               	PSYOFF
+,                   	,
+IDENT               	DVINIT
+,                   	,
+IDENT               	IMAGE
+IDENT               	COMMON
+/                   	/
+IDENT               	DDI01
+/                   	/
+IDENT               	ROTATE
+,                   	,
+IDENT               	VILAST
+COMMENT             	C
+COMMENT             	C
+IDENT               	DATA
+IDENT               	BLANK
+/                   	/
+IDENT               	32
+/                   	/
+COMMENT             	C
+COMMENT             	C     We can generate an  entry of size "-ddddd -ddddd R "; try to
+COMMENT             	C     keep line lengths under 80 characters.
+COMMENT             	C
+if                  	IF
+(                   	(
+IDENT               	TKIOLL
+(                   	(
+IDENT               	DUMMY
+)                   	)
+.                   	.
+IDENT               	GT
+.                   	.
+IDENT               	64
+)                   	)
+IDENT               	CALL
+IDENT               	TKIOWH
+(                   	(
+IDENT               	2
+IDENT               	H
+IDENT               	N
+,                   	,
+IDENT               	2
+)                   	)
+COMMENT             	C
+COMMENT             	C     Use relative coordinates for lines to reduce the  number of
+COMMENT             	C     bytes in the  verbose  PostScript  command language.   This
+COMMENT             	C     shortens the plot file by 5 to 10 percent.
+COMMENT             	C
+COMMENT             	C     We optimize output into 3 different forms:
+COMMENT             	C
+COMMENT             	C     # # R   (relative lineto)
+COMMENT             	C     # X     (relative lineto with delta-y = 0)
+COMMENT             	C     # Y     (relative lineto with delta-x = 0)
+COMMENT             	C
+COMMENT             	C     The  latter two cases  occur frequently enough  to be worth
+COMMENT             	C     taking advantage of  to compress the  output and reduce the
+COMMENT             	C     parsing  time.    We cannot  discard zero length  segments,
+COMMENT             	C     however, because that  would discard single  points from  a
+COMMENT             	C     point plot.
+COMMENT             	C
+if                  	IF
+(                   	(
+IDENT               	IX
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	LASTX
+)                   	)
+IDENT               	GO
+IDENT               	TO
+IDENT               	10
+if                  	IF
+(                   	(
+IDENT               	IY
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	LASTY
+)                   	)
+IDENT               	GO
+IDENT               	TO
+IDENT               	20
+IDENT               	CALL
+IDENT               	TKIOWN
+(                   	(
+IDENT               	IX
+-                   	-
+IDENT               	LASTX
+)                   	)
+IDENT               	CALL
+IDENT               	TKIOWB
+(                   	(
+IDENT               	BLANK
+)                   	)
+IDENT               	CALL
+IDENT               	TKIOWN
+(                   	(
+IDENT               	IY
+-                   	-
+IDENT               	LASTY
+)                   	)
+IDENT               	CALL
+IDENT               	TKIOWH
+(                   	(
+IDENT               	3
+IDENT               	H
+IDENT               	R
+,                   	,
+IDENT               	3
+)                   	)
+IDENT               	GO
+IDENT               	TO
+IDENT               	30
+IDENT               	10
+IDENT               	CALL
+IDENT               	TKIOWN
+(                   	(
+IDENT               	IY
+-                   	-
+IDENT               	LASTY
+)                   	)
+IDENT               	CALL
+IDENT               	TKIOWH
+(                   	(
+IDENT               	3
+IDENT               	H
+IDENT               	Y
+,                   	,
+IDENT               	3
+)                   	)
+IDENT               	GO
+IDENT               	TO
+IDENT               	30
+IDENT               	20
+IDENT               	CALL
+IDENT               	TKIOWN
+(                   	(
+IDENT               	IX
+-                   	-
+IDENT               	LASTX
+)                   	)
+IDENT               	CALL
+IDENT               	TKIOWH
+(                   	(
+IDENT               	3
+IDENT               	H
+IDENT               	X
+,                   	,
+IDENT               	3
+)                   	)
+IDENT               	30
+IDENT               	NPATH
+=                   	=
+IDENT               	NPATH
++                   	+
+IDENT               	1
+IDENT               	LASTX
+=                   	=
+IDENT               	IX
+IDENT               	LASTY
+=                   	=
+IDENT               	IY
+IDENT               	VILAST
+=                   	=
+.                   	.
+IDENT               	TRUE
+.                   	.
+IDENT               	MAXX
+=                   	=
+IDENT               	MAX0
+(                   	(
+IDENT               	MAXX
+,                   	,
+IDENT               	IX
+)                   	)
+IDENT               	MINX
+=                   	=
+IDENT               	MIN0
+(                   	(
+IDENT               	MINX
+,                   	,
+IDENT               	IX
+)                   	)
+IDENT               	MAXY
+=                   	=
+IDENT               	MAX0
+(                   	(
+IDENT               	MAXY
+,                   	,
+IDENT               	IY
+)                   	)
+IDENT               	MINY
+=                   	=
+IDENT               	MIN0
+(                   	(
+IDENT               	MINY
+,                   	,
+IDENT               	IY
+)                   	)
+COMMENT             	C
+COMMENT             	C     Insert a  line break  periodically to  prevent  excessively
+COMMENT             	C     long lines.
+COMMENT             	C
+COMMENT             	C     IF (MOD(NPATH,10) .EQ. 0) CALL TKIOWH (2H$N,2)
+COMMENT             	C
+IDENT               	40
+IDENT               	RETURN
+IDENT               	END

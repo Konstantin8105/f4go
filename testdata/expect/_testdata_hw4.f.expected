@@ -1,10 +1,10 @@
-token(97)	program
-IDENT	main
-IDENT	write
-(	(
-*	*
-,	,
-*	*
-)	)
-STRING	'Hello, world!'
-IDENT	end
+token(97)           	program
+IDENT               	main
+IDENT               	write
+(                   	(
+*                   	*
+,                   	,
+*                   	*
+)                   	)
+STRING              	'Hello, world!'
+IDENT               	end

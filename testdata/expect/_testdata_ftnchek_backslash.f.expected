@@ -1,40 +1,40 @@
-IDENT	character
-*	*
-IDENT	100
-IDENT	c
-IDENT	c
-=	=
-STRING	'line\
+IDENT               	character
+*                   	*
+IDENT               	100
+IDENT               	c
+IDENT               	c
+=                   	=
+STRING              	'line\
        break'
-IDENT	c
-=	=
-STRING	'LINE\
+IDENT               	c
+=                   	=
+STRING              	'LINE\
      $ BREAK'
-IDENT	c
-=	=
-STRING	'\142\040\40\132_\x5ag'
-IDENT	c
-=	=
-STRING	'abcdefg'
-IDENT	c
-=	=
-STRING	"abcdefg"
-IDENT	c
-=	=
-IDENT	c
-/	/
-/	/
-STRING	"don't"
-IDENT	c
-=	=
-STRING	'He said "yes," I think'
-IDENT	c
-=	=
-STRING	"\n, \\"
-IDENT	c
-=	=
-STRING	"\"
-STRING	"
+IDENT               	c
+=                   	=
+STRING              	'\142\040\40\132_\x5ag'
+IDENT               	c
+=                   	=
+STRING              	'abcdefg'
+IDENT               	c
+=                   	=
+STRING              	"abcdefg"
+IDENT               	c
+=                   	=
+IDENT               	c
+/                   	/
+/                   	/
+STRING              	"don't"
+IDENT               	c
+=                   	=
+STRING              	'He said "yes," I think'
+IDENT               	c
+=                   	=
+STRING              	"\n, \\"
+IDENT               	c
+=                   	=
+STRING              	"\"
+STRING              	"
       c = '\' !'
 C the next one tests unix_backslash
       c = '\'!'

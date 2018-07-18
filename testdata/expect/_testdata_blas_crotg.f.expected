@@ -1,212 +1,212 @@
-COMMENT	> \brief \b CROTG
-COMMENT	*
-COMMENT	*  =========== DOCUMENTATION ===========
-COMMENT	*
-COMMENT	* Online html documentation available at
-COMMENT	*            http://www.netlib.org/lapack/explore-html/
-COMMENT	*
-COMMENT	*  Definition:
-COMMENT	*  ===========
-COMMENT	*
-COMMENT	*       SUBROUTINE CROTG(CA,CB,C,S)
-COMMENT	*
-COMMENT	*       .. Scalar Arguments ..
-COMMENT	*       COMPLEX CA,CB,S
-COMMENT	*       REAL C
-COMMENT	*       ..
-COMMENT	*
-COMMENT	*
-COMMENT	*> \par Purpose:
-COMMENT	*  =============
-COMMENT	*>
-COMMENT	*> \verbatim
-COMMENT	*>
-COMMENT	*> CROTG determines a complex Givens rotation.
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Arguments:
-COMMENT	*  ==========
-COMMENT	*
-COMMENT	*> \param[in] CA
-COMMENT	*> \verbatim
-COMMENT	*>          CA is COMPLEX
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[in] CB
-COMMENT	*> \verbatim
-COMMENT	*>          CB is COMPLEX
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[out] C
-COMMENT	*> \verbatim
-COMMENT	*>          C is REAL
-COMMENT	*> \endverbatim
-COMMENT	*>
-COMMENT	*> \param[out] S
-COMMENT	*> \verbatim
-COMMENT	*>          S is COMPLEX
-COMMENT	*> \endverbatim
-COMMENT	*
-COMMENT	*  Authors:
-COMMENT	*  ========
-COMMENT	*
-COMMENT	*> \author Univ. of Tennessee
-COMMENT	*> \author Univ. of California Berkeley
-COMMENT	*> \author Univ. of Colorado Denver
-COMMENT	*> \author NAG Ltd.
-COMMENT	*
-COMMENT	*> \date November 2017
-COMMENT	*
-COMMENT	*> \ingroup complex_blas_level1
-COMMENT	*
-COMMENT	*  =====================================================================
-token(96)	SUBROUTINE
-IDENT	CROTG
-(	(
-IDENT	CA
-,	,
-IDENT	CB
-,	,
-IDENT	C
-,	,
-IDENT	S
-)	)
-COMMENT	*
-COMMENT	*  -- Reference BLAS level1 routine (version 3.8.0) --
-COMMENT	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-COMMENT	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-COMMENT	*     November 2017
-COMMENT	*
-COMMENT	*     .. Scalar Arguments ..
-IDENT	COMPLEX
-IDENT	CA
-,	,
-IDENT	CB
-,	,
-IDENT	S
-IDENT	REAL
-IDENT	C
-COMMENT	*     ..
-COMMENT	*
-COMMENT	*  =====================================================================
-COMMENT	*
-COMMENT	*     .. Local Scalars ..
-IDENT	COMPLEX
-IDENT	ALPHA
-IDENT	REAL
-IDENT	NORM
-,	,
-IDENT	SCALE
-COMMENT	*     ..
-COMMENT	*     .. Intrinsic Functions ..
-IDENT	INTRINSIC
-IDENT	CABS
-,	,
-IDENT	CONJG
-,	,
-IDENT	SQRT
-COMMENT	*     ..
-if	IF
-(	(
-IDENT	CABS
-(	(
-IDENT	CA
-)	)
-.	.
-IDENT	EQ
-.	.
-IDENT	0
-.	.
-)	)
-IDENT	THEN
-IDENT	C
-=	=
-IDENT	0
-.	.
-IDENT	S
-=	=
-(	(
-IDENT	1
-.	.
-,	,
-IDENT	0
-.	.
-)	)
-IDENT	CA
-=	=
-IDENT	CB
-else	ELSE
-IDENT	SCALE
-=	=
-IDENT	CABS
-(	(
-IDENT	CA
-)	)
-+	+
-IDENT	CABS
-(	(
-IDENT	CB
-)	)
-IDENT	NORM
-=	=
-IDENT	SCALE
-*	*
-IDENT	SQRT
-(	(
-(	(
-IDENT	CABS
-(	(
-IDENT	CA
-/	/
-IDENT	SCALE
-)	)
-)	)
-token(95)	**
-IDENT	2
-+	+
-(	(
-IDENT	CABS
-(	(
-IDENT	CB
-/	/
-IDENT	SCALE
-)	)
-)	)
-token(95)	**
-IDENT	2
-)	)
-IDENT	ALPHA
-=	=
-IDENT	CA
-/	/
-IDENT	CABS
-(	(
-IDENT	CA
-)	)
-IDENT	C
-=	=
-IDENT	CABS
-(	(
-IDENT	CA
-)	)
-/	/
-IDENT	NORM
-IDENT	S
-=	=
-IDENT	ALPHA
-*	*
-IDENT	CONJG
-(	(
-IDENT	CB
-)	)
-/	/
-IDENT	NORM
-IDENT	CA
-=	=
-IDENT	ALPHA
-*	*
-IDENT	NORM
-IDENT	END
-if	IF
-IDENT	RETURN
-IDENT	END
+COMMENT             	> \brief \b CROTG
+COMMENT             	*
+COMMENT             	*  =========== DOCUMENTATION ===========
+COMMENT             	*
+COMMENT             	* Online html documentation available at
+COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+COMMENT             	*
+COMMENT             	*  Definition:
+COMMENT             	*  ===========
+COMMENT             	*
+COMMENT             	*       SUBROUTINE CROTG(CA,CB,C,S)
+COMMENT             	*
+COMMENT             	*       .. Scalar Arguments ..
+COMMENT             	*       COMPLEX CA,CB,S
+COMMENT             	*       REAL C
+COMMENT             	*       ..
+COMMENT             	*
+COMMENT             	*
+COMMENT             	*> \par Purpose:
+COMMENT             	*  =============
+COMMENT             	*>
+COMMENT             	*> \verbatim
+COMMENT             	*>
+COMMENT             	*> CROTG determines a complex Givens rotation.
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Arguments:
+COMMENT             	*  ==========
+COMMENT             	*
+COMMENT             	*> \param[in] CA
+COMMENT             	*> \verbatim
+COMMENT             	*>          CA is COMPLEX
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[in] CB
+COMMENT             	*> \verbatim
+COMMENT             	*>          CB is COMPLEX
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[out] C
+COMMENT             	*> \verbatim
+COMMENT             	*>          C is REAL
+COMMENT             	*> \endverbatim
+COMMENT             	*>
+COMMENT             	*> \param[out] S
+COMMENT             	*> \verbatim
+COMMENT             	*>          S is COMPLEX
+COMMENT             	*> \endverbatim
+COMMENT             	*
+COMMENT             	*  Authors:
+COMMENT             	*  ========
+COMMENT             	*
+COMMENT             	*> \author Univ. of Tennessee
+COMMENT             	*> \author Univ. of California Berkeley
+COMMENT             	*> \author Univ. of Colorado Denver
+COMMENT             	*> \author NAG Ltd.
+COMMENT             	*
+COMMENT             	*> \date November 2017
+COMMENT             	*
+COMMENT             	*> \ingroup complex_blas_level1
+COMMENT             	*
+COMMENT             	*  =====================================================================
+token(96)           	SUBROUTINE
+IDENT               	CROTG
+(                   	(
+IDENT               	CA
+,                   	,
+IDENT               	CB
+,                   	,
+IDENT               	C
+,                   	,
+IDENT               	S
+)                   	)
+COMMENT             	*
+COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+COMMENT             	*     November 2017
+COMMENT             	*
+COMMENT             	*     .. Scalar Arguments ..
+IDENT               	COMPLEX
+IDENT               	CA
+,                   	,
+IDENT               	CB
+,                   	,
+IDENT               	S
+IDENT               	REAL
+IDENT               	C
+COMMENT             	*     ..
+COMMENT             	*
+COMMENT             	*  =====================================================================
+COMMENT             	*
+COMMENT             	*     .. Local Scalars ..
+IDENT               	COMPLEX
+IDENT               	ALPHA
+IDENT               	REAL
+IDENT               	NORM
+,                   	,
+IDENT               	SCALE
+COMMENT             	*     ..
+COMMENT             	*     .. Intrinsic Functions ..
+IDENT               	INTRINSIC
+IDENT               	CABS
+,                   	,
+IDENT               	CONJG
+,                   	,
+IDENT               	SQRT
+COMMENT             	*     ..
+if                  	IF
+(                   	(
+IDENT               	CABS
+(                   	(
+IDENT               	CA
+)                   	)
+.                   	.
+IDENT               	EQ
+.                   	.
+IDENT               	0
+.                   	.
+)                   	)
+IDENT               	THEN
+IDENT               	C
+=                   	=
+IDENT               	0
+.                   	.
+IDENT               	S
+=                   	=
+(                   	(
+IDENT               	1
+.                   	.
+,                   	,
+IDENT               	0
+.                   	.
+)                   	)
+IDENT               	CA
+=                   	=
+IDENT               	CB
+else                	ELSE
+IDENT               	SCALE
+=                   	=
+IDENT               	CABS
+(                   	(
+IDENT               	CA
+)                   	)
++                   	+
+IDENT               	CABS
+(                   	(
+IDENT               	CB
+)                   	)
+IDENT               	NORM
+=                   	=
+IDENT               	SCALE
+*                   	*
+IDENT               	SQRT
+(                   	(
+(                   	(
+IDENT               	CABS
+(                   	(
+IDENT               	CA
+/                   	/
+IDENT               	SCALE
+)                   	)
+)                   	)
+token(95)           	**
+IDENT               	2
++                   	+
+(                   	(
+IDENT               	CABS
+(                   	(
+IDENT               	CB
+/                   	/
+IDENT               	SCALE
+)                   	)
+)                   	)
+token(95)           	**
+IDENT               	2
+)                   	)
+IDENT               	ALPHA
+=                   	=
+IDENT               	CA
+/                   	/
+IDENT               	CABS
+(                   	(
+IDENT               	CA
+)                   	)
+IDENT               	C
+=                   	=
+IDENT               	CABS
+(                   	(
+IDENT               	CA
+)                   	)
+/                   	/
+IDENT               	NORM
+IDENT               	S
+=                   	=
+IDENT               	ALPHA
+*                   	*
+IDENT               	CONJG
+(                   	(
+IDENT               	CB
+)                   	)
+/                   	/
+IDENT               	NORM
+IDENT               	CA
+=                   	=
+IDENT               	ALPHA
+*                   	*
+IDENT               	NORM
+IDENT               	END
+if                  	IF
+IDENT               	RETURN
+IDENT               	END
