@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -22,6 +24,9 @@ func TestParse(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
+
+			objectFile := file[len("testdata/"):strings.Index(file, ".")] + ".o"
+			_ = os.Remove(objectFile)
 			/*
 				err = exec.Command("gfortran",
 					file).Run()
