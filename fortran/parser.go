@@ -30,7 +30,7 @@ func Parse(filename string) (ast goast.File, err error) {
 			}
 			continue
 		}
-		fmt.Println(view(tok), "\t", lit)
+		_ = lit
 	}
 
 	return
@@ -39,15 +39,27 @@ func Parse(filename string) (ast goast.File, err error) {
 func parseProgram(sc *Scanner, ast *goast.File) (err error) {
 	var fd goast.FuncDecl
 
-	tok, lit := sc.Scan()
+	tok, lit := getNextIdent(sc)
 
 	if tok == token.IDENT {
 		fd.Name = goast.NewIdent(lit)
+	} else {
+		err = fmt.Errorf("Cannot found name")
+		return
 	}
 
 	fd.Type = &goast.FuncType{}
 	fd.Body = &goast.BlockStmt{}
 
 	ast.Decls = append(ast.Decls, &fd)
+	return
+}
+
+func getNextIdent(sc *Scanner) (tok token.Token, lit string) {
+next:
+	tok, lit = sc.Scan()
+	if tok == token.COMMENT || tok == NEW_LINE {
+		goto next
+	}
 	return
 }
