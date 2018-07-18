@@ -169,7 +169,7 @@ IDENT               	p
 IDENT               	numprimes
 )                   	)
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	numprimes
 =                   	=
 IDENT               	numprimes
@@ -181,7 +181,7 @@ IDENT               	numprimes
 >                   	.gt.
 IDENT               	max
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	write
 (                   	(
 *                   	*
@@ -254,7 +254,7 @@ IDENT               	i
 ==                  	.eq.
 INT                 	0
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	divisible
 =                   	=
 IDENT               	.true.

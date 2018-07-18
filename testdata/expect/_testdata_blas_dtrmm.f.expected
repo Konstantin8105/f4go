@@ -314,7 +314,7 @@ if                  	IF
 (                   	(
 IDENT               	LSIDE
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	NROWA
 =                   	=
 IDENT               	M
@@ -361,7 +361,7 @@ STRING              	'R'
 )                   	)
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	1
@@ -383,7 +383,7 @@ STRING              	'L'
 )                   	)
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	2
@@ -422,7 +422,7 @@ STRING              	'C'
 )                   	)
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	3
@@ -449,7 +449,7 @@ STRING              	'N'
 )                   	)
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	4
@@ -460,7 +460,7 @@ IDENT               	M
 <                   	.LT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	5
@@ -471,7 +471,7 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	6
@@ -487,7 +487,7 @@ INT                 	1
 IDENT               	NROWA
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	9
@@ -503,7 +503,7 @@ INT                 	1
 IDENT               	M
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	11
@@ -515,7 +515,7 @@ IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(105)          	CALL
 IDENT               	XERBLA
 (                   	(
@@ -549,7 +549,7 @@ IDENT               	ALPHA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	20
 IDENT               	J
@@ -586,7 +586,7 @@ if                  	IF
 (                   	(
 IDENT               	LSIDE
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -596,7 +596,7 @@ IDENT               	TRANSA
 STRING              	'N'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*           Form  B := alpha*A*B.
 COMMENT             	*
@@ -604,7 +604,7 @@ if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	50
 IDENT               	J
@@ -630,7 +630,7 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -731,7 +731,7 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -823,7 +823,7 @@ if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	110
 IDENT               	J
@@ -998,7 +998,7 @@ IDENT               	TRANSA
 STRING              	'N'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*           Form  B := alpha*B*A.
 COMMENT             	*
@@ -1006,7 +1006,7 @@ if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	180
 IDENT               	J
@@ -1078,7 +1078,7 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -1195,7 +1195,7 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -1253,7 +1253,7 @@ if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	260
 IDENT               	K
@@ -1281,7 +1281,7 @@ IDENT               	K
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -1350,7 +1350,7 @@ IDENT               	TEMP
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	250
 IDENT               	I
@@ -1410,7 +1410,7 @@ IDENT               	K
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -1479,7 +1479,7 @@ IDENT               	TEMP
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	290
 IDENT               	I

@@ -156,7 +156,7 @@ IDENT               	INCY
 ==                  	.EQ.
 INT                 	1
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*        code for both increments equal to 1
 COMMENT             	*
@@ -177,7 +177,7 @@ IDENT               	M
 !=                  	.NE.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 IDENT               	I
 =                   	=

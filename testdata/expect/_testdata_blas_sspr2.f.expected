@@ -269,7 +269,7 @@ IDENT               	UPLO
 STRING              	'L'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	1
@@ -280,7 +280,7 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	2
@@ -291,7 +291,7 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	5
@@ -302,7 +302,7 @@ IDENT               	INCY
 ==                  	.EQ.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	7
@@ -314,7 +314,7 @@ IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(105)          	CALL
 IDENT               	XERBLA
 (                   	(
@@ -361,14 +361,14 @@ IDENT               	INCY
 INT                 	1
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	INCX
 >                   	.GT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	KX
 =                   	=
 INT                 	1
@@ -392,7 +392,7 @@ IDENT               	INCY
 >                   	.GT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	KY
 =                   	=
 INT                 	1
@@ -434,7 +434,7 @@ IDENT               	UPLO
 STRING              	'U'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*        Form  A  when upper triangle is stored in AP.
 COMMENT             	*
@@ -452,7 +452,7 @@ IDENT               	INCY
 INT                 	1
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	20
 IDENT               	J
@@ -480,7 +480,7 @@ IDENT               	J
 IDENT               	ZERO
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -574,7 +574,7 @@ IDENT               	JY
 IDENT               	ZERO
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -682,7 +682,7 @@ IDENT               	INCY
 INT                 	1
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	60
 IDENT               	J
@@ -710,7 +710,7 @@ IDENT               	J
 IDENT               	ZERO
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -808,7 +808,7 @@ IDENT               	JY
 IDENT               	ZERO
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA

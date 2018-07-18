@@ -249,7 +249,7 @@ IDENT               	M
 <                   	.LT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	1
@@ -260,7 +260,7 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	2
@@ -271,7 +271,7 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	5
@@ -282,7 +282,7 @@ IDENT               	INCY
 ==                  	.EQ.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	7
@@ -298,7 +298,7 @@ INT                 	1
 IDENT               	M
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	9
@@ -310,7 +310,7 @@ IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(105)          	CALL
 IDENT               	XERBLA
 (                   	(
@@ -355,7 +355,7 @@ IDENT               	INCY
 >                   	.GT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	JY
 =                   	=
 INT                 	1
@@ -379,7 +379,7 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	20
 IDENT               	J
@@ -396,7 +396,7 @@ IDENT               	JY
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -450,7 +450,7 @@ IDENT               	INCX
 >                   	.GT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	KX
 =                   	=
 INT                 	1
@@ -484,7 +484,7 @@ IDENT               	JY
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA

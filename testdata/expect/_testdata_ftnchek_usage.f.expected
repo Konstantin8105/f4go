@@ -371,7 +371,7 @@ IDENT               	stop
 &&                  	.and.
 IDENT               	save
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	cc
 (                   	(
 INT                 	2
@@ -406,7 +406,7 @@ IDENT               	xyz
 INT                 	2
 )                   	)
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	open
 (                   	(
 IDENT               	unit
@@ -569,7 +569,7 @@ IDENT               	com6
 >                   	.gt.
 IDENT               	com3
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	xray
 =                   	=
 FLOAT               	1.234

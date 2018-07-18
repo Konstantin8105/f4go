@@ -14,4 +14,5 @@ const (
 	DO
 	ENDDO
 	CALL
+	THEN
 )

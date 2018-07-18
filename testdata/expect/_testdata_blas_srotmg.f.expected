@@ -202,7 +202,7 @@ IDENT               	SD1
 <                   	.LT.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*        GO ZERO-H-D-AND-SX1..
 IDENT               	SFLAG
 =                   	=
@@ -243,7 +243,7 @@ IDENT               	SP2
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SFLAG
 =                   	=
 -                   	-
@@ -286,7 +286,7 @@ IDENT               	ABS
 IDENT               	SQ2
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SH21
 =                   	=
 -                   	-
@@ -313,7 +313,7 @@ IDENT               	SU
 >                   	.GT.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SFLAG
 =                   	=
 IDENT               	ZERO
@@ -341,7 +341,7 @@ IDENT               	SQ2
 <                   	.LT.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*              GO ZERO-H-D-AND-SX1..
 IDENT               	SFLAG
 =                   	=
@@ -419,7 +419,7 @@ IDENT               	SD1
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 IDENT               	WHILE
 (                   	(
@@ -441,7 +441,7 @@ IDENT               	SFLAG
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SH11
 =                   	=
 IDENT               	ONE
@@ -472,7 +472,7 @@ IDENT               	SD1
 <=                  	.LE.
 IDENT               	RGAMSQ
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SD1
 =                   	=
 IDENT               	SD1
@@ -529,7 +529,7 @@ IDENT               	SD2
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 IDENT               	WHILE
 (                   	(
@@ -557,7 +557,7 @@ IDENT               	SFLAG
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SH11
 =                   	=
 IDENT               	ONE
@@ -591,7 +591,7 @@ IDENT               	SD2
 <=                  	.LE.
 IDENT               	RGAMSQ
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SD2
 =                   	=
 IDENT               	SD2
@@ -641,7 +641,7 @@ IDENT               	SFLAG
 <                   	.LT.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SPARAM
 (                   	(
 INT                 	2
@@ -673,7 +673,7 @@ IDENT               	SFLAG
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SPARAM
 (                   	(
 INT                 	3

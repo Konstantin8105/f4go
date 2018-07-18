@@ -310,7 +310,7 @@ IDENT               	TRANS
 STRING              	'N'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	NROWA
 =                   	=
 IDENT               	N
@@ -349,7 +349,7 @@ STRING              	'L'
 )                   	)
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	1
@@ -377,7 +377,7 @@ STRING              	'C'
 )                   	)
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	2
@@ -388,7 +388,7 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	3
@@ -399,7 +399,7 @@ IDENT               	K
 <                   	.LT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	4
@@ -415,7 +415,7 @@ INT                 	1
 IDENT               	NROWA
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	7
@@ -431,7 +431,7 @@ INT                 	1
 IDENT               	N
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	10
@@ -443,7 +443,7 @@ IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(105)          	CALL
 IDENT               	XERBLA
 (                   	(
@@ -498,19 +498,19 @@ IDENT               	ALPHA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	20
 IDENT               	J
@@ -600,7 +600,7 @@ IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	60
 IDENT               	J
@@ -700,7 +700,7 @@ IDENT               	TRANS
 STRING              	'N'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*        Form  C := alpha*A*A**H + beta*C.
 COMMENT             	*
@@ -708,7 +708,7 @@ if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	130
 IDENT               	J
@@ -722,7 +722,7 @@ IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	90
 IDENT               	I
@@ -747,7 +747,7 @@ IDENT               	BETA
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	100
 IDENT               	I
@@ -832,7 +832,7 @@ IDENT               	DCMPLX
 IDENT               	ZERO
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -927,7 +927,7 @@ IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	140
 IDENT               	I
@@ -952,7 +952,7 @@ IDENT               	BETA
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	C
 (                   	(
 IDENT               	J
@@ -1037,7 +1037,7 @@ IDENT               	DCMPLX
 IDENT               	ZERO
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -1128,7 +1128,7 @@ if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	220
 IDENT               	J
@@ -1183,7 +1183,7 @@ IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	C
 (                   	(
 IDENT               	I
@@ -1256,7 +1256,7 @@ IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	C
 (                   	(
 IDENT               	J
@@ -1340,7 +1340,7 @@ IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	C
 (                   	(
 IDENT               	J
@@ -1423,7 +1423,7 @@ IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	C
 (                   	(
 IDENT               	I

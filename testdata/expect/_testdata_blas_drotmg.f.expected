@@ -205,7 +205,7 @@ IDENT               	DD1
 <                   	.LT.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*        GO ZERO-H-D-AND-DX1..
 IDENT               	DFLAG
 =                   	=
@@ -246,7 +246,7 @@ IDENT               	DP2
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DFLAG
 =                   	=
 -                   	-
@@ -289,7 +289,7 @@ IDENT               	DABS
 IDENT               	DQ2
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DH21
 =                   	=
 -                   	-
@@ -316,7 +316,7 @@ IDENT               	DU
 >                   	.GT.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DFLAG
 =                   	=
 IDENT               	ZERO
@@ -344,7 +344,7 @@ IDENT               	DQ2
 <                   	.LT.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*              GO ZERO-H-D-AND-DX1..
 IDENT               	DFLAG
 =                   	=
@@ -422,7 +422,7 @@ IDENT               	DD1
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 IDENT               	WHILE
 (                   	(
@@ -444,7 +444,7 @@ IDENT               	DFLAG
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DH11
 =                   	=
 IDENT               	ONE
@@ -475,7 +475,7 @@ IDENT               	DD1
 <=                  	.LE.
 IDENT               	RGAMSQ
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DD1
 =                   	=
 IDENT               	DD1
@@ -532,7 +532,7 @@ IDENT               	DD2
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 IDENT               	WHILE
 (                   	(
@@ -560,7 +560,7 @@ IDENT               	DFLAG
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DH11
 =                   	=
 IDENT               	ONE
@@ -594,7 +594,7 @@ IDENT               	DD2
 <=                  	.LE.
 IDENT               	RGAMSQ
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DD2
 =                   	=
 IDENT               	DD2
@@ -644,7 +644,7 @@ IDENT               	DFLAG
 <                   	.LT.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DPARAM
 (                   	(
 INT                 	2
@@ -676,7 +676,7 @@ IDENT               	DFLAG
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DPARAM
 (                   	(
 INT                 	3

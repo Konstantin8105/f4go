@@ -349,7 +349,7 @@ if                  	IF
 (                   	(
 IDENT               	NOTA
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	NROWA
 =                   	=
 IDENT               	M
@@ -369,7 +369,7 @@ if                  	IF
 (                   	(
 IDENT               	NOTB
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	NROWB
 =                   	=
 IDENT               	K
@@ -413,7 +413,7 @@ STRING              	'T'
 )                   	)
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	1
@@ -446,7 +446,7 @@ STRING              	'T'
 )                   	)
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	2
@@ -457,7 +457,7 @@ IDENT               	M
 <                   	.LT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	3
@@ -468,7 +468,7 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	4
@@ -479,7 +479,7 @@ IDENT               	K
 <                   	.LT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	5
@@ -495,7 +495,7 @@ INT                 	1
 IDENT               	NROWA
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	8
@@ -511,7 +511,7 @@ INT                 	1
 IDENT               	NROWB
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	10
@@ -527,7 +527,7 @@ INT                 	1
 IDENT               	M
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	13
@@ -539,7 +539,7 @@ IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(105)          	CALL
 IDENT               	XERBLA
 (                   	(
@@ -600,14 +600,14 @@ IDENT               	ALPHA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	20
 IDENT               	J
@@ -680,12 +680,12 @@ if                  	IF
 (                   	(
 IDENT               	NOTB
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	NOTA
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*           Form  C := alpha*A*B + beta*C.
 COMMENT             	*
@@ -702,7 +702,7 @@ IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	50
 IDENT               	I
@@ -727,7 +727,7 @@ IDENT               	BETA
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	60
 IDENT               	I
@@ -859,7 +859,7 @@ IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	C
 (                   	(
 IDENT               	I
@@ -903,7 +903,7 @@ if                  	IF
 (                   	(
 IDENT               	NOTA
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*           Form  C := alpha*A*B**T + beta*C
 COMMENT             	*
@@ -920,7 +920,7 @@ IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	130
 IDENT               	I
@@ -945,7 +945,7 @@ IDENT               	BETA
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	140
 IDENT               	I
@@ -1077,7 +1077,7 @@ IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	C
 (                   	(
 IDENT               	I

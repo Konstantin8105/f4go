@@ -146,7 +146,7 @@ IDENT               	Ch
 STRING              	'.'
 )                   	)
 )                   	)
-IDENT               	Then
+token(106)          	Then
 IDENT               	NC
 =                   	=
 IDENT               	NC
@@ -158,7 +158,7 @@ IDENT               	Ch
 ==                  	.EQ.
 STRING              	'.'
 )                   	)
-IDENT               	Then
+token(106)          	Then
 IDENT               	NP
 =                   	=
 IDENT               	NP
@@ -552,7 +552,7 @@ STRING              	'a'
 )                   	)
 )                   	)
 )                   	)
-IDENT               	Then
+token(106)          	Then
 IDENT               	IntUpCase
 =                   	=
 IDENT               	I

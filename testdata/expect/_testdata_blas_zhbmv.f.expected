@@ -364,7 +364,7 @@ IDENT               	UPLO
 STRING              	'L'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	1
@@ -375,7 +375,7 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	2
@@ -386,7 +386,7 @@ IDENT               	K
 <                   	.LT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	3
@@ -401,7 +401,7 @@ IDENT               	K
 INT                 	1
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	6
@@ -412,7 +412,7 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	8
@@ -423,7 +423,7 @@ IDENT               	INCY
 ==                  	.EQ.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	11
@@ -435,7 +435,7 @@ IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(105)          	CALL
 IDENT               	XERBLA
 (                   	(
@@ -481,7 +481,7 @@ IDENT               	INCX
 >                   	.GT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	KX
 =                   	=
 INT                 	1
@@ -505,7 +505,7 @@ IDENT               	INCY
 >                   	.GT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	KY
 =                   	=
 INT                 	1
@@ -535,21 +535,21 @@ IDENT               	BETA
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	INCY
 ==                  	.EQ.
 INT                 	1
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	10
 IDENT               	I
@@ -598,7 +598,7 @@ IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	30
 IDENT               	I
@@ -667,7 +667,7 @@ IDENT               	UPLO
 STRING              	'U'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*        Form  y  when upper triangle of A is stored.
 COMMENT             	*
@@ -690,7 +690,7 @@ IDENT               	INCY
 INT                 	1
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	60
 IDENT               	J
@@ -944,7 +944,7 @@ IDENT               	J
 >                   	.GT.
 IDENT               	K
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	KX
 =                   	=
 IDENT               	KX
@@ -979,7 +979,7 @@ IDENT               	INCY
 INT                 	1
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	100
 IDENT               	J

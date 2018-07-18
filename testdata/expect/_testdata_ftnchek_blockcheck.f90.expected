@@ -17,7 +17,7 @@ IDENT               	x
 >                   	.gt.
 INT                 	0
 )                   	)
-IDENT               	then
+token(106)          	then
 token(105)          	call
 IDENT               	baz
 (                   	(
@@ -254,7 +254,7 @@ IDENT               	a
 >                   	.gt.
 INT                 	0
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	b
 =                   	=
 IDENT               	c
@@ -266,7 +266,7 @@ IDENT               	b
 >                   	.gt.
 INT                 	0
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	d
 =                   	=
 FLOAT               	1.0
@@ -277,7 +277,7 @@ IDENT               	c
 >                   	.gt.
 INT                 	0
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	b
 =                   	=
 IDENT               	a
@@ -337,7 +337,7 @@ IDENT               	a
 >                   	.gt.
 INT                 	0
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	b
 =                   	=
 IDENT               	c
@@ -351,7 +351,7 @@ IDENT               	b
 >                   	.gt.
 INT                 	0
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	d
 =                   	=
 FLOAT               	1.0
@@ -365,7 +365,7 @@ IDENT               	c
 >                   	.gt.
 INT                 	0
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	first_if
 IDENT               	b
 =                   	=

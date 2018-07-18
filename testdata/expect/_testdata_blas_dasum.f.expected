@@ -145,7 +145,7 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*        code for increment equal to 1
 COMMENT             	*
 COMMENT             	*
@@ -165,7 +165,7 @@ IDENT               	M
 !=                  	.NE.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 IDENT               	I
 =                   	=
@@ -191,7 +191,7 @@ IDENT               	N
 <                   	.LT.
 INT                 	6
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DASUM
 =                   	=
 IDENT               	DTEMP

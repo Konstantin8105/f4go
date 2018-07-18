@@ -200,7 +200,7 @@ IDENT               	INCX
 >                   	.GT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*     Code for equal, positive, non-unit increments.
 COMMENT             	*

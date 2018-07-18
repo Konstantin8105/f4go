@@ -17,7 +17,7 @@ INT                 	2
 ==                  	.eq.
 INT                 	0
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	print
 *                   	*
 ,                   	,

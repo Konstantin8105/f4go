@@ -115,7 +115,7 @@ IDENT               	CA
 ==                  	.EQ.
 FLOAT               	0.
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	C
 =                   	=
 FLOAT               	0.

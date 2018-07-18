@@ -247,7 +247,7 @@ if                  	IF
 (                   	(
 IDENT               	bool
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	WRITE
 (                   	(
 INT                 	10
@@ -305,7 +305,7 @@ IDENT               	d
 >                   	.gt.
 FLOAT               	3.14
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	CYCLE
 else                	ELSE
 IDENT               	EXIT

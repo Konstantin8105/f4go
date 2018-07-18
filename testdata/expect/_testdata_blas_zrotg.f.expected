@@ -123,7 +123,7 @@ IDENT               	CA
 ==                  	.EQ.
 FLOAT               	0.0d0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	C
 =                   	=
 FLOAT               	0.0d0

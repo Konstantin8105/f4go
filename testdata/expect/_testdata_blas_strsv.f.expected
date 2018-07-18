@@ -269,7 +269,7 @@ IDENT               	UPLO
 STRING              	'L'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	1
@@ -301,7 +301,7 @@ IDENT               	TRANS
 STRING              	'C'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	2
@@ -324,7 +324,7 @@ IDENT               	DIAG
 STRING              	'N'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	3
@@ -335,7 +335,7 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	4
@@ -351,7 +351,7 @@ INT                 	1
 IDENT               	N
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	6
@@ -362,7 +362,7 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	INFO
 =                   	=
 INT                 	8
@@ -374,7 +374,7 @@ IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(105)          	CALL
 IDENT               	XERBLA
 (                   	(
@@ -414,7 +414,7 @@ IDENT               	INCX
 <=                  	.LE.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	KX
 =                   	=
 INT                 	1
@@ -433,7 +433,7 @@ IDENT               	INCX
 !=                  	.NE.
 INT                 	1
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	KX
 =                   	=
 INT                 	1
@@ -452,7 +452,7 @@ IDENT               	TRANS
 STRING              	'N'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*        Form  x := inv( A )*x.
 COMMENT             	*
@@ -465,14 +465,14 @@ IDENT               	UPLO
 STRING              	'U'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	20
 IDENT               	J
@@ -492,7 +492,7 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -586,7 +586,7 @@ IDENT               	JX
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -671,7 +671,7 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	60
 IDENT               	J
@@ -688,7 +688,7 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -768,7 +768,7 @@ IDENT               	JX
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -858,14 +858,14 @@ IDENT               	UPLO
 STRING              	'U'
 )                   	)
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 if                  	IF
 (                   	(
 IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	100
 IDENT               	J
@@ -1014,7 +1014,7 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 token(103)          	DO
 INT                 	140
 IDENT               	J

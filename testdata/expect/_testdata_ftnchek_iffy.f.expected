@@ -24,7 +24,7 @@ if                  	IF
 (                   	(
 IDENT               	USE1
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	M
 =                   	=
 INT                 	1
@@ -34,7 +34,7 @@ if                  	IF
 (                   	(
 IDENT               	USE2
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	M
 =                   	=
 INT                 	2
@@ -87,7 +87,7 @@ if                  	IF
 (                   	(
 IDENT               	L
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	M
 =                   	=
 IDENT               	M
@@ -99,7 +99,7 @@ if                  	IF
 (                   	(
 IDENT               	M
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	M
 =                   	=
 IDENT               	M

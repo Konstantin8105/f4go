@@ -216,7 +216,7 @@ IDENT               	INCX
 >                   	.GT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 IDENT               	NSTEPS
 =                   	=
@@ -229,7 +229,7 @@ IDENT               	DFLAG
 <                   	.LT.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DH11
 =                   	=
 IDENT               	DPARAM
@@ -307,7 +307,7 @@ IDENT               	DFLAG
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DH12
 =                   	=
 IDENT               	DPARAM
@@ -468,7 +468,7 @@ IDENT               	DFLAG
 <                   	.LT.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DH11
 =                   	=
 IDENT               	DPARAM
@@ -554,7 +554,7 @@ IDENT               	DFLAG
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	DH12
 =                   	=
 IDENT               	DPARAM

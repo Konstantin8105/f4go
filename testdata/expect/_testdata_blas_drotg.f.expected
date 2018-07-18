@@ -152,7 +152,7 @@ IDENT               	SCALE
 ==                  	.EQ.
 FLOAT               	0.0d0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	C
 =                   	=
 FLOAT               	1.0d0

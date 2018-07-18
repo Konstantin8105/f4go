@@ -143,7 +143,7 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*        code for increment equal to 1
 COMMENT             	*
@@ -174,7 +174,7 @@ IDENT               	I
 >                   	.GT.
 IDENT               	SMAX
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	ISAMAX
 =                   	=
 IDENT               	I
@@ -230,7 +230,7 @@ IDENT               	IX
 >                   	.GT.
 IDENT               	SMAX
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	ISAMAX
 =                   	=
 IDENT               	I

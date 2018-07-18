@@ -334,6 +334,8 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		return token.CONTINUE, buf.String()
 	case "CALL":
 		return CALL, buf.String()
+	case "THEN":
+		return THEN, buf.String()
 	}
 
 	// Otherwise return as a regular identifier.

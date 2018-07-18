@@ -153,7 +153,7 @@ IDENT               	INCX
 <                   	.LT.
 INT                 	1
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	NORM
 =                   	=
 IDENT               	ZERO
@@ -197,7 +197,7 @@ IDENT               	IX
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP
 =                   	=
 IDENT               	ABS
@@ -216,7 +216,7 @@ IDENT               	SCALE
 <                   	.LT.
 IDENT               	TEMP
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SSQ
 =                   	=
 IDENT               	ONE
@@ -261,7 +261,7 @@ IDENT               	IX
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	TEMP
 =                   	=
 IDENT               	ABS
@@ -280,7 +280,7 @@ IDENT               	SCALE
 <                   	.LT.
 IDENT               	TEMP
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SSQ
 =                   	=
 IDENT               	ONE

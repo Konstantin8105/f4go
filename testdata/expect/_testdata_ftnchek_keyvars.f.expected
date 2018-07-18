@@ -118,7 +118,7 @@ IDENT               	character
 <                   	.lt.
 IDENT               	close
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	equivalence
 =                   	=
 IDENT               	endfile
@@ -136,7 +136,7 @@ INT                 	1
 INT                 	2
 )                   	)
 )                   	)
-IDENT               	then
+token(106)          	then
 IDENT               	goto
 =                   	=
 token(103)          	do
@@ -151,7 +151,7 @@ IDENT               	print
 ==                  	.eq.
 if                  	if
 )                   	)
-IDENT               	then
+token(106)          	then
 =                   	=
 IDENT               	to
 IDENT               	include
@@ -201,7 +201,7 @@ IDENT               	return
 IDENT               	real
 token(96)           	subroutine
 =                   	=
-IDENT               	then
+token(106)          	then
 token(105)          	call
 token(105)          	call
 (                   	(

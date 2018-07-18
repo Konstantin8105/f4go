@@ -215,7 +215,7 @@ IDENT               	INCX
 >                   	.GT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 IDENT               	NSTEPS
 =                   	=
@@ -228,7 +228,7 @@ IDENT               	SFLAG
 <                   	.LT.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SH11
 =                   	=
 IDENT               	SPARAM
@@ -306,7 +306,7 @@ IDENT               	SFLAG
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SH12
 =                   	=
 IDENT               	SPARAM
@@ -467,7 +467,7 @@ IDENT               	SFLAG
 <                   	.LT.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SH11
 =                   	=
 IDENT               	SPARAM
@@ -553,7 +553,7 @@ IDENT               	SFLAG
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SH12
 =                   	=
 IDENT               	SPARAM

@@ -296,7 +296,7 @@ IDENT               	N
 <=                  	.LE.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 IDENT               	SDSDOT
 =                   	=
 IDENT               	DSDOT
@@ -313,7 +313,7 @@ IDENT               	INCX
 >                   	.GT.
 INT                 	0
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*     Code for equal and positive increments.
 COMMENT             	*

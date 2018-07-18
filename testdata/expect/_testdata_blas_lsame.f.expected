@@ -137,7 +137,7 @@ IDENT               	ZCODE
 ==                  	.EQ.
 INT                 	122
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*        ASCII is assumed - ZCODE is the ASCII code of either lower or
 COMMENT             	*        upper case 'Z'.
@@ -184,7 +184,7 @@ IDENT               	ZCODE
 ==                  	.EQ.
 INT                 	169
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*        EBCDIC is assumed - ZCODE is the EBCDIC code of either lower or
 COMMENT             	*        upper case 'Z'.
@@ -267,7 +267,7 @@ IDENT               	ZCODE
 ==                  	.EQ.
 INT                 	250
 )                   	)
-IDENT               	THEN
+token(106)          	THEN
 COMMENT             	*
 COMMENT             	*        ASCII is assumed, on Prime machines - ZCODE is the ASCII code
 COMMENT             	*        plus 128 of either lower or upper case 'Z'.
