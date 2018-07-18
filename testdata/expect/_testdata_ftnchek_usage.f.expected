@@ -35,7 +35,7 @@ IDENT	whitespace
 ,	,
 IDENT	but
 IDENT	nothing
-IDENT	else
+else	else
 .	.
 IDENT	Note
 IDENT	continuation
@@ -399,7 +399,7 @@ IDENT	1
 .	.
 IDENT	234
 IDENT	return
-IDENT	else
+else	else
 IDENT	xray
 =	=
 -	-

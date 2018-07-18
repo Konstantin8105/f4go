@@ -174,7 +174,7 @@ IDENT	NP
 IDENT	NP
 +	+
 IDENT	1
-IDENT	Else
+else	Else
 IDENT	NW
 =	=
 IDENT	NW
@@ -583,7 +583,7 @@ IDENT	ICHAR
 (	(
 STRING	' '
 )	)
-IDENT	Else
+else	Else
 IDENT	IntUpCase
 =	=
 IDENT	I

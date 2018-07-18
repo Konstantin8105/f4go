@@ -126,7 +126,7 @@ IDENT	then
 IDENT	equivalence
 =	=
 IDENT	endfile
-IDENT	else
+else	else
 if	if
 (	(
 IDENT	rewind

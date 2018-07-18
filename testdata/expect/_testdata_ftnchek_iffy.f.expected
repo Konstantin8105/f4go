@@ -29,7 +29,7 @@ IDENT	M
 =	=
 IDENT	1
 COMMENT	* else-if statement is OK
-IDENT	ELSE
+else	ELSE
 if	IF
 (	(
 IDENT	USE2
@@ -38,7 +38,7 @@ IDENT	THEN
 IDENT	M
 =	=
 IDENT	2
-IDENT	ELSE
+else	ELSE
 IDENT	M
 =	=
 IDENT	3
@@ -96,7 +96,7 @@ IDENT	M
 +	+
 IDENT	1
 COMMENT	* violate an elseif statement
-IDENT	ELSE
+else	ELSE
 if	IF
 (	(
 IDENT	M
@@ -107,7 +107,7 @@ IDENT	M
 IDENT	M
 +	+
 IDENT	2
-IDENT	ELSE
+else	ELSE
 IDENT	M
 =	=
 IDENT	M

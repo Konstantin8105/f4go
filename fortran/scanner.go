@@ -253,6 +253,8 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		return FUNCTION, buf.String()
 	case "IF":
 		return token.IF, buf.String()
+	case "ELSE":
+		return token.ELSE, buf.String()
 	}
 
 	// Otherwise return as a regular identifier.

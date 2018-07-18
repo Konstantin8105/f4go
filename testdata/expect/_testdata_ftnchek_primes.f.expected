@@ -185,7 +185,7 @@ STRING	'Ran out of space at p='
 ,	,
 IDENT	i
 IDENT	stop
-IDENT	else
+else	else
 IDENT	p
 (	(
 IDENT	numprimes

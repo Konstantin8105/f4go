@@ -91,7 +91,7 @@ IDENT	0
 )	)
 IDENT	end
 IDENT	select
-IDENT	else
+else	else
 IDENT	k
 =	=
 IDENT	0
@@ -282,7 +282,7 @@ IDENT	0
 )	)
 IDENT	exit
 COMMENT	! no enclosing DO
-IDENT	else
+else	else
 if	if
 (	(
 IDENT	x
@@ -369,7 +369,7 @@ IDENT	d
 IDENT	1
 .	.
 IDENT	0
-IDENT	else
+else	else
 IDENT	b
 =	=
 IDENT	abs
@@ -443,7 +443,7 @@ IDENT	0
 IDENT	end
 if	if
 IDENT	second_if
-IDENT	else
+else	else
 if	if
 (	(
 IDENT	c
@@ -465,7 +465,7 @@ IDENT	d
 IDENT	1
 .	.
 IDENT	0
-IDENT	else
+else	else
 IDENT	first_if
 IDENT	b
 =	=

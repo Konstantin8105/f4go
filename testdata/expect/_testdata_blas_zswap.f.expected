@@ -190,7 +190,7 @@ IDENT	I
 IDENT	ZTEMP
 IDENT	END
 IDENT	DO
-IDENT	ELSE
+else	ELSE
 COMMENT	*
 COMMENT	*       code for unequal increments or equal increments not equal
 COMMENT	*         to 1

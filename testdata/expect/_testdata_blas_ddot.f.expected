@@ -325,7 +325,7 @@ IDENT	4
 )	)
 IDENT	END
 IDENT	DO
-IDENT	ELSE
+else	ELSE
 COMMENT	*
 COMMENT	*        code for unequal increments or equal increments
 COMMENT	*          not equal to 1

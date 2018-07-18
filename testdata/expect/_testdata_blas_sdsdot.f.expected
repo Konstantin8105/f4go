@@ -357,7 +357,7 @@ IDENT	I
 )	)
 IDENT	END
 IDENT	DO
-IDENT	ELSE
+else	ELSE
 COMMENT	*
 COMMENT	*     Code for unequal or nonpositive increments.
 COMMENT	*

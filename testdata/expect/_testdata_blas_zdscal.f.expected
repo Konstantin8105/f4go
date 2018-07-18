@@ -179,7 +179,7 @@ IDENT	I
 )	)
 IDENT	END
 IDENT	DO
-IDENT	ELSE
+else	ELSE
 COMMENT	*
 COMMENT	*        code for increment not equal to 1
 COMMENT	*
