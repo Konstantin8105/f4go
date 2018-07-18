@@ -192,7 +192,7 @@ IDENT               	THEN
 COMMENT             	*
 COMMENT             	*        code for both increments equal to 1
 COMMENT             	*
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -238,7 +238,7 @@ IDENT               	I
 =                   	=
 IDENT               	CTEMP
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 COMMENT             	*
 COMMENT             	*        code for unequal increments or equal increments not equal
@@ -290,7 +290,7 @@ IDENT               	1
 IDENT               	INCY
 +                   	+
 IDENT               	1
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -346,7 +346,7 @@ IDENT               	IY
 +                   	+
 IDENT               	INCY
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 token(102)          	END
 if                  	IF
 IDENT               	RETURN

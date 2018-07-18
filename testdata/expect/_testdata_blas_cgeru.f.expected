@@ -408,7 +408,7 @@ IDENT               	EQ
 IDENT               	1
 )                   	)
 IDENT               	THEN
-IDENT               	DO
+token(103)          	DO
 IDENT               	20
 IDENT               	J
 =                   	=
@@ -435,7 +435,7 @@ IDENT               	Y
 (                   	(
 IDENT               	JY
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	10
 IDENT               	I
 =                   	=
@@ -463,7 +463,7 @@ IDENT               	I
 *                   	*
 IDENT               	TEMP
 IDENT               	10
-IDENT               	CONTINUE
+continue            	CONTINUE
 token(102)          	END
 if                  	IF
 IDENT               	JY
@@ -472,7 +472,7 @@ IDENT               	JY
 +                   	+
 IDENT               	INCY
 IDENT               	20
-IDENT               	CONTINUE
+continue            	CONTINUE
 else                	ELSE
 if                  	IF
 (                   	(
@@ -500,7 +500,7 @@ IDENT               	1
 IDENT               	INCX
 token(102)          	END
 if                  	IF
-IDENT               	DO
+token(103)          	DO
 IDENT               	40
 IDENT               	J
 =                   	=
@@ -530,7 +530,7 @@ IDENT               	JY
 IDENT               	IX
 =                   	=
 IDENT               	KX
-IDENT               	DO
+token(103)          	DO
 IDENT               	30
 IDENT               	I
 =                   	=
@@ -563,7 +563,7 @@ IDENT               	IX
 +                   	+
 IDENT               	INCX
 IDENT               	30
-IDENT               	CONTINUE
+continue            	CONTINUE
 token(102)          	END
 if                  	IF
 IDENT               	JY
@@ -572,7 +572,7 @@ IDENT               	JY
 +                   	+
 IDENT               	INCY
 IDENT               	40
-IDENT               	CONTINUE
+continue            	CONTINUE
 token(102)          	END
 if                  	IF
 COMMENT             	*

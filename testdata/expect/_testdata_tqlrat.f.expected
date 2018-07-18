@@ -123,7 +123,7 @@ IDENT               	GO
 IDENT               	TO
 IDENT               	1001
 COMMENT             	C
-IDENT               	DO
+token(103)          	DO
 IDENT               	100
 IDENT               	I
 =                   	=
@@ -165,7 +165,7 @@ IDENT               	0
 IDENT               	0
 IDENT               	D0
 COMMENT             	C
-IDENT               	DO
+token(103)          	DO
 IDENT               	290
 IDENT               	L
 =                   	=
@@ -232,7 +232,7 @@ IDENT               	go
 IDENT               	to
 IDENT               	105
 COMMENT             	C        Spliting tolerance underflowed.  Look for larger value.
-IDENT               	do
+token(103)          	do
 IDENT               	102
 IDENT               	i
 =                   	=
@@ -268,7 +268,7 @@ IDENT               	t
 =                   	=
 IDENT               	h
 IDENT               	102
-IDENT               	continue
+continue            	continue
 IDENT               	b
 =                   	=
 IDENT               	epslon
@@ -282,7 +282,7 @@ IDENT               	b
 IDENT               	b
 COMMENT             	C     .......... LOOK FOR SMALL SQUARED SUB-DIAGONAL ELEMENT ..........
 IDENT               	105
-IDENT               	DO
+token(103)          	DO
 IDENT               	110
 IDENT               	M
 =                   	=
@@ -306,7 +306,7 @@ IDENT               	120
 COMMENT             	C     .......... E2(N) IS ALWAYS ZERO, SO THERE IS NO EXIT
 COMMENT             	C                THROUGH THE BOTTOM OF THE LOOP ..........
 IDENT               	110
-IDENT               	CONTINUE
+continue            	CONTINUE
 COMMENT             	C
 IDENT               	120
 if                  	IF
@@ -414,7 +414,7 @@ IDENT               	D
 IDENT               	L
 )                   	)
 COMMENT             	C
-IDENT               	DO
+token(103)          	DO
 IDENT               	140
 IDENT               	I
 =                   	=
@@ -475,7 +475,7 @@ IDENT               	M
 -                   	-
 IDENT               	L
 COMMENT             	C     .......... FOR I=M-1 STEP -1 UNTIL L DO -- ..........
-IDENT               	DO
+token(103)          	DO
 IDENT               	200
 IDENT               	II
 =                   	=
@@ -581,7 +581,7 @@ IDENT               	p
 IDENT               	r
 )                   	)
 IDENT               	200
-IDENT               	CONTINUE
+continue            	CONTINUE
 COMMENT             	C
 IDENT               	E2
 (                   	(
@@ -684,7 +684,7 @@ IDENT               	GO
 IDENT               	TO
 IDENT               	250
 COMMENT             	C     .......... FOR I=L STEP -1 UNTIL 2 DO -- ..........
-IDENT               	DO
+token(103)          	DO
 IDENT               	230
 IDENT               	II
 =                   	=
@@ -726,7 +726,7 @@ IDENT               	I
 IDENT               	1
 )                   	)
 IDENT               	230
-IDENT               	CONTINUE
+continue            	CONTINUE
 COMMENT             	C
 IDENT               	250
 IDENT               	I
@@ -740,7 +740,7 @@ IDENT               	I
 =                   	=
 IDENT               	P
 IDENT               	290
-IDENT               	CONTINUE
+continue            	CONTINUE
 COMMENT             	C
 IDENT               	GO
 IDENT               	TO

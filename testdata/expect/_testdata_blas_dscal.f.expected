@@ -177,7 +177,7 @@ IDENT               	NE
 IDENT               	0
 )                   	)
 IDENT               	THEN
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -195,7 +195,7 @@ IDENT               	DX
 IDENT               	I
 )                   	)
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 if                  	IF
 (                   	(
 IDENT               	N
@@ -212,7 +212,7 @@ IDENT               	MP1
 IDENT               	M
 +                   	+
 IDENT               	1
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	MP1
@@ -292,7 +292,7 @@ IDENT               	I
 IDENT               	4
 )                   	)
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 COMMENT             	*
 COMMENT             	*        code for increment not equal to 1
@@ -302,7 +302,7 @@ IDENT               	NINCX
 IDENT               	N
 *                   	*
 IDENT               	INCX
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -322,7 +322,7 @@ IDENT               	DX
 IDENT               	I
 )                   	)
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 token(102)          	END
 if                  	IF
 IDENT               	RETURN

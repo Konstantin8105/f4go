@@ -575,7 +575,7 @@ IDENT               	EQ
 IDENT               	ZERO
 )                   	)
 IDENT               	THEN
-IDENT               	DO
+token(103)          	DO
 IDENT               	10
 IDENT               	I
 =                   	=
@@ -589,9 +589,9 @@ IDENT               	I
 =                   	=
 IDENT               	ZERO
 IDENT               	10
-IDENT               	CONTINUE
+continue            	CONTINUE
 else                	ELSE
-IDENT               	DO
+token(103)          	DO
 IDENT               	20
 IDENT               	I
 =                   	=
@@ -610,7 +610,7 @@ IDENT               	Y
 IDENT               	I
 )                   	)
 IDENT               	20
-IDENT               	CONTINUE
+continue            	CONTINUE
 token(102)          	END
 if                  	IF
 else                	ELSE
@@ -626,7 +626,7 @@ IDENT               	EQ
 IDENT               	ZERO
 )                   	)
 IDENT               	THEN
-IDENT               	DO
+token(103)          	DO
 IDENT               	30
 IDENT               	I
 =                   	=
@@ -645,9 +645,9 @@ IDENT               	IY
 +                   	+
 IDENT               	INCY
 IDENT               	30
-IDENT               	CONTINUE
+continue            	CONTINUE
 else                	ELSE
-IDENT               	DO
+token(103)          	DO
 IDENT               	40
 IDENT               	I
 =                   	=
@@ -671,7 +671,7 @@ IDENT               	IY
 +                   	+
 IDENT               	INCY
 IDENT               	40
-IDENT               	CONTINUE
+continue            	CONTINUE
 token(102)          	END
 if                  	IF
 token(102)          	END
@@ -726,7 +726,7 @@ IDENT               	1
 )                   	)
 )                   	)
 IDENT               	THEN
-IDENT               	DO
+token(103)          	DO
 IDENT               	60
 IDENT               	J
 =                   	=
@@ -749,7 +749,7 @@ IDENT               	L
 IDENT               	KPLUS1
 -                   	-
 IDENT               	J
-IDENT               	DO
+token(103)          	DO
 IDENT               	50
 IDENT               	I
 =                   	=
@@ -803,7 +803,7 @@ IDENT               	X
 IDENT               	I
 )                   	)
 IDENT               	50
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	Y
 (                   	(
 IDENT               	J
@@ -827,7 +827,7 @@ IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
 IDENT               	60
-IDENT               	CONTINUE
+continue            	CONTINUE
 else                	ELSE
 IDENT               	JX
 =                   	=
@@ -835,7 +835,7 @@ IDENT               	KX
 IDENT               	JY
 =                   	=
 IDENT               	KY
-IDENT               	DO
+token(103)          	DO
 IDENT               	80
 IDENT               	J
 =                   	=
@@ -864,7 +864,7 @@ IDENT               	L
 IDENT               	KPLUS1
 -                   	-
 IDENT               	J
-IDENT               	DO
+token(103)          	DO
 IDENT               	70
 IDENT               	I
 =                   	=
@@ -928,7 +928,7 @@ IDENT               	IY
 +                   	+
 IDENT               	INCY
 IDENT               	70
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	Y
 (                   	(
 IDENT               	JY
@@ -983,7 +983,7 @@ IDENT               	INCY
 token(102)          	END
 if                  	IF
 IDENT               	80
-IDENT               	CONTINUE
+continue            	CONTINUE
 token(102)          	END
 if                  	IF
 else                	ELSE
@@ -1011,7 +1011,7 @@ IDENT               	1
 )                   	)
 )                   	)
 IDENT               	THEN
-IDENT               	DO
+token(103)          	DO
 IDENT               	100
 IDENT               	J
 =                   	=
@@ -1052,7 +1052,7 @@ IDENT               	L
 IDENT               	1
 -                   	-
 IDENT               	J
-IDENT               	DO
+token(103)          	DO
 IDENT               	90
 IDENT               	I
 =                   	=
@@ -1106,7 +1106,7 @@ IDENT               	X
 IDENT               	I
 )                   	)
 IDENT               	90
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	Y
 (                   	(
 IDENT               	J
@@ -1121,7 +1121,7 @@ IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
 IDENT               	100
-IDENT               	CONTINUE
+continue            	CONTINUE
 else                	ELSE
 IDENT               	JX
 =                   	=
@@ -1129,7 +1129,7 @@ IDENT               	KX
 IDENT               	JY
 =                   	=
 IDENT               	KY
-IDENT               	DO
+token(103)          	DO
 IDENT               	120
 IDENT               	J
 =                   	=
@@ -1176,7 +1176,7 @@ IDENT               	JX
 IDENT               	IY
 =                   	=
 IDENT               	JY
-IDENT               	DO
+token(103)          	DO
 IDENT               	110
 IDENT               	I
 =                   	=
@@ -1240,7 +1240,7 @@ IDENT               	X
 IDENT               	IX
 )                   	)
 IDENT               	110
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	Y
 (                   	(
 IDENT               	JY
@@ -1265,7 +1265,7 @@ IDENT               	JY
 +                   	+
 IDENT               	INCY
 IDENT               	120
-IDENT               	CONTINUE
+continue            	CONTINUE
 token(102)          	END
 if                  	IF
 token(102)          	END

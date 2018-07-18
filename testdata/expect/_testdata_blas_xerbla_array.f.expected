@@ -137,7 +137,7 @@ COMMENT             	*     .. Executable Statements ..
 IDENT               	SRNAME
 =                   	=
 STRING              	''
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -163,7 +163,7 @@ IDENT               	SRNAME_ARRAY
 IDENT               	I
 )                   	)
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 IDENT               	CALL
 IDENT               	XERBLA
 (                   	(

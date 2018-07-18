@@ -72,7 +72,7 @@ IDENT               	1
 IDENT               	stop
 STRING              	'Please $ASSIGN/USER output FOR001'
 IDENT               	2
-IDENT               	do
+token(103)          	do
 IDENT               	i
 =                   	=
 IDENT               	1
@@ -93,7 +93,7 @@ IDENT               	line
 IDENT               	i
 )                   	)
 token(102)          	end
-IDENT               	do
+token(103)          	do
 IDENT               	write
 (                   	(
 IDENT               	1
@@ -125,7 +125,7 @@ IDENT               	4
 IDENT               	goto
 IDENT               	2
 IDENT               	3
-IDENT               	continue
+continue            	continue
 IDENT               	close
 (                   	(
 IDENT               	unit
@@ -180,7 +180,7 @@ COMMENT             	*
 COMMENT             	*       Read a line from standard input, write it to the new file,
 COMMENT             	*       and echo it to standard output.
 COMMENT             	*
-IDENT               	do
+token(103)          	do
 IDENT               	j
 =                   	=
 IDENT               	1
@@ -215,7 +215,7 @@ IDENT               	5
 IDENT               	20
 )                   	)
 IDENT               	inline
-IDENT               	enddo
+token(104)          	enddo
 IDENT               	10
 IDENT               	format
 (                   	(
@@ -236,7 +236,7 @@ IDENT               	print
 ,                   	,
 STRING              	'Error opening file.'
 IDENT               	910
-IDENT               	continue
+continue            	continue
 IDENT               	close
 (                   	(
 IDENT               	unit

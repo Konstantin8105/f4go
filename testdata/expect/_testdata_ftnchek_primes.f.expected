@@ -88,7 +88,7 @@ IDENT               	write
 *                   	*
 )                   	)
 IDENT               	heading
-IDENT               	do
+token(103)          	do
 IDENT               	i
 =                   	=
 IDENT               	1
@@ -107,7 +107,7 @@ IDENT               	a
 IDENT               	i
 )                   	)
 token(102)          	end
-IDENT               	do
+token(103)          	do
 token(102)          	end
 token(98)           	integer
 token(101)          	function
@@ -149,7 +149,7 @@ IDENT               	numprimes
 =                   	=
 IDENT               	2
 COMMENT             	C loop thru odd integers, testing if divisible
-IDENT               	do
+token(103)          	do
 IDENT               	i
 =                   	=
 IDENT               	3
@@ -208,7 +208,7 @@ if                  	if
 token(102)          	end
 if                  	if
 token(102)          	end
-IDENT               	do
+token(103)          	do
 COMMENT             	C return number of primes found
 IDENT               	makeprimes
 =                   	=
@@ -238,7 +238,7 @@ IDENT               	1
 )                   	)
 token(98)           	integer
 IDENT               	i
-IDENT               	do
+token(103)          	do
 IDENT               	i
 =                   	=
 IDENT               	1
@@ -270,7 +270,7 @@ IDENT               	return
 token(102)          	end
 if                  	if
 token(102)          	end
-IDENT               	do
+token(103)          	do
 IDENT               	divisible
 =                   	=
 .                   	.

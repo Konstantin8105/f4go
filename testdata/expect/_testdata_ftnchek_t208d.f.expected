@@ -1616,7 +1616,7 @@ IDENT               	GO
 IDENT               	TO
 IDENT               	20019
 IDENT               	20021
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	20016
 IDENT               	GO
 IDENT               	TO
@@ -2273,7 +2273,7 @@ IDENT               	GO
 IDENT               	TO
 IDENT               	30013
 IDENT               	20030
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	20029
 IDENT               	GO
 IDENT               	TO
@@ -3792,7 +3792,7 @@ IDENT               	GO
 IDENT               	TO
 IDENT               	30013
 IDENT               	20052
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	20051
 IDENT               	GO
 IDENT               	TO
@@ -4657,7 +4657,7 @@ IDENT               	LOCUC
 +                   	+
 IDENT               	CYTZNK
 IDENT               	20061
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	20062
 IDENT               	I
 =                   	=
@@ -6837,7 +6837,7 @@ IDENT               	NFONT
 =                   	=
 IDENT               	NOCHAR
 IDENT               	20100
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	20101
 IDENT               	I
 =                   	=
@@ -7116,7 +7116,7 @@ IDENT               	LOCLC
 +                   	+
 IDENT               	138
 IDENT               	20123
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	20119
 IDENT               	GO
 IDENT               	TO
@@ -7130,7 +7130,7 @@ IDENT               	GO
 IDENT               	TO
 IDENT               	30013
 IDENT               	20125
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	20115
 IDENT               	GO
 IDENT               	TO
@@ -8227,7 +8227,7 @@ IDENT               	GO
 IDENT               	TO
 IDENT               	30013
 IDENT               	20143
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	20142
 IDENT               	GO
 IDENT               	TO
@@ -8846,7 +8846,7 @@ IDENT               	GO
 IDENT               	TO
 IDENT               	20176
 IDENT               	20178
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	20173
 IDENT               	GO
 IDENT               	TO
@@ -9261,7 +9261,7 @@ IDENT               	GO
 IDENT               	TO
 IDENT               	30013
 IDENT               	20226
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	20205
 IDENT               	GO
 IDENT               	TO
@@ -10791,7 +10791,7 @@ IDENT               	GO
 IDENT               	TO
 IDENT               	30013
 IDENT               	20246
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	20245
 IDENT               	GO
 IDENT               	TO

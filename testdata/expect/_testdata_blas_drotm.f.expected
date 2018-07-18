@@ -272,7 +272,7 @@ IDENT               	DPARAM
 (                   	(
 IDENT               	5
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -317,7 +317,7 @@ IDENT               	Z
 *                   	*
 IDENT               	DH22
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 if                  	IF
 (                   	(
@@ -340,7 +340,7 @@ IDENT               	DPARAM
 (                   	(
 IDENT               	3
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -381,7 +381,7 @@ IDENT               	DH21
 +                   	+
 IDENT               	Z
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 IDENT               	DH11
 =                   	=
@@ -395,7 +395,7 @@ IDENT               	DPARAM
 (                   	(
 IDENT               	5
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -437,7 +437,7 @@ IDENT               	DH22
 *                   	*
 IDENT               	Z
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 token(102)          	END
 if                  	IF
 else                	ELSE
@@ -519,7 +519,7 @@ IDENT               	DPARAM
 (                   	(
 IDENT               	5
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -572,7 +572,7 @@ IDENT               	KY
 +                   	+
 IDENT               	INCY
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 if                  	IF
 (                   	(
@@ -595,7 +595,7 @@ IDENT               	DPARAM
 (                   	(
 IDENT               	3
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -644,7 +644,7 @@ IDENT               	KY
 +                   	+
 IDENT               	INCY
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 IDENT               	DH11
 =                   	=
@@ -658,7 +658,7 @@ IDENT               	DPARAM
 (                   	(
 IDENT               	5
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -708,7 +708,7 @@ IDENT               	KY
 +                   	+
 IDENT               	INCY
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 token(102)          	END
 if                  	IF
 token(102)          	END

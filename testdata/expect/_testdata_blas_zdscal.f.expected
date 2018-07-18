@@ -153,7 +153,7 @@ IDENT               	THEN
 COMMENT             	*
 COMMENT             	*        code for increment equal to 1
 COMMENT             	*
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -179,7 +179,7 @@ IDENT               	ZX
 IDENT               	I
 )                   	)
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 COMMENT             	*
 COMMENT             	*        code for increment not equal to 1
@@ -189,7 +189,7 @@ IDENT               	NINCX
 IDENT               	N
 *                   	*
 IDENT               	INCX
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -217,7 +217,7 @@ IDENT               	ZX
 IDENT               	I
 )                   	)
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 token(102)          	END
 if                  	IF
 IDENT               	RETURN

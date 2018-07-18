@@ -330,7 +330,7 @@ IDENT               	NS
 IDENT               	N
 *                   	*
 IDENT               	INCX
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -358,7 +358,7 @@ IDENT               	I
 )                   	)
 )                   	)
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 COMMENT             	*
 COMMENT             	*     Code for unequal or nonpositive increments.
@@ -407,7 +407,7 @@ IDENT               	N
 )                   	)
 *                   	*
 IDENT               	INCY
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -443,7 +443,7 @@ IDENT               	KY
 +                   	+
 IDENT               	INCY
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 token(102)          	END
 if                  	IF
 IDENT               	SDSDOT

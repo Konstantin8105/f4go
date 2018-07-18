@@ -40,7 +40,7 @@ IDENT               	6
 *                   	*
 )                   	)
 STRING              	'hello'
-IDENT               	do
+token(103)          	do
 IDENT               	123
 IDENT               	i
 =                   	=
@@ -67,7 +67,7 @@ IDENT               	909
 )                   	)
 IDENT               	x
 IDENT               	123
-IDENT               	continue
+continue            	continue
 IDENT               	302
 IDENT               	write
 (                   	(
@@ -87,7 +87,7 @@ IDENT               	f10
 IDENT               	3
 )                   	)
 IDENT               	200
-IDENT               	continue
+continue            	continue
 IDENT               	print
 IDENT               	9
 ,                   	,

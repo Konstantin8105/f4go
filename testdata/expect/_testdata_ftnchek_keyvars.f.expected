@@ -85,10 +85,10 @@ IDENT               	9
 IDENT               	0
 )                   	)
 =                   	=
-IDENT               	continue
+continue            	continue
 token(95)           	**
 IDENT               	dimension
-IDENT               	do
+token(103)          	do
 =                   	=
 IDENT               	double
 *                   	*
@@ -96,7 +96,7 @@ else                	else
 -                   	-
 token(102)          	end
 +                   	+
-IDENT               	enddo
+token(104)          	enddo
 IDENT               	entry
 (                   	(
 IDENT               	external
@@ -145,7 +145,7 @@ IDENT               	2
 IDENT               	then
 IDENT               	goto
 =                   	=
-IDENT               	do
+token(103)          	do
 if                  	if
 =                   	=
 IDENT               	logical
@@ -248,11 +248,11 @@ token(102)          	end
 token(101)          	function
 IDENT               	complex
 (                   	(
-IDENT               	do
+token(103)          	do
 )                   	)
 IDENT               	dimension
 =                   	=
-IDENT               	do
+token(103)          	do
 +                   	+
 IDENT               	1
 IDENT               	external

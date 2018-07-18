@@ -254,12 +254,18 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		return INTEGER, buf.String()
 	case "END":
 		return END, buf.String()
+	case "DO":
+		return DO, buf.String()
+	case "ENDDO":
+		return ENDDO, buf.String()
 	case "FUNCTION":
 		return FUNCTION, buf.String()
 	case "IF":
 		return token.IF, buf.String()
 	case "ELSE":
 		return token.ELSE, buf.String()
+	case "CONTINUE":
+		return token.CONTINUE, buf.String()
 	}
 
 	// Otherwise return as a regular identifier.

@@ -19,7 +19,7 @@ IDENT               	0
 IDENT               	n
 =                   	=
 IDENT               	5
-IDENT               	do
+token(103)          	do
 IDENT               	i
 =                   	=
 IDENT               	1
@@ -48,6 +48,6 @@ IDENT               	sum
 STRING              	' and the average = '
 ,                   	,
 IDENT               	r
-IDENT               	enddo
+token(104)          	enddo
 COMMENT             	c   
 token(102)          	end

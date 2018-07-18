@@ -27,7 +27,7 @@ IDENT               	5
 IDENT               	SUM
 =                   	=
 IDENT               	0
-IDENT               	DO
+token(103)          	DO
 IDENT               	30
 IDENT               	I
 =                   	=
@@ -43,7 +43,7 @@ IDENT               	SCORE
 IDENT               	I
 )                   	)
 IDENT               	30
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	COMPAV
 =                   	=
 IDENT               	FLOAT
@@ -93,7 +93,7 @@ IDENT               	AVG
 IDENT               	COUNT
 =                   	=
 IDENT               	0
-IDENT               	DO
+token(103)          	DO
 IDENT               	80
 IDENT               	I
 =                   	=
@@ -120,7 +120,7 @@ IDENT               	COUNT
 +                   	+
 IDENT               	1
 IDENT               	80
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	100
 IDENT               	AVG
 =                   	=

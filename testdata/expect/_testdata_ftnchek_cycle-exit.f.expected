@@ -1,6 +1,6 @@
 COMMENT             	C  Testing of recognition of CYCLE and EXIT statements.
 COMMENT             	C  Also tests that no-path warning is generated.
-IDENT               	do
+token(103)          	do
 IDENT               	i
 =                   	=
 IDENT               	1
@@ -50,5 +50,5 @@ IDENT               	i
 IDENT               	i
 COMMENT             	! there is a path to this statement
 token(102)          	end
-IDENT               	do
+token(103)          	do
 token(102)          	end

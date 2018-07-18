@@ -212,7 +212,7 @@ IDENT               	NE
 IDENT               	0
 )                   	)
 IDENT               	THEN
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -235,7 +235,7 @@ IDENT               	DX
 IDENT               	I
 )                   	)
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 token(102)          	END
 if                  	IF
 if                  	IF
@@ -252,7 +252,7 @@ IDENT               	MP1
 IDENT               	M
 +                   	+
 IDENT               	1
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	MP1
@@ -343,7 +343,7 @@ IDENT               	I
 IDENT               	3
 )                   	)
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 COMMENT             	*
 COMMENT             	*        code for unequal increments or equal increments
@@ -395,7 +395,7 @@ IDENT               	1
 IDENT               	INCY
 +                   	+
 IDENT               	1
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -428,7 +428,7 @@ IDENT               	IY
 +                   	+
 IDENT               	INCY
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 token(102)          	END
 if                  	IF
 IDENT               	RETURN

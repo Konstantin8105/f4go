@@ -168,7 +168,7 @@ IDENT               	DX
 IDENT               	1
 )                   	)
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	2
@@ -204,7 +204,7 @@ IDENT               	I
 token(102)          	END
 if                  	IF
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 COMMENT             	*
 COMMENT             	*        code for increment not equal to 1
@@ -226,7 +226,7 @@ IDENT               	IX
 IDENT               	IX
 +                   	+
 IDENT               	INCX
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	2
@@ -267,7 +267,7 @@ IDENT               	IX
 +                   	+
 IDENT               	INCX
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 token(102)          	END
 if                  	IF
 IDENT               	RETURN

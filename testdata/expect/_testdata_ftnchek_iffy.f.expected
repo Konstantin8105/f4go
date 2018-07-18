@@ -83,7 +83,7 @@ IDENT               	150
 ,                   	,
 IDENT               	150
 IDENT               	150
-IDENT               	CONTINUE
+continue            	CONTINUE
 COMMENT             	* violate a block if statement
 if                  	IF
 (                   	(
@@ -140,5 +140,5 @@ IDENT               	200
 ,                   	,
 IDENT               	200
 IDENT               	200
-IDENT               	CONTINUE
+continue            	CONTINUE
 token(102)          	END

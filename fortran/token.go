@@ -11,4 +11,6 @@ const (
 	IMPLICIT
 	FUNCTION
 	END
+	DO
+	ENDDO
 )

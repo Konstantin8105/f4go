@@ -21,8 +21,8 @@ IDENT               	j
 =                   	=
 IDENT               	1
 IDENT               	5
-IDENT               	continue
-IDENT               	do
+continue            	continue
+token(103)          	do
 IDENT               	10
 IDENT               	x
 =                   	=
@@ -40,7 +40,7 @@ IDENT               	x
 token(95)           	**
 IDENT               	2
 IDENT               	10
-IDENT               	continue
+continue            	continue
 IDENT               	j
 =                   	=
 IDENT               	j

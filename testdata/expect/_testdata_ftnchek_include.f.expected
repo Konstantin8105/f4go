@@ -69,7 +69,7 @@ IDENT               	Err
 =                   	=
 IDENT               	999
 )                   	)
-IDENT               	Do
+token(103)          	Do
 IDENT               	While
 (                   	(
 .                   	.
@@ -100,7 +100,7 @@ IDENT               	InLine
 ,                   	,
 STRING              	'  '
 )                   	)
-IDENT               	Do
+token(103)          	Do
 IDENT               	J
 =                   	=
 IDENT               	1
@@ -181,10 +181,10 @@ IDENT               	NW
 +                   	+
 IDENT               	1
 IDENT               	EndIf
-IDENT               	EndDo
-IDENT               	EndDo
+token(104)          	EndDo
+token(104)          	EndDo
 IDENT               	888
-IDENT               	Continue
+continue            	Continue
 IDENT               	ACPW
 =                   	=
 IDENT               	REAL
@@ -253,7 +253,7 @@ IDENT               	5
 ,                   	,
 IDENT               	20
 )                   	)
-IDENT               	Do
+token(103)          	Do
 IDENT               	J
 =                   	=
 IDENT               	65
@@ -312,7 +312,7 @@ IDENT               	10
 )                   	)
 )                   	)
 )                   	)
-IDENT               	EndDo
+token(104)          	EndDo
 IDENT               	Write
 (                   	(
 IDENT               	5
@@ -505,7 +505,7 @@ IDENT               	N
 (                   	(
 IDENT               	26
 )                   	)
-IDENT               	Do
+token(103)          	Do
 IDENT               	O
 =                   	=
 IDENT               	1
@@ -517,7 +517,7 @@ IDENT               	O
 )                   	)
 =                   	=
 IDENT               	0
-IDENT               	EndDo
+token(104)          	EndDo
 IDENT               	A
 =                   	=
 IDENT               	0

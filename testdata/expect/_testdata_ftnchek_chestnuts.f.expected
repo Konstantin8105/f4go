@@ -17,7 +17,7 @@ IDENT               	1
 .                   	.
 IDENT               	10
 IDENT               	10
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	I
@@ -33,7 +33,7 @@ IDENT               	1
 .                   	.
 IDENT               	10
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 IDENT               	1
 IDENT               	format
 (                   	(

@@ -128,7 +128,7 @@ COMMENT             	*       Loop until finished (angle.eq.-Theta_naught .or. om
 COMMENT             	*
 IDENT               	Call
 IDENT               	EnterGraphicsMode
-IDENT               	do
+token(103)          	do
 IDENT               	while
 (                   	(
 .                   	.
@@ -185,9 +185,9 @@ IDENT               	ThetaM
 )                   	)
 IDENT               	goto
 IDENT               	10
-IDENT               	enddo
+token(104)          	enddo
 IDENT               	10
-IDENT               	continue
+continue            	continue
 COMMENT             	*
 COMMENT             	*       Print out final results.
 COMMENT             	* 

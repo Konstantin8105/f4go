@@ -379,7 +379,7 @@ IDENT               	sum
 IDENT               	goto300
 COMMENT             	c
 IDENT               	200
-IDENT               	continue
+continue            	continue
 IDENT               	i
 =                   	=
 IDENT               	i
@@ -408,6 +408,6 @@ IDENT               	dsqrt
 IDENT               	sum
 )                   	)
 IDENT               	300
-IDENT               	continue
+continue            	continue
 IDENT               	return
 token(102)          	end

@@ -134,7 +134,7 @@ IDENT               	D
 (                   	(
 IDENT               	N
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	10
 IDENT               	I
 =                   	=
@@ -163,5 +163,5 @@ IDENT               	2
 .                   	.
 IDENT               	0
 IDENT               	10
-IDENT               	CONTINUE
+continue            	CONTINUE
 token(102)          	END

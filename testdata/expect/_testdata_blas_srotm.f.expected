@@ -271,7 +271,7 @@ IDENT               	SPARAM
 (                   	(
 IDENT               	5
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -316,7 +316,7 @@ IDENT               	Z
 *                   	*
 IDENT               	SH22
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 if                  	IF
 (                   	(
@@ -339,7 +339,7 @@ IDENT               	SPARAM
 (                   	(
 IDENT               	3
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -380,7 +380,7 @@ IDENT               	SH21
 +                   	+
 IDENT               	Z
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 IDENT               	SH11
 =                   	=
@@ -394,7 +394,7 @@ IDENT               	SPARAM
 (                   	(
 IDENT               	5
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -436,7 +436,7 @@ IDENT               	SH22
 *                   	*
 IDENT               	Z
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 token(102)          	END
 if                  	IF
 else                	ELSE
@@ -518,7 +518,7 @@ IDENT               	SPARAM
 (                   	(
 IDENT               	5
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -571,7 +571,7 @@ IDENT               	KY
 +                   	+
 IDENT               	INCY
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 if                  	IF
 (                   	(
@@ -594,7 +594,7 @@ IDENT               	SPARAM
 (                   	(
 IDENT               	3
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -643,7 +643,7 @@ IDENT               	KY
 +                   	+
 IDENT               	INCY
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 else                	ELSE
 IDENT               	SH11
 =                   	=
@@ -657,7 +657,7 @@ IDENT               	SPARAM
 (                   	(
 IDENT               	5
 )                   	)
-IDENT               	DO
+token(103)          	DO
 IDENT               	I
 =                   	=
 IDENT               	1
@@ -707,7 +707,7 @@ IDENT               	KY
 +                   	+
 IDENT               	INCY
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 token(102)          	END
 if                  	IF
 token(102)          	END

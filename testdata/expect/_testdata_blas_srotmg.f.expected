@@ -448,7 +448,7 @@ IDENT               	NE
 IDENT               	ZERO
 )                   	)
 IDENT               	THEN
-IDENT               	DO
+token(103)          	DO
 IDENT               	WHILE
 (                   	(
 (                   	(
@@ -558,7 +558,7 @@ IDENT               	SH12
 IDENT               	GAM
 token(102)          	END
 if                  	IF
-IDENT               	ENDDO
+token(104)          	ENDDO
 token(102)          	END
 if                  	IF
 if                  	IF
@@ -570,7 +570,7 @@ IDENT               	NE
 IDENT               	ZERO
 )                   	)
 IDENT               	THEN
-IDENT               	DO
+token(103)          	DO
 IDENT               	WHILE
 (                   	(
 (                   	(
@@ -680,7 +680,7 @@ IDENT               	GAM
 token(102)          	END
 if                  	IF
 token(102)          	END
-IDENT               	DO
+token(103)          	DO
 token(102)          	END
 if                  	IF
 token(102)          	END

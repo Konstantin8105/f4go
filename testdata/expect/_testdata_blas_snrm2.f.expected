@@ -198,7 +198,7 @@ COMMENT             	*        The following loop is equivalent to this call to t
 COMMENT             	*        auxiliary routine:
 COMMENT             	*        CALL SLASSQ( N, X, INCX, SCALE, SSQ )
 COMMENT             	*
-IDENT               	DO
+token(103)          	DO
 IDENT               	10
 IDENT               	IX
 =                   	=
@@ -278,7 +278,7 @@ if                  	IF
 token(102)          	END
 if                  	IF
 IDENT               	10
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	NORM
 =                   	=
 IDENT               	SCALE

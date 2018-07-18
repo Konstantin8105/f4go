@@ -101,7 +101,7 @@ IDENT               	100
 IDENT               	TO
 IDENT               	l
 IDENT               	100
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	READ
 (                   	(
 IDENT               	10
@@ -181,7 +181,7 @@ IDENT               	i
 IDENT               	4
 token(102)          	END
 IDENT               	SELECT
-IDENT               	DO
+token(103)          	DO
 IDENT               	200
 IDENT               	i
 =                   	=
@@ -326,11 +326,11 @@ else                	ELSE
 IDENT               	EXIT
 token(102)          	END
 if                  	IF
-IDENT               	ENDDO
+token(104)          	ENDDO
 IDENT               	i
 =                   	=
 IDENT               	1
-IDENT               	DO
+token(103)          	DO
 IDENT               	WHILE
 (                   	(
 IDENT               	i
@@ -345,8 +345,8 @@ IDENT               	i
 *                   	*
 IDENT               	2
 token(102)          	END
-IDENT               	DO
-IDENT               	DO
+token(103)          	DO
+token(103)          	DO
 IDENT               	300
 IDENT               	WHILE
 (                   	(
@@ -365,8 +365,8 @@ IDENT               	pi
 ,                   	,
 STRING              	'Over and over'
 IDENT               	300
-IDENT               	CONTINUE
-IDENT               	DO
+continue            	CONTINUE
+token(103)          	DO
 IDENT               	4321
 ,                   	,
 IDENT               	WHILE
@@ -386,7 +386,7 @@ IDENT               	pi
 ,                   	,
 STRING              	'Over and over'
 IDENT               	4321
-IDENT               	CONTINUE
+continue            	CONTINUE
 IDENT               	GO
 IDENT               	TO
 IDENT               	100
