@@ -88,5 +88,5 @@ IDENT               	n3
 IDENT               	n
 +                   	+
 IDENT               	n2
-IDENT               	END
+token(102)          	END
 token(97)           	PROGRAM

@@ -46,7 +46,7 @@ IDENT               	COMPAV
 IDENT               	SUM
 /                   	/
 IDENT               	COUNT
-IDENT               	END
+token(102)          	END
 token(97)           	PROGRAM
 IDENT               	AVENUM
 COMMENT             	C
@@ -95,7 +95,7 @@ IDENT               	5
 ,                   	,
 *                   	*
 ,                   	,
-IDENT               	END
+token(102)          	END
 =                   	=
 IDENT               	100
 )                   	)
@@ -119,4 +119,4 @@ IDENT               	NUMS
 ,                   	,
 IDENT               	COUNT
 )                   	)
-IDENT               	END
+token(102)          	END

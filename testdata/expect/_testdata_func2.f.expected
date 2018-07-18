@@ -24,7 +24,7 @@ IDENT               	a
 +                   	+
 IDENT               	b
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 token(101)          	FUNCTION
 token(97)           	PROGRAM
 IDENT               	cows
@@ -44,5 +44,5 @@ IDENT               	1
 .                   	.
 IDENT               	3
 )                   	)
-IDENT               	END
+token(102)          	END
 token(97)           	PROGRAM

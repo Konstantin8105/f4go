@@ -73,7 +73,7 @@ IDENT               	default
 IDENT               	cvar2
 =                   	=
 STRING              	'd'
-IDENT               	end
+token(102)          	end
 IDENT               	select
 IDENT               	select
 IDENT               	case
@@ -108,7 +108,7 @@ IDENT               	eq
 .                   	.
 IDENT               	0
 )                   	)
-IDENT               	end
+token(102)          	end
 IDENT               	select
 IDENT               	cvar1
 =                   	=
@@ -143,7 +143,7 @@ STRING              	'horse'
 )                   	)
 IDENT               	case
 IDENT               	default
-IDENT               	end
+token(102)          	end
 IDENT               	select
 IDENT               	select
 IDENT               	case
@@ -176,7 +176,7 @@ IDENT               	case
 IDENT               	false
 .                   	.
 )                   	)
-IDENT               	end
+token(102)          	end
 IDENT               	select
 IDENT               	stop
-IDENT               	end
+token(102)          	end

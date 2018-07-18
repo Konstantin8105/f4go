@@ -20,7 +20,7 @@ IDENT               	Call
 IDENT               	Comp
 IDENT               	Call
 IDENT               	Output
-IDENT               	End
+token(102)          	End
 token(96)           	Subroutine
 IDENT               	Input
 IDENT               	Common
@@ -71,7 +71,7 @@ IDENT               	y2
 =                   	=
 IDENT               	y3
 IDENT               	Return
-IDENT               	End
+token(102)          	End
 token(96)           	Subroutine
 IDENT               	Comp
 IDENT               	Common
@@ -117,7 +117,7 @@ IDENT               	C
 /                   	/
 IDENT               	3
 IDENT               	Return
-IDENT               	End
+token(102)          	End
 token(96)           	Subroutine
 IDENT               	Output
 IDENT               	Common
@@ -149,4 +149,4 @@ IDENT               	n1
 =                   	=
 IDENT               	8
 IDENT               	Return
-IDENT               	End
+token(102)          	End

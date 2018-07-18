@@ -315,7 +315,7 @@ IDENT               	SH21
 IDENT               	Z
 *                   	*
 IDENT               	SH22
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 else                	ELSE
 if                  	IF
@@ -379,7 +379,7 @@ IDENT               	W
 IDENT               	SH21
 +                   	+
 IDENT               	Z
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 else                	ELSE
 IDENT               	SH11
@@ -435,9 +435,9 @@ IDENT               	W
 IDENT               	SH22
 *                   	*
 IDENT               	Z
-IDENT               	END
+token(102)          	END
 IDENT               	DO
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 IDENT               	KX
@@ -570,7 +570,7 @@ IDENT               	KY
 IDENT               	KY
 +                   	+
 IDENT               	INCY
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 else                	ELSE
 if                  	IF
@@ -642,7 +642,7 @@ IDENT               	KY
 IDENT               	KY
 +                   	+
 IDENT               	INCY
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 else                	ELSE
 IDENT               	SH11
@@ -706,11 +706,11 @@ IDENT               	KY
 IDENT               	KY
 +                   	+
 IDENT               	INCY
-IDENT               	END
+token(102)          	END
 IDENT               	DO
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END

@@ -55,7 +55,7 @@ IDENT               	K
 IDENT               	J
 =                   	=
 IDENT               	M
-IDENT               	END
+token(102)          	END
 token(96)           	SUBROUTINE
 IDENT               	SUB
 IDENT               	REAL
@@ -73,7 +73,7 @@ IDENT               	A
 IDENT               	B
 ,                   	,
 IDENT               	C
-IDENT               	END
+token(102)          	END
 IDENT               	REAL
 token(101)          	FUNCTION
 IDENT               	FUN
@@ -97,7 +97,7 @@ IDENT               	FUN
 IDENT               	0
 .                   	.
 IDENT               	0
-IDENT               	END
+token(102)          	END
 token(96)           	SUBROUTINE
 IDENT               	BAR
 IDENT               	REAL
@@ -130,4 +130,4 @@ IDENT               	MYSQRT
 IDENT               	MYSUB
 IDENT               	REAL
 IDENT               	MYSQRT
-IDENT               	END
+token(102)          	END

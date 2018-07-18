@@ -140,4 +140,4 @@ IDENT               	MAXTK2
 token(95)           	**
 IDENT               	2
 )                   	)
-IDENT               	end
+token(102)          	end

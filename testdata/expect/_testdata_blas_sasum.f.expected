@@ -197,7 +197,7 @@ IDENT               	SX
 IDENT               	I
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 if                  	IF
 (                   	(
@@ -212,9 +212,9 @@ IDENT               	SASUM
 =                   	=
 IDENT               	STEMP
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	MP1
 =                   	=
@@ -290,7 +290,7 @@ IDENT               	I
 IDENT               	5
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 else                	ELSE
 COMMENT             	*
@@ -320,12 +320,12 @@ IDENT               	SX
 IDENT               	I
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 IDENT               	DO
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	SASUM
 =                   	=
 IDENT               	STEMP
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END

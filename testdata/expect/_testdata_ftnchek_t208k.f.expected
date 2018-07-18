@@ -20,4 +20,4 @@ IDENT               	1
 :                   	:
 IDENT               	3
 )                   	)
-IDENT               	end
+token(102)          	end

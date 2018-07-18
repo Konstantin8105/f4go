@@ -351,7 +351,7 @@ else                	ELSE
 IDENT               	NROWA
 =                   	=
 IDENT               	K
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	UPPER
 =                   	=
@@ -521,7 +521,7 @@ IDENT               	THEN
 IDENT               	INFO
 =                   	=
 IDENT               	12
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -540,7 +540,7 @@ STRING              	'DSYR2K'
 IDENT               	INFO
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Quick return if possible.
@@ -677,7 +677,7 @@ IDENT               	30
 IDENT               	CONTINUE
 IDENT               	40
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 if                  	IF
@@ -749,12 +749,12 @@ IDENT               	70
 IDENT               	CONTINUE
 IDENT               	80
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Start the operations.
@@ -844,7 +844,7 @@ IDENT               	J
 )                   	)
 IDENT               	100
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DO
 IDENT               	120
@@ -945,7 +945,7 @@ IDENT               	L
 IDENT               	TEMP2
 IDENT               	110
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	120
 IDENT               	CONTINUE
@@ -1019,7 +1019,7 @@ IDENT               	J
 )                   	)
 IDENT               	150
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DO
 IDENT               	170
@@ -1120,13 +1120,13 @@ IDENT               	L
 IDENT               	TEMP2
 IDENT               	160
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	170
 IDENT               	CONTINUE
 IDENT               	180
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 COMMENT             	*
@@ -1248,7 +1248,7 @@ IDENT               	TEMP1
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	200
 IDENT               	CONTINUE
@@ -1366,19 +1366,19 @@ IDENT               	TEMP1
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	230
 IDENT               	CONTINUE
 IDENT               	240
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 IDENT               	RETURN
 COMMENT             	*
 COMMENT             	*     End of DSYR2K.
 COMMENT             	*
-IDENT               	END
+token(102)          	END

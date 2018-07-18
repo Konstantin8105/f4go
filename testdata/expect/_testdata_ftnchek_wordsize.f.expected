@@ -18,7 +18,7 @@ IDENT               	a
 +                   	+
 IDENT               	b
 IDENT               	return
-IDENT               	end
+token(102)          	end
 token(97)           	program
 IDENT               	main
 IDENT               	real
@@ -54,4 +54,4 @@ IDENT               	x
 ,                   	,
 IDENT               	y
 )                   	)
-IDENT               	end
+token(102)          	end

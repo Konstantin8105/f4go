@@ -64,4 +64,4 @@ IDENT               	2
 IDENT               	short
 token(98)           	integer
 IDENT               	shortnl
-IDENT               	end
+token(102)          	end

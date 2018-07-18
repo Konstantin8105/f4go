@@ -194,7 +194,7 @@ IDENT               	DX
 (                   	(
 IDENT               	I
 )                   	)
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 if                  	IF
 (                   	(
@@ -205,7 +205,7 @@ IDENT               	LT
 IDENT               	5
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	MP1
 =                   	=
@@ -291,7 +291,7 @@ IDENT               	I
 +                   	+
 IDENT               	4
 )                   	)
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 else                	ELSE
 COMMENT             	*
@@ -321,9 +321,9 @@ IDENT               	DX
 (                   	(
 IDENT               	I
 )                   	)
-IDENT               	END
+token(102)          	END
 IDENT               	DO
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END

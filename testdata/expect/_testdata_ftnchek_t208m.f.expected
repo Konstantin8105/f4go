@@ -17,4 +17,4 @@ IDENT               	maxdim
 +                   	+
 IDENT               	100
 )                   	)
-IDENT               	end
+token(102)          	end

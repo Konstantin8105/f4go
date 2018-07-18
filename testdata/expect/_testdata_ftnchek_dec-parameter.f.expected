@@ -84,4 +84,4 @@ IDENT               	COMMON
 IDENT               	ARMTOT
 /                   	/
 IDENT               	armtot
-IDENT               	end
+token(102)          	end

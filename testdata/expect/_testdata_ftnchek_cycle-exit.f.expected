@@ -49,6 +49,6 @@ IDENT               	i
 *                   	*
 IDENT               	i
 COMMENT             	! there is a path to this statement
-IDENT               	end
+token(102)          	end
 IDENT               	do
-IDENT               	end
+token(102)          	end

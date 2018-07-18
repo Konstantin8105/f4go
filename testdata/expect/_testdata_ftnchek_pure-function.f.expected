@@ -46,4 +46,4 @@ IDENT               	y
 IDENT               	c
 *                   	*
 IDENT               	z
-IDENT               	end
+token(102)          	end

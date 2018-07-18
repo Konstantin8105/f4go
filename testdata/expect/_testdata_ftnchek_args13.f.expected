@@ -11,7 +11,7 @@ IDENT               	c
 IDENT               	1
 )                   	)
 )                   	)
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	suba
 (                   	(
@@ -25,4 +25,4 @@ IDENT               	read
 *                   	*
 ,                   	,
 IDENT               	c
-IDENT               	end
+token(102)          	end

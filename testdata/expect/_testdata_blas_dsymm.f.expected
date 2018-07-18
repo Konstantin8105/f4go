@@ -348,7 +348,7 @@ else                	ELSE
 IDENT               	NROWA
 =                   	=
 IDENT               	N
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	UPPER
 =                   	=
@@ -504,7 +504,7 @@ IDENT               	THEN
 IDENT               	INFO
 =                   	=
 IDENT               	12
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -523,7 +523,7 @@ STRING              	'DSYMM '
 IDENT               	INFO
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Quick return if possible.
@@ -653,10 +653,10 @@ IDENT               	30
 IDENT               	CONTINUE
 IDENT               	40
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Start the operations.
@@ -814,7 +814,7 @@ IDENT               	I
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	60
 IDENT               	CONTINUE
@@ -959,13 +959,13 @@ IDENT               	I
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	90
 IDENT               	CONTINUE
 IDENT               	100
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 COMMENT             	*
@@ -1055,7 +1055,7 @@ IDENT               	J
 )                   	)
 IDENT               	120
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DO
 IDENT               	140
@@ -1092,7 +1092,7 @@ IDENT               	J
 ,                   	,
 IDENT               	K
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DO
 IDENT               	130
@@ -1162,7 +1162,7 @@ IDENT               	K
 ,                   	,
 IDENT               	J
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DO
 IDENT               	150
@@ -1199,11 +1199,11 @@ IDENT               	160
 IDENT               	CONTINUE
 IDENT               	170
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 IDENT               	RETURN
 COMMENT             	*
 COMMENT             	*     End of DSYMM .
 COMMENT             	*
-IDENT               	END
+token(102)          	END

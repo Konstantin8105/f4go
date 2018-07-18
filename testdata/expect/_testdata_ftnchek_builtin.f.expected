@@ -31,4 +31,4 @@ IDENT               	print
 IDENT               	x
 ,                   	,
 IDENT               	y
-IDENT               	end
+token(102)          	end

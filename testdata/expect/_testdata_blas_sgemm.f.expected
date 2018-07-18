@@ -369,7 +369,7 @@ IDENT               	K
 IDENT               	NCOLA
 =                   	=
 IDENT               	M
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -383,7 +383,7 @@ else                	ELSE
 IDENT               	NROWB
 =                   	=
 IDENT               	N
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Test the input parameters.
@@ -569,7 +569,7 @@ IDENT               	THEN
 IDENT               	INFO
 =                   	=
 IDENT               	13
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -588,7 +588,7 @@ STRING              	'SGEMM '
 IDENT               	INFO
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Quick return if possible.
@@ -730,10 +730,10 @@ IDENT               	30
 IDENT               	CONTINUE
 IDENT               	40
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Start the operations.
@@ -818,7 +818,7 @@ IDENT               	J
 )                   	)
 IDENT               	60
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DO
 IDENT               	80
@@ -958,13 +958,13 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	110
 IDENT               	CONTINUE
 IDENT               	120
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 if                  	IF
@@ -1042,7 +1042,7 @@ IDENT               	J
 )                   	)
 IDENT               	140
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DO
 IDENT               	160
@@ -1182,19 +1182,19 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	190
 IDENT               	CONTINUE
 IDENT               	200
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 IDENT               	RETURN
 COMMENT             	*
 COMMENT             	*     End of SGEMM .
 COMMENT             	*
-IDENT               	END
+token(102)          	END

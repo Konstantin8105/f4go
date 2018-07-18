@@ -42,7 +42,7 @@ else                	ELSE
 IDENT               	M
 =                   	=
 IDENT               	3
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	* this logical if is OK
 if                  	IF
@@ -113,7 +113,7 @@ IDENT               	M
 IDENT               	M
 +                   	+
 IDENT               	3
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	* violate a logical if statement
 if                  	IF
@@ -141,4 +141,4 @@ IDENT               	200
 IDENT               	200
 IDENT               	200
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END

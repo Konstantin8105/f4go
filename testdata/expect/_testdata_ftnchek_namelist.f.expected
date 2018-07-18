@@ -73,7 +73,7 @@ IDENT               	nml
 =                   	=
 IDENT               	n4
 )                   	)
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	grfgg3
 COMMENT             	C$    (grfgg3)
@@ -1004,4 +1004,4 @@ IDENT               	ZMAX
 IDENT               	ZMIN
 ,                   	,
 IDENT               	ZSHIFT
-IDENT               	END
+token(102)          	END

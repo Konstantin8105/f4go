@@ -105,7 +105,7 @@ IDENT               	x
 +                   	+
 IDENT               	y
 )                   	)
-IDENT               	end
+token(102)          	end
 COMMENT             	c-----------------------------------------------------------------------
 IDENT               	parameter
 (                   	(
@@ -246,7 +246,7 @@ IDENT               	f
 ,                   	,
 IDENT               	p
 )                   	)
-IDENT               	end
+token(102)          	end
 COMMENT             	c-----------------------------------------------------------------------
 IDENT               	double
 IDENT               	precision
@@ -267,7 +267,7 @@ IDENT               	x
 ,                   	,
 IDENT               	y
 )                   	)
-IDENT               	end
+token(102)          	end
 COMMENT             	c-----------------------------------------------------------------------
 IDENT               	double
 IDENT               	precision
@@ -316,4 +316,4 @@ IDENT               	y
 ,                   	,
 IDENT               	z
 )                   	)
-IDENT               	end
+token(102)          	end

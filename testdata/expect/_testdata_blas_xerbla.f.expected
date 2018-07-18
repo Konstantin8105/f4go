@@ -130,4 +130,4 @@ STRING              	'an illegal value'
 COMMENT             	*
 COMMENT             	*     End of XERBLA
 COMMENT             	*
-IDENT               	END
+token(102)          	END

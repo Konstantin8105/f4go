@@ -29,7 +29,7 @@ IDENT               	2
 IDENT               	i
 token(95)           	**
 IDENT               	3
-IDENT               	end
+token(102)          	end
 token(101)          	function
 IDENT               	func
 token(97)           	program
@@ -58,6 +58,6 @@ IDENT               	func
 (                   	(
 IDENT               	i
 )                   	)
-IDENT               	end
+token(102)          	end
 token(97)           	program
 IDENT               	xfunc

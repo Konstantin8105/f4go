@@ -48,7 +48,7 @@ IDENT               	c5
 IDENT               	11
 IDENT               	Hhello
 IDENT               	there
-IDENT               	end
+token(102)          	end
 token(98)           	integer
 IDENT               	i
 ,                   	,
@@ -207,4 +207,4 @@ IDENT               	i2
 ,                   	,
 IDENT               	r16
 )                   	)
-IDENT               	end
+token(102)          	end

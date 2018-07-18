@@ -356,7 +356,7 @@ IDENT               	THEN
 IDENT               	INFO
 =                   	=
 IDENT               	9
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -375,7 +375,7 @@ STRING              	'DSYR2 '
 IDENT               	INFO
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Quick return if possible.
@@ -450,7 +450,7 @@ IDENT               	1
 )                   	)
 *                   	*
 IDENT               	INCX
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -476,7 +476,7 @@ IDENT               	1
 )                   	)
 *                   	*
 IDENT               	INCY
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	JX
 =                   	=
@@ -484,7 +484,7 @@ IDENT               	KX
 IDENT               	JY
 =                   	=
 IDENT               	KY
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Start the operations. In this version the elements of A are
@@ -611,7 +611,7 @@ IDENT               	I
 IDENT               	TEMP2
 IDENT               	10
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	20
 IDENT               	CONTINUE
@@ -718,7 +718,7 @@ IDENT               	IY
 IDENT               	INCY
 IDENT               	30
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	JX
 =                   	=
@@ -732,7 +732,7 @@ IDENT               	JY
 IDENT               	INCY
 IDENT               	40
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 COMMENT             	*
@@ -845,7 +845,7 @@ IDENT               	I
 IDENT               	TEMP2
 IDENT               	50
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	60
 IDENT               	CONTINUE
@@ -952,7 +952,7 @@ IDENT               	IY
 IDENT               	INCY
 IDENT               	70
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	JX
 =                   	=
@@ -966,13 +966,13 @@ IDENT               	JY
 IDENT               	INCY
 IDENT               	80
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 IDENT               	RETURN
 COMMENT             	*
 COMMENT             	*     End of DSYR2 .
 COMMENT             	*
-IDENT               	END
+token(102)          	END

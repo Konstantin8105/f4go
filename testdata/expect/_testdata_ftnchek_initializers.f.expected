@@ -74,7 +74,7 @@ IDENT               	pi
 IDENT               	c
 ,                   	,
 IDENT               	q
-IDENT               	end
+token(102)          	end
 COMMENT             	C  Here we use archaic but standard F77 separate type decls and data stmts
 token(96)           	subroutine
 IDENT               	f77
@@ -152,7 +152,7 @@ IDENT               	pi
 IDENT               	c
 ,                   	,
 IDENT               	q
-IDENT               	end
+token(102)          	end
 COMMENT             	C  This one uses "bastard" initializer form.
 token(96)           	subroutine
 IDENT               	bastard
@@ -220,7 +220,7 @@ IDENT               	pi
 IDENT               	c
 ,                   	,
 IDENT               	q
-IDENT               	end
+token(102)          	end
 COMMENT             	C  Main program just suppresses "never invoked" warnings.
 token(97)           	program
 IDENT               	main
@@ -230,4 +230,4 @@ IDENT               	call
 IDENT               	f77
 IDENT               	call
 IDENT               	bastard
-IDENT               	end
+token(102)          	end

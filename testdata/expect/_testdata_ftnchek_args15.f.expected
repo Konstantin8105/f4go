@@ -4,7 +4,7 @@ IDENT               	suba
 IDENT               	5
 IDENT               	hjunky
 )                   	)
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	suba
 (                   	(
@@ -17,4 +17,4 @@ IDENT               	write
 STRING              	'(a)'
 )                   	)
 IDENT               	i
-IDENT               	end
+token(102)          	end

@@ -7,4 +7,4 @@ IDENT               	write
 *                   	*
 )                   	)
 STRING              	'Hello, world!'
-IDENT               	end
+token(102)          	end

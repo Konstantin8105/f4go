@@ -303,7 +303,7 @@ IDENT               	SDSDOT
 =                   	=
 IDENT               	DSDOT
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -357,7 +357,7 @@ IDENT               	SY
 IDENT               	I
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 else                	ELSE
 COMMENT             	*
@@ -442,12 +442,12 @@ IDENT               	KY
 IDENT               	KY
 +                   	+
 IDENT               	INCY
-IDENT               	END
+token(102)          	END
 IDENT               	DO
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	SDSDOT
 =                   	=
 IDENT               	DSDOT
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END

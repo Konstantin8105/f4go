@@ -45,4 +45,4 @@ IDENT               	Write
 )                   	)
 STRING              	'S(E)P[Col,Row]C[+20]'
 IDENT               	Return
-IDENT               	End
+token(102)          	End

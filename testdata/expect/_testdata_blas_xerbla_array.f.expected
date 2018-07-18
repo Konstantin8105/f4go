@@ -162,7 +162,7 @@ IDENT               	SRNAME_ARRAY
 (                   	(
 IDENT               	I
 )                   	)
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 IDENT               	CALL
 IDENT               	XERBLA
@@ -172,4 +172,4 @@ IDENT               	SRNAME
 IDENT               	INFO
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END

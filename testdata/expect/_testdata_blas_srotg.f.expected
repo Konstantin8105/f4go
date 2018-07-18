@@ -275,7 +275,7 @@ IDENT               	1
 IDENT               	0
 /                   	/
 IDENT               	C
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	SA
 =                   	=
@@ -284,4 +284,4 @@ IDENT               	SB
 =                   	=
 IDENT               	Z
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END

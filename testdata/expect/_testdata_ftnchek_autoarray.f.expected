@@ -5,7 +5,7 @@ IDENT               	test
 (                   	(
 IDENT               	100
 )                   	)
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	test
 (                   	(
@@ -36,4 +36,4 @@ IDENT               	1
 )                   	)
 *                   	*
 IDENT               	2
-IDENT               	end
+token(102)          	end

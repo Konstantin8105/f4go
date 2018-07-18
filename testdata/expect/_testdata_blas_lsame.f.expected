@@ -390,7 +390,7 @@ IDENT               	INTB
 IDENT               	INTB
 -                   	-
 IDENT               	32
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	LSAME
 =                   	=
@@ -404,4 +404,4 @@ COMMENT             	*     RETURN
 COMMENT             	*
 COMMENT             	*     End of LSAME
 COMMENT             	*
-IDENT               	END
+token(102)          	END

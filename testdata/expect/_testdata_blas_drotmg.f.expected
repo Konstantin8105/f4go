@@ -277,7 +277,7 @@ IDENT               	1
 =                   	=
 IDENT               	DFLAG
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*        REGULAR-CASE..
 IDENT               	DP1
@@ -358,7 +358,7 @@ IDENT               	DX1
 IDENT               	DX1
 *                   	*
 IDENT               	DU
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 if                  	IF
@@ -436,9 +436,9 @@ IDENT               	DX1
 IDENT               	DY1
 *                   	*
 IDENT               	DU
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*     PROCEDURE..SCALE-CHECK
 if                  	IF
@@ -502,7 +502,7 @@ IDENT               	DFLAG
 =                   	=
 -                   	-
 IDENT               	ONE
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -558,10 +558,10 @@ IDENT               	DH12
 IDENT               	DH12
 *                   	*
 IDENT               	GAM
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	ENDDO
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -630,7 +630,7 @@ IDENT               	DFLAG
 =                   	=
 -                   	-
 IDENT               	ONE
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -679,13 +679,13 @@ IDENT               	DH22
 IDENT               	DH22
 *                   	*
 IDENT               	GAM
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 IDENT               	DO
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -755,7 +755,7 @@ IDENT               	5
 )                   	)
 =                   	=
 IDENT               	DH22
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DPARAM
 (                   	(
@@ -764,4 +764,4 @@ IDENT               	1
 =                   	=
 IDENT               	DFLAG
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END

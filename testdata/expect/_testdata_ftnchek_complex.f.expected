@@ -123,7 +123,7 @@ IDENT               	456
 IDENT               	789
 )                   	)
 )                   	)
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	abc
 (                   	(
@@ -141,4 +141,4 @@ IDENT               	print
 IDENT               	z
 +                   	+
 IDENT               	x
-IDENT               	end
+token(102)          	end

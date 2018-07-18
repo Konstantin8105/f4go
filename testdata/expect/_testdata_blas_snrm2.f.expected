@@ -273,9 +273,9 @@ IDENT               	SCALE
 )                   	)
 token(95)           	**
 IDENT               	2
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	10
 IDENT               	CONTINUE
@@ -287,7 +287,7 @@ IDENT               	SQRT
 (                   	(
 IDENT               	SSQ
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 IDENT               	SNRM2
@@ -297,4 +297,4 @@ IDENT               	RETURN
 COMMENT             	*
 COMMENT             	*     End of SNRM2.
 COMMENT             	*
-IDENT               	END
+token(102)          	END

@@ -89,7 +89,7 @@ IDENT               	5
 .                   	.
 IDENT               	0
 )                   	)
-IDENT               	end
+token(102)          	end
 IDENT               	select
 else                	else
 IDENT               	k
@@ -149,7 +149,7 @@ IDENT               	50
 )                   	)
 IDENT               	cycle
 IDENT               	loop2
-IDENT               	end
+token(102)          	end
 IDENT               	do
 IDENT               	loop2
 IDENT               	write
@@ -243,14 +243,14 @@ IDENT               	5
 IDENT               	0
 )                   	)
 IDENT               	200
-IDENT               	end
+token(102)          	end
 IDENT               	do
-IDENT               	end
+token(102)          	end
 IDENT               	select
 IDENT               	case2
-IDENT               	end
+token(102)          	end
 if                  	if
-IDENT               	end
+token(102)          	end
 token(97)           	program
 IDENT               	blocks
 token(101)          	function
@@ -342,7 +342,7 @@ IDENT               	bar
 IDENT               	d
 *                   	*
 IDENT               	b
-IDENT               	end
+token(102)          	end
 token(101)          	function
 IDENT               	bar
 token(96)           	subroutine
@@ -395,7 +395,7 @@ IDENT               	d
 IDENT               	1
 .                   	.
 IDENT               	0
-IDENT               	end
+token(102)          	end
 if                  	if
 IDENT               	second_if
 else                	else
@@ -436,7 +436,7 @@ IDENT               	c
 IDENT               	d
 =                   	=
 IDENT               	0
-IDENT               	end
+token(102)          	end
 if                  	if
 IDENT               	first_if
 IDENT               	print
@@ -449,6 +449,6 @@ IDENT               	b
 IDENT               	c
 ,                   	,
 IDENT               	d
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	baz

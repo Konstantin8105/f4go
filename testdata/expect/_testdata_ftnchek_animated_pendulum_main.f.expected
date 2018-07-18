@@ -299,4 +299,4 @@ STRING              	'Enter real number for Length in meters: '
 )                   	)
 IDENT               	Call
 IDENT               	ExitGraphicsMode
-IDENT               	End
+token(102)          	End

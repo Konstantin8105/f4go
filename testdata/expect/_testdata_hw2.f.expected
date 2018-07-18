@@ -7,7 +7,7 @@ IDENT               	call
 IDENT               	hello
 IDENT               	call
 IDENT               	hello
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	hello
 token(100)          	implicit
@@ -28,4 +28,4 @@ IDENT               	write
 )                   	)
 IDENT               	text
 COMMENT             	c
-IDENT               	end
+token(102)          	end

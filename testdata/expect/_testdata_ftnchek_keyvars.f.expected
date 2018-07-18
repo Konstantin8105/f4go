@@ -94,7 +94,7 @@ IDENT               	double
 *                   	*
 else                	else
 -                   	-
-IDENT               	end
+token(102)          	end
 +                   	+
 IDENT               	enddo
 IDENT               	entry
@@ -149,7 +149,7 @@ IDENT               	do
 if                  	if
 =                   	=
 IDENT               	logical
-IDENT               	end
+token(102)          	end
 if                  	if
 if                  	if
 (                   	(
@@ -220,7 +220,7 @@ IDENT               	endif
 token(98)           	integer
 =                   	=
 IDENT               	data
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	call
 (                   	(
@@ -244,7 +244,7 @@ token(101)          	function
 IDENT               	real
 )                   	)
 IDENT               	return
-IDENT               	end
+token(102)          	end
 token(101)          	function
 IDENT               	complex
 (                   	(
@@ -264,4 +264,4 @@ IDENT               	dimension
 /                   	/
 IDENT               	external
 IDENT               	return
-IDENT               	end
+token(102)          	end

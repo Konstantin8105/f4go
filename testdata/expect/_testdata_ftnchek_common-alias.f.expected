@@ -80,7 +80,7 @@ IDENT               	DAT
 IDENT               	100
 )                   	)
 IDENT               	STOP
-IDENT               	END
+token(102)          	END
 token(96)           	SUBROUTINE
 IDENT               	FOO
 (                   	(
@@ -113,7 +113,7 @@ IDENT               	1
 .                   	.
 IDENT               	0
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 token(96)           	SUBROUTINE
 IDENT               	BAR
 (                   	(
@@ -164,4 +164,4 @@ IDENT               	2
 IDENT               	0
 IDENT               	10
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END

@@ -199,7 +199,7 @@ IDENT               	DX
 IDENT               	I
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 if                  	IF
 (                   	(
@@ -214,9 +214,9 @@ IDENT               	DASUM
 =                   	=
 IDENT               	DTEMP
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	MP1
 =                   	=
@@ -292,7 +292,7 @@ IDENT               	I
 IDENT               	5
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 else                	ELSE
 COMMENT             	*
@@ -322,12 +322,12 @@ IDENT               	DX
 IDENT               	I
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 IDENT               	DO
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DASUM
 =                   	=
 IDENT               	DTEMP
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END

@@ -309,7 +309,7 @@ IDENT               	THEN
 IDENT               	INFO
 =                   	=
 IDENT               	9
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -328,7 +328,7 @@ STRING              	'DGER  '
 IDENT               	INFO
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Quick return if possible.
@@ -392,7 +392,7 @@ IDENT               	1
 )                   	)
 *                   	*
 IDENT               	INCY
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -459,7 +459,7 @@ IDENT               	I
 IDENT               	TEMP
 IDENT               	10
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	JY
 =                   	=
@@ -493,7 +493,7 @@ IDENT               	1
 )                   	)
 *                   	*
 IDENT               	INCX
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DO
 IDENT               	40
@@ -559,7 +559,7 @@ IDENT               	IX
 IDENT               	INCX
 IDENT               	30
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	JY
 =                   	=
@@ -568,11 +568,11 @@ IDENT               	JY
 IDENT               	INCY
 IDENT               	40
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 IDENT               	RETURN
 COMMENT             	*
 COMMENT             	*     End of DGER  .
 COMMENT             	*
-IDENT               	END
+token(102)          	END

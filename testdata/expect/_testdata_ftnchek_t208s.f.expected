@@ -10,4 +10,4 @@ IDENT               	s
 =                   	=
 STRING              	'hello'
 )                   	)
-IDENT               	end
+token(102)          	end

@@ -286,7 +286,7 @@ IDENT               	0
 IDENT               	d0
 /                   	/
 IDENT               	C
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DA
 =                   	=
@@ -295,4 +295,4 @@ IDENT               	DB
 =                   	=
 IDENT               	Z
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END

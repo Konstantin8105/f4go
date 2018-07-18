@@ -15,4 +15,4 @@ COMMENT             	*     intervening comment
 COMMENT             	*     intervening comment
 IDENT               	x
 IDENT               	toklst
-IDENT               	end
+token(102)          	end

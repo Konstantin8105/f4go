@@ -458,7 +458,7 @@ IDENT               	THEN
 IDENT               	INFO
 =                   	=
 IDENT               	9
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -477,7 +477,7 @@ STRING              	'STBMV '
 IDENT               	INFO
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Quick return if possible.
@@ -537,7 +537,7 @@ IDENT               	THEN
 IDENT               	KX
 =                   	=
 IDENT               	1
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Start the operations. In this version the elements of A are
@@ -668,7 +668,7 @@ IDENT               	KPLUS1
 ,                   	,
 IDENT               	J
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	20
 IDENT               	CONTINUE
@@ -772,7 +772,7 @@ IDENT               	KPLUS1
 ,                   	,
 IDENT               	J
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	JX
 =                   	=
@@ -794,7 +794,7 @@ IDENT               	KX
 IDENT               	INCX
 IDENT               	40
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 if                  	IF
@@ -900,7 +900,7 @@ IDENT               	1
 ,                   	,
 IDENT               	J
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	60
 IDENT               	CONTINUE
@@ -1021,7 +1021,7 @@ IDENT               	1
 ,                   	,
 IDENT               	J
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	JX
 =                   	=
@@ -1047,9 +1047,9 @@ IDENT               	KX
 IDENT               	INCX
 IDENT               	80
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 COMMENT             	*
@@ -1274,7 +1274,7 @@ IDENT               	JX
 IDENT               	INCX
 IDENT               	120
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 if                  	IF
@@ -1458,15 +1458,15 @@ IDENT               	JX
 IDENT               	INCX
 IDENT               	160
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 IDENT               	RETURN
 COMMENT             	*
 COMMENT             	*     End of STBMV .
 COMMENT             	*
-IDENT               	END
+token(102)          	END

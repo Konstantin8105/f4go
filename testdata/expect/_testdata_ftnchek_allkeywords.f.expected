@@ -179,7 +179,7 @@ IDENT               	DEFAULT
 IDENT               	i
 =                   	=
 IDENT               	4
-IDENT               	END
+token(102)          	END
 IDENT               	SELECT
 IDENT               	DO
 IDENT               	200
@@ -215,7 +215,7 @@ IDENT               	i
 )                   	)
 IDENT               	ENDFILE
 IDENT               	10
-IDENT               	END
+token(102)          	END
 IDENT               	FILE
 IDENT               	u
 IDENT               	ENDFILE
@@ -324,7 +324,7 @@ IDENT               	THEN
 IDENT               	CYCLE
 else                	ELSE
 IDENT               	EXIT
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	ENDDO
 IDENT               	i
@@ -344,7 +344,7 @@ IDENT               	i
 IDENT               	i
 *                   	*
 IDENT               	2
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 IDENT               	DO
 IDENT               	300
@@ -390,7 +390,7 @@ IDENT               	CONTINUE
 IDENT               	GO
 IDENT               	TO
 IDENT               	100
-IDENT               	END
+token(102)          	END
 IDENT               	DOUBLEPRECISION
 token(101)          	FUNCTION
 IDENT               	f
@@ -469,7 +469,7 @@ IDENT               	1
 )                   	)
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 token(96)           	SUBROUTINE
 IDENT               	foo
 token(100)          	IMPLICIT
@@ -498,7 +498,7 @@ IDENT               	10
 STRING              	'bar'
 IDENT               	PAUSE
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 IDENT               	BLOCKDATA
 IDENT               	bdat1
 IDENT               	COMMON
@@ -521,7 +521,7 @@ IDENT               	2
 .                   	.
 IDENT               	0
 /                   	/
-IDENT               	END
+token(102)          	END
 IDENT               	BLOCK
 IDENT               	DATA
 IDENT               	bdat2
@@ -541,4 +541,4 @@ IDENT               	2
 .                   	.
 IDENT               	0
 /                   	/
-IDENT               	END
+token(102)          	END

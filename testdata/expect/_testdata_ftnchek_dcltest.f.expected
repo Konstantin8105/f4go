@@ -34,4 +34,4 @@ IDENT               	STRING1
 ,                   	,
 IDENT               	STRING2
 COMMENT             	c
-IDENT               	end
+token(102)          	end

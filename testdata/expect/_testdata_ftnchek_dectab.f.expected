@@ -43,4 +43,4 @@ IDENT               	a
 IDENT               	b
 ,                   	,
 IDENT               	c
-IDENT               	end
+token(102)          	end

@@ -78,4 +78,4 @@ IDENT               	character
 IDENT               	MAXTOK
 )                   	)
 IDENT               	toklst
-IDENT               	end
+token(102)          	end

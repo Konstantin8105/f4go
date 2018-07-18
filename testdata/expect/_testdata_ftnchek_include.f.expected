@@ -34,7 +34,7 @@ IDENT               	Fname
 )                   	)
 IDENT               	Call
 IDENT               	PrintStats
-IDENT               	End
+token(102)          	End
 COMMENT             	C
 COMMENT             	C     SubRoutine to get all kinds of neat statistics.
 COMMENT             	C
@@ -82,7 +82,7 @@ IDENT               	8
 ,                   	,
 IDENT               	10
 ,                   	,
-IDENT               	End
+token(102)          	End
 =                   	=
 IDENT               	888
 )                   	)
@@ -222,7 +222,7 @@ COMMENT             	C
 COMMENT             	C     In the event of improper filename exit abruptly.
 COMMENT             	C
 IDENT               	STOP
-IDENT               	End
+token(102)          	End
 COMMENT             	C
 COMMENT             	C     SubRoutine to print to terminal all of these neat statistics.
 COMMENT             	C
@@ -433,7 +433,7 @@ IDENT               	1
 STRING              	', * equals one character.'
 )                   	)
 IDENT               	Return
-IDENT               	End
+token(102)          	End
 COMMENT             	C
 COMMENT             	C     SubRoutine to prompt for and return a filename.
 COMMENT             	C
@@ -479,7 +479,7 @@ IDENT               	Format
 IDENT               	A
 )                   	)
 IDENT               	Return
-IDENT               	End
+token(102)          	End
 COMMENT             	C
 COMMENT             	C     SubRoutine to initailize globally used variables.
 COMMENT             	C
@@ -541,7 +541,7 @@ IDENT               	M
 =                   	=
 IDENT               	0
 IDENT               	Return
-IDENT               	End
+token(102)          	End
 COMMENT             	C
 COMMENT             	C     Function to return integer value of a character in range of uppercase.
 COMMENT             	C
@@ -591,4 +591,4 @@ IDENT               	IntUpCase
 IDENT               	I
 IDENT               	EndIf
 IDENT               	Return
-IDENT               	End
+token(102)          	End

@@ -57,7 +57,7 @@ IDENT               	unit
 =                   	=
 IDENT               	5
 ,                   	,
-IDENT               	end
+token(102)          	end
 =                   	=
 IDENT               	200
 ,                   	,
@@ -127,4 +127,4 @@ IDENT               	write
 )                   	)
 STRING              	'I'
 STRING              	'm outta here'
-IDENT               	end
+token(102)          	end

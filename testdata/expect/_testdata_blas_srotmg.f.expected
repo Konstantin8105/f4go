@@ -275,7 +275,7 @@ IDENT               	1
 =                   	=
 IDENT               	SFLAG
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*        REGULAR-CASE..
 IDENT               	SP1
@@ -356,7 +356,7 @@ IDENT               	SX1
 IDENT               	SX1
 *                   	*
 IDENT               	SU
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 if                  	IF
@@ -434,9 +434,9 @@ IDENT               	SX1
 IDENT               	SY1
 *                   	*
 IDENT               	SU
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*     PROCESURE..SCALE-CHECK
 if                  	IF
@@ -500,7 +500,7 @@ IDENT               	SFLAG
 =                   	=
 -                   	-
 IDENT               	ONE
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -556,10 +556,10 @@ IDENT               	SH12
 IDENT               	SH12
 *                   	*
 IDENT               	GAM
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	ENDDO
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -628,7 +628,7 @@ IDENT               	SFLAG
 =                   	=
 -                   	-
 IDENT               	ONE
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -677,13 +677,13 @@ IDENT               	SH22
 IDENT               	SH22
 *                   	*
 IDENT               	GAM
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 IDENT               	DO
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -753,7 +753,7 @@ IDENT               	5
 )                   	)
 =                   	=
 IDENT               	SH22
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	SPARAM
 (                   	(
@@ -762,4 +762,4 @@ IDENT               	1
 =                   	=
 IDENT               	SFLAG
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END

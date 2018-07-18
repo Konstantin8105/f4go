@@ -50,4 +50,4 @@ STRING              	' and the average = '
 IDENT               	r
 IDENT               	enddo
 COMMENT             	c   
-IDENT               	end
+token(102)          	end

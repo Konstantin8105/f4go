@@ -58,7 +58,7 @@ IDENT               	c1
 STRING              	'A'
 IDENT               	call
 IDENT               	foo
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	foo
 IDENT               	character
@@ -121,7 +121,7 @@ IDENT               	c1
 STRING              	'A'
 IDENT               	call
 IDENT               	bar
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	bar
 IDENT               	character
@@ -179,4 +179,4 @@ IDENT               	c1
 /                   	/
 /                   	/
 IDENT               	c8
-IDENT               	end
+token(102)          	end

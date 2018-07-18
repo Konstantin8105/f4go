@@ -57,7 +57,7 @@ IDENT               	b
 ,                   	,
 IDENT               	x
 )                   	)
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	suba
 (                   	(
@@ -72,4 +72,4 @@ IDENT               	21
 )                   	)
 ,                   	,
 IDENT               	z
-IDENT               	end
+token(102)          	end

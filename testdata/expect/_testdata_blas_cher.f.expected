@@ -321,7 +321,7 @@ IDENT               	THEN
 IDENT               	INFO
 =                   	=
 IDENT               	7
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -340,7 +340,7 @@ STRING              	'CHER  '
 IDENT               	INFO
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Quick return if possible.
@@ -405,7 +405,7 @@ IDENT               	THEN
 IDENT               	KX
 =                   	=
 IDENT               	1
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Start the operations. In this version the elements of A are
@@ -538,7 +538,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	20
 IDENT               	CONTINUE
@@ -658,7 +658,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	JX
 =                   	=
@@ -667,7 +667,7 @@ IDENT               	JX
 IDENT               	INCX
 IDENT               	40
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 COMMENT             	*
@@ -786,7 +786,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	60
 IDENT               	CONTINUE
@@ -906,7 +906,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	JX
 =                   	=
@@ -915,13 +915,13 @@ IDENT               	JX
 IDENT               	INCX
 IDENT               	80
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 IDENT               	RETURN
 COMMENT             	*
 COMMENT             	*     End of CHER  .
 COMMENT             	*
-IDENT               	END
+token(102)          	END

@@ -328,7 +328,7 @@ else                	ELSE
 IDENT               	NROWA
 =                   	=
 IDENT               	N
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	NOUNIT
 =                   	=
@@ -549,7 +549,7 @@ IDENT               	THEN
 IDENT               	INFO
 =                   	=
 IDENT               	11
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -568,7 +568,7 @@ STRING              	'STRMM '
 IDENT               	INFO
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Quick return if possible.
@@ -629,7 +629,7 @@ IDENT               	CONTINUE
 IDENT               	20
 IDENT               	CONTINUE
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Start the operations.
@@ -750,7 +750,7 @@ IDENT               	J
 )                   	)
 =                   	=
 IDENT               	TEMP
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	40
 IDENT               	CONTINUE
@@ -863,13 +863,13 @@ IDENT               	K
 )                   	)
 IDENT               	60
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	70
 IDENT               	CONTINUE
 IDENT               	80
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 COMMENT             	*
@@ -1040,9 +1040,9 @@ IDENT               	130
 IDENT               	CONTINUE
 IDENT               	140
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 if                  	IF
@@ -1178,7 +1178,7 @@ IDENT               	K
 )                   	)
 IDENT               	160
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	170
 IDENT               	CONTINUE
@@ -1297,13 +1297,13 @@ IDENT               	K
 )                   	)
 IDENT               	200
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	210
 IDENT               	CONTINUE
 IDENT               	220
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 COMMENT             	*
@@ -1385,7 +1385,7 @@ IDENT               	K
 )                   	)
 IDENT               	230
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	240
 IDENT               	CONTINUE
@@ -1439,7 +1439,7 @@ IDENT               	K
 )                   	)
 IDENT               	250
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	260
 IDENT               	CONTINUE
@@ -1518,7 +1518,7 @@ IDENT               	K
 )                   	)
 IDENT               	270
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	280
 IDENT               	CONTINUE
@@ -1572,19 +1572,19 @@ IDENT               	K
 )                   	)
 IDENT               	290
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	300
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 IDENT               	RETURN
 COMMENT             	*
 COMMENT             	*     End of STRMM .
 COMMENT             	*
-IDENT               	END
+token(102)          	END

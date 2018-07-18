@@ -7,7 +7,7 @@ IDENT               	call
 IDENT               	direct_access
 IDENT               	call
 IDENT               	f90_stuff
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	vms_isms
 IDENT               	character
@@ -92,7 +92,7 @@ IDENT               	line
 (                   	(
 IDENT               	i
 )                   	)
-IDENT               	end
+token(102)          	end
 IDENT               	do
 IDENT               	write
 (                   	(
@@ -138,7 +138,7 @@ IDENT               	unit
 =                   	=
 IDENT               	2
 )                   	)
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	direct_access
 IDENT               	character
@@ -192,7 +192,7 @@ IDENT               	5
 ,                   	,
 IDENT               	10
 ,                   	,
-IDENT               	end
+token(102)          	end
 =                   	=
 IDENT               	910
 )                   	)
@@ -249,7 +249,7 @@ IDENT               	unit
 =                   	=
 IDENT               	5
 )                   	)
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	f90_stuff
 token(98)           	integer
@@ -372,4 +372,4 @@ IDENT               	print
 ,                   	,
 STRING              	'Error reading file.'
 IDENT               	return
-IDENT               	end
+token(102)          	end

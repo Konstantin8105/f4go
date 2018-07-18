@@ -32,7 +32,7 @@ IDENT               	I
 IDENT               	1
 .                   	.
 IDENT               	10
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 IDENT               	1
 IDENT               	format
@@ -57,7 +57,7 @@ IDENT               	I9
 /                   	/
 IDENT               	I10
 )                   	)
-IDENT               	end
+token(102)          	end
 IDENT               	REALFUNCTIONF
 (                   	(
 IDENT               	M
@@ -95,4 +95,4 @@ IDENT               	F
 IDENT               	M
 +                   	+
 IDENT               	N
-IDENT               	END
+token(102)          	END

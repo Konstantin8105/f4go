@@ -238,7 +238,7 @@ IDENT               	CA
 IDENT               	ALPHA
 *                   	*
 IDENT               	NORM
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END

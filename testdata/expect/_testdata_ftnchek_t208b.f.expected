@@ -16,4 +16,4 @@ IDENT               	MYSQRT
 IDENT               	MYSUB
 IDENT               	REAL
 IDENT               	MYSQRT
-IDENT               	END
+token(102)          	END

@@ -10,4 +10,5 @@ const (
 	DOUBLE_COLON
 	IMPLICIT
 	FUNCTION
+	END
 )

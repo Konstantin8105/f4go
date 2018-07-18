@@ -105,7 +105,7 @@ IDENT               	20
 IDENT               	CONTINUE
 IDENT               	30
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 token(96)           	SUBROUTINE
 IDENT               	FOO
 (                   	(
@@ -133,7 +133,7 @@ IDENT               	D
 IDENT               	D
 =                   	=
 IDENT               	A
-IDENT               	END
+token(102)          	END
 token(96)           	SUBROUTINE
 IDENT               	SWAP
 (                   	(
@@ -156,4 +156,4 @@ IDENT               	Y
 IDENT               	Y
 =                   	=
 IDENT               	TEMP
-IDENT               	END
+token(102)          	END

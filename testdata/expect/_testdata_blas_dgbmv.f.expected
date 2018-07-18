@@ -482,7 +482,7 @@ IDENT               	THEN
 IDENT               	INFO
 =                   	=
 IDENT               	13
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -501,7 +501,7 @@ STRING              	'DGBMV '
 IDENT               	INFO
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Quick return if possible.
@@ -577,7 +577,7 @@ IDENT               	M
 IDENT               	LENY
 =                   	=
 IDENT               	N
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -603,7 +603,7 @@ IDENT               	1
 )                   	)
 *                   	*
 IDENT               	INCX
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -629,7 +629,7 @@ IDENT               	1
 )                   	)
 *                   	*
 IDENT               	INCY
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Start the operations. In this version the elements of A are
@@ -700,7 +700,7 @@ IDENT               	I
 )                   	)
 IDENT               	20
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 IDENT               	IY
@@ -761,11 +761,11 @@ IDENT               	IY
 IDENT               	INCY
 IDENT               	40
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -968,7 +968,7 @@ IDENT               	KY
 IDENT               	INCY
 IDENT               	80
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 COMMENT             	*
@@ -1158,13 +1158,13 @@ IDENT               	KX
 IDENT               	INCX
 IDENT               	120
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 IDENT               	RETURN
 COMMENT             	*
 COMMENT             	*     End of DGBMV .
 COMMENT             	*
-IDENT               	END
+token(102)          	END

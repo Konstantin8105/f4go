@@ -323,7 +323,7 @@ IDENT               	THEN
 IDENT               	INFO
 =                   	=
 IDENT               	7
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -342,7 +342,7 @@ STRING              	'SSPR2 '
 IDENT               	INFO
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Quick return if possible.
@@ -417,7 +417,7 @@ IDENT               	1
 )                   	)
 *                   	*
 IDENT               	INCX
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -443,7 +443,7 @@ IDENT               	1
 )                   	)
 *                   	*
 IDENT               	INCY
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	JX
 =                   	=
@@ -451,7 +451,7 @@ IDENT               	KX
 IDENT               	JY
 =                   	=
 IDENT               	KY
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Start the operations. In this version the elements of the array AP
@@ -584,7 +584,7 @@ IDENT               	K
 IDENT               	1
 IDENT               	10
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	KK
 =                   	=
@@ -696,7 +696,7 @@ IDENT               	IY
 IDENT               	INCY
 IDENT               	30
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	JX
 =                   	=
@@ -715,7 +715,7 @@ IDENT               	KK
 IDENT               	J
 IDENT               	40
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 COMMENT             	*
@@ -832,7 +832,7 @@ IDENT               	K
 IDENT               	1
 IDENT               	50
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	KK
 =                   	=
@@ -948,7 +948,7 @@ IDENT               	IY
 IDENT               	INCY
 IDENT               	70
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	JX
 =                   	=
@@ -971,13 +971,13 @@ IDENT               	J
 IDENT               	1
 IDENT               	80
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 IDENT               	RETURN
 COMMENT             	*
 COMMENT             	*     End of SSPR2 .
 COMMENT             	*
-IDENT               	END
+token(102)          	END

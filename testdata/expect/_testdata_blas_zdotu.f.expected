@@ -214,7 +214,7 @@ IDENT               	ZY
 (                   	(
 IDENT               	I
 )                   	)
-IDENT               	END
+token(102)          	END
 IDENT               	DO
 else                	ELSE
 COMMENT             	*
@@ -296,12 +296,12 @@ IDENT               	IY
 IDENT               	IY
 +                   	+
 IDENT               	INCY
-IDENT               	END
+token(102)          	END
 IDENT               	DO
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	ZDOTU
 =                   	=
 IDENT               	ZTEMP
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END

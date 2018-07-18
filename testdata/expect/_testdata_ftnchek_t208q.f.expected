@@ -16,4 +16,4 @@ IDENT               	CHARACTER
 *                   	*
 IDENT               	10
 IDENT               	TOKL10
-IDENT               	END
+token(102)          	END

@@ -37,7 +37,7 @@ IDENT               	icube
 IDENT               	i
 token(95)           	**
 IDENT               	3
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	square_cube
 token(97)           	program
@@ -83,6 +83,6 @@ IDENT               	i
 IDENT               	isq
 ,                   	,
 IDENT               	icub
-IDENT               	end
+token(102)          	end
 token(97)           	program
 IDENT               	xx

@@ -20,7 +20,7 @@ IDENT               	square
 IDENT               	x
 *                   	*
 IDENT               	x
-IDENT               	end
+token(102)          	end
 token(101)          	function
 token(97)           	program
 IDENT               	main
@@ -45,6 +45,6 @@ IDENT               	a
 COMMENT             	! After invoking the square(.) pure function, we can be sure that 
 COMMENT             	! besides assigning the output value of square(a) to b,
 COMMENT             	! nothing else has been changed.
-IDENT               	end
+token(102)          	end
 token(97)           	program
 IDENT               	main

@@ -13,7 +13,7 @@ IDENT               	5
 IDENT               	x
 =                   	=
 IDENT               	abc
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	sub1
 IDENT               	common
@@ -52,7 +52,7 @@ IDENT               	0
 ,                   	,
 IDENT               	2
 )                   	)
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	sub2
 (                   	(
@@ -75,7 +75,7 @@ IDENT               	abc
 (                   	(
 IDENT               	1
 )                   	)
-IDENT               	end
+token(102)          	end
 token(101)          	function
 IDENT               	abc
 (                   	(
@@ -86,4 +86,4 @@ IDENT               	abc
 IDENT               	n
 *                   	*
 IDENT               	n
-IDENT               	end
+token(102)          	end

@@ -280,7 +280,7 @@ IDENT               	stop
 IDENT               	123
 IDENT               	5432
 IDENT               	pause
-IDENT               	end
+token(102)          	end
 =                   	=
 IDENT               	123
 +                   	+
@@ -516,7 +516,7 @@ IDENT               	pause
 IDENT               	456
 IDENT               	goto
 IDENT               	34567
-IDENT               	end
+token(102)          	end
 COMMENT             	c comments in here don't hurt a bit
 token(98)           	integer
 token(101)          	function
@@ -545,7 +545,7 @@ IDENT               	1
 .                   	.
 IDENT               	0
 IDENT               	D0
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	home
 (                   	(
@@ -638,4 +638,4 @@ IDENT               	xray
 )                   	)
 IDENT               	return
 IDENT               	1
-IDENT               	end
+token(102)          	end

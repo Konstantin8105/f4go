@@ -54,7 +54,7 @@ IDENT               	primes
 ,                   	,
 IDENT               	numprimes
 )                   	)
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	printarray
 (                   	(
@@ -106,9 +106,9 @@ IDENT               	a
 (                   	(
 IDENT               	i
 )                   	)
-IDENT               	end
+token(102)          	end
 IDENT               	do
-IDENT               	end
+token(102)          	end
 token(98)           	integer
 token(101)          	function
 IDENT               	makeprimes
@@ -203,18 +203,18 @@ IDENT               	numprimes
 )                   	)
 =                   	=
 IDENT               	i
-IDENT               	end
+token(102)          	end
 if                  	if
-IDENT               	end
+token(102)          	end
 if                  	if
-IDENT               	end
+token(102)          	end
 IDENT               	do
 COMMENT             	C return number of primes found
 IDENT               	makeprimes
 =                   	=
 IDENT               	numprimes
 IDENT               	return
-IDENT               	end
+token(102)          	end
 IDENT               	logical
 token(101)          	function
 IDENT               	divisible
@@ -267,9 +267,9 @@ IDENT               	divisible
 IDENT               	true
 .                   	.
 IDENT               	return
-IDENT               	end
+token(102)          	end
 if                  	if
-IDENT               	end
+token(102)          	end
 IDENT               	do
 IDENT               	divisible
 =                   	=
@@ -277,4 +277,4 @@ IDENT               	divisible
 IDENT               	false
 .                   	.
 IDENT               	return
-IDENT               	end
+token(102)          	end

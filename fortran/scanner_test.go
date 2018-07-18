@@ -69,7 +69,7 @@ func TestScanner(t *testing.T) {
 
 			fileName := "../testdata/expect/" + testName + ".expected"
 
-			var update bool = true
+			var update bool //= true
 
 			if _, err := os.Stat(fileName); err == nil && !update {
 				var expect []byte

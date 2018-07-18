@@ -3,7 +3,7 @@ IDENT               	m
 IDENT               	n
 =                   	=
 IDENT               	m
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	big
 token(98)           	integer
@@ -30,4 +30,4 @@ IDENT               	x
 IDENT               	y
 ,                   	,
 IDENT               	z
-IDENT               	end
+token(102)          	end

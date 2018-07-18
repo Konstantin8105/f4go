@@ -328,7 +328,7 @@ else                	ELSE
 IDENT               	NROWA
 =                   	=
 IDENT               	K
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	UPPER
 =                   	=
@@ -465,7 +465,7 @@ IDENT               	THEN
 IDENT               	INFO
 =                   	=
 IDENT               	10
-IDENT               	END
+token(102)          	END
 if                  	IF
 if                  	IF
 (                   	(
@@ -484,7 +484,7 @@ STRING              	'ZHERK '
 IDENT               	INFO
 )                   	)
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Quick return if possible.
@@ -641,7 +641,7 @@ IDENT               	J
 )                   	)
 IDENT               	40
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 if                  	IF
@@ -733,12 +733,12 @@ IDENT               	70
 IDENT               	CONTINUE
 IDENT               	80
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	RETURN
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 COMMENT             	*     Start the operations.
@@ -865,7 +865,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DO
 IDENT               	120
@@ -965,7 +965,7 @@ IDENT               	I
 IDENT               	L
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	120
 IDENT               	CONTINUE
@@ -1076,7 +1076,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DO
 IDENT               	170
@@ -1176,13 +1176,13 @@ IDENT               	L
 )                   	)
 IDENT               	160
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	170
 IDENT               	CONTINUE
 IDENT               	180
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
 else                	ELSE
 COMMENT             	*
@@ -1280,7 +1280,7 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	200
 IDENT               	CONTINUE
@@ -1358,7 +1358,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	220
 IDENT               	CONTINUE
@@ -1444,7 +1444,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	DO
 IDENT               	250
@@ -1526,19 +1526,19 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
-IDENT               	END
+token(102)          	END
 if                  	IF
 IDENT               	250
 IDENT               	CONTINUE
 IDENT               	260
 IDENT               	CONTINUE
-IDENT               	END
+token(102)          	END
 if                  	IF
-IDENT               	END
+token(102)          	END
 if                  	IF
 COMMENT             	*
 IDENT               	RETURN
 COMMENT             	*
 COMMENT             	*     End of ZHERK .
 COMMENT             	*
-IDENT               	END
+token(102)          	END

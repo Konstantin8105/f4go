@@ -25,7 +25,7 @@ IDENT               	Q
 IDENT               	R
 ,                   	,
 IDENT               	S
-IDENT               	END
+token(102)          	END
 token(96)           	subroutine
 IDENT               	noname
 IDENT               	common
@@ -47,4 +47,4 @@ IDENT               	abc
 IDENT               	m
 ,                   	,
 IDENT               	n
-IDENT               	end
+token(102)          	end

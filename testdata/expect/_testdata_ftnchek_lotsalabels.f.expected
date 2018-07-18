@@ -6900,4 +6900,4 @@ IDENT               	2300
 IDENT               	2300
 IDENT               	goto
 IDENT               	1
-IDENT               	end
+token(102)          	end

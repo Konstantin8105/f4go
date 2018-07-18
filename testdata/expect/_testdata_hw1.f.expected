@@ -19,4 +19,4 @@ IDENT               	write
 )                   	)
 IDENT               	text
 COMMENT             	c
-IDENT               	end
+token(102)          	end

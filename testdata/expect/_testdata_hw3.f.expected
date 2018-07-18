@@ -16,7 +16,7 @@ IDENT               	printtext
 (                   	(
 IDENT               	text
 )                   	)
-IDENT               	end
+token(102)          	end
 token(96)           	subroutine
 IDENT               	printtext
 (                   	(
@@ -37,4 +37,4 @@ IDENT               	write
 )                   	)
 IDENT               	text
 COMMENT             	c
-IDENT               	end
+token(102)          	end
