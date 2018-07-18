@@ -44,7 +44,7 @@ IDENT	j
 IDENT	j
 +	+
 IDENT	1
-IDENT	if
+if	if
 (	(
 IDENT	j
 .	.

@@ -13,7 +13,7 @@ IDENT	1
 .	.
 IDENT	0
 )	)
-IDENT	if
+if	if
 (	(
 IDENT	x
 .	.
@@ -121,7 +121,7 @@ IDENT	j
 ,	,
 IDENT	i
 *	*j
-IDENT	if
+if	if
 (	(
 IDENT	i
 .	.
@@ -136,7 +136,7 @@ IDENT	k
 IDENT	k
 +	+
 IDENT	j
-IDENT	if
+if	if
 (	(
 IDENT	k
 .	.
@@ -219,7 +219,7 @@ IDENT	i
 IDENT	1
 ,	,
 IDENT	10
-IDENT	if
+if	if
 (	(
 IDENT	i
 =	=
@@ -242,7 +242,7 @@ IDENT	end
 IDENT	select
 IDENT	case2
 IDENT	end
-IDENT	if
+if	if
 IDENT	end
 token(97)	program
 IDENT	blocks
@@ -264,7 +264,7 @@ IDENT	read
 IDENT	a
 COMMENT	! This block is from section 8.1.2.3 of the F90 standard, except for
 COMMENT	! removing space between some keywords
-IDENT	if
+if	if
 (	(
 IDENT	a
 .	.
@@ -278,7 +278,7 @@ IDENT	b
 IDENT	c
 /	/
 IDENT	a
-IDENT	if
+if	if
 (	(
 IDENT	b
 .	.
@@ -355,7 +355,7 @@ IDENT	a
 COMMENT	! Same as above but with spaces restored and construct names added
 IDENT	first_if
 :	:
-IDENT	if
+if	if
 (	(
 IDENT	a
 .	.
@@ -371,7 +371,7 @@ IDENT	c
 IDENT	a
 IDENT	second_if
 :	:
-IDENT	if
+if	if
 (	(
 IDENT	b
 .	.
@@ -386,10 +386,10 @@ IDENT	1
 .	.
 IDENT	0
 IDENT	end
-IDENT	if
+if	if
 IDENT	second_if
 IDENT	else
-IDENT	if
+if	if
 (	(
 IDENT	c
 .	.
@@ -427,7 +427,7 @@ IDENT	d
 =	=
 IDENT	0
 IDENT	end
-IDENT	if
+if	if
 IDENT	first_if
 IDENT	print
 *	*,

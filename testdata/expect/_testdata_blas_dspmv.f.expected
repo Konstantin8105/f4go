@@ -277,7 +277,7 @@ COMMENT	*
 IDENT	INFO
 =	=
 IDENT	0
-IDENT	IF
+if	IF
 (	(
 .	.
 IDENT	NOT
@@ -306,7 +306,7 @@ IDENT	INFO
 =	=
 IDENT	1
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	N
 .	.
@@ -319,7 +319,7 @@ IDENT	INFO
 =	=
 IDENT	2
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -332,7 +332,7 @@ IDENT	INFO
 =	=
 IDENT	6
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	INCY
 .	.
@@ -345,8 +345,8 @@ IDENT	INFO
 =	=
 IDENT	9
 IDENT	END
-IDENT	IF
-IDENT	IF
+if	IF
+if	IF
 (	(
 IDENT	INFO
 .	.
@@ -364,11 +364,11 @@ IDENT	INFO
 )	)
 IDENT	RETURN
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 COMMENT	*     Quick return if possible.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	N
@@ -404,7 +404,7 @@ IDENT	RETURN
 COMMENT	*
 COMMENT	*     Set up the start points in  X  and  Y.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -429,8 +429,8 @@ IDENT	1
 *	*I
 IDENT	NCX
 IDENT	END
-IDENT	IF
-IDENT	IF
+if	IF
+if	IF
 (	(
 IDENT	INCY
 .	.
@@ -455,14 +455,14 @@ IDENT	1
 *	*I
 IDENT	NCY
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 COMMENT	*     Start the operations. In this version the elements of the array AP
 COMMENT	*     are accessed sequentially with one pass through AP.
 COMMENT	*
 COMMENT	*     First form  y := beta*y.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	BETA
 .	.
@@ -471,7 +471,7 @@ IDENT	NE
 IDENT	ONE
 )	)
 IDENT	THEN
-IDENT	IF
+if	IF
 (	(
 IDENT	INCY
 .	.
@@ -480,7 +480,7 @@ IDENT	EQ
 IDENT	1
 )	)
 IDENT	THEN
-IDENT	IF
+if	IF
 (	(
 IDENT	BETA
 .	.
@@ -525,12 +525,12 @@ IDENT	I
 IDENT	20
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	ELSE
 IDENT	IY
 =	=
 IDENT	KY
-IDENT	IF
+if	IF
 (	(
 IDENT	BETA
 .	.
@@ -585,12 +585,12 @@ IDENT	INCY
 IDENT	40
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	END
-IDENT	IF
-IDENT	IF
+if	IF
+if	IF
 (	(
 IDENT	ALPHA
 .	.
@@ -602,7 +602,7 @@ IDENT	RETURN
 IDENT	KK
 =	=
 IDENT	1
-IDENT	IF
+if	IF
 (	(
 IDENT	LSAME
 (	(
@@ -615,7 +615,7 @@ IDENT	THEN
 COMMENT	*
 COMMENT	*        Form  y  when AP contains the upper triangle.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	INCX
@@ -854,12 +854,12 @@ IDENT	J
 IDENT	80
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	ELSE
 COMMENT	*
 COMMENT	*        Form  y  when AP contains the lower triangle.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	INCX
@@ -1124,9 +1124,9 @@ IDENT	1
 IDENT	120
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 IDENT	RETURN
 COMMENT	*

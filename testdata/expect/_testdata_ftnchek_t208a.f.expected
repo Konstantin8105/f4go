@@ -199,7 +199,7 @@ COMMENT	C
 COMMENT	C     We can generate an  entry of size "-ddddd -ddddd R "; try to
 COMMENT	C     keep line lengths under 80 characters.
 COMMENT	C
-IDENT	IF
+if	IF
 (	(
 IDENT	TKIOLL
 (	(
@@ -236,7 +236,7 @@ COMMENT	C     parsing  time.    We cannot  discard zero length  segments,
 COMMENT	C     however, because that  would discard single  points from  a
 COMMENT	C     point plot.
 COMMENT	C
-IDENT	IF
+if	IF
 (	(
 IDENT	IX
 .	.
@@ -247,7 +247,7 @@ IDENT	LASTX
 IDENT	GO
 IDENT	TO
 IDENT	10
-IDENT	IF
+if	IF
 (	(
 IDENT	IY
 .	.

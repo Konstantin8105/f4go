@@ -16,7 +16,7 @@ IDENT	a
 IDENT	2
 /	/
 IDENT	c
-IDENT	if
+if	if
 (	(
 IDENT	a
 .	.

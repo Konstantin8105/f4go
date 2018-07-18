@@ -148,7 +148,7 @@ IDENT	3
 IDENT	n
 ,	,
 IDENT	2
-IDENT	if
+if	if
 (	(
 .	.
 IDENT	not
@@ -168,7 +168,7 @@ IDENT	numprimes
 IDENT	numprimes
 +	+
 IDENT	1
-IDENT	if
+if	if
 (	(
 IDENT	numprimes
 .	.
@@ -193,9 +193,9 @@ IDENT	numprimes
 =	=
 IDENT	i
 IDENT	end
-IDENT	if
+if	if
 IDENT	end
-IDENT	if
+if	if
 IDENT	end
 IDENT	do
 COMMENT	C return number of primes found
@@ -233,7 +233,7 @@ IDENT	i
 IDENT	1
 ,	,
 IDENT	nump
-IDENT	if
+if	if
 (	(
 IDENT	mod
 (	(
@@ -257,7 +257,7 @@ IDENT	true
 .	.
 IDENT	return
 IDENT	end
-IDENT	if
+if	if
 IDENT	end
 IDENT	do
 IDENT	divisible

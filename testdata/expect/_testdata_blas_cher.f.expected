@@ -247,7 +247,7 @@ COMMENT	*
 IDENT	INFO
 =	=
 IDENT	0
-IDENT	IF
+if	IF
 (	(
 .	.
 IDENT	NOT
@@ -276,7 +276,7 @@ IDENT	INFO
 =	=
 IDENT	1
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	N
 .	.
@@ -289,7 +289,7 @@ IDENT	INFO
 =	=
 IDENT	2
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -302,7 +302,7 @@ IDENT	INFO
 =	=
 IDENT	5
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	LDA
 .	.
@@ -320,8 +320,8 @@ IDENT	INFO
 =	=
 IDENT	7
 IDENT	END
-IDENT	IF
-IDENT	IF
+if	IF
+if	IF
 (	(
 IDENT	INFO
 .	.
@@ -339,11 +339,11 @@ IDENT	INFO
 )	)
 IDENT	RETURN
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 COMMENT	*     Quick return if possible.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	N
@@ -370,7 +370,7 @@ IDENT	RETURN
 COMMENT	*
 COMMENT	*     Set the start point in X if the increment is not unity.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -391,7 +391,7 @@ IDENT	1
 *	*I
 IDENT	NCX
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -404,13 +404,13 @@ IDENT	KX
 =	=
 IDENT	1
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 COMMENT	*     Start the operations. In this version the elements of A are
 COMMENT	*     accessed sequentially with one pass through the triangular part
 COMMENT	*     of A.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	LSAME
 (	(
@@ -423,7 +423,7 @@ IDENT	THEN
 COMMENT	*
 COMMENT	*        Form  A  when A is stored in upper triangle.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -439,7 +439,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 IDENT	X
 (	(
@@ -537,7 +537,7 @@ IDENT	J
 )	)
 )	)
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	20
 IDENT	CONTINUE
 IDENT	ELSE
@@ -551,7 +551,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 IDENT	X
 (	(
@@ -657,7 +657,7 @@ IDENT	J
 )	)
 )	)
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	JX
 =	=
 IDENT	JX
@@ -666,12 +666,12 @@ IDENT	INCX
 IDENT	40
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	ELSE
 COMMENT	*
 COMMENT	*        Form  A  when A is stored in lower triangle.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -687,7 +687,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 IDENT	X
 (	(
@@ -784,7 +784,7 @@ IDENT	J
 )	)
 )	)
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	60
 IDENT	CONTINUE
 IDENT	ELSE
@@ -798,7 +798,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 IDENT	X
 (	(
@@ -903,7 +903,7 @@ IDENT	J
 )	)
 )	)
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	JX
 =	=
 IDENT	JX
@@ -912,9 +912,9 @@ IDENT	INCX
 IDENT	80
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 IDENT	RETURN
 COMMENT	*

@@ -264,7 +264,7 @@ COMMENT	*
 IDENT	INFO
 =	=
 IDENT	0
-IDENT	IF
+if	IF
 (	(
 .	.
 IDENT	NOT
@@ -293,7 +293,7 @@ IDENT	INFO
 =	=
 IDENT	1
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	N
 .	.
@@ -306,7 +306,7 @@ IDENT	INFO
 =	=
 IDENT	2
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -319,7 +319,7 @@ IDENT	INFO
 =	=
 IDENT	5
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	INCY
 .	.
@@ -332,7 +332,7 @@ IDENT	INFO
 =	=
 IDENT	7
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	LDA
 .	.
@@ -350,8 +350,8 @@ IDENT	INFO
 =	=
 IDENT	9
 IDENT	END
-IDENT	IF
-IDENT	IF
+if	IF
+if	IF
 (	(
 IDENT	INFO
 .	.
@@ -369,11 +369,11 @@ IDENT	INFO
 )	)
 IDENT	RETURN
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 COMMENT	*     Quick return if possible.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	N
@@ -398,7 +398,7 @@ COMMENT	*
 COMMENT	*     Set up the start points in X and Y if the increments are not both
 COMMENT	*     unity.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	INCX
@@ -419,7 +419,7 @@ IDENT	1
 )	)
 )	)
 IDENT	THEN
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -444,8 +444,8 @@ IDENT	1
 *	*I
 IDENT	NCX
 IDENT	END
-IDENT	IF
-IDENT	IF
+if	IF
+if	IF
 (	(
 IDENT	INCY
 .	.
@@ -470,7 +470,7 @@ IDENT	1
 *	*I
 IDENT	NCY
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	JX
 =	=
 IDENT	KX
@@ -478,13 +478,13 @@ IDENT	JY
 =	=
 IDENT	KY
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 COMMENT	*     Start the operations. In this version the elements of A are
 COMMENT	*     accessed sequentially with one pass through the triangular part
 COMMENT	*     of A.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	LSAME
 (	(
@@ -497,7 +497,7 @@ IDENT	THEN
 COMMENT	*
 COMMENT	*        Form  A  when A is stored in the upper triangle.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	INCX
@@ -525,7 +525,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	X
@@ -603,7 +603,7 @@ IDENT	EMP2
 IDENT	10
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	20
 IDENT	CONTINUE
 IDENT	ELSE
@@ -614,7 +614,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	X
@@ -708,7 +708,7 @@ IDENT	INCY
 IDENT	30
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	JX
 =	=
 IDENT	JX
@@ -722,12 +722,12 @@ IDENT	INCY
 IDENT	40
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	ELSE
 COMMENT	*
 COMMENT	*        Form  A  when A is stored in the lower triangle.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	INCX
@@ -755,7 +755,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	X
@@ -833,7 +833,7 @@ IDENT	EMP2
 IDENT	50
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	60
 IDENT	CONTINUE
 IDENT	ELSE
@@ -844,7 +844,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	X
@@ -938,7 +938,7 @@ IDENT	INCY
 IDENT	70
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	JX
 =	=
 IDENT	JX
@@ -952,9 +952,9 @@ IDENT	INCY
 IDENT	80
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 IDENT	RETURN
 COMMENT	*

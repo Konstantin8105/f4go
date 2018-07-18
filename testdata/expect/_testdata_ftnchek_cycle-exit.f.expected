@@ -6,7 +6,7 @@ IDENT	i
 IDENT	1
 ,	,
 IDENT	100
-IDENT	if
+if	if
 (	(
 IDENT	mod
 (	(
@@ -30,7 +30,7 @@ IDENT	i
 *	*i
 COMMENT	! no path to this statement
 IDENT	endif
-IDENT	if
+if	if
 (	(
 IDENT	i
 .	.

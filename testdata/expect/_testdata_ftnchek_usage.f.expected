@@ -326,7 +326,7 @@ IDENT	gamma
 COMMENT	*
 IDENT	logical
 IDENT	beta
-IDENT	if
+if	if
 (	(
 IDENT	beta
 )	)
@@ -361,7 +361,7 @@ IDENT	blk1
 /	/
 ,	,
 IDENT	xray
-IDENT	if
+if	if
 (	(
 (	(
 IDENT	x

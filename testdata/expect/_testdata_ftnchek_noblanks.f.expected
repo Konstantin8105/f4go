@@ -374,7 +374,7 @@ IDENT	304
 IDENT	d19
 /	/
 IDENT	c
-IDENT	if
+if	if
 (	(
 IDENT	n
 .	.
@@ -416,7 +416,7 @@ IDENT	70
 IDENT	110
 )	)
 IDENT	30
-IDENT	if
+if	if
 (	(
 IDENT	dabs
 (	(
@@ -442,7 +442,7 @@ IDENT	phase1
 IDENT	sumiszero
 IDENT	c
 IDENT	50
-IDENT	if
+if	if
 (	(
 IDENT	dx
 (	(
@@ -454,7 +454,7 @@ IDENT	eq
 IDENT	zero
 )	)
 IDENT	goto200
-IDENT	if
+if	if
 (	(
 IDENT	dabs
 (	(
@@ -522,7 +522,7 @@ IDENT	scaletoavoiddestructiveunderflow
 .	.
 IDENT	c
 IDENT	70
-IDENT	if
+if	if
 (	(
 IDENT	dabs
 (	(
@@ -548,7 +548,7 @@ IDENT	scaletoavoidoverflow
 .	.
 IDENT	c
 IDENT	110
-IDENT	if
+if	if
 (	(
 IDENT	dabs
 (	(
@@ -670,7 +670,7 @@ IDENT	i
 IDENT	nn
 ,	,
 IDENT	incx
-IDENT	if
+if	if
 (	(
 IDENT	dabs
 (	(
@@ -711,7 +711,7 @@ IDENT	i
 IDENT	i
 +	+
 IDENT	incx
-IDENT	if
+if	if
 (	(
 IDENT	i
 .	.

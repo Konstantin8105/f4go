@@ -20,7 +20,7 @@ IDENT	M
 IDENT	REAL
 IDENT	X
 COMMENT	* this block-if statement is OK
-IDENT	IF
+if	IF
 (	(
 IDENT	USE1
 )	)
@@ -30,7 +30,7 @@ IDENT	M
 IDENT	1
 COMMENT	* else-if statement is OK
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	USE2
 )	)
@@ -43,9 +43,9 @@ IDENT	M
 =	=
 IDENT	3
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	* this logical if is OK
-IDENT	IF
+if	IF
 (	(
 IDENT	M
 .	.
@@ -59,7 +59,7 @@ IDENT	L
 +	+
 IDENT	1
 COMMENT	* this arithmetic if is OK
-IDENT	IF
+if	IF
 (	(
 IDENT	L
 )	)
@@ -73,7 +73,7 @@ IDENT	X
 =	=
 IDENT	L
 COMMENT	* this arithmetic if is OK
-IDENT	IF
+if	IF
 (	(
 IDENT	X
 )	)
@@ -85,7 +85,7 @@ IDENT	150
 IDENT	150
 IDENT	CONTINUE
 COMMENT	* violate a block if statement
-IDENT	IF
+if	IF
 (	(
 IDENT	L
 )	)
@@ -97,7 +97,7 @@ IDENT	M
 IDENT	1
 COMMENT	* violate an elseif statement
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	M
 )	)
@@ -114,9 +114,9 @@ IDENT	M
 +	+
 IDENT	3
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	* violate a logical if statement
-IDENT	IF
+if	IF
 (	(
 IDENT	M
 )	)
@@ -126,7 +126,7 @@ IDENT	L
 +	+
 IDENT	1
 COMMENT	* violate an arithmetic if statement
-IDENT	IF
+if	IF
 (	(
 IDENT	L
 .	.

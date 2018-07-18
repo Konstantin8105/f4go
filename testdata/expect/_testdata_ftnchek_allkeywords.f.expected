@@ -189,7 +189,7 @@ IDENT	200
 IDENT	PRINT
 *	*,
 IDENT	i
-IDENT	IF
+if	IF
 (	(
 IDENT	x
 .	.
@@ -245,7 +245,7 @@ IDENT	bool
 .	.
 IDENT	TRUE
 .	.
-IDENT	IF
+if	IF
 (	(
 IDENT	bool
 )	)
@@ -302,7 +302,7 @@ IDENT	lt
 .	.
 IDENT	100
 )	)
-IDENT	IF
+if	IF
 (	(
 IDENT	f
 (	(
@@ -320,7 +320,7 @@ IDENT	CYCLE
 IDENT	ELSE
 IDENT	EXIT
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	ENDDO
 IDENT	i
 =	=

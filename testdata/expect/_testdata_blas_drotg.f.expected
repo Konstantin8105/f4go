@@ -120,7 +120,7 @@ COMMENT	*     ..
 IDENT	ROE
 =	=
 IDENT	DB
-IDENT	IF
+if	IF
 (	(
 IDENT	DABS
 (	(
@@ -148,7 +148,7 @@ IDENT	DABS
 (	(
 IDENT	DB
 )	)
-IDENT	IF
+if	IF
 (	(
 IDENT	SCALE
 .	.
@@ -235,7 +235,7 @@ IDENT	1
 .	.
 IDENT	0
 IDENT	d0
-IDENT	IF
+if	IF
 (	(
 IDENT	DABS
 (	(
@@ -252,7 +252,7 @@ IDENT	DB
 IDENT	Z
 =	=
 IDENT	S
-IDENT	IF
+if	IF
 (	(
 IDENT	DABS
 (	(
@@ -286,7 +286,7 @@ IDENT	d0
 /	/
 IDENT	C
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	DA
 =	=
 IDENT	R

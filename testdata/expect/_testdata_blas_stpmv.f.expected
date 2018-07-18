@@ -241,7 +241,7 @@ COMMENT	*
 IDENT	INFO
 =	=
 IDENT	0
-IDENT	IF
+if	IF
 (	(
 .	.
 IDENT	NOT
@@ -270,7 +270,7 @@ IDENT	INFO
 =	=
 IDENT	1
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 .	.
 IDENT	NOT
@@ -312,7 +312,7 @@ IDENT	INFO
 =	=
 IDENT	2
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 .	.
 IDENT	NOT
@@ -341,7 +341,7 @@ IDENT	INFO
 =	=
 IDENT	3
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	N
 .	.
@@ -354,7 +354,7 @@ IDENT	INFO
 =	=
 IDENT	4
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -367,8 +367,8 @@ IDENT	INFO
 =	=
 IDENT	7
 IDENT	END
-IDENT	IF
-IDENT	IF
+if	IF
+if	IF
 (	(
 IDENT	INFO
 .	.
@@ -386,11 +386,11 @@ IDENT	INFO
 )	)
 IDENT	RETURN
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 COMMENT	*     Quick return if possible.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	N
 .	.
@@ -412,7 +412,7 @@ COMMENT	*
 COMMENT	*     Set up the start point in X if the increment is not unity. This
 COMMENT	*     will be  ( N - 1 )*INCX  too small for descending loops.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -433,7 +433,7 @@ IDENT	1
 *	*I
 IDENT	NCX
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -446,12 +446,12 @@ IDENT	KX
 =	=
 IDENT	1
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 COMMENT	*     Start the operations. In this version the elements of AP are
 COMMENT	*     accessed sequentially with one pass through AP.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	LSAME
 (	(
@@ -464,7 +464,7 @@ IDENT	THEN
 COMMENT	*
 COMMENT	*        Form  x:= A*x.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	LSAME
 (	(
@@ -477,7 +477,7 @@ IDENT	THEN
 IDENT	KK
 =	=
 IDENT	1
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -493,7 +493,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 IDENT	X
 (	(
@@ -546,7 +546,7 @@ IDENT	K
 IDENT	1
 IDENT	10
 IDENT	CONTINUE
-IDENT	IF
+if	IF
 (	(
 IDENT	NOUNIT
 )	)
@@ -569,7 +569,7 @@ IDENT	J
 IDENT	1
 )	)
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	KK
 =	=
 IDENT	KK
@@ -588,7 +588,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 IDENT	X
 (	(
@@ -643,7 +643,7 @@ IDENT	IX
 IDENT	INCX
 IDENT	30
 IDENT	CONTINUE
-IDENT	IF
+if	IF
 (	(
 IDENT	NOUNIT
 )	)
@@ -666,7 +666,7 @@ IDENT	J
 IDENT	1
 )	)
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	JX
 =	=
 IDENT	JX
@@ -680,7 +680,7 @@ IDENT	J
 IDENT	40
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	ELSE
 IDENT	KK
 =	=
@@ -695,7 +695,7 @@ IDENT	1
 )	)
 /	/
 IDENT	2
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -714,7 +714,7 @@ IDENT	1
 ,	,
 -	-
 IDENT	1
-IDENT	IF
+if	IF
 (	(
 IDENT	X
 (	(
@@ -770,7 +770,7 @@ IDENT	K
 IDENT	1
 IDENT	50
 IDENT	CONTINUE
-IDENT	IF
+if	IF
 (	(
 IDENT	NOUNIT
 )	)
@@ -793,7 +793,7 @@ IDENT	N
 IDENT	J
 )	)
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	KK
 =	=
 IDENT	KK
@@ -832,7 +832,7 @@ IDENT	1
 ,	,
 -	-
 IDENT	1
-IDENT	IF
+if	IF
 (	(
 IDENT	X
 (	(
@@ -896,7 +896,7 @@ IDENT	IX
 IDENT	INCX
 IDENT	70
 IDENT	CONTINUE
-IDENT	IF
+if	IF
 (	(
 IDENT	NOUNIT
 )	)
@@ -919,7 +919,7 @@ IDENT	N
 IDENT	J
 )	)
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	JX
 =	=
 IDENT	JX
@@ -939,14 +939,14 @@ IDENT	1
 IDENT	80
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	ELSE
 COMMENT	*
 COMMENT	*        Form  x := A**T*x.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	LSAME
 (	(
@@ -969,7 +969,7 @@ IDENT	1
 )	)
 /	/
 IDENT	2
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -994,7 +994,7 @@ IDENT	X
 (	(
 IDENT	J
 )	)
-IDENT	IF
+if	IF
 (	(
 IDENT	NOUNIT
 )	)
@@ -1086,7 +1086,7 @@ IDENT	JX
 IDENT	IX
 =	=
 IDENT	JX
-IDENT	IF
+if	IF
 (	(
 IDENT	NOUNIT
 )	)
@@ -1152,12 +1152,12 @@ IDENT	J
 IDENT	120
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	ELSE
 IDENT	KK
 =	=
 IDENT	1
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -1179,7 +1179,7 @@ IDENT	X
 (	(
 IDENT	J
 )	)
-IDENT	IF
+if	IF
 (	(
 IDENT	NOUNIT
 )	)
@@ -1263,7 +1263,7 @@ IDENT	JX
 IDENT	IX
 =	=
 IDENT	JX
-IDENT	IF
+if	IF
 (	(
 IDENT	NOUNIT
 )	)
@@ -1332,11 +1332,11 @@ IDENT	1
 IDENT	160
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 IDENT	RETURN
 COMMENT	*

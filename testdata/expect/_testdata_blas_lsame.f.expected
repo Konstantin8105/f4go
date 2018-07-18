@@ -96,7 +96,7 @@ IDENT	CA
 IDENT	EQ
 .	.
 IDENT	CB
-IDENT	IF
+if	IF
 (	(
 IDENT	LSAME
 )	)
@@ -129,7 +129,7 @@ IDENT	ICHAR
 IDENT	CB
 )	)
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	ZCODE
 .	.
@@ -150,7 +150,7 @@ COMMENT	*
 COMMENT	*        ASCII is assumed - ZCODE is the ASCII code of either lower or
 COMMENT	*        upper case 'Z'.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	INTA
 .	.
@@ -171,7 +171,7 @@ IDENT	INTA
 IDENT	INTA
 -	-
 IDENT	32
-IDENT	IF
+if	IF
 (	(
 IDENT	INTB
 .	.
@@ -194,7 +194,7 @@ IDENT	INTB
 IDENT	32
 COMMENT	*
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	ZCODE
 .	.
@@ -215,7 +215,7 @@ COMMENT	*
 COMMENT	*        EBCDIC is assumed - ZCODE is the EBCDIC code of either lower or
 COMMENT	*        upper case 'Z'.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	INTA
 .	.
@@ -270,7 +270,7 @@ IDENT	INTA
 IDENT	INTA
 +	+
 IDENT	64
-IDENT	IF
+if	IF
 (	(
 IDENT	INTB
 .	.
@@ -327,7 +327,7 @@ IDENT	INTB
 IDENT	64
 COMMENT	*
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	ZCODE
 .	.
@@ -348,7 +348,7 @@ COMMENT	*
 COMMENT	*        ASCII is assumed, on Prime machines - ZCODE is the ASCII code
 COMMENT	*        plus 128 of either lower or upper case 'Z'.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	INTA
 .	.
@@ -369,7 +369,7 @@ IDENT	INTA
 IDENT	INTA
 -	-
 IDENT	32
-IDENT	IF
+if	IF
 (	(
 IDENT	INTB
 .	.
@@ -391,7 +391,7 @@ IDENT	INTB
 -	-
 IDENT	32
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	LSAME
 =	=
 IDENT	INTA

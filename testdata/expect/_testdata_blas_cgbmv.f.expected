@@ -363,7 +363,7 @@ COMMENT	*
 IDENT	INFO
 =	=
 IDENT	0
-IDENT	IF
+if	IF
 (	(
 .	.
 IDENT	NOT
@@ -405,7 +405,7 @@ IDENT	INFO
 =	=
 IDENT	1
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	M
 .	.
@@ -418,7 +418,7 @@ IDENT	INFO
 =	=
 IDENT	2
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	N
 .	.
@@ -431,7 +431,7 @@ IDENT	INFO
 =	=
 IDENT	3
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	KL
 .	.
@@ -444,7 +444,7 @@ IDENT	INFO
 =	=
 IDENT	4
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	KU
 .	.
@@ -457,7 +457,7 @@ IDENT	INFO
 =	=
 IDENT	5
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	LDA
 .	.
@@ -476,7 +476,7 @@ IDENT	INFO
 =	=
 IDENT	8
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -489,7 +489,7 @@ IDENT	INFO
 =	=
 IDENT	10
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	INCY
 .	.
@@ -502,8 +502,8 @@ IDENT	INFO
 =	=
 IDENT	13
 IDENT	END
-IDENT	IF
-IDENT	IF
+if	IF
+if	IF
 (	(
 IDENT	INFO
 .	.
@@ -521,11 +521,11 @@ IDENT	INFO
 )	)
 IDENT	RETURN
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 COMMENT	*     Quick return if possible.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	M
@@ -582,7 +582,7 @@ COMMENT	*
 COMMENT	*     Set  LENX  and  LENY, the lengths of the vectors x and y, and set
 COMMENT	*     up the start points in  X  and  Y.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	LSAME
 (	(
@@ -606,8 +606,8 @@ IDENT	LENY
 =	=
 IDENT	N
 IDENT	END
-IDENT	IF
-IDENT	IF
+if	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -632,8 +632,8 @@ IDENT	1
 *	*I
 IDENT	NCX
 IDENT	END
-IDENT	IF
-IDENT	IF
+if	IF
+if	IF
 (	(
 IDENT	INCY
 .	.
@@ -658,14 +658,14 @@ IDENT	1
 *	*I
 IDENT	NCY
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 COMMENT	*     Start the operations. In this version the elements of A are
 COMMENT	*     accessed sequentially with one pass through the band part of A.
 COMMENT	*
 COMMENT	*     First form  y := beta*y.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 IDENT	BETA
 .	.
@@ -674,7 +674,7 @@ IDENT	NE
 IDENT	ONE
 )	)
 IDENT	THEN
-IDENT	IF
+if	IF
 (	(
 IDENT	INCY
 .	.
@@ -683,7 +683,7 @@ IDENT	EQ
 IDENT	1
 )	)
 IDENT	THEN
-IDENT	IF
+if	IF
 (	(
 IDENT	BETA
 .	.
@@ -728,12 +728,12 @@ IDENT	I
 IDENT	20
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	ELSE
 IDENT	IY
 =	=
 IDENT	KY
-IDENT	IF
+if	IF
 (	(
 IDENT	BETA
 .	.
@@ -788,12 +788,12 @@ IDENT	INCY
 IDENT	40
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	END
-IDENT	IF
-IDENT	IF
+if	IF
+if	IF
 (	(
 IDENT	ALPHA
 .	.
@@ -807,7 +807,7 @@ IDENT	KUP1
 IDENT	KU
 +	+
 IDENT	1
-IDENT	IF
+if	IF
 (	(
 IDENT	LSAME
 (	(
@@ -823,7 +823,7 @@ COMMENT	*
 IDENT	JX
 =	=
 IDENT	KX
-IDENT	IF
+if	IF
 (	(
 IDENT	INCY
 .	.
@@ -975,7 +975,7 @@ IDENT	JX
 IDENT	JX
 +	+
 IDENT	INCX
-IDENT	IF
+if	IF
 (	(
 IDENT	J
 .	.
@@ -991,7 +991,7 @@ IDENT	INCY
 IDENT	80
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	ELSE
 COMMENT	*
 COMMENT	*        Form  y := alpha*A**T*x + y  or  y := alpha*A**H*x + y.
@@ -999,7 +999,7 @@ COMMENT	*
 IDENT	JY
 =	=
 IDENT	KY
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -1023,7 +1023,7 @@ IDENT	K
 IDENT	KUP1
 -	-
 IDENT	J
-IDENT	IF
+if	IF
 (	(
 IDENT	NOCONJ
 )	)
@@ -1111,7 +1111,7 @@ IDENT	I
 IDENT	100
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	Y
 (	(
 IDENT	JY
@@ -1151,7 +1151,7 @@ IDENT	K
 IDENT	KUP1
 -	-
 IDENT	J
-IDENT	IF
+if	IF
 (	(
 IDENT	NOCONJ
 )	)
@@ -1249,7 +1249,7 @@ IDENT	INCX
 IDENT	130
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	Y
 (	(
 IDENT	JY
@@ -1268,7 +1268,7 @@ IDENT	JY
 IDENT	JY
 +	+
 IDENT	INCY
-IDENT	IF
+if	IF
 (	(
 IDENT	J
 .	.
@@ -1284,9 +1284,9 @@ IDENT	INCX
 IDENT	140
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 IDENT	RETURN
 COMMENT	*

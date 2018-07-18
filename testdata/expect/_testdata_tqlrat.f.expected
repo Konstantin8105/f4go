@@ -111,7 +111,7 @@ COMMENT	C
 IDENT	IERR
 =	=
 IDENT	0
-IDENT	IF
+if	IF
 (	(
 IDENT	N
 .	.
@@ -192,7 +192,7 @@ IDENT	E2
 IDENT	L
 )	)
 )	)
-IDENT	IF
+if	IF
 (	(
 IDENT	T
 .	.
@@ -217,7 +217,7 @@ IDENT	C
 IDENT	B
 *	* 
 IDENT	B
-IDENT	if
+if	if
 (	(
 IDENT	c
 .	.
@@ -256,7 +256,7 @@ IDENT	e2
 IDENT	i
 )	)
 )	)
-IDENT	if
+if	if
 (	(
 IDENT	h
 .	.
@@ -289,7 +289,7 @@ IDENT	M
 IDENT	L
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 IDENT	E2
 (	(
@@ -309,7 +309,7 @@ IDENT	110
 IDENT	CONTINUE
 COMMENT	C
 IDENT	120
-IDENT	IF
+if	IF
 (	(
 IDENT	M
 .	.
@@ -321,7 +321,7 @@ IDENT	GO
 IDENT	TO
 IDENT	210
 IDENT	130
-IDENT	IF
+if	IF
 (	(
 IDENT	J
 .	.
@@ -446,7 +446,7 @@ IDENT	D
 (	(
 IDENT	M
 )	)
-IDENT	IF
+if	IF
 (	(
 IDENT	G
 .	.
@@ -551,7 +551,7 @@ IDENT	I
 /	/
 IDENT	G
 COMMENT	C           Avoid division by zero on next pass
-IDENT	if
+if	if
 (	(
 IDENT	g
 .	.
@@ -598,7 +598,7 @@ IDENT	L
 =	=
 IDENT	H
 COMMENT	C     .......... GUARD AGAINST UNDERFLOW IN CONVERGENCE TEST ..........
-IDENT	IF
+if	IF
 (	(
 IDENT	H
 .	.
@@ -612,7 +612,7 @@ IDENT	D0
 IDENT	GO
 IDENT	TO
 IDENT	210
-IDENT	IF
+if	IF
 (	(
 IDENT	DABS
 (	(
@@ -645,7 +645,7 @@ IDENT	E2
 (	(
 IDENT	L
 )	)
-IDENT	IF
+if	IF
 (	(
 IDENT	E2
 (	(
@@ -672,7 +672,7 @@ IDENT	L
 +	+
 IDENT	F
 COMMENT	C     .......... ORDER EIGENVALUES ..........
-IDENT	IF
+if	IF
 (	(
 IDENT	L
 .	.
@@ -698,7 +698,7 @@ IDENT	L
 IDENT	2
 -	-
 IDENT	II
-IDENT	IF
+if	IF
 (	(
 IDENT	P
 .	.

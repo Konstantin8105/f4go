@@ -118,7 +118,7 @@ COMMENT	*     ..
 IDENT	ROE
 =	=
 IDENT	SB
-IDENT	IF
+if	IF
 (	(
 IDENT	ABS
 (	(
@@ -146,7 +146,7 @@ IDENT	ABS
 (	(
 IDENT	SB
 )	)
-IDENT	IF
+if	IF
 (	(
 IDENT	SCALE
 .	.
@@ -226,7 +226,7 @@ IDENT	Z
 IDENT	1
 .	.
 IDENT	0
-IDENT	IF
+if	IF
 (	(
 IDENT	ABS
 (	(
@@ -243,7 +243,7 @@ IDENT	SB
 IDENT	Z
 =	=
 IDENT	S
-IDENT	IF
+if	IF
 (	(
 IDENT	ABS
 (	(
@@ -275,7 +275,7 @@ IDENT	0
 /	/
 IDENT	C
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	SA
 =	=
 IDENT	R

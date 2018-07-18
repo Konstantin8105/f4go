@@ -134,7 +134,7 @@ IDENT	L
 )	)
 +	+
 IDENT	1
-IDENT	If
+if	If
 (	(
 (	(
 IDENT	Ch
@@ -548,7 +548,7 @@ IDENT	IntUpCase
 (	(
 IDENT	I
 )	)
-IDENT	If
+if	If
 (	(
 (	(
 IDENT	I

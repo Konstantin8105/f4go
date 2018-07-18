@@ -279,7 +279,7 @@ COMMENT	*
 IDENT	INFO
 =	=
 IDENT	0
-IDENT	IF
+if	IF
 (	(
 .	.
 IDENT	NOT
@@ -308,7 +308,7 @@ IDENT	INFO
 =	=
 IDENT	1
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	N
 .	.
@@ -321,7 +321,7 @@ IDENT	INFO
 =	=
 IDENT	2
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -334,7 +334,7 @@ IDENT	INFO
 =	=
 IDENT	5
 IDENT	ELSE
-IDENT	IF
+if	IF
 (	(
 IDENT	INCY
 .	.
@@ -347,8 +347,8 @@ IDENT	INFO
 =	=
 IDENT	7
 IDENT	END
-IDENT	IF
-IDENT	IF
+if	IF
+if	IF
 (	(
 IDENT	INFO
 .	.
@@ -366,11 +366,11 @@ IDENT	INFO
 )	)
 IDENT	RETURN
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 COMMENT	*     Quick return if possible.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	N
@@ -395,7 +395,7 @@ COMMENT	*
 COMMENT	*     Set up the start points in X and Y if the increments are not both
 COMMENT	*     unity.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	INCX
@@ -416,7 +416,7 @@ IDENT	1
 )	)
 )	)
 IDENT	THEN
-IDENT	IF
+if	IF
 (	(
 IDENT	INCX
 .	.
@@ -441,8 +441,8 @@ IDENT	1
 *	*I
 IDENT	NCX
 IDENT	END
-IDENT	IF
-IDENT	IF
+if	IF
+if	IF
 (	(
 IDENT	INCY
 .	.
@@ -467,7 +467,7 @@ IDENT	1
 *	*I
 IDENT	NCY
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	JX
 =	=
 IDENT	KX
@@ -475,7 +475,7 @@ IDENT	JY
 =	=
 IDENT	KY
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 COMMENT	*     Start the operations. In this version the elements of the array AP
 COMMENT	*     are accessed sequentially with one pass through AP.
@@ -483,7 +483,7 @@ COMMENT	*
 IDENT	KK
 =	=
 IDENT	1
-IDENT	IF
+if	IF
 (	(
 IDENT	LSAME
 (	(
@@ -496,7 +496,7 @@ IDENT	THEN
 COMMENT	*
 COMMENT	*        Form  A  when upper triangle is stored in AP.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	INCX
@@ -524,7 +524,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	X
@@ -674,7 +674,7 @@ IDENT	1
 )	)
 )	)
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	KK
 =	=
 IDENT	KK
@@ -690,7 +690,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	X
@@ -850,7 +850,7 @@ IDENT	1
 )	)
 )	)
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	JX
 =	=
 IDENT	JX
@@ -869,12 +869,12 @@ IDENT	J
 IDENT	40
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	ELSE
 COMMENT	*
 COMMENT	*        Form  A  when lower triangle is stored in AP.
 COMMENT	*
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	INCX
@@ -902,7 +902,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	X
@@ -1038,7 +1038,7 @@ IDENT	KK
 )	)
 )	)
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	KK
 =	=
 IDENT	KK
@@ -1058,7 +1058,7 @@ IDENT	J
 IDENT	1
 ,	,
 IDENT	N
-IDENT	IF
+if	IF
 (	(
 (	(
 IDENT	X
@@ -1204,7 +1204,7 @@ IDENT	KK
 )	)
 )	)
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	JX
 =	=
 IDENT	JX
@@ -1227,9 +1227,9 @@ IDENT	1
 IDENT	80
 IDENT	CONTINUE
 IDENT	END
-IDENT	IF
+if	IF
 IDENT	END
-IDENT	IF
+if	IF
 COMMENT	*
 IDENT	RETURN
 COMMENT	*
