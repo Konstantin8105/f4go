@@ -1,151 +1,445 @@
 COMMENT             	*> \brief \b SSPMV
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       SUBROUTINE SSPMV(UPLO,N,ALPHA,AP,X,INCX,BETA,Y,INCY)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       REAL ALPHA,BETA
+NEW_LINE            	
+
 COMMENT             	*       INTEGER INCX,INCY,N
+NEW_LINE            	
+
 COMMENT             	*       CHARACTER UPLO
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       REAL AP(*),X(*),Y(*)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> SSPMV  performs the matrix-vector operation
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    y := alpha*A*x + beta*y,
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> where alpha and beta are scalars, x and y are n element vectors and
+NEW_LINE            	
+
 COMMENT             	*> A is an n by n symmetric matrix, supplied in packed form.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] UPLO
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          UPLO is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*>           On entry, UPLO specifies whether the upper or lower
+NEW_LINE            	
+
 COMMENT             	*>           triangular part of the matrix A is supplied in the packed
+NEW_LINE            	
+
 COMMENT             	*>           array AP as follows:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              UPLO = 'U' or 'u'   The upper triangular part of A is
+NEW_LINE            	
+
 COMMENT             	*>                                  supplied in AP.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              UPLO = 'L' or 'l'   The lower triangular part of A is
+NEW_LINE            	
+
 COMMENT             	*>                                  supplied in AP.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] N
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          N is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, N specifies the order of the matrix A.
+NEW_LINE            	
+
 COMMENT             	*>           N must be at least zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] ALPHA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          ALPHA is REAL
+NEW_LINE            	
+
 COMMENT             	*>           On entry, ALPHA specifies the scalar alpha.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] AP
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          AP is REAL array, dimension at least
+NEW_LINE            	
+
 COMMENT             	*>           ( ( n*( n + 1 ) )/2 ).
+NEW_LINE            	
+
 COMMENT             	*>           Before entry with UPLO = 'U' or 'u', the array AP must
+NEW_LINE            	
+
 COMMENT             	*>           contain the upper triangular part of the symmetric matrix
+NEW_LINE            	
+
 COMMENT             	*>           packed sequentially, column by column, so that AP( 1 )
+NEW_LINE            	
+
 COMMENT             	*>           contains a( 1, 1 ), AP( 2 ) and AP( 3 ) contain a( 1, 2 )
+NEW_LINE            	
+
 COMMENT             	*>           and a( 2, 2 ) respectively, and so on.
+NEW_LINE            	
+
 COMMENT             	*>           Before entry with UPLO = 'L' or 'l', the array AP must
+NEW_LINE            	
+
 COMMENT             	*>           contain the lower triangular part of the symmetric matrix
+NEW_LINE            	
+
 COMMENT             	*>           packed sequentially, column by column, so that AP( 1 )
+NEW_LINE            	
+
 COMMENT             	*>           contains a( 1, 1 ), AP( 2 ) and AP( 3 ) contain a( 2, 1 )
+NEW_LINE            	
+
 COMMENT             	*>           and a( 3, 1 ) respectively, and so on.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] X
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          X is REAL array, dimension at least
+NEW_LINE            	
+
 COMMENT             	*>           ( 1 + ( n - 1 )*abs( INCX ) ).
+NEW_LINE            	
+
 COMMENT             	*>           Before entry, the incremented array X must contain the n
+NEW_LINE            	
+
 COMMENT             	*>           element vector x.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCX is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, INCX specifies the increment for the elements of
+NEW_LINE            	
+
 COMMENT             	*>           X. INCX must not be zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] BETA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          BETA is REAL
+NEW_LINE            	
+
 COMMENT             	*>           On entry, BETA specifies the scalar beta. When BETA is
+NEW_LINE            	
+
 COMMENT             	*>           supplied as zero then Y need not be set on input.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in,out] Y
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          Y is REAL array, dimension at least
+NEW_LINE            	
+
 COMMENT             	*>           ( 1 + ( n - 1 )*abs( INCY ) ).
+NEW_LINE            	
+
 COMMENT             	*>           Before entry, the incremented array Y must contain the n
+NEW_LINE            	
+
 COMMENT             	*>           element vector y. On exit, Y is overwritten by the updated
+NEW_LINE            	
+
 COMMENT             	*>           vector y.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCY
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCY is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, INCY specifies the increment for the elements of
+NEW_LINE            	
+
 COMMENT             	*>           Y. INCY must not be zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup single_blas_level2
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Further Details:
+NEW_LINE            	
+
 COMMENT             	*  =====================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  Level 2 Blas routine.
+NEW_LINE            	
+
 COMMENT             	*>  The vector and matrix arguments are not referenced when N = 0, or M = 0
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  -- Written on 22-October-1986.
+NEW_LINE            	
+
 COMMENT             	*>     Jack Dongarra, Argonne National Lab.
+NEW_LINE            	
+
 COMMENT             	*>     Jeremy Du Croz, Nag Central Office.
+NEW_LINE            	
+
 COMMENT             	*>     Sven Hammarling, Nag Central Office.
+NEW_LINE            	
+
 COMMENT             	*>     Richard Hanson, Sandia National Labs.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	SSPMV
 (                   	(
 IDENT               	UPLO
@@ -166,27 +460,53 @@ IDENT               	Y
 ,                   	,
 IDENT               	INCY
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level2 routine (version 3.7.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	ALPHA
 ,                   	,
 IDENT               	BETA
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	INCX
 ,                   	,
 IDENT               	INCY
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	CHARACTER
 IDENT               	UPLO
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	AP
 (                   	(
@@ -202,15 +522,29 @@ IDENT               	Y
 (                   	(
 *                   	*
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Parameters ..
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	ONE
 ,                   	,
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	ONE
@@ -221,13 +555,21 @@ IDENT               	ZERO
 =                   	=
 FLOAT               	0.0E+0
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	TEMP1
 ,                   	,
 IDENT               	TEMP2
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	INFO
@@ -249,23 +591,49 @@ IDENT               	KK
 IDENT               	KX
 ,                   	,
 IDENT               	KY
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. External Functions ..
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	LSAME
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	LSAME
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. External Subroutines ..
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	XERBLA
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Test the input parameters.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 !=                  	.NOT.
@@ -284,10 +652,14 @@ IDENT               	UPLO
 STRING              	'L'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -295,10 +667,14 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	2
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -306,10 +682,14 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	6
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -317,32 +697,52 @@ IDENT               	INCY
 ==                  	.EQ.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	9
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-token(106)          	THEN
-token(105)          	CALL
+THEN                	THEN
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	XERBLA
 (                   	(
 STRING              	'SSPMV '
 ,                   	,
 IDENT               	INFO
 )                   	)
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Quick return if possible.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 (                   	(
@@ -366,20 +766,34 @@ IDENT               	ONE
 )                   	)
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Set up the start points in  X  and  Y.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 >                   	.GT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 INT                 	1
@@ -391,19 +805,29 @@ INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCX
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCY
 >                   	.GT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	KY
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	KY
 =                   	=
 INT                 	1
@@ -415,58 +839,90 @@ INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCY
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Start the operations. In this version the elements of the array AP
+NEW_LINE            	
+
 COMMENT             	*     are accessed sequentially with one pass through AP.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     First form  y := beta*y.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	BETA
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCY
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	10
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	I
 )                   	)
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 INT                 	10
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	20
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	I
@@ -478,49 +934,73 @@ IDENT               	Y
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 INT                 	20
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 IDENT               	KY
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	30
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	IY
 )                   	)
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 IDENT               	IY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 INT                 	30
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	40
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	IY
@@ -532,19 +1012,31 @@ IDENT               	Y
 (                   	(
 IDENT               	IY
 )                   	)
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 IDENT               	IY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 INT                 	40
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ALPHA
@@ -552,9 +1044,13 @@ IDENT               	ALPHA
 IDENT               	ZERO
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 IDENT               	KK
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -564,10 +1060,18 @@ IDENT               	UPLO
 STRING              	'U'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        Form  y  when AP contains the upper triangle.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 (                   	(
@@ -582,14 +1086,18 @@ IDENT               	INCY
 INT                 	1
 )                   	)
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	60
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -598,13 +1106,19 @@ IDENT               	X
 (                   	(
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP2
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	K
 =                   	=
 IDENT               	KK
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	50
 IDENT               	I
 =                   	=
@@ -613,6 +1127,8 @@ INT                 	1
 IDENT               	J
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	I
@@ -629,6 +1145,8 @@ IDENT               	AP
 (                   	(
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP2
 =                   	=
 IDENT               	TEMP2
@@ -642,13 +1160,19 @@ IDENT               	X
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	K
 =                   	=
 IDENT               	K
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 INT                 	50
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	J
@@ -673,27 +1197,41 @@ INT                 	1
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
+NEW_LINE            	
+
 IDENT               	KK
 =                   	=
 IDENT               	KK
 +                   	+
 IDENT               	J
+NEW_LINE            	
+
 INT                 	60
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	KX
+NEW_LINE            	
+
 IDENT               	JY
 =                   	=
 IDENT               	KY
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	80
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -702,16 +1240,24 @@ IDENT               	X
 (                   	(
 IDENT               	JX
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP2
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	KX
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 IDENT               	KY
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	70
 IDENT               	K
 =                   	=
@@ -722,6 +1268,8 @@ IDENT               	KK
 IDENT               	J
 -                   	-
 INT                 	2
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	IY
@@ -738,6 +1286,8 @@ IDENT               	AP
 (                   	(
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP2
 =                   	=
 IDENT               	TEMP2
@@ -751,18 +1301,26 @@ IDENT               	X
 (                   	(
 IDENT               	IX
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 IDENT               	IY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 INT                 	70
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	JY
@@ -787,29 +1345,49 @@ INT                 	1
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	JX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	JY
 =                   	=
 IDENT               	JY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 IDENT               	KK
 =                   	=
 IDENT               	KK
 +                   	+
 IDENT               	J
+NEW_LINE            	
+
 INT                 	80
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        Form  y  when AP contains the lower triangle.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 (                   	(
@@ -824,14 +1402,18 @@ IDENT               	INCY
 INT                 	1
 )                   	)
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	100
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -840,9 +1422,13 @@ IDENT               	X
 (                   	(
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP2
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	J
@@ -859,12 +1445,16 @@ IDENT               	AP
 (                   	(
 IDENT               	KK
 )                   	)
+NEW_LINE            	
+
 IDENT               	K
 =                   	=
 IDENT               	KK
 +                   	+
 INT                 	1
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	90
 IDENT               	I
 =                   	=
@@ -873,6 +1463,8 @@ IDENT               	J
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	I
@@ -889,6 +1481,8 @@ IDENT               	AP
 (                   	(
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP2
 =                   	=
 IDENT               	TEMP2
@@ -902,13 +1496,19 @@ IDENT               	X
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	K
 =                   	=
 IDENT               	K
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 INT                 	90
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	J
@@ -922,6 +1522,8 @@ IDENT               	J
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
+NEW_LINE            	
+
 IDENT               	KK
 =                   	=
 IDENT               	KK
@@ -933,22 +1535,34 @@ IDENT               	J
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 INT                 	100
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	KX
+NEW_LINE            	
+
 IDENT               	JY
 =                   	=
 IDENT               	KY
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	120
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -957,9 +1571,13 @@ IDENT               	X
 (                   	(
 IDENT               	JX
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP2
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	JY
@@ -976,13 +1594,19 @@ IDENT               	AP
 (                   	(
 IDENT               	KK
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	JX
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 IDENT               	JY
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	110
 IDENT               	K
 =                   	=
@@ -995,16 +1619,22 @@ IDENT               	KK
 IDENT               	N
 -                   	-
 IDENT               	J
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 IDENT               	IY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	IY
@@ -1021,6 +1651,8 @@ IDENT               	AP
 (                   	(
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP2
 =                   	=
 IDENT               	TEMP2
@@ -1034,8 +1666,12 @@ IDENT               	X
 (                   	(
 IDENT               	IX
 )                   	)
+NEW_LINE            	
+
 INT                 	110
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	JY
@@ -1049,16 +1685,22 @@ IDENT               	JY
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	JX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	JY
 =                   	=
 IDENT               	JY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 IDENT               	KK
 =                   	=
 IDENT               	KK
@@ -1070,15 +1712,35 @@ IDENT               	J
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 INT                 	120
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     End of SSPMV .
+NEW_LINE            	
+
 COMMENT             	*
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

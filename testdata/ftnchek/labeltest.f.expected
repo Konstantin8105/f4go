@@ -9,6 +9,8 @@ IDENT               	fmt
 INT                 	1900
 )                   	)
 IDENT               	x
+NEW_LINE            	
+
 INT                 	1900
 IDENT               	format
 (                   	(
@@ -23,13 +25,19 @@ INT                 	100
 INT                 	250
 ,                   	,
 INT                 	89
+NEW_LINE            	
+
 INT                 	89
 IDENT               	assign
 INT                 	100
 IDENT               	to
 IDENT               	icky
+NEW_LINE            	
+
 IDENT               	goto
 IDENT               	icky
+NEW_LINE            	
+
 INT                 	100
 IDENT               	write
 (                   	(
@@ -38,13 +46,17 @@ INT                 	6
 *                   	*
 )                   	)
 STRING              	'hello'
-token(103)          	do
+NEW_LINE            	
+
+DO                  	do
 INT                 	123
 IDENT               	i
 =                   	=
 INT                 	1
 ,                   	,
 INT                 	123
+NEW_LINE            	
+
 IDENT               	read
 (                   	(
 IDENT               	fmt
@@ -55,7 +67,7 @@ IDENT               	unit
 =                   	=
 INT                 	5
 ,                   	,
-token(102)          	end
+END                 	end
 =                   	=
 INT                 	200
 ,                   	,
@@ -64,8 +76,12 @@ IDENT               	err
 INT                 	909
 )                   	)
 IDENT               	x
+NEW_LINE            	
+
 INT                 	123
 continue            	continue
+NEW_LINE            	
+
 INT                 	302
 IDENT               	write
 (                   	(
@@ -74,6 +90,8 @@ IDENT               	write
 INT                 	909
 )                   	)
 IDENT               	x
+NEW_LINE            	
+
 INT                 	909
 IDENT               	format
 (                   	(
@@ -84,19 +102,27 @@ IDENT               	f10
 .                   	.
 INT                 	200
 continue            	continue
+NEW_LINE            	
+
 IDENT               	print
 INT                 	9
 ,                   	,
 IDENT               	x
+NEW_LINE            	
+
 INT                 	9
 IDENT               	format
 (                   	(
 STRING              	' Just checking'
 )                   	)
+NEW_LINE            	
+
 IDENT               	read
 INT                 	10
 ,                   	,
 IDENT               	x
+NEW_LINE            	
+
 IDENT               	type
 INT                 	11
 ,                   	,
@@ -104,6 +130,8 @@ IDENT               	sqrt
 (                   	(
 FLOAT               	2.0
 )                   	)
+NEW_LINE            	
+
 INT                 	11
 IDENT               	format
 (                   	(
@@ -119,4 +147,8 @@ IDENT               	write
 )                   	)
 STRING              	'I'
 STRING              	'm outta here'
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

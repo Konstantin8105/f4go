@@ -1,8 +1,10 @@
-token(96)           	subroutine
+SUBROUTINE          	subroutine
 IDENT               	foo
 (                   	(
 IDENT               	d
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	n
@@ -17,11 +19,15 @@ IDENT               	k
 =                   	=
 INT                 	3
 )                   	)
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	17
 IDENT               	xx
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	a
 (                   	(
 INT                 	1
@@ -52,13 +58,17 @@ IDENT               	k
 +                   	+
 INT                 	1
 )                   	)
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	d
 (                   	(
 *                   	*
 ,                   	,
 *                   	*
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	xx
@@ -67,6 +77,8 @@ IDENT               	xx
 (                   	(
 INT                 	101
 )                   	)
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	1
@@ -93,8 +105,12 @@ IDENT               	n
 *                   	*
 IDENT               	k
 )                   	)
+NEW_LINE            	
+
 IDENT               	external
 IDENT               	str
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	str2
 (                   	(
@@ -102,6 +118,8 @@ IDENT               	k
 *                   	*
 IDENT               	m
 )                   	)
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	10
@@ -113,6 +131,8 @@ STRING              	'won'
 STRING              	't'
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	a
 (                   	(
 IDENT               	n
@@ -126,6 +146,8 @@ INT                 	1
 ,                   	,
 IDENT               	m
 )                   	)
+NEW_LINE            	
+
 IDENT               	c
 (                   	(
 INT                 	2
@@ -151,6 +173,8 @@ INT                 	40
 +                   	+
 INT                 	3
 )                   	)
+NEW_LINE            	
+
 :                   	:
 IDENT               	ichar
 (                   	(
@@ -170,4 +194,8 @@ INT                 	1
 )                   	)
 =                   	=
 STRING              	'x'
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

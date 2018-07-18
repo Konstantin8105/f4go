@@ -1,5 +1,7 @@
 COMMENT             	c  for testing propagation of type sizes
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	sizeprop
 (                   	(
 IDENT               	cadj
@@ -8,12 +10,16 @@ IDENT               	i
 ,                   	,
 IDENT               	x
 )                   	)
+NEW_LINE            	
+
 IDENT               	character
 IDENT               	cadj
 *                   	*
 (                   	(
 *                   	*
 )                   	)
+NEW_LINE            	
+
 IDENT               	character
 IDENT               	c1
 ,                   	,
@@ -24,181 +30,285 @@ INT                 	5
 IDENT               	c10
 *                   	*
 INT                 	10
+NEW_LINE            	
+
 IDENT               	c1
 =                   	=
 IDENT               	c5
+NEW_LINE            	
+
 IDENT               	c5
 =                   	=
 IDENT               	c1
+NEW_LINE            	
+
 IDENT               	c5
 =                   	=
 IDENT               	cadj
+NEW_LINE            	
+
 IDENT               	cadj
 =                   	=
 IDENT               	c5
+NEW_LINE            	
+
 IDENT               	c5
 =                   	=
 STRING              	'hello'
+NEW_LINE            	
+
 IDENT               	c5
 =                   	=
 INT                 	5
 IDENT               	Hhello
+NEW_LINE            	
+
 IDENT               	c5
 =                   	=
 INT                 	11
 IDENT               	Hhello
 IDENT               	there
-token(102)          	end
-token(98)           	integer
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	i
 ,                   	,
 IDENT               	j
 ,                   	,
 IDENT               	n
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 *                   	*
 INT                 	4
 IDENT               	m
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	n
 =                   	=
 INT                 	6
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	m
 =                   	=
 INT                 	7
 )                   	)
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	x
 ,                   	,
 IDENT               	y
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 *                   	*
 INT                 	2
 IDENT               	i2
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 *                   	*
 INT                 	4
 IDENT               	i4
+NEW_LINE            	
+
 IDENT               	logical
 IDENT               	L
+NEW_LINE            	
+
 IDENT               	logical
 *                   	*
 INT                 	2
 IDENT               	L2
+NEW_LINE            	
+
 IDENT               	logical
 *                   	*
 INT                 	4
 IDENT               	L4
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	d
+NEW_LINE            	
+
 IDENT               	real
 *                   	*
 INT                 	4
 IDENT               	r4
+NEW_LINE            	
+
 IDENT               	real
 *                   	*
 INT                 	8
 IDENT               	r8
+NEW_LINE            	
+
 IDENT               	complex
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	real
 *                   	*
 INT                 	16
 IDENT               	r16
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	complex
 IDENT               	z
+NEW_LINE            	
+
 IDENT               	complex
 *                   	*
 INT                 	16
 IDENT               	c16
+NEW_LINE            	
+
 IDENT               	complex
 *                   	*
 INT                 	32
 IDENT               	c32
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 IDENT               	m
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 IDENT               	n
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 IDENT               	i2
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 IDENT               	i4
+NEW_LINE            	
+
 IDENT               	i4
 =                   	=
 IDENT               	i
+NEW_LINE            	
+
 IDENT               	i4
 =                   	=
 IDENT               	i2
+NEW_LINE            	
+
 IDENT               	i2
 =                   	=
 IDENT               	i4
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 INT                 	4
 IDENT               	habcd
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 INT                 	8
 IDENT               	habcdefgh
+NEW_LINE            	
+
 IDENT               	x
 =                   	=
 IDENT               	r4
+NEW_LINE            	
+
 IDENT               	x
 =                   	=
 IDENT               	r8
+NEW_LINE            	
+
 IDENT               	x
 =                   	=
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	d
 =                   	=
 IDENT               	x
+NEW_LINE            	
+
 IDENT               	x
 =                   	=
 IDENT               	d
+NEW_LINE            	
+
 IDENT               	z
 =                   	=
 IDENT               	d
+NEW_LINE            	
+
 IDENT               	d
 =                   	=
 IDENT               	z
+NEW_LINE            	
+
 IDENT               	r16
 =                   	=
 IDENT               	d
+NEW_LINE            	
+
 IDENT               	r16
 =                   	=
 IDENT               	r8
+NEW_LINE            	
+
 IDENT               	d
 =                   	=
 IDENT               	r4
+NEW_LINE            	
+
 IDENT               	d
 =                   	=
 IDENT               	r8
+NEW_LINE            	
+
 IDENT               	d
 =                   	=
 IDENT               	r16
+NEW_LINE            	
+
 IDENT               	c
 =                   	=
 IDENT               	x
+NEW_LINE            	
+
 IDENT               	c
 =                   	=
 IDENT               	z
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 IDENT               	L4
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	sizeprop
 (                   	(
 STRING              	'hello'
@@ -207,4 +317,8 @@ IDENT               	i2
 ,                   	,
 IDENT               	r16
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

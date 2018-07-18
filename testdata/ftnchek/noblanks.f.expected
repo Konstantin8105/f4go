@@ -6,7 +6,11 @@ IDENT               	dx
 ,                   	,
 IDENT               	incx
 )                   	)
+NEW_LINE            	
+
 IDENT               	integernext
+NEW_LINE            	
+
 IDENT               	doubleprecisiondx
 (                   	(
 INT                 	1
@@ -25,6 +29,8 @@ IDENT               	xmax
 IDENT               	zero
 ,                   	,
 IDENT               	one
+NEW_LINE            	
+
 IDENT               	datazero
 ,                   	,
 IDENT               	one
@@ -33,44 +39,122 @@ FLOAT               	0.0d0
 ,                   	,
 FLOAT               	1.0d0
 /                   	/
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     euclideannormofthen-vectorstoredindx()withstorage
+NEW_LINE            	
+
 COMMENT             	c     incrementincx.
+NEW_LINE            	
+
 COMMENT             	c     ifn.le.0returnwithresult=0.
+NEW_LINE            	
+
 COMMENT             	c     ifn.ge.1thenincxmustbe.ge.1
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     c.l.lawson,1978jan08
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     fourphasemethodusingtwobuilt-inconstantsthatare
+NEW_LINE            	
+
 COMMENT             	c     hopefullyapplicabletoallmachines.
+NEW_LINE            	
+
 COMMENT             	c     cutlo=maximumofdsqrt(u/eps)overallknownmachines.
+NEW_LINE            	
+
 COMMENT             	c     cuthi=minimumofdsqrt(v)overallknownmachines.
+NEW_LINE            	
+
 COMMENT             	c     where
+NEW_LINE            	
+
 COMMENT             	c     eps=smallestno.suchthateps+1..gt.1.
+NEW_LINE            	
+
 COMMENT             	c     u=smallestpositiveno.(underflowlimit)
+NEW_LINE            	
+
 COMMENT             	c     v=largestno.(overflowlimit)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     briefoutlineofalgorithm..
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     phase1scanszerocomponents.
+NEW_LINE            	
+
 COMMENT             	c     movetophase2whenacomponentisnonzeroand.le.cutlo
+NEW_LINE            	
+
 COMMENT             	c     movetophase3whenacomponentis.gt.cutlo
+NEW_LINE            	
+
 COMMENT             	c     movetophase4whenacomponentis.ge.cuthi/m
+NEW_LINE            	
+
 COMMENT             	c     wherem=nforx()realandm=2*nforcomplex.
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     valuesforcutloandcuthi..
+NEW_LINE            	
+
 COMMENT             	c     fromtheenvironmentalparameterslistedintheimslconverter
+NEW_LINE            	
+
 COMMENT             	c     documentthelimitingvaluesareasfollows..
+NEW_LINE            	
+
 COMMENT             	c     cutlo,s.p.u/eps=2**(-102)forhoneywell.closesecondsare
+NEW_LINE            	
+
 COMMENT             	c     univacanddecat2**(-103)
+NEW_LINE            	
+
 COMMENT             	c     thuscutlo=2**(-51)=4.44089e-16
+NEW_LINE            	
+
 COMMENT             	c     cuthi,s.p.v=2**127forunivac,honeywell,anddec.
+NEW_LINE            	
+
 COMMENT             	c     thuscuthi=2**(63.5)=1.30438e19
+NEW_LINE            	
+
 COMMENT             	c     cutlo,d.p.u/eps=2**(-67)forhoneywellanddec.
+NEW_LINE            	
+
 COMMENT             	c     thuscutlo=2**(-33.5)=8.23181d-11
+NEW_LINE            	
+
 COMMENT             	c     cuthi,d.p.sameass.p.cuthi=1.30438d19
+NEW_LINE            	
+
 COMMENT             	c     datacutlo,cuthi/8.232d-11,1.304d19/
+NEW_LINE            	
+
 COMMENT             	c     datacutlo,cuthi/4.441e-16,1.304e19/
+NEW_LINE            	
+
 IDENT               	datacutlo
 ,                   	,
 IDENT               	cuthi
@@ -79,7 +163,11 @@ FLOAT               	8.232d-11
 ,                   	,
 FLOAT               	1.304d19
 /                   	/
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	n
@@ -87,25 +175,43 @@ IDENT               	n
 INT                 	0
 )                   	)
 IDENT               	goto10
+NEW_LINE            	
+
 IDENT               	dnrm2
 =                   	=
 IDENT               	zero
+NEW_LINE            	
+
 IDENT               	goto300
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 INT                 	10
 IDENT               	assign30tonext
+NEW_LINE            	
+
 IDENT               	sum
 =                   	=
 IDENT               	zero
+NEW_LINE            	
+
 IDENT               	nn
 =                   	=
 IDENT               	n
 *                   	*
 IDENT               	incx
+NEW_LINE            	
+
 COMMENT             	c     beginmainloop
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 INT                 	20
 IDENT               	gotonext
 ,                   	,
@@ -118,6 +224,8 @@ INT                 	70
 ,                   	,
 INT                 	110
 )                   	)
+NEW_LINE            	
+
 INT                 	30
 if                  	if
 (                   	(
@@ -132,13 +240,25 @@ IDENT               	i
 IDENT               	cutlo
 )                   	)
 IDENT               	goto85
+NEW_LINE            	
+
 IDENT               	assign50tonext
+NEW_LINE            	
+
 IDENT               	xmax
 =                   	=
 IDENT               	zero
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     phase1.sumiszero
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 INT                 	50
 if                  	if
 (                   	(
@@ -150,6 +270,8 @@ IDENT               	i
 IDENT               	zero
 )                   	)
 IDENT               	goto200
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	dabs
@@ -163,18 +285,38 @@ IDENT               	i
 IDENT               	cutlo
 )                   	)
 IDENT               	goto85
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     prepareforphase2.
+NEW_LINE            	
+
 IDENT               	assign70tonext
+NEW_LINE            	
+
 IDENT               	goto105
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     prepareforphase4.
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 INT                 	100
 IDENT               	i
 =                   	=
 IDENT               	j
+NEW_LINE            	
+
 IDENT               	assign110tonext
+NEW_LINE            	
+
 IDENT               	sum
 =                   	=
 (                   	(
@@ -190,6 +332,8 @@ IDENT               	dx
 (                   	(
 IDENT               	i
 )                   	)
+NEW_LINE            	
+
 INT                 	105
 IDENT               	xmax
 =                   	=
@@ -200,11 +344,23 @@ IDENT               	dx
 IDENT               	i
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	goto115
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     phase2.sumissmall.
+NEW_LINE            	
+
 COMMENT             	c     scaletoavoiddestructiveunderflow.
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 INT                 	70
 if                  	if
 (                   	(
@@ -219,10 +375,20 @@ IDENT               	i
 IDENT               	cutlo
 )                   	)
 IDENT               	goto75
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     commoncodeforphases2and4.
+NEW_LINE            	
+
 COMMENT             	c     inphase4sumislarge.scaletoavoidoverflow.
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 INT                 	110
 if                  	if
 (                   	(
@@ -237,6 +403,8 @@ IDENT               	i
 IDENT               	xmax
 )                   	)
 IDENT               	goto115
+NEW_LINE            	
+
 IDENT               	sum
 =                   	=
 IDENT               	one
@@ -251,8 +419,10 @@ IDENT               	dx
 IDENT               	i
 )                   	)
 )                   	)
-token(95)           	**
+                    	**
 INT                 	2
+NEW_LINE            	
+
 IDENT               	xmax
 =                   	=
 IDENT               	dabs
@@ -262,8 +432,14 @@ IDENT               	dx
 IDENT               	i
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	goto200
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 INT                 	115
 IDENT               	sum
 =                   	=
@@ -277,13 +453,25 @@ IDENT               	i
 /                   	/
 IDENT               	xmax
 )                   	)
-token(95)           	**
+                    	**
 INT                 	2
+NEW_LINE            	
+
 IDENT               	goto200
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     prepareforphase3.
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 INT                 	75
 IDENT               	sum
 =                   	=
@@ -294,11 +482,23 @@ IDENT               	xmax
 )                   	)
 *                   	*
 IDENT               	xmax
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     forrealord.p.sethitest=cuthi/n
+NEW_LINE            	
+
 COMMENT             	c     forcomplexsethitest=cuthi/(2*n)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 INT                 	85
 IDENT               	hitest
 =                   	=
@@ -308,9 +508,17 @@ IDENT               	float
 (                   	(
 IDENT               	n
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     phase3.sumismid-range.noscaling.
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	do95j
 =                   	=
 IDENT               	i
@@ -318,6 +526,8 @@ IDENT               	i
 IDENT               	nn
 ,                   	,
 IDENT               	incx
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	dabs
@@ -331,6 +541,8 @@ IDENT               	j
 IDENT               	hitest
 )                   	)
 IDENT               	goto100
+NEW_LINE            	
+
 INT                 	95
 IDENT               	sum
 =                   	=
@@ -340,23 +552,35 @@ IDENT               	dx
 (                   	(
 IDENT               	j
 )                   	)
-token(95)           	**
+                    	**
 INT                 	2
+NEW_LINE            	
+
 IDENT               	dnrm2
 =                   	=
 IDENT               	dsqrt
 (                   	(
 IDENT               	sum
 )                   	)
+NEW_LINE            	
+
 IDENT               	goto300
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 INT                 	200
 continue            	continue
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 IDENT               	i
 +                   	+
 IDENT               	incx
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	i
@@ -364,11 +588,23 @@ IDENT               	i
 IDENT               	nn
 )                   	)
 IDENT               	goto20
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     endofmainloop.
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c     computesquarerootandadjustforscaling.
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	dnrm2
 =                   	=
 IDENT               	xmax
@@ -377,7 +613,15 @@ IDENT               	dsqrt
 (                   	(
 IDENT               	sum
 )                   	)
+NEW_LINE            	
+
 INT                 	300
 continue            	continue
+NEW_LINE            	
+
 return              	return
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

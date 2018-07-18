@@ -1,28 +1,48 @@
 COMMENT             	c-----------------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c     ftnchek test file: t208w.f, Mon Mar 13 14:01:03 1995
+NEW_LINE            	
+
 COMMENT             	c-----------------------------------------------------------------------
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
-token(101)          	function
+FUNCTION            	function
 IDENT               	s
 (                   	(
 IDENT               	x
 )                   	)
+NEW_LINE            	
+
 IDENT               	intrinsic
 IDENT               	dsin
+NEW_LINE            	
+
 IDENT               	external
 IDENT               	extsub
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	x
 ,                   	,
 IDENT               	y
-token(98)           	integer
+NEW_LINE            	
+
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	a
 ,                   	,
 IDENT               	b
 ,                   	,
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	one
@@ -32,12 +52,18 @@ IDENT               	a
 IDENT               	b
 ,                   	,
 IDENT               	c
-token(98)           	integer
+NEW_LINE            	
+
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	d
 ,                   	,
 IDENT               	e
 ,                   	,
 IDENT               	f
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	two
@@ -47,18 +73,26 @@ IDENT               	d
 IDENT               	e
 ,                   	,
 IDENT               	f
-token(98)           	integer
+NEW_LINE            	
+
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	g
 ,                   	,
 IDENT               	h
 ,                   	,
 IDENT               	i
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	u
 ,                   	,
 IDENT               	v
 ,                   	,
 IDENT               	w
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	three
@@ -74,13 +108,21 @@ IDENT               	u
 IDENT               	v
 ,                   	,
 IDENT               	w
-token(105)          	call
+NEW_LINE            	
+
+NEW_LINE            	
+
+CALL                	call
 IDENT               	subext
 (                   	(
 IDENT               	extsub
 ,                   	,
 IDENT               	x
 )                   	)
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	y
 =                   	=
 IDENT               	dfloat
@@ -97,6 +139,10 @@ IDENT               	e
 +                   	+
 IDENT               	f
 )                   	)
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	s
 =                   	=
 IDENT               	dsqrt
@@ -105,8 +151,20 @@ IDENT               	x
 +                   	+
 IDENT               	y
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+NEW_LINE            	
+
 COMMENT             	c-----------------------------------------------------------------------
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -116,7 +174,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -131,6 +189,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	nbp1
@@ -139,7 +199,11 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	f
@@ -151,6 +215,8 @@ IDENT               	d
 IDENT               	w1
 ,                   	,
 IDENT               	w2
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	force
@@ -167,6 +233,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	pres
@@ -181,7 +249,11 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	d
 (                   	(
@@ -193,6 +265,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	w1
 (                   	(
@@ -208,6 +282,8 @@ INT                 	1
 :                   	:
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	w2
 (                   	(
@@ -223,7 +299,11 @@ INT                 	1
 :                   	:
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	equivalence
 (                   	(
 IDENT               	f
@@ -232,27 +312,45 @@ IDENT               	w1
 ,                   	,
 IDENT               	w2
 )                   	)
+NEW_LINE            	
+
 IDENT               	equivalence
 (                   	(
 IDENT               	d
 ,                   	,
 IDENT               	p
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	foo
 (                   	(
 IDENT               	f
 ,                   	,
 IDENT               	p
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+NEW_LINE            	
+
 COMMENT             	c-----------------------------------------------------------------------
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	x
 ,                   	,
 IDENT               	y
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	one
@@ -261,14 +359,26 @@ IDENT               	x
 (                   	(
 INT                 	10
 )                   	)
+NEW_LINE            	
+
 IDENT               	equivalence
 (                   	(
 IDENT               	x
 ,                   	,
 IDENT               	y
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+NEW_LINE            	
+
 COMMENT             	c-----------------------------------------------------------------------
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	x
@@ -282,6 +392,8 @@ IDENT               	z
 (                   	(
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	one
@@ -290,6 +402,8 @@ IDENT               	x
 (                   	(
 INT                 	10
 )                   	)
+NEW_LINE            	
+
 IDENT               	equivalence
 (                   	(
 IDENT               	x
@@ -307,7 +421,9 @@ IDENT               	z
 INT                 	2
 )                   	)
 )                   	)
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	subrtn
 (                   	(
 IDENT               	x
@@ -316,4 +432,8 @@ IDENT               	y
 ,                   	,
 IDENT               	z
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

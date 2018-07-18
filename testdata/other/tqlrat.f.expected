@@ -1,7 +1,13 @@
 COMMENT             	**** for old version, "send otqlrat from eispack"
+NEW_LINE            	
+
 COMMENT             	** From dana!moler Tue, 1 Sep 87 10:15:40 PDT
+NEW_LINE            	
+
 COMMENT             	** New TQLRAT
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	TQLRAT
 (                   	(
 IDENT               	N
@@ -12,8 +18,12 @@ IDENT               	E2
 ,                   	,
 IDENT               	IERR
 )                   	)
+NEW_LINE            	
+
 COMMENT             	C
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	J
@@ -31,6 +41,8 @@ IDENT               	L1
 IDENT               	MML
 ,                   	,
 IDENT               	IERR
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	D
@@ -42,6 +54,8 @@ IDENT               	E2
 (                   	(
 IDENT               	N
 )                   	)
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	B
@@ -65,52 +79,142 @@ IDENT               	T
 IDENT               	EPSLON
 ,                   	,
 IDENT               	PYTHAG
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     This subroutine is a translation of the Algol procedure tqlrat,
+NEW_LINE            	
+
 COMMENT             	C     Algorithm 464, Comm. ACM 16, 689(1973) by Reinsch.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     This subroutine finds the eigenvalues of a symmetric
+NEW_LINE            	
+
 COMMENT             	C     tridiagonal matrix by the rational QL method.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     On input
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C        N is the order of the matrix.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C        D contains the diagonal elements of the input matrix.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C        E2 contains the squares of the subdiagonal elements of the
+NEW_LINE            	
+
 COMMENT             	C          input matrix in its last N-1 positions.  E2(1) is arbitrary.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C      On output
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C        D contains the eigenvalues in ascending order.  If an
+NEW_LINE            	
+
 COMMENT             	C          error exit is made, the eigenvalues are correct and
+NEW_LINE            	
+
 COMMENT             	C          ordered for indices 1,2,...IERR-1, but may not be
+NEW_LINE            	
+
 COMMENT             	C          the smallest eigenvalues.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C        E2 has been destroyed.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C        IERR is set to
+NEW_LINE            	
+
 COMMENT             	C          zero       for normal return,
+NEW_LINE            	
+
 COMMENT             	C          J          if the J-th eigenvalue has not been
+NEW_LINE            	
+
 COMMENT             	C                     determined after 30 iterations.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     Calls PYTHAG for  DSQRT(A*A + B*B) .
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     Questions and comments should be directed to Burton S. Garbow,
+NEW_LINE            	
+
 COMMENT             	C     Mathematics and Computer Science Div, Argonne National Laboratory
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     This version dated August 1987.
+NEW_LINE            	
+
 COMMENT             	C     Modified by C. Moler to fix underflow/overflow difficulties,
+NEW_LINE            	
+
 COMMENT             	C     especially on the VAX and other machines where epslon(1.0d0)**2
+NEW_LINE            	
+
 COMMENT             	C     nearly underflows.  See the loop involving statement 102 and
+NEW_LINE            	
+
 COMMENT             	C     the two statements just before statement 200.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     ------------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 IDENT               	IERR
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	N
@@ -120,14 +224,20 @@ INT                 	1
 IDENT               	GO
 IDENT               	TO
 INT                 	1001
+NEW_LINE            	
+
 COMMENT             	C
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	100
 IDENT               	I
 =                   	=
 INT                 	2
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 INT                 	100
 IDENT               	E2
 (                   	(
@@ -140,30 +250,46 @@ IDENT               	E2
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 IDENT               	F
 =                   	=
 FLOAT               	0.0D0
+NEW_LINE            	
+
 IDENT               	T
 =                   	=
 FLOAT               	0.0D0
+NEW_LINE            	
+
 IDENT               	E2
 (                   	(
 IDENT               	N
 )                   	)
 =                   	=
 FLOAT               	0.0D0
+NEW_LINE            	
+
 COMMENT             	C
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	290
 IDENT               	L
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	J
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 IDENT               	H
 =                   	=
 IDENT               	DABS
@@ -181,6 +307,8 @@ IDENT               	E2
 IDENT               	L
 )                   	)
 )                   	)
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	T
@@ -190,20 +318,28 @@ IDENT               	H
 IDENT               	GO
 IDENT               	TO
 INT                 	105
+NEW_LINE            	
+
 IDENT               	T
 =                   	=
 IDENT               	H
+NEW_LINE            	
+
 IDENT               	B
 =                   	=
 IDENT               	EPSLON
 (                   	(
 IDENT               	T
 )                   	)
+NEW_LINE            	
+
 IDENT               	C
 =                   	=
 IDENT               	B
 *                   	*
 IDENT               	B
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	c
@@ -213,14 +349,20 @@ FLOAT               	0.0d0
 IDENT               	go
 IDENT               	to
 INT                 	105
+NEW_LINE            	
+
 COMMENT             	C        Spliting tolerance underflowed.  Look for larger value.
-token(103)          	do
+NEW_LINE            	
+
+DO                  	do
 INT                 	102
 IDENT               	i
 =                   	=
 IDENT               	l
 ,                   	,
 IDENT               	n
+NEW_LINE            	
+
 IDENT               	h
 =                   	=
 IDENT               	dabs
@@ -238,6 +380,8 @@ IDENT               	e2
 IDENT               	i
 )                   	)
 )                   	)
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	h
@@ -247,28 +391,40 @@ IDENT               	t
 IDENT               	t
 =                   	=
 IDENT               	h
+NEW_LINE            	
+
 INT                 	102
 continue            	continue
+NEW_LINE            	
+
 IDENT               	b
 =                   	=
 IDENT               	epslon
 (                   	(
 IDENT               	t
 )                   	)
+NEW_LINE            	
+
 IDENT               	c
 =                   	=
 IDENT               	b
 *                   	*
 IDENT               	b
+NEW_LINE            	
+
 COMMENT             	C     .......... LOOK FOR SMALL SQUARED SUB-DIAGONAL ELEMENT ..........
+NEW_LINE            	
+
 INT                 	105
-token(103)          	DO
+DO                  	DO
 INT                 	110
 IDENT               	M
 =                   	=
 IDENT               	L
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	E2
@@ -281,11 +437,21 @@ IDENT               	C
 IDENT               	GO
 IDENT               	TO
 INT                 	120
+NEW_LINE            	
+
 COMMENT             	C     .......... E2(N) IS ALWAYS ZERO, SO THERE IS NO EXIT
+NEW_LINE            	
+
 COMMENT             	C                THROUGH THE BOTTOM OF THE LOOP ..........
+NEW_LINE            	
+
 INT                 	110
 continue            	CONTINUE
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 INT                 	120
 if                  	IF
 (                   	(
@@ -296,6 +462,8 @@ IDENT               	L
 IDENT               	GO
 IDENT               	TO
 INT                 	210
+NEW_LINE            	
+
 INT                 	130
 if                  	IF
 (                   	(
@@ -306,17 +474,25 @@ INT                 	30
 IDENT               	GO
 IDENT               	TO
 INT                 	1000
+NEW_LINE            	
+
 IDENT               	J
 =                   	=
 IDENT               	J
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 COMMENT             	C     .......... FORM SHIFT ..........
+NEW_LINE            	
+
 IDENT               	L1
 =                   	=
 IDENT               	L
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 IDENT               	S
 =                   	=
 IDENT               	DSQRT
@@ -326,12 +502,16 @@ IDENT               	E2
 IDENT               	L
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	G
 =                   	=
 IDENT               	D
 (                   	(
 IDENT               	L
 )                   	)
+NEW_LINE            	
+
 IDENT               	P
 =                   	=
 (                   	(
@@ -348,6 +528,8 @@ FLOAT               	2.0D0
 *                   	*
 IDENT               	S
 )                   	)
+NEW_LINE            	
+
 IDENT               	R
 =                   	=
 IDENT               	PYTHAG
@@ -356,6 +538,8 @@ IDENT               	P
 ,                   	,
 FLOAT               	1.0D0
 )                   	)
+NEW_LINE            	
+
 IDENT               	D
 (                   	(
 IDENT               	L
@@ -373,6 +557,8 @@ IDENT               	R
 IDENT               	P
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	H
 =                   	=
 IDENT               	G
@@ -381,14 +567,20 @@ IDENT               	D
 (                   	(
 IDENT               	L
 )                   	)
+NEW_LINE            	
+
 COMMENT             	C
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	140
 IDENT               	I
 =                   	=
 IDENT               	L1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 INT                 	140
 IDENT               	D
 (                   	(
@@ -401,19 +593,29 @@ IDENT               	I
 )                   	)
 -                   	-
 IDENT               	H
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 IDENT               	F
 =                   	=
 IDENT               	F
 +                   	+
 IDENT               	H
+NEW_LINE            	
+
 COMMENT             	C     .......... RATIONAL QL TRANSFORMATION ..........
+NEW_LINE            	
+
 IDENT               	G
 =                   	=
 IDENT               	D
 (                   	(
 IDENT               	M
 )                   	)
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	G
@@ -423,35 +625,51 @@ FLOAT               	0.0D0
 IDENT               	G
 =                   	=
 IDENT               	B
+NEW_LINE            	
+
 IDENT               	H
 =                   	=
 IDENT               	G
+NEW_LINE            	
+
 IDENT               	S
 =                   	=
 FLOAT               	0.0D0
+NEW_LINE            	
+
 IDENT               	MML
 =                   	=
 IDENT               	M
 -                   	-
 IDENT               	L
+NEW_LINE            	
+
 COMMENT             	C     .......... FOR I=M-1 STEP -1 UNTIL L DO -- ..........
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	200
 IDENT               	II
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	MML
+NEW_LINE            	
+
 IDENT               	I
 =                   	=
 IDENT               	M
 -                   	-
 IDENT               	II
+NEW_LINE            	
+
 IDENT               	P
 =                   	=
 IDENT               	G
 *                   	*
 IDENT               	H
+NEW_LINE            	
+
 IDENT               	R
 =                   	=
 IDENT               	P
@@ -460,6 +678,8 @@ IDENT               	E2
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	E2
 (                   	(
 IDENT               	I
@@ -470,6 +690,8 @@ INT                 	1
 IDENT               	S
 *                   	*
 IDENT               	R
+NEW_LINE            	
+
 IDENT               	S
 =                   	=
 IDENT               	E2
@@ -478,6 +700,8 @@ IDENT               	I
 )                   	)
 /                   	/
 IDENT               	R
+NEW_LINE            	
+
 IDENT               	D
 (                   	(
 IDENT               	I
@@ -497,6 +721,8 @@ IDENT               	D
 IDENT               	I
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	G
 =                   	=
 IDENT               	D
@@ -510,7 +736,11 @@ IDENT               	I
 )                   	)
 /                   	/
 IDENT               	G
+NEW_LINE            	
+
 COMMENT             	C           Avoid division by zero on next pass
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	g
@@ -526,6 +756,8 @@ IDENT               	d
 IDENT               	i
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	h
 =                   	=
 IDENT               	g
@@ -535,9 +767,15 @@ IDENT               	p
 /                   	/
 IDENT               	r
 )                   	)
+NEW_LINE            	
+
 INT                 	200
 continue            	CONTINUE
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 IDENT               	E2
 (                   	(
 IDENT               	L
@@ -546,13 +784,19 @@ IDENT               	L
 IDENT               	S
 *                   	*
 IDENT               	G
+NEW_LINE            	
+
 IDENT               	D
 (                   	(
 IDENT               	L
 )                   	)
 =                   	=
 IDENT               	H
+NEW_LINE            	
+
 COMMENT             	C     .......... GUARD AGAINST UNDERFLOW IN CONVERGENCE TEST ..........
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	H
@@ -562,6 +806,8 @@ FLOAT               	0.0D0
 IDENT               	GO
 IDENT               	TO
 INT                 	210
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	DABS
@@ -582,6 +828,8 @@ IDENT               	H
 IDENT               	GO
 IDENT               	TO
 INT                 	210
+NEW_LINE            	
+
 IDENT               	E2
 (                   	(
 IDENT               	L
@@ -593,6 +841,8 @@ IDENT               	E2
 (                   	(
 IDENT               	L
 )                   	)
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	E2
@@ -605,6 +855,8 @@ FLOAT               	0.0D0
 IDENT               	GO
 IDENT               	TO
 INT                 	130
+NEW_LINE            	
+
 INT                 	210
 IDENT               	P
 =                   	=
@@ -614,7 +866,11 @@ IDENT               	L
 )                   	)
 +                   	+
 IDENT               	F
+NEW_LINE            	
+
 COMMENT             	C     .......... ORDER EIGENVALUES ..........
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	L
@@ -624,14 +880,20 @@ INT                 	1
 IDENT               	GO
 IDENT               	TO
 INT                 	250
+NEW_LINE            	
+
 COMMENT             	C     .......... FOR I=L STEP -1 UNTIL 2 DO -- ..........
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	230
 IDENT               	II
 =                   	=
 INT                 	2
 ,                   	,
 IDENT               	L
+NEW_LINE            	
+
 IDENT               	I
 =                   	=
 IDENT               	L
@@ -639,6 +901,8 @@ IDENT               	L
 INT                 	2
 -                   	-
 IDENT               	II
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	P
@@ -653,6 +917,8 @@ INT                 	1
 IDENT               	GO
 IDENT               	TO
 INT                 	270
+NEW_LINE            	
+
 IDENT               	D
 (                   	(
 IDENT               	I
@@ -664,13 +930,21 @@ IDENT               	I
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 INT                 	230
 continue            	CONTINUE
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 INT                 	250
 IDENT               	I
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 INT                 	270
 IDENT               	D
 (                   	(
@@ -678,18 +952,36 @@ IDENT               	I
 )                   	)
 =                   	=
 IDENT               	P
+NEW_LINE            	
+
 INT                 	290
 continue            	CONTINUE
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 IDENT               	GO
 IDENT               	TO
 INT                 	1001
+NEW_LINE            	
+
 COMMENT             	C     .......... SET ERROR -- NO CONVERGENCE TO AN
+NEW_LINE            	
+
 COMMENT             	C                EIGENVALUE AFTER 30 ITERATIONS ..........
+NEW_LINE            	
+
 INT                 	1000
 IDENT               	IERR
 =                   	=
 IDENT               	L
+NEW_LINE            	
+
 INT                 	1001
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

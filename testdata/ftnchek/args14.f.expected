@@ -1,15 +1,21 @@
-token(105)          	call
+CALL                	call
 IDENT               	suba
 (                   	(
 INT                 	4
 IDENT               	hjunk
 )                   	)
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	suba
 (                   	(
 IDENT               	i
 )                   	)
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -17,4 +23,8 @@ IDENT               	write
 STRING              	'(a)'
 )                   	)
 IDENT               	i
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

@@ -1,12 +1,24 @@
-token(97)           	PROGRAM
+PROGRAM             	PROGRAM
 IDENT               	cows
-token(98)           	INTEGER
-token(99)           	::
+NEW_LINE            	
+
+INTEGER             	INTEGER
+DOUBLE_COLON        	::
 IDENT               	n
+NEW_LINE            	
+
 COMMENT             	C          INTEGER :: n2
+NEW_LINE            	
+
 IDENT               	n
 =                   	=
 INT                 	306
+NEW_LINE            	
+
 COMMENT             	C          n2 = n + 2
-token(102)          	END
-token(97)           	PROGRAM
+NEW_LINE            	
+
+END                 	END
+PROGRAM             	PROGRAM
+NEW_LINE            	
+

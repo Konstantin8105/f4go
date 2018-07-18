@@ -1,80 +1,228 @@
 COMMENT             	*> \brief \b DNRM2
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       DOUBLE PRECISION FUNCTION DNRM2(N,X,INCX)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       INTEGER INCX,N
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       DOUBLE PRECISION X(*)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> DNRM2 returns the euclidean norm of a vector via the function
+NEW_LINE            	
+
 COMMENT             	*> name, so that
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    DNRM2 := sqrt( x'*x )
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] N
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          N is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         number of elements in input vector(s)
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] X
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          X is DOUBLE PRECISION array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCX is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         storage spacing between elements of DX
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup double_blas_level1
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Further Details:
+NEW_LINE            	
+
 COMMENT             	*  =====================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  -- This version written on 25-October-1982.
+NEW_LINE            	
+
 COMMENT             	*>     Modified on 14-October-1993 to inline the call to DLASSQ.
+NEW_LINE            	
+
 COMMENT             	*>     Sven Hammarling, Nag Ltd.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
-token(101)          	FUNCTION
+FUNCTION            	FUNCTION
 IDENT               	DNRM2
 (                   	(
 IDENT               	N
@@ -83,35 +231,71 @@ IDENT               	X
 ,                   	,
 IDENT               	INCX
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	INCX
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	X
 (                   	(
 *                   	*
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Parameters ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	ONE
 ,                   	,
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	ONE
@@ -122,8 +306,14 @@ IDENT               	ZERO
 =                   	=
 FLOAT               	0.0D+0
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	ABSXI
@@ -133,15 +323,27 @@ IDENT               	NORM
 IDENT               	SCALE
 ,                   	,
 IDENT               	SSQ
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	IX
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	ABS
 ,                   	,
 IDENT               	SQRT
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	N
@@ -152,10 +354,14 @@ IDENT               	INCX
 <                   	.LT.
 INT                 	1
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	NORM
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -163,7 +369,9 @@ IDENT               	N
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	NORM
 =                   	=
 IDENT               	ABS
@@ -173,18 +381,34 @@ IDENT               	X
 INT                 	1
 )                   	)
 )                   	)
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	SCALE
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	SSQ
 =                   	=
 IDENT               	ONE
+NEW_LINE            	
+
 COMMENT             	*        The following loop is equivalent to this call to the LAPACK
+NEW_LINE            	
+
 COMMENT             	*        auxiliary routine:
+NEW_LINE            	
+
 COMMENT             	*        CALL DLASSQ( N, X, INCX, SCALE, SSQ )
+NEW_LINE            	
+
 COMMENT             	*
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	10
 IDENT               	IX
 =                   	=
@@ -201,6 +425,8 @@ INT                 	1
 IDENT               	INCX
 ,                   	,
 IDENT               	INCX
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	X
@@ -210,7 +436,9 @@ IDENT               	IX
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	ABSXI
 =                   	=
 IDENT               	ABS
@@ -220,13 +448,17 @@ IDENT               	X
 IDENT               	IX
 )                   	)
 )                   	)
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	SCALE
 <                   	.LT.
 IDENT               	ABSXI
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	SSQ
 =                   	=
 IDENT               	ONE
@@ -238,12 +470,18 @@ IDENT               	SCALE
 /                   	/
 IDENT               	ABSXI
 )                   	)
-token(95)           	**
+                    	**
 INT                 	2
+NEW_LINE            	
+
 IDENT               	SCALE
 =                   	=
 IDENT               	ABSXI
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	SSQ
 =                   	=
 IDENT               	SSQ
@@ -253,14 +491,22 @@ IDENT               	ABSXI
 /                   	/
 IDENT               	SCALE
 )                   	)
-token(95)           	**
+                    	**
 INT                 	2
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	10
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	NORM
 =                   	=
 IDENT               	SCALE
@@ -269,14 +515,32 @@ IDENT               	SQRT
 (                   	(
 IDENT               	SSQ
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	DNRM2
 =                   	=
 IDENT               	NORM
+NEW_LINE            	
+
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     End of DNRM2.
+NEW_LINE            	
+
 COMMENT             	*
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

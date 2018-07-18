@@ -1,139 +1,409 @@
 COMMENT             	*> \brief \b ZHER
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       SUBROUTINE ZHER(UPLO,N,ALPHA,X,INCX,A,LDA)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       DOUBLE PRECISION ALPHA
+NEW_LINE            	
+
 COMMENT             	*       INTEGER INCX,LDA,N
+NEW_LINE            	
+
 COMMENT             	*       CHARACTER UPLO
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       COMPLEX*16 A(LDA,*),X(*)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> ZHER   performs the hermitian rank 1 operation
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    A := alpha*x*x**H + A,
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> where alpha is a real scalar, x is an n element vector and A is an
+NEW_LINE            	
+
 COMMENT             	*> n by n hermitian matrix.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] UPLO
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          UPLO is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*>           On entry, UPLO specifies whether the upper or lower
+NEW_LINE            	
+
 COMMENT             	*>           triangular part of the array A is to be referenced as
+NEW_LINE            	
+
 COMMENT             	*>           follows:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              UPLO = 'U' or 'u'   Only the upper triangular part of A
+NEW_LINE            	
+
 COMMENT             	*>                                  is to be referenced.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              UPLO = 'L' or 'l'   Only the lower triangular part of A
+NEW_LINE            	
+
 COMMENT             	*>                                  is to be referenced.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] N
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          N is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, N specifies the order of the matrix A.
+NEW_LINE            	
+
 COMMENT             	*>           N must be at least zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] ALPHA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          ALPHA is DOUBLE PRECISION.
+NEW_LINE            	
+
 COMMENT             	*>           On entry, ALPHA specifies the scalar alpha.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] X
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          X is COMPLEX*16 array, dimension at least
+NEW_LINE            	
+
 COMMENT             	*>           ( 1 + ( n - 1 )*abs( INCX ) ).
+NEW_LINE            	
+
 COMMENT             	*>           Before entry, the incremented array X must contain the n
+NEW_LINE            	
+
 COMMENT             	*>           element vector x.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCX is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, INCX specifies the increment for the elements of
+NEW_LINE            	
+
 COMMENT             	*>           X. INCX must not be zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in,out] A
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          A is COMPLEX*16 array, dimension ( LDA, N )
+NEW_LINE            	
+
 COMMENT             	*>           Before entry with  UPLO = 'U' or 'u', the leading n by n
+NEW_LINE            	
+
 COMMENT             	*>           upper triangular part of the array A must contain the upper
+NEW_LINE            	
+
 COMMENT             	*>           triangular part of the hermitian matrix and the strictly
+NEW_LINE            	
+
 COMMENT             	*>           lower triangular part of A is not referenced. On exit, the
+NEW_LINE            	
+
 COMMENT             	*>           upper triangular part of the array A is overwritten by the
+NEW_LINE            	
+
 COMMENT             	*>           upper triangular part of the updated matrix.
+NEW_LINE            	
+
 COMMENT             	*>           Before entry with UPLO = 'L' or 'l', the leading n by n
+NEW_LINE            	
+
 COMMENT             	*>           lower triangular part of the array A must contain the lower
+NEW_LINE            	
+
 COMMENT             	*>           triangular part of the hermitian matrix and the strictly
+NEW_LINE            	
+
 COMMENT             	*>           upper triangular part of A is not referenced. On exit, the
+NEW_LINE            	
+
 COMMENT             	*>           lower triangular part of the array A is overwritten by the
+NEW_LINE            	
+
 COMMENT             	*>           lower triangular part of the updated matrix.
+NEW_LINE            	
+
 COMMENT             	*>           Note that the imaginary parts of the diagonal elements need
+NEW_LINE            	
+
 COMMENT             	*>           not be set, they are assumed to be zero, and on exit they
+NEW_LINE            	
+
 COMMENT             	*>           are set to zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] LDA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          LDA is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, LDA specifies the first dimension of A as declared
+NEW_LINE            	
+
 COMMENT             	*>           in the calling (sub) program. LDA must be at least
+NEW_LINE            	
+
 COMMENT             	*>           max( 1, n ).
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup complex16_blas_level2
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Further Details:
+NEW_LINE            	
+
 COMMENT             	*  =====================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  Level 2 Blas routine.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  -- Written on 22-October-1986.
+NEW_LINE            	
+
 COMMENT             	*>     Jack Dongarra, Argonne National Lab.
+NEW_LINE            	
+
 COMMENT             	*>     Jeremy Du Croz, Nag Central Office.
+NEW_LINE            	
+
 COMMENT             	*>     Sven Hammarling, Nag Central Office.
+NEW_LINE            	
+
 COMMENT             	*>     Richard Hanson, Sandia National Labs.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	ZHER
 (                   	(
 IDENT               	UPLO
@@ -150,26 +420,52 @@ IDENT               	A
 ,                   	,
 IDENT               	LDA
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level2 routine (version 3.7.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	ALPHA
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	INCX
 ,                   	,
 IDENT               	LDA
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	CHARACTER
 IDENT               	UPLO
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 *                   	*
 INT                 	16
@@ -184,15 +480,29 @@ IDENT               	X
 (                   	(
 *                   	*
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Parameters ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	ZERO
@@ -203,13 +513,21 @@ FLOAT               	0.0D+0
 FLOAT               	0.0D+0
 )                   	)
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	TEMP
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	INFO
@@ -221,31 +539,63 @@ IDENT               	J
 IDENT               	JX
 ,                   	,
 IDENT               	KX
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. External Functions ..
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	LSAME
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	LSAME
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. External Subroutines ..
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	XERBLA
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	DBLE
 ,                   	,
 IDENT               	DCONJG
 ,                   	,
 IDENT               	MAX
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Test the input parameters.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 !=                  	.NOT.
@@ -264,10 +614,14 @@ IDENT               	UPLO
 STRING              	'L'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -275,10 +629,14 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	2
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -286,10 +644,14 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	5
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -302,32 +664,52 @@ INT                 	1
 IDENT               	N
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	7
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-token(106)          	THEN
-token(105)          	CALL
+THEN                	THEN
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	XERBLA
 (                   	(
 STRING              	'ZHER  '
 ,                   	,
 IDENT               	INFO
 )                   	)
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Quick return if possible.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 (                   	(
@@ -346,16 +728,26 @@ IDENT               	ZERO
 )                   	)
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Set the start point in X if the increment is not unity.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 <=                  	.LE.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 INT                 	1
@@ -367,6 +759,8 @@ INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCX
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -374,17 +768,33 @@ IDENT               	INCX
 !=                  	.NE.
 INT                 	1
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 INT                 	1
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Start the operations. In this version the elements of A are
+NEW_LINE            	
+
 COMMENT             	*     accessed sequentially with one pass through the triangular part
+NEW_LINE            	
+
 COMMENT             	*     of A.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -394,24 +804,36 @@ IDENT               	UPLO
 STRING              	'U'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        Form  A  when A is stored in upper triangle.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	20
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	X
@@ -421,7 +843,9 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -433,7 +857,9 @@ IDENT               	X
 IDENT               	J
 )                   	)
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	10
 IDENT               	I
 =                   	=
@@ -442,6 +868,8 @@ INT                 	1
 IDENT               	J
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	I
@@ -462,8 +890,12 @@ IDENT               	I
 )                   	)
 *                   	*
 IDENT               	TEMP
+NEW_LINE            	
+
 INT                 	10
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	J
@@ -490,7 +922,11 @@ IDENT               	J
 *                   	*
 IDENT               	TEMP
 )                   	)
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	J
@@ -507,21 +943,33 @@ IDENT               	J
 IDENT               	J
 )                   	)
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	20
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	KX
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	40
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	X
@@ -531,7 +979,9 @@ IDENT               	JX
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -543,10 +993,14 @@ IDENT               	X
 IDENT               	JX
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	KX
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	30
 IDENT               	I
 =                   	=
@@ -555,6 +1009,8 @@ INT                 	1
 IDENT               	J
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	I
@@ -575,13 +1031,19 @@ IDENT               	IX
 )                   	)
 *                   	*
 IDENT               	TEMP
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	30
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	J
@@ -608,7 +1070,11 @@ IDENT               	JX
 *                   	*
 IDENT               	TEMP
 )                   	)
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	J
@@ -625,35 +1091,57 @@ IDENT               	J
 IDENT               	J
 )                   	)
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	JX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	40
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        Form  A  when A is stored in lower triangle.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	60
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	X
@@ -663,7 +1151,9 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -675,6 +1165,8 @@ IDENT               	X
 IDENT               	J
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	J
@@ -701,7 +1193,9 @@ IDENT               	X
 IDENT               	J
 )                   	)
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	50
 IDENT               	I
 =                   	=
@@ -710,6 +1204,8 @@ IDENT               	J
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	I
@@ -730,9 +1226,15 @@ IDENT               	I
 )                   	)
 *                   	*
 IDENT               	TEMP
+NEW_LINE            	
+
 INT                 	50
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	J
@@ -749,21 +1251,33 @@ IDENT               	J
 IDENT               	J
 )                   	)
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	60
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	KX
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	80
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	X
@@ -773,7 +1287,9 @@ IDENT               	JX
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -785,6 +1301,8 @@ IDENT               	X
 IDENT               	JX
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	J
@@ -811,10 +1329,14 @@ IDENT               	X
 IDENT               	JX
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	JX
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	70
 IDENT               	I
 =                   	=
@@ -823,11 +1345,15 @@ IDENT               	J
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	I
@@ -848,9 +1374,15 @@ IDENT               	IX
 )                   	)
 *                   	*
 IDENT               	TEMP
+NEW_LINE            	
+
 INT                 	70
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	J
@@ -867,22 +1399,46 @@ IDENT               	J
 IDENT               	J
 )                   	)
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	JX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	80
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     End of ZHER  .
+NEW_LINE            	
+
 COMMENT             	*
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

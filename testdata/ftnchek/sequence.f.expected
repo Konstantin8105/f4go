@@ -1,21 +1,29 @@
 COMMENT             	C tests message about statement out of order.
+NEW_LINE            	
+
 IDENT               	data
 IDENT               	x
 /                   	/
 FLOAT               	1.0
 /                   	/
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	a
 ,                   	,
 IDENT               	b
 ,                   	,
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	common
 IDENT               	a
 ,                   	,
 IDENT               	b
 ,                   	,
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	sqr
 (                   	(
 IDENT               	y
@@ -24,9 +32,13 @@ IDENT               	y
 IDENT               	y
 *                   	*
 IDENT               	y
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	d
+NEW_LINE            	
+
 IDENT               	read
 (                   	(
 *                   	*
@@ -40,6 +52,8 @@ IDENT               	b
 IDENT               	c
 ,                   	,
 IDENT               	d
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -58,4 +72,8 @@ IDENT               	sqr
 (                   	(
 IDENT               	x
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

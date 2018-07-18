@@ -1,185 +1,547 @@
 COMMENT             	*> \brief \b DTRSM
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       SUBROUTINE DTRSM(SIDE,UPLO,TRANSA,DIAG,M,N,ALPHA,A,LDA,B,LDB)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       DOUBLE PRECISION ALPHA
+NEW_LINE            	
+
 COMMENT             	*       INTEGER LDA,LDB,M,N
+NEW_LINE            	
+
 COMMENT             	*       CHARACTER DIAG,SIDE,TRANSA,UPLO
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       DOUBLE PRECISION A(LDA,*),B(LDB,*)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> DTRSM  solves one of the matrix equations
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    op( A )*X = alpha*B,   or   X*op( A ) = alpha*B,
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> where alpha is a scalar, X and B are m by n matrices, A is a unit, or
+NEW_LINE            	
+
 COMMENT             	*> non-unit,  upper or lower triangular matrix  and  op( A )  is one  of
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    op( A ) = A   or   op( A ) = A**T.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> The matrix X is overwritten on B.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] SIDE
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          SIDE is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*>           On entry, SIDE specifies whether op( A ) appears on the left
+NEW_LINE            	
+
 COMMENT             	*>           or right of X as follows:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              SIDE = 'L' or 'l'   op( A )*X = alpha*B.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              SIDE = 'R' or 'r'   X*op( A ) = alpha*B.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] UPLO
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          UPLO is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*>           On entry, UPLO specifies whether the matrix A is an upper or
+NEW_LINE            	
+
 COMMENT             	*>           lower triangular matrix as follows:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              UPLO = 'U' or 'u'   A is an upper triangular matrix.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              UPLO = 'L' or 'l'   A is a lower triangular matrix.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] TRANSA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          TRANSA is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*>           On entry, TRANSA specifies the form of op( A ) to be used in
+NEW_LINE            	
+
 COMMENT             	*>           the matrix multiplication as follows:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              TRANSA = 'N' or 'n'   op( A ) = A.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              TRANSA = 'T' or 't'   op( A ) = A**T.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              TRANSA = 'C' or 'c'   op( A ) = A**T.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] DIAG
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          DIAG is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*>           On entry, DIAG specifies whether or not A is unit triangular
+NEW_LINE            	
+
 COMMENT             	*>           as follows:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              DIAG = 'U' or 'u'   A is assumed to be unit triangular.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              DIAG = 'N' or 'n'   A is not assumed to be unit
+NEW_LINE            	
+
 COMMENT             	*>                                  triangular.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] M
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          M is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, M specifies the number of rows of B. M must be at
+NEW_LINE            	
+
 COMMENT             	*>           least zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] N
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          N is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, N specifies the number of columns of B.  N must be
+NEW_LINE            	
+
 COMMENT             	*>           at least zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] ALPHA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          ALPHA is DOUBLE PRECISION.
+NEW_LINE            	
+
 COMMENT             	*>           On entry,  ALPHA specifies the scalar  alpha. When  alpha is
+NEW_LINE            	
+
 COMMENT             	*>           zero then  A is not referenced and  B need not be set before
+NEW_LINE            	
+
 COMMENT             	*>           entry.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] A
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          A is DOUBLE PRECISION array, dimension ( LDA, k ),
+NEW_LINE            	
+
 COMMENT             	*>           where k is m when SIDE = 'L' or 'l'
+NEW_LINE            	
+
 COMMENT             	*>             and k is n when SIDE = 'R' or 'r'.
+NEW_LINE            	
+
 COMMENT             	*>           Before entry  with  UPLO = 'U' or 'u',  the  leading  k by k
+NEW_LINE            	
+
 COMMENT             	*>           upper triangular part of the array  A must contain the upper
+NEW_LINE            	
+
 COMMENT             	*>           triangular matrix  and the strictly lower triangular part of
+NEW_LINE            	
+
 COMMENT             	*>           A is not referenced.
+NEW_LINE            	
+
 COMMENT             	*>           Before entry  with  UPLO = 'L' or 'l',  the  leading  k by k
+NEW_LINE            	
+
 COMMENT             	*>           lower triangular part of the array  A must contain the lower
+NEW_LINE            	
+
 COMMENT             	*>           triangular matrix  and the strictly upper triangular part of
+NEW_LINE            	
+
 COMMENT             	*>           A is not referenced.
+NEW_LINE            	
+
 COMMENT             	*>           Note that when  DIAG = 'U' or 'u',  the diagonal elements of
+NEW_LINE            	
+
 COMMENT             	*>           A  are not referenced either,  but are assumed to be  unity.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] LDA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          LDA is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, LDA specifies the first dimension of A as declared
+NEW_LINE            	
+
 COMMENT             	*>           in the calling (sub) program.  When  SIDE = 'L' or 'l'  then
+NEW_LINE            	
+
 COMMENT             	*>           LDA  must be at least  max( 1, m ),  when  SIDE = 'R' or 'r'
+NEW_LINE            	
+
 COMMENT             	*>           then LDA must be at least max( 1, n ).
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in,out] B
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          B is DOUBLE PRECISION array, dimension ( LDB, N )
+NEW_LINE            	
+
 COMMENT             	*>           Before entry,  the leading  m by n part of the array  B must
+NEW_LINE            	
+
 COMMENT             	*>           contain  the  right-hand  side  matrix  B,  and  on exit  is
+NEW_LINE            	
+
 COMMENT             	*>           overwritten by the solution matrix  X.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] LDB
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          LDB is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, LDB specifies the first dimension of B as declared
+NEW_LINE            	
+
 COMMENT             	*>           in  the  calling  (sub)  program.   LDB  must  be  at  least
+NEW_LINE            	
+
 COMMENT             	*>           max( 1, m ).
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup double_blas_level3
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Further Details:
+NEW_LINE            	
+
 COMMENT             	*  =====================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  Level 3 Blas routine.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  -- Written on 8-February-1989.
+NEW_LINE            	
+
 COMMENT             	*>     Jack Dongarra, Argonne National Laboratory.
+NEW_LINE            	
+
 COMMENT             	*>     Iain Duff, AERE Harwell.
+NEW_LINE            	
+
 COMMENT             	*>     Jeremy Du Croz, Numerical Algorithms Group Ltd.
+NEW_LINE            	
+
 COMMENT             	*>     Sven Hammarling, Numerical Algorithms Group Ltd.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	DTRSM
 (                   	(
 IDENT               	SIDE
@@ -204,17 +566,35 @@ IDENT               	B
 ,                   	,
 IDENT               	LDB
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level3 routine (version 3.7.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	ALPHA
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	LDA
 ,                   	,
 IDENT               	LDB
@@ -222,6 +602,8 @@ IDENT               	LDB
 IDENT               	M
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	CHARACTER
 IDENT               	DIAG
 ,                   	,
@@ -230,8 +612,14 @@ IDENT               	SIDE
 IDENT               	TRANSA
 ,                   	,
 IDENT               	UPLO
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	A
@@ -247,29 +635,63 @@ IDENT               	LDB
 ,                   	,
 *                   	*
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. External Functions ..
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	LSAME
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	LSAME
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. External Subroutines ..
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	XERBLA
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	MAX
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	TEMP
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	INFO
@@ -279,19 +701,29 @@ IDENT               	J
 IDENT               	K
 ,                   	,
 IDENT               	NROWA
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	LSIDE
 ,                   	,
 IDENT               	NOUNIT
 ,                   	,
 IDENT               	UPPER
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Parameters ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	ONE
 ,                   	,
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	ONE
@@ -302,10 +734,20 @@ IDENT               	ZERO
 =                   	=
 FLOAT               	0.0D+0
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Test the input parameters.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	LSIDE
 =                   	=
 IDENT               	LSAME
@@ -314,20 +756,32 @@ IDENT               	SIDE
 ,                   	,
 STRING              	'L'
 )                   	)
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSIDE
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	NROWA
 =                   	=
 IDENT               	M
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	NROWA
 =                   	=
 IDENT               	N
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	NOUNIT
 =                   	=
 IDENT               	LSAME
@@ -336,6 +790,8 @@ IDENT               	DIAG
 ,                   	,
 STRING              	'N'
 )                   	)
+NEW_LINE            	
+
 IDENT               	UPPER
 =                   	=
 IDENT               	LSAME
@@ -344,10 +800,16 @@ IDENT               	UPLO
 ,                   	,
 STRING              	'U'
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 (                   	(
@@ -365,10 +827,14 @@ STRING              	'R'
 )                   	)
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -387,10 +853,14 @@ STRING              	'L'
 )                   	)
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	2
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -404,6 +874,8 @@ STRING              	'N'
 )                   	)
 )                   	)
 &&                  	.AND.
+NEW_LINE            	
+
 +                   	+
 (                   	(
 !=                  	.NOT.
@@ -415,6 +887,8 @@ STRING              	'T'
 )                   	)
 )                   	)
 &&                  	.AND.
+NEW_LINE            	
+
 +                   	+
 (                   	(
 !=                  	.NOT.
@@ -426,10 +900,14 @@ STRING              	'C'
 )                   	)
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	3
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -453,10 +931,14 @@ STRING              	'N'
 )                   	)
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	4
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -464,10 +946,14 @@ IDENT               	M
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	5
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -475,10 +961,14 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	6
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -491,10 +981,14 @@ INT                 	1
 IDENT               	NROWA
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	9
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -507,32 +1001,52 @@ INT                 	1
 IDENT               	M
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	11
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-token(106)          	THEN
-token(105)          	CALL
+THEN                	THEN
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	XERBLA
 (                   	(
 STRING              	'DTRSM '
 ,                   	,
 IDENT               	INFO
 )                   	)
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Quick return if possible.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	M
@@ -544,30 +1058,44 @@ IDENT               	N
 INT                 	0
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     And when  alpha.eq.zero.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ALPHA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	20
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	10
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -576,21 +1104,39 @@ IDENT               	J
 )                   	)
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 INT                 	10
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	20
 continue            	CONTINUE
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Start the operations.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSIDE
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -600,36 +1146,52 @@ IDENT               	TRANSA
 STRING              	'N'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*           Form  B := alpha*inv( A )*B.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	60
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ALPHA
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	30
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -645,11 +1207,17 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	30
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	50
 IDENT               	K
 =                   	=
@@ -659,6 +1227,8 @@ INT                 	1
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	B
@@ -670,7 +1240,9 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -695,7 +1267,9 @@ IDENT               	K
 ,                   	,
 IDENT               	K
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	40
 IDENT               	I
 =                   	=
@@ -704,6 +1278,8 @@ INT                 	1
 IDENT               	K
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -731,36 +1307,54 @@ IDENT               	I
 ,                   	,
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 INT                 	40
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	50
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	60
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	100
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ALPHA
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	70
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -776,17 +1370,25 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	70
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	90
 IDENT               	K
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	B
@@ -798,7 +1400,9 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -823,7 +1427,9 @@ IDENT               	K
 ,                   	,
 IDENT               	K
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	80
 IDENT               	I
 =                   	=
@@ -832,6 +1438,8 @@ IDENT               	K
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -859,39 +1467,65 @@ IDENT               	I
 ,                   	,
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 INT                 	80
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	90
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	100
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*           Form  B := alpha*inv( A**T )*B.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	130
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	120
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -902,7 +1536,9 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	110
 IDENT               	K
 =                   	=
@@ -911,6 +1547,8 @@ INT                 	1
 IDENT               	I
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	TEMP
@@ -928,8 +1566,12 @@ IDENT               	K
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	110
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -944,6 +1586,8 @@ IDENT               	I
 ,                   	,
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -952,19 +1596,29 @@ IDENT               	J
 )                   	)
 =                   	=
 IDENT               	TEMP
+NEW_LINE            	
+
 INT                 	120
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	130
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	160
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	150
 IDENT               	I
 =                   	=
@@ -974,6 +1628,8 @@ INT                 	1
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -984,7 +1640,9 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	140
 IDENT               	K
 =                   	=
@@ -993,6 +1651,8 @@ IDENT               	I
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	TEMP
@@ -1010,8 +1670,12 @@ IDENT               	K
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	140
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -1026,6 +1690,8 @@ IDENT               	I
 ,                   	,
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -1034,15 +1700,27 @@ IDENT               	J
 )                   	)
 =                   	=
 IDENT               	TEMP
+NEW_LINE            	
+
 INT                 	150
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	160
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -1052,36 +1730,52 @@ IDENT               	TRANSA
 STRING              	'N'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*           Form  B := alpha*B*inv( A ).
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	210
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ALPHA
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	170
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -1097,11 +1791,17 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	170
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	190
 IDENT               	K
 =                   	=
@@ -1110,6 +1810,8 @@ INT                 	1
 IDENT               	J
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	A
@@ -1121,14 +1823,18 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	180
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -1156,17 +1862,27 @@ IDENT               	I
 ,                   	,
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 INT                 	180
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	190
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ONE
@@ -1177,13 +1893,17 @@ IDENT               	J
 ,                   	,
 IDENT               	J
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	200
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -1199,14 +1919,24 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	200
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	210
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	260
 IDENT               	J
 =                   	=
@@ -1216,20 +1946,26 @@ INT                 	1
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ALPHA
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	220
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -1245,11 +1981,17 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	220
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	240
 IDENT               	K
 =                   	=
@@ -1258,6 +2000,8 @@ IDENT               	J
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	A
@@ -1269,14 +2013,18 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	230
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -1304,17 +2052,27 @@ IDENT               	I
 ,                   	,
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 INT                 	230
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	240
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ONE
@@ -1325,13 +2083,17 @@ IDENT               	J
 ,                   	,
 IDENT               	J
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	250
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -1347,24 +2109,44 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	250
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	260
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*           Form  B := alpha*B*inv( A**T ).
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	310
 IDENT               	K
 =                   	=
@@ -1374,11 +2156,15 @@ INT                 	1
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ONE
@@ -1389,13 +2175,17 @@ IDENT               	K
 ,                   	,
 IDENT               	K
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	270
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -1411,11 +2201,17 @@ IDENT               	I
 ,                   	,
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 INT                 	270
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	290
 IDENT               	J
 =                   	=
@@ -1424,6 +2220,8 @@ INT                 	1
 IDENT               	K
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	A
@@ -1435,7 +2233,9 @@ IDENT               	K
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	A
@@ -1444,13 +2244,17 @@ IDENT               	J
 ,                   	,
 IDENT               	K
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	280
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -1473,26 +2277,38 @@ IDENT               	I
 ,                   	,
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 INT                 	280
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	290
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ALPHA
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	300
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -1508,25 +2324,39 @@ IDENT               	I
 ,                   	,
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 INT                 	300
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	310
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	360
 IDENT               	K
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ONE
@@ -1537,13 +2367,17 @@ IDENT               	K
 ,                   	,
 IDENT               	K
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	320
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -1559,11 +2393,17 @@ IDENT               	I
 ,                   	,
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 INT                 	320
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	340
 IDENT               	J
 =                   	=
@@ -1572,6 +2412,8 @@ IDENT               	K
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	A
@@ -1583,7 +2425,9 @@ IDENT               	K
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	A
@@ -1592,13 +2436,17 @@ IDENT               	J
 ,                   	,
 IDENT               	K
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	330
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -1621,26 +2469,38 @@ IDENT               	I
 ,                   	,
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 INT                 	330
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	340
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ALPHA
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	350
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	B
 (                   	(
 IDENT               	I
@@ -1656,21 +2516,47 @@ IDENT               	I
 ,                   	,
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 INT                 	350
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	360
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     End of DTRSM .
+NEW_LINE            	
+
 COMMENT             	*
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

@@ -26,21 +26,19 @@ func NewScanner(r io.Reader) *Scanner {
 func (s *Scanner) Scan() (tok token.Token, lit string) {
 
 	if s.start {
+		s.start = false
 		ch := s.read()
 		s.unread()
-		s.start = false
 		if ch == 'C' || ch == 'c' || ch == '*' {
 			return s.scanComment()
 		}
 	}
 
-	// Read the next rune.
-	firstLetterInLine := s.ignoreWhitespace()
-	if firstLetterInLine == 'C' ||
-		firstLetterInLine == 'c' ||
-		firstLetterInLine == '*' {
-		return s.scanComment()
+	var ok bool
+	if tok, lit, ok = s.ignoreWhitespace(); ok {
+		return tok, lit
 	}
+
 	ch := s.read()
 
 	// If we see whitespace then consume all contiguous whitespace.
@@ -102,7 +100,8 @@ func (s *Scanner) Scan() (tok token.Token, lit string) {
 	return token.ILLEGAL, string(ch)
 }
 
-func (s *Scanner) ignoreWhitespace() (firstLetterInLine rune) {
+func (s *Scanner) ignoreWhitespace() (
+	tok token.Token, lit string, found bool) {
 	for {
 		if ch := s.read(); ch == eof {
 			break
@@ -110,8 +109,9 @@ func (s *Scanner) ignoreWhitespace() (firstLetterInLine rune) {
 			s.unread()
 			break
 		} else if ch == '\n' {
-			firstLetterInLine = s.read()
-			s.unread()
+			tok, lit, found = NEW_LINE, "\n", true
+			s.start = true
+			return
 		}
 	}
 

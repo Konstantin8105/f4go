@@ -1,12 +1,22 @@
 COMMENT             	c-----------------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c     ftnchek test file: namelist.f, Mon Mar 13 14:01:03 1995
+NEW_LINE            	
+
 COMMENT             	c-----------------------------------------------------------------------
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	common
 IDENT               	b
 ,                   	,
 IDENT               	e
 ,                   	,
 IDENT               	f
+NEW_LINE            	
+
 IDENT               	namelist
 /                   	/
 IDENT               	n1
@@ -16,6 +26,8 @@ IDENT               	a
 IDENT               	b
 ,                   	,
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	namelist
 /                   	/
 IDENT               	n2
@@ -32,6 +44,8 @@ IDENT               	l
 ,                   	,
 IDENT               	m
 ,                   	,
+NEW_LINE            	
+
 IDENT               	namelist
 /                   	/
 IDENT               	n4
@@ -45,18 +59,24 @@ IDENT               	z3
 IDENT               	n5
 /                   	/
 IDENT               	l6
+NEW_LINE            	
+
 IDENT               	read
 (                   	(
 *                   	*
 ,                   	,
 IDENT               	n1
 )                   	)
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
 ,                   	,
 IDENT               	n2
 )                   	)
+NEW_LINE            	
+
 IDENT               	read
 (                   	(
 INT                 	1
@@ -65,6 +85,8 @@ IDENT               	nml
 =                   	=
 IDENT               	n3
 )                   	)
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 INT                 	1
@@ -73,41 +95,85 @@ IDENT               	nml
 =                   	=
 IDENT               	n4
 )                   	)
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+NEW_LINE            	
+
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	grfgg3
+NEW_LINE            	
+
 COMMENT             	C$    (grfgg3)
+NEW_LINE            	
+
 COMMENT             	C$    This is a substantial portion of the declaration section from
+NEW_LINE            	
+
 COMMENT             	C$    the PLOT79 grfgg3.sf3 file.  The formatting was done by the
+NEW_LINE            	
+
 COMMENT             	C$    Extended PFORT Verifier, and the extensive NAMELIST block serves
+NEW_LINE            	
+
 COMMENT             	C$    as a test for ftnchek.
+NEW_LINE            	
+
 COMMENT             	C$    (13-Mar-1995)
+NEW_LINE            	
+
 COMMENT             	C$ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+NEW_LINE            	
+
 COMMENT             	C$
+NEW_LINE            	
+
 COMMENT             	C$    EXTERNAL FUNCTIONS AND SUBROUTINES
+NEW_LINE            	
+
 COMMENT             	C$
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I1MACH
 ,                   	,
 IDENT               	NINT
 ,                   	,
 IDENT               	UTISL
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	ALOG10
 ,                   	,
 IDENT               	R1MACH
 ,                   	,
 IDENT               	UTRE3
+NEW_LINE            	
+
 COMMENT             	C$ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+NEW_LINE            	
+
 COMMENT             	C$
+NEW_LINE            	
+
 COMMENT             	C$    INTRINSIC FUNCTIONS
+NEW_LINE            	
+
 COMMENT             	C$
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	IABS
 ,                   	,
 IDENT               	MAX0
 ,                   	,
 IDENT               	MIN0
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	ABS
 ,                   	,
@@ -116,14 +182,28 @@ IDENT               	AMAX1
 IDENT               	AMIN1
 ,                   	,
 IDENT               	FLOAT
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	SIGN
+NEW_LINE            	
+
 COMMENT             	C$ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+NEW_LINE            	
+
 COMMENT             	C$
+NEW_LINE            	
+
 COMMENT             	C$    STATEMENT FUNCTIONS
+NEW_LINE            	
+
 COMMENT             	C$
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	IN
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	CMTOIN
 ,                   	,
@@ -132,6 +212,8 @@ IDENT               	CMTOUN
 IDENT               	FRAC
 ,                   	,
 IDENT               	INTOCM
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	INTOUN
 ,                   	,
@@ -140,11 +222,21 @@ IDENT               	MMTOCM
 IDENT               	UNTOCM
 ,                   	,
 IDENT               	UNTOIN
+NEW_LINE            	
+
 COMMENT             	C$ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+NEW_LINE            	
+
 COMMENT             	C$
+NEW_LINE            	
+
 COMMENT             	C$    HOLLERITH STRING VARIABLES
+NEW_LINE            	
+
 COMMENT             	C$
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	BLANK
 ,                   	,
 IDENT               	GREEK
@@ -152,12 +244,24 @@ IDENT               	GREEK
 IDENT               	QUOTE
 ,                   	,
 IDENT               	ROMAN
+NEW_LINE            	
+
 COMMENT             	C$
+NEW_LINE            	
+
 COMMENT             	C$ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+NEW_LINE            	
+
 COMMENT             	C$
+NEW_LINE            	
+
 COMMENT             	C$    NON-COMMON VARIABLES
+NEW_LINE            	
+
 COMMENT             	C$
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	BIGINT
 ,                   	,
 IDENT               	CARD
@@ -168,7 +272,9 @@ INT                 	500
 IDENT               	CURCOL
 ,                   	,
 IDENT               	CURROW
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	FSTYLE
 ,                   	,
 IDENT               	I
@@ -176,7 +282,9 @@ IDENT               	I
 IDENT               	IARG
 ,                   	,
 IDENT               	IARG1
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	IARG2
 ,                   	,
 IDENT               	IDFONT
@@ -187,7 +295,9 @@ INT                 	1
 )                   	)
 ,                   	,
 IDENT               	II
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	J
 ,                   	,
 IDENT               	JX
@@ -195,7 +305,9 @@ IDENT               	JX
 IDENT               	JY
 ,                   	,
 IDENT               	JZ
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	K
 ,                   	,
 IDENT               	KX
@@ -203,7 +315,9 @@ IDENT               	KX
 IDENT               	KXYZ
 ,                   	,
 IDENT               	KY
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	KZ
 ,                   	,
 IDENT               	LSTYLE
@@ -217,7 +331,9 @@ INT                 	06
 )                   	)
 ,                   	,
 IDENT               	MAXCRD
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	MAXCRV
 ,                   	,
 IDENT               	MAXVAL
@@ -225,7 +341,9 @@ IDENT               	MAXVAL
 IDENT               	MODEU
 ,                   	,
 IDENT               	MODEV
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	MODEX
 ,                   	,
 IDENT               	MODEY
@@ -236,7 +354,9 @@ IDENT               	N
 (                   	(
 INT                 	06
 )                   	)
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	NC
 ,                   	,
 IDENT               	NCELLX
@@ -244,7 +364,9 @@ IDENT               	NCELLX
 IDENT               	NCELLY
 ,                   	,
 IDENT               	NCINIT
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	NCISAV
 ,                   	,
 IDENT               	NCSTEP
@@ -252,7 +374,9 @@ IDENT               	NCSTEP
 IDENT               	NCTERM
 ,                   	,
 IDENT               	NCU
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	NCV
 ,                   	,
 IDENT               	NCX
@@ -260,7 +384,9 @@ IDENT               	NCX
 IDENT               	NCY
 ,                   	,
 IDENT               	NCZ
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	NIN
 ,                   	,
 IDENT               	NJ
@@ -268,7 +394,9 @@ IDENT               	NJ
 IDENT               	NOUT
 ,                   	,
 IDENT               	NRINIT
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	NRISAV
 ,                   	,
 IDENT               	NRSTEP
@@ -276,7 +404,9 @@ IDENT               	NRSTEP
 IDENT               	NRTERM
 ,                   	,
 IDENT               	NSUM
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	NU
 (                   	(
 INT                 	06
@@ -290,7 +420,9 @@ INT                 	06
 )                   	)
 ,                   	,
 IDENT               	NUSUB
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	NVSUB
 ,                   	,
 IDENT               	NXSUB
@@ -298,7 +430,9 @@ IDENT               	NXSUB
 IDENT               	NYSUB
 ,                   	,
 IDENT               	NZSUB
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	PEN
 (                   	(
 INT                 	06
@@ -313,7 +447,9 @@ IDENT               	UTITLE
 (                   	(
 INT                 	500
 )                   	)
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	VTITLE
 (                   	(
 INT                 	500
@@ -328,17 +464,23 @@ IDENT               	YTITLE
 (                   	(
 INT                 	500
 )                   	)
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	ZTITLE
 (                   	(
 INT                 	500
 )                   	)
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	AUTOX
 ,                   	,
 IDENT               	AUTOY
 ,                   	,
 IDENT               	AUTOZ
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	AVRAGE
 (                   	(
@@ -350,6 +492,8 @@ IDENT               	AXES3D
 IDENT               	BCLIP
 ,                   	,
 IDENT               	BOX
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	BYROWS
 ,                   	,
@@ -359,6 +503,8 @@ IDENT               	CVTX
 (                   	(
 INT                 	06
 )                   	)
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	CVTY
 (                   	(
@@ -376,6 +522,8 @@ INT                 	06
 )                   	)
 ,                   	,
 IDENT               	EOFILE
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	FCLIP
 ,                   	,
@@ -387,6 +535,8 @@ INT                 	06
 IDENT               	LOGX
 ,                   	,
 IDENT               	LOGY
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	LOGZ
 ,                   	,
@@ -395,6 +545,8 @@ IDENT               	LSTXYZ
 IDENT               	PARLEL
 ,                   	,
 IDENT               	PLOPEN
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	PLOTID
 ,                   	,
@@ -403,6 +555,8 @@ IDENT               	RESET
 IDENT               	RIGHT
 ,                   	,
 IDENT               	UAXIS
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	UVAXES
 ,                   	,
@@ -411,6 +565,8 @@ IDENT               	VARPEN
 IDENT               	VAXIS
 ,                   	,
 IDENT               	WCLIP
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	XAXIS
 ,                   	,
@@ -419,10 +575,14 @@ IDENT               	XFALLS
 IDENT               	YAXIS
 ,                   	,
 IDENT               	YFALLS
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	ZAXIS
 ,                   	,
 IDENT               	ZFALLS
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	ARCLEN
 ,                   	,
@@ -431,6 +591,8 @@ IDENT               	ARG
 IDENT               	ARG1
 ,                   	,
 IDENT               	ARG2
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	ARX
 ,                   	,
@@ -439,6 +601,8 @@ IDENT               	ARY
 IDENT               	CMFACT
 ,                   	,
 IDENT               	CPX
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	CPY
 ,                   	,
@@ -447,6 +611,8 @@ IDENT               	DEFHT
 IDENT               	DEFMAR
 ,                   	,
 IDENT               	DT
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	DUSUB
 ,                   	,
@@ -455,6 +621,8 @@ IDENT               	DVSUB
 IDENT               	DXSUB
 ,                   	,
 IDENT               	DYSUB
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	DZSUB
 ,                   	,
@@ -463,6 +631,8 @@ IDENT               	FSCALE
 IDENT               	GSCALE
 ,                   	,
 IDENT               	HALF
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	HH
 ,                   	,
@@ -471,6 +641,8 @@ IDENT               	HSCALE
 IDENT               	HT
 ,                   	,
 IDENT               	HTDEF
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	HTFACT
 ,                   	,
@@ -479,6 +651,8 @@ IDENT               	HX
 IDENT               	HY
 ,                   	,
 IDENT               	INFITY
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	LWIDTH
 (                   	(
@@ -493,6 +667,8 @@ INT                 	4
 IDENT               	MSCALE
 ,                   	,
 IDENT               	NINETY
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	ONE
 ,                   	,
@@ -501,6 +677,8 @@ IDENT               	PAGESQ
 IDENT               	PAGEX
 ,                   	,
 IDENT               	PAGEY
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	PENDIA
 ,                   	,
@@ -509,6 +687,8 @@ IDENT               	PERDST
 IDENT               	PICTHX
 ,                   	,
 IDENT               	PICTHY
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	PICTX
 ,                   	,
@@ -518,6 +698,8 @@ IDENT               	PPXYZ
 (                   	(
 INT                 	3
 )                   	)
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	RPXYZ
 (                   	(
@@ -537,6 +719,8 @@ INT                 	4
 ,                   	,
 INT                 	4
 )                   	)
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	TICDEF
 ,                   	,
@@ -545,6 +729,8 @@ IDENT               	TICKU
 IDENT               	TICKV
 ,                   	,
 IDENT               	TICKX
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	TICKY
 ,                   	,
@@ -556,6 +742,8 @@ INT                 	4
 ,                   	,
 INT                 	4
 )                   	)
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	TMODEL
 (                   	(
@@ -569,6 +757,8 @@ IDENT               	TOPMAR
 IDENT               	TT
 ,                   	,
 IDENT               	TTLHEI
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	TTLLEN
 ,                   	,
@@ -582,6 +772,8 @@ INT                 	4
 IDENT               	TWO
 ,                   	,
 IDENT               	U1
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	U2
 ,                   	,
@@ -590,6 +782,8 @@ IDENT               	UDIST
 IDENT               	UMAX
 ,                   	,
 IDENT               	UMAXP
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	UMAXRC
 ,                   	,
@@ -598,6 +792,8 @@ IDENT               	UMIN
 IDENT               	UMINP
 ,                   	,
 IDENT               	UMINRC
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	UNITS
 ,                   	,
@@ -609,6 +805,8 @@ INT                 	3
 )                   	)
 ,                   	,
 IDENT               	V1
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	V2
 ,                   	,
@@ -617,6 +815,8 @@ IDENT               	VDIST
 IDENT               	VIEWD
 ,                   	,
 IDENT               	VMAX
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	VMAXP
 ,                   	,
@@ -625,6 +825,8 @@ IDENT               	VMAXRC
 IDENT               	VMIN
 ,                   	,
 IDENT               	VMINP
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	VMINRC
 ,                   	,
@@ -636,6 +838,8 @@ INT                 	3
 IDENT               	VPUMAX
 ,                   	,
 IDENT               	VPUMIN
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	VPVMAX
 ,                   	,
@@ -644,12 +848,16 @@ IDENT               	VPVMIN
 IDENT               	VSCALE
 ,                   	,
 IDENT               	WMAX
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	WMAXP
 ,                   	,
 IDENT               	WMIN
 ,                   	,
 IDENT               	WMINP
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	WORK
 (                   	(
@@ -668,6 +876,8 @@ INT                 	06
 IDENT               	X0
 ,                   	,
 IDENT               	XDIST
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	XFACT
 (                   	(
@@ -679,6 +889,8 @@ IDENT               	XINT
 IDENT               	XMAX
 ,                   	,
 IDENT               	XMAXJ
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	XMAXP
 ,                   	,
@@ -687,6 +899,8 @@ IDENT               	XMIN
 IDENT               	XMINJ
 ,                   	,
 IDENT               	XMINP
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	XORG
 ,                   	,
@@ -696,6 +910,8 @@ INT                 	06
 )                   	)
 ,                   	,
 IDENT               	XX
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	Y
 (                   	(
@@ -707,6 +923,8 @@ INT                 	06
 IDENT               	Y0
 ,                   	,
 IDENT               	YDIST
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	YFACT
 (                   	(
@@ -718,6 +936,8 @@ IDENT               	YINT
 IDENT               	YMAX
 ,                   	,
 IDENT               	YMAXJ
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	YMAXP
 ,                   	,
@@ -726,6 +946,8 @@ IDENT               	YMIN
 IDENT               	YMINJ
 ,                   	,
 IDENT               	YMINP
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	YORG
 ,                   	,
@@ -735,6 +957,8 @@ INT                 	06
 )                   	)
 ,                   	,
 IDENT               	YY
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	Z
 (                   	(
@@ -748,6 +972,8 @@ IDENT               	Z0
 IDENT               	ZDIST
 ,                   	,
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	ZFACT
 (                   	(
@@ -759,6 +985,8 @@ IDENT               	ZINT
 IDENT               	ZMAX
 ,                   	,
 IDENT               	ZMAXJ
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	ZMAXP
 ,                   	,
@@ -767,6 +995,8 @@ IDENT               	ZMIN
 IDENT               	ZMINJ
 ,                   	,
 IDENT               	ZMINP
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	ZORG
 ,                   	,
@@ -776,14 +1006,26 @@ INT                 	06
 )                   	)
 ,                   	,
 IDENT               	ZZ
+NEW_LINE            	
+
 COMMENT             	C$ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+NEW_LINE            	
+
 COMMENT             	C$
+NEW_LINE            	
+
 COMMENT             	C$    NAMELIST BLOCKS
+NEW_LINE            	
+
 COMMENT             	C$
+NEW_LINE            	
+
 IDENT               	NAMELIST
 /                   	/
 IDENT               	DATA
 /                   	/
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	AVRAGE
 ,                   	,
@@ -797,6 +1039,8 @@ IDENT               	BYROWS
 ,                   	,
 IDENT               	CHKDUP
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	DERIV
 ,                   	,
@@ -810,6 +1054,8 @@ IDENT               	DYSUB
 ,                   	,
 IDENT               	DZSUB
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	FCLIP
 ,                   	,
@@ -823,6 +1069,8 @@ IDENT               	HSCALE
 ,                   	,
 IDENT               	IDFONT
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	INTGRT
 ,                   	,
@@ -836,6 +1084,8 @@ IDENT               	LOGX
 ,                   	,
 IDENT               	LOGY
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	LOGZ
 ,                   	,
@@ -849,6 +1099,8 @@ IDENT               	MARGIN
 ,                   	,
 IDENT               	MARK
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	MODEU
 ,                   	,
@@ -862,6 +1114,8 @@ IDENT               	MODEZ
 ,                   	,
 IDENT               	MSCALE
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	N
 ,                   	,
@@ -875,6 +1129,8 @@ IDENT               	NRINIT
 ,                   	,
 IDENT               	NRSTEP
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	NRTERM
 ,                   	,
@@ -888,6 +1144,8 @@ IDENT               	NVSUB
 ,                   	,
 IDENT               	NXSUB
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	NYSUB
 ,                   	,
@@ -901,6 +1159,8 @@ IDENT               	PENDIA
 ,                   	,
 IDENT               	PERDST
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	PLOTID
 ,                   	,
@@ -914,6 +1174,8 @@ IDENT               	RPXYZ
 ,                   	,
 IDENT               	SIGMA
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	TICKU
 ,                   	,
@@ -927,6 +1189,8 @@ IDENT               	TICKZ
 ,                   	,
 IDENT               	TIMAGE
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	TMODEL
 ,                   	,
@@ -940,6 +1204,8 @@ IDENT               	UPXYZ
 ,                   	,
 IDENT               	UVAXES
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	VAXIS
 ,                   	,
@@ -953,6 +1219,8 @@ IDENT               	VNXYZ
 ,                   	,
 IDENT               	VSCALE
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	WCLIP
 ,                   	,
@@ -966,6 +1234,8 @@ IDENT               	XAXIS
 ,                   	,
 IDENT               	XFACT
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	XFALLS
 ,                   	,
@@ -979,6 +1249,8 @@ IDENT               	Y
 ,                   	,
 IDENT               	YAXIS
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	YFACT
 ,                   	,
@@ -992,6 +1264,8 @@ IDENT               	YSHIFT
 ,                   	,
 IDENT               	Z
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	ZAXIS
 ,                   	,
@@ -1004,4 +1278,8 @@ IDENT               	ZMAX
 IDENT               	ZMIN
 ,                   	,
 IDENT               	ZSHIFT
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

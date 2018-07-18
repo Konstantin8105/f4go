@@ -1,16 +1,26 @@
-token(96)           	SubRoutine
+NEW_LINE            	
+
+SUBROUTINE          	SubRoutine
 IDENT               	PlotBall
 (                   	(
 IDENT               	Theta
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c       Clear the screen and draw/redraw the ball circle.
+NEW_LINE            	
+
 IDENT               	Double
 IDENT               	Precision
 IDENT               	Theta
-token(98)           	Integer
+NEW_LINE            	
+
+INTEGER             	Integer
 IDENT               	Row
 ,                   	,
 IDENT               	Col
+NEW_LINE            	
+
 IDENT               	Row
 =                   	=
 IDENT               	Int
@@ -22,6 +32,8 @@ IDENT               	DSIN
 IDENT               	Theta
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	Col
 =                   	=
 IDENT               	Int
@@ -33,6 +45,8 @@ IDENT               	DCOS
 IDENT               	Theta
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	Write
 (                   	(
 *                   	*
@@ -40,5 +54,11 @@ IDENT               	Write
 *                   	*
 )                   	)
 STRING              	'S(E)P[Col,Row]C[+20]'
+NEW_LINE            	
+
 return              	Return
-token(102)          	End
+NEW_LINE            	
+
+END                 	End
+NEW_LINE            	
+

@@ -2,6 +2,8 @@ IDENT               	complex
 IDENT               	cc
 ,                   	,
 IDENT               	cd
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	cc
@@ -12,6 +14,8 @@ FLOAT               	1.2
 FLOAT               	3.4
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	data
 IDENT               	cd
 ,                   	,
@@ -32,6 +36,8 @@ INT                 	5
 INT                 	77
 )                   	)
 /                   	/
+NEW_LINE            	
+
 IDENT               	a
 =                   	=
 (                   	(
@@ -39,6 +45,8 @@ INT                 	12
 ,                   	,
 INT                 	32
 )                   	)
+NEW_LINE            	
+
 IDENT               	a
 =                   	=
 (                   	(
@@ -47,6 +55,8 @@ INT                 	5
 -                   	-
 INT                 	3e5
 )                   	)
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 INT                 	11
@@ -54,6 +64,8 @@ INT                 	11
 INT                 	7
 )                   	)
 IDENT               	a
+NEW_LINE            	
+
 INT                 	7
 IDENT               	format
 (                   	(
@@ -85,6 +97,8 @@ INT                 	1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 INT                 	22
 IDENT               	format
 (                   	(
@@ -98,7 +112,9 @@ IDENT               	f10
 .                   	.
 INT                 	4
 )                   	)
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	abc
 (                   	(
 INT                 	123
@@ -109,22 +125,36 @@ INT                 	456
 INT                 	789
 )                   	)
 )                   	)
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	abc
 (                   	(
 IDENT               	x
 ,                   	,
 IDENT               	z
 )                   	)
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	x
+NEW_LINE            	
+
 IDENT               	complex
 IDENT               	z
+NEW_LINE            	
+
 IDENT               	print
 *                   	*
 ,                   	,
 IDENT               	z
 +                   	+
 IDENT               	x
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

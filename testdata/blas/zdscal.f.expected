@@ -1,82 +1,238 @@
 COMMENT             	*> \brief \b ZDSCAL
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       SUBROUTINE ZDSCAL(N,DA,ZX,INCX)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       DOUBLE PRECISION DA
+NEW_LINE            	
+
 COMMENT             	*       INTEGER INCX,N
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       COMPLEX*16 ZX(*)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    ZDSCAL scales a vector by a constant.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] N
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          N is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         number of elements in input vector(s)
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] DA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          DA is DOUBLE PRECISION
+NEW_LINE            	
+
 COMMENT             	*>           On entry, DA specifies the scalar alpha.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in,out] ZX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          ZX is COMPLEX*16 array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCX is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         storage spacing between elements of ZX
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup complex16_blas_level1
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Further Details:
+NEW_LINE            	
+
 COMMENT             	*  =====================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>     jack dongarra, 3/11/78.
+NEW_LINE            	
+
 COMMENT             	*>     modified 3/93 to return if incx .le. 0.
+NEW_LINE            	
+
 COMMENT             	*>     modified 12/3/93, array(1) declarations changed to array(*)
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	ZDSCAL
 (                   	(
 IDENT               	N
@@ -87,22 +243,46 @@ IDENT               	ZX
 ,                   	,
 IDENT               	INCX
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	DA
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	INCX
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 *                   	*
 INT                 	16
@@ -110,20 +290,42 @@ IDENT               	ZX
 (                   	(
 *                   	*
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	NINCX
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	DCMPLX
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	N
@@ -135,22 +337,34 @@ IDENT               	INCX
 INT                 	0
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        code for increment equal to 1
+NEW_LINE            	
+
 COMMENT             	*
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	ZX
 (                   	(
 IDENT               	I
@@ -167,18 +381,32 @@ IDENT               	ZX
 (                   	(
 IDENT               	I
 )                   	)
-token(102)          	END
-token(103)          	DO
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        code for increment not equal to 1
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	NINCX
 =                   	=
 IDENT               	N
 *                   	*
 IDENT               	INCX
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	1
@@ -186,6 +414,8 @@ INT                 	1
 IDENT               	NINCX
 ,                   	,
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	ZX
 (                   	(
 IDENT               	I
@@ -202,9 +432,19 @@ IDENT               	ZX
 (                   	(
 IDENT               	I
 )                   	)
-token(102)          	END
-token(103)          	DO
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

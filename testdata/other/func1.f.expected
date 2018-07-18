@@ -1,4 +1,4 @@
-token(101)          	function
+FUNCTION            	function
 IDENT               	func
 (                   	(
 IDENT               	i
@@ -7,44 +7,66 @@ IDENT               	result
 (                   	(
 IDENT               	j
 )                   	)
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 ,                   	,
 IDENT               	intent
 (                   	(
 IDENT               	in
 )                   	)
-token(99)           	::
+DOUBLE_COLON        	::
 IDENT               	i
 COMMENT             	! input
-token(98)           	integer
-token(99)           	::
+NEW_LINE            	
+
+INTEGER             	integer
+DOUBLE_COLON        	::
 IDENT               	j
 COMMENT             	! output
+NEW_LINE            	
+
 IDENT               	j
 =                   	=
 IDENT               	i
-token(95)           	**
+                    	**
 INT                 	2
 +                   	+
 IDENT               	i
-token(95)           	**
+                    	**
 INT                 	3
-token(102)          	end
-token(101)          	function
+NEW_LINE            	
+
+END                 	end
+FUNCTION            	function
 IDENT               	func
-token(97)           	program
+NEW_LINE            	
+
+NEW_LINE            	
+
+PROGRAM             	program
 IDENT               	xfunc
-token(100)          	implicit
+NEW_LINE            	
+
+IMPLICIT            	implicit
 IDENT               	none
-token(98)           	integer
-token(99)           	::
+NEW_LINE            	
+
+INTEGER             	integer
+DOUBLE_COLON        	::
 IDENT               	i
-token(98)           	integer
-token(99)           	::
+NEW_LINE            	
+
+INTEGER             	integer
+DOUBLE_COLON        	::
 IDENT               	func
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 INT                 	3
+NEW_LINE            	
+
 IDENT               	print
 *                   	*
 ,                   	,
@@ -58,6 +80,10 @@ IDENT               	func
 (                   	(
 IDENT               	i
 )                   	)
-token(102)          	end
-token(97)           	program
+NEW_LINE            	
+
+END                 	end
+PROGRAM             	program
 IDENT               	xfunc
+NEW_LINE            	
+

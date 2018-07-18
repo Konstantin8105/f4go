@@ -1,4 +1,4 @@
-token(96)           	subroutine
+SUBROUTINE          	subroutine
 IDENT               	square_cube
 (                   	(
 IDENT               	i
@@ -7,54 +7,76 @@ IDENT               	isquare
 ,                   	,
 IDENT               	icube
 )                   	)
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 ,                   	,
 IDENT               	intent
 (                   	(
 IDENT               	in
 )                   	)
-token(99)           	::
+DOUBLE_COLON        	::
 IDENT               	i
 COMMENT             	! input
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 ,                   	,
 IDENT               	intent
 (                   	(
 IDENT               	out
 )                   	)
-token(99)           	::
+DOUBLE_COLON        	::
 IDENT               	isquare
 ,                   	,
 IDENT               	icube
 COMMENT             	! output
+NEW_LINE            	
+
 IDENT               	isquare
 =                   	=
 IDENT               	i
-token(95)           	**
+                    	**
 INT                 	2
+NEW_LINE            	
+
 IDENT               	icube
 =                   	=
 IDENT               	i
-token(95)           	**
+                    	**
 INT                 	3
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+SUBROUTINE          	subroutine
 IDENT               	square_cube
-token(97)           	program
+NEW_LINE            	
+
+NEW_LINE            	
+
+PROGRAM             	program
 IDENT               	xx
-token(100)          	implicit
+NEW_LINE            	
+
+IMPLICIT            	implicit
 IDENT               	none
-token(98)           	integer
-token(99)           	::
+NEW_LINE            	
+
+INTEGER             	integer
+DOUBLE_COLON        	::
 IDENT               	i
 ,                   	,
 IDENT               	isq
 ,                   	,
 IDENT               	icub
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 INT                 	4
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	square_cube
 (                   	(
 IDENT               	i
@@ -63,6 +85,8 @@ IDENT               	isq
 ,                   	,
 IDENT               	icub
 )                   	)
+NEW_LINE            	
+
 IDENT               	print
 *                   	*
 ,                   	,
@@ -73,6 +97,8 @@ IDENT               	i
 IDENT               	isq
 ,                   	,
 IDENT               	icub
+NEW_LINE            	
+
 IDENT               	print
 *                   	*
 ,                   	,
@@ -83,6 +109,10 @@ IDENT               	i
 IDENT               	isq
 ,                   	,
 IDENT               	icub
-token(102)          	end
-token(97)           	program
+NEW_LINE            	
+
+END                 	end
+PROGRAM             	program
 IDENT               	xx
+NEW_LINE            	
+

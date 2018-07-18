@@ -1,30 +1,40 @@
-token(98)           	INTEGER
+INTEGER             	INTEGER
 IDENT               	LIST
 (                   	(
 INT                 	100
 )                   	)
+NEW_LINE            	
+
 IDENT               	EQUIVALENCE
 (                   	(
 IDENT               	E
 ,                   	,
 IDENT               	B
 )                   	)
+NEW_LINE            	
+
 IDENT               	EQUIVALENCE
 (                   	(
 IDENT               	E
 ,                   	,
 IDENT               	C
 )                   	)
+NEW_LINE            	
+
 IDENT               	EQUIVALENCE
 (                   	(
 IDENT               	A
 ,                   	,
 IDENT               	C
 )                   	)
+NEW_LINE            	
+
 IDENT               	A
 =                   	=
 FLOAT               	1.0
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	FOO
 (                   	(
 IDENT               	A
@@ -35,7 +45,9 @@ IDENT               	B
 ,                   	,
 IDENT               	C
 )                   	)
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	FOO
 (                   	(
 IDENT               	A
@@ -46,7 +58,9 @@ IDENT               	C
 ,                   	,
 IDENT               	A
 )                   	)
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	FOO
 (                   	(
 IDENT               	W
@@ -57,36 +71,48 @@ IDENT               	Y
 ,                   	,
 IDENT               	Z
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	10
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 INT                 	100
+NEW_LINE            	
+
 IDENT               	LIST
 (                   	(
 IDENT               	I
 )                   	)
 =                   	=
 IDENT               	I
+NEW_LINE            	
+
 INT                 	10
 continue            	CONTINUE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	30
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 INT                 	100
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	20
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	I
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	SWAP
 (                   	(
 IDENT               	LIST
@@ -99,12 +125,20 @@ IDENT               	LIST
 IDENT               	J
 )                   	)
 )                   	)
+NEW_LINE            	
+
 INT                 	20
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	30
 continue            	CONTINUE
-token(102)          	END
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	FOO
 (                   	(
 IDENT               	A
@@ -115,43 +149,71 @@ IDENT               	C
 ,                   	,
 IDENT               	D
 )                   	)
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	SWAP
 (                   	(
 IDENT               	A
 ,                   	,
 IDENT               	B
 )                   	)
+NEW_LINE            	
+
 IDENT               	B
 =                   	=
 IDENT               	C
+NEW_LINE            	
+
 IDENT               	C
 =                   	=
 IDENT               	D
+NEW_LINE            	
+
 IDENT               	D
 =                   	=
 IDENT               	A
-token(102)          	END
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	SWAP
 (                   	(
 IDENT               	X
 ,                   	,
 IDENT               	Y
 )                   	)
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	X
 ,                   	,
 IDENT               	Y
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	TEMP
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	X
+NEW_LINE            	
+
 IDENT               	X
 =                   	=
 IDENT               	Y
+NEW_LINE            	
+
 IDENT               	Y
 =                   	=
 IDENT               	TEMP
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
+NEW_LINE            	
+

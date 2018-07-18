@@ -1,4 +1,4 @@
-token(96)           	subroutine
+SUBROUTINE          	subroutine
 IDENT               	foo
 (                   	(
 IDENT               	a
@@ -9,6 +9,8 @@ IDENT               	c
 ,                   	,
 IDENT               	d
 )                   	)
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	a
 (                   	(
@@ -31,6 +33,8 @@ IDENT               	d
 (                   	(
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	s
@@ -40,33 +44,59 @@ IDENT               	ichar
 STRING              	')'
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	t
 =                   	=
+NEW_LINE            	
+
 COMMENT             	*  comment ( ( (
+NEW_LINE            	
+
 COMMENT             	*  more comments
+NEW_LINE            	
+
 IDENT               	x
 IDENT               	ichar
 (                   	(
 STRING              	')'
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	u
 =                   	=
 COMMENT             	! this is a comment
+NEW_LINE            	
+
 IDENT               	x
 FLOAT               	25.0
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	v
 =                   	=
+NEW_LINE            	
+
 COMMENT             	*  comment ( ( (
+NEW_LINE            	
+
 COMMENT             	*  more comments
+NEW_LINE            	
+
 IDENT               	x
 FLOAT               	2.18281828D+00
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

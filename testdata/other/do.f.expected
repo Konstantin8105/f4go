@@ -1,40 +1,64 @@
-token(97)           	program
+PROGRAM             	program
 IDENT               	som
-token(100)          	implicit
+NEW_LINE            	
+
+IMPLICIT            	implicit
 IDENT               	none
+NEW_LINE            	
+
 COMMENT             	c
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	n
 ,                   	,
 IDENT               	i
 ,                   	,
 IDENT               	sum
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	r
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	sum
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 IDENT               	n
 =                   	=
 INT                 	5
-token(103)          	do
+NEW_LINE            	
+
+NEW_LINE            	
+
+DO                  	do
 IDENT               	i
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	n
+NEW_LINE            	
+
 IDENT               	sum
 =                   	=
 IDENT               	sum
 +                   	+
 IDENT               	i
+NEW_LINE            	
+
 IDENT               	r
 =                   	=
 IDENT               	sum
 /                   	/
 IDENT               	n
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -48,6 +72,14 @@ IDENT               	sum
 STRING              	' and the average = '
 ,                   	,
 IDENT               	r
-token(104)          	enddo
+NEW_LINE            	
+
+ENDDO               	enddo
+NEW_LINE            	
+
 COMMENT             	c   
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

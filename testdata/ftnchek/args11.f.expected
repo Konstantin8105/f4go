@@ -3,7 +3,9 @@ IDENT               	c
 (                   	(
 INT                 	50
 )                   	)
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	suba
 (                   	(
 IDENT               	c
@@ -11,19 +13,31 @@ IDENT               	c
 INT                 	1
 )                   	)
 )                   	)
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	suba
 (                   	(
 IDENT               	c
 )                   	)
+NEW_LINE            	
+
 IDENT               	character
 IDENT               	c
 (                   	(
 INT                 	50
 )                   	)
+NEW_LINE            	
+
 IDENT               	read
 *                   	*
 ,                   	,
 IDENT               	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

@@ -1,84 +1,244 @@
 COMMENT             	*> \brief \b XERBLA_ARRAY
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       SUBROUTINE XERBLA_ARRAY(SRNAME_ARRAY, SRNAME_LEN, INFO)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       INTEGER SRNAME_LEN, INFO
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       CHARACTER(1) SRNAME_ARRAY(SRNAME_LEN)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> XERBLA_ARRAY assists other languages in calling XERBLA, the LAPACK
+NEW_LINE            	
+
 COMMENT             	*> and BLAS error handler.  Rather than taking a Fortran string argument
+NEW_LINE            	
+
 COMMENT             	*> as the function's name, XERBLA_ARRAY takes an array of single
+NEW_LINE            	
+
 COMMENT             	*> characters along with the array's length.  XERBLA_ARRAY then copies
+NEW_LINE            	
+
 COMMENT             	*> up to 32 characters of that array into a Fortran string and passes
+NEW_LINE            	
+
 COMMENT             	*> that to XERBLA.  If called with a non-positive SRNAME_LEN,
+NEW_LINE            	
+
 COMMENT             	*> XERBLA_ARRAY will call XERBLA with a string of all blank characters.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> Say some macro or other device makes XERBLA_ARRAY available to C99
+NEW_LINE            	
+
 COMMENT             	*> by a name lapack_xerbla and with a common Fortran calling convention.
+NEW_LINE            	
+
 COMMENT             	*> Then a C99 program could invoke XERBLA via:
+NEW_LINE            	
+
 COMMENT             	*>    {
+NEW_LINE            	
+
 COMMENT             	*>      int flen = strlen(__func__);
+NEW_LINE            	
+
 COMMENT             	*>      lapack_xerbla(__func__, &flen, &info);
+NEW_LINE            	
+
 COMMENT             	*>    }
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> Providing XERBLA_ARRAY is not necessary for intercepting LAPACK
+NEW_LINE            	
+
 COMMENT             	*> errors.  XERBLA_ARRAY calls XERBLA.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] SRNAME_ARRAY
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          SRNAME_ARRAY is CHARACTER(1) array, dimension (SRNAME_LEN)
+NEW_LINE            	
+
 COMMENT             	*>          The name of the routine which called XERBLA_ARRAY.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] SRNAME_LEN
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          SRNAME_LEN is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>          The length of the name in SRNAME_ARRAY.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INFO
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INFO is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>          The position of the invalid parameter in the parameter list
+NEW_LINE            	
+
 COMMENT             	*>          of the calling routine.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup aux_blas
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	XERBLA_ARRAY
 (                   	(
 IDENT               	SRNAME_ARRAY
@@ -87,19 +247,41 @@ IDENT               	SRNAME_LEN
 ,                   	,
 IDENT               	INFO
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level1 routine (version 3.7.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	SRNAME_LEN
 ,                   	,
 IDENT               	INFO
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	CHARACTER
 (                   	(
 INT                 	1
@@ -108,36 +290,76 @@ IDENT               	SRNAME_ARRAY
 (                   	(
 IDENT               	SRNAME_LEN
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Local Arrays ..
+NEW_LINE            	
+
 IDENT               	CHARACTER
 *                   	*
 INT                 	32
 IDENT               	SRNAME
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	MIN
 ,                   	,
 IDENT               	LEN
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. External Functions ..
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	XERBLA
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Executable Statements ..
+NEW_LINE            	
+
 IDENT               	SRNAME
 =                   	=
 STRING              	''
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	1
@@ -151,6 +373,8 @@ IDENT               	LEN
 IDENT               	SRNAME
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	SRNAME
 (                   	(
 IDENT               	I
@@ -162,14 +386,28 @@ IDENT               	SRNAME_ARRAY
 (                   	(
 IDENT               	I
 )                   	)
-token(102)          	END
-token(103)          	DO
-token(105)          	CALL
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	XERBLA
 (                   	(
 IDENT               	SRNAME
 ,                   	,
 IDENT               	INFO
 )                   	)
+NEW_LINE            	
+
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

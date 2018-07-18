@@ -6,8 +6,12 @@ IDENT               	c8
 IDENT               	c7
 *                   	*
 INT                 	7
+NEW_LINE            	
+
 IDENT               	character
 IDENT               	c1
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	chars
@@ -17,16 +21,24 @@ IDENT               	c1
 IDENT               	c8
 ,                   	,
 IDENT               	c7
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	iplain
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 *                   	*
 INT                 	4
 IDENT               	ifour
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 *                   	*
 INT                 	2
 IDENT               	itwo
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	ints
@@ -36,6 +48,8 @@ IDENT               	iplain
 IDENT               	ifour
 ,                   	,
 IDENT               	itwo
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	bk1
@@ -53,14 +67,24 @@ IDENT               	e
 IDENT               	f
 ,                   	,
 IDENT               	g
+NEW_LINE            	
+
 IDENT               	c1
 =                   	=
 STRING              	'A'
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	foo
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	foo
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	8
@@ -69,8 +93,12 @@ IDENT               	c8
 IDENT               	c7
 *                   	*
 INT                 	7
+NEW_LINE            	
+
 IDENT               	character
 IDENT               	c1
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	chars
@@ -80,16 +108,24 @@ IDENT               	c7
 IDENT               	c8
 ,                   	,
 IDENT               	c1
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	iplain
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 *                   	*
 INT                 	4
 IDENT               	ifour
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 *                   	*
 INT                 	2
 IDENT               	itwo
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	ints
@@ -99,6 +135,8 @@ IDENT               	iplain
 IDENT               	itwo
 ,                   	,
 IDENT               	ifour
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	bk1
@@ -116,14 +154,24 @@ IDENT               	m
 IDENT               	n
 ,                   	,
 IDENT               	o
+NEW_LINE            	
+
 IDENT               	c1
 =                   	=
 STRING              	'A'
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	bar
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	bar
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	8
@@ -132,8 +180,12 @@ IDENT               	c8
 IDENT               	c7
 *                   	*
 INT                 	7
+NEW_LINE            	
+
 IDENT               	character
 IDENT               	c1
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	chars
@@ -141,12 +193,18 @@ IDENT               	chars
 IDENT               	c7
 ,                   	,
 IDENT               	c8
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	iplain
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 *                   	*
 INT                 	4
 IDENT               	ifour
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	ints
@@ -154,6 +212,8 @@ IDENT               	ints
 IDENT               	ifour
 ,                   	,
 IDENT               	iplain
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	bk1
@@ -170,13 +230,23 @@ IDENT               	x
 IDENT               	y
 ,                   	,
 IDENT               	z
+NEW_LINE            	
+
 IDENT               	c1
 =                   	=
 STRING              	'A'
+NEW_LINE            	
+
 IDENT               	c7
 =                   	=
 IDENT               	c1
 /                   	/
 /                   	/
 IDENT               	c8
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+NEW_LINE            	
+

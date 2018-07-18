@@ -1,5 +1,7 @@
 COMMENT             	C  Tests flagging of deleted features in Fortran 95
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	i
 ,                   	,
 IDENT               	j
@@ -7,28 +9,42 @@ IDENT               	j
 IDENT               	label
 ,                   	,
 IDENT               	format
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	x
+NEW_LINE            	
+
 IDENT               	assign
 INT                 	5
 IDENT               	to
 IDENT               	label
+NEW_LINE            	
+
 IDENT               	assign
 INT                 	90
 IDENT               	to
 IDENT               	format
+NEW_LINE            	
+
 IDENT               	j
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 INT                 	5
 continue            	continue
-token(103)          	do
+NEW_LINE            	
+
+DO                  	do
 INT                 	10
 IDENT               	x
 =                   	=
 INT                 	1
 ,                   	,
 INT                 	5
+NEW_LINE            	
+
 IDENT               	print
 IDENT               	format
 ,                   	,
@@ -37,15 +53,21 @@ IDENT               	x
 IDENT               	j
 *                   	*
 IDENT               	x
-token(95)           	**
+                    	**
 INT                 	2
+NEW_LINE            	
+
 INT                 	10
 continue            	continue
+NEW_LINE            	
+
 IDENT               	j
 =                   	=
 IDENT               	j
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	j
@@ -54,15 +76,21 @@ INT                 	2
 )                   	)
 IDENT               	goto
 IDENT               	label
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 IDENT               	j
 *                   	*
 INT                 	2
+NEW_LINE            	
+
 IDENT               	assign
 INT                 	91
 IDENT               	to
 IDENT               	format
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -72,6 +100,8 @@ IDENT               	format
 IDENT               	i
 ,                   	,
 IDENT               	j
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -81,6 +111,8 @@ INT                 	91
 IDENT               	i
 ,                   	,
 IDENT               	j
+NEW_LINE            	
+
 INT                 	90
 IDENT               	format
 (                   	(
@@ -109,4 +141,10 @@ IDENT               	j
 ,                   	,
 IDENT               	i5
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+NEW_LINE            	
+

@@ -1,42 +1,62 @@
 IDENT               	double
 IDENT               	precision
-token(101)          	function
+FUNCTION            	function
 IDENT               	f
 (                   	(
 IDENT               	a
 ,                   	,
 IDENT               	b
 )                   	)
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	a
 ,                   	,
 IDENT               	b
+NEW_LINE            	
+
 IDENT               	f
 =                   	=
 IDENT               	a
 +                   	+
 IDENT               	b
+NEW_LINE            	
+
 return              	return
-token(102)          	end
-token(97)           	program
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+PROGRAM             	program
 IDENT               	main
+NEW_LINE            	
+
 IDENT               	real
 *                   	*
 INT                 	8
 IDENT               	f
+NEW_LINE            	
+
 IDENT               	real
 *                   	*
 INT                 	8
 IDENT               	x
 ,                   	,
 IDENT               	y
+NEW_LINE            	
+
 IDENT               	x
 =                   	=
 FLOAT               	1.0
+NEW_LINE            	
+
 IDENT               	y
 =                   	=
 FLOAT               	2.0d0
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -49,4 +69,10 @@ IDENT               	x
 ,                   	,
 IDENT               	y
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+NEW_LINE            	
+

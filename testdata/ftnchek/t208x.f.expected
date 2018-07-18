@@ -1,17 +1,43 @@
 COMMENT             	c-----------------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c     ftnchek test file: t208x.f, Mon Mar 13 14:13:16 1995
+NEW_LINE            	
+
 COMMENT             	c     Adapted from a benchmark program at the University of Utah, with
+NEW_LINE            	
+
 COMMENT             	c     code bodies and most comments eliminated.  ftnchek's -makedcls
+NEW_LINE            	
+
 COMMENT             	c     option and the dcl2inc program have been subsequently used on
+NEW_LINE            	
+
 COMMENT             	c     the original copy of this program to replace all in-line COMMON
+NEW_LINE            	
+
 COMMENT             	c     blocks with INCLUDE statements and separate include files.
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c  Modified Sat Feb  3 10:07:52 EST 2001 by R. Moniot to include a
+NEW_LINE            	
+
 COMMENT             	c  NAMELIST declaration to improve it as a test of ftnchek.  The
+NEW_LINE            	
+
 COMMENT             	c  declarations were excerpted from the PLOT79 grfgg3.sf3 file.
+NEW_LINE            	
+
 COMMENT             	c-----------------------------------------------------------------------
-token(97)           	program
+NEW_LINE            	
+
+PROGRAM             	program
 IDENT               	prob5_4dim
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -21,7 +47,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -36,6 +62,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	ngp1
@@ -56,6 +84,8 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	nr
@@ -78,6 +108,8 @@ IDENT               	nt
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	nw
@@ -88,15 +120,25 @@ IDENT               	nt
 +                   	+
 INT                 	15
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	mmax
 =                   	=
 INT                 	200
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c common block variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	u
@@ -108,6 +150,8 @@ IDENT               	fb
 IDENT               	elf
 ,                   	,
 IDENT               	elfn
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	phin
@@ -117,27 +161,39 @@ IDENT               	phinn
 IDENT               	phia
 ,                   	,
 IDENT               	phian
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	c
 ,                   	,
 IDENT               	cn
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	xm
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	h
 ,                   	,
 IDENT               	dlt
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	zag
 ,                   	,
 IDENT               	zagn
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	k0
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	uy
@@ -147,6 +203,8 @@ IDENT               	vy
 IDENT               	ux
 ,                   	,
 IDENT               	vx
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	wsave
@@ -154,13 +212,23 @@ IDENT               	wsave
 IDENT               	dr
 ,                   	,
 IDENT               	r
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c other variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	15
 IDENT               	rname
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	18
@@ -171,12 +239,16 @@ IDENT               	ffile
 IDENT               	pafile
 ,                   	,
 IDENT               	zfile
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	18
 IDENT               	pnfile
 ,                   	,
 IDENT               	efile
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	18
@@ -187,6 +259,8 @@ IDENT               	mfile
 IDENT               	parfile
 ,                   	,
 IDENT               	fmfile
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	18
@@ -195,6 +269,8 @@ IDENT               	mmfile
 IDENT               	maifile
 ,                   	,
 IDENT               	symfile
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	18
@@ -207,6 +283,8 @@ IDENT               	e3file
 IDENT               	e4file
 ,                   	,
 IDENT               	e5file
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	18
@@ -219,6 +297,8 @@ IDENT               	e8file
 IDENT               	e9file
 ,                   	,
 IDENT               	e10file
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	18
@@ -231,6 +311,8 @@ IDENT               	e13file
 IDENT               	e14file
 ,                   	,
 IDENT               	e15file
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	18
@@ -243,6 +325,8 @@ IDENT               	e18file
 IDENT               	e19file
 ,                   	,
 IDENT               	e20file
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	18
@@ -253,8 +337,12 @@ IDENT               	e22file
 IDENT               	e23file
 ,                   	,
 IDENT               	e24file
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	rlen
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	uold
@@ -269,6 +357,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	zagi
@@ -281,6 +371,10 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	AVRAGE
 (                   	(
@@ -292,6 +386,8 @@ IDENT               	AXES3D
 IDENT               	BCLIP
 ,                   	,
 IDENT               	BOX
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	BYROWS
 ,                   	,
@@ -301,6 +397,8 @@ IDENT               	DERIV
 (                   	(
 INT                 	06
 )                   	)
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	DUSUB
 ,                   	,
@@ -309,13 +407,23 @@ IDENT               	DVSUB
 IDENT               	DXSUB
 ,                   	,
 IDENT               	DYSUB
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c namelists
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	NAMELIST
 /                   	/
 IDENT               	DATA
 /                   	/
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	AVRAGE
 ,                   	,
@@ -329,6 +437,8 @@ IDENT               	BYROWS
 ,                   	,
 IDENT               	CHKDUP
 ,                   	,
+NEW_LINE            	
+
 IDENT               	X
 IDENT               	DERIV
 ,                   	,
@@ -341,7 +451,11 @@ IDENT               	DXSUB
 IDENT               	DYSUB
 ,                   	,
 IDENT               	DZSUB
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -358,6 +472,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -383,6 +499,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -408,6 +526,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	force
@@ -424,6 +544,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	link
@@ -444,6 +566,8 @@ IDENT               	nr2
 ,                   	,
 IDENT               	nt1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	link
@@ -464,6 +588,8 @@ IDENT               	nr2
 ,                   	,
 IDENT               	nt1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -478,6 +604,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -492,6 +620,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -506,6 +636,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -520,6 +652,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	adp
@@ -534,6 +668,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	adp
@@ -548,6 +684,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	agg
@@ -562,6 +700,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	agg
@@ -576,6 +716,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	forceb
@@ -592,11 +734,15 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	stiff
 /                   	/
 IDENT               	k0
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	steps
@@ -604,6 +750,8 @@ IDENT               	steps
 IDENT               	h
 ,                   	,
 IDENT               	dlt
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	rsize
@@ -621,6 +769,8 @@ IDENT               	nr2
 )                   	)
 ,                   	,
 IDENT               	nk
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	wave
@@ -629,6 +779,8 @@ IDENT               	wsave
 (                   	(
 IDENT               	nw
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	mth
@@ -636,12 +788,18 @@ IDENT               	mth
 IDENT               	method
 ,                   	,
 IDENT               	mthlim
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	efnum
 /                   	/
 IDENT               	nfil
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	fmarkers
@@ -652,7 +810,11 @@ IDENT               	mmax
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	cmax
@@ -662,6 +824,8 @@ IDENT               	cmin
 IDENT               	phiamax
 ,                   	,
 IDENT               	phiamin
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	phinmax
@@ -671,7 +835,11 @@ IDENT               	phinmin
 IDENT               	zagmax
 ,                   	,
 IDENT               	zagmin
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	umax
@@ -683,6 +851,8 @@ IDENT               	fbmax
 IDENT               	flmax
 ,                   	,
 IDENT               	q
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	tcoef
@@ -694,17 +864,39 @@ IDENT               	tfreq
 IDENT               	tpi
 ,                   	,
 IDENT               	f0
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c-------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	uinit
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -714,7 +906,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -729,6 +921,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	ngp1
@@ -749,6 +943,8 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	nr
@@ -771,25 +967,39 @@ IDENT               	nt
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	mmax
 =                   	=
 INT                 	200
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c common block variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	u
 ,                   	,
 IDENT               	fb
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	elf
 ,                   	,
 IDENT               	elfn
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	phin
@@ -799,11 +1009,15 @@ IDENT               	phinn
 IDENT               	phia
 ,                   	,
 IDENT               	phian
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	c
 ,                   	,
 IDENT               	cn
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	zag
@@ -811,6 +1025,8 @@ IDENT               	zag
 IDENT               	zagn
 ,                   	,
 IDENT               	xm
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	h
@@ -824,6 +1040,8 @@ IDENT               	s2
 IDENT               	s3
 ,                   	,
 IDENT               	a
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	re
@@ -841,6 +1059,8 @@ IDENT               	cnd3
 IDENT               	cnd4
 ,                   	,
 IDENT               	cnd5
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	uy
@@ -854,6 +1074,8 @@ IDENT               	vx
 IDENT               	x
 ,                   	,
 IDENT               	y
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	theta
@@ -861,6 +1083,8 @@ IDENT               	theta
 IDENT               	dr
 ,                   	,
 IDENT               	r
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	k0
@@ -868,10 +1092,20 @@ IDENT               	k0
 IDENT               	alpha0
 ,                   	,
 IDENT               	beta0
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c other variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	ro
@@ -887,6 +1121,8 @@ IDENT               	r0
 IDENT               	a2
 ,                   	,
 IDENT               	a0
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	c0
@@ -904,6 +1140,8 @@ IDENT               	tpi
 IDENT               	u0
 ,                   	,
 IDENT               	b0
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	s0
@@ -921,6 +1159,8 @@ IDENT               	xlow
 IDENT               	ylow
 ,                   	,
 IDENT               	wl
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	xchar
@@ -932,6 +1172,8 @@ IDENT               	tchar
 IDENT               	pchar
 ,                   	,
 IDENT               	fchar
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	elfchar
@@ -941,6 +1183,8 @@ IDENT               	phichar
 IDENT               	zchar
 ,                   	,
 IDENT               	cchar
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	ang
@@ -958,6 +1202,8 @@ IDENT               	cxh
 IDENT               	cy
 ,                   	,
 IDENT               	cyh
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	dc
@@ -979,12 +1225,18 @@ IDENT               	th
 IDENT               	xh
 ,                   	,
 IDENT               	yh
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	cmax
 ,                   	,
 IDENT               	cmin
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -1001,6 +1253,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -1026,6 +1280,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -1051,6 +1307,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	forceb
@@ -1067,6 +1325,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	link
@@ -1087,6 +1347,8 @@ IDENT               	nr2
 ,                   	,
 IDENT               	nt1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	link
@@ -1107,6 +1369,8 @@ IDENT               	nr2
 ,                   	,
 IDENT               	nt1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -1121,6 +1385,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -1135,6 +1401,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -1149,6 +1417,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -1163,6 +1433,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	adp
@@ -1177,6 +1449,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	adp
@@ -1191,6 +1465,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	agg
@@ -1205,6 +1481,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	agg
@@ -1219,6 +1497,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	coefs
@@ -1232,6 +1512,8 @@ IDENT               	s3
 IDENT               	re
 ,                   	,
 IDENT               	a
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	cnd
@@ -1245,6 +1527,8 @@ IDENT               	cnd3
 IDENT               	cnd4
 ,                   	,
 IDENT               	cnd5
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	steps
@@ -1252,11 +1536,15 @@ IDENT               	steps
 IDENT               	h
 ,                   	,
 IDENT               	dlt
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	psteps
 /                   	/
 IDENT               	theta
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	rsize
@@ -1274,6 +1562,8 @@ IDENT               	nr2
 )                   	)
 ,                   	,
 IDENT               	nk
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	grid
@@ -1291,32 +1581,46 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	diffn
 /                   	/
 IDENT               	pen
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	diffc
 /                   	/
 IDENT               	pec
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	stiff
 /                   	/
 IDENT               	k0
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	linkf
 /                   	/
 IDENT               	alpha0
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	linkb
 /                   	/
 IDENT               	beta0
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	char
@@ -1326,7 +1630,11 @@ IDENT               	fchar
 IDENT               	zchar
 ,                   	,
 IDENT               	phichar
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	fmarkers
@@ -1337,16 +1645,36 @@ IDENT               	mmax
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c--------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	xinit
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -1356,7 +1684,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -1371,6 +1699,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	nbp1
@@ -1379,7 +1709,11 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	sinsq
@@ -1387,11 +1721,15 @@ IDENT               	sinsq
 IDENT               	bzero
 ,                   	,
 IDENT               	z
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	h
 ,                   	,
 IDENT               	dlt
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	re
@@ -1403,6 +1741,8 @@ IDENT               	s2
 IDENT               	s3
 ,                   	,
 IDENT               	a
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	pi
@@ -1412,7 +1752,11 @@ IDENT               	tpon
 IDENT               	si
 ,                   	,
 IDENT               	sj
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	fft
@@ -1427,6 +1771,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	fft
@@ -1441,6 +1787,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	ptds
@@ -1455,6 +1803,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	steps
@@ -1462,6 +1812,8 @@ IDENT               	steps
 IDENT               	h
 ,                   	,
 IDENT               	dlt
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	coefs
@@ -1475,16 +1827,36 @@ IDENT               	s3
 IDENT               	re
 ,                   	,
 IDENT               	a
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c-------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	navs2d
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -1494,7 +1866,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -1509,6 +1881,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	nbp1
@@ -1517,7 +1891,11 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	u
@@ -1529,6 +1907,8 @@ IDENT               	sinsq
 IDENT               	bzero
 ,                   	,
 IDENT               	z
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	h
@@ -1544,6 +1924,8 @@ IDENT               	s2
 IDENT               	s3
 ,                   	,
 IDENT               	a
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	uy
@@ -1553,7 +1935,11 @@ IDENT               	vy
 IDENT               	ux
 ,                   	,
 IDENT               	vx
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	w1
@@ -1575,6 +1961,8 @@ IDENT               	yh
 IDENT               	p
 ,                   	,
 IDENT               	d
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	pro
@@ -1582,7 +1970,11 @@ IDENT               	pro
 IDENT               	xl
 ,                   	,
 IDENT               	yl
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -1599,6 +1991,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -1624,6 +2018,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -1649,6 +2045,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	force
@@ -1665,6 +2063,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	pres
@@ -1679,6 +2079,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	fft
@@ -1693,6 +2095,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	fft
@@ -1707,6 +2111,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	ptds
@@ -1721,6 +2127,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	steps
@@ -1728,6 +2136,8 @@ IDENT               	steps
 IDENT               	h
 ,                   	,
 IDENT               	dlt
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	coefs
@@ -1741,7 +2151,11 @@ IDENT               	s3
 IDENT               	re
 ,                   	,
 IDENT               	a
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	w1
 (                   	(
@@ -1757,6 +2171,8 @@ INT                 	1
 :                   	:
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	w2
 (                   	(
@@ -1772,7 +2188,11 @@ INT                 	1
 :                   	:
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	b
 (                   	(
@@ -1784,6 +2204,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	r
 (                   	(
@@ -1795,6 +2217,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	yp
 (                   	(
@@ -1806,6 +2230,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	c
 (                   	(
@@ -1817,6 +2243,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	yh
 (                   	(
@@ -1828,6 +2256,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	d
 (                   	(
@@ -1839,12 +2269,18 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	lam
 (                   	(
 IDENT               	ng
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	equivalence
 (                   	(
 IDENT               	f
@@ -1853,20 +2289,38 @@ IDENT               	w1
 ,                   	,
 IDENT               	w2
 )                   	)
+NEW_LINE            	
+
 IDENT               	equivalence
 (                   	(
 IDENT               	d
 ,                   	,
 IDENT               	p
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c---------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	tridgx
 (                   	(
 IDENT               	a
@@ -1879,7 +2333,11 @@ IDENT               	w
 ,                   	,
 IDENT               	y
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -1889,7 +2347,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -1904,6 +2362,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	n
@@ -1924,6 +2384,8 @@ IDENT               	n
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	nbp1
@@ -1932,7 +2394,11 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	a
@@ -1944,7 +2410,11 @@ IDENT               	c
 IDENT               	w
 ,                   	,
 IDENT               	y
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	x
@@ -1954,7 +2424,11 @@ IDENT               	l
 IDENT               	r
 ,                   	,
 IDENT               	d
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	tdspace
@@ -1969,6 +2443,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	tdspace
@@ -1983,6 +2459,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	tdspace
@@ -1997,6 +2475,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	tdspace
@@ -2011,7 +2491,11 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	y
 (                   	(
@@ -2023,6 +2507,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	b
 (                   	(
@@ -2034,6 +2520,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	c
 (                   	(
@@ -2045,6 +2533,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	w
 (                   	(
@@ -2056,14 +2546,30 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c---------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	tridgy
 (                   	(
 IDENT               	a
@@ -2076,7 +2582,11 @@ IDENT               	w
 ,                   	,
 IDENT               	y
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -2086,7 +2596,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -2101,6 +2611,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	n
@@ -2121,6 +2633,8 @@ IDENT               	n
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	nbp1
@@ -2129,7 +2643,11 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	a
@@ -2141,7 +2659,11 @@ IDENT               	c
 IDENT               	w
 ,                   	,
 IDENT               	y
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	x
@@ -2151,7 +2673,11 @@ IDENT               	l
 IDENT               	r
 ,                   	,
 IDENT               	d
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	tdspace
@@ -2166,6 +2692,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	tdspace
@@ -2180,6 +2708,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	tdspace
@@ -2194,6 +2724,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	tdspace
@@ -2208,7 +2740,11 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	y
 (                   	(
@@ -2220,6 +2756,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	b
 (                   	(
@@ -2231,6 +2769,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	c
 (                   	(
@@ -2242,6 +2782,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	w
 (                   	(
@@ -2253,21 +2795,41 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	newu
 (                   	(
 IDENT               	w2
 ,                   	,
 IDENT               	p
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -2277,7 +2839,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -2292,6 +2854,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	nbp1
@@ -2300,7 +2864,11 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	u
@@ -2312,11 +2880,15 @@ IDENT               	vy
 IDENT               	ux
 ,                   	,
 IDENT               	vx
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	h
 ,                   	,
 IDENT               	k
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -2333,6 +2905,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -2358,6 +2932,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -2383,6 +2959,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	steps
@@ -2390,7 +2968,11 @@ IDENT               	steps
 IDENT               	h
 ,                   	,
 IDENT               	k
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	p
@@ -2403,6 +2985,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	w2
@@ -2419,14 +3003,30 @@ INT                 	2
 )                   	)
 ,                   	,
 IDENT               	s
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	div
 (                   	(
 IDENT               	s3
@@ -2435,7 +3035,11 @@ IDENT               	w2
 ,                   	,
 IDENT               	d
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -2445,7 +3049,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -2460,6 +3064,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	nbp1
@@ -2468,7 +3074,11 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	w2
@@ -2483,6 +3093,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	d
@@ -2495,17 +3107,35 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	s3
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c------------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	fft2d
 (                   	(
 IDENT               	a
@@ -2514,6 +3144,8 @@ IDENT               	b
 ,                   	,
 IDENT               	isign
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -2523,7 +3155,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -2538,6 +3170,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	n
@@ -2548,6 +3182,8 @@ IDENT               	m
 =                   	=
 IDENT               	l2ng
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	nbp1
@@ -2556,7 +3192,11 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	a
@@ -2569,6 +3209,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	b
@@ -2581,6 +3223,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	t1
@@ -2602,6 +3246,8 @@ IDENT               	t4
 (                   	(
 IDENT               	n
 )                   	)
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	pi
@@ -2619,18 +3265,36 @@ IDENT               	u2
 IDENT               	w1
 ,                   	,
 IDENT               	w2
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c-----------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	phia2d
 (                   	(
 IDENT               	n
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -2640,7 +3304,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -2655,6 +3319,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	ngp1
@@ -2675,14 +3341,24 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c common block variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	k
 ,                   	,
 IDENT               	h
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	u
@@ -2694,6 +3370,8 @@ IDENT               	phinn
 IDENT               	phia
 ,                   	,
 IDENT               	phian
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	uy
@@ -2703,10 +3381,20 @@ IDENT               	vy
 IDENT               	ux
 ,                   	,
 IDENT               	vx
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c other variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -2723,6 +3411,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -2748,6 +3438,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -2773,7 +3465,11 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -2788,6 +3484,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -2802,6 +3500,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -2816,6 +3516,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -2830,7 +3532,11 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	steps
@@ -2838,18 +3544,36 @@ IDENT               	steps
 IDENT               	h
 ,                   	,
 IDENT               	k
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c----------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	zag2d
 (                   	(
 IDENT               	n
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -2859,7 +3583,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -2874,6 +3598,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	ngp1
@@ -2894,14 +3620,24 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c common block variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	k
 ,                   	,
 IDENT               	h
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	u
@@ -2909,6 +3645,8 @@ IDENT               	u
 IDENT               	zag
 ,                   	,
 IDENT               	zagn
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	uy
@@ -2918,10 +3656,20 @@ IDENT               	vy
 IDENT               	ux
 ,                   	,
 IDENT               	vx
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c other variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -2938,6 +3686,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -2963,6 +3713,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -2988,6 +3740,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	agg
@@ -3002,6 +3756,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	agg
@@ -3016,7 +3772,11 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	steps
@@ -3024,14 +3784,30 @@ IDENT               	steps
 IDENT               	h
 ,                   	,
 IDENT               	k
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c--------------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	plot
 (                   	(
 IDENT               	time
@@ -3056,9 +3832,17 @@ IDENT               	elf
 ,                   	,
 IDENT               	nk
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c prints out data(0:ng,0:ng) for subsequent plotting
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -3068,7 +3852,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -3083,6 +3867,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	ngp1
@@ -3103,6 +3889,8 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	nr
@@ -3125,15 +3913,25 @@ IDENT               	nt
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	mmax
 =                   	=
 INT                 	200
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c argument list variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	u
@@ -3141,28 +3939,44 @@ IDENT               	u
 IDENT               	f
 ,                   	,
 IDENT               	elf
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	phin
 ,                   	,
 IDENT               	phia
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	zag
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	xm
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	time
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	n
 ,                   	,
 IDENT               	nk
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	u
 (                   	(
@@ -3176,6 +3990,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	f
 (                   	(
@@ -3189,6 +4005,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	phia
 (                   	(
@@ -3200,6 +4018,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	zag
 (                   	(
@@ -3211,7 +4031,11 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	xm
 (                   	(
@@ -3219,7 +4043,11 @@ IDENT               	mmax
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	elf
 (                   	(
@@ -3237,6 +4065,8 @@ IDENT               	nr2
 ,                   	,
 IDENT               	nt1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	phin
 (                   	(
@@ -3248,6 +4078,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	c
 (                   	(
@@ -3259,20 +4091,40 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	efnum
 /                   	/
 IDENT               	nfil
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c---------------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	markers
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -3282,7 +4134,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -3297,6 +4149,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	ngp1
@@ -3317,23 +4171,37 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	mmax
 =                   	=
 INT                 	200
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c common block variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	u
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	h
 ,                   	,
 IDENT               	dlt
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	uy
@@ -3345,9 +4213,17 @@ IDENT               	ux
 IDENT               	vx
 ,                   	,
 IDENT               	xm
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c argument list variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	ax
@@ -3369,7 +4245,11 @@ IDENT               	xn
 IDENT               	y
 ,                   	,
 IDENT               	yn
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -3386,6 +4266,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -3411,6 +4293,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -3436,7 +4320,11 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	steps
@@ -3444,6 +4332,8 @@ IDENT               	steps
 IDENT               	h
 ,                   	,
 IDENT               	dlt
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	fmarkers
@@ -3454,18 +4344,36 @@ IDENT               	mmax
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c-------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	phin2d
 (                   	(
 IDENT               	n
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -3475,7 +4383,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -3490,6 +4398,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	ngp1
@@ -3510,20 +4420,32 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	mmax
 =                   	=
 INT                 	200
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c common block variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	k
 ,                   	,
 IDENT               	h
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	u
@@ -3535,9 +4457,13 @@ IDENT               	phinn
 IDENT               	phia
 ,                   	,
 IDENT               	phian
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	pen
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	uy
@@ -3547,7 +4473,11 @@ IDENT               	vy
 IDENT               	ux
 ,                   	,
 IDENT               	vx
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -3564,6 +4494,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -3589,6 +4521,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -3614,6 +4548,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -3628,6 +4564,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -3642,6 +4580,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -3656,6 +4596,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -3670,13 +4612,21 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	diffn
 /                   	/
 IDENT               	pen
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	steps
@@ -3684,18 +4634,36 @@ IDENT               	steps
 IDENT               	h
 ,                   	,
 IDENT               	k
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c-------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	chem2d
 (                   	(
 IDENT               	n
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -3705,7 +4673,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -3720,6 +4688,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	ngp1
@@ -3740,20 +4710,32 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	mmax
 =                   	=
 INT                 	200
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c common block variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	k
 ,                   	,
 IDENT               	h
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	u
@@ -3761,9 +4743,13 @@ IDENT               	u
 IDENT               	c
 ,                   	,
 IDENT               	cn
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	pec
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	uy
@@ -3773,7 +4759,11 @@ IDENT               	vy
 IDENT               	ux
 ,                   	,
 IDENT               	vx
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -3790,6 +4780,8 @@ IDENT               	nbp1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -3815,6 +4807,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	vel
@@ -3840,6 +4834,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	adp
@@ -3854,6 +4850,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	adp
@@ -3868,7 +4866,11 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	steps
@@ -3876,19 +4878,37 @@ IDENT               	steps
 IDENT               	h
 ,                   	,
 IDENT               	k
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	diffc
 /                   	/
 IDENT               	pec
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c-------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	chlfac
 (                   	(
 IDENT               	diag
@@ -3897,6 +4917,8 @@ IDENT               	subd
 ,                   	,
 IDENT               	nn
 )                   	)
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	diag
@@ -3908,14 +4930,30 @@ IDENT               	subd
 (                   	(
 IDENT               	nn
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c-------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	chlslv
 (                   	(
 IDENT               	diag
@@ -3928,6 +4966,8 @@ IDENT               	b
 ,                   	,
 IDENT               	x
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -3937,7 +4977,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -3952,6 +4992,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	ngp1
@@ -3972,13 +5014,19 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	max
 =                   	=
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	diag
@@ -4007,21 +5055,45 @@ IDENT               	y
 (                   	(
 IDENT               	max
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c-------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	period
 (                   	(
 IDENT               	ph
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c extend ph periodically
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -4031,7 +5103,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -4046,6 +5118,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	ngp1
@@ -4066,9 +5140,13 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	ph
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	ph
 (                   	(
@@ -4080,14 +5158,30 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c-------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(101)          	function
+NEW_LINE            	
+
+FUNCTION            	function
 IDENT               	sol
 (                   	(
 IDENT               	v
@@ -4096,6 +5190,8 @@ IDENT               	l
 ,                   	,
 IDENT               	r
 )                   	)
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	v
@@ -4105,14 +5201,30 @@ IDENT               	l
 IDENT               	r
 ,                   	,
 IDENT               	sol
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c-----------------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	diffu
 (                   	(
 IDENT               	ph
@@ -4123,6 +5235,8 @@ IDENT               	k1
 ,                   	,
 IDENT               	alpha
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -4132,7 +5246,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -4147,6 +5261,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	ngp1
@@ -4167,17 +5283,33 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c common block variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	h
 ,                   	,
 IDENT               	k
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c other variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	k1
@@ -4187,6 +5319,8 @@ IDENT               	alpha
 IDENT               	ph
 ,                   	,
 IDENT               	phn
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	gdiag
@@ -4202,7 +5336,11 @@ IDENT               	y
 IDENT               	lam
 ,                   	,
 IDENT               	eta
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	gdiag
 (                   	(
@@ -4222,6 +5360,8 @@ IDENT               	b
 (                   	(
 IDENT               	nb
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	z
 (                   	(
@@ -4236,6 +5376,8 @@ IDENT               	nb
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	ph
 (                   	(
@@ -4247,6 +5389,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	phn
 (                   	(
@@ -4258,7 +5402,11 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	steps
@@ -4266,15 +5414,33 @@ IDENT               	steps
 IDENT               	h
 ,                   	,
 IDENT               	k
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c-----------------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	c
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	react
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	l2ng
@@ -4284,7 +5450,7 @@ INT                 	6
 IDENT               	ng
 =                   	=
 INT                 	2
-token(95)           	**
+                    	**
 IDENT               	l2ng
 ,                   	,
 IDENT               	nb
@@ -4299,6 +5465,8 @@ IDENT               	ng
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	ngp1
@@ -4319,6 +5487,8 @@ IDENT               	nb
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	nr
@@ -4341,9 +5511,17 @@ IDENT               	nt
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c common block variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	k
@@ -4359,6 +5537,8 @@ IDENT               	cnd3
 IDENT               	cnd4
 ,                   	,
 IDENT               	cnd5
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	elf
@@ -4380,14 +5560,24 @@ IDENT               	cn
 IDENT               	zag
 ,                   	,
 IDENT               	zagn
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	dr
 ,                   	,
 IDENT               	r
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c other variables
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	rc
@@ -4407,7 +5597,11 @@ IDENT               	temp4
 IDENT               	c4
 ,                   	,
 IDENT               	alpha
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	link
@@ -4428,6 +5622,8 @@ IDENT               	nr2
 ,                   	,
 IDENT               	nt1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	link
@@ -4448,6 +5644,8 @@ IDENT               	nr2
 ,                   	,
 IDENT               	nt1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -4462,6 +5660,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -4476,6 +5676,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -4490,6 +5692,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	phi
@@ -4504,6 +5708,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	adp
@@ -4518,6 +5724,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	adp
@@ -4532,6 +5740,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	agg
@@ -4546,6 +5756,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	agg
@@ -4560,6 +5772,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	cnd
@@ -4573,6 +5787,8 @@ IDENT               	cnd3
 IDENT               	cnd4
 ,                   	,
 IDENT               	cnd5
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	steps
@@ -4580,6 +5796,8 @@ IDENT               	steps
 IDENT               	h
 ,                   	,
 IDENT               	k
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	rsize
@@ -4597,7 +5815,11 @@ IDENT               	nr2
 )                   	)
 ,                   	,
 IDENT               	nk
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	rc
 (                   	(
@@ -4605,6 +5827,8 @@ INT                 	0
 :                   	:
 IDENT               	nbp1
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	y
 (                   	(
@@ -4623,7 +5847,17 @@ IDENT               	nbp1
 ,                   	,
 INT                 	4
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c.... code body eliminated ....
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

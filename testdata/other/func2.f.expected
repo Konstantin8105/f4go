@@ -1,19 +1,27 @@
-token(101)          	FUNCTION
+FUNCTION            	FUNCTION
 IDENT               	func_name
 (                   	(
 IDENT               	a
 ,                   	,
 IDENT               	b
 )                   	)
-token(98)           	INTEGER
-token(99)           	::
+NEW_LINE            	
+
+INTEGER             	INTEGER
+DOUBLE_COLON        	::
 IDENT               	func_name
-token(98)           	INTEGER
-token(99)           	::
+NEW_LINE            	
+
+INTEGER             	INTEGER
+DOUBLE_COLON        	::
 IDENT               	a
+NEW_LINE            	
+
 IDENT               	REAL
-token(99)           	::
+DOUBLE_COLON        	::
 IDENT               	b
+NEW_LINE            	
+
 IDENT               	func_name
 =                   	=
 (                   	(
@@ -23,16 +31,30 @@ IDENT               	a
 )                   	)
 +                   	+
 IDENT               	b
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
-token(101)          	FUNCTION
-token(97)           	PROGRAM
+NEW_LINE            	
+
+END                 	END
+FUNCTION            	FUNCTION
+NEW_LINE            	
+
+NEW_LINE            	
+
+PROGRAM             	PROGRAM
 IDENT               	cows
-token(100)          	IMPLICIT
+NEW_LINE            	
+
+IMPLICIT            	IMPLICIT
 IDENT               	NONE
-token(98)           	INTEGER
-token(99)           	::
+NEW_LINE            	
+
+INTEGER             	INTEGER
+DOUBLE_COLON        	::
 IDENT               	func_name
+NEW_LINE            	
+
 IDENT               	PRINT
 *                   	*
 ,                   	,
@@ -42,5 +64,9 @@ INT                 	2
 ,                   	,
 FLOAT               	1.3
 )                   	)
-token(102)          	END
-token(97)           	PROGRAM
+NEW_LINE            	
+
+END                 	END
+PROGRAM             	PROGRAM
+NEW_LINE            	
+

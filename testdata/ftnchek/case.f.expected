@@ -1,42 +1,70 @@
-token(97)           	program
+NEW_LINE            	
+
+PROGRAM             	program
 IDENT               	testcase
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	ivar1
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	8
 IDENT               	cvar1
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	1
 IDENT               	cvar2
+NEW_LINE            	
+
 IDENT               	logical
 IDENT               	lvar1
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	rvar1
+NEW_LINE            	
+
 IDENT               	ivar1
 =                   	=
 INT                 	3
+NEW_LINE            	
+
 IDENT               	lvar1
 =                   	=
 IDENT               	.true.
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	select
 IDENT               	case
 (                   	(
 IDENT               	ivar1
 )                   	)
+NEW_LINE            	
+
 IDENT               	cvar1
 =                   	=
 STRING              	'no path!'
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 :                   	:
 -                   	-
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	cvar1
 =                   	=
 STRING              	'path'
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 INT                 	10
@@ -45,10 +73,14 @@ INT                 	5
 -                   	-
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 INT                 	2
@@ -61,23 +93,37 @@ INT                 	7
 ,                   	,
 INT                 	9
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 INT                 	10
 :                   	:
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 IDENT               	default
+NEW_LINE            	
+
 IDENT               	cvar2
 =                   	=
 STRING              	'd'
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
 IDENT               	select
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	select
 IDENT               	case
 (                   	(
 IDENT               	lvar1
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 .                   	.
@@ -88,6 +134,8 @@ IDENT               	case
 IDENT               	.true.
 :                   	:
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 :                   	:
@@ -99,21 +147,31 @@ IDENT               	case
 FLOAT               	1.e
 IDENT               	q
 .                   	.
-token(102)          	end
+END                 	end
 IDENT               	select
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	cvar1
 =                   	=
 STRING              	'hamster'
+NEW_LINE            	
+
 IDENT               	select
 IDENT               	case
 (                   	(
 IDENT               	cvar1
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 :                   	:
 STRING              	'cat'
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 STRING              	'dog'
@@ -123,46 +181,72 @@ STRING              	'fer'
 /                   	/
 STRING              	'ret'
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 STRING              	'gerbil'
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 STRING              	'horse'
 :                   	:
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 IDENT               	default
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
 IDENT               	select
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	select
 IDENT               	case
 (                   	(
 IDENT               	rvar1
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 -                   	-
 FLOAT               	1.0
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 INT                 	2
 :                   	:
 FLOAT               	5.0
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 IDENT               	ivar1
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 :                   	:
 .                   	.
 IDENT               	e
 .                   	.
-token(102)          	end
+END                 	end
 IDENT               	select
+NEW_LINE            	
+
 IDENT               	stop
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

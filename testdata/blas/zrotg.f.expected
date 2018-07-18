@@ -1,66 +1,190 @@
 COMMENT             	*> \brief \b ZROTG
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       SUBROUTINE ZROTG(CA,CB,C,S)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       COMPLEX*16 CA,CB,S
+NEW_LINE            	
+
 COMMENT             	*       DOUBLE PRECISION C
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    ZROTG determines a double complex Givens rotation.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] CA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          CA is COMPLEX*16
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] CB
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          CB is COMPLEX*16
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[out] C
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          C is DOUBLE PRECISION
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[out] S
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          S is COMPLEX*16
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup complex16_blas_level1
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	ZROTG
 (                   	(
 IDENT               	CA
@@ -71,13 +195,29 @@ IDENT               	C
 ,                   	,
 IDENT               	S
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 *                   	*
 INT                 	16
@@ -86,25 +226,47 @@ IDENT               	CA
 IDENT               	CB
 ,                   	,
 IDENT               	S
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	C
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	ALPHA
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	NORM
 ,                   	,
 IDENT               	SCALE
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	CDABS
 ,                   	,
@@ -113,7 +275,11 @@ IDENT               	DCMPLX
 IDENT               	DCONJG
 ,                   	,
 IDENT               	DSQRT
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	CDABS
@@ -123,10 +289,14 @@ IDENT               	CA
 ==                  	.EQ.
 FLOAT               	0.0d0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	C
 =                   	=
 FLOAT               	0.0d0
+NEW_LINE            	
+
 IDENT               	S
 =                   	=
 (                   	(
@@ -134,10 +304,16 @@ FLOAT               	1.0d0
 ,                   	,
 FLOAT               	0.0d0
 )                   	)
+NEW_LINE            	
+
 IDENT               	CA
 =                   	=
 IDENT               	CB
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	SCALE
 =                   	=
 IDENT               	CDABS
@@ -149,6 +325,8 @@ IDENT               	CDABS
 (                   	(
 IDENT               	CB
 )                   	)
+NEW_LINE            	
+
 IDENT               	NORM
 =                   	=
 IDENT               	SCALE
@@ -168,9 +346,11 @@ FLOAT               	0.0d0
 )                   	)
 )                   	)
 )                   	)
-token(95)           	**
+                    	**
 INT                 	2
 +                   	+
+NEW_LINE            	
+
 (                   	(
 IDENT               	CDABS
 (                   	(
@@ -184,9 +364,11 @@ FLOAT               	0.0d0
 )                   	)
 )                   	)
 )                   	)
-token(95)           	**
+                    	**
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	ALPHA
 =                   	=
 IDENT               	CA
@@ -195,6 +377,8 @@ IDENT               	CDABS
 (                   	(
 IDENT               	CA
 )                   	)
+NEW_LINE            	
+
 IDENT               	C
 =                   	=
 IDENT               	CDABS
@@ -203,6 +387,8 @@ IDENT               	CA
 )                   	)
 /                   	/
 IDENT               	NORM
+NEW_LINE            	
+
 IDENT               	S
 =                   	=
 IDENT               	ALPHA
@@ -213,12 +399,22 @@ IDENT               	CB
 )                   	)
 /                   	/
 IDENT               	NORM
+NEW_LINE            	
+
 IDENT               	CA
 =                   	=
 IDENT               	ALPHA
 *                   	*
 IDENT               	NORM
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

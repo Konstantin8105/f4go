@@ -1,100 +1,292 @@
 COMMENT             	*> \brief \b DROTM
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       SUBROUTINE DROTM(N,DX,INCX,DY,INCY,DPARAM)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       INTEGER INCX,INCY,N
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       DOUBLE PRECISION DPARAM(5),DX(*),DY(*)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    APPLY THE MODIFIED GIVENS TRANSFORMATION, H, TO THE 2 BY N MATRIX
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    (DX**T) , WHERE **T INDICATES TRANSPOSE. THE ELEMENTS OF DX ARE IN
+NEW_LINE            	
+
 COMMENT             	*>    (DY**T)
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    DX(LX+I*INCX), I = 0 TO N-1, WHERE LX = 1 IF INCX .GE. 0, ELSE
+NEW_LINE            	
+
 COMMENT             	*>    LX = (-INCX)*N, AND SIMILARLY FOR SY USING LY AND INCY.
+NEW_LINE            	
+
 COMMENT             	*>    WITH DPARAM(1)=DFLAG, H HAS ONE OF THE FOLLOWING FORMS..
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    DFLAG=-1.D0     DFLAG=0.D0        DFLAG=1.D0     DFLAG=-2.D0
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>      (DH11  DH12)    (1.D0  DH12)    (DH11  1.D0)    (1.D0  0.D0)
+NEW_LINE            	
+
 COMMENT             	*>    H=(          )    (          )    (          )    (          )
+NEW_LINE            	
+
 COMMENT             	*>      (DH21  DH22),   (DH21  1.D0),   (-1.D0 DH22),   (0.D0  1.D0).
+NEW_LINE            	
+
 COMMENT             	*>    SEE DROTMG FOR A DESCRIPTION OF DATA STORAGE IN DPARAM.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] N
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          N is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         number of elements in input vector(s)
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in,out] DX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          DX is DOUBLE PRECISION array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCX is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         storage spacing between elements of DX
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in,out] DY
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          DY is DOUBLE PRECISION array, dimension ( 1 + ( N - 1 )*abs( INCY ) )
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCY
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCY is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         storage spacing between elements of DY
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] DPARAM
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          DPARAM is DOUBLE PRECISION array, dimension (5)
+NEW_LINE            	
+
 COMMENT             	*>     DPARAM(1)=DFLAG
+NEW_LINE            	
+
 COMMENT             	*>     DPARAM(2)=DH11
+NEW_LINE            	
+
 COMMENT             	*>     DPARAM(3)=DH21
+NEW_LINE            	
+
 COMMENT             	*>     DPARAM(4)=DH12
+NEW_LINE            	
+
 COMMENT             	*>     DPARAM(5)=DH22
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup double_blas_level1
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	DROTM
 (                   	(
 IDENT               	N
@@ -109,21 +301,43 @@ IDENT               	INCY
 ,                   	,
 IDENT               	DPARAM
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	INCX
 ,                   	,
 IDENT               	INCY
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	DPARAM
@@ -140,11 +354,23 @@ IDENT               	DY
 (                   	(
 *                   	*
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	DFLAG
@@ -164,7 +390,9 @@ IDENT               	W
 IDENT               	Z
 ,                   	,
 IDENT               	ZERO
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	KX
@@ -172,8 +400,14 @@ IDENT               	KX
 IDENT               	KY
 ,                   	,
 IDENT               	NSTEPS
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Data statements ..
+NEW_LINE            	
+
 IDENT               	DATA
 IDENT               	ZERO
 ,                   	,
@@ -183,14 +417,22 @@ FLOAT               	0.D0
 ,                   	,
 FLOAT               	2.D0
 /                   	/
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	DFLAG
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	N
@@ -206,6 +448,8 @@ IDENT               	ZERO
 )                   	)
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -216,45 +460,61 @@ IDENT               	INCX
 >                   	.GT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	NSTEPS
 =                   	=
 IDENT               	N
 *                   	*
 IDENT               	INCX
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	DFLAG
 <                   	.LT.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	DH11
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	DH12
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	4
 )                   	)
+NEW_LINE            	
+
 IDENT               	DH21
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	3
 )                   	)
+NEW_LINE            	
+
 IDENT               	DH22
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	5
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	1
@@ -262,18 +522,24 @@ INT                 	1
 IDENT               	NSTEPS
 ,                   	,
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	W
 =                   	=
 IDENT               	DX
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	Z
 =                   	=
 IDENT               	DY
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	DX
 (                   	(
 IDENT               	I
@@ -286,6 +552,8 @@ IDENT               	DH11
 IDENT               	Z
 *                   	*
 IDENT               	DH12
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	I
@@ -298,8 +566,12 @@ IDENT               	DH21
 IDENT               	Z
 *                   	*
 IDENT               	DH22
-token(102)          	END
-token(103)          	DO
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -307,20 +579,26 @@ IDENT               	DFLAG
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	DH12
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	4
 )                   	)
+NEW_LINE            	
+
 IDENT               	DH21
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	3
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	1
@@ -328,18 +606,24 @@ INT                 	1
 IDENT               	NSTEPS
 ,                   	,
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	W
 =                   	=
 IDENT               	DX
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	Z
 =                   	=
 IDENT               	DY
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	DX
 (                   	(
 IDENT               	I
@@ -350,6 +634,8 @@ IDENT               	W
 IDENT               	Z
 *                   	*
 IDENT               	DH12
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	I
@@ -360,22 +646,32 @@ IDENT               	W
 IDENT               	DH21
 +                   	+
 IDENT               	Z
-token(102)          	END
-token(103)          	DO
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	DH11
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	DH22
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	5
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	1
@@ -383,18 +679,24 @@ INT                 	1
 IDENT               	NSTEPS
 ,                   	,
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	W
 =                   	=
 IDENT               	DX
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	Z
 =                   	=
 IDENT               	DY
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	DX
 (                   	(
 IDENT               	I
@@ -405,6 +707,8 @@ IDENT               	W
 IDENT               	DH11
 +                   	+
 IDENT               	Z
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	I
@@ -416,17 +720,29 @@ IDENT               	W
 IDENT               	DH22
 *                   	*
 IDENT               	Z
-token(102)          	END
-token(103)          	DO
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 IDENT               	KY
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -444,6 +760,8 @@ IDENT               	N
 )                   	)
 *                   	*
 IDENT               	INCX
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCY
@@ -461,56 +779,76 @@ IDENT               	N
 )                   	)
 *                   	*
 IDENT               	INCY
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	DFLAG
 <                   	.LT.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	DH11
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	DH12
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	4
 )                   	)
+NEW_LINE            	
+
 IDENT               	DH21
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	3
 )                   	)
+NEW_LINE            	
+
 IDENT               	DH22
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	5
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	W
 =                   	=
 IDENT               	DX
 (                   	(
 IDENT               	KX
 )                   	)
+NEW_LINE            	
+
 IDENT               	Z
 =                   	=
 IDENT               	DY
 (                   	(
 IDENT               	KY
 )                   	)
+NEW_LINE            	
+
 IDENT               	DX
 (                   	(
 IDENT               	KX
@@ -523,6 +861,8 @@ IDENT               	DH11
 IDENT               	Z
 *                   	*
 IDENT               	DH12
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	KY
@@ -535,18 +875,26 @@ IDENT               	DH21
 IDENT               	Z
 *                   	*
 IDENT               	DH22
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 IDENT               	KX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	KY
 =                   	=
 IDENT               	KY
 +                   	+
 IDENT               	INCY
-token(102)          	END
-token(103)          	DO
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -554,37 +902,49 @@ IDENT               	DFLAG
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	DH12
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	4
 )                   	)
+NEW_LINE            	
+
 IDENT               	DH21
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	3
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	W
 =                   	=
 IDENT               	DX
 (                   	(
 IDENT               	KX
 )                   	)
+NEW_LINE            	
+
 IDENT               	Z
 =                   	=
 IDENT               	DY
 (                   	(
 IDENT               	KY
 )                   	)
+NEW_LINE            	
+
 IDENT               	DX
 (                   	(
 IDENT               	KX
@@ -595,6 +955,8 @@ IDENT               	W
 IDENT               	Z
 *                   	*
 IDENT               	DH12
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	KY
@@ -605,49 +967,69 @@ IDENT               	W
 IDENT               	DH21
 +                   	+
 IDENT               	Z
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 IDENT               	KX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	KY
 =                   	=
 IDENT               	KY
 +                   	+
 IDENT               	INCY
-token(102)          	END
-token(103)          	DO
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	DH11
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	DH22
 =                   	=
 IDENT               	DPARAM
 (                   	(
 INT                 	5
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	W
 =                   	=
 IDENT               	DX
 (                   	(
 IDENT               	KX
 )                   	)
+NEW_LINE            	
+
 IDENT               	Z
 =                   	=
 IDENT               	DY
 (                   	(
 IDENT               	KY
 )                   	)
+NEW_LINE            	
+
 IDENT               	DX
 (                   	(
 IDENT               	KX
@@ -658,6 +1040,8 @@ IDENT               	W
 IDENT               	DH11
 +                   	+
 IDENT               	Z
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	KY
@@ -669,21 +1053,37 @@ IDENT               	W
 IDENT               	DH22
 *                   	*
 IDENT               	Z
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 IDENT               	KX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	KY
 =                   	=
 IDENT               	KY
 +                   	+
 IDENT               	INCY
-token(102)          	END
-token(103)          	DO
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

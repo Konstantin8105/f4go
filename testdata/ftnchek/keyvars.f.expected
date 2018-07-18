@@ -19,14 +19,18 @@ INT                 	5
 ,                   	,
 INT                 	6
 )                   	)
+NEW_LINE            	
+
 IDENT               	logical
 IDENT               	save
 ,                   	,
 IDENT               	stop
 ,                   	,
-token(97)           	program
+PROGRAM             	program
+NEW_LINE            	
+
 IDENT               	character
-token(98)           	integer
+INTEGER             	integer
 ,                   	,
 IDENT               	data
 ,                   	,
@@ -36,10 +40,12 @@ IDENT               	format
 (                   	(
 INT                 	10
 )                   	)
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	external
 ,                   	,
-token(100)          	implicit
+IMPLICIT            	implicit
 ,                   	,
 IDENT               	intrinsic
 ,                   	,
@@ -51,33 +57,53 @@ INT                 	5
 ,                   	,
 INT                 	6
 )                   	)
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	complex
+NEW_LINE            	
+
 IDENT               	external
 IDENT               	complex
+NEW_LINE            	
+
 IDENT               	data
 IDENT               	data
 /                   	/
 STRING              	'!'
 /                   	/
-token(100)          	implicit
+NEW_LINE            	
+
+IMPLICIT            	implicit
 =                   	=
 IDENT               	none
+NEW_LINE            	
+
 IDENT               	assign
 =                   	=
 IDENT               	block
+NEW_LINE            	
+
 IDENT               	exit
 =                   	=
 IDENT               	assign
+NEW_LINE            	
+
 IDENT               	pointer
 =                   	=
 IDENT               	pointee
+NEW_LINE            	
+
 IDENT               	double
 =                   	=
 IDENT               	precision
+NEW_LINE            	
+
 IDENT               	precision
 =                   	=
 IDENT               	double
+NEW_LINE            	
+
 IDENT               	common
 (                   	(
 INT                 	9
@@ -86,42 +112,54 @@ INT                 	0
 )                   	)
 =                   	=
 continue            	continue
-token(95)           	**
+                    	**
 IDENT               	dimension
-token(103)          	do
+NEW_LINE            	
+
+DO                  	do
 =                   	=
 IDENT               	double
 *                   	*
 else                	else
 -                   	-
-token(102)          	end
+END                 	end
 +                   	+
-token(104)          	enddo
+ENDDO               	enddo
+NEW_LINE            	
+
 IDENT               	entry
 (                   	(
 IDENT               	external
 ,                   	,
-token(100)          	implicit
+IMPLICIT            	implicit
 )                   	)
 =                   	=
 IDENT               	intrinsic
 -                   	-
 IDENT               	pause
-token(97)           	program
+NEW_LINE            	
+
+PROGRAM             	program
 =                   	=
 IDENT               	stop
 &&                  	.and.
 IDENT               	save
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	character
 <                   	.lt.
 IDENT               	close
 )                   	)
-token(106)          	then
+THEN                	then
+NEW_LINE            	
+
 IDENT               	equivalence
 =                   	=
 IDENT               	endfile
+NEW_LINE            	
+
 else                	else
 if                  	if
 (                   	(
@@ -136,30 +174,44 @@ INT                 	1
 INT                 	2
 )                   	)
 )                   	)
-token(106)          	then
+THEN                	then
+NEW_LINE            	
+
 IDENT               	goto
 =                   	=
-token(103)          	do
+DO                  	do
+NEW_LINE            	
+
 if                  	if
 =                   	=
 IDENT               	logical
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
 if                  	if
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	print
 ==                  	.eq.
 if                  	if
 )                   	)
-token(106)          	then
+THEN                	then
 =                   	=
 IDENT               	to
+NEW_LINE            	
+
 IDENT               	include
 =                   	=
 IDENT               	inquire
+NEW_LINE            	
+
 IDENT               	open
 =                   	=
 IDENT               	accept
+NEW_LINE            	
+
 IDENT               	read
 (                   	(
 INT                 	5
@@ -172,6 +224,8 @@ INT                 	1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	read
 (                   	(
 INT                 	5
@@ -185,73 +239,115 @@ INT                 	1
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 INT                 	6
 IDENT               	format
 (                   	(
 IDENT               	i10
 )                   	)
+NEW_LINE            	
+
 IDENT               	format
 (                   	(
 IDENT               	i10
 )                   	)
 =                   	=
 IDENT               	data
+NEW_LINE            	
+
 return              	return
 =                   	=
 IDENT               	real
-token(96)           	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 =                   	=
-token(106)          	then
-token(105)          	call
-token(105)          	call
+THEN                	then
+NEW_LINE            	
+
+CALL                	call
+CALL                	call
 (                   	(
 IDENT               	complex
 ,                   	,
 IDENT               	endif
 )                   	)
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 =                   	=
 IDENT               	data
-token(102)          	end
-token(96)           	subroutine
-token(105)          	call
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
+CALL                	call
 (                   	(
-token(101)          	function
+FUNCTION            	function
 ,                   	,
 IDENT               	character
 )                   	)
+NEW_LINE            	
+
 IDENT               	external
-token(101)          	function
+FUNCTION            	function
+NEW_LINE            	
+
 IDENT               	character
 IDENT               	character
+NEW_LINE            	
+
 IDENT               	real
 =                   	=
 FLOAT               	2.3
+NEW_LINE            	
+
 IDENT               	complex
 =                   	=
-token(101)          	function
+FUNCTION            	function
 (                   	(
 IDENT               	real
 )                   	)
+NEW_LINE            	
+
 return              	return
-token(102)          	end
-token(101)          	function
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+FUNCTION            	function
 IDENT               	complex
 (                   	(
-token(103)          	do
+DO                  	do
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 =                   	=
-token(103)          	do
+DO                  	do
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 IDENT               	external
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 IDENT               	complex
 =                   	=
 IDENT               	dimension
 /                   	/
 IDENT               	external
+NEW_LINE            	
+
 return              	return
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

@@ -20,6 +20,8 @@ IDENT               	F
 (                   	(
 INT                 	60
 )                   	)
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	R
 ,                   	,
@@ -29,41 +31,63 @@ INT                 	70
 ,                   	,
 INT                 	80
 )                   	)
+NEW_LINE            	
+
 IDENT               	CHARACTER
 IDENT               	C
+NEW_LINE            	
+
 IDENT               	CHARACTER
 *                   	*
 INT                 	81
 IDENT               	LINE
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	LOGVAR
+NEW_LINE            	
+
 IDENT               	COMPLEX
 IDENT               	Z
 ,                   	,
 IDENT               	ZZ
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	COMPLEX
 IDENT               	ZZZ
 ,                   	,
 IDENT               	ZZZZ
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	J
 ,                   	,
 IDENT               	K
+NEW_LINE            	
+
 IDENT               	J
 =                   	=
 IDENT               	M
-token(102)          	END
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	SUB
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	X
 ,                   	,
 IDENT               	Y
 ,                   	,
 IDENT               	Z
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	SHARE
@@ -73,16 +97,24 @@ IDENT               	A
 IDENT               	B
 ,                   	,
 IDENT               	C
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
 IDENT               	REAL
-token(101)          	FUNCTION
+FUNCTION            	FUNCTION
 IDENT               	FUN
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	X
 ,                   	,
 IDENT               	Y
 ,                   	,
 IDENT               	Z
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	SHARE
@@ -92,38 +124,66 @@ IDENT               	A
 IDENT               	B
 ,                   	,
 IDENT               	C
+NEW_LINE            	
+
 IDENT               	FUN
 =                   	=
 FLOAT               	0.0
-token(102)          	END
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	BAR
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	PI
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	PI
 =                   	=
 FLOAT               	3.14159265
 )                   	)
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	NPI
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	NPI
 =                   	=
 INT                 	9
 )                   	)
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	SQRT
 ,                   	,
 IDENT               	SIN
 ,                   	,
 IDENT               	COS
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	MYSQRT
 ,                   	,
 IDENT               	MYSUB
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	MYSQRT
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
+NEW_LINE            	
+
+NEW_LINE            	
+

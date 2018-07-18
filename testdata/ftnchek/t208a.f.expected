@@ -1,30 +1,68 @@
-token(96)           	SUBROUTINE
+SUBROUTINE          	SUBROUTINE
 IDENT               	DDIAPA
 (                   	(
 IDENT               	IX
 ,                   	,
 IDENT               	IY
 )                   	)
+NEW_LINE            	
+
 COMMENT             	C     (Add to Path)
+NEW_LINE            	
+
 COMMENT             	C     Add the point (IX,IY) to the current path, which is assumed
+NEW_LINE            	
+
 COMMENT             	C     to have  already been  started by  a call  to DDIBPA.   The
+NEW_LINE            	
+
 COMMENT             	C     current point and visibility are updated in COMMON.
+NEW_LINE            	
+
 COMMENT             	C     (27-May-1991)
+NEW_LINE            	
+
 COMMENT             	C- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     EXTERNAL REFERENCES (FUNCTION,SUBROUTINE,COMMON)
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     EXTERNAL REFS       TKIOLL,      TKIOWB,      TKIOWH,      TKIOWN
+NEW_LINE            	
+
 COMMENT             	C
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	TKIOLL
+NEW_LINE            	
+
 COMMENT             	C- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     NON-COMMON VARIABLES
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     SETS                BLANK
+NEW_LINE            	
+
 COMMENT             	C
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	BLANK
 ,                   	,
 IDENT               	DUMMY
@@ -32,30 +70,78 @@ IDENT               	DUMMY
 IDENT               	IX
 ,                   	,
 IDENT               	IY
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C-----------------------------------------------------------------------
+NEW_LINE            	
+
 COMMENT             	C                         P o s t S c r i p t
+NEW_LINE            	
+
 COMMENT             	C           D i s p l a y   D e v i c e   I n t e r f a c e
+NEW_LINE            	
+
 COMMENT             	C                       C O M M O N   B l o c k
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     DSSIZE                   display surface size in cm
+NEW_LINE            	
+
 COMMENT             	C     IMAGE                    image transformation in effect
+NEW_LINE            	
+
 COMMENT             	C     (LASTX,LASTY,VILAST)     last position and visibility of pen
+NEW_LINE            	
+
 COMMENT             	C     LINEIN                   line intensity (0..1 scale)
+NEW_LINE            	
+
 COMMENT             	C     LINEWT                   line weight (1..25 scale)
+NEW_LINE            	
+
 COMMENT             	C     MAGFAC                   resolution magnification factor
+NEW_LINE            	
+
 COMMENT             	C     (MOVEX,MOVEY)            position of first point in path
+NEW_LINE            	
+
 COMMENT             	C     NPATH                    number of line segments in current page
+NEW_LINE            	
+
 COMMENT             	C     PLSTEP                   plotter step size in cm
+NEW_LINE            	
+
 COMMENT             	C     (PSXOFF,PSYOFF)          image offset in PostScript units (bp)
+NEW_LINE            	
+
 COMMENT             	C     ROTATE                   plot frame is rotated
+NEW_LINE            	
+
 COMMENT             	C     (SX,SY)                  scale factors (unit square to plot steps)
+NEW_LINE            	
+
 COMMENT             	C     TIMAGE(*,*)              image transformation matrix
+NEW_LINE            	
+
 COMMENT             	C     (XMAX,YMAX,ZMAX)         normalized device space extents
+NEW_LINE            	
+
 COMMENT             	C     (MAXX,MAXY,MINX,MINY)    actual coordinate limits reached
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C-----------------------------------------------------------------------
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	LASTX
 ,                   	,
 IDENT               	LASTY
@@ -63,7 +149,9 @@ IDENT               	LASTY
 IDENT               	LINEWT
 ,                   	,
 IDENT               	MAGFAC
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	MAXX
 ,                   	,
 IDENT               	MAXY
@@ -71,7 +159,9 @@ IDENT               	MAXY
 IDENT               	MINX
 ,                   	,
 IDENT               	MINY
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	MOVEX
 ,                   	,
 IDENT               	MOVEY
@@ -79,9 +169,15 @@ IDENT               	MOVEY
 IDENT               	NPATH
 ,                   	,
 IDENT               	PSXOFF
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	PSYOFF
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	DVINIT
 ,                   	,
@@ -90,7 +186,11 @@ IDENT               	IMAGE
 IDENT               	ROTATE
 ,                   	,
 IDENT               	VILAST
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	DSSIZE
 ,                   	,
@@ -99,6 +199,8 @@ IDENT               	LINEIN
 IDENT               	PLSTEP
 ,                   	,
 IDENT               	SX
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	SY
 ,                   	,
@@ -107,9 +209,15 @@ IDENT               	TIMAGE
 IDENT               	XMAX
 ,                   	,
 IDENT               	YMAX
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	ZMAX
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	DDI01
@@ -121,6 +229,8 @@ IDENT               	LINEIN
 IDENT               	PLSTEP
 ,                   	,
 IDENT               	SX
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	DDI01
@@ -137,6 +247,8 @@ INT                 	4
 IDENT               	XMAX
 ,                   	,
 IDENT               	YMAX
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	DDI01
@@ -148,6 +260,8 @@ IDENT               	LASTX
 IDENT               	LASTY
 ,                   	,
 IDENT               	LINEWT
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	DDI01
@@ -159,6 +273,8 @@ IDENT               	MAXX
 IDENT               	MAXY
 ,                   	,
 IDENT               	MINX
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	DDI01
@@ -170,6 +286,8 @@ IDENT               	MOVEX
 IDENT               	MOVEY
 ,                   	,
 IDENT               	NPATH
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	DDI01
@@ -181,6 +299,8 @@ IDENT               	PSYOFF
 IDENT               	DVINIT
 ,                   	,
 IDENT               	IMAGE
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	DDI01
@@ -188,17 +308,33 @@ IDENT               	DDI01
 IDENT               	ROTATE
 ,                   	,
 IDENT               	VILAST
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 IDENT               	DATA
 IDENT               	BLANK
 /                   	/
 INT                 	32
 /                   	/
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     We can generate an  entry of size "-ddddd -ddddd R "; try to
+NEW_LINE            	
+
 COMMENT             	C     keep line lengths under 80 characters.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	TKIOLL
@@ -208,7 +344,7 @@ IDENT               	DUMMY
 >                   	.GT.
 INT                 	64
 )                   	)
-token(105)          	CALL
+CALL                	CALL
 IDENT               	TKIOWH
 (                   	(
 INT                 	2
@@ -217,23 +353,59 @@ IDENT               	N
 ,                   	,
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     Use relative coordinates for lines to reduce the  number of
+NEW_LINE            	
+
 COMMENT             	C     bytes in the  verbose  PostScript  command language.   This
+NEW_LINE            	
+
 COMMENT             	C     shortens the plot file by 5 to 10 percent.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     We optimize output into 3 different forms:
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     # # R   (relative lineto)
+NEW_LINE            	
+
 COMMENT             	C     # X     (relative lineto with delta-y = 0)
+NEW_LINE            	
+
 COMMENT             	C     # Y     (relative lineto with delta-x = 0)
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     The  latter two cases  occur frequently enough  to be worth
+NEW_LINE            	
+
 COMMENT             	C     taking advantage of  to compress the  output and reduce the
+NEW_LINE            	
+
 COMMENT             	C     parsing  time.    We cannot  discard zero length  segments,
+NEW_LINE            	
+
 COMMENT             	C     however, because that  would discard single  points from  a
+NEW_LINE            	
+
 COMMENT             	C     point plot.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	IX
@@ -243,6 +415,8 @@ IDENT               	LASTX
 IDENT               	GO
 IDENT               	TO
 INT                 	10
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	IY
@@ -252,26 +426,34 @@ IDENT               	LASTY
 IDENT               	GO
 IDENT               	TO
 INT                 	20
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	TKIOWN
 (                   	(
 IDENT               	IX
 -                   	-
 IDENT               	LASTX
 )                   	)
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	TKIOWB
 (                   	(
 IDENT               	BLANK
 )                   	)
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	TKIOWN
 (                   	(
 IDENT               	IY
 -                   	-
 IDENT               	LASTY
 )                   	)
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	TKIOWH
 (                   	(
 INT                 	3
@@ -280,18 +462,24 @@ IDENT               	R
 ,                   	,
 INT                 	3
 )                   	)
+NEW_LINE            	
+
 IDENT               	GO
 IDENT               	TO
 INT                 	30
+NEW_LINE            	
+
 INT                 	10
-token(105)          	CALL
+CALL                	CALL
 IDENT               	TKIOWN
 (                   	(
 IDENT               	IY
 -                   	-
 IDENT               	LASTY
 )                   	)
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	TKIOWH
 (                   	(
 INT                 	3
@@ -300,18 +488,24 @@ IDENT               	Y
 ,                   	,
 INT                 	3
 )                   	)
+NEW_LINE            	
+
 IDENT               	GO
 IDENT               	TO
 INT                 	30
+NEW_LINE            	
+
 INT                 	20
-token(105)          	CALL
+CALL                	CALL
 IDENT               	TKIOWN
 (                   	(
 IDENT               	IX
 -                   	-
 IDENT               	LASTX
 )                   	)
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	TKIOWH
 (                   	(
 INT                 	3
@@ -320,21 +514,31 @@ IDENT               	X
 ,                   	,
 INT                 	3
 )                   	)
+NEW_LINE            	
+
 INT                 	30
 IDENT               	NPATH
 =                   	=
 IDENT               	NPATH
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 IDENT               	LASTX
 =                   	=
 IDENT               	IX
+NEW_LINE            	
+
 IDENT               	LASTY
 =                   	=
 IDENT               	IY
+NEW_LINE            	
+
 IDENT               	VILAST
 =                   	=
 IDENT               	.TRUE.
+NEW_LINE            	
+
 IDENT               	MAXX
 =                   	=
 IDENT               	MAX0
@@ -343,6 +547,8 @@ IDENT               	MAXX
 ,                   	,
 IDENT               	IX
 )                   	)
+NEW_LINE            	
+
 IDENT               	MINX
 =                   	=
 IDENT               	MIN0
@@ -351,6 +557,8 @@ IDENT               	MINX
 ,                   	,
 IDENT               	IX
 )                   	)
+NEW_LINE            	
+
 IDENT               	MAXY
 =                   	=
 IDENT               	MAX0
@@ -359,6 +567,8 @@ IDENT               	MAXY
 ,                   	,
 IDENT               	IY
 )                   	)
+NEW_LINE            	
+
 IDENT               	MINY
 =                   	=
 IDENT               	MIN0
@@ -367,12 +577,30 @@ IDENT               	MINY
 ,                   	,
 IDENT               	IY
 )                   	)
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     Insert a  line break  periodically to  prevent  excessively
+NEW_LINE            	
+
 COMMENT             	C     long lines.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     IF (MOD(NPATH,10) .EQ. 0) CALL TKIOWH (2H$N,2)
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 INT                 	40
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

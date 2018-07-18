@@ -1,193 +1,571 @@
 COMMENT             	*> \brief \b SSYMM
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       SUBROUTINE SSYMM(SIDE,UPLO,M,N,ALPHA,A,LDA,B,LDB,BETA,C,LDC)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       REAL ALPHA,BETA
+NEW_LINE            	
+
 COMMENT             	*       INTEGER LDA,LDB,LDC,M,N
+NEW_LINE            	
+
 COMMENT             	*       CHARACTER SIDE,UPLO
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       REAL A(LDA,*),B(LDB,*),C(LDC,*)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> SSYMM  performs one of the matrix-matrix operations
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    C := alpha*A*B + beta*C,
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> or
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    C := alpha*B*A + beta*C,
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> where alpha and beta are scalars,  A is a symmetric matrix and  B and
+NEW_LINE            	
+
 COMMENT             	*> C are  m by n matrices.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] SIDE
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          SIDE is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*>           On entry,  SIDE  specifies whether  the  symmetric matrix  A
+NEW_LINE            	
+
 COMMENT             	*>           appears on the  left or right  in the  operation as follows:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              SIDE = 'L' or 'l'   C := alpha*A*B + beta*C,
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              SIDE = 'R' or 'r'   C := alpha*B*A + beta*C,
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] UPLO
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          UPLO is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*>           On  entry,   UPLO  specifies  whether  the  upper  or  lower
+NEW_LINE            	
+
 COMMENT             	*>           triangular  part  of  the  symmetric  matrix   A  is  to  be
+NEW_LINE            	
+
 COMMENT             	*>           referenced as follows:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              UPLO = 'U' or 'u'   Only the upper triangular part of the
+NEW_LINE            	
+
 COMMENT             	*>                                  symmetric matrix is to be referenced.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              UPLO = 'L' or 'l'   Only the lower triangular part of the
+NEW_LINE            	
+
 COMMENT             	*>                                  symmetric matrix is to be referenced.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] M
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          M is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry,  M  specifies the number of rows of the matrix  C.
+NEW_LINE            	
+
 COMMENT             	*>           M  must be at least zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] N
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          N is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, N specifies the number of columns of the matrix C.
+NEW_LINE            	
+
 COMMENT             	*>           N  must be at least zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] ALPHA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          ALPHA is REAL
+NEW_LINE            	
+
 COMMENT             	*>           On entry, ALPHA specifies the scalar alpha.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] A
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          A is REAL array, dimension ( LDA, ka ), where ka is
+NEW_LINE            	
+
 COMMENT             	*>           m  when  SIDE = 'L' or 'l'  and is  n otherwise.
+NEW_LINE            	
+
 COMMENT             	*>           Before entry  with  SIDE = 'L' or 'l',  the  m by m  part of
+NEW_LINE            	
+
 COMMENT             	*>           the array  A  must contain the  symmetric matrix,  such that
+NEW_LINE            	
+
 COMMENT             	*>           when  UPLO = 'U' or 'u', the leading m by m upper triangular
+NEW_LINE            	
+
 COMMENT             	*>           part of the array  A  must contain the upper triangular part
+NEW_LINE            	
+
 COMMENT             	*>           of the  symmetric matrix and the  strictly  lower triangular
+NEW_LINE            	
+
 COMMENT             	*>           part of  A  is not referenced,  and when  UPLO = 'L' or 'l',
+NEW_LINE            	
+
 COMMENT             	*>           the leading  m by m  lower triangular part  of the  array  A
+NEW_LINE            	
+
 COMMENT             	*>           must  contain  the  lower triangular part  of the  symmetric
+NEW_LINE            	
+
 COMMENT             	*>           matrix and the  strictly upper triangular part of  A  is not
+NEW_LINE            	
+
 COMMENT             	*>           referenced.
+NEW_LINE            	
+
 COMMENT             	*>           Before entry  with  SIDE = 'R' or 'r',  the  n by n  part of
+NEW_LINE            	
+
 COMMENT             	*>           the array  A  must contain the  symmetric matrix,  such that
+NEW_LINE            	
+
 COMMENT             	*>           when  UPLO = 'U' or 'u', the leading n by n upper triangular
+NEW_LINE            	
+
 COMMENT             	*>           part of the array  A  must contain the upper triangular part
+NEW_LINE            	
+
 COMMENT             	*>           of the  symmetric matrix and the  strictly  lower triangular
+NEW_LINE            	
+
 COMMENT             	*>           part of  A  is not referenced,  and when  UPLO = 'L' or 'l',
+NEW_LINE            	
+
 COMMENT             	*>           the leading  n by n  lower triangular part  of the  array  A
+NEW_LINE            	
+
 COMMENT             	*>           must  contain  the  lower triangular part  of the  symmetric
+NEW_LINE            	
+
 COMMENT             	*>           matrix and the  strictly upper triangular part of  A  is not
+NEW_LINE            	
+
 COMMENT             	*>           referenced.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] LDA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          LDA is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, LDA specifies the first dimension of A as declared
+NEW_LINE            	
+
 COMMENT             	*>           in the calling (sub) program.  When  SIDE = 'L' or 'l'  then
+NEW_LINE            	
+
 COMMENT             	*>           LDA must be at least  max( 1, m ), otherwise  LDA must be at
+NEW_LINE            	
+
 COMMENT             	*>           least  max( 1, n ).
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] B
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          B is REAL array, dimension ( LDB, N )
+NEW_LINE            	
+
 COMMENT             	*>           Before entry, the leading  m by n part of the array  B  must
+NEW_LINE            	
+
 COMMENT             	*>           contain the matrix B.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] LDB
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          LDB is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, LDB specifies the first dimension of B as declared
+NEW_LINE            	
+
 COMMENT             	*>           in  the  calling  (sub)  program.   LDB  must  be  at  least
+NEW_LINE            	
+
 COMMENT             	*>           max( 1, m ).
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] BETA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          BETA is REAL
+NEW_LINE            	
+
 COMMENT             	*>           On entry,  BETA  specifies the scalar  beta.  When  BETA  is
+NEW_LINE            	
+
 COMMENT             	*>           supplied as zero then C need not be set on input.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in,out] C
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          C is REAL array, dimension ( LDC, N )
+NEW_LINE            	
+
 COMMENT             	*>           Before entry, the leading  m by n  part of the array  C must
+NEW_LINE            	
+
 COMMENT             	*>           contain the matrix  C,  except when  beta  is zero, in which
+NEW_LINE            	
+
 COMMENT             	*>           case C need not be set on entry.
+NEW_LINE            	
+
 COMMENT             	*>           On exit, the array  C  is overwritten by the  m by n updated
+NEW_LINE            	
+
 COMMENT             	*>           matrix.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] LDC
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          LDC is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, LDC specifies the first dimension of C as declared
+NEW_LINE            	
+
 COMMENT             	*>           in  the  calling  (sub)  program.   LDC  must  be  at  least
+NEW_LINE            	
+
 COMMENT             	*>           max( 1, m ).
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup single_blas_level3
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Further Details:
+NEW_LINE            	
+
 COMMENT             	*  =====================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  Level 3 Blas routine.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  -- Written on 8-February-1989.
+NEW_LINE            	
+
 COMMENT             	*>     Jack Dongarra, Argonne National Laboratory.
+NEW_LINE            	
+
 COMMENT             	*>     Iain Duff, AERE Harwell.
+NEW_LINE            	
+
 COMMENT             	*>     Jeremy Du Croz, Numerical Algorithms Group Ltd.
+NEW_LINE            	
+
 COMMENT             	*>     Sven Hammarling, Numerical Algorithms Group Ltd.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	SSYMM
 (                   	(
 IDENT               	SIDE
@@ -214,18 +592,36 @@ IDENT               	C
 ,                   	,
 IDENT               	LDC
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level3 routine (version 3.7.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	ALPHA
 ,                   	,
 IDENT               	BETA
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	LDA
 ,                   	,
 IDENT               	LDB
@@ -235,12 +631,20 @@ IDENT               	LDC
 IDENT               	M
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	CHARACTER
 IDENT               	SIDE
 ,                   	,
 IDENT               	UPLO
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	A
 (                   	(
@@ -262,30 +666,64 @@ IDENT               	LDC
 ,                   	,
 *                   	*
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. External Functions ..
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	LSAME
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	LSAME
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. External Subroutines ..
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	XERBLA
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	MAX
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	TEMP1
 ,                   	,
 IDENT               	TEMP2
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	INFO
@@ -295,14 +733,24 @@ IDENT               	J
 IDENT               	K
 ,                   	,
 IDENT               	NROWA
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	UPPER
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Parameters ..
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	ONE
 ,                   	,
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	ONE
@@ -313,10 +761,20 @@ IDENT               	ZERO
 =                   	=
 FLOAT               	0.0E+0
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Set NROWA as the number of rows of A.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -326,16 +784,26 @@ IDENT               	SIDE
 STRING              	'L'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	NROWA
 =                   	=
 IDENT               	M
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	NROWA
 =                   	=
 IDENT               	N
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	UPPER
 =                   	=
 IDENT               	LSAME
@@ -344,12 +812,22 @@ IDENT               	UPLO
 ,                   	,
 STRING              	'U'
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Test the input parameters.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 (                   	(
@@ -372,10 +850,14 @@ STRING              	'R'
 )                   	)
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -394,10 +876,14 @@ STRING              	'L'
 )                   	)
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	2
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -405,10 +891,14 @@ IDENT               	M
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	3
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -416,10 +906,14 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	4
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -432,10 +926,14 @@ INT                 	1
 IDENT               	NROWA
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	7
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -448,10 +946,14 @@ INT                 	1
 IDENT               	M
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	9
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -464,32 +966,52 @@ INT                 	1
 IDENT               	M
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	12
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-token(106)          	THEN
-token(105)          	CALL
+THEN                	THEN
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	XERBLA
 (                   	(
 STRING              	'SSYMM '
 ,                   	,
 IDENT               	INFO
 )                   	)
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Quick return if possible.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 (                   	(
@@ -504,6 +1026,8 @@ IDENT               	N
 INT                 	0
 )                   	)
 ||                  	.OR.
+NEW_LINE            	
+
 +                   	+
 (                   	(
 (                   	(
@@ -520,37 +1044,53 @@ IDENT               	ONE
 )                   	)
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     And when  alpha.eq.zero.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ALPHA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	20
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	10
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	C
 (                   	(
 IDENT               	I
@@ -559,25 +1099,37 @@ IDENT               	J
 )                   	)
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 INT                 	10
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	20
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	40
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	30
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	C
 (                   	(
 IDENT               	I
@@ -593,18 +1145,36 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	30
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	40
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Start the operations.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -614,29 +1184,43 @@ IDENT               	SIDE
 STRING              	'L'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        Form  C := alpha*A*B + beta*C.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	70
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	60
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -647,10 +1231,14 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP2
 =                   	=
 IDENT               	ZERO
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	50
 IDENT               	K
 =                   	=
@@ -659,6 +1247,8 @@ INT                 	1
 IDENT               	I
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	C
 (                   	(
 IDENT               	K
@@ -681,6 +1271,8 @@ IDENT               	K
 ,                   	,
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP2
 =                   	=
 IDENT               	TEMP2
@@ -698,15 +1290,21 @@ IDENT               	K
 ,                   	,
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 INT                 	50
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	C
 (                   	(
 IDENT               	I
@@ -726,7 +1324,11 @@ IDENT               	I
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	C
 (                   	(
 IDENT               	I
@@ -752,25 +1354,39 @@ IDENT               	I
 IDENT               	I
 )                   	)
 +                   	+
+NEW_LINE            	
+
 +                   	+
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	60
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	70
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	100
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	90
 IDENT               	I
 =                   	=
@@ -780,6 +1396,8 @@ INT                 	1
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -790,10 +1408,14 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP2
 =                   	=
 IDENT               	ZERO
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	80
 IDENT               	K
 =                   	=
@@ -802,6 +1424,8 @@ IDENT               	I
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	C
 (                   	(
 IDENT               	K
@@ -824,6 +1448,8 @@ IDENT               	K
 ,                   	,
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP2
 =                   	=
 IDENT               	TEMP2
@@ -841,15 +1467,21 @@ IDENT               	K
 ,                   	,
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 INT                 	80
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	C
 (                   	(
 IDENT               	I
@@ -869,7 +1501,11 @@ IDENT               	I
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	C
 (                   	(
 IDENT               	I
@@ -895,29 +1531,51 @@ IDENT               	I
 IDENT               	I
 )                   	)
 +                   	+
+NEW_LINE            	
+
 +                   	+
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP2
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	90
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	100
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        Form  C := alpha*B*A + beta*C.
+NEW_LINE            	
+
 COMMENT             	*
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	170
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -928,20 +1586,26 @@ IDENT               	J
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	110
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	C
 (                   	(
 IDENT               	I
@@ -957,16 +1621,24 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	110
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	120
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	C
 (                   	(
 IDENT               	I
@@ -991,11 +1663,17 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	120
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	140
 IDENT               	K
 =                   	=
@@ -1004,11 +1682,15 @@ INT                 	1
 IDENT               	J
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -1019,7 +1701,11 @@ IDENT               	K
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -1030,15 +1716,21 @@ IDENT               	J
 ,                   	,
 IDENT               	K
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	130
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	C
 (                   	(
 IDENT               	I
@@ -1061,11 +1753,17 @@ IDENT               	I
 ,                   	,
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 INT                 	130
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	140
 continue            	CONTINUE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	160
 IDENT               	K
 =                   	=
@@ -1074,11 +1772,15 @@ IDENT               	J
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	UPPER
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -1089,7 +1791,11 @@ IDENT               	J
 ,                   	,
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	TEMP1
 =                   	=
 IDENT               	ALPHA
@@ -1100,15 +1806,21 @@ IDENT               	K
 ,                   	,
 IDENT               	J
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	150
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	C
 (                   	(
 IDENT               	I
@@ -1131,17 +1843,39 @@ IDENT               	I
 ,                   	,
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 INT                 	150
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	160
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	170
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     End of SSYMM .
+NEW_LINE            	
+
 COMMENT             	*
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

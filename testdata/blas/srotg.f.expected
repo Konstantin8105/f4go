@@ -1,73 +1,211 @@
 COMMENT             	*> \brief \b SROTG
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       SUBROUTINE SROTG(SA,SB,C,S)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       REAL C,S,SA,SB
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    SROTG construct givens plane rotation.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] SA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          SA is REAL
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] SB
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          SB is REAL
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[out] C
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          C is REAL
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[out] S
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          S is REAL
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup single_blas_level1
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Further Details:
+NEW_LINE            	
+
 COMMENT             	*  =====================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>     jack dongarra, linpack, 3/11/78.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	SROTG
 (                   	(
 IDENT               	SA
@@ -78,13 +216,29 @@ IDENT               	C
 ,                   	,
 IDENT               	S
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	C
 ,                   	,
@@ -93,11 +247,23 @@ IDENT               	S
 IDENT               	SA
 ,                   	,
 IDENT               	SB
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	R
 ,                   	,
@@ -106,18 +272,30 @@ IDENT               	ROE
 IDENT               	SCALE
 ,                   	,
 IDENT               	Z
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	ABS
 ,                   	,
 IDENT               	SIGN
 ,                   	,
 IDENT               	SQRT
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 IDENT               	ROE
 =                   	=
 IDENT               	SB
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ABS
@@ -133,6 +311,8 @@ IDENT               	SB
 IDENT               	ROE
 =                   	=
 IDENT               	SA
+NEW_LINE            	
+
 IDENT               	SCALE
 =                   	=
 IDENT               	ABS
@@ -144,26 +324,40 @@ IDENT               	ABS
 (                   	(
 IDENT               	SB
 )                   	)
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	SCALE
 ==                  	.EQ.
 FLOAT               	0.0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	C
 =                   	=
 FLOAT               	1.0
+NEW_LINE            	
+
 IDENT               	S
 =                   	=
 FLOAT               	0.0
+NEW_LINE            	
+
 IDENT               	R
 =                   	=
 FLOAT               	0.0
+NEW_LINE            	
+
 IDENT               	Z
 =                   	=
 FLOAT               	0.0
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	R
 =                   	=
 IDENT               	SCALE
@@ -175,7 +369,7 @@ IDENT               	SA
 /                   	/
 IDENT               	SCALE
 )                   	)
-token(95)           	**
+                    	**
 INT                 	2
 +                   	+
 (                   	(
@@ -183,9 +377,11 @@ IDENT               	SB
 /                   	/
 IDENT               	SCALE
 )                   	)
-token(95)           	**
+                    	**
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	R
 =                   	=
 IDENT               	SIGN
@@ -196,19 +392,27 @@ IDENT               	ROE
 )                   	)
 *                   	*
 IDENT               	R
+NEW_LINE            	
+
 IDENT               	C
 =                   	=
 IDENT               	SA
 /                   	/
 IDENT               	R
+NEW_LINE            	
+
 IDENT               	S
 =                   	=
 IDENT               	SB
 /                   	/
 IDENT               	R
+NEW_LINE            	
+
 IDENT               	Z
 =                   	=
 FLOAT               	1.0
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ABS
@@ -224,6 +428,8 @@ IDENT               	SB
 IDENT               	Z
 =                   	=
 IDENT               	S
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ABS
@@ -245,13 +451,25 @@ IDENT               	Z
 FLOAT               	1.0
 /                   	/
 IDENT               	C
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	SA
 =                   	=
 IDENT               	R
+NEW_LINE            	
+
 IDENT               	SB
 =                   	=
 IDENT               	Z
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

@@ -1,23 +1,37 @@
-token(98)           	integer
+INTEGER             	integer
 IDENT               	m
+NEW_LINE            	
+
 IDENT               	n
 =                   	=
 IDENT               	m
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	big
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	a_very_long_variable_name
 ,                   	,
 IDENT               	another_very_long_variable_name
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	a_long_variable_name
 ,                   	,
 IDENT               	another_long_variable_name
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	a_variable_name
 ,                   	,
 IDENT               	another_variable_name
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	u
 ,                   	,
@@ -30,4 +44,8 @@ IDENT               	x
 IDENT               	y
 ,                   	,
 IDENT               	z
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

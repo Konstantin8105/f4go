@@ -1,34 +1,54 @@
 COMMENT             	! All the keywords recognized by ftnchek as of 21 July 2000
-token(97)           	PROGRAM
+NEW_LINE            	
+
+PROGRAM             	PROGRAM
 IDENT               	allkeys
-token(100)          	IMPLICIT
+NEW_LINE            	
+
+IMPLICIT            	IMPLICIT
 IDENT               	NONE
+NEW_LINE            	
+
 IDENT               	BYTE
 IDENT               	b
 (                   	(
 INT                 	100
 )                   	)
+NEW_LINE            	
+
 IDENT               	CHARACTER
 *                   	*
 INT                 	100
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	COMPLEX
 IDENT               	a
+NEW_LINE            	
+
 IDENT               	COMPLEX
 IDENT               	z
+NEW_LINE            	
+
 IDENT               	DOUBLEPRECISION
 IDENT               	d
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	f
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	f
 ,                   	,
 IDENT               	foo
 ,                   	,
 IDENT               	iftn_calloc
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	i
 ,                   	,
 IDENT               	l
@@ -36,21 +56,31 @@ IDENT               	l
 IDENT               	u
 ,                   	,
 IDENT               	iftn_calloc
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	bool
+NEW_LINE            	
+
 IDENT               	POINTER
 (                   	(
 IDENT               	ptr
 ,                   	,
 IDENT               	ptee
 )                   	)
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	ptee
 (                   	(
 *                   	*
 )                   	)
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	pi
+NEW_LINE            	
+
 IDENT               	EQUIVALENCE
 (                   	(
 IDENT               	b
@@ -60,6 +90,8 @@ INT                 	1
 ,                   	,
 IDENT               	i
 )                   	)
+NEW_LINE            	
+
 IDENT               	NAMELIST
 /                   	/
 IDENT               	n1
@@ -69,18 +101,26 @@ IDENT               	a
 IDENT               	b
 ,                   	,
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	pi
 =                   	=
 FLOAT               	3.1415926
 )                   	)
+NEW_LINE            	
+
 IDENT               	INCLUDE
 STRING              	'block2.i'
+NEW_LINE            	
+
 IDENT               	ACCEPT
 *                   	*
 ,                   	,
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	OPEN
 (                   	(
 IDENT               	unit
@@ -91,15 +131,23 @@ IDENT               	file
 =                   	=
 IDENT               	c
 )                   	)
+NEW_LINE            	
+
 IDENT               	u
 =                   	=
 INT                 	10
+NEW_LINE            	
+
 IDENT               	ASSIGN
 INT                 	100
 IDENT               	TO
 IDENT               	l
+NEW_LINE            	
+
 INT                 	100
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	READ
 (                   	(
 INT                 	10
@@ -115,16 +163,24 @@ IDENT               	i
 IDENT               	z
 ,                   	,
 IDENT               	d
+NEW_LINE            	
+
 IDENT               	BACKSPACE
 INT                 	10
+NEW_LINE            	
+
 IDENT               	BACKSPACE
 IDENT               	u
+NEW_LINE            	
+
 IDENT               	BACKSPACE
 (                   	(
 IDENT               	unit
 =                   	=
 INT                 	10
 )                   	)
+NEW_LINE            	
+
 IDENT               	ptr
 =                   	=
 IDENT               	iftn_calloc
@@ -133,23 +189,35 @@ INT                 	1000
 ,                   	,
 INT                 	4
 )                   	)
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	foo
+NEW_LINE            	
+
 IDENT               	SELECTCASE
 (                   	(
 IDENT               	i
 )                   	)
+NEW_LINE            	
+
 IDENT               	CASE
 (                   	(
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	ptee
 (                   	(
 IDENT               	i
 )                   	)
 =                   	=
 INT                 	2
+NEW_LINE            	
+
 IDENT               	CASEDEFAULT
+NEW_LINE            	
+
 IDENT               	ptee
 (                   	(
 IDENT               	i
@@ -159,38 +227,58 @@ IDENT               	ptee
 (                   	(
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	ENDSELECT
+NEW_LINE            	
+
 IDENT               	SELECT
 IDENT               	CASE
 (                   	(
 IDENT               	i
 )                   	)
+NEW_LINE            	
+
 IDENT               	CASE
 (                   	(
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 INT                 	3
+NEW_LINE            	
+
 IDENT               	CASE
 IDENT               	DEFAULT
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 INT                 	4
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 IDENT               	SELECT
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	200
 IDENT               	i
 =                   	=
 INT                 	1
 ,                   	,
 INT                 	10
+NEW_LINE            	
+
 INT                 	200
 IDENT               	PRINT
 *                   	*
 ,                   	,
 IDENT               	i
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	x
@@ -199,6 +287,8 @@ IDENT               	i
 )                   	)
 IDENT               	GOTO
 IDENT               	l
+NEW_LINE            	
+
 IDENT               	INQUIRE
 (                   	(
 IDENT               	UNIT
@@ -209,11 +299,17 @@ IDENT               	IOSTAT
 =                   	=
 IDENT               	i
 )                   	)
+NEW_LINE            	
+
 IDENT               	ENDFILE
 INT                 	10
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 IDENT               	FILE
 IDENT               	u
+NEW_LINE            	
+
 IDENT               	ENDFILE
 (                   	(
 IDENT               	unit
@@ -224,30 +320,44 @@ IDENT               	err
 =                   	=
 INT                 	100
 )                   	)
+NEW_LINE            	
+
 IDENT               	REWIND
 INT                 	10
+NEW_LINE            	
+
 IDENT               	REWIND
 IDENT               	u
+NEW_LINE            	
+
 IDENT               	REWIND
 (                   	(
 IDENT               	unit
 =                   	=
 INT                 	10
 )                   	)
+NEW_LINE            	
+
 IDENT               	CLOSE
 (                   	(
 IDENT               	UNIT
 =                   	=
 INT                 	10
 )                   	)
+NEW_LINE            	
+
 IDENT               	bool
 =                   	=
 IDENT               	.TRUE.
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	bool
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	WRITE
 (                   	(
 INT                 	10
@@ -259,6 +369,8 @@ IDENT               	a
 IDENT               	y
 ,                   	,
 IDENT               	z
+NEW_LINE            	
+
 IDENT               	ELSEIF
 (                   	(
 !=                  	.NOT.
@@ -266,6 +378,8 @@ IDENT               	ELSEIF
 IDENT               	E
 .                   	.
 IDENT               	HEN
+NEW_LINE            	
+
 IDENT               	WRITE
 (                   	(
 IDENT               	UNIT
@@ -277,6 +391,8 @@ IDENT               	FMT
 INT                 	900
 )                   	)
 STRING              	'Testing 1, 2, 3'
+NEW_LINE            	
+
 INT                 	900
 IDENT               	FORMAT
 (                   	(
@@ -285,17 +401,29 @@ IDENT               	x
 ,                   	,
 IDENT               	a20
 )                   	)
+NEW_LINE            	
+
 else                	ELSE
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	bar
+NEW_LINE            	
+
 IDENT               	STOP
+NEW_LINE            	
+
 IDENT               	ENDIF
+NEW_LINE            	
+
 IDENT               	DOWHILE
 (                   	(
 IDENT               	i
 <                   	.lt.
 INT                 	100
 )                   	)
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	f
@@ -305,31 +433,51 @@ IDENT               	d
 >                   	.gt.
 FLOAT               	3.14
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	CYCLE
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	EXIT
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(104)          	ENDDO
+NEW_LINE            	
+
+ENDDO               	ENDDO
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 INT                 	1
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	WHILE
 (                   	(
 IDENT               	i
 <                   	.lt.
 INT                 	100
 )                   	)
+NEW_LINE            	
+
 IDENT               	i
 =                   	=
 IDENT               	i
 *                   	*
 INT                 	2
-token(102)          	END
-token(103)          	DO
-token(103)          	DO
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	300
 IDENT               	WHILE
 (                   	(
@@ -337,15 +485,21 @@ IDENT               	x
 >                   	.gt.
 FLOAT               	0.0
 )                   	)
+NEW_LINE            	
+
 IDENT               	TYPE
 *                   	*
 ,                   	,
 IDENT               	pi
 ,                   	,
 STRING              	'Over and over'
+NEW_LINE            	
+
 INT                 	300
 continue            	CONTINUE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	4321
 ,                   	,
 IDENT               	WHILE
@@ -354,42 +508,66 @@ IDENT               	x
 >                   	.gt.
 FLOAT               	0.0
 )                   	)
+NEW_LINE            	
+
 IDENT               	TYPE
 *                   	*
 ,                   	,
 IDENT               	pi
 ,                   	,
 STRING              	'Over and over'
+NEW_LINE            	
+
 INT                 	4321
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	GO
 IDENT               	TO
 INT                 	100
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
 IDENT               	DOUBLEPRECISION
-token(101)          	FUNCTION
+FUNCTION            	FUNCTION
 IDENT               	f
 (                   	(
 IDENT               	x
 )                   	)
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	x
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	y1
 ,                   	,
 IDENT               	y2
+NEW_LINE            	
+
 IDENT               	DOUBLECOMPLEX
 IDENT               	a
+NEW_LINE            	
+
 IDENT               	SAVE
 IDENT               	a
+NEW_LINE            	
+
 IDENT               	DIMENSION
 IDENT               	a
 (                   	(
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	sqrt
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	block1
@@ -397,6 +575,8 @@ IDENT               	block1
 IDENT               	y1
 ,                   	,
 IDENT               	y2
+NEW_LINE            	
+
 IDENT               	a
 (                   	(
 INT                 	1
@@ -407,6 +587,8 @@ FLOAT               	1.0d1
 ,                   	,
 FLOAT               	2.0d2
 )                   	)
+NEW_LINE            	
+
 IDENT               	a
 (                   	(
 INT                 	2
@@ -416,6 +598,8 @@ IDENT               	a
 (                   	(
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	f
 =                   	=
 IDENT               	x
@@ -437,17 +621,27 @@ INT                 	1
 )                   	)
 )                   	)
 )                   	)
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	foo
-token(100)          	IMPLICIT
-token(98)           	INTEGER
+NEW_LINE            	
+
+IMPLICIT            	IMPLICIT
+INTEGER             	INTEGER
 (                   	(
 IDENT               	A
 -                   	-
 IDENT               	Z
 )                   	)
+NEW_LINE            	
+
 IDENT               	WRITE
 (                   	(
 INT                 	10
@@ -455,9 +649,15 @@ INT                 	10
 *                   	*
 )                   	)
 STRING              	'foo'
+NEW_LINE            	
+
 return              	RETURN
+NEW_LINE            	
+
 IDENT               	ENTRY
 IDENT               	bar
+NEW_LINE            	
+
 IDENT               	WRITE
 (                   	(
 INT                 	10
@@ -465,11 +665,21 @@ INT                 	10
 *                   	*
 )                   	)
 STRING              	'bar'
+NEW_LINE            	
+
 IDENT               	PAUSE
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
 IDENT               	BLOCKDATA
 IDENT               	bdat1
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	block1
@@ -477,6 +687,8 @@ IDENT               	block1
 IDENT               	a
 ,                   	,
 IDENT               	b
+NEW_LINE            	
+
 IDENT               	DATA
 IDENT               	a
 ,                   	,
@@ -486,13 +698,23 @@ FLOAT               	1.0
 ,                   	,
 FLOAT               	2.0
 /                   	/
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
 IDENT               	BLOCK
 IDENT               	DATA
 IDENT               	bdat2
+NEW_LINE            	
+
 IDENT               	IMPLICITNONE
+NEW_LINE            	
+
 IDENT               	INCLUDE
 STRING              	'block2.i'
+NEW_LINE            	
+
 IDENT               	DATA
 IDENT               	x
 ,                   	,
@@ -502,4 +724,8 @@ FLOAT               	1.0
 ,                   	,
 FLOAT               	2.0
 /                   	/
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

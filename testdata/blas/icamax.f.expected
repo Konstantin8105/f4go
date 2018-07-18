@@ -1,76 +1,218 @@
 COMMENT             	*> \brief \b ICAMAX
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       INTEGER FUNCTION ICAMAX(N,CX,INCX)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       INTEGER INCX,N
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       COMPLEX CX(*)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    ICAMAX finds the index of the first element having maximum |Re(.)| + |Im(.)|
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] N
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          N is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         number of elements in input vector(s)
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] CX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          CX is COMPLEX array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCX is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         storage spacing between elements of SX
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup aux_blas
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Further Details:
+NEW_LINE            	
+
 COMMENT             	*  =====================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>     jack dongarra, linpack, 3/11/78.
+NEW_LINE            	
+
 COMMENT             	*>     modified 3/93 to return if incx .le. 0.
+NEW_LINE            	
+
 COMMENT             	*>     modified 12/3/93, array(1) declarations changed to array(*)
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(98)           	INTEGER
-token(101)          	FUNCTION
+NEW_LINE            	
+
+INTEGER             	INTEGER
+FUNCTION            	FUNCTION
 IDENT               	ICAMAX
 (                   	(
 IDENT               	N
@@ -79,45 +221,95 @@ IDENT               	CX
 ,                   	,
 IDENT               	INCX
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	INCX
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 IDENT               	CX
 (                   	(
 *                   	*
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	SMAX
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	IX
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. External Functions ..
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	SCABS1
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	SCABS1
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 IDENT               	ICAMAX
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	N
@@ -129,9 +321,13 @@ IDENT               	INCX
 INT                 	0
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 IDENT               	ICAMAX
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	N
@@ -139,16 +335,26 @@ IDENT               	N
 INT                 	1
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        code for increment equal to 1
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	SMAX
 =                   	=
 IDENT               	SCABS1
@@ -158,12 +364,16 @@ IDENT               	CX
 INT                 	1
 )                   	)
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	2
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	SCABS1
@@ -176,10 +386,14 @@ IDENT               	I
 >                   	.GT.
 IDENT               	SMAX
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	ICAMAX
 =                   	=
 IDENT               	I
+NEW_LINE            	
+
 IDENT               	SMAX
 =                   	=
 IDENT               	SCABS1
@@ -189,17 +403,33 @@ IDENT               	CX
 IDENT               	I
 )                   	)
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
-token(103)          	DO
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        code for increment not equal to 1
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 IDENT               	SMAX
 =                   	=
 IDENT               	SCABS1
@@ -209,17 +439,23 @@ IDENT               	CX
 INT                 	1
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 +                   	+
 IDENT               	INCX
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	2
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	SCABS1
@@ -232,10 +468,14 @@ IDENT               	IX
 >                   	.GT.
 IDENT               	SMAX
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	ICAMAX
 =                   	=
 IDENT               	I
+NEW_LINE            	
+
 IDENT               	SMAX
 =                   	=
 IDENT               	SCABS1
@@ -245,16 +485,30 @@ IDENT               	CX
 IDENT               	IX
 )                   	)
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 +                   	+
 IDENT               	INCX
-token(102)          	END
-token(103)          	DO
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

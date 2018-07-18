@@ -1,132 +1,312 @@
 COMMENT             	*> \brief \b LSAME
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       LOGICAL FUNCTION LSAME(CA,CB)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       CHARACTER CA,CB
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> LSAME returns .TRUE. if CA is the same letter as CB regardless of
+NEW_LINE            	
+
 COMMENT             	*> case.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] CA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          CA is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] CB
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          CB is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*>          CA and CB specify the single characters to be compared.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup aux_blas
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 IDENT               	LOGICAL
-token(101)          	FUNCTION
+FUNCTION            	FUNCTION
 IDENT               	LSAME
 (                   	(
 IDENT               	CA
 ,                   	,
 IDENT               	CB
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level1 routine (version 3.1) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
+NEW_LINE            	
+
 IDENT               	CHARACTER
 IDENT               	CA
 ,                   	,
 IDENT               	CB
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	ICHAR
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	INTA
 ,                   	,
 IDENT               	INTB
 ,                   	,
 IDENT               	ZCODE
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Test if the characters are equal
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	LSAME
 =                   	=
 IDENT               	CA
 ==                  	.EQ.
 IDENT               	CB
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSAME
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Now test for equivalence if both characters are alphabetic.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	ZCODE
 =                   	=
 IDENT               	ICHAR
 (                   	(
 STRING              	'Z'
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Use 'Z' rather than 'A' so that ASCII can be detected on Prime
+NEW_LINE            	
+
 COMMENT             	*     machines, on which ICHAR returns a value with bit 8 set.
+NEW_LINE            	
+
 COMMENT             	*     ICHAR('A') on Prime machines returns 193 which is the same as
+NEW_LINE            	
+
 COMMENT             	*     ICHAR('A') on an EBCDIC machine.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	INTA
 =                   	=
 IDENT               	ICHAR
 (                   	(
 IDENT               	CA
 )                   	)
+NEW_LINE            	
+
 IDENT               	INTB
 =                   	=
 IDENT               	ICHAR
 (                   	(
 IDENT               	CB
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ZCODE
@@ -137,11 +317,21 @@ IDENT               	ZCODE
 ==                  	.EQ.
 INT                 	122
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        ASCII is assumed - ZCODE is the ASCII code of either lower or
+NEW_LINE            	
+
 COMMENT             	*        upper case 'Z'.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INTA
@@ -157,6 +347,8 @@ IDENT               	INTA
 IDENT               	INTA
 -                   	-
 INT                 	32
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INTB
@@ -172,7 +364,11 @@ IDENT               	INTB
 IDENT               	INTB
 -                   	-
 INT                 	32
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -184,11 +380,21 @@ IDENT               	ZCODE
 ==                  	.EQ.
 INT                 	169
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        EBCDIC is assumed - ZCODE is the EBCDIC code of either lower or
+NEW_LINE            	
+
 COMMENT             	*        upper case 'Z'.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INTA
@@ -199,6 +405,8 @@ IDENT               	INTA
 <=                  	.LE.
 INT                 	137
 ||                  	.OR.
+NEW_LINE            	
+
 +                   	+
 IDENT               	INTA
 >=                  	.GE.
@@ -208,6 +416,8 @@ IDENT               	INTA
 <=                  	.LE.
 INT                 	153
 ||                  	.OR.
+NEW_LINE            	
+
 +                   	+
 IDENT               	INTA
 >=                  	.GE.
@@ -222,6 +432,8 @@ IDENT               	INTA
 IDENT               	INTA
 +                   	+
 INT                 	64
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INTB
@@ -232,6 +444,8 @@ IDENT               	INTB
 <=                  	.LE.
 INT                 	137
 ||                  	.OR.
+NEW_LINE            	
+
 +                   	+
 IDENT               	INTB
 >=                  	.GE.
@@ -241,6 +455,8 @@ IDENT               	INTB
 <=                  	.LE.
 INT                 	153
 ||                  	.OR.
+NEW_LINE            	
+
 +                   	+
 IDENT               	INTB
 >=                  	.GE.
@@ -255,7 +471,11 @@ IDENT               	INTB
 IDENT               	INTB
 +                   	+
 INT                 	64
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -267,11 +487,21 @@ IDENT               	ZCODE
 ==                  	.EQ.
 INT                 	250
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        ASCII is assumed, on Prime machines - ZCODE is the ASCII code
+NEW_LINE            	
+
 COMMENT             	*        plus 128 of either lower or upper case 'Z'.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INTA
@@ -287,6 +517,8 @@ IDENT               	INTA
 IDENT               	INTA
 -                   	-
 INT                 	32
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INTB
@@ -302,16 +534,34 @@ IDENT               	INTB
 IDENT               	INTB
 -                   	-
 INT                 	32
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	LSAME
 =                   	=
 IDENT               	INTA
 ==                  	.EQ.
 IDENT               	INTB
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     End of LSAME
+NEW_LINE            	
+
 COMMENT             	*
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

@@ -1,24 +1,40 @@
-token(100)          	implicit
+IMPLICIT            	implicit
 IDENT               	none
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	M
 ,                   	,
 IDENT               	numprimes
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	MAXPRIMES
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	MAXPRIMES
 =                   	=
 INT                 	10000
 )                   	)
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	primes
 (                   	(
 IDENT               	MAXPRIMES
 )                   	)
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	makeprimes
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -26,6 +42,8 @@ IDENT               	write
 *                   	*
 )                   	)
 STRING              	'Enter ceiling on primes'
+NEW_LINE            	
+
 IDENT               	read
 (                   	(
 *                   	*
@@ -33,7 +51,13 @@ IDENT               	read
 *                   	*
 )                   	)
 IDENT               	M
+NEW_LINE            	
+
+NEW_LINE            	
+
 COMMENT             	C Get list of primes up to M
+NEW_LINE            	
+
 IDENT               	numprimes
 =                   	=
 IDENT               	makeprimes
@@ -44,8 +68,14 @@ IDENT               	M
 ,                   	,
 IDENT               	MAXPRIMES
 )                   	)
+NEW_LINE            	
+
+NEW_LINE            	
+
 COMMENT             	C Print the primes
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	printarray
 (                   	(
 STRING              	'Primes'
@@ -54,8 +84,16 @@ IDENT               	primes
 ,                   	,
 IDENT               	numprimes
 )                   	)
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	printarray
 (                   	(
 IDENT               	heading
@@ -64,15 +102,21 @@ IDENT               	a
 ,                   	,
 IDENT               	n
 )                   	)
-token(100)          	implicit
+NEW_LINE            	
+
+IMPLICIT            	implicit
 IDENT               	none
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 (                   	(
 *                   	*
 )                   	)
 IDENT               	heading
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	i
 ,                   	,
 IDENT               	n
@@ -81,6 +125,8 @@ IDENT               	a
 (                   	(
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -88,12 +134,16 @@ IDENT               	write
 *                   	*
 )                   	)
 IDENT               	heading
-token(103)          	do
+NEW_LINE            	
+
+DO                  	do
 IDENT               	i
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	n
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -106,11 +156,19 @@ IDENT               	a
 (                   	(
 IDENT               	i
 )                   	)
-token(102)          	end
-token(103)          	do
-token(102)          	end
-token(98)           	integer
-token(101)          	function
+NEW_LINE            	
+
+END                 	end
+DO                  	do
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+NEW_LINE            	
+
+INTEGER             	integer
+FUNCTION            	function
 IDENT               	makeprimes
 (                   	(
 IDENT               	p
@@ -119,11 +177,19 @@ IDENT               	n
 ,                   	,
 IDENT               	max
 )                   	)
+NEW_LINE            	
+
 COMMENT             	C computes array of primes less than or equal to n.
+NEW_LINE            	
+
 COMMENT             	C note: max = limit of number of primes, must be at least 1.
-token(100)          	implicit
+NEW_LINE            	
+
+IMPLICIT            	implicit
 IDENT               	none
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	n
 ,                   	,
 IDENT               	max
@@ -132,24 +198,38 @@ IDENT               	p
 (                   	(
 IDENT               	max
 )                   	)
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	i
 ,                   	,
 IDENT               	numprimes
+NEW_LINE            	
+
 IDENT               	logical
 IDENT               	divisible
+NEW_LINE            	
+
 COMMENT             	C put the even prime into the list
+NEW_LINE            	
+
 IDENT               	numprimes
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 IDENT               	p
 (                   	(
 IDENT               	numprimes
 )                   	)
 =                   	=
 INT                 	2
+NEW_LINE            	
+
 COMMENT             	C loop thru odd integers, testing if divisible
-token(103)          	do
+NEW_LINE            	
+
+DO                  	do
 IDENT               	i
 =                   	=
 INT                 	3
@@ -157,6 +237,8 @@ INT                 	3
 IDENT               	n
 ,                   	,
 INT                 	2
+NEW_LINE            	
+
 if                  	if
 (                   	(
 !=                  	.not.
@@ -169,19 +251,25 @@ IDENT               	p
 IDENT               	numprimes
 )                   	)
 )                   	)
-token(106)          	then
+THEN                	then
+NEW_LINE            	
+
 IDENT               	numprimes
 =                   	=
 IDENT               	numprimes
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	numprimes
 >                   	.gt.
 IDENT               	max
 )                   	)
-token(106)          	then
+THEN                	then
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -191,28 +279,50 @@ IDENT               	write
 STRING              	'Ran out of space at p='
 ,                   	,
 IDENT               	i
+NEW_LINE            	
+
 IDENT               	stop
+NEW_LINE            	
+
 else                	else
+NEW_LINE            	
+
 IDENT               	p
 (                   	(
 IDENT               	numprimes
 )                   	)
 =                   	=
 IDENT               	i
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
 if                  	if
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
 if                  	if
-token(102)          	end
-token(103)          	do
+NEW_LINE            	
+
+END                 	end
+DO                  	do
+NEW_LINE            	
+
 COMMENT             	C return number of primes found
+NEW_LINE            	
+
 IDENT               	makeprimes
 =                   	=
 IDENT               	numprimes
+NEW_LINE            	
+
 return              	return
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 IDENT               	logical
-token(101)          	function
+FUNCTION            	function
 IDENT               	divisible
 (                   	(
 IDENT               	n
@@ -221,9 +331,13 @@ IDENT               	p
 ,                   	,
 IDENT               	nump
 )                   	)
-token(100)          	implicit
+NEW_LINE            	
+
+IMPLICIT            	implicit
 IDENT               	none
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	n
 ,                   	,
 IDENT               	nump
@@ -232,14 +346,20 @@ IDENT               	p
 (                   	(
 INT                 	1
 )                   	)
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	i
-token(103)          	do
+NEW_LINE            	
+
+DO                  	do
 IDENT               	i
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	nump
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	mod
@@ -254,19 +374,33 @@ IDENT               	i
 ==                  	.eq.
 INT                 	0
 )                   	)
-token(106)          	then
+THEN                	then
+NEW_LINE            	
+
 IDENT               	divisible
 =                   	=
 IDENT               	.true.
+NEW_LINE            	
+
 return              	return
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
 if                  	if
-token(102)          	end
-token(103)          	do
+NEW_LINE            	
+
+END                 	end
+DO                  	do
+NEW_LINE            	
+
 IDENT               	divisible
 =                   	=
 .                   	.
 IDENT               	e
 .                   	.
 return              	return
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

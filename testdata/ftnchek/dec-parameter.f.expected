@@ -1,24 +1,36 @@
 COMMENT             	C      IMPLICIT INTEGER(a-z)
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	PARAMETER
 IDENT               	shipmoves
 =                   	=
 INT                 	3
+NEW_LINE            	
+
 IDENT               	PARAMETER
 IDENT               	fightermoves
 =                   	=
 INT                 	8
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	stdparam
 =                   	=
 INT                 	7
 )                   	)
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	g2
 (                   	(
 INT                 	100
 )                   	)
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	hits
 (                   	(
 INT                 	15
@@ -38,10 +50,16 @@ IDENT               	craloc
 (                   	(
 INT                 	15
 )                   	)
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	BYTE
 IDENT               	specal
 ,                   	,
 IDENT               	pass
+NEW_LINE            	
+
 IDENT               	BYTE
 IDENT               	ab
 ,                   	,
@@ -59,17 +77,25 @@ IDENT               	own2
 ,                   	,
 IDENT               	own
 COMMENT             	!AVOID WORD REFERENCES TO THESE
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	rlmap
 (                   	(
 INT                 	3000
 )                   	)
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	automv
 ,                   	,
 IDENT               	autosave
 ,                   	,
 IDENT               	savedone
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	AB9
@@ -79,9 +105,15 @@ IDENT               	ab9
 IDENT               	prior
 ,                   	,
 IDENT               	nshprf
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	ARMTOT
 /                   	/
 IDENT               	armtot
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

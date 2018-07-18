@@ -5,29 +5,45 @@ INT                 	10
 ,                   	,
 INT                 	10
 )                   	)
+NEW_LINE            	
+
 IDENT               	data
 IDENT               	c
 /                   	/
 STRING              	'1'
 /                   	/
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	suba
 (                   	(
 IDENT               	c
 )                   	)
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	suba
 (                   	(
 IDENT               	c
 )                   	)
+NEW_LINE            	
+
 IDENT               	character
 IDENT               	c
 (                   	(
 INT                 	100
 )                   	)
+NEW_LINE            	
+
 IDENT               	print
 *                   	*
 ,                   	,
 IDENT               	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

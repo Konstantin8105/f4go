@@ -1,125 +1,363 @@
 COMMENT             	*> \brief \b DSDOT
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       DOUBLE PRECISION FUNCTION DSDOT(N,SX,INCX,SY,INCY)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       INTEGER INCX,INCY,N
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       REAL SX(*),SY(*)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*    AUTHORS
+NEW_LINE            	
+
 COMMENT             	*    =======
+NEW_LINE            	
+
 COMMENT             	*    Lawson, C. L., (JPL), Hanson, R. J., (SNLA),
+NEW_LINE            	
+
 COMMENT             	*    Kincaid, D. R., (U. of Texas), Krogh, F. T., (JPL)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> Compute the inner product of two vectors with extended
+NEW_LINE            	
+
 COMMENT             	*> precision accumulation and result.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> Returns D.P. dot product accumulated in D.P., for S.P. SX and SY
+NEW_LINE            	
+
 COMMENT             	*> DSDOT = sum for I = 0 to N-1 of  SX(LX+I*INCX) * SY(LY+I*INCY),
+NEW_LINE            	
+
 COMMENT             	*> where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and LY is
+NEW_LINE            	
+
 COMMENT             	*> defined in a similar way using INCY.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] N
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          N is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         number of elements in input vector(s)
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] SX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          SX is REAL array, dimension(N)
+NEW_LINE            	
+
 COMMENT             	*>         single precision vector with N elements
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCX is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>          storage spacing between elements of SX
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] SY
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          SY is REAL array, dimension(N)
+NEW_LINE            	
+
 COMMENT             	*>         single precision vector with N elements
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCY
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCY is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         storage spacing between elements of SY
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \result DSDOT
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          DSDOT is DOUBLE PRECISION
+NEW_LINE            	
+
 COMMENT             	*>         DSDOT  double precision dot product (zero if N.LE.0)
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup double_blas_level1
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Further Details:
+NEW_LINE            	
+
 COMMENT             	*  =====================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par References:
+NEW_LINE            	
+
 COMMENT             	*  ================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  C. L. Lawson, R. J. Hanson, D. R. Kincaid and F. T.
+NEW_LINE            	
+
 COMMENT             	*>  Krogh, Basic linear algebra subprograms for Fortran
+NEW_LINE            	
+
 COMMENT             	*>  usage, Algorithm No. 539, Transactions on Mathematical
+NEW_LINE            	
+
 COMMENT             	*>  Software 5, 3 (September 1979), pp. 308-323.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  REVISION HISTORY  (YYMMDD)
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  791001  DATE WRITTEN
+NEW_LINE            	
+
 COMMENT             	*>  890831  Modified array declarations.  (WRB)
+NEW_LINE            	
+
 COMMENT             	*>  890831  REVISION DATE from Version 3.2
+NEW_LINE            	
+
 COMMENT             	*>  891214  Prologue converted to Version 4.0 format.  (BAB)
+NEW_LINE            	
+
 COMMENT             	*>  920310  Corrected definition of LX in DESCRIPTION.  (WRB)
+NEW_LINE            	
+
 COMMENT             	*>  920501  Reformatted the REFERENCES section.  (WRB)
+NEW_LINE            	
+
 COMMENT             	*>  070118  Reformat to LAPACK style (JL)
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
-token(101)          	FUNCTION
+FUNCTION            	FUNCTION
 IDENT               	DSDOT
 (                   	(
 IDENT               	N
@@ -132,21 +370,43 @@ IDENT               	SY
 ,                   	,
 IDENT               	INCY
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level1 routine (version 3.7.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	INCX
 ,                   	,
 IDENT               	INCY
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	SX
 (                   	(
@@ -157,17 +417,39 @@ IDENT               	SY
 (                   	(
 *                   	*
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*  Lawson, C. L., (JPL), Hanson, R. J., (SNLA),
+NEW_LINE            	
+
 COMMENT             	*  Kincaid, D. R., (U. of Texas), Krogh, F. T., (JPL)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	KX
@@ -175,14 +457,26 @@ IDENT               	KX
 IDENT               	KY
 ,                   	,
 IDENT               	NS
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	DBLE
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 IDENT               	DSDOT
 =                   	=
 FLOAT               	0.0D0
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	N
@@ -190,6 +484,8 @@ IDENT               	N
 INT                 	0
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -200,16 +496,26 @@ IDENT               	INCX
 >                   	.GT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Code for equal, positive, non-unit increments.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	NS
 =                   	=
 IDENT               	N
 *                   	*
 IDENT               	INCX
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	1
@@ -217,6 +523,8 @@ INT                 	1
 IDENT               	NS
 ,                   	,
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	DSDOT
 =                   	=
 IDENT               	DSDOT
@@ -236,18 +544,34 @@ IDENT               	SY
 IDENT               	I
 )                   	)
 )                   	)
-token(102)          	END
-token(103)          	DO
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Code for unequal or nonpositive increments.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 IDENT               	KY
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -265,6 +589,8 @@ IDENT               	N
 )                   	)
 *                   	*
 IDENT               	INCX
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCY
@@ -282,12 +608,16 @@ IDENT               	N
 )                   	)
 *                   	*
 IDENT               	INCY
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	DSDOT
 =                   	=
 IDENT               	DSDOT
@@ -307,19 +637,33 @@ IDENT               	SY
 IDENT               	KY
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 IDENT               	KX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	KY
 =                   	=
 IDENT               	KY
 +                   	+
 IDENT               	INCY
-token(102)          	END
-token(103)          	DO
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

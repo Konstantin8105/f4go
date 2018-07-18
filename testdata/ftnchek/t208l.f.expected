@@ -1,4 +1,4 @@
-token(96)           	subroutine
+SUBROUTINE          	subroutine
 IDENT               	foo
 (                   	(
 IDENT               	a
@@ -7,10 +7,14 @@ IDENT               	m
 ,                   	,
 IDENT               	n
 )                   	)
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	m
 ,                   	,
 IDENT               	n
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	a
 (                   	(
@@ -35,4 +39,8 @@ INT                 	6
 ,                   	,
 INT                 	7
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

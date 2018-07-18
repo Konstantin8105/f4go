@@ -1,193 +1,571 @@
 COMMENT             	*> \brief \b ZTBSV
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       SUBROUTINE ZTBSV(UPLO,TRANS,DIAG,N,K,A,LDA,X,INCX)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       INTEGER INCX,K,LDA,N
+NEW_LINE            	
+
 COMMENT             	*       CHARACTER DIAG,TRANS,UPLO
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       COMPLEX*16 A(LDA,*),X(*)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> ZTBSV  solves one of the systems of equations
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    A*x = b,   or   A**T*x = b,   or   A**H*x = b,
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> where b and x are n element vectors and A is an n by n unit, or
+NEW_LINE            	
+
 COMMENT             	*> non-unit, upper or lower triangular band matrix, with ( k + 1 )
+NEW_LINE            	
+
 COMMENT             	*> diagonals.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> No test for singularity or near-singularity is included in this
+NEW_LINE            	
+
 COMMENT             	*> routine. Such tests must be performed before calling this routine.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] UPLO
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          UPLO is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*>           On entry, UPLO specifies whether the matrix is an upper or
+NEW_LINE            	
+
 COMMENT             	*>           lower triangular matrix as follows:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              UPLO = 'U' or 'u'   A is an upper triangular matrix.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              UPLO = 'L' or 'l'   A is a lower triangular matrix.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] TRANS
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          TRANS is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*>           On entry, TRANS specifies the equations to be solved as
+NEW_LINE            	
+
 COMMENT             	*>           follows:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              TRANS = 'N' or 'n'   A*x = b.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              TRANS = 'T' or 't'   A**T*x = b.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              TRANS = 'C' or 'c'   A**H*x = b.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] DIAG
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          DIAG is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*>           On entry, DIAG specifies whether or not A is unit
+NEW_LINE            	
+
 COMMENT             	*>           triangular as follows:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              DIAG = 'U' or 'u'   A is assumed to be unit triangular.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              DIAG = 'N' or 'n'   A is not assumed to be unit
+NEW_LINE            	
+
 COMMENT             	*>                                  triangular.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] N
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          N is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, N specifies the order of the matrix A.
+NEW_LINE            	
+
 COMMENT             	*>           N must be at least zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] K
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          K is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry with UPLO = 'U' or 'u', K specifies the number of
+NEW_LINE            	
+
 COMMENT             	*>           super-diagonals of the matrix A.
+NEW_LINE            	
+
 COMMENT             	*>           On entry with UPLO = 'L' or 'l', K specifies the number of
+NEW_LINE            	
+
 COMMENT             	*>           sub-diagonals of the matrix A.
+NEW_LINE            	
+
 COMMENT             	*>           K must satisfy  0 .le. K.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] A
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          A is COMPLEX*16 array, dimension ( LDA, N )
+NEW_LINE            	
+
 COMMENT             	*>           Before entry with UPLO = 'U' or 'u', the leading ( k + 1 )
+NEW_LINE            	
+
 COMMENT             	*>           by n part of the array A must contain the upper triangular
+NEW_LINE            	
+
 COMMENT             	*>           band part of the matrix of coefficients, supplied column by
+NEW_LINE            	
+
 COMMENT             	*>           column, with the leading diagonal of the matrix in row
+NEW_LINE            	
+
 COMMENT             	*>           ( k + 1 ) of the array, the first super-diagonal starting at
+NEW_LINE            	
+
 COMMENT             	*>           position 2 in row k, and so on. The top left k by k triangle
+NEW_LINE            	
+
 COMMENT             	*>           of the array A is not referenced.
+NEW_LINE            	
+
 COMMENT             	*>           The following program segment will transfer an upper
+NEW_LINE            	
+
 COMMENT             	*>           triangular band matrix from conventional full matrix storage
+NEW_LINE            	
+
 COMMENT             	*>           to band storage:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>                 DO 20, J = 1, N
+NEW_LINE            	
+
 COMMENT             	*>                    M = K + 1 - J
+NEW_LINE            	
+
 COMMENT             	*>                    DO 10, I = MAX( 1, J - K ), J
+NEW_LINE            	
+
 COMMENT             	*>                       A( M + I, J ) = matrix( I, J )
+NEW_LINE            	
+
 COMMENT             	*>              10    CONTINUE
+NEW_LINE            	
+
 COMMENT             	*>              20 CONTINUE
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>           Before entry with UPLO = 'L' or 'l', the leading ( k + 1 )
+NEW_LINE            	
+
 COMMENT             	*>           by n part of the array A must contain the lower triangular
+NEW_LINE            	
+
 COMMENT             	*>           band part of the matrix of coefficients, supplied column by
+NEW_LINE            	
+
 COMMENT             	*>           column, with the leading diagonal of the matrix in row 1 of
+NEW_LINE            	
+
 COMMENT             	*>           the array, the first sub-diagonal starting at position 1 in
+NEW_LINE            	
+
 COMMENT             	*>           row 2, and so on. The bottom right k by k triangle of the
+NEW_LINE            	
+
 COMMENT             	*>           array A is not referenced.
+NEW_LINE            	
+
 COMMENT             	*>           The following program segment will transfer a lower
+NEW_LINE            	
+
 COMMENT             	*>           triangular band matrix from conventional full matrix storage
+NEW_LINE            	
+
 COMMENT             	*>           to band storage:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>                 DO 20, J = 1, N
+NEW_LINE            	
+
 COMMENT             	*>                    M = 1 - J
+NEW_LINE            	
+
 COMMENT             	*>                    DO 10, I = J, MIN( N, J + K )
+NEW_LINE            	
+
 COMMENT             	*>                       A( M + I, J ) = matrix( I, J )
+NEW_LINE            	
+
 COMMENT             	*>              10    CONTINUE
+NEW_LINE            	
+
 COMMENT             	*>              20 CONTINUE
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>           Note that when DIAG = 'U' or 'u' the elements of the array A
+NEW_LINE            	
+
 COMMENT             	*>           corresponding to the diagonal elements of the matrix are not
+NEW_LINE            	
+
 COMMENT             	*>           referenced, but are assumed to be unity.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] LDA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          LDA is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, LDA specifies the first dimension of A as declared
+NEW_LINE            	
+
 COMMENT             	*>           in the calling (sub) program. LDA must be at least
+NEW_LINE            	
+
 COMMENT             	*>           ( k + 1 ).
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in,out] X
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          X is COMPLEX*16 array, dimension at least
+NEW_LINE            	
+
 COMMENT             	*>           ( 1 + ( n - 1 )*abs( INCX ) ).
+NEW_LINE            	
+
 COMMENT             	*>           Before entry, the incremented array X must contain the n
+NEW_LINE            	
+
 COMMENT             	*>           element right-hand side vector b. On exit, X is overwritten
+NEW_LINE            	
+
 COMMENT             	*>           with the solution vector x.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCX is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, INCX specifies the increment for the elements of
+NEW_LINE            	
+
 COMMENT             	*>           X. INCX must not be zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup complex16_blas_level2
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Further Details:
+NEW_LINE            	
+
 COMMENT             	*  =====================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  Level 2 Blas routine.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  -- Written on 22-October-1986.
+NEW_LINE            	
+
 COMMENT             	*>     Jack Dongarra, Argonne National Lab.
+NEW_LINE            	
+
 COMMENT             	*>     Jeremy Du Croz, Nag Central Office.
+NEW_LINE            	
+
 COMMENT             	*>     Sven Hammarling, Nag Central Office.
+NEW_LINE            	
+
 COMMENT             	*>     Richard Hanson, Sandia National Labs.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	ZTBSV
 (                   	(
 IDENT               	UPLO
@@ -208,14 +586,30 @@ IDENT               	X
 ,                   	,
 IDENT               	INCX
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level2 routine (version 3.7.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	INCX
 ,                   	,
 IDENT               	K
@@ -223,14 +617,22 @@ IDENT               	K
 IDENT               	LDA
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	CHARACTER
 IDENT               	DIAG
 ,                   	,
 IDENT               	TRANS
 ,                   	,
 IDENT               	UPLO
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 *                   	*
 INT                 	16
@@ -245,15 +647,29 @@ IDENT               	X
 (                   	(
 *                   	*
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Parameters ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	ZERO
@@ -264,13 +680,21 @@ FLOAT               	0.0D+0
 FLOAT               	0.0D+0
 )                   	)
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	TEMP
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	INFO
@@ -286,35 +710,69 @@ IDENT               	KPLUS1
 IDENT               	KX
 ,                   	,
 IDENT               	L
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	NOCONJ
 ,                   	,
 IDENT               	NOUNIT
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. External Functions ..
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	LSAME
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	LSAME
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. External Subroutines ..
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	XERBLA
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	DCONJG
 ,                   	,
 IDENT               	MAX
 ,                   	,
 IDENT               	MIN
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Test the input parameters.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 !=                  	.NOT.
@@ -333,10 +791,14 @@ IDENT               	UPLO
 STRING              	'L'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -356,6 +818,8 @@ IDENT               	TRANS
 STRING              	'T'
 )                   	)
 &&                  	.AND.
+NEW_LINE            	
+
 +                   	+
 !=                  	.NOT.
 IDENT               	LSAME
@@ -365,10 +829,14 @@ IDENT               	TRANS
 STRING              	'C'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	2
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -388,10 +856,14 @@ IDENT               	DIAG
 STRING              	'N'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	3
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -399,10 +871,14 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	4
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -410,10 +886,14 @@ IDENT               	K
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	5
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -425,10 +905,14 @@ IDENT               	K
 INT                 	1
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	7
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -436,32 +920,52 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	9
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-token(106)          	THEN
-token(105)          	CALL
+THEN                	THEN
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	XERBLA
 (                   	(
 STRING              	'ZTBSV '
 ,                   	,
 IDENT               	INFO
 )                   	)
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Quick return if possible.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	N
@@ -469,7 +973,11 @@ IDENT               	N
 INT                 	0
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	NOCONJ
 =                   	=
 IDENT               	LSAME
@@ -478,6 +986,8 @@ IDENT               	TRANS
 ,                   	,
 STRING              	'T'
 )                   	)
+NEW_LINE            	
+
 IDENT               	NOUNIT
 =                   	=
 IDENT               	LSAME
@@ -486,17 +996,29 @@ IDENT               	DIAG
 ,                   	,
 STRING              	'N'
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Set up the start point in X if the increment is not unity. This
+NEW_LINE            	
+
 COMMENT             	*     will be  ( N - 1 )*INCX  too small for descending loops.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 <=                  	.LE.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 INT                 	1
@@ -508,6 +1030,8 @@ INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCX
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -515,16 +1039,30 @@ IDENT               	INCX
 !=                  	.NE.
 INT                 	1
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 INT                 	1
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Start the operations. In this version the elements of A are
+NEW_LINE            	
+
 COMMENT             	*     accessed by sequentially with one pass through A.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -534,10 +1072,18 @@ IDENT               	TRANS
 STRING              	'N'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        Form  x := inv( A )*x.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -547,20 +1093,26 @@ IDENT               	UPLO
 STRING              	'U'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	KPLUS1
 =                   	=
 IDENT               	K
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	20
 IDENT               	J
 =                   	=
@@ -570,6 +1122,8 @@ INT                 	1
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	X
@@ -579,12 +1133,16 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	L
 =                   	=
 IDENT               	KPLUS1
 -                   	-
 IDENT               	J
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -605,13 +1163,17 @@ IDENT               	KPLUS1
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	X
 (                   	(
 IDENT               	J
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	10
 IDENT               	I
 =                   	=
@@ -630,6 +1192,8 @@ IDENT               	K
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	X
 (                   	(
 IDENT               	I
@@ -650,13 +1214,23 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	10
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	20
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 IDENT               	KX
@@ -668,10 +1242,14 @@ INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	KX
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	40
 IDENT               	J
 =                   	=
@@ -681,11 +1259,15 @@ INT                 	1
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 IDENT               	KX
 -                   	-
 IDENT               	INCX
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	X
@@ -695,15 +1277,21 @@ IDENT               	JX
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	KX
+NEW_LINE            	
+
 IDENT               	L
 =                   	=
 IDENT               	KPLUS1
 -                   	-
 IDENT               	J
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -724,13 +1312,17 @@ IDENT               	KPLUS1
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	X
 (                   	(
 IDENT               	JX
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	30
 IDENT               	I
 =                   	=
@@ -749,6 +1341,8 @@ IDENT               	K
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	X
 (                   	(
 IDENT               	IX
@@ -769,39 +1363,59 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 -                   	-
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	30
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	JX
 -                   	-
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	40
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	60
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	X
@@ -811,12 +1425,16 @@ IDENT               	J
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	L
 =                   	=
 INT                 	1
 -                   	-
 IDENT               	J
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -837,13 +1455,17 @@ INT                 	1
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	X
 (                   	(
 IDENT               	J
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	50
 IDENT               	I
 =                   	=
@@ -859,6 +1481,8 @@ IDENT               	J
 +                   	+
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 IDENT               	X
 (                   	(
 IDENT               	I
@@ -879,28 +1503,44 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	50
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 INT                 	60
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	KX
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	80
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 IDENT               	KX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	X
@@ -910,15 +1550,21 @@ IDENT               	JX
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	KX
+NEW_LINE            	
+
 IDENT               	L
 =                   	=
 INT                 	1
 -                   	-
 IDENT               	J
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -939,13 +1585,17 @@ INT                 	1
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	X
 (                   	(
 IDENT               	JX
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	70
 IDENT               	I
 =                   	=
@@ -961,6 +1611,8 @@ IDENT               	J
 +                   	+
 IDENT               	K
 )                   	)
+NEW_LINE            	
+
 IDENT               	X
 (                   	(
 IDENT               	IX
@@ -981,30 +1633,54 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	70
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	JX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	80
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        Form  x := inv( A**T )*x  or  x := inv( A**H )*x.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -1014,43 +1690,57 @@ IDENT               	UPLO
 STRING              	'U'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	KPLUS1
 =                   	=
 IDENT               	K
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	110
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	X
 (                   	(
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	L
 =                   	=
 IDENT               	KPLUS1
 -                   	-
 IDENT               	J
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOCONJ
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	90
 IDENT               	I
 =                   	=
@@ -1066,6 +1756,8 @@ IDENT               	K
 IDENT               	J
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	TEMP
@@ -1083,8 +1775,12 @@ IDENT               	X
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 INT                 	90
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -1099,8 +1795,12 @@ IDENT               	KPLUS1
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	100
 IDENT               	I
 =                   	=
@@ -1116,6 +1816,8 @@ IDENT               	K
 IDENT               	J
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	TEMP
@@ -1136,8 +1838,12 @@ IDENT               	X
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 INT                 	100
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -1155,47 +1861,69 @@ IDENT               	KPLUS1
 IDENT               	J
 )                   	)
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	X
 (                   	(
 IDENT               	J
 )                   	)
 =                   	=
 IDENT               	TEMP
+NEW_LINE            	
+
 INT                 	110
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	KX
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	140
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	X
 (                   	(
 IDENT               	JX
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	KX
+NEW_LINE            	
+
 IDENT               	L
 =                   	=
 IDENT               	KPLUS1
 -                   	-
 IDENT               	J
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOCONJ
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	120
 IDENT               	I
 =                   	=
@@ -1211,6 +1939,8 @@ IDENT               	K
 IDENT               	J
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	TEMP
@@ -1228,13 +1958,19 @@ IDENT               	X
 (                   	(
 IDENT               	IX
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	120
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -1249,8 +1985,12 @@ IDENT               	KPLUS1
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	130
 IDENT               	I
 =                   	=
@@ -1266,6 +2006,8 @@ IDENT               	K
 IDENT               	J
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	TEMP
@@ -1286,13 +2028,19 @@ IDENT               	X
 (                   	(
 IDENT               	IX
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	130
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -1310,19 +2058,27 @@ IDENT               	KPLUS1
 IDENT               	J
 )                   	)
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	X
 (                   	(
 IDENT               	JX
 )                   	)
 =                   	=
 IDENT               	TEMP
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	JX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	J
@@ -1334,19 +2090,29 @@ IDENT               	KX
 IDENT               	KX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	140
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	170
 IDENT               	J
 =                   	=
@@ -1356,23 +2122,31 @@ INT                 	1
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	X
 (                   	(
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	L
 =                   	=
 INT                 	1
 -                   	-
 IDENT               	J
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOCONJ
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	150
 IDENT               	I
 =                   	=
@@ -1391,6 +2165,8 @@ INT                 	1
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	TEMP
@@ -1408,8 +2184,12 @@ IDENT               	X
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 INT                 	150
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -1424,8 +2204,12 @@ INT                 	1
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	160
 IDENT               	I
 =                   	=
@@ -1444,6 +2228,8 @@ INT                 	1
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	TEMP
@@ -1464,8 +2250,12 @@ IDENT               	X
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 INT                 	160
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -1483,17 +2273,27 @@ INT                 	1
 IDENT               	J
 )                   	)
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	X
 (                   	(
 IDENT               	J
 )                   	)
 =                   	=
 IDENT               	TEMP
+NEW_LINE            	
+
 INT                 	170
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 IDENT               	KX
@@ -1505,10 +2305,14 @@ INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	KX
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	200
 IDENT               	J
 =                   	=
@@ -1518,26 +2322,36 @@ INT                 	1
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	X
 (                   	(
 IDENT               	JX
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	KX
+NEW_LINE            	
+
 IDENT               	L
 =                   	=
 INT                 	1
 -                   	-
 IDENT               	J
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOCONJ
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	180
 IDENT               	I
 =                   	=
@@ -1556,6 +2370,8 @@ INT                 	1
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	TEMP
@@ -1573,13 +2389,19 @@ IDENT               	X
 (                   	(
 IDENT               	IX
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 -                   	-
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	180
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -1594,8 +2416,12 @@ INT                 	1
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	190
 IDENT               	I
 =                   	=
@@ -1614,6 +2440,8 @@ INT                 	1
 ,                   	,
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	TEMP
@@ -1634,13 +2462,19 @@ IDENT               	X
 (                   	(
 IDENT               	IX
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 -                   	-
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	190
 continue            	CONTINUE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	NOUNIT
@@ -1658,19 +2492,27 @@ INT                 	1
 IDENT               	J
 )                   	)
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	X
 (                   	(
 IDENT               	JX
 )                   	)
 =                   	=
 IDENT               	TEMP
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	JX
 -                   	-
 IDENT               	INCX
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 (                   	(
@@ -1686,17 +2528,39 @@ IDENT               	KX
 IDENT               	KX
 -                   	-
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	200
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     End of ZTBSV .
+NEW_LINE            	
+
 COMMENT             	*
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

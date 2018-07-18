@@ -1,134 +1,394 @@
 COMMENT             	*> \brief \b ZGERC
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       SUBROUTINE ZGERC(M,N,ALPHA,X,INCX,Y,INCY,A,LDA)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       COMPLEX*16 ALPHA
+NEW_LINE            	
+
 COMMENT             	*       INTEGER INCX,INCY,LDA,M,N
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       COMPLEX*16 A(LDA,*),X(*),Y(*)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> ZGERC  performs the rank 1 operation
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    A := alpha*x*y**H + A,
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> where alpha is a scalar, x is an m element vector, y is an n element
+NEW_LINE            	
+
 COMMENT             	*> vector and A is an m by n matrix.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] M
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          M is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, M specifies the number of rows of the matrix A.
+NEW_LINE            	
+
 COMMENT             	*>           M must be at least zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] N
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          N is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, N specifies the number of columns of the matrix A.
+NEW_LINE            	
+
 COMMENT             	*>           N must be at least zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] ALPHA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          ALPHA is COMPLEX*16
+NEW_LINE            	
+
 COMMENT             	*>           On entry, ALPHA specifies the scalar alpha.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] X
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          X is COMPLEX*16 array, dimension at least
+NEW_LINE            	
+
 COMMENT             	*>           ( 1 + ( m - 1 )*abs( INCX ) ).
+NEW_LINE            	
+
 COMMENT             	*>           Before entry, the incremented array X must contain the m
+NEW_LINE            	
+
 COMMENT             	*>           element vector x.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCX is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, INCX specifies the increment for the elements of
+NEW_LINE            	
+
 COMMENT             	*>           X. INCX must not be zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] Y
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          Y is COMPLEX*16 array, dimension at least
+NEW_LINE            	
+
 COMMENT             	*>           ( 1 + ( n - 1 )*abs( INCY ) ).
+NEW_LINE            	
+
 COMMENT             	*>           Before entry, the incremented array Y must contain the n
+NEW_LINE            	
+
 COMMENT             	*>           element vector y.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCY
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCY is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, INCY specifies the increment for the elements of
+NEW_LINE            	
+
 COMMENT             	*>           Y. INCY must not be zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in,out] A
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          A is COMPLEX*16 array, dimension ( LDA, N )
+NEW_LINE            	
+
 COMMENT             	*>           Before entry, the leading m by n part of the array A must
+NEW_LINE            	
+
 COMMENT             	*>           contain the matrix of coefficients. On exit, A is
+NEW_LINE            	
+
 COMMENT             	*>           overwritten by the updated matrix.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] LDA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          LDA is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, LDA specifies the first dimension of A as declared
+NEW_LINE            	
+
 COMMENT             	*>           in the calling (sub) program. LDA must be at least
+NEW_LINE            	
+
 COMMENT             	*>           max( 1, m ).
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup complex16_blas_level2
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Further Details:
+NEW_LINE            	
+
 COMMENT             	*  =====================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  Level 2 Blas routine.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  -- Written on 22-October-1986.
+NEW_LINE            	
+
 COMMENT             	*>     Jack Dongarra, Argonne National Lab.
+NEW_LINE            	
+
 COMMENT             	*>     Jeremy Du Croz, Nag Central Office.
+NEW_LINE            	
+
 COMMENT             	*>     Sven Hammarling, Nag Central Office.
+NEW_LINE            	
+
 COMMENT             	*>     Richard Hanson, Sandia National Labs.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	ZGERC
 (                   	(
 IDENT               	M
@@ -149,18 +409,36 @@ IDENT               	A
 ,                   	,
 IDENT               	LDA
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level2 routine (version 3.7.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	ALPHA
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	INCX
 ,                   	,
 IDENT               	INCY
@@ -170,8 +448,14 @@ IDENT               	LDA
 IDENT               	M
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 *                   	*
 INT                 	16
@@ -191,15 +475,29 @@ IDENT               	Y
 (                   	(
 *                   	*
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Parameters ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	ZERO
@@ -210,13 +508,21 @@ FLOAT               	0.0D+0
 FLOAT               	0.0D+0
 )                   	)
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
+NEW_LINE            	
+
 IDENT               	COMPLEX
 *                   	*
 INT                 	16
 IDENT               	TEMP
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	INFO
@@ -228,33 +534,61 @@ IDENT               	J
 IDENT               	JY
 ,                   	,
 IDENT               	KX
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. External Subroutines ..
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	XERBLA
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	DCONJG
 ,                   	,
 IDENT               	MAX
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Test the input parameters.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	M
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -262,10 +596,14 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	2
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -273,10 +611,14 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	5
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -284,10 +626,14 @@ IDENT               	INCY
 ==                  	.EQ.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	7
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -300,32 +646,52 @@ INT                 	1
 IDENT               	M
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	9
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-token(106)          	THEN
-token(105)          	CALL
+THEN                	THEN
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	XERBLA
 (                   	(
 STRING              	'ZGERC '
 ,                   	,
 IDENT               	INFO
 )                   	)
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Quick return if possible.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 (                   	(
@@ -347,21 +713,37 @@ IDENT               	ZERO
 )                   	)
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Start the operations. In this version the elements of A are
+NEW_LINE            	
+
 COMMENT             	*     accessed sequentially with one pass through A.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCY
 >                   	.GT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	JY
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	JY
 =                   	=
 INT                 	1
@@ -373,22 +755,30 @@ INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCY
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	20
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	Y
@@ -398,7 +788,9 @@ IDENT               	JY
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -410,13 +802,17 @@ IDENT               	Y
 IDENT               	JY
 )                   	)
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	10
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	I
@@ -437,29 +833,47 @@ IDENT               	I
 )                   	)
 *                   	*
 IDENT               	TEMP
+NEW_LINE            	
+
 INT                 	10
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	JY
 =                   	=
 IDENT               	JY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 INT                 	20
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 >                   	.GT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 INT                 	1
@@ -471,15 +885,21 @@ INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCX
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	40
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	Y
@@ -489,7 +909,9 @@ IDENT               	JY
 !=                  	.NE.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -501,16 +923,22 @@ IDENT               	Y
 IDENT               	JY
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	KX
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	30
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	A
 (                   	(
 IDENT               	I
@@ -531,27 +959,53 @@ IDENT               	IX
 )                   	)
 *                   	*
 IDENT               	TEMP
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	30
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	JY
 =                   	=
 IDENT               	JY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 INT                 	40
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     End of ZGERC .
+NEW_LINE            	
+
 COMMENT             	*
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

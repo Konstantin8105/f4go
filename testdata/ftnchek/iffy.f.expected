@@ -1,4 +1,4 @@
-token(96)           	SUBROUTINE
+SUBROUTINE          	SUBROUTINE
 IDENT               	IFFY
 (                   	(
 IDENT               	USE1
@@ -7,44 +7,78 @@ IDENT               	USE2
 ,                   	,
 IDENT               	L
 )                   	)
+NEW_LINE            	
+
 COMMENT             	* Tests parsing & type-checking of various IF forms.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	USE1
 ,                   	,
 IDENT               	USE2
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	L
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	X
+NEW_LINE            	
+
 COMMENT             	* this block-if statement is OK
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	USE1
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	M
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 COMMENT             	* else-if statement is OK
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
 IDENT               	USE2
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	M
 =                   	=
 INT                 	2
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	M
 =                   	=
 INT                 	3
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	* this logical if is OK
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	M
@@ -56,7 +90,11 @@ IDENT               	L
 IDENT               	L
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 COMMENT             	* this arithmetic if is OK
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	L
@@ -66,11 +104,17 @@ INT                 	100
 INT                 	100
 ,                   	,
 INT                 	100
+NEW_LINE            	
+
 INT                 	100
 IDENT               	X
 =                   	=
 IDENT               	L
+NEW_LINE            	
+
 COMMENT             	* this arithmetic if is OK
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	X
@@ -80,40 +124,64 @@ INT                 	150
 INT                 	150
 ,                   	,
 INT                 	150
+NEW_LINE            	
+
 INT                 	150
 continue            	CONTINUE
+NEW_LINE            	
+
 COMMENT             	* violate a block if statement
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	L
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	M
 =                   	=
 IDENT               	M
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 COMMENT             	* violate an elseif statement
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
 IDENT               	M
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	M
 =                   	=
 IDENT               	M
 +                   	+
 INT                 	2
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	M
 =                   	=
 IDENT               	M
 +                   	+
 INT                 	3
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	* violate a logical if statement
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	M
@@ -123,7 +191,11 @@ IDENT               	L
 IDENT               	L
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 COMMENT             	* violate an arithmetic if statement
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	L
@@ -135,6 +207,14 @@ INT                 	200
 INT                 	200
 ,                   	,
 INT                 	200
+NEW_LINE            	
+
 INT                 	200
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
+NEW_LINE            	
+

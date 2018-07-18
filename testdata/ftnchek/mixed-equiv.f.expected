@@ -2,26 +2,38 @@ IDENT               	real
 *                   	*
 INT                 	8
 IDENT               	x
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	y
+NEW_LINE            	
+
 IDENT               	equivalence
 (                   	(
 IDENT               	x
 ,                   	,
 IDENT               	y
 )                   	)
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	r
+NEW_LINE            	
+
 IDENT               	equivalence
 (                   	(
 IDENT               	i
 ,                   	,
 IDENT               	r
 )                   	)
+NEW_LINE            	
+
 IDENT               	x
 =                   	=
 FLOAT               	1.0
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -29,9 +41,13 @@ IDENT               	write
 *                   	*
 )                   	)
 IDENT               	y
+NEW_LINE            	
+
 IDENT               	r
 =                   	=
 FLOAT               	0.0
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -39,4 +55,8 @@ IDENT               	write
 *                   	*
 )                   	)
 IDENT               	i
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

@@ -7,15 +7,25 @@ IDENT               	x
 IDENT               	y
 ,                   	,
 IDENT               	z
+NEW_LINE            	
+
 IDENT               	abc
 =                   	=
 INT                 	5
+NEW_LINE            	
+
 IDENT               	x
 =                   	=
 IDENT               	abc
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	sub1
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	abc
@@ -25,39 +35,53 @@ IDENT               	x
 IDENT               	y
 ,                   	,
 IDENT               	z
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	abc
 (                   	(
 INT                 	5
 )                   	)
+NEW_LINE            	
+
 IDENT               	x
 =                   	=
 IDENT               	abc
 (                   	(
 INT                 	1
 )                   	)
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	sub2
 (                   	(
 IDENT               	x
 ,                   	,
 IDENT               	y
 )                   	)
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	sub2
 (                   	(
 FLOAT               	1.0
 ,                   	,
 INT                 	2
 )                   	)
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	sub2
 (                   	(
 IDENT               	a
 ,                   	,
 IDENT               	b
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	abc
@@ -67,21 +91,33 @@ IDENT               	x
 IDENT               	i
 ,                   	,
 IDENT               	z
+NEW_LINE            	
+
 IDENT               	x
 =                   	=
 IDENT               	abc
 (                   	(
 INT                 	1
 )                   	)
-token(102)          	end
-token(101)          	function
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+FUNCTION            	function
 IDENT               	abc
 (                   	(
 IDENT               	n
 )                   	)
+NEW_LINE            	
+
 IDENT               	abc
 =                   	=
 IDENT               	n
 *                   	*
 IDENT               	n
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

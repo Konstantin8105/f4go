@@ -1,17 +1,35 @@
-token(96)           	SubRoutine
+NEW_LINE            	
+
+NEW_LINE            	
+
+SUBROUTINE          	SubRoutine
 IDENT               	ExitGraphicsMode
+NEW_LINE            	
+
+NEW_LINE            	
+
 COMMENT             	C  Go out of graphics mode back to
+NEW_LINE            	
+
 COMMENT             	C  text mode.
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	1
 IDENT               	esc
+NEW_LINE            	
+
 IDENT               	esc
 =                   	=
 IDENT               	char
 (                   	(
 INT                 	27
 )                   	)
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -25,5 +43,11 @@ STRING              	'\'
 IDENT               	esc
 ,                   	,
 STRING              	'[15H'
+NEW_LINE            	
+
 return              	Return
-token(102)          	End
+NEW_LINE            	
+
+END                 	End
+NEW_LINE            	
+

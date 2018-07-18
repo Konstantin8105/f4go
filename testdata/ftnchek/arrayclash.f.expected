@@ -17,28 +17,36 @@ IDENT               	b
 (                   	(
 INT                 	20
 )                   	)
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	suba
 (                   	(
 IDENT               	a
 ,                   	,
 IDENT               	x
 )                   	)
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	suba
 (                   	(
 IDENT               	x
 ,                   	,
 IDENT               	a
 )                   	)
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	suba
 (                   	(
 IDENT               	y
 ,                   	,
 FLOAT               	1.0
 )                   	)
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	suba
 (                   	(
 IDENT               	y
@@ -48,21 +56,29 @@ INT                 	1
 ,                   	,
 IDENT               	x
 )                   	)
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	suba
 (                   	(
 IDENT               	b
 ,                   	,
 IDENT               	x
 )                   	)
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	suba
 (                   	(
 IDENT               	w
 ,                   	,
 IDENT               	z
 )                   	)
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	w
 (                   	(
@@ -70,4 +86,8 @@ INT                 	21
 )                   	)
 ,                   	,
 IDENT               	z
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

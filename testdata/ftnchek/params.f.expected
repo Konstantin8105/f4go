@@ -1,4 +1,4 @@
-token(100)          	implicit
+IMPLICIT            	implicit
 IDENT               	real
 *                   	*
 INT                 	8
@@ -15,6 +15,8 @@ IDENT               	o
 -                   	-
 IDENT               	z
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	pi
@@ -22,6 +24,8 @@ IDENT               	pi
 .                   	.
 INT                 	5926535897932D+01
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	minus1
@@ -29,12 +33,16 @@ IDENT               	minus1
 -                   	-
 .                   	.
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	half
 =                   	=
 FLOAT               	5.D-1
 )                   	)
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -46,5 +54,13 @@ IDENT               	minus1
 IDENT               	pi
 ,                   	,
 IDENT               	half
+NEW_LINE            	
+
 IDENT               	stop
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+NEW_LINE            	
+

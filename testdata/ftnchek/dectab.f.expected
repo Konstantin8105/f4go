@@ -1,21 +1,33 @@
-token(96)           	subroutine
+SUBROUTINE          	subroutine
 IDENT               	abc
+NEW_LINE            	
+
 IDENT               	common
 IDENT               	a
 ,                   	,
 IDENT               	b
+NEW_LINE            	
+
 INT                 	1
 ,                   	,
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	a
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 IDENT               	b
 =                   	=
 IDENT               	a
+NEW_LINE            	
+
 INT                 	2
 /                   	/
 IDENT               	c
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	a
@@ -25,14 +37,22 @@ IDENT               	b
 IDENT               	a
 =                   	=
 INT                 	1
+NEW_LINE            	
+
+NEW_LINE            	
+
 INT                 	3
 +                   	+
 INT                 	2
+NEW_LINE            	
+
 IDENT               	c
 =                   	=
 INT                 	2
 /                   	/
 INT                 	3
+NEW_LINE            	
+
 IDENT               	print
 *                   	*
 ,                   	,
@@ -41,4 +61,8 @@ IDENT               	a
 IDENT               	b
 ,                   	,
 IDENT               	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

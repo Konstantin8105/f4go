@@ -1,59 +1,85 @@
-token(97)           	program
+PROGRAM             	program
 IDENT               	blocks
+NEW_LINE            	
+
 COMMENT             	! program with various errors in balancing block structures
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	x
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	n
+NEW_LINE            	
+
 IDENT               	x
 =                   	=
 IDENT               	bar
 (                   	(
 FLOAT               	1.0
 )                   	)
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	x
 >                   	.gt.
 INT                 	0
 )                   	)
-token(106)          	then
-token(105)          	call
+THEN                	then
+NEW_LINE            	
+
+CALL                	call
 IDENT               	baz
 (                   	(
 IDENT               	x
 )                   	)
+NEW_LINE            	
+
 IDENT               	n
 =                   	=
 IDENT               	int
 (                   	(
 IDENT               	x
 )                   	)
+NEW_LINE            	
+
 IDENT               	select
 IDENT               	case
 (                   	(
 IDENT               	n
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 INT                 	1
 )                   	)
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	baz
 (                   	(
 FLOAT               	2.0
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 INT                 	2
 :                   	:
 INT                 	10
 )                   	)
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	baz
 (                   	(
 FLOAT               	3.0
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 -                   	-
@@ -65,40 +91,58 @@ INT                 	100
 ,                   	,
 INT                 	300
 )                   	)
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	baz
 (                   	(
 FLOAT               	4.0
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 IDENT               	default
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	baz
 (                   	(
 FLOAT               	5.0
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
 IDENT               	select
+NEW_LINE            	
+
 else                	else
+NEW_LINE            	
+
 IDENT               	k
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 IDENT               	loop1
 :                   	:
-token(103)          	do
+DO                  	do
 IDENT               	i
 =                   	=
 INT                 	1
 ,                   	,
 INT                 	100
+NEW_LINE            	
+
 IDENT               	loop2
 :                   	:
-token(103)          	do
+DO                  	do
 IDENT               	j
 =                   	=
 INT                 	1
 ,                   	,
 INT                 	10
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -112,6 +156,8 @@ IDENT               	j
 IDENT               	i
 *                   	*
 IDENT               	j
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	i
@@ -121,11 +167,15 @@ INT                 	50
 IDENT               	exit
 IDENT               	loopdedo
 COMMENT             	! wrong construct name
+NEW_LINE            	
+
 IDENT               	k
 =                   	=
 IDENT               	k
 +                   	+
 IDENT               	j
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	k
@@ -134,9 +184,13 @@ INT                 	50
 )                   	)
 IDENT               	cycle
 IDENT               	loop2
-token(102)          	end
-token(103)          	do
+NEW_LINE            	
+
+END                 	end
+DO                  	do
 IDENT               	loop2
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -146,10 +200,14 @@ IDENT               	write
 IDENT               	k
 *                   	*
 IDENT               	i
-token(95)           	**
+                    	**
 INT                 	2
-token(104)          	enddo
+NEW_LINE            	
+
+ENDDO               	enddo
 IDENT               	foop1
+NEW_LINE            	
+
 IDENT               	case2
 :                   	:
 IDENT               	select
@@ -157,16 +215,22 @@ IDENT               	case
 (                   	(
 IDENT               	n
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 INT                 	1
 )                   	)
 IDENT               	case2
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	baz
 (                   	(
 FLOAT               	2.0
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 INT                 	2
@@ -174,11 +238,15 @@ INT                 	2
 INT                 	10
 )                   	)
 IDENT               	caseZ
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	baz
 (                   	(
 FLOAT               	3.0
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 (                   	(
 -                   	-
@@ -191,29 +259,41 @@ INT                 	100
 INT                 	300
 )                   	)
 IDENT               	case2
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	baz
 (                   	(
 FLOAT               	4.0
 )                   	)
+NEW_LINE            	
+
 IDENT               	case
 IDENT               	default
 IDENT               	case2
+NEW_LINE            	
+
 COMMENT             	!  do-loops with shared terminator
-token(103)          	do
+NEW_LINE            	
+
+DO                  	do
 INT                 	100
 IDENT               	i
 =                   	=
 INT                 	1
 ,                   	,
 INT                 	10
-token(103)          	do
+NEW_LINE            	
+
+DO                  	do
 INT                 	100
 IDENT               	j
 =                   	=
 INT                 	1
 ,                   	,
 INT                 	10
+NEW_LINE            	
+
 IDENT               	print
 *                   	*
 ,                   	,
@@ -224,22 +304,30 @@ IDENT               	j
 IDENT               	i
 *                   	*
 IDENT               	j
+NEW_LINE            	
+
 INT                 	100
 continue            	continue
-token(103)          	do
+NEW_LINE            	
+
+DO                  	do
 INT                 	200
 IDENT               	i
 =                   	=
 INT                 	1
 ,                   	,
 INT                 	10
-token(103)          	do
+NEW_LINE            	
+
+DO                  	do
 INT                 	250
 IDENT               	j
 =                   	=
 INT                 	1
 ,                   	,
 INT                 	10
+NEW_LINE            	
+
 IDENT               	print
 *                   	*
 ,                   	,
@@ -250,17 +338,27 @@ IDENT               	j
 IDENT               	i
 *                   	*
 IDENT               	j
+NEW_LINE            	
+
 INT                 	200
 continue            	continue
 COMMENT             	! terminators out of order
+NEW_LINE            	
+
 INT                 	250
-token(102)          	end
-token(103)          	do
-token(102)          	end
+END                 	end
+DO                  	do
+NEW_LINE            	
+
+END                 	end
 IDENT               	select
 IDENT               	case2
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
 if                  	if
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	x
@@ -269,6 +367,8 @@ INT                 	0
 )                   	)
 IDENT               	exit
 COMMENT             	! no enclosing DO
+NEW_LINE            	
+
 else                	else
 if                  	if
 (                   	(
@@ -276,23 +376,33 @@ IDENT               	x
 <                   	.lt.
 INT                 	0
 )                   	)
-token(106)          	then
+THEN                	then
 COMMENT             	! else has no matching then
+NEW_LINE            	
+
 IDENT               	print
 *                   	*
 ,                   	,
 STRING              	'Hello'
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
 IDENT               	select
 COMMENT             	! should be end if
-token(102)          	end
-token(97)           	program
+NEW_LINE            	
+
+END                 	end
+PROGRAM             	program
 IDENT               	blocks
-token(101)          	function
+NEW_LINE            	
+
+FUNCTION            	function
 IDENT               	bar
 (                   	(
 IDENT               	c
 )                   	)
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	a
 ,                   	,
@@ -301,52 +411,78 @@ IDENT               	b
 IDENT               	c
 ,                   	,
 IDENT               	d
+NEW_LINE            	
+
 IDENT               	read
 *                   	*
 ,                   	,
 IDENT               	a
+NEW_LINE            	
+
 COMMENT             	! This block is from section 8.1.2.3 of the F90 standard, except for
+NEW_LINE            	
+
 COMMENT             	! removing space between some keywords
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	a
 >                   	.gt.
 INT                 	0
 )                   	)
-token(106)          	then
+THEN                	then
+NEW_LINE            	
+
 IDENT               	b
 =                   	=
 IDENT               	c
 /                   	/
 IDENT               	a
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	b
 >                   	.gt.
 INT                 	0
 )                   	)
-token(106)          	then
+THEN                	then
+NEW_LINE            	
+
 IDENT               	d
 =                   	=
 FLOAT               	1.0
+NEW_LINE            	
+
 IDENT               	endif
+NEW_LINE            	
+
 IDENT               	elseif
 (                   	(
 IDENT               	c
 >                   	.gt.
 INT                 	0
 )                   	)
-token(106)          	then
+THEN                	then
+NEW_LINE            	
+
 IDENT               	b
 =                   	=
 IDENT               	a
 /                   	/
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	d
 =                   	=
 -                   	-
 FLOAT               	1.0
+NEW_LINE            	
+
 else                	else
+NEW_LINE            	
+
 IDENT               	b
 =                   	=
 IDENT               	abs
@@ -358,22 +494,34 @@ IDENT               	a
 IDENT               	c
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	d
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 IDENT               	endif
+NEW_LINE            	
+
 IDENT               	bar
 =                   	=
 IDENT               	d
 *                   	*
 IDENT               	b
-token(102)          	end
-token(96)           	subroutine
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+SUBROUTINE          	subroutine
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	baz
 (                   	(
 IDENT               	c
 )                   	)
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	a
 ,                   	,
@@ -382,11 +530,17 @@ IDENT               	b
 IDENT               	c
 ,                   	,
 IDENT               	d
+NEW_LINE            	
+
 IDENT               	read
 *                   	*
 ,                   	,
 IDENT               	a
+NEW_LINE            	
+
 COMMENT             	! Same as above but with spaces restored and construct names added
+NEW_LINE            	
+
 IDENT               	first_if
 :                   	:
 if                  	if
@@ -395,12 +549,16 @@ IDENT               	a
 >                   	.gt.
 INT                 	0
 )                   	)
-token(106)          	then
+THEN                	then
+NEW_LINE            	
+
 IDENT               	b
 =                   	=
 IDENT               	c
 /                   	/
 IDENT               	a
+NEW_LINE            	
+
 IDENT               	second_if
 :                   	:
 if                  	if
@@ -409,13 +567,19 @@ IDENT               	b
 >                   	.gt.
 INT                 	0
 )                   	)
-token(106)          	then
+THEN                	then
+NEW_LINE            	
+
 IDENT               	d
 =                   	=
 FLOAT               	1.0
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
 if                  	if
 IDENT               	second_if
+NEW_LINE            	
+
 else                	else
 if                  	if
 (                   	(
@@ -423,19 +587,27 @@ IDENT               	c
 >                   	.gt.
 INT                 	0
 )                   	)
-token(106)          	then
+THEN                	then
 IDENT               	firstif
+NEW_LINE            	
+
 IDENT               	b
 =                   	=
 IDENT               	a
 /                   	/
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	d
 =                   	=
 -                   	-
 FLOAT               	1.0
+NEW_LINE            	
+
 else                	else
 IDENT               	first_if
+NEW_LINE            	
+
 IDENT               	b
 =                   	=
 IDENT               	abs
@@ -447,11 +619,17 @@ IDENT               	a
 IDENT               	c
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	d
 =                   	=
 INT                 	0
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
 if                  	if
+NEW_LINE            	
+
 IDENT               	print
 *                   	*
 ,                   	,
@@ -462,6 +640,12 @@ IDENT               	b
 IDENT               	c
 ,                   	,
 IDENT               	d
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+SUBROUTINE          	subroutine
 IDENT               	bazz
+NEW_LINE            	
+
+NEW_LINE            	
+

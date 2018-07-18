@@ -1,5 +1,7 @@
-token(97)           	program
+PROGRAM             	program
 IDENT               	main
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -7,4 +9,8 @@ IDENT               	write
 *                   	*
 )                   	)
 STRING              	'Hello, world!'
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

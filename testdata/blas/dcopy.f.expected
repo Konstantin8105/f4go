@@ -1,86 +1,250 @@
 COMMENT             	*> \brief \b DCOPY
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       SUBROUTINE DCOPY(N,DX,INCX,DY,INCY)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       INTEGER INCX,INCY,N
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       DOUBLE PRECISION DX(*),DY(*)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    DCOPY copies a vector, x, to a vector, y.
+NEW_LINE            	
+
 COMMENT             	*>    uses unrolled loops for increments equal to 1.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] N
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          N is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         number of elements in input vector(s)
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] DX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          DX is DOUBLE PRECISION array, dimension ( 1 + ( N - 1 )*abs( INCX ) )
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCX is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         storage spacing between elements of DX
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[out] DY
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          DY is DOUBLE PRECISION array, dimension ( 1 + ( N - 1 )*abs( INCY ) )
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCY
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCY is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>         storage spacing between elements of DY
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup double_blas_level1
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Further Details:
+NEW_LINE            	
+
 COMMENT             	*  =====================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>     jack dongarra, linpack, 3/11/78.
+NEW_LINE            	
+
 COMMENT             	*>     modified 12/3/93, array(1) declarations changed to array(*)
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	DCOPY
 (                   	(
 IDENT               	N
@@ -93,21 +257,43 @@ IDENT               	DY
 ,                   	,
 IDENT               	INCY
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level1 routine (version 3.8.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     November 2017
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	INCX
 ,                   	,
 IDENT               	INCY
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	DX
@@ -119,12 +305,24 @@ IDENT               	DY
 (                   	(
 *                   	*
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	IX
@@ -134,11 +332,21 @@ IDENT               	IY
 IDENT               	M
 ,                   	,
 IDENT               	MP1
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	MOD
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	N
@@ -146,6 +354,8 @@ IDENT               	N
 INT                 	0
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -156,13 +366,27 @@ IDENT               	INCY
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        code for both increments equal to 1
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        clean-up loop
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	M
 =                   	=
 IDENT               	MOD
@@ -171,19 +395,25 @@ IDENT               	N
 ,                   	,
 INT                 	7
 )                   	)
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	M
 !=                  	.NE.
 INT                 	0
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	I
@@ -193,8 +423,12 @@ IDENT               	DX
 (                   	(
 IDENT               	I
 )                   	)
-token(102)          	END
-token(103)          	DO
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	N
@@ -202,14 +436,20 @@ IDENT               	N
 INT                 	7
 )                   	)
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 IDENT               	MP1
 =                   	=
 IDENT               	M
 +                   	+
 INT                 	1
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 IDENT               	MP1
@@ -217,6 +457,8 @@ IDENT               	MP1
 IDENT               	N
 ,                   	,
 INT                 	7
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	I
@@ -226,6 +468,8 @@ IDENT               	DX
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	I
@@ -239,6 +483,8 @@ IDENT               	I
 +                   	+
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	I
@@ -252,6 +498,8 @@ IDENT               	I
 +                   	+
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	I
@@ -265,6 +513,8 @@ IDENT               	I
 +                   	+
 INT                 	3
 )                   	)
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	I
@@ -278,6 +528,8 @@ IDENT               	I
 +                   	+
 INT                 	4
 )                   	)
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	I
@@ -291,6 +543,8 @@ IDENT               	I
 +                   	+
 INT                 	5
 )                   	)
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	I
@@ -304,19 +558,37 @@ IDENT               	I
 +                   	+
 INT                 	6
 )                   	)
-token(102)          	END
-token(103)          	DO
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        code for unequal increments or equal increments
+NEW_LINE            	
+
 COMMENT             	*          not equal to 1
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
@@ -335,6 +607,8 @@ INT                 	1
 IDENT               	INCX
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCY
@@ -353,12 +627,16 @@ INT                 	1
 IDENT               	INCY
 +                   	+
 INT                 	1
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	DY
 (                   	(
 IDENT               	IY
@@ -368,19 +646,33 @@ IDENT               	DX
 (                   	(
 IDENT               	IX
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 IDENT               	IY
 +                   	+
 IDENT               	INCY
-token(102)          	END
-token(103)          	DO
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

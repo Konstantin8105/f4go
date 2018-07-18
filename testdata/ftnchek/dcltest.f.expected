@@ -1,29 +1,45 @@
-token(97)           	program
+PROGRAM             	program
 IDENT               	test1
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	character
 IDENT               	STRING1
 *                   	*
 INT                 	6
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	STRING1
 =                   	=
 STRING              	'abc123'
 )                   	)
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	character
 IDENT               	STRING2
 *                   	*
 (                   	(
 INT                 	6
 )                   	)
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	STRING2
 =                   	=
 STRING              	'xyz789'
 )                   	)
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -33,5 +49,11 @@ IDENT               	write
 IDENT               	STRING1
 ,                   	,
 IDENT               	STRING2
+NEW_LINE            	
+
 COMMENT             	c
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

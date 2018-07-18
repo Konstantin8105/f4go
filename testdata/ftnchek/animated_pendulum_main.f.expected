@@ -1,16 +1,40 @@
-token(97)           	program
+PROGRAM             	program
 IDENT               	AnimatedPendulum
+NEW_LINE            	
+
 COMMENT             	**********************************************
+NEW_LINE            	
+
 COMMENT             	*       Program:    Simple_Pendulum_Solver   *
+NEW_LINE            	
+
 COMMENT             	*       Written_By: Brian Downing            *
+NEW_LINE            	
+
 COMMENT             	*                   Fordham University       *
+NEW_LINE            	
+
 COMMENT             	*       Date:       October 23rd, 1990       *
+NEW_LINE            	
+
 COMMENT             	**********************************************
-token(100)          	Implicit
+NEW_LINE            	
+
+NEW_LINE            	
+
+IMPLICIT            	Implicit
 IDENT               	None
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       Declare double precision variables.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	a
@@ -30,9 +54,17 @@ IDENT               	Pi
 IDENT               	Theta
 ,                   	,
 IDENT               	ThetaM
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       Initialize some constant values.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	Pi
 =                   	=
 FLOAT               	4.0
@@ -41,47 +73,83 @@ IDENT               	ATAN
 (                   	(
 FLOAT               	1.0
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       Clear screen and then prompt for real numbers for variables.
+NEW_LINE            	
+
 COMMENT             	*
-token(105)          	Call
+NEW_LINE            	
+
+CALL                	Call
 IDENT               	CLS
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 INT                 	5
 ,                   	,
 INT                 	100
 )                   	)
+NEW_LINE            	
+
 IDENT               	read
 *                   	*
 ,                   	,
 IDENT               	dt
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 INT                 	5
 ,                   	,
 INT                 	200
 )                   	)
+NEW_LINE            	
+
 IDENT               	read
 *                   	*
 ,                   	,
 IDENT               	Theta
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 INT                 	5
 ,                   	,
 INT                 	300
 )                   	)
+NEW_LINE            	
+
 IDENT               	read
 *                   	*
 ,                   	,
 IDENT               	l
+NEW_LINE            	
+
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       Initialize other variables.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	g
 =                   	=
 FLOAT               	9.81
+NEW_LINE            	
+
 IDENT               	ThetaM
 =                   	=
 IDENT               	Theta
@@ -89,15 +157,23 @@ IDENT               	Theta
 IDENT               	Pi
 /                   	/
 FLOAT               	180.0
+NEW_LINE            	
+
 IDENT               	Theta
 =                   	=
 IDENT               	ThetaM
+NEW_LINE            	
+
 IDENT               	t
 =                   	=
 FLOAT               	0.0
+NEW_LINE            	
+
 IDENT               	w
 =                   	=
 FLOAT               	0.0
+NEW_LINE            	
+
 IDENT               	a
 =                   	=
 (                   	(
@@ -111,16 +187,28 @@ IDENT               	DSIN
 (                   	(
 IDENT               	Theta
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       Loop until finished (angle.eq.-Theta_naught .or. omega = 0)?
+NEW_LINE            	
+
 COMMENT             	*
-token(105)          	Call
+NEW_LINE            	
+
+CALL                	Call
 IDENT               	EnterGraphicsMode
-token(103)          	do
+NEW_LINE            	
+
+DO                  	do
 IDENT               	while
 (                   	(
 IDENT               	.true.
 )                   	)
+NEW_LINE            	
+
 IDENT               	a
 =                   	=
 (                   	(
@@ -134,6 +222,8 @@ IDENT               	DSIN
 (                   	(
 IDENT               	Theta
 )                   	)
+NEW_LINE            	
+
 IDENT               	w
 =                   	=
 IDENT               	w
@@ -141,6 +231,8 @@ IDENT               	w
 IDENT               	a
 *                   	*
 IDENT               	dt
+NEW_LINE            	
+
 IDENT               	Theta
 =                   	=
 IDENT               	Theta
@@ -148,16 +240,22 @@ IDENT               	Theta
 IDENT               	w
 *                   	*
 IDENT               	dt
+NEW_LINE            	
+
 IDENT               	t
 =                   	=
 IDENT               	t
 +                   	+
 IDENT               	dt
-token(105)          	Call
+NEW_LINE            	
+
+CALL                	Call
 IDENT               	PlotBall
 (                   	(
 IDENT               	Theta
 )                   	)
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	Theta
@@ -169,16 +267,30 @@ IDENT               	ThetaM
 )                   	)
 IDENT               	goto
 INT                 	10
-token(104)          	enddo
+NEW_LINE            	
+
+ENDDO               	enddo
+NEW_LINE            	
+
 INT                 	10
 continue            	continue
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       Print out final results.
+NEW_LINE            	
+
 COMMENT             	* 
+NEW_LINE            	
+
 IDENT               	print
 *                   	*
 ,                   	,
 STRING              	'Finished calculations.'
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 INT                 	5
@@ -192,9 +304,17 @@ IDENT               	w
 IDENT               	Theta
 ,                   	,
 IDENT               	t
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       Program format statements.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 INT                 	20
 IDENT               	format
 (                   	(
@@ -254,6 +374,8 @@ IDENT               	x
 STRING              	'Enter real number for delta time in seconds: '
 ,                   	,
 )                   	)
+NEW_LINE            	
+
 INT                 	200
 IDENT               	format
 (                   	(
@@ -263,6 +385,8 @@ IDENT               	x
 STRING              	'Enter real number for Theta in degrees: '
 ,                   	,
 )                   	)
+NEW_LINE            	
+
 INT                 	300
 IDENT               	format
 (                   	(
@@ -272,6 +396,12 @@ IDENT               	x
 STRING              	'Enter real number for Length in meters: '
 ,                   	,
 )                   	)
-token(105)          	Call
+NEW_LINE            	
+
+CALL                	Call
 IDENT               	ExitGraphicsMode
-token(102)          	End
+NEW_LINE            	
+
+END                 	End
+NEW_LINE            	
+

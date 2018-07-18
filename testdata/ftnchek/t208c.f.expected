@@ -18,50 +18,82 @@ IDENT               	t5
 IDENT               	t6
 ,                   	,
 IDENT               	t7
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	72
 IDENT               	u
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	1
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	character
 IDENT               	cnl
+NEW_LINE            	
+
 IDENT               	real
 *                   	*
 INT                 	16
 IDENT               	x16
+NEW_LINE            	
+
 IDENT               	real
 *                   	*
 INT                 	8
 IDENT               	x8
+NEW_LINE            	
+
 IDENT               	real
 *                   	*
 INT                 	6
 IDENT               	x6
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	xnl
+NEW_LINE            	
+
 IDENT               	complex
 *                   	*
 INT                 	12
 IDENT               	y
+NEW_LINE            	
+
 IDENT               	complex
 IDENT               	ynl
+NEW_LINE            	
+
 IDENT               	logical
 *                   	*
 INT                 	1
 IDENT               	logvar
+NEW_LINE            	
+
 IDENT               	logical
 *                   	*
 INT                 	2
 IDENT               	logvar2
+NEW_LINE            	
+
 IDENT               	logical
 IDENT               	lognl
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 *                   	*
 INT                 	2
 IDENT               	short
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	shortnl
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

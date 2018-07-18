@@ -1,189 +1,559 @@
 COMMENT             	*> \brief \b DGBMV
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =========== DOCUMENTATION ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	* Online html documentation available at
+NEW_LINE            	
+
 COMMENT             	*            http://www.netlib.org/lapack/explore-html/
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Definition:
+NEW_LINE            	
+
 COMMENT             	*  ===========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       SUBROUTINE DGBMV(TRANS,M,N,KL,KU,ALPHA,A,LDA,X,INCX,BETA,Y,INCY)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*       .. Scalar Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       DOUBLE PRECISION ALPHA,BETA
+NEW_LINE            	
+
 COMMENT             	*       INTEGER INCX,INCY,KL,KU,LDA,M,N
+NEW_LINE            	
+
 COMMENT             	*       CHARACTER TRANS
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*       .. Array Arguments ..
+NEW_LINE            	
+
 COMMENT             	*       DOUBLE PRECISION A(LDA,*),X(*),Y(*)
+NEW_LINE            	
+
 COMMENT             	*       ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Purpose:
+NEW_LINE            	
+
 COMMENT             	*  =============
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> DGBMV  performs one of the matrix-vector operations
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>    y := alpha*A*x + beta*y,   or   y := alpha*A**T*x + beta*y,
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> where alpha and beta are scalars, x and y are vectors and A is an
+NEW_LINE            	
+
 COMMENT             	*> m by n band matrix, with kl sub-diagonals and ku super-diagonals.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Arguments:
+NEW_LINE            	
+
 COMMENT             	*  ==========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \param[in] TRANS
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          TRANS is CHARACTER*1
+NEW_LINE            	
+
 COMMENT             	*>           On entry, TRANS specifies the operation to be performed as
+NEW_LINE            	
+
 COMMENT             	*>           follows:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              TRANS = 'N' or 'n'   y := alpha*A*x + beta*y.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              TRANS = 'T' or 't'   y := alpha*A**T*x + beta*y.
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>              TRANS = 'C' or 'c'   y := alpha*A**T*x + beta*y.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] M
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          M is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, M specifies the number of rows of the matrix A.
+NEW_LINE            	
+
 COMMENT             	*>           M must be at least zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] N
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          N is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, N specifies the number of columns of the matrix A.
+NEW_LINE            	
+
 COMMENT             	*>           N must be at least zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] KL
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          KL is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, KL specifies the number of sub-diagonals of the
+NEW_LINE            	
+
 COMMENT             	*>           matrix A. KL must satisfy  0 .le. KL.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] KU
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          KU is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, KU specifies the number of super-diagonals of the
+NEW_LINE            	
+
 COMMENT             	*>           matrix A. KU must satisfy  0 .le. KU.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] ALPHA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          ALPHA is DOUBLE PRECISION.
+NEW_LINE            	
+
 COMMENT             	*>           On entry, ALPHA specifies the scalar alpha.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] A
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          A is DOUBLE PRECISION array, dimension ( LDA, N )
+NEW_LINE            	
+
 COMMENT             	*>           Before entry, the leading ( kl + ku + 1 ) by n part of the
+NEW_LINE            	
+
 COMMENT             	*>           array A must contain the matrix of coefficients, supplied
+NEW_LINE            	
+
 COMMENT             	*>           column by column, with the leading diagonal of the matrix in
+NEW_LINE            	
+
 COMMENT             	*>           row ( ku + 1 ) of the array, the first super-diagonal
+NEW_LINE            	
+
 COMMENT             	*>           starting at position 2 in row ku, the first sub-diagonal
+NEW_LINE            	
+
 COMMENT             	*>           starting at position 1 in row ( ku + 2 ), and so on.
+NEW_LINE            	
+
 COMMENT             	*>           Elements in the array A that do not correspond to elements
+NEW_LINE            	
+
 COMMENT             	*>           in the band matrix (such as the top left ku by ku triangle)
+NEW_LINE            	
+
 COMMENT             	*>           are not referenced.
+NEW_LINE            	
+
 COMMENT             	*>           The following program segment will transfer a band matrix
+NEW_LINE            	
+
 COMMENT             	*>           from conventional full matrix storage to band storage:
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>                 DO 20, J = 1, N
+NEW_LINE            	
+
 COMMENT             	*>                    K = KU + 1 - J
+NEW_LINE            	
+
 COMMENT             	*>                    DO 10, I = MAX( 1, J - KU ), MIN( M, J + KL )
+NEW_LINE            	
+
 COMMENT             	*>                       A( K + I, J ) = matrix( I, J )
+NEW_LINE            	
+
 COMMENT             	*>              10    CONTINUE
+NEW_LINE            	
+
 COMMENT             	*>              20 CONTINUE
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] LDA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          LDA is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, LDA specifies the first dimension of A as declared
+NEW_LINE            	
+
 COMMENT             	*>           in the calling (sub) program. LDA must be at least
+NEW_LINE            	
+
 COMMENT             	*>           ( kl + ku + 1 ).
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] X
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          X is DOUBLE PRECISION array, dimension at least
+NEW_LINE            	
+
 COMMENT             	*>           ( 1 + ( n - 1 )*abs( INCX ) ) when TRANS = 'N' or 'n'
+NEW_LINE            	
+
 COMMENT             	*>           and at least
+NEW_LINE            	
+
 COMMENT             	*>           ( 1 + ( m - 1 )*abs( INCX ) ) otherwise.
+NEW_LINE            	
+
 COMMENT             	*>           Before entry, the incremented array X must contain the
+NEW_LINE            	
+
 COMMENT             	*>           vector x.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCX
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCX is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, INCX specifies the increment for the elements of
+NEW_LINE            	
+
 COMMENT             	*>           X. INCX must not be zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] BETA
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          BETA is DOUBLE PRECISION.
+NEW_LINE            	
+
 COMMENT             	*>           On entry, BETA specifies the scalar beta. When BETA is
+NEW_LINE            	
+
 COMMENT             	*>           supplied as zero then Y need not be set on input.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in,out] Y
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          Y is DOUBLE PRECISION array, dimension at least
+NEW_LINE            	
+
 COMMENT             	*>           ( 1 + ( m - 1 )*abs( INCY ) ) when TRANS = 'N' or 'n'
+NEW_LINE            	
+
 COMMENT             	*>           and at least
+NEW_LINE            	
+
 COMMENT             	*>           ( 1 + ( n - 1 )*abs( INCY ) ) otherwise.
+NEW_LINE            	
+
 COMMENT             	*>           Before entry, the incremented array Y must contain the
+NEW_LINE            	
+
 COMMENT             	*>           vector y. On exit, Y is overwritten by the updated vector y.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \param[in] INCY
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>          INCY is INTEGER
+NEW_LINE            	
+
 COMMENT             	*>           On entry, INCY specifies the increment for the elements of
+NEW_LINE            	
+
 COMMENT             	*>           Y. INCY must not be zero.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  Authors:
+NEW_LINE            	
+
 COMMENT             	*  ========
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Tennessee
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of California Berkeley
+NEW_LINE            	
+
 COMMENT             	*> \author Univ. of Colorado Denver
+NEW_LINE            	
+
 COMMENT             	*> \author NAG Ltd.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \date December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \ingroup double_blas_level2
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*> \par Further Details:
+NEW_LINE            	
+
 COMMENT             	*  =====================
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*> \verbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  Level 2 Blas routine.
+NEW_LINE            	
+
 COMMENT             	*>  The vector and matrix arguments are not referenced when N = 0, or M = 0
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*>  -- Written on 22-October-1986.
+NEW_LINE            	
+
 COMMENT             	*>     Jack Dongarra, Argonne National Lab.
+NEW_LINE            	
+
 COMMENT             	*>     Jeremy Du Croz, Nag Central Office.
+NEW_LINE            	
+
 COMMENT             	*>     Sven Hammarling, Nag Central Office.
+NEW_LINE            	
+
 COMMENT             	*>     Richard Hanson, Sandia National Labs.
+NEW_LINE            	
+
 COMMENT             	*> \endverbatim
+NEW_LINE            	
+
 COMMENT             	*>
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	DGBMV
 (                   	(
 IDENT               	TRANS
@@ -212,19 +582,37 @@ IDENT               	Y
 ,                   	,
 IDENT               	INCY
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS level2 routine (version 3.7.0) --
+NEW_LINE            	
+
 COMMENT             	*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+NEW_LINE            	
+
 COMMENT             	*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+NEW_LINE            	
+
 COMMENT             	*     December 2016
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Scalar Arguments ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	ALPHA
 ,                   	,
 IDENT               	BETA
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	INCX
 ,                   	,
 IDENT               	INCY
@@ -238,10 +626,18 @@ IDENT               	LDA
 IDENT               	M
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	CHARACTER
 IDENT               	TRANS
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Array Arguments ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	A
@@ -260,16 +656,30 @@ IDENT               	Y
 (                   	(
 *                   	*
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*  =====================================================================
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     .. Parameters ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	ONE
 ,                   	,
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	ONE
@@ -280,12 +690,20 @@ IDENT               	ZERO
 =                   	=
 FLOAT               	0.0D+0
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Local Scalars ..
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	TEMP
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	INFO
@@ -311,29 +729,61 @@ IDENT               	KY
 IDENT               	LENX
 ,                   	,
 IDENT               	LENY
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. External Functions ..
+NEW_LINE            	
+
 IDENT               	LOGICAL
 IDENT               	LSAME
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	LSAME
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. External Subroutines ..
+NEW_LINE            	
+
 IDENT               	EXTERNAL
 IDENT               	XERBLA
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*     .. Intrinsic Functions ..
+NEW_LINE            	
+
 IDENT               	INTRINSIC
 IDENT               	MAX
 ,                   	,
 IDENT               	MIN
+NEW_LINE            	
+
 COMMENT             	*     ..
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Test the input parameters.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 !=                  	.NOT.
@@ -352,6 +802,8 @@ IDENT               	TRANS
 STRING              	'T'
 )                   	)
 &&                  	.AND.
+NEW_LINE            	
+
 +                   	+
 !=                  	.NOT.
 IDENT               	LSAME
@@ -361,10 +813,14 @@ IDENT               	TRANS
 STRING              	'C'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -372,10 +828,14 @@ IDENT               	M
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	2
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -383,10 +843,14 @@ IDENT               	N
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	3
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -394,10 +858,14 @@ IDENT               	KL
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	4
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -405,10 +873,14 @@ IDENT               	KU
 <                   	.LT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	5
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -422,10 +894,14 @@ IDENT               	KU
 INT                 	1
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	8
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -433,10 +909,14 @@ IDENT               	INCX
 ==                  	.EQ.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	10
+NEW_LINE            	
+
 else                	ELSE
 if                  	IF
 (                   	(
@@ -444,32 +924,52 @@ IDENT               	INCY
 ==                  	.EQ.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	INFO
 =                   	=
 INT                 	13
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INFO
 !=                  	.NE.
 INT                 	0
 )                   	)
-token(106)          	THEN
-token(105)          	CALL
+THEN                	THEN
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	XERBLA
 (                   	(
 STRING              	'DGBMV '
 ,                   	,
 IDENT               	INFO
 )                   	)
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Quick return if possible.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 (                   	(
@@ -484,6 +984,8 @@ IDENT               	N
 INT                 	0
 )                   	)
 ||                  	.OR.
+NEW_LINE            	
+
 +                   	+
 (                   	(
 (                   	(
@@ -500,10 +1002,20 @@ IDENT               	ONE
 )                   	)
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Set  LENX  and  LENY, the lengths of the vectors x and y, and set
+NEW_LINE            	
+
 COMMENT             	*     up the start points in  X  and  Y.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -513,33 +1025,53 @@ IDENT               	TRANS
 STRING              	'N'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	LENX
 =                   	=
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	LENY
 =                   	=
 IDENT               	M
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	LENX
 =                   	=
 IDENT               	M
+NEW_LINE            	
+
 IDENT               	LENY
 =                   	=
 IDENT               	N
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 >                   	.GT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	KX
 =                   	=
 INT                 	1
@@ -551,19 +1083,29 @@ INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCX
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCY
 >                   	.GT.
 INT                 	0
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 IDENT               	KY
 =                   	=
 INT                 	1
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	KY
 =                   	=
 INT                 	1
@@ -575,58 +1117,90 @@ INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCY
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     Start the operations. In this version the elements of A are
+NEW_LINE            	
+
 COMMENT             	*     accessed sequentially with one pass through the band part of A.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     First form  y := beta*y.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	BETA
 !=                  	.NE.
 IDENT               	ONE
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCY
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	10
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	LENY
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	I
 )                   	)
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 INT                 	10
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	20
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	LENY
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	I
@@ -638,49 +1212,73 @@ IDENT               	Y
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 INT                 	20
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 IDENT               	KY
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
 IDENT               	ZERO
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	30
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	LENY
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	IY
 )                   	)
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 IDENT               	IY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 INT                 	30
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	40
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	LENY
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	IY
@@ -692,19 +1290,31 @@ IDENT               	Y
 (                   	(
 IDENT               	IY
 )                   	)
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 IDENT               	IY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 INT                 	40
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	ALPHA
@@ -712,11 +1322,15 @@ IDENT               	ALPHA
 IDENT               	ZERO
 )                   	)
 return              	RETURN
+NEW_LINE            	
+
 IDENT               	KUP1
 =                   	=
 IDENT               	KU
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	LSAME
@@ -726,27 +1340,41 @@ IDENT               	TRANS
 STRING              	'N'
 )                   	)
 )                   	)
-token(106)          	THEN
+THEN                	THEN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        Form  y := alpha*A*x + y.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	KX
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCY
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	60
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -755,12 +1383,16 @@ IDENT               	X
 (                   	(
 IDENT               	JX
 )                   	)
+NEW_LINE            	
+
 IDENT               	K
 =                   	=
 IDENT               	KUP1
 -                   	-
 IDENT               	J
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	50
 IDENT               	I
 =                   	=
@@ -781,6 +1413,8 @@ IDENT               	J
 +                   	+
 IDENT               	KL
 )                   	)
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	I
@@ -801,23 +1435,35 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 INT                 	50
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	JX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	60
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	80
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ALPHA
@@ -826,15 +1472,21 @@ IDENT               	X
 (                   	(
 IDENT               	JX
 )                   	)
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 IDENT               	KY
+NEW_LINE            	
+
 IDENT               	K
 =                   	=
 IDENT               	KUP1
 -                   	-
 IDENT               	J
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	70
 IDENT               	I
 =                   	=
@@ -855,6 +1507,8 @@ IDENT               	J
 +                   	+
 IDENT               	KL
 )                   	)
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	IY
@@ -875,18 +1529,26 @@ IDENT               	I
 ,                   	,
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	IY
 =                   	=
 IDENT               	IY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 INT                 	70
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	JX
 =                   	=
 IDENT               	JX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	J
@@ -898,40 +1560,64 @@ IDENT               	KY
 IDENT               	KY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 INT                 	80
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 else                	ELSE
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*        Form  y := alpha*A**T*x + y.
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 IDENT               	JY
 =                   	=
 IDENT               	KY
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	INCX
 ==                  	.EQ.
 INT                 	1
 )                   	)
-token(106)          	THEN
-token(103)          	DO
+THEN                	THEN
+NEW_LINE            	
+
+DO                  	DO
 INT                 	100
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	K
 =                   	=
 IDENT               	KUP1
 -                   	-
 IDENT               	J
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	90
 IDENT               	I
 =                   	=
@@ -952,6 +1638,8 @@ IDENT               	J
 +                   	+
 IDENT               	KL
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	TEMP
@@ -969,8 +1657,12 @@ IDENT               	X
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 INT                 	90
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	JY
@@ -984,33 +1676,49 @@ IDENT               	JY
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP
+NEW_LINE            	
+
 IDENT               	JY
 =                   	=
 IDENT               	JY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 INT                 	100
 continue            	CONTINUE
+NEW_LINE            	
+
 else                	ELSE
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	120
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	ZERO
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	KX
+NEW_LINE            	
+
 IDENT               	K
 =                   	=
 IDENT               	KUP1
 -                   	-
 IDENT               	J
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	110
 IDENT               	I
 =                   	=
@@ -1031,6 +1739,8 @@ IDENT               	J
 +                   	+
 IDENT               	KL
 )                   	)
+NEW_LINE            	
+
 IDENT               	TEMP
 =                   	=
 IDENT               	TEMP
@@ -1048,13 +1758,19 @@ IDENT               	X
 (                   	(
 IDENT               	IX
 )                   	)
+NEW_LINE            	
+
 IDENT               	IX
 =                   	=
 IDENT               	IX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	110
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	Y
 (                   	(
 IDENT               	JY
@@ -1068,11 +1784,15 @@ IDENT               	JY
 IDENT               	ALPHA
 *                   	*
 IDENT               	TEMP
+NEW_LINE            	
+
 IDENT               	JY
 =                   	=
 IDENT               	JY
 +                   	+
 IDENT               	INCY
+NEW_LINE            	
+
 if                  	IF
 (                   	(
 IDENT               	J
@@ -1084,15 +1804,35 @@ IDENT               	KX
 IDENT               	KX
 +                   	+
 IDENT               	INCX
+NEW_LINE            	
+
 INT                 	120
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
 if                  	IF
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 return              	RETURN
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
 COMMENT             	*     End of DGBMV .
+NEW_LINE            	
+
 COMMENT             	*
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

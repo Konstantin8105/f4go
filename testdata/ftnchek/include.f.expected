@@ -1,50 +1,108 @@
 COMMENT             	C  Derived from Brian Downing's WC program, replacing common decls by INCLUDEs
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     main(){   Get a file, open it, read and determine semi-useful
+NEW_LINE            	
+
 COMMENT             	C               statistics, print them to screen, and exit quietly.
+NEW_LINE            	
+
 COMMENT             	C           };
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     This program is an example word counter that makes use of several
+NEW_LINE            	
+
 COMMENT             	C     Fortran intrinsic functions and data structures, such as; 
+NEW_LINE            	
+
 COMMENT             	C     common, sub-routines, functions, inplied do loops, and much, much more.
+NEW_LINE            	
+
 COMMENT             	C
-token(97)           	Program
+NEW_LINE            	
+
+PROGRAM             	Program
 IDENT               	WC
+NEW_LINE            	
+
 COMMENT             	CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+NEW_LINE            	
+
 COMMENT             	C     Program:    Word_Count_And_Other_Stuff                                 C
+NEW_LINE            	
+
 COMMENT             	C     Written_By: Brian Downing                                              C
+NEW_LINE            	
+
 COMMENT             	C                 Fordham University                                         C
+NEW_LINE            	
+
 COMMENT             	C     Date:       October 1st-16th, 1990                                     C
+NEW_LINE            	
+
 COMMENT             	CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+NEW_LINE            	
+
 IDENT               	Character
 IDENT               	Fname
 *                   	*
 INT                 	80
-token(105)          	Call
+NEW_LINE            	
+
+NEW_LINE            	
+
+CALL                	Call
 IDENT               	Initialize
-token(105)          	Call
+NEW_LINE            	
+
+CALL                	Call
 IDENT               	GetFileName
 (                   	(
 IDENT               	Fname
 )                   	)
-token(105)          	Call
+NEW_LINE            	
+
+CALL                	Call
 IDENT               	GetStats
 (                   	(
 IDENT               	Fname
 )                   	)
-token(105)          	Call
+NEW_LINE            	
+
+CALL                	Call
 IDENT               	PrintStats
-token(102)          	End
+NEW_LINE            	
+
+END                 	End
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     SubRoutine to get all kinds of neat statistics.
+NEW_LINE            	
+
 COMMENT             	C
-token(96)           	SubRoutine
+NEW_LINE            	
+
+SUBROUTINE          	SubRoutine
 IDENT               	GetStats
 (                   	(
 IDENT               	Fname
 )                   	)
+NEW_LINE            	
+
 IDENT               	Include
 STRING              	'stats.h'
+NEW_LINE            	
+
 IDENT               	Character
 IDENT               	Inline
 *                   	*
@@ -55,6 +113,10 @@ IDENT               	Fname
 INT                 	80
 ,                   	,
 IDENT               	Ch
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	Open
 (                   	(
 IDENT               	Unit
@@ -69,27 +131,35 @@ IDENT               	Err
 =                   	=
 INT                 	999
 )                   	)
-token(103)          	Do
+NEW_LINE            	
+
+DO                  	Do
 IDENT               	While
 (                   	(
 IDENT               	.TRUE.
 )                   	)
+NEW_LINE            	
+
 IDENT               	Read
 (                   	(
 INT                 	8
 ,                   	,
 INT                 	10
 ,                   	,
-token(102)          	End
+END                 	End
 =                   	=
 INT                 	888
 )                   	)
 IDENT               	InLine
+NEW_LINE            	
+
 IDENT               	NL
 =                   	=
 IDENT               	NL
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 IDENT               	LastPos
 =                   	=
 IDENT               	INDEX
@@ -98,12 +168,16 @@ IDENT               	InLine
 ,                   	,
 STRING              	'  '
 )                   	)
-token(103)          	Do
+NEW_LINE            	
+
+DO                  	Do
 IDENT               	J
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	LastPos
+NEW_LINE            	
+
 IDENT               	Ch
 =                   	=
 IDENT               	InLine
@@ -112,6 +186,8 @@ IDENT               	J
 :                   	:
 IDENT               	J
 )                   	)
+NEW_LINE            	
+
 IDENT               	L
 =                   	=
 IDENT               	IntUpCase
@@ -121,6 +197,8 @@ IDENT               	ICHAR
 IDENT               	Ch
 )                   	)
 )                   	)
+NEW_LINE            	
+
 IDENT               	NEC
 (                   	(
 IDENT               	L
@@ -132,6 +210,8 @@ IDENT               	L
 )                   	)
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 if                  	If
 (                   	(
 (                   	(
@@ -146,35 +226,55 @@ IDENT               	Ch
 STRING              	'.'
 )                   	)
 )                   	)
-token(106)          	Then
+THEN                	Then
+NEW_LINE            	
+
 IDENT               	NC
 =                   	=
 IDENT               	NC
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 IDENT               	ElseIf
 (                   	(
 IDENT               	Ch
 ==                  	.EQ.
 STRING              	'.'
 )                   	)
-token(106)          	Then
+THEN                	Then
+NEW_LINE            	
+
 IDENT               	NP
 =                   	=
 IDENT               	NP
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 else                	Else
+NEW_LINE            	
+
 IDENT               	NW
 =                   	=
 IDENT               	NW
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 IDENT               	EndIf
-token(104)          	EndDo
-token(104)          	EndDo
+NEW_LINE            	
+
+ENDDO               	EndDo
+NEW_LINE            	
+
+ENDDO               	EndDo
+NEW_LINE            	
+
 INT                 	888
 continue            	Continue
+NEW_LINE            	
+
 IDENT               	ACPW
 =                   	=
 IDENT               	REAL
@@ -186,6 +286,8 @@ IDENT               	REAL
 (                   	(
 IDENT               	NW
 )                   	)
+NEW_LINE            	
+
 IDENT               	AWPS
 =                   	=
 IDENT               	REAL
@@ -197,29 +299,59 @@ IDENT               	REAL
 (                   	(
 IDENT               	NP
 )                   	)
+NEW_LINE            	
+
 return              	Return
+NEW_LINE            	
+
 INT                 	10
 IDENT               	Format
 (                   	(
 IDENT               	a
 )                   	)
+NEW_LINE            	
+
 INT                 	999
 IDENT               	Print
 *                   	*
 ,                   	,
 STRING              	'Error opening file, please verify filename and try again.'
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     In the event of improper filename exit abruptly.
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 IDENT               	STOP
-token(102)          	End
+NEW_LINE            	
+
+END                 	End
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     SubRoutine to print to terminal all of these neat statistics.
+NEW_LINE            	
+
 COMMENT             	C
-token(96)           	SubRoutine
+NEW_LINE            	
+
+SUBROUTINE          	SubRoutine
 IDENT               	PrintStats
+NEW_LINE            	
+
 IDENT               	Include
 STRING              	'stats.h'
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	Write
 (                   	(
 INT                 	5
@@ -237,18 +369,24 @@ IDENT               	NP
 IDENT               	NL
 ,                   	,
 IDENT               	NC
+NEW_LINE            	
+
 IDENT               	Write
 (                   	(
 INT                 	5
 ,                   	,
 INT                 	20
 )                   	)
-token(103)          	Do
+NEW_LINE            	
+
+DO                  	Do
 IDENT               	J
 =                   	=
 INT                 	65
 ,                   	,
 INT                 	90
+NEW_LINE            	
+
 IDENT               	Write
 (                   	(
 INT                 	5
@@ -283,6 +421,8 @@ INT                 	10
 )                   	)
 )                   	)
 ,                   	,
+NEW_LINE            	
+
 INT                 	1
 (                   	(
 STRING              	'*'
@@ -302,13 +442,19 @@ INT                 	10
 )                   	)
 )                   	)
 )                   	)
-token(104)          	EndDo
+NEW_LINE            	
+
+ENDDO               	EndDo
+NEW_LINE            	
+
 IDENT               	Write
 (                   	(
 INT                 	5
 ,                   	,
 INT                 	50
 )                   	)
+NEW_LINE            	
+
 INT                 	10
 IDENT               	Format
 (                   	(
@@ -325,6 +471,8 @@ INT                 	80
 STRING              	'*'
 )                   	)
 /                   	/
+NEW_LINE            	
+
 INT                 	1
 INT                 	1
 IDENT               	X
@@ -343,18 +491,24 @@ IDENT               	X
 STRING              	'Total number of words       = '
 IDENT               	I5
 /                   	/
+NEW_LINE            	
+
 INT                 	4
 INT                 	1
 IDENT               	X
 STRING              	'Total number of sentences   = '
 IDENT               	I5
 /                   	/
+NEW_LINE            	
+
 INT                 	5
 INT                 	1
 IDENT               	X
 STRING              	'Total number of lines       = '
 IDENT               	I5
 /                   	/
+NEW_LINE            	
+
 INT                 	6
 INT                 	1
 IDENT               	X
@@ -362,6 +516,8 @@ STRING              	'Total number of characters  = '
 IDENT               	I5
 /                   	/
 )                   	)
+NEW_LINE            	
+
 INT                 	20
 IDENT               	Format
 (                   	(
@@ -378,6 +534,8 @@ STRING              	'*'
 )                   	)
 /                   	/
 )                   	)
+NEW_LINE            	
+
 INT                 	30
 IDENT               	Format
 (                   	(
@@ -386,6 +544,8 @@ IDENT               	X
 ,                   	,
 IDENT               	A
 )                   	)
+NEW_LINE            	
+
 INT                 	40
 IDENT               	Format
 (                   	(
@@ -404,6 +564,8 @@ INT                 	125
 IDENT               	A
 )                   	)
 )                   	)
+NEW_LINE            	
+
 INT                 	50
 IDENT               	Format
 (                   	(
@@ -415,19 +577,35 @@ INT                 	9
 IDENT               	x
 STRING              	'@ equals ten characters'
 ,                   	,
+NEW_LINE            	
+
 INT                 	1
 STRING              	', * equals one character.'
 )                   	)
+NEW_LINE            	
+
 return              	Return
-token(102)          	End
+NEW_LINE            	
+
+END                 	End
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     SubRoutine to prompt for and return a filename.
+NEW_LINE            	
+
 COMMENT             	C
-token(96)           	SubRoutine
+NEW_LINE            	
+
+SUBROUTINE          	SubRoutine
 IDENT               	GetFileName
 (                   	(
 IDENT               	Fname
 )                   	)
+NEW_LINE            	
+
 IDENT               	Character
 IDENT               	Fname
 *                   	*
@@ -436,9 +614,15 @@ INT                 	80
 IDENT               	Prompt
 *                   	*
 INT                 	7
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	Prompt
 =                   	=
 STRING              	'_File: '
+NEW_LINE            	
+
 IDENT               	Write
 (                   	(
 INT                 	5
@@ -446,6 +630,8 @@ INT                 	5
 INT                 	10
 )                   	)
 IDENT               	Prompt
+NEW_LINE            	
+
 IDENT               	Read
 (                   	(
 INT                 	5
@@ -453,24 +639,42 @@ INT                 	5
 INT                 	20
 )                   	)
 IDENT               	Fname
+NEW_LINE            	
+
 INT                 	10
 IDENT               	Format
 (                   	(
 INT                 	1
 IDENT               	XA
 )                   	)
+NEW_LINE            	
+
 INT                 	20
 IDENT               	Format
 (                   	(
 IDENT               	A
 )                   	)
+NEW_LINE            	
+
 return              	Return
-token(102)          	End
+NEW_LINE            	
+
+END                 	End
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     SubRoutine to initailize globally used variables.
+NEW_LINE            	
+
 COMMENT             	C
-token(96)           	SubRoutine
+NEW_LINE            	
+
+SUBROUTINE          	SubRoutine
 IDENT               	Initialize
+NEW_LINE            	
+
 IDENT               	Common
 /                   	/
 IDENT               	Stats
@@ -491,47 +695,81 @@ IDENT               	N
 (                   	(
 INT                 	26
 )                   	)
-token(103)          	Do
+NEW_LINE            	
+
+DO                  	Do
 IDENT               	O
 =                   	=
 INT                 	1
 ,                   	,
 INT                 	26
+NEW_LINE            	
+
 IDENT               	N
 (                   	(
 IDENT               	O
 )                   	)
 =                   	=
 INT                 	0
-token(104)          	EndDo
+NEW_LINE            	
+
+ENDDO               	EndDo
+NEW_LINE            	
+
 IDENT               	A
 =                   	=
 FLOAT               	0.0
+NEW_LINE            	
+
 IDENT               	B
 =                   	=
 FLOAT               	0.0
+NEW_LINE            	
+
 IDENT               	J
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 IDENT               	K
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 IDENT               	L
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 IDENT               	M
 =                   	=
 INT                 	0
+NEW_LINE            	
+
 return              	Return
-token(102)          	End
+NEW_LINE            	
+
+END                 	End
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C     Function to return integer value of a character in range of uppercase.
+NEW_LINE            	
+
 COMMENT             	C
-token(101)          	Function
+NEW_LINE            	
+
+FUNCTION            	Function
 IDENT               	IntUpCase
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
+NEW_LINE            	
+
 if                  	If
 (                   	(
 (                   	(
@@ -552,7 +790,9 @@ STRING              	'a'
 )                   	)
 )                   	)
 )                   	)
-token(106)          	Then
+THEN                	Then
+NEW_LINE            	
+
 IDENT               	IntUpCase
 =                   	=
 IDENT               	I
@@ -561,10 +801,22 @@ IDENT               	ICHAR
 (                   	(
 STRING              	' '
 )                   	)
+NEW_LINE            	
+
 else                	Else
+NEW_LINE            	
+
 IDENT               	IntUpCase
 =                   	=
 IDENT               	I
+NEW_LINE            	
+
 IDENT               	EndIf
+NEW_LINE            	
+
 return              	Return
-token(102)          	End
+NEW_LINE            	
+
+END                 	End
+NEW_LINE            	
+

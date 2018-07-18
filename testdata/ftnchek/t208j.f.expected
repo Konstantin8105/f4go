@@ -1,5 +1,7 @@
 IDENT               	intrinsic
 IDENT               	sqrt
+NEW_LINE            	
+
 IDENT               	a
 =                   	=
 IDENT               	sqrt
@@ -9,4 +11,8 @@ IDENT               	cos
 FLOAT               	0.35
 )                   	)
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

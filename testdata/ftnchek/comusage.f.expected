@@ -1,11 +1,15 @@
-token(97)           	Program
+PROGRAM             	Program
 IDENT               	Main
+NEW_LINE            	
+
 IDENT               	common
 IDENT               	a
 ,                   	,
 IDENT               	b
 ,                   	,
 IDENT               	c
+NEW_LINE            	
+
 IDENT               	print
 *                   	*
 ,                   	,
@@ -14,15 +18,29 @@ IDENT               	a
 IDENT               	b
 ,                   	,
 IDENT               	c
-token(105)          	Call
+NEW_LINE            	
+
+CALL                	Call
 IDENT               	Input
-token(105)          	Call
+NEW_LINE            	
+
+CALL                	Call
 IDENT               	Comp
-token(105)          	Call
+NEW_LINE            	
+
+CALL                	Call
 IDENT               	Output
-token(102)          	End
-token(96)           	Subroutine
+NEW_LINE            	
+
+END                 	End
+NEW_LINE            	
+
+NEW_LINE            	
+
+SUBROUTINE          	Subroutine
 IDENT               	Input
+NEW_LINE            	
+
 IDENT               	Common
 /                   	/
 IDENT               	INP
@@ -34,12 +52,16 @@ IDENT               	x2
 IDENT               	x3
 ,                   	,
 IDENT               	x4
+NEW_LINE            	
+
 IDENT               	Real
 IDENT               	x1
 ,                   	,
 IDENT               	x2
 ,                   	,
 IDENT               	x3
+NEW_LINE            	
+
 IDENT               	Common
 /                   	/
 IDENT               	LAST
@@ -49,6 +71,8 @@ IDENT               	y1
 IDENT               	y2
 ,                   	,
 IDENT               	y3
+NEW_LINE            	
+
 IDENT               	Write
 (                   	(
 *                   	*
@@ -56,6 +80,8 @@ IDENT               	Write
 *                   	*
 )                   	)
 STRING              	'Enter 3 Values'
+NEW_LINE            	
+
 IDENT               	Read
 (                   	(
 *                   	*
@@ -67,13 +93,25 @@ IDENT               	x1
 IDENT               	x2
 ,                   	,
 IDENT               	x3
+NEW_LINE            	
+
 IDENT               	y2
 =                   	=
 IDENT               	y3
+NEW_LINE            	
+
 return              	Return
-token(102)          	End
-token(96)           	Subroutine
+NEW_LINE            	
+
+END                 	End
+NEW_LINE            	
+
+NEW_LINE            	
+
+SUBROUTINE          	Subroutine
 IDENT               	Comp
+NEW_LINE            	
+
 IDENT               	Common
 /                   	/
 IDENT               	INP
@@ -83,6 +121,8 @@ IDENT               	A
 IDENT               	B
 ,                   	,
 IDENT               	C
+NEW_LINE            	
+
 IDENT               	Common
 /                   	/
 IDENT               	ZAP
@@ -92,19 +132,27 @@ IDENT               	t1
 IDENT               	t2
 ,                   	,
 IDENT               	t3
+NEW_LINE            	
+
 IDENT               	Real
 IDENT               	A
 ,                   	,
 IDENT               	B
 ,                   	,
 IDENT               	C
+NEW_LINE            	
+
 IDENT               	Common
 /                   	/
 IDENT               	OUTP
 /                   	/
 IDENT               	AVG
+NEW_LINE            	
+
 IDENT               	Real
 IDENT               	AVG
+NEW_LINE            	
+
 IDENT               	Avg
 =                   	=
 (                   	(
@@ -116,17 +164,31 @@ IDENT               	C
 )                   	)
 /                   	/
 INT                 	3
+NEW_LINE            	
+
 return              	Return
-token(102)          	End
-token(96)           	Subroutine
+NEW_LINE            	
+
+END                 	End
+NEW_LINE            	
+
+NEW_LINE            	
+
+SUBROUTINE          	Subroutine
 IDENT               	Output
+NEW_LINE            	
+
 IDENT               	Common
 /                   	/
 IDENT               	OUTP
 /                   	/
 IDENT               	Averag
+NEW_LINE            	
+
 IDENT               	Real
 IDENT               	Averag
+NEW_LINE            	
+
 IDENT               	Common
 /                   	/
 IDENT               	LAST
@@ -136,6 +198,8 @@ IDENT               	n1
 IDENT               	n2
 ,                   	,
 IDENT               	n3
+NEW_LINE            	
+
 IDENT               	Write
 (                   	(
 *                   	*
@@ -145,8 +209,16 @@ IDENT               	Write
 STRING              	'Average ='
 ,                   	,
 IDENT               	Averag
+NEW_LINE            	
+
 IDENT               	n1
 =                   	=
 INT                 	8
+NEW_LINE            	
+
 return              	Return
-token(102)          	End
+NEW_LINE            	
+
+END                 	End
+NEW_LINE            	
+

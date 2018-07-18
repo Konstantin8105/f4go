@@ -1,17 +1,31 @@
-token(97)           	program
+PROGRAM             	program
 IDENT               	yacctest
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 COMMENT             	c  Tests the Yacc fortran parser.
+NEW_LINE            	
+
 COMMENT             	*  Should pass the current version.
+NEW_LINE            	
+
 COMMENT             	C  It is also a legal, though not especially meaningful, program
+NEW_LINE            	
+
 COMMENT             	*
-token(100)          	implicit
-token(98)           	integer
+NEW_LINE            	
+
+IMPLICIT            	implicit
+INTEGER             	integer
 (                   	(
 IDENT               	u
 -                   	-
 IDENT               	z
 )                   	)
+NEW_LINE            	
+
 IDENT               	dimension
 IDENT               	xyz
 (                   	(
@@ -19,7 +33,13 @@ INT                 	3
 )                   	)
 ,                   	,
 IDENT               	abc
+NEW_LINE            	
+
 COMMENT             	c  The next line has some whitespace, but nothing else.  Note continuation!!
+NEW_LINE            	
+
+NEW_LINE            	
+
 (                   	(
 INT                 	9
 ,                   	,
@@ -27,6 +47,8 @@ INT                 	9
 ,                   	,
 INT                 	100
 )                   	)
+NEW_LINE            	
+
 INT                 	22
 IDENT               	equivalence
 (                   	(
@@ -42,11 +64,17 @@ IDENT               	abc
 ,                   	,
 IDENT               	def
 )                   	)
+NEW_LINE            	
+
 IDENT               	intrinsic
 IDENT               	sqrt
 ,                   	,
 IDENT               	log
+NEW_LINE            	
+
 COMMENT             	c
+NEW_LINE            	
+
 IDENT               	common
 IDENT               	com1
 ,                   	,
@@ -67,6 +95,10 @@ IDENT               	com6
 IDENT               	blk2
 /                   	/
 IDENT               	w123x
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	common
 IDENT               	comm1
 ,                   	,
@@ -86,7 +118,11 @@ IDENT               	comm6
 IDENT               	blk4
 /                   	/
 IDENT               	cc1
-token(100)          	implicit
+NEW_LINE            	
+
+NEW_LINE            	
+
+IMPLICIT            	implicit
 IDENT               	double
 IDENT               	precision
 (                   	(
@@ -97,8 +133,10 @@ IDENT               	real
 (                   	(
 IDENT               	r
 )                   	)
-token(98)           	integer
-token(97)           	program
+NEW_LINE            	
+
+INTEGER             	integer
+PROGRAM             	program
 (                   	(
 INT                 	3
 ,                   	,
@@ -109,6 +147,8 @@ IDENT               	pause
 (                   	(
 INT                 	20
 )                   	)
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	8
@@ -117,6 +157,8 @@ IDENT               	bb
 IDENT               	bb13
 *                   	*
 INT                 	3
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	4
@@ -127,16 +169,24 @@ INT                 	9
 )                   	)
 ,                   	,
 IDENT               	cc1
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	Pi
 =                   	=
 FLOAT               	3.14159265358979D0
 )                   	)
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	logical
 IDENT               	stop
 ,                   	,
 IDENT               	save
+NEW_LINE            	
+
 IDENT               	equivalence
 (                   	(
 IDENT               	xyz
@@ -157,6 +207,8 @@ INT                 	3
 ,                   	,
 IDENT               	bb13
 )                   	)
+NEW_LINE            	
+
 IDENT               	x
 ,                   	,
 (                   	(
@@ -164,6 +216,8 @@ IDENT               	cc1
 ,                   	,
 IDENT               	bb
 )                   	)
+NEW_LINE            	
+
 IDENT               	real
 IDENT               	a123
 (                   	(
@@ -173,10 +227,16 @@ INT                 	9
 )                   	)
 ,                   	,
 IDENT               	ifa
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	xray
+NEW_LINE            	
+
 IDENT               	external
 IDENT               	xray
+NEW_LINE            	
+
 IDENT               	double
 IDENT               	precision
 IDENT               	dbl1
@@ -185,15 +245,23 @@ IDENT               	dbl2
 (                   	(
 INT                 	3
 )                   	)
+NEW_LINE            	
+
 IDENT               	logical
 IDENT               	test
+NEW_LINE            	
+
 IDENT               	complex
 IDENT               	compl1
 ,                   	,
 IDENT               	compl2
+NEW_LINE            	
+
 IDENT               	test
 =                   	=
 IDENT               	.true.
+NEW_LINE            	
+
 IDENT               	data
 (                   	(
 (                   	(
@@ -224,6 +292,8 @@ INT                 	82
 *                   	*
 FLOAT               	0.0
 /                   	/
+NEW_LINE            	
+
 IDENT               	data
 IDENT               	cc
 /                   	/
@@ -244,6 +314,8 @@ INT                 	1e7
 ,                   	,
 +                   	+
 FLOAT               	5.2
+NEW_LINE            	
+
 ,                   	,
 INT                 	4
 IDENT               	habcd
@@ -259,14 +331,22 @@ INT                 	10
 INT                 	34567
 ,                   	,
 INT                 	5432
+NEW_LINE            	
+
 INT                 	34567
 IDENT               	stop
+NEW_LINE            	
+
 INT                 	10
 IDENT               	stop
 INT                 	123
+NEW_LINE            	
+
 INT                 	5432
 IDENT               	pause
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
 =                   	=
 INT                 	123
 +                   	+
@@ -274,6 +354,8 @@ IDENT               	pause
 (                   	(
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	read
 (                   	(
 IDENT               	iunit
@@ -317,6 +399,8 @@ IDENT               	xyz
 (                   	(
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	read
 IDENT               	iunit
 ,                   	,
@@ -328,6 +412,8 @@ IDENT               	xyz
 (                   	(
 INT                 	1
 )                   	)
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 IDENT               	iunit
@@ -337,6 +423,8 @@ IDENT               	iunit
 STRING              	'hello there'
 ,                   	,
 IDENT               	a
+NEW_LINE            	
+
 IDENT               	print
 *                   	*
 ,                   	,
@@ -350,6 +438,8 @@ IDENT               	a
 IDENT               	b
 *                   	*
 IDENT               	Pi
+NEW_LINE            	
+
 IDENT               	print
 INT                 	5
 ,                   	,
@@ -365,19 +455,25 @@ INT                 	1
 ,                   	,
 INT                 	4
 )                   	)
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	stop
 &&                  	.and.
 IDENT               	save
 )                   	)
-token(106)          	then
+THEN                	then
+NEW_LINE            	
+
 IDENT               	cc
 (                   	(
 INT                 	2
 )                   	)
 =                   	=
 STRING              	'abcd'
+NEW_LINE            	
+
 IDENT               	www
 =                   	=
 FLOAT               	4.7
@@ -387,8 +483,10 @@ IDENT               	Pi
 *                   	*
 INT                 	2
 )                   	)
-token(95)           	**
+                    	**
 INT                 	8
+NEW_LINE            	
+
 else                	else
 if                  	if
 (                   	(
@@ -406,7 +504,9 @@ IDENT               	xyz
 INT                 	2
 )                   	)
 )                   	)
-token(106)          	then
+THEN                	then
+NEW_LINE            	
+
 IDENT               	open
 (                   	(
 IDENT               	unit
@@ -425,14 +525,20 @@ IDENT               	status
 =                   	=
 STRING              	'old'
 )                   	)
+NEW_LINE            	
+
 IDENT               	rewind
 INT                 	1
 +                   	+
 INT                 	3
+NEW_LINE            	
+
 IDENT               	close
 (                   	(
 INT                 	4
 )                   	)
+NEW_LINE            	
+
 IDENT               	open
 (                   	(
 INT                 	3
@@ -449,19 +555,27 @@ IDENT               	status
 =                   	=
 STRING              	'new'
 )                   	)
+NEW_LINE            	
+
 IDENT               	backspace
 (                   	(
 IDENT               	unit
 =                   	=
 INT                 	3
 )                   	)
+NEW_LINE            	
+
 IDENT               	close
 (                   	(
 IDENT               	unit
 =                   	=
 INT                 	3
 )                   	)
+NEW_LINE            	
+
 IDENT               	endif
+NEW_LINE            	
+
 IDENT               	test
 =                   	=
 .                   	.
@@ -470,6 +584,8 @@ IDENT               	e
 IDENT               	l1
 =                   	=
 FLOAT               	1.2345
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 INT                 	6
@@ -477,6 +593,8 @@ INT                 	6
 INT                 	900
 )                   	)
 IDENT               	dbl1
+NEW_LINE            	
+
 INT                 	900
 IDENT               	format
 (                   	(
@@ -488,29 +606,53 @@ IDENT               	test
 )                   	)
 IDENT               	goto
 INT                 	10
+NEW_LINE            	
+
 IDENT               	pause
 INT                 	456
+NEW_LINE            	
+
 IDENT               	goto
 INT                 	34567
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+NEW_LINE            	
+
 COMMENT             	c comments in here don't hurt a bit
-token(98)           	integer
-token(101)          	function
+NEW_LINE            	
+
+NEW_LINE            	
+
+INTEGER             	integer
+FUNCTION            	function
 IDENT               	xray
 (                   	(
 IDENT               	beta
 ,                   	,
 IDENT               	gamma
 )                   	)
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 (                   	(
 *                   	*
 )                   	)
 IDENT               	gamma
+NEW_LINE            	
+
 COMMENT             	*
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	logical
 IDENT               	beta
+NEW_LINE            	
+
 if                  	if
 (                   	(
 IDENT               	beta
@@ -518,14 +660,22 @@ IDENT               	beta
 IDENT               	xray
 =                   	=
 FLOAT               	1.0D0
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	home
 (                   	(
 IDENT               	x
 ,                   	,
 *                   	*
 )                   	)
+NEW_LINE            	
+
 IDENT               	common
 /                   	/
 IDENT               	blk1
@@ -538,12 +688,16 @@ INT                 	5
 )                   	)
 ,                   	,
 IDENT               	com6
+NEW_LINE            	
+
 IDENT               	save
 /                   	/
 IDENT               	blk1
 /                   	/
 ,                   	,
 IDENT               	xray
+NEW_LINE            	
+
 if                  	if
 (                   	(
 (                   	(
@@ -551,7 +705,7 @@ IDENT               	x
 -                   	-
 FLOAT               	1.0
 )                   	)
-token(95)           	**
+                    	**
 (                   	(
 IDENT               	sqrt
 (                   	(
@@ -569,22 +723,34 @@ IDENT               	com6
 >                   	.gt.
 IDENT               	com3
 )                   	)
-token(106)          	then
+THEN                	then
+NEW_LINE            	
+
 IDENT               	xray
 =                   	=
 FLOAT               	1.234
+NEW_LINE            	
+
 return              	return
+NEW_LINE            	
+
 else                	else
+NEW_LINE            	
+
 IDENT               	xray
 =                   	=
 -                   	-
 FLOAT               	1.234
-token(95)           	**
+                    	**
 (                   	(
 +                   	+
 FLOAT               	1.7e10
 )                   	)
+NEW_LINE            	
+
 IDENT               	endif
+NEW_LINE            	
+
 IDENT               	com4
 (                   	(
 IDENT               	com2
@@ -596,6 +762,12 @@ IDENT               	com4
 (                   	(
 IDENT               	xray
 )                   	)
+NEW_LINE            	
+
 return              	return
 INT                 	1
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

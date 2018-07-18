@@ -64,7 +64,7 @@ func TestScanner(t *testing.T) {
 				if tok == token.EOF {
 					break
 				}
-				buf.WriteString(fmt.Sprintf("%-20s\t%v\n", tok, lit))
+				buf.WriteString(fmt.Sprintf("%-20s\t%v\n", view(tok), lit))
 			}
 
 			fileName := filename[:index+1] + testName + ".expected"

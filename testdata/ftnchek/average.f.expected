@@ -1,19 +1,39 @@
 COMMENT             	C       AUTHORS: MIKE MYERS AND LUCIA SPAGNUOLO
+NEW_LINE            	
+
 COMMENT             	C       DATE:    MAY 8, 1989
+NEW_LINE            	
+
+NEW_LINE            	
+
 COMMENT             	C       Variables:
+NEW_LINE            	
+
 COMMENT             	C               SCORE -> an array of test scores
+NEW_LINE            	
+
 COMMENT             	C               SUM ->   sum of the test scores
+NEW_LINE            	
+
 COMMENT             	C               COUNT -> counter of scores read in
+NEW_LINE            	
+
 COMMENT             	C               I ->     loop counter
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	REAL
-token(101)          	FUNCTION
+FUNCTION            	FUNCTION
 IDENT               	COMPAV
 (                   	(
 IDENT               	SCORE
 ,                   	,
 IDENT               	COUNT
 )                   	)
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	SUM
 ,                   	,
 IDENT               	COUNT
@@ -24,13 +44,19 @@ IDENT               	SCORE
 (                   	(
 INT                 	5
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+NEW_LINE            	
+
+DO                  	DO
 INT                 	30
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	COUNT
+NEW_LINE            	
+
 IDENT               	SUM
 =                   	=
 IDENT               	SUM
@@ -39,39 +65,85 @@ IDENT               	SCORE
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 INT                 	30
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	COMPAV
 =                   	=
 IDENT               	SUM
 /                   	/
 IDENT               	COUNT
-token(102)          	END
-token(97)           	PROGRAM
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
+NEW_LINE            	
+
+NEW_LINE            	
+
+PROGRAM             	PROGRAM
 IDENT               	AVENUM
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C                       MAIN PROGRAM
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C       AUTHOR:   LOIS BIGBIE
+NEW_LINE            	
+
 COMMENT             	C       DATE:     MAY 15, 1990
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 COMMENT             	C       Variables:
+NEW_LINE            	
+
 COMMENT             	C               MAXNOS -> maximum number of input values
+NEW_LINE            	
+
 COMMENT             	C               NUMS    -> an array of numbers
+NEW_LINE            	
+
 COMMENT             	C               COUNT   -> exact number of input values
+NEW_LINE            	
+
 COMMENT             	C               AVG     -> average returned by COMPAV
+NEW_LINE            	
+
 COMMENT             	C               I       -> loop counter
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	MAXNOS
 =                   	=
 INT                 	5
 )                   	)
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	I
 ,                   	,
 IDENT               	COUNT
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	NUMS
 (                   	(
@@ -79,23 +151,29 @@ IDENT               	MAXNOS
 )                   	)
 ,                   	,
 IDENT               	AVG
+NEW_LINE            	
+
 IDENT               	COUNT
 =                   	=
 INT                 	0
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	80
 IDENT               	I
 =                   	=
 INT                 	1
 ,                   	,
 IDENT               	MAXNOS
+NEW_LINE            	
+
 IDENT               	READ
 (                   	(
 INT                 	5
 ,                   	,
 *                   	*
 ,                   	,
-token(102)          	END
+END                 	END
 =                   	=
 INT                 	100
 )                   	)
@@ -103,13 +181,19 @@ IDENT               	NUMS
 (                   	(
 IDENT               	I
 )                   	)
+NEW_LINE            	
+
 IDENT               	COUNT
 =                   	=
 IDENT               	COUNT
 +                   	+
 INT                 	1
+NEW_LINE            	
+
 INT                 	80
 continue            	CONTINUE
+NEW_LINE            	
+
 INT                 	100
 IDENT               	AVG
 =                   	=
@@ -119,4 +203,8 @@ IDENT               	NUMS
 ,                   	,
 IDENT               	COUNT
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

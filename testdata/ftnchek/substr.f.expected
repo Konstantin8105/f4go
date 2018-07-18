@@ -1,14 +1,22 @@
 COMMENT             	C This program tickled a bug in gcc under DEC Unix for Alpha
-token(97)           	PROGRAM
+NEW_LINE            	
+
+PROGRAM             	PROGRAM
 IDENT               	X
+NEW_LINE            	
+
 IDENT               	CHARACTER
 *                   	*
 INT                 	80
 IDENT               	LINE
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	LSTART
 ,                   	,
 IDENT               	LEND
+NEW_LINE            	
+
 IDENT               	PARAMETER
 (                   	(
 IDENT               	LSTART
@@ -19,6 +27,8 @@ IDENT               	LEND
 =                   	=
 INT                 	11
 )                   	)
+NEW_LINE            	
+
 IDENT               	READ
 (                   	(
 INT                 	5
@@ -31,6 +41,8 @@ INT                 	1
 :                   	:
 INT                 	9
 )                   	)
+NEW_LINE            	
+
 IDENT               	PRINT
 *                   	*
 ,                   	,
@@ -40,6 +52,8 @@ INT                 	9
 :                   	:
 INT                 	10
 )                   	)
+NEW_LINE            	
+
 IDENT               	READ
 (                   	(
 INT                 	5
@@ -52,6 +66,8 @@ IDENT               	LSTART
 :                   	:
 IDENT               	LEND
 )                   	)
+NEW_LINE            	
+
 IDENT               	PRINT
 *                   	*
 ,                   	,
@@ -61,4 +77,8 @@ INT                 	2
 :                   	:
 IDENT               	LEND
 )                   	)
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

@@ -1,5 +1,9 @@
 COMMENT             	C  To see if handling of strings that are split across lines is done right
+NEW_LINE            	
+
 COMMENT             	C23456789012345678901234567890123456789012345678901234567890123456789012
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 INT                 	255
@@ -10,10 +14,14 @@ IDENT               	T
 IDENT               	U
 ,                   	,
 IDENT               	V
+NEW_LINE            	
+
 IDENT               	S
 =                   	=
 STRING              	'12345678901234567890123456789012345678901234567890123456789012
      $ 12345678901234567890123456789012345678901234567890123456789012'
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -21,11 +29,15 @@ IDENT               	write
 *                   	*
 )                   	)
 IDENT               	S
+NEW_LINE            	
+
 IDENT               	T
 =                   	=
 STRING              	'12345678901234567890123456789012345678901234567890123456789012
      $
      $x12345678901234567890123456789012345678901234567890123456789012'
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -33,10 +45,16 @@ IDENT               	write
 *                   	*
 )                   	)
 IDENT               	T
+NEW_LINE            	
+
 IDENT               	U
 =                   	=
 STRING              	'123456789012345678901234567890123456789012345678901234567890'
+NEW_LINE            	
+
 STRING              	'12345678901234567890123456789012345678901234567890123456789012'
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -44,10 +62,18 @@ IDENT               	write
 *                   	*
 )                   	)
 IDENT               	U
+NEW_LINE            	
+
 IDENT               	U
 =                   	=
 STRING              	'123456789012345678901234567890123456789012345678901234567890'
+NEW_LINE            	
+
+NEW_LINE            	
+
 STRING              	'12345678901234567890123456789012345678901234567890123456789012'
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -55,12 +81,18 @@ IDENT               	write
 *                   	*
 )                   	)
 IDENT               	U
+NEW_LINE            	
+
 IDENT               	V
 =                   	=
 STRING              	'123456789012345678901234567890123456789012345678901234567890'
+NEW_LINE            	
+
 /                   	/
 /                   	/
 STRING              	'hello'
+NEW_LINE            	
+
 IDENT               	write
 (                   	(
 *                   	*
@@ -68,4 +100,8 @@ IDENT               	write
 *                   	*
 )                   	)
 IDENT               	V
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

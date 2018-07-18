@@ -1,11 +1,17 @@
 COMMENT             	C Test program for checking aliasing of arguments to common variables
+NEW_LINE            	
+
 COMMENT             	C
+NEW_LINE            	
+
 IDENT               	COMMON
 IDENT               	Q
 ,                   	,
 IDENT               	F
 ,                   	,
 IDENT               	X
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	BLK1
@@ -14,16 +20,24 @@ IDENT               	DAT
 (                   	(
 INT                 	100
 )                   	)
+NEW_LINE            	
+
 IDENT               	W
 =                   	=
 FLOAT               	1.0
+NEW_LINE            	
+
 IDENT               	X
 =                   	=
 FLOAT               	2.0
+NEW_LINE            	
+
 IDENT               	Z
 =                   	=
 FLOAT               	4.0
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	FOO
 (                   	(
 IDENT               	W
@@ -34,7 +48,9 @@ IDENT               	Y
 ,                   	,
 IDENT               	Z
 )                   	)
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	FOO
 (                   	(
 IDENT               	F
@@ -45,7 +61,9 @@ IDENT               	Y
 ,                   	,
 IDENT               	Z
 )                   	)
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	FOO
 (                   	(
 IDENT               	W
@@ -56,6 +74,8 @@ IDENT               	Q
 ,                   	,
 IDENT               	Z
 )                   	)
+NEW_LINE            	
+
 IDENT               	PRINT
 *                   	*
 ,                   	,
@@ -66,16 +86,24 @@ IDENT               	X
 IDENT               	Y
 ,                   	,
 IDENT               	Z
-token(105)          	CALL
+NEW_LINE            	
+
+CALL                	CALL
 IDENT               	BAR
 (                   	(
 IDENT               	DAT
 ,                   	,
 INT                 	100
 )                   	)
+NEW_LINE            	
+
 IDENT               	STOP
-token(102)          	END
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	FOO
 (                   	(
 IDENT               	A
@@ -86,12 +114,16 @@ IDENT               	C
 ,                   	,
 IDENT               	D
 )                   	)
+NEW_LINE            	
+
 IDENT               	COMMON
 IDENT               	T
 ,                   	,
 IDENT               	U
 ,                   	,
 IDENT               	V
+NEW_LINE            	
+
 IDENT               	B
 =                   	=
 IDENT               	A
@@ -99,20 +131,30 @@ IDENT               	A
 IDENT               	C
 +                   	+
 IDENT               	D
+NEW_LINE            	
+
 IDENT               	T
 =                   	=
 IDENT               	B
 +                   	+
 FLOAT               	1.0
+NEW_LINE            	
+
 return              	RETURN
-token(102)          	END
-token(96)           	SUBROUTINE
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+
+SUBROUTINE          	SUBROUTINE
 IDENT               	BAR
 (                   	(
 IDENT               	D
 ,                   	,
 IDENT               	N
 )                   	)
+NEW_LINE            	
+
 IDENT               	COMMON
 /                   	/
 IDENT               	BLK1
@@ -121,12 +163,16 @@ IDENT               	TAD
 (                   	(
 INT                 	100
 )                   	)
+NEW_LINE            	
+
 IDENT               	REAL
 IDENT               	D
 (                   	(
 IDENT               	N
 )                   	)
-token(103)          	DO
+NEW_LINE            	
+
+DO                  	DO
 INT                 	10
 IDENT               	I
 =                   	=
@@ -135,12 +181,16 @@ INT                 	1
 IDENT               	N
 -                   	-
 INT                 	1
+NEW_LINE            	
+
 IDENT               	TAD
 (                   	(
 IDENT               	I
 )                   	)
 =                   	=
 IDENT               	I
+NEW_LINE            	
+
 IDENT               	D
 (                   	(
 IDENT               	I
@@ -152,6 +202,12 @@ IDENT               	I
 )                   	)
 *                   	*
 FLOAT               	2.0
+NEW_LINE            	
+
 INT                 	10
 continue            	CONTINUE
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

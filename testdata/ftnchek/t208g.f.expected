@@ -1,11 +1,19 @@
-token(96)           	subroutine
+SUBROUTINE          	subroutine
 IDENT               	foo
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	n
+NEW_LINE            	
+
 IDENT               	n
 =                   	=
 IDENT               	i1mach
 (                   	(
 INT                 	3
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

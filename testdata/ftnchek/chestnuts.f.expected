@@ -1,21 +1,31 @@
 COMMENT             	C Famous difficult cases in Fortran syntax
-token(98)           	INTEGER
+NEW_LINE            	
+
+INTEGER             	INTEGER
 IDENT               	FORMAT
 (                   	(
 INT                 	10
 )                   	)
 ,                   	,
 IDENT               	H3
+NEW_LINE            	
+
 IDENT               	DO10I
 =                   	=
 INT                 	1
 ,                   	,
 INT                 	10
+NEW_LINE            	
+
 IDENT               	DO10I
 =                   	=
 FLOAT               	1.10
+NEW_LINE            	
+
 INT                 	10
 continue            	CONTINUE
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	I
@@ -23,13 +33,19 @@ IDENT               	I
 INT                 	1
 ,                   	,
 INT                 	10
+NEW_LINE            	
+
 IDENT               	DOUBLE
 IDENT               	PRECISION
 IDENT               	I
 =                   	=
 FLOAT               	1.10
-token(102)          	END
-token(103)          	DO
+NEW_LINE            	
+
+END                 	END
+DO                  	DO
+NEW_LINE            	
+
 INT                 	1
 IDENT               	format
 (                   	(
@@ -42,6 +58,8 @@ IDENT               	I9
 /                   	/
 IDENT               	I10
 )                   	)
+NEW_LINE            	
+
 INT                 	2
 IDENT               	format
 (                   	(
@@ -53,19 +71,27 @@ IDENT               	I9
 /                   	/
 IDENT               	I10
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
 IDENT               	REALFUNCTIONF
 (                   	(
 IDENT               	M
 ,                   	,
 IDENT               	N
 )                   	)
+NEW_LINE            	
+
 IDENT               	REALFUNCTIONF
 (                   	(
 IDENT               	M
 ,                   	,
 IDENT               	N
 )                   	)
+NEW_LINE            	
+
 IDENT               	REALFUNCTIONF
 (                   	(
 IDENT               	M
@@ -76,6 +102,8 @@ IDENT               	N
 IDENT               	M
 +                   	+
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	FUNCTIONF
 (                   	(
 IDENT               	M
@@ -86,9 +114,15 @@ IDENT               	N
 IDENT               	M
 +                   	+
 IDENT               	N
+NEW_LINE            	
+
 IDENT               	F
 =                   	=
 IDENT               	M
 +                   	+
 IDENT               	N
-token(102)          	END
+NEW_LINE            	
+
+END                 	END
+NEW_LINE            	
+

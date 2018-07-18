@@ -1,16 +1,24 @@
-token(97)           	PROGRAM
+PROGRAM             	PROGRAM
 IDENT               	cows
-token(98)           	INTEGER
-token(99)           	::
+NEW_LINE            	
+
+INTEGER             	INTEGER
+DOUBLE_COLON        	::
 IDENT               	n
 ,                   	,
 IDENT               	n3
-token(98)           	INTEGER
-token(99)           	::
+NEW_LINE            	
+
+INTEGER             	INTEGER
+DOUBLE_COLON        	::
 IDENT               	n2
+NEW_LINE            	
+
 IDENT               	n
 =                   	=
 INT                 	306
+NEW_LINE            	
+
 IDENT               	n2
 =                   	=
 IDENT               	n
@@ -20,6 +28,8 @@ INT                 	2
 IDENT               	n
 /                   	/
 INT                 	4
+NEW_LINE            	
+
 IDENT               	n2
 =                   	=
 IDENT               	n2
@@ -27,6 +37,8 @@ IDENT               	n2
 IDENT               	n
 *                   	*
 INT                 	2
+NEW_LINE            	
+
 IDENT               	n2
 =                   	=
 IDENT               	n2
@@ -34,12 +46,14 @@ IDENT               	n2
 IDENT               	n
 -                   	-
 INT                 	2
+NEW_LINE            	
+
 IDENT               	n2
 =                   	=
 IDENT               	n2
 +                   	+
 IDENT               	n
-token(95)           	**
+                    	**
 (                   	(
 IDENT               	n
 +                   	+
@@ -47,12 +61,14 @@ INT                 	1
 )                   	)
 +                   	+
 IDENT               	n
-token(95)           	**
+                    	**
 (                   	(
 IDENT               	n2
 -                   	-
 IDENT               	n
 )                   	)
+NEW_LINE            	
+
 IDENT               	n2
 =                   	=
 (                   	(
@@ -70,6 +86,8 @@ IDENT               	n
 )                   	)
 +                   	+
 INT                 	42
+NEW_LINE            	
+
 IDENT               	n2
 =                   	=
 INT                 	2
@@ -83,10 +101,16 @@ INT                 	2
 )                   	)
 -                   	-
 INT                 	42
+NEW_LINE            	
+
 IDENT               	n3
 =                   	=
 IDENT               	n
 +                   	+
 IDENT               	n2
-token(102)          	END
-token(97)           	PROGRAM
+NEW_LINE            	
+
+END                 	END
+PROGRAM             	PROGRAM
+NEW_LINE            	
+

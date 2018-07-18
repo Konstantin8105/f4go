@@ -1,11 +1,15 @@
-token(98)           	integer
+INTEGER             	integer
 IDENT               	MAXTOK
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	MAXTOK
 =                   	=
 INT                 	10
 )                   	)
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 (                   	(
@@ -25,9 +29,11 @@ IDENT               	tokls3
 *                   	*
 (                   	(
 IDENT               	MAXTOK
-token(95)           	**
+                    	**
 INT                 	2
 )                   	)
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 (                   	(
@@ -49,6 +55,8 @@ INT                 	2
 IDENT               	MAXTOK
 )                   	)
 ,                   	,
+NEW_LINE            	
+
 IDENT               	x
 IDENT               	tokar3
 (                   	(
@@ -57,28 +65,48 @@ INT                 	300
 *                   	*
 (                   	(
 IDENT               	MAXTOK
-token(95)           	**
+                    	**
 INT                 	2
 )                   	)
-token(98)           	integer
+NEW_LINE            	
+
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	MAXTK1
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	MAXTK1
 =                   	=
 INT                 	10
 )                   	)
+NEW_LINE            	
+
+NEW_LINE            	
+
 COMMENT             	*     Test with comment lines between continuation lines
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 (                   	(
 IDENT               	MAXTK1
 )                   	)
+NEW_LINE            	
+
 COMMENT             	*     intervening comment
+NEW_LINE            	
+
 IDENT               	x
 IDENT               	tk1lst
 ,                   	,
+NEW_LINE            	
+
 COMMENT             	*     intervening comment
+NEW_LINE            	
+
 IDENT               	x
 IDENT               	tk1ls2
 *                   	*
@@ -88,35 +116,59 @@ INT                 	2
 IDENT               	MAXTK1
 )                   	)
 ,                   	,
+NEW_LINE            	
+
 COMMENT             	*     intervening comment
+NEW_LINE            	
+
 IDENT               	x
 IDENT               	tk1ls3
 *                   	*
 (                   	(
 IDENT               	MAXTK1
-token(95)           	**
+                    	**
 INT                 	2
 )                   	)
+NEW_LINE            	
+
+NEW_LINE            	
+
+NEW_LINE            	
+
 COMMENT             	*     Test with blank lines between continuation lines
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	MAXTK2
+NEW_LINE            	
+
 IDENT               	parameter
 (                   	(
 IDENT               	MAXTK2
 =                   	=
 INT                 	10
 )                   	)
+NEW_LINE            	
+
 IDENT               	character
 *                   	*
 (                   	(
 IDENT               	MAXTK2
 )                   	)
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	x
 IDENT               	tk2arr
 (                   	(
 INT                 	100
 )                   	)
 ,                   	,
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	x
 IDENT               	tk2ar2
 (                   	(
@@ -129,6 +181,10 @@ INT                 	2
 IDENT               	MAXTK2
 )                   	)
 ,                   	,
+NEW_LINE            	
+
+NEW_LINE            	
+
 IDENT               	x
 IDENT               	tk2ar3
 (                   	(
@@ -137,7 +193,11 @@ INT                 	300
 *                   	*
 (                   	(
 IDENT               	MAXTK2
-token(95)           	**
+                    	**
 INT                 	2
 )                   	)
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+

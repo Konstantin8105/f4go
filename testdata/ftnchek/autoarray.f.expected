@@ -1,30 +1,46 @@
-token(97)           	program
+PROGRAM             	program
 IDENT               	main
-token(105)          	call
+NEW_LINE            	
+
+CALL                	call
 IDENT               	test
 (                   	(
 INT                 	100
 )                   	)
-token(102)          	end
-token(96)           	subroutine
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+SUBROUTINE          	subroutine
 IDENT               	test
 (                   	(
 IDENT               	n
 )                   	)
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	n
+NEW_LINE            	
+
 COMMENT             	C the following local array cannot have variable bounds.
-token(98)           	integer
+NEW_LINE            	
+
+INTEGER             	integer
 IDENT               	auto
 (                   	(
 IDENT               	n
 )                   	)
+NEW_LINE            	
+
 IDENT               	auto
 (                   	(
 INT                 	1
 )                   	)
 =                   	=
 INT                 	5
+NEW_LINE            	
+
 IDENT               	auto
 (                   	(
 INT                 	2
@@ -36,4 +52,10 @@ INT                 	1
 )                   	)
 *                   	*
 INT                 	2
-token(102)          	end
+NEW_LINE            	
+
+END                 	end
+NEW_LINE            	
+
+NEW_LINE            	
+
