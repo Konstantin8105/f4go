@@ -23,6 +23,7 @@ IDENT	c
 token(98)	integer
 IDENT	c
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	c
 IDENT	end

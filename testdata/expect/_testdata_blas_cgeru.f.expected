@@ -175,15 +175,18 @@ IDENT	A
 (	(
 IDENT	LDA
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	X
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	Y
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -392,8 +395,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCY
+*	*
+IDENT	INCY
 IDENT	END
 if	IF
 if	IF
@@ -427,7 +430,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*Y
+*	*
+IDENT	Y
 (	(
 IDENT	JY
 )	)
@@ -456,8 +460,8 @@ IDENT	X
 (	(
 IDENT	I
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	10
 IDENT	CONTINUE
 IDENT	END
@@ -492,8 +496,8 @@ IDENT	M
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	END
 if	IF
 IDENT	DO
@@ -518,7 +522,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*Y
+*	*
+IDENT	Y
 (	(
 IDENT	JY
 )	)
@@ -550,8 +555,8 @@ IDENT	X
 (	(
 IDENT	IX
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	IX
 =	=
 IDENT	IX

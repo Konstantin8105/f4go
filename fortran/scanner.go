@@ -113,10 +113,8 @@ func (s *Scanner) scanStar() (tok token.Token, lit string) {
 	// Read every subsequent ident character into the buffer.
 	// Non-ident characters and EOF will cause the loop to exit.
 	ch := s.read()
-	_, _ = buf.WriteRune(ch)
-
-	ch = s.read()
 	if ch == '*' {
+		buf.WriteRune(ch)
 		return DOUBLE_STAR, buf.String()
 	} else {
 		s.unread()

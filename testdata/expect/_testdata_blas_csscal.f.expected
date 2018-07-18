@@ -105,7 +105,8 @@ COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
 IDENT	CX
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -167,8 +168,8 @@ IDENT	I
 IDENT	CMPLX
 (	(
 IDENT	SA
-*	*R
-IDENT	EAL
+*	*
+IDENT	REAL
 (	(
 IDENT	CX
 (	(
@@ -177,8 +178,8 @@ IDENT	I
 )	)
 ,	,
 IDENT	SA
-*	*A
-IDENT	IMAG
+*	*
+IDENT	AIMAG
 (	(
 IDENT	CX
 (	(
@@ -195,8 +196,8 @@ COMMENT	*
 IDENT	NINCX
 =	=
 IDENT	N
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	DO
 IDENT	I
 =	=
@@ -213,8 +214,8 @@ IDENT	I
 IDENT	CMPLX
 (	(
 IDENT	SA
-*	*R
-IDENT	EAL
+*	*
+IDENT	REAL
 (	(
 IDENT	CX
 (	(
@@ -223,8 +224,8 @@ IDENT	I
 )	)
 ,	,
 IDENT	SA
-*	*A
-IDENT	IMAG
+*	*
+IDENT	AIMAG
 (	(
 IDENT	CX
 (	(

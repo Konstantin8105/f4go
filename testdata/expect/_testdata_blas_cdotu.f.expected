@@ -113,11 +113,13 @@ COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
 IDENT	CX
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	CY
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -197,8 +199,8 @@ IDENT	CX
 (	(
 IDENT	I
 )	)
-*	*C
-IDENT	Y
+*	*
+IDENT	CY
 (	(
 IDENT	I
 )	)
@@ -231,8 +233,8 @@ IDENT	N
 +	+
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 +	+
 IDENT	1
 if	IF
@@ -251,8 +253,8 @@ IDENT	N
 +	+
 IDENT	1
 )	)
-*	*I
-IDENT	NCY
+*	*
+IDENT	INCY
 +	+
 IDENT	1
 IDENT	DO
@@ -269,8 +271,8 @@ IDENT	CX
 (	(
 IDENT	IX
 )	)
-*	*C
-IDENT	Y
+*	*
+IDENT	CY
 (	(
 IDENT	IY
 )	)

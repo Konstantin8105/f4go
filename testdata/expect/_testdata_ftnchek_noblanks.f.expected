@@ -179,8 +179,8 @@ IDENT	nforx
 IDENT	realandm
 =	=
 IDENT	2
-*	*n
-IDENT	forcomplex
+*	*
+IDENT	nforcomplex
 .	.
 IDENT	c
 IDENT	c
@@ -205,7 +205,7 @@ IDENT	u
 IDENT	eps
 =	=
 IDENT	2
-*	**
+token(95)	**
 (	(
 -	-
 IDENT	102
@@ -215,7 +215,7 @@ IDENT	forhoneywell
 IDENT	closesecondsare
 IDENT	c
 IDENT	univacanddecat2
-*	**
+token(95)	**
 (	(
 -	-
 IDENT	103
@@ -224,7 +224,7 @@ IDENT	c
 IDENT	thuscutlo
 =	=
 IDENT	2
-*	**
+token(95)	**
 (	(
 -	-
 IDENT	51
@@ -246,7 +246,7 @@ IDENT	p
 IDENT	v
 =	=
 IDENT	2
-*	**
+token(95)	**
 IDENT	127
 IDENT	forunivac
 ,	,
@@ -258,7 +258,7 @@ IDENT	c
 IDENT	thuscuthi
 =	=
 IDENT	2
-*	**
+token(95)	**
 (	(
 IDENT	63
 .	.
@@ -281,7 +281,7 @@ IDENT	u
 IDENT	eps
 =	=
 IDENT	2
-*	**
+token(95)	**
 (	(
 -	-
 IDENT	67
@@ -292,7 +292,7 @@ IDENT	c
 IDENT	thuscutlo
 =	=
 IDENT	2
-*	**
+token(95)	**
 (	(
 -	-
 IDENT	33
@@ -396,8 +396,8 @@ IDENT	zero
 IDENT	nn
 =	=
 IDENT	n
-*	*i
-IDENT	ncx
+*	*
+IDENT	incx
 IDENT	c
 IDENT	beginmainloop
 IDENT	i
@@ -568,7 +568,8 @@ IDENT	sum
 IDENT	one
 +	+
 IDENT	sum
-*	*(
+*	*
+(	(
 IDENT	xmax
 /	/
 IDENT	dx
@@ -576,7 +577,7 @@ IDENT	dx
 IDENT	i
 )	)
 )	)
-*	**
+token(95)	**
 IDENT	2
 IDENT	xmax
 =	=
@@ -602,7 +603,7 @@ IDENT	i
 /	/
 IDENT	xmax
 )	)
-*	**
+token(95)	**
 IDENT	2
 IDENT	goto200
 IDENT	c
@@ -616,11 +617,11 @@ IDENT	sum
 =	=
 (	(
 IDENT	sum
-*	*x
-IDENT	max
+*	*
+IDENT	xmax
 )	)
-*	*x
-IDENT	max
+*	*
+IDENT	xmax
 IDENT	c
 IDENT	c
 IDENT	c
@@ -640,7 +641,8 @@ IDENT	cuthi
 /	/
 (	(
 IDENT	2
-*	*n
+*	*
+IDENT	n
 )	)
 IDENT	c
 IDENT	85
@@ -694,7 +696,7 @@ IDENT	dx
 (	(
 IDENT	j
 )	)
-*	**
+token(95)	**
 IDENT	2
 IDENT	dnrm2
 =	=
@@ -732,8 +734,8 @@ IDENT	c
 IDENT	dnrm2
 =	=
 IDENT	xmax
-*	*d
-IDENT	sqrt
+*	*
+IDENT	dsqrt
 (	(
 IDENT	sum
 )	)

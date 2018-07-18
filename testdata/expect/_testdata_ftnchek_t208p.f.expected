@@ -19,7 +19,8 @@ IDENT	write
 (	(
 IDENT	6
 ,	,
-*	*)
+*	*
+)	)
 IDENT	in
 (	(
 -	-
@@ -29,7 +30,8 @@ IDENT	write
 (	(
 IDENT	6
 ,	,
-*	*)
+*	*
+)	)
 IDENT	ex
 (	(
 -	-

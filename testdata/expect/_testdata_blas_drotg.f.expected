@@ -188,15 +188,15 @@ else	ELSE
 IDENT	R
 =	=
 IDENT	SCALE
-*	*D
-IDENT	SQRT
+*	*
+IDENT	DSQRT
 (	(
 (	(
 IDENT	DA
 /	/
 IDENT	SCALE
 )	)
-*	**
+token(95)	**
 IDENT	2
 +	+
 (	(
@@ -204,7 +204,7 @@ IDENT	DB
 /	/
 IDENT	SCALE
 )	)
-*	**
+token(95)	**
 IDENT	2
 )	)
 IDENT	R
@@ -218,7 +218,8 @@ IDENT	d0
 ,	,
 IDENT	ROE
 )	)
-*	*R
+*	*
+IDENT	R
 IDENT	C
 =	=
 IDENT	DA

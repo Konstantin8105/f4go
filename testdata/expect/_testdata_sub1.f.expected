@@ -30,12 +30,12 @@ COMMENT	! output
 IDENT	isquare
 =	=
 IDENT	i
-*	**
+token(95)	**
 IDENT	2
 IDENT	icube
 =	=
 IDENT	i
-*	**
+token(95)	**
 IDENT	3
 IDENT	end
 token(96)	subroutine
@@ -64,7 +64,8 @@ IDENT	isq
 IDENT	icub
 )	)
 IDENT	print
-*	*,
+*	*
+,	,
 STRING	"i,i^2,i^3="
 ,	,
 IDENT	i
@@ -73,7 +74,8 @@ IDENT	isq
 ,	,
 IDENT	icub
 IDENT	print
-*	*,
+*	*
+,	,
 STRING	"i,i^2,i^3="
 ,	,
 IDENT	i

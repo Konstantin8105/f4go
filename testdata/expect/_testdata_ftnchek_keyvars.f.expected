@@ -86,13 +86,13 @@ IDENT	0
 )	)
 =	=
 IDENT	continue
-*	**
+token(95)	**
 IDENT	dimension
 IDENT	do
 =	=
 IDENT	double
-*	*e
-IDENT	lse
+*	*
+else	else
 -	-
 IDENT	end
 +	+

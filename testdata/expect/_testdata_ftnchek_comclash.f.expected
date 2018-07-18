@@ -84,5 +84,6 @@ IDENT	n
 IDENT	abc
 =	=
 IDENT	n
-*	*n
+*	*
+IDENT	n
 IDENT	end

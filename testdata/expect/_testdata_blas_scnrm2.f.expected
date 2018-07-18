@@ -99,7 +99,8 @@ COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
 IDENT	X
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -196,8 +197,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 ,	,
 IDENT	INCX
 if	IF
@@ -241,13 +242,13 @@ IDENT	SSQ
 IDENT	ONE
 +	+
 IDENT	SSQ
-*	* 
+*	*
 (	(
 IDENT	SCALE
 /	/
 IDENT	TEMP
 )	)
-*	**
+token(95)	**
 IDENT	2
 IDENT	SCALE
 =	=
@@ -262,7 +263,7 @@ IDENT	TEMP
 /	/
 IDENT	SCALE
 )	)
-*	**
+token(95)	**
 IDENT	2
 IDENT	END
 if	IF
@@ -309,13 +310,13 @@ IDENT	SSQ
 IDENT	ONE
 +	+
 IDENT	SSQ
-*	* 
+*	*
 (	(
 IDENT	SCALE
 /	/
 IDENT	TEMP
 )	)
-*	**
+token(95)	**
 IDENT	2
 IDENT	SCALE
 =	=
@@ -330,7 +331,7 @@ IDENT	TEMP
 /	/
 IDENT	SCALE
 )	)
-*	**
+token(95)	**
 IDENT	2
 IDENT	END
 if	IF
@@ -341,8 +342,8 @@ IDENT	CONTINUE
 IDENT	NORM
 =	=
 IDENT	SCALE
-*	*S
-IDENT	QRT
+*	*
+IDENT	SQRT
 (	(
 IDENT	SSQ
 )	)

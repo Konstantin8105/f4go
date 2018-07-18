@@ -79,8 +79,8 @@ COMMENT	*     November 2017
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	CA
 ,	,
 IDENT	CB
@@ -95,8 +95,8 @@ COMMENT	*  =====================================================================
 COMMENT	*
 COMMENT	*     .. Local Scalars ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ALPHA
 IDENT	DOUBLE
 IDENT	PRECISION
@@ -166,8 +166,8 @@ IDENT	CB
 IDENT	NORM
 =	=
 IDENT	SCALE
-*	*D
-IDENT	SQRT
+*	*
+IDENT	DSQRT
 (	(
 (	(
 IDENT	CDABS
@@ -185,7 +185,7 @@ IDENT	d0
 )	)
 )	)
 )	)
-*	**
+token(95)	**
 IDENT	2
 +	+
 (	(
@@ -204,7 +204,7 @@ IDENT	d0
 )	)
 )	)
 )	)
-*	**
+token(95)	**
 IDENT	2
 )	)
 IDENT	ALPHA
@@ -226,8 +226,8 @@ IDENT	NORM
 IDENT	S
 =	=
 IDENT	ALPHA
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	CB
 )	)
@@ -236,8 +236,8 @@ IDENT	NORM
 IDENT	CA
 =	=
 IDENT	ALPHA
-*	*N
-IDENT	ORM
+*	*
+IDENT	NORM
 IDENT	END
 if	IF
 IDENT	RETURN

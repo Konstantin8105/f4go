@@ -113,14 +113,17 @@ IDENT	1
 IDENT	10
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 IDENT	i
 ,	,
 IDENT	j
 ,	,
 IDENT	i
-*	*j
+*	*
+IDENT	j
 if	if
 (	(
 IDENT	i
@@ -151,11 +154,15 @@ IDENT	do
 IDENT	loop2
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 IDENT	k
-token(95)	*i
-*	*2
+*	*
+IDENT	i
+token(95)	**
+IDENT	2
 IDENT	enddo
 IDENT	loop1
 IDENT	case2
@@ -260,7 +267,8 @@ IDENT	c
 ,	,
 IDENT	d
 IDENT	read
-*	*,
+*	*
+,	,
 IDENT	a
 COMMENT	! This block is from section 8.1.2.3 of the F90 standard, except for
 COMMENT	! removing space between some keywords
@@ -332,7 +340,8 @@ IDENT	endif
 IDENT	bar
 =	=
 IDENT	d
-*	*b
+*	*
+IDENT	b
 IDENT	end
 token(101)	function
 IDENT	bar
@@ -350,7 +359,8 @@ IDENT	c
 ,	,
 IDENT	d
 IDENT	read
-*	*,
+*	*
+,	,
 IDENT	a
 COMMENT	! Same as above but with spaces restored and construct names added
 IDENT	first_if
@@ -430,7 +440,8 @@ IDENT	end
 if	if
 IDENT	first_if
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	a
 ,	,
 IDENT	b

@@ -26,6 +26,7 @@ IDENT	c
 IDENT	10
 )	)
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	c
 IDENT	end

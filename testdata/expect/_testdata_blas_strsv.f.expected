@@ -192,11 +192,13 @@ IDENT	A
 (	(
 IDENT	LDA
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	X
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -461,8 +463,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 else	ELSE
 if	IF
 (	(
@@ -585,7 +587,8 @@ IDENT	I
 )	)
 -	-
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -607,8 +610,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	DO
 IDENT	40
 IDENT	J
@@ -688,7 +691,8 @@ IDENT	IX
 )	)
 -	-
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -782,7 +786,8 @@ IDENT	I
 )	)
 -	-
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -871,7 +876,8 @@ IDENT	IX
 )	)
 -	-
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -947,7 +953,8 @@ IDENT	I
 ,	,
 IDENT	J
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -1014,7 +1021,8 @@ IDENT	I
 ,	,
 IDENT	J
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)
@@ -1102,7 +1110,8 @@ IDENT	I
 ,	,
 IDENT	J
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -1140,8 +1149,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	JX
 =	=
 IDENT	KX
@@ -1186,7 +1195,8 @@ IDENT	I
 ,	,
 IDENT	J
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)

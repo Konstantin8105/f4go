@@ -108,7 +108,8 @@ IDENT	DOUBLE
 IDENT	PRECISION
 IDENT	DX
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -188,8 +189,8 @@ IDENT	I
 )	)
 =	=
 IDENT	DA
-*	*D
-IDENT	X
+*	*
+IDENT	DX
 (	(
 IDENT	I
 )	)
@@ -225,8 +226,8 @@ IDENT	I
 )	)
 =	=
 IDENT	DA
-*	*D
-IDENT	X
+*	*
+IDENT	DX
 (	(
 IDENT	I
 )	)
@@ -238,8 +239,8 @@ IDENT	1
 )	)
 =	=
 IDENT	DA
-*	*D
-IDENT	X
+*	*
+IDENT	DX
 (	(
 IDENT	I
 +	+
@@ -253,8 +254,8 @@ IDENT	2
 )	)
 =	=
 IDENT	DA
-*	*D
-IDENT	X
+*	*
+IDENT	DX
 (	(
 IDENT	I
 +	+
@@ -268,8 +269,8 @@ IDENT	3
 )	)
 =	=
 IDENT	DA
-*	*D
-IDENT	X
+*	*
+IDENT	DX
 (	(
 IDENT	I
 +	+
@@ -283,8 +284,8 @@ IDENT	4
 )	)
 =	=
 IDENT	DA
-*	*D
-IDENT	X
+*	*
+IDENT	DX
 (	(
 IDENT	I
 +	+
@@ -299,8 +300,8 @@ COMMENT	*
 IDENT	NINCX
 =	=
 IDENT	N
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	DO
 IDENT	I
 =	=
@@ -315,8 +316,8 @@ IDENT	I
 )	)
 =	=
 IDENT	DA
-*	*D
-IDENT	X
+*	*
+IDENT	DX
 (	(
 IDENT	I
 )	)

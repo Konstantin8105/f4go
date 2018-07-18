@@ -97,7 +97,8 @@ IDENT	DOUBLE
 IDENT	PRECISION
 IDENT	DX
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -300,8 +301,8 @@ COMMENT	*
 IDENT	NINCX
 =	=
 IDENT	N
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	DO
 IDENT	I
 =	=

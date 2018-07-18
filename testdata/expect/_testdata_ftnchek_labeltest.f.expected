@@ -37,7 +37,8 @@ IDENT	write
 (	(
 IDENT	6
 ,	,
-*	*)
+*	*
+)	)
 STRING	'hello'
 IDENT	do
 IDENT	123
@@ -70,7 +71,8 @@ IDENT	continue
 IDENT	302
 IDENT	write
 (	(
-*	*,
+*	*
+,	,
 IDENT	909
 )	)
 IDENT	x
@@ -119,7 +121,9 @@ IDENT	5
 )	)
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 STRING	'I'
 STRING	'm outta here'

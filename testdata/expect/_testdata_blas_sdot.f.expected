@@ -112,11 +112,13 @@ COMMENT	*     .. Array Arguments ..
 IDENT	REAL
 IDENT	SX
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	SY
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -214,8 +216,8 @@ IDENT	SX
 (	(
 IDENT	I
 )	)
-*	*S
-IDENT	Y
+*	*
+IDENT	SY
 (	(
 IDENT	I
 )	)
@@ -259,8 +261,8 @@ IDENT	SX
 (	(
 IDENT	I
 )	)
-*	*S
-IDENT	Y
+*	*
+IDENT	SY
 (	(
 IDENT	I
 )	)
@@ -271,8 +273,8 @@ IDENT	I
 +	+
 IDENT	1
 )	)
-*	*S
-IDENT	Y
+*	*
+IDENT	SY
 (	(
 IDENT	I
 +	+
@@ -285,8 +287,8 @@ IDENT	I
 +	+
 IDENT	2
 )	)
-*	*S
-IDENT	Y
+*	*
+IDENT	SY
 (	(
 IDENT	I
 +	+
@@ -299,8 +301,8 @@ IDENT	I
 +	+
 IDENT	3
 )	)
-*	*S
-IDENT	Y
+*	*
+IDENT	SY
 (	(
 IDENT	I
 +	+
@@ -313,8 +315,8 @@ IDENT	I
 +	+
 IDENT	4
 )	)
-*	*S
-IDENT	Y
+*	*
+IDENT	SY
 (	(
 IDENT	I
 +	+
@@ -349,8 +351,8 @@ IDENT	N
 +	+
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 +	+
 IDENT	1
 if	IF
@@ -369,8 +371,8 @@ IDENT	N
 +	+
 IDENT	1
 )	)
-*	*I
-IDENT	NCY
+*	*
+IDENT	INCY
 +	+
 IDENT	1
 IDENT	DO
@@ -387,8 +389,8 @@ IDENT	SX
 (	(
 IDENT	IX
 )	)
-*	*S
-IDENT	Y
+*	*
+IDENT	SY
 (	(
 IDENT	IY
 )	)

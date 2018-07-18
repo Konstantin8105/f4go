@@ -1,12 +1,15 @@
 IDENT	character
-*	*3
+*	*
+IDENT	3
 token(101)	function
 IDENT	foo
 (	(
 IDENT	s
 )	)
 IDENT	character
-token(95)	*(
+*	*
+(	(
+*	*
 )	)
 IDENT	s
 IDENT	foo

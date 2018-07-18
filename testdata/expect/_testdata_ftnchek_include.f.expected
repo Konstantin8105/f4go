@@ -18,8 +18,8 @@ COMMENT	C     Date:       October 1st-16th, 1990                                
 COMMENT	CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 IDENT	Character
 IDENT	Fname
-*	*8
-IDENT	0
+*	*
+IDENT	80
 IDENT	Call
 IDENT	Initialize
 IDENT	Call
@@ -47,12 +47,12 @@ IDENT	Include
 STRING	'stats.h'
 IDENT	Character
 IDENT	Inline
-*	*8
-IDENT	2
+*	*
+IDENT	82
 ,	,
 IDENT	Fname
-*	*8
-IDENT	0
+*	*
+IDENT	80
 ,	,
 IDENT	Ch
 IDENT	Open
@@ -215,7 +215,8 @@ IDENT	a
 )	)
 IDENT	999
 IDENT	Print
-*	*,
+*	*
+,	,
 STRING	'Error opening file, please verify filename and try again.'
 COMMENT	C
 COMMENT	C     In the event of improper filename exit abruptly.
@@ -443,11 +444,12 @@ IDENT	Fname
 )	)
 IDENT	Character
 IDENT	Fname
-*	*8
-IDENT	0
+*	*
+IDENT	80
 ,	,
 IDENT	Prompt
-*	*7
+*	*
+IDENT	7
 IDENT	Prompt
 =	=
 STRING	'_File: '

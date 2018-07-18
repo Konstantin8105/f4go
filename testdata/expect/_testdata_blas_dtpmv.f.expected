@@ -180,11 +180,13 @@ IDENT	DOUBLE
 IDENT	PRECISION
 IDENT	AP
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	X
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -433,8 +435,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 else	ELSE
 if	IF
 (	(
@@ -537,8 +539,8 @@ IDENT	I
 )	)
 +	+
 IDENT	TEMP
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	K
 )	)
@@ -562,8 +564,8 @@ IDENT	X
 (	(
 IDENT	J
 )	)
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	KK
 +	+
@@ -634,8 +636,8 @@ IDENT	IX
 )	)
 +	+
 IDENT	TEMP
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	K
 )	)
@@ -659,8 +661,8 @@ IDENT	X
 (	(
 IDENT	JX
 )	)
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	KK
 +	+
@@ -689,7 +691,7 @@ IDENT	KK
 =	=
 (	(
 IDENT	N
-*	* 
+*	*
 (	(
 IDENT	N
 +	+
@@ -761,8 +763,8 @@ IDENT	I
 )	)
 +	+
 IDENT	TEMP
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	K
 )	)
@@ -786,8 +788,8 @@ IDENT	X
 (	(
 IDENT	J
 )	)
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	KK
 -	-
@@ -820,8 +822,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	JX
 =	=
 IDENT	KX
@@ -887,8 +889,8 @@ IDENT	IX
 )	)
 +	+
 IDENT	TEMP
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	K
 )	)
@@ -912,8 +914,8 @@ IDENT	X
 (	(
 IDENT	JX
 )	)
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	KK
 -	-
@@ -963,7 +965,7 @@ IDENT	KK
 =	=
 (	(
 IDENT	N
-*	* 
+*	*
 (	(
 IDENT	N
 +	+
@@ -1004,8 +1006,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	KK
 )	)
@@ -1034,7 +1036,8 @@ IDENT	AP
 (	(
 IDENT	K
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -1068,8 +1071,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	DO
 IDENT	120
 IDENT	J
@@ -1096,8 +1099,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	KK
 )	)
@@ -1130,7 +1133,8 @@ IDENT	AP
 (	(
 IDENT	K
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)
@@ -1189,8 +1193,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	KK
 )	)
@@ -1216,7 +1220,8 @@ IDENT	AP
 (	(
 IDENT	K
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -1273,8 +1278,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	KK
 )	)
@@ -1304,7 +1309,8 @@ IDENT	AP
 (	(
 IDENT	K
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)

@@ -8,7 +8,8 @@ IDENT	Character
 IDENT	Esc
 ,	,
 IDENT	Clear_String
-*	*6
+*	*
+IDENT	6
 IDENT	Esc
 =	=
 IDENT	CHAR

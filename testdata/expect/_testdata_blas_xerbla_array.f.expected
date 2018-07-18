@@ -119,8 +119,8 @@ IDENT	I
 COMMENT	*     ..
 COMMENT	*     .. Local Arrays ..
 IDENT	CHARACTER
-*	*3
-IDENT	2
+*	*
+IDENT	32
 IDENT	SRNAME
 COMMENT	*     ..
 COMMENT	*     .. Intrinsic Functions ..

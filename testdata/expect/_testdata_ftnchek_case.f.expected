@@ -3,10 +3,12 @@ IDENT	testcase
 token(98)	integer
 IDENT	ivar1
 IDENT	character
-*	*8
+*	*
+IDENT	8
 IDENT	cvar1
 IDENT	character
-*	*1
+*	*
+IDENT	1
 IDENT	cvar2
 IDENT	logical
 IDENT	lvar1

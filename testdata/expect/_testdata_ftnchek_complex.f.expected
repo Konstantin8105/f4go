@@ -136,7 +136,8 @@ IDENT	x
 IDENT	complex
 IDENT	z
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	z
 +	+
 IDENT	x

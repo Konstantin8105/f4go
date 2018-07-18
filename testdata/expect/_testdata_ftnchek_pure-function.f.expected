@@ -36,11 +36,14 @@ IDENT	y
 IDENT	notpure
 =	=
 IDENT	a
-*	*x
+*	*
+IDENT	x
 +	+
 IDENT	b
-*	*y
+*	*
+IDENT	y
 +	+
 IDENT	c
-*	*z
+*	*
+IDENT	z
 IDENT	end

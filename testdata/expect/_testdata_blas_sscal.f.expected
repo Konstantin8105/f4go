@@ -106,7 +106,8 @@ COMMENT	*     .. Array Arguments ..
 IDENT	REAL
 IDENT	SX
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -186,8 +187,8 @@ IDENT	I
 )	)
 =	=
 IDENT	SA
-*	*S
-IDENT	X
+*	*
+IDENT	SX
 (	(
 IDENT	I
 )	)
@@ -223,8 +224,8 @@ IDENT	I
 )	)
 =	=
 IDENT	SA
-*	*S
-IDENT	X
+*	*
+IDENT	SX
 (	(
 IDENT	I
 )	)
@@ -236,8 +237,8 @@ IDENT	1
 )	)
 =	=
 IDENT	SA
-*	*S
-IDENT	X
+*	*
+IDENT	SX
 (	(
 IDENT	I
 +	+
@@ -251,8 +252,8 @@ IDENT	2
 )	)
 =	=
 IDENT	SA
-*	*S
-IDENT	X
+*	*
+IDENT	SX
 (	(
 IDENT	I
 +	+
@@ -266,8 +267,8 @@ IDENT	3
 )	)
 =	=
 IDENT	SA
-*	*S
-IDENT	X
+*	*
+IDENT	SX
 (	(
 IDENT	I
 +	+
@@ -281,8 +282,8 @@ IDENT	4
 )	)
 =	=
 IDENT	SA
-*	*S
-IDENT	X
+*	*
+IDENT	SX
 (	(
 IDENT	I
 +	+
@@ -297,8 +298,8 @@ COMMENT	*
 IDENT	NINCX
 =	=
 IDENT	N
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	DO
 IDENT	I
 =	=
@@ -313,8 +314,8 @@ IDENT	I
 )	)
 =	=
 IDENT	SA
-*	*S
-IDENT	X
+*	*
+IDENT	SX
 (	(
 IDENT	I
 )	)

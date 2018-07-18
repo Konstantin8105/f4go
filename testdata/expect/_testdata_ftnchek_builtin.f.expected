@@ -26,7 +26,8 @@ IDENT	2
 IDENT	0
 )	)
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	x
 ,	,
 IDENT	y

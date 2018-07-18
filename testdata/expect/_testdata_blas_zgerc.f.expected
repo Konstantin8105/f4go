@@ -157,8 +157,8 @@ COMMENT	*     December 2016
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ALPHA
 token(98)	INTEGER
 IDENT	INCX
@@ -173,29 +173,32 @@ IDENT	N
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	A
 (	(
 IDENT	LDA
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	X
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	Y
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
 COMMENT	*
 COMMENT	*     .. Parameters ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ZERO
 IDENT	PARAMETER
 (	(
@@ -220,8 +223,8 @@ IDENT	0
 COMMENT	*     ..
 COMMENT	*     .. Local Scalars ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	TEMP
 token(98)	INTEGER
 IDENT	I
@@ -402,8 +405,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCY
+*	*
+IDENT	INCY
 IDENT	END
 if	IF
 if	IF
@@ -437,8 +440,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	Y
 (	(
@@ -470,8 +473,8 @@ IDENT	X
 (	(
 IDENT	I
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	10
 IDENT	CONTINUE
 IDENT	END
@@ -506,8 +509,8 @@ IDENT	M
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	END
 if	IF
 IDENT	DO
@@ -532,8 +535,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	Y
 (	(
@@ -568,8 +571,8 @@ IDENT	X
 (	(
 IDENT	IX
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	IX
 =	=
 IDENT	IX

@@ -36,7 +36,8 @@ IDENT	2
 /	/
 IDENT	3
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	a
 ,	,
 IDENT	b

@@ -20,6 +20,7 @@ IDENT	c
 IDENT	character
 IDENT	c
 IDENT	read
-*	*,
+*	*
+,	,
 IDENT	c
 IDENT	end

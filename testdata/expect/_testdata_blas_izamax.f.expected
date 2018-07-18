@@ -93,11 +93,12 @@ IDENT	N
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ZX
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================

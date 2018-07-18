@@ -9,8 +9,8 @@ IDENT	b
 IDENT	100
 )	)
 IDENT	CHARACTER
-*	*1
-IDENT	00
+*	*
+IDENT	100
 IDENT	c
 IDENT	DOUBLE
 IDENT	COMPLEX
@@ -47,7 +47,8 @@ IDENT	ptee
 token(98)	INTEGER
 IDENT	ptee
 (	(
-*	*)
+*	*
+)	)
 IDENT	REAL
 IDENT	pi
 IDENT	EQUIVALENCE
@@ -79,7 +80,8 @@ IDENT	1415926
 IDENT	INCLUDE
 STRING	'block2.i'
 IDENT	ACCEPT
-*	*,
+*	*
+,	,
 IDENT	c
 IDENT	OPEN
 (	(
@@ -104,7 +106,8 @@ IDENT	READ
 (	(
 IDENT	10
 ,	,
-*	*)
+*	*
+)	)
 IDENT	a
 ,	,
 IDENT	x
@@ -187,7 +190,8 @@ IDENT	1
 IDENT	10
 IDENT	200
 IDENT	PRINT
-*	*,
+*	*
+,	,
 IDENT	i
 if	IF
 (	(
@@ -254,7 +258,8 @@ IDENT	WRITE
 (	(
 IDENT	10
 ,	,
-*	*)
+*	*
+)	)
 IDENT	a
 ,	,
 IDENT	y
@@ -337,7 +342,8 @@ IDENT	100
 IDENT	i
 =	=
 IDENT	i
-*	*2
+*	*
+IDENT	2
 IDENT	END
 IDENT	DO
 IDENT	DO
@@ -353,7 +359,8 @@ IDENT	0
 IDENT	0
 )	)
 IDENT	TYPE
-*	*,
+*	*
+,	,
 IDENT	pi
 ,	,
 STRING	'Over and over'
@@ -373,7 +380,8 @@ IDENT	0
 IDENT	0
 )	)
 IDENT	TYPE
-*	*,
+*	*
+,	,
 IDENT	pi
 ,	,
 STRING	'Over and over'
@@ -442,14 +450,14 @@ IDENT	1
 IDENT	f
 =	=
 IDENT	x
-*	*d
-IDENT	ble
+*	*
+IDENT	dble
 (	(
 IDENT	y1
-*	*y
-IDENT	2
+*	*
+IDENT	y2
 )	)
-*	* 
+*	*
 IDENT	sqrt
 (	(
 IDENT	real
@@ -475,7 +483,8 @@ IDENT	WRITE
 (	(
 IDENT	10
 ,	,
-*	*)
+*	*
+)	)
 STRING	'foo'
 IDENT	RETURN
 IDENT	ENTRY
@@ -484,7 +493,8 @@ IDENT	WRITE
 (	(
 IDENT	10
 ,	,
-*	*)
+*	*
+)	)
 STRING	'bar'
 IDENT	PAUSE
 IDENT	RETURN

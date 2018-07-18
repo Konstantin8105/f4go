@@ -21,12 +21,16 @@ token(98)	integer
 IDENT	makeprimes
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 STRING	'Enter ceiling on primes'
 IDENT	read
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 IDENT	M
 COMMENT	C Get list of primes up to M
@@ -63,7 +67,9 @@ IDENT	n
 token(100)	implicit
 IDENT	none
 IDENT	character
-token(95)	*(
+*	*
+(	(
+*	*
 )	)
 IDENT	heading
 token(98)	integer
@@ -77,7 +83,9 @@ IDENT	1
 )	)
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 IDENT	heading
 IDENT	do
@@ -88,7 +96,8 @@ IDENT	1
 IDENT	n
 IDENT	write
 (	(
-*	*,
+*	*
+,	,
 STRING	'(1x,i4,1x,i5)'
 )	)
 IDENT	i
@@ -179,7 +188,9 @@ IDENT	max
 IDENT	then
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 STRING	'Ran out of space at p='
 ,	,

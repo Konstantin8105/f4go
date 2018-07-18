@@ -190,15 +190,18 @@ COMMENT	*     .. Array Arguments ..
 IDENT	REAL
 IDENT	AP
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	X
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	Y
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -422,8 +425,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	END
 if	IF
 if	IF
@@ -448,8 +451,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCY
+*	*
+IDENT	INCY
 IDENT	END
 if	IF
 COMMENT	*
@@ -514,7 +517,8 @@ IDENT	I
 )	)
 =	=
 IDENT	BETA
-*	*Y
+*	*
+IDENT	Y
 (	(
 IDENT	I
 )	)
@@ -569,7 +573,8 @@ IDENT	IY
 )	)
 =	=
 IDENT	BETA
-*	*Y
+*	*
+IDENT	Y
 (	(
 IDENT	IY
 )	)
@@ -642,7 +647,8 @@ IDENT	N
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	J
 )	)
@@ -672,8 +678,8 @@ IDENT	I
 )	)
 +	+
 IDENT	TEMP1
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	K
 )	)
@@ -685,7 +691,8 @@ IDENT	AP
 (	(
 IDENT	K
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -707,8 +714,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP1
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	KK
 +	+
@@ -718,8 +725,8 @@ IDENT	1
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP2
+*	*
+IDENT	TEMP2
 IDENT	KK
 =	=
 IDENT	KK
@@ -744,7 +751,8 @@ IDENT	N
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	JX
 )	)
@@ -779,8 +787,8 @@ IDENT	IY
 )	)
 +	+
 IDENT	TEMP1
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	K
 )	)
@@ -792,7 +800,8 @@ IDENT	AP
 (	(
 IDENT	K
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)
@@ -819,8 +828,8 @@ IDENT	JY
 )	)
 +	+
 IDENT	TEMP1
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	KK
 +	+
@@ -830,8 +839,8 @@ IDENT	1
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP2
+*	*
+IDENT	TEMP2
 IDENT	JX
 =	=
 IDENT	JX
@@ -886,7 +895,8 @@ IDENT	N
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	J
 )	)
@@ -904,8 +914,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP1
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	KK
 )	)
@@ -934,8 +944,8 @@ IDENT	I
 )	)
 +	+
 IDENT	TEMP1
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	K
 )	)
@@ -947,7 +957,8 @@ IDENT	AP
 (	(
 IDENT	K
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -969,8 +980,8 @@ IDENT	J
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP2
+*	*
+IDENT	TEMP2
 IDENT	KK
 =	=
 IDENT	KK
@@ -1001,7 +1012,8 @@ IDENT	N
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	JX
 )	)
@@ -1019,8 +1031,8 @@ IDENT	JY
 )	)
 +	+
 IDENT	TEMP1
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	KK
 )	)
@@ -1064,8 +1076,8 @@ IDENT	IY
 )	)
 +	+
 IDENT	TEMP1
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	K
 )	)
@@ -1077,7 +1089,8 @@ IDENT	AP
 (	(
 IDENT	K
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)
@@ -1094,8 +1107,8 @@ IDENT	JY
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP2
+*	*
+IDENT	TEMP2
 IDENT	JX
 =	=
 IDENT	JX

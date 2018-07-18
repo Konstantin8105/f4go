@@ -3,7 +3,8 @@ IDENT	test1
 IDENT	c
 IDENT	character
 IDENT	STRING1
-*	*6
+*	*
+IDENT	6
 IDENT	parameter
 (	(
 IDENT	STRING1
@@ -12,7 +13,8 @@ STRING	'abc123'
 )	)
 IDENT	character
 IDENT	STRING2
-*	*(
+*	*
+(	(
 IDENT	6
 )	)
 IDENT	parameter
@@ -24,7 +26,9 @@ STRING	'xyz789'
 IDENT	c
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 IDENT	STRING1
 ,	,

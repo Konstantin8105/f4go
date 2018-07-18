@@ -63,7 +63,8 @@ IDENT	Q
 IDENT	Z
 )	)
 IDENT	PRINT
-*	*,
+*	*
+,	,
 IDENT	W
 ,	,
 IDENT	X
@@ -157,7 +158,8 @@ IDENT	TAD
 (	(
 IDENT	I
 )	)
-*	*2
+*	*
+IDENT	2
 .	.
 IDENT	0
 IDENT	10

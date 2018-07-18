@@ -34,5 +34,6 @@ IDENT	auto
 (	(
 IDENT	1
 )	)
-*	*2
+*	*
+IDENT	2
 IDENT	end

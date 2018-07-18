@@ -17,13 +17,15 @@ IDENT	1
 ,	,
 IDENT	b
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	c
 (	(
 IDENT	21
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	d
 (	(

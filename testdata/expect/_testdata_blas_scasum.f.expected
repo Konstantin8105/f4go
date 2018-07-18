@@ -96,7 +96,8 @@ COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
 IDENT	CX
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -198,8 +199,8 @@ COMMENT	*
 IDENT	NINCX
 =	=
 IDENT	N
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	DO
 IDENT	I
 =	=

@@ -95,7 +95,8 @@ COMMENT	*     .. Array Arguments ..
 IDENT	REAL
 IDENT	SX
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================

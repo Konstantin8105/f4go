@@ -222,8 +222,8 @@ COMMENT	*     December 2016
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ALPHA
 ,	,
 IDENT	BETA
@@ -244,25 +244,28 @@ IDENT	UPLO
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	A
 (	(
 IDENT	LDA
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	B
 (	(
 IDENT	LDB
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	C
 (	(
 IDENT	LDC
 ,	,
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -283,8 +286,8 @@ IDENT	MAX
 COMMENT	*     ..
 COMMENT	*     .. Local Scalars ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	TEMP1
 ,	,
 IDENT	TEMP2
@@ -303,8 +306,8 @@ IDENT	UPPER
 COMMENT	*     ..
 COMMENT	*     .. Parameters ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ONE
 IDENT	PARAMETER
 (	(
@@ -327,8 +330,8 @@ IDENT	0
 )	)
 )	)
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ZERO
 IDENT	PARAMETER
 (	(
@@ -665,7 +668,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -718,7 +722,8 @@ IDENT	M
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,
@@ -751,7 +756,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP1
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	K
 ,	,
@@ -767,7 +773,8 @@ IDENT	K
 ,	,
 IDENT	J
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	K
 ,	,
@@ -792,7 +799,8 @@ IDENT	J
 )	)
 =	=
 IDENT	TEMP1
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -800,8 +808,8 @@ IDENT	I
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP2
+*	*
+IDENT	TEMP2
 else	ELSE
 IDENT	C
 (	(
@@ -811,7 +819,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -819,7 +828,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP1
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -828,8 +838,8 @@ IDENT	I
 +	+
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP2
+*	*
+IDENT	TEMP2
 IDENT	END
 if	IF
 IDENT	60
@@ -857,7 +867,8 @@ IDENT	1
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,
@@ -890,7 +901,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP1
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	K
 ,	,
@@ -906,7 +918,8 @@ IDENT	K
 ,	,
 IDENT	J
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	K
 ,	,
@@ -931,7 +944,8 @@ IDENT	J
 )	)
 =	=
 IDENT	TEMP1
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -939,8 +953,8 @@ IDENT	I
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP2
+*	*
+IDENT	TEMP2
 else	ELSE
 IDENT	C
 (	(
@@ -950,7 +964,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -958,7 +973,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP1
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -967,8 +983,8 @@ IDENT	I
 +	+
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP2
+*	*
+IDENT	TEMP2
 IDENT	END
 if	IF
 IDENT	90
@@ -991,7 +1007,8 @@ IDENT	N
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -1021,7 +1038,8 @@ IDENT	J
 )	)
 =	=
 IDENT	TEMP1
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,
@@ -1045,7 +1063,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -1053,7 +1072,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP1
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,
@@ -1080,7 +1100,8 @@ IDENT	THEN
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	K
 ,	,
@@ -1090,7 +1111,8 @@ else	ELSE
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -1120,7 +1142,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP1
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,
@@ -1147,7 +1170,8 @@ IDENT	THEN
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -1157,7 +1181,8 @@ else	ELSE
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	K
 ,	,
@@ -1187,7 +1212,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP1
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,

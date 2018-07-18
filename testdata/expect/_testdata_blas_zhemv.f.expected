@@ -183,8 +183,8 @@ COMMENT	*     December 2016
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ALPHA
 ,	,
 IDENT	BETA
@@ -201,29 +201,32 @@ IDENT	UPLO
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	A
 (	(
 IDENT	LDA
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	X
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	Y
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
 COMMENT	*
 COMMENT	*     .. Parameters ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ONE
 IDENT	PARAMETER
 (	(
@@ -246,8 +249,8 @@ IDENT	0
 )	)
 )	)
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ZERO
 IDENT	PARAMETER
 (	(
@@ -272,8 +275,8 @@ IDENT	0
 COMMENT	*     ..
 COMMENT	*     .. Local Scalars ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	TEMP1
 ,	,
 IDENT	TEMP2
@@ -487,8 +490,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	END
 if	IF
 if	IF
@@ -513,8 +516,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCY
+*	*
+IDENT	INCY
 IDENT	END
 if	IF
 COMMENT	*
@@ -580,7 +583,8 @@ IDENT	I
 )	)
 =	=
 IDENT	BETA
-*	*Y
+*	*
+IDENT	Y
 (	(
 IDENT	I
 )	)
@@ -635,7 +639,8 @@ IDENT	IY
 )	)
 =	=
 IDENT	BETA
-*	*Y
+*	*
+IDENT	Y
 (	(
 IDENT	IY
 )	)
@@ -705,7 +710,8 @@ IDENT	N
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	J
 )	)
@@ -732,7 +738,8 @@ IDENT	I
 )	)
 +	+
 IDENT	TEMP1
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -751,7 +758,8 @@ IDENT	I
 IDENT	J
 )	)
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -768,8 +776,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP1
-*	*D
-IDENT	BLE
+*	*
+IDENT	DBLE
 (	(
 IDENT	A
 (	(
@@ -780,8 +788,8 @@ IDENT	J
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP2
+*	*
+IDENT	TEMP2
 IDENT	60
 IDENT	CONTINUE
 else	ELSE
@@ -801,7 +809,8 @@ IDENT	N
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	JX
 )	)
@@ -834,7 +843,8 @@ IDENT	IY
 )	)
 +	+
 IDENT	TEMP1
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -853,7 +863,8 @@ IDENT	I
 IDENT	J
 )	)
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)
@@ -880,8 +891,8 @@ IDENT	JY
 )	)
 +	+
 IDENT	TEMP1
-*	*D
-IDENT	BLE
+*	*
+IDENT	DBLE
 (	(
 IDENT	A
 (	(
@@ -892,8 +903,8 @@ IDENT	J
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP2
+*	*
+IDENT	TEMP2
 IDENT	JX
 =	=
 IDENT	JX
@@ -943,7 +954,8 @@ IDENT	N
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	J
 )	)
@@ -961,8 +973,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP1
-*	*D
-IDENT	BLE
+*	*
+IDENT	DBLE
 (	(
 IDENT	A
 (	(
@@ -991,7 +1003,8 @@ IDENT	I
 )	)
 +	+
 IDENT	TEMP1
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -1010,7 +1023,8 @@ IDENT	I
 IDENT	J
 )	)
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -1027,8 +1041,8 @@ IDENT	J
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP2
+*	*
+IDENT	TEMP2
 IDENT	100
 IDENT	CONTINUE
 else	ELSE
@@ -1048,7 +1062,8 @@ IDENT	N
 IDENT	TEMP1
 =	=
 IDENT	ALPHA
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	JX
 )	)
@@ -1066,8 +1081,8 @@ IDENT	JY
 )	)
 +	+
 IDENT	TEMP1
-*	*D
-IDENT	BLE
+*	*
+IDENT	DBLE
 (	(
 IDENT	A
 (	(
@@ -1112,7 +1127,8 @@ IDENT	IY
 )	)
 +	+
 IDENT	TEMP1
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -1131,7 +1147,8 @@ IDENT	I
 IDENT	J
 )	)
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)
@@ -1148,8 +1165,8 @@ IDENT	JY
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP2
+*	*
+IDENT	TEMP2
 IDENT	JX
 =	=
 IDENT	JX

@@ -11,8 +11,8 @@ IDENT	end
 token(96)	subroutine
 IDENT	vms_isms
 IDENT	character
-*	*5
-IDENT	12
+*	*
+IDENT	512
 IDENT	line
 (	(
 IDENT	4
@@ -143,8 +143,8 @@ token(96)	subroutine
 IDENT	direct_access
 IDENT	character
 IDENT	inline
-*	*7
-IDENT	9
+*	*
+IDENT	79
 IDENT	open
 (	(
 IDENT	unit
@@ -232,7 +232,8 @@ IDENT	GoTo
 IDENT	910
 IDENT	909
 IDENT	print
-*	*,
+*	*
+,	,
 STRING	'Error opening file.'
 IDENT	910
 IDENT	continue
@@ -260,8 +261,8 @@ IDENT	val
 ,	,
 IDENT	i1
 IDENT	character
-*	*2
-IDENT	0
+*	*
+IDENT	20
 IDENT	c1
 ,	,
 IDENT	c2
@@ -343,7 +344,8 @@ IDENT	write
 (	(
 IDENT	unit
 =	=
-*	*,
+*	*
+,	,
 IDENT	fmt
 =	=
 STRING	'(1x,a7)'
@@ -360,12 +362,14 @@ IDENT	unit
 IDENT	return
 IDENT	910
 IDENT	print
-*	*,
+*	*
+,	,
 STRING	'Error opening file.'
 IDENT	return
 IDENT	920
 IDENT	print
-*	*,
+*	*
+,	,
 STRING	'Error reading file.'
 IDENT	return
 IDENT	end

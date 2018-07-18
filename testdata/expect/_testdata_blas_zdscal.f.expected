@@ -104,11 +104,12 @@ IDENT	N
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ZX
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -172,8 +173,8 @@ IDENT	0
 IDENT	0
 IDENT	d0
 )	)
-*	*Z
-IDENT	X
+*	*
+IDENT	ZX
 (	(
 IDENT	I
 )	)
@@ -186,8 +187,8 @@ COMMENT	*
 IDENT	NINCX
 =	=
 IDENT	N
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	DO
 IDENT	I
 =	=
@@ -210,8 +211,8 @@ IDENT	0
 IDENT	0
 IDENT	d0
 )	)
-*	*Z
-IDENT	X
+*	*
+IDENT	ZX
 (	(
 IDENT	I
 )	)

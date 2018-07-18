@@ -1,5 +1,6 @@
 IDENT	real
-*	*8
+*	*
+IDENT	8
 IDENT	x
 IDENT	double
 IDENT	precision
@@ -25,7 +26,9 @@ IDENT	1
 IDENT	0
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 IDENT	y
 IDENT	r
@@ -35,7 +38,9 @@ IDENT	0
 IDENT	0
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 IDENT	i
 IDENT	end

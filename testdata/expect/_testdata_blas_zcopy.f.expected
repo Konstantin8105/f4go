@@ -108,15 +108,17 @@ IDENT	N
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ZX
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	ZY
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -202,8 +204,8 @@ IDENT	N
 +	+
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 +	+
 IDENT	1
 if	IF
@@ -222,8 +224,8 @@ IDENT	N
 +	+
 IDENT	1
 )	)
-*	*I
-IDENT	NCY
+*	*
+IDENT	INCY
 +	+
 IDENT	1
 IDENT	DO

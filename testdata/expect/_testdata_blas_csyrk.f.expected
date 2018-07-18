@@ -218,13 +218,15 @@ IDENT	A
 (	(
 IDENT	LDA
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	C
 (	(
 IDENT	LDC
 ,	,
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -607,7 +609,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -678,7 +681,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -774,7 +778,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -808,7 +813,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -836,7 +842,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -909,7 +916,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -943,7 +951,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -971,7 +980,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -1030,7 +1040,8 @@ IDENT	L
 ,	,
 IDENT	I
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	L
 ,	,
@@ -1055,8 +1066,8 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 else	ELSE
 IDENT	C
 (	(
@@ -1066,11 +1077,12 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 +	+
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -1117,7 +1129,8 @@ IDENT	L
 ,	,
 IDENT	I
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	L
 ,	,
@@ -1142,8 +1155,8 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 else	ELSE
 IDENT	C
 (	(
@@ -1153,11 +1166,12 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 +	+
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,

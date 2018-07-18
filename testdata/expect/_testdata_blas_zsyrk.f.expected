@@ -196,8 +196,8 @@ COMMENT	*     December 2016
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ALPHA
 ,	,
 IDENT	BETA
@@ -216,19 +216,21 @@ IDENT	UPLO
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	A
 (	(
 IDENT	LDA
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	C
 (	(
 IDENT	LDC
 ,	,
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -249,8 +251,8 @@ IDENT	MAX
 COMMENT	*     ..
 COMMENT	*     .. Local Scalars ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	TEMP
 token(98)	INTEGER
 IDENT	I
@@ -267,8 +269,8 @@ IDENT	UPPER
 COMMENT	*     ..
 COMMENT	*     .. Parameters ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ONE
 IDENT	PARAMETER
 (	(
@@ -291,8 +293,8 @@ IDENT	0
 )	)
 )	)
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ZERO
 IDENT	PARAMETER
 (	(
@@ -617,7 +619,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -688,7 +691,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -784,7 +788,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -818,7 +823,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -846,7 +852,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -919,7 +926,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -953,7 +961,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -981,7 +990,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -1040,7 +1050,8 @@ IDENT	L
 ,	,
 IDENT	I
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	L
 ,	,
@@ -1065,8 +1076,8 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 else	ELSE
 IDENT	C
 (	(
@@ -1076,11 +1087,12 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 +	+
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -1127,7 +1139,8 @@ IDENT	L
 ,	,
 IDENT	I
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	L
 ,	,
@@ -1152,8 +1165,8 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 else	ELSE
 IDENT	C
 (	(
@@ -1163,11 +1176,12 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 +	+
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,

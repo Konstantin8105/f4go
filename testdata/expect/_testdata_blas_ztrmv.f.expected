@@ -186,25 +186,27 @@ IDENT	UPLO
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	A
 (	(
 IDENT	LDA
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	X
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
 COMMENT	*
 COMMENT	*     .. Parameters ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ZERO
 IDENT	PARAMETER
 (	(
@@ -229,8 +231,8 @@ IDENT	0
 COMMENT	*     ..
 COMMENT	*     .. Local Scalars ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	TEMP
 token(98)	INTEGER
 IDENT	I
@@ -486,8 +488,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 else	ELSE
 if	IF
 (	(
@@ -584,7 +586,8 @@ IDENT	I
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -605,7 +608,8 @@ IDENT	X
 (	(
 IDENT	J
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -667,7 +671,8 @@ IDENT	IX
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -693,7 +698,8 @@ IDENT	X
 (	(
 IDENT	JX
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -771,7 +777,8 @@ IDENT	I
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -792,7 +799,8 @@ IDENT	X
 (	(
 IDENT	J
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -812,8 +820,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	JX
 =	=
 IDENT	KX
@@ -871,7 +879,8 @@ IDENT	IX
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -897,7 +906,8 @@ IDENT	X
 (	(
 IDENT	JX
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -967,7 +977,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -995,7 +1006,8 @@ IDENT	I
 ,	,
 IDENT	J
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -1009,8 +1021,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	A
 (	(
@@ -1044,7 +1056,8 @@ IDENT	I
 IDENT	J
 )	)
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -1070,8 +1083,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	DO
 IDENT	140
 IDENT	J
@@ -1103,7 +1116,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -1136,7 +1150,8 @@ IDENT	I
 ,	,
 IDENT	J
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)
@@ -1150,8 +1165,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	A
 (	(
@@ -1190,7 +1205,8 @@ IDENT	I
 IDENT	J
 )	)
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)
@@ -1248,7 +1264,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -1273,7 +1290,8 @@ IDENT	I
 ,	,
 IDENT	J
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -1287,8 +1305,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	A
 (	(
@@ -1319,7 +1337,8 @@ IDENT	I
 IDENT	J
 )	)
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -1367,7 +1386,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -1397,7 +1417,8 @@ IDENT	I
 ,	,
 IDENT	J
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)
@@ -1411,8 +1432,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	A
 (	(
@@ -1448,7 +1469,8 @@ IDENT	I
 IDENT	J
 )	)
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)

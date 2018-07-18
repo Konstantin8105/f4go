@@ -1,6 +1,6 @@
 IDENT	character
-*	*8
-IDENT	0
+*	*
+IDENT	80
 IDENT	argmt
 COMMENT	C  Test recognition of standard intrinsic
 IDENT	x

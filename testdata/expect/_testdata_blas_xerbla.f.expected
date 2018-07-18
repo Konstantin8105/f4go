@@ -73,7 +73,9 @@ COMMENT	*     December 2016
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
 IDENT	CHARACTER
-token(95)	*(
+*	*
+(	(
+*	*
 )	)
 IDENT	SRNAME
 token(98)	INTEGER
@@ -90,7 +92,8 @@ COMMENT	*     .. Executable Statements ..
 COMMENT	*
 IDENT	WRITE
 (	(
-*	*,
+*	*
+,	,
 IDENT	FMT
 =	=
 IDENT	9999

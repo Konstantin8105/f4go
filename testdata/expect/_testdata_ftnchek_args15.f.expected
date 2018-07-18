@@ -12,7 +12,8 @@ IDENT	i
 )	)
 IDENT	write
 (	(
-*	*,
+*	*
+,	,
 STRING	'(a)'
 )	)
 IDENT	i

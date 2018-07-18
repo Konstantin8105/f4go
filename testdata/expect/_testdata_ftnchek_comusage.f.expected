@@ -7,7 +7,8 @@ IDENT	b
 ,	,
 IDENT	c
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	a
 ,	,
 IDENT	b
@@ -50,12 +51,16 @@ IDENT	y2
 IDENT	y3
 IDENT	Write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 STRING	'Enter 3 Values'
 IDENT	Read
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 IDENT	x1
 ,	,
@@ -133,7 +138,9 @@ IDENT	n2
 IDENT	n3
 IDENT	Write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 STRING	'Average ='
 ,	,

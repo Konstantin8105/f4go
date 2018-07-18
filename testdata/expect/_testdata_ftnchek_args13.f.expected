@@ -18,9 +18,11 @@ IDENT	suba
 IDENT	c
 )	)
 IDENT	character
-*	*2
+*	*
+IDENT	2
 IDENT	c
 IDENT	read
-*	*,
+*	*
+,	,
 IDENT	c
 IDENT	end

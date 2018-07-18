@@ -4,7 +4,8 @@ COMMENT	!
 COMMENT	!       Enter ReGIS, clear screen
 COMMENT	! 
 IDENT	character
-*	*1
+*	*
+IDENT	1
 IDENT	esc
 IDENT	esc
 =	=
@@ -14,7 +15,9 @@ IDENT	27
 )	)
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 IDENT	esc
 ,	,

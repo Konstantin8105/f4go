@@ -209,15 +209,18 @@ IDENT	A
 (	(
 IDENT	LDA
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	X
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	Y
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -524,8 +527,8 @@ IDENT	LENX
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	END
 if	IF
 if	IF
@@ -550,8 +553,8 @@ IDENT	LENY
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCY
+*	*
+IDENT	INCY
 IDENT	END
 if	IF
 COMMENT	*
@@ -616,7 +619,8 @@ IDENT	I
 )	)
 =	=
 IDENT	BETA
-*	*Y
+*	*
+IDENT	Y
 (	(
 IDENT	I
 )	)
@@ -671,7 +675,8 @@ IDENT	IY
 )	)
 =	=
 IDENT	BETA
-*	*Y
+*	*
+IDENT	Y
 (	(
 IDENT	IY
 )	)
@@ -732,7 +737,8 @@ IDENT	N
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	JX
 )	)
@@ -754,7 +760,8 @@ IDENT	I
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -780,7 +787,8 @@ IDENT	N
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	JX
 )	)
@@ -805,7 +813,8 @@ IDENT	IY
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -870,7 +879,8 @@ IDENT	I
 ,	,
 IDENT	J
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -887,8 +897,8 @@ IDENT	JY
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	JY
 =	=
 IDENT	JY
@@ -927,7 +937,8 @@ IDENT	I
 ,	,
 IDENT	J
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)
@@ -949,8 +960,8 @@ IDENT	JY
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	JY
 =	=
 IDENT	JY

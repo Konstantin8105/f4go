@@ -23,6 +23,7 @@ IDENT	c
 IDENT	50
 )	)
 IDENT	read
-*	*,
+*	*
+,	,
 IDENT	c
 IDENT	end

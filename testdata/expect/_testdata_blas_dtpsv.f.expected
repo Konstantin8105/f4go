@@ -182,11 +182,13 @@ IDENT	DOUBLE
 IDENT	PRECISION
 IDENT	AP
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	X
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -435,8 +437,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 else	ELSE
 if	IF
 (	(
@@ -483,7 +485,7 @@ IDENT	KK
 =	=
 (	(
 IDENT	N
-*	* 
+*	*
 (	(
 IDENT	N
 +	+
@@ -575,8 +577,8 @@ IDENT	I
 )	)
 -	-
 IDENT	TEMP
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	K
 )	)
@@ -606,8 +608,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	DO
 IDENT	40
 IDENT	J
@@ -689,8 +691,8 @@ IDENT	IX
 )	)
 -	-
 IDENT	TEMP
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	K
 )	)
@@ -793,8 +795,8 @@ IDENT	I
 )	)
 -	-
 IDENT	TEMP
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	K
 )	)
@@ -899,8 +901,8 @@ IDENT	IX
 )	)
 -	-
 IDENT	TEMP
-*	*A
-IDENT	P
+*	*
+IDENT	AP
 (	(
 IDENT	K
 )	)
@@ -989,7 +991,8 @@ IDENT	AP
 (	(
 IDENT	K
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -1068,7 +1071,8 @@ IDENT	AP
 (	(
 IDENT	K
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)
@@ -1120,7 +1124,7 @@ IDENT	KK
 =	=
 (	(
 IDENT	N
-*	* 
+*	*
 (	(
 IDENT	N
 +	+
@@ -1177,7 +1181,8 @@ IDENT	AP
 (	(
 IDENT	K
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -1233,8 +1238,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	JX
 =	=
 IDENT	KX
@@ -1285,7 +1290,8 @@ IDENT	AP
 (	(
 IDENT	K
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)

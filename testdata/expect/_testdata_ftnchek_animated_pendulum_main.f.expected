@@ -38,8 +38,8 @@ IDENT	Pi
 IDENT	4
 .	.
 IDENT	0
-*	*A
-IDENT	TAN
+*	*
+IDENT	ATAN
 (	(
 IDENT	1
 .	.
@@ -57,7 +57,8 @@ IDENT	5
 IDENT	100
 )	)
 IDENT	read
-*	*,
+*	*
+,	,
 IDENT	dt
 IDENT	write
 (	(
@@ -66,7 +67,8 @@ IDENT	5
 IDENT	200
 )	)
 IDENT	read
-*	*,
+*	*
+,	,
 IDENT	Theta
 IDENT	write
 (	(
@@ -75,7 +77,8 @@ IDENT	5
 IDENT	300
 )	)
 IDENT	read
-*	*,
+*	*
+,	,
 IDENT	l
 COMMENT	*
 COMMENT	*       Initialize other variables.
@@ -88,8 +91,8 @@ IDENT	81
 IDENT	ThetaM
 =	=
 IDENT	Theta
-*	*P
-IDENT	i
+*	*
+IDENT	Pi
 /	/
 IDENT	180
 .	.
@@ -115,8 +118,8 @@ IDENT	g
 /	/
 IDENT	l
 )	)
-*	*D
-IDENT	SIN
+*	*
+IDENT	DSIN
 (	(
 IDENT	Theta
 )	)
@@ -140,8 +143,8 @@ IDENT	g
 /	/
 IDENT	l
 )	)
-*	*D
-IDENT	SIN
+*	*
+IDENT	DSIN
 (	(
 IDENT	Theta
 )	)
@@ -150,15 +153,15 @@ IDENT	w
 IDENT	w
 +	+
 IDENT	a
-*	*d
-IDENT	t
+*	*
+IDENT	dt
 IDENT	Theta
 =	=
 IDENT	Theta
 +	+
 IDENT	w
-*	*d
-IDENT	t
+*	*
+IDENT	dt
 IDENT	t
 =	=
 IDENT	t
@@ -189,7 +192,8 @@ COMMENT	*
 COMMENT	*       Print out final results.
 COMMENT	* 
 IDENT	print
-*	*,
+*	*
+,	,
 STRING	'Finished calculations.'
 IDENT	write
 (	(

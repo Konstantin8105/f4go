@@ -206,12 +206,14 @@ IDENT	n5
 IDENT	l6
 IDENT	read
 (	(
-*	*,
+*	*
+,	,
 IDENT	n1
 )	)
 IDENT	write
 (	(
-*	*,
+*	*
+,	,
 IDENT	n2
 )	)
 IDENT	read

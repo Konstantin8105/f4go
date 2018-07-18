@@ -104,7 +104,8 @@ IDENT	READ
 (	(
 IDENT	5
 ,	,
-*	*,
+*	*
+,	,
 IDENT	END
 =	=
 IDENT	100
@@ -133,7 +134,8 @@ IDENT	WRITE
 (	(
 IDENT	6
 ,	,
-*	*)
+*	*
+)	)
 STRING	'AVERAGE ='
 ,	,
 IDENT	AVG

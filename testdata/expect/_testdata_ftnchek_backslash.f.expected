@@ -1,6 +1,6 @@
 IDENT	character
-*	*1
-IDENT	00
+*	*
+IDENT	100
 IDENT	c
 IDENT	c
 =	=

@@ -54,10 +54,12 @@ IDENT	q
 STRING	'hello'
 COMMENT	! type mismatch
 IDENT	print
-*	*,
+*	*
+,	,
 STRING	'F90 initializers:'
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	m
 ,	,
 IDENT	n
@@ -65,7 +67,8 @@ IDENT	n
 IDENT	a
 COMMENT	! m used before set
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	pi
 ,	,
 IDENT	c
@@ -129,10 +132,12 @@ STRING	'hello'
 /	/
 COMMENT	! type mismatch
 IDENT	print
-*	*,
+*	*
+,	,
 STRING	'F77 initializers:'
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	m
 ,	,
 IDENT	n
@@ -140,7 +145,8 @@ IDENT	n
 IDENT	a
 COMMENT	! m used before set
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	pi
 ,	,
 IDENT	c
@@ -194,10 +200,12 @@ STRING	'hello'
 /	/
 COMMENT	! type mismatch
 IDENT	print
-*	*,
+*	*
+,	,
 STRING	'bastard initializers:'
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	m
 ,	,
 IDENT	n
@@ -205,7 +213,8 @@ IDENT	n
 IDENT	a
 COMMENT	! m used before set
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	pi
 ,	,
 IDENT	c

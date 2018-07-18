@@ -95,8 +95,8 @@ COMMENT	*     November 2017
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ZA
 token(98)	INTEGER
 IDENT	INCX
@@ -105,11 +105,12 @@ IDENT	N
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ZX
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -161,8 +162,8 @@ IDENT	I
 )	)
 =	=
 IDENT	ZA
-*	*Z
-IDENT	X
+*	*
+IDENT	ZX
 (	(
 IDENT	I
 )	)
@@ -175,8 +176,8 @@ COMMENT	*
 IDENT	NINCX
 =	=
 IDENT	N
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	DO
 IDENT	I
 =	=
@@ -191,8 +192,8 @@ IDENT	I
 )	)
 =	=
 IDENT	ZA
-*	*Z
-IDENT	X
+*	*
+IDENT	ZX
 (	(
 IDENT	I
 )	)

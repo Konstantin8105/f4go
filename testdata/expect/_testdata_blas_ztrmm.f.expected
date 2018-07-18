@@ -208,8 +208,8 @@ COMMENT	*     December 2016
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ALPHA
 token(98)	INTEGER
 IDENT	LDA
@@ -230,19 +230,21 @@ IDENT	UPLO
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	A
 (	(
 IDENT	LDA
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	B
 (	(
 IDENT	LDB
 ,	,
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -265,8 +267,8 @@ IDENT	MAX
 COMMENT	*     ..
 COMMENT	*     .. Local Scalars ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	TEMP
 token(98)	INTEGER
 IDENT	I
@@ -289,8 +291,8 @@ IDENT	UPPER
 COMMENT	*     ..
 COMMENT	*     .. Parameters ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ONE
 IDENT	PARAMETER
 (	(
@@ -313,8 +315,8 @@ IDENT	0
 )	)
 )	)
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ZERO
 IDENT	PARAMETER
 (	(
@@ -728,7 +730,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	K
 ,	,
@@ -758,7 +761,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -773,7 +777,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	K
 ,	,
@@ -828,7 +833,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	K
 ,	,
@@ -859,7 +865,8 @@ IDENT	K
 ,	,
 IDENT	J
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	K
 ,	,
@@ -889,7 +896,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -951,7 +959,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -976,7 +985,8 @@ IDENT	K
 ,	,
 IDENT	I
 )	)
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	K
 ,	,
@@ -992,8 +1002,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	A
 (	(
@@ -1024,7 +1034,8 @@ IDENT	K
 IDENT	I
 )	)
 )	)
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	K
 ,	,
@@ -1042,8 +1053,8 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	110
 IDENT	CONTINUE
 IDENT	120
@@ -1083,7 +1094,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -1108,7 +1120,8 @@ IDENT	K
 ,	,
 IDENT	I
 )	)
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	K
 ,	,
@@ -1124,8 +1137,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	A
 (	(
@@ -1156,7 +1169,8 @@ IDENT	K
 IDENT	I
 )	)
 )	)
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	K
 ,	,
@@ -1174,8 +1188,8 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	150
 IDENT	CONTINUE
 IDENT	160
@@ -1223,7 +1237,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -1244,7 +1259,8 @@ IDENT	J
 )	)
 =	=
 IDENT	TEMP
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,
@@ -1278,7 +1294,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	K
 ,	,
@@ -1306,7 +1323,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,
@@ -1338,7 +1356,8 @@ IDENT	NOUNIT
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -1359,7 +1378,8 @@ IDENT	J
 )	)
 =	=
 IDENT	TEMP
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,
@@ -1393,7 +1413,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	K
 ,	,
@@ -1421,7 +1442,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,
@@ -1484,7 +1506,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -1494,8 +1517,8 @@ else	ELSE
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	A
 (	(
@@ -1528,7 +1551,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,
@@ -1556,7 +1580,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	K
 ,	,
@@ -1566,8 +1591,8 @@ else	ELSE
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	A
 (	(
@@ -1604,7 +1629,8 @@ IDENT	K
 )	)
 =	=
 IDENT	TEMP
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,
@@ -1658,7 +1684,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -1668,8 +1695,8 @@ else	ELSE
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	A
 (	(
@@ -1702,7 +1729,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,
@@ -1730,7 +1758,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	K
 ,	,
@@ -1740,8 +1769,8 @@ else	ELSE
 IDENT	TEMP
 =	=
 IDENT	TEMP
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	A
 (	(
@@ -1778,7 +1807,8 @@ IDENT	K
 )	)
 =	=
 IDENT	TEMP
-*	*B
+*	*
+IDENT	B
 (	(
 IDENT	I
 ,	,

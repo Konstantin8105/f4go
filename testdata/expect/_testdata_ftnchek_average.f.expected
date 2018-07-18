@@ -93,7 +93,8 @@ IDENT	READ
 (	(
 IDENT	5
 ,	,
-*	*,
+*	*
+,	,
 IDENT	END
 =	=
 IDENT	100

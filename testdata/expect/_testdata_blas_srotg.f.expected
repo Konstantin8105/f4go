@@ -181,15 +181,15 @@ else	ELSE
 IDENT	R
 =	=
 IDENT	SCALE
-*	*S
-IDENT	QRT
+*	*
+IDENT	SQRT
 (	(
 (	(
 IDENT	SA
 /	/
 IDENT	SCALE
 )	)
-*	**
+token(95)	**
 IDENT	2
 +	+
 (	(
@@ -197,7 +197,7 @@ IDENT	SB
 /	/
 IDENT	SCALE
 )	)
-*	**
+token(95)	**
 IDENT	2
 )	)
 IDENT	R
@@ -210,7 +210,8 @@ IDENT	0
 ,	,
 IDENT	ROE
 )	)
-*	*R
+*	*
+IDENT	R
 IDENT	C
 =	=
 IDENT	SA

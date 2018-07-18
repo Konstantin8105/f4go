@@ -198,11 +198,13 @@ COMMENT	*     .. Array Arguments ..
 IDENT	REAL
 IDENT	SX
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	SY
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  PURPOSE
@@ -326,8 +328,8 @@ COMMENT	*
 IDENT	NS
 =	=
 IDENT	N
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	DO
 IDENT	I
 =	=
@@ -347,8 +349,8 @@ IDENT	SX
 IDENT	I
 )	)
 )	)
-*	*D
-IDENT	BLE
+*	*
+IDENT	DBLE
 (	(
 IDENT	SY
 (	(
@@ -384,8 +386,8 @@ IDENT	1
 -	-
 IDENT	N
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 if	IF
 (	(
 IDENT	INCY
@@ -403,8 +405,8 @@ IDENT	1
 -	-
 IDENT	N
 )	)
-*	*I
-IDENT	NCY
+*	*
+IDENT	INCY
 IDENT	DO
 IDENT	I
 =	=
@@ -422,8 +424,8 @@ IDENT	SX
 IDENT	KX
 )	)
 )	)
-*	*D
-IDENT	BLE
+*	*
+IDENT	DBLE
 (	(
 IDENT	SY
 (	(

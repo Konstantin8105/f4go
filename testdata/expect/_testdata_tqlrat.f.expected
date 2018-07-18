@@ -215,7 +215,7 @@ IDENT	T
 IDENT	C
 =	=
 IDENT	B
-*	* 
+*	*
 IDENT	B
 if	if
 (	(
@@ -278,7 +278,7 @@ IDENT	t
 IDENT	c
 =	=
 IDENT	b
-*	* 
+*	*
 IDENT	b
 COMMENT	C     .......... LOOK FOR SMALL SQUARED SUB-DIAGONAL ELEMENT ..........
 IDENT	105
@@ -374,7 +374,7 @@ IDENT	2
 .	.
 IDENT	0
 IDENT	D0
-*	* 
+*	*
 IDENT	S
 )	)
 IDENT	R
@@ -490,7 +490,7 @@ IDENT	II
 IDENT	P
 =	=
 IDENT	G
-*	* 
+*	*
 IDENT	H
 IDENT	R
 =	=
@@ -508,7 +508,7 @@ IDENT	1
 )	)
 =	=
 IDENT	S
-*	* 
+*	*
 IDENT	R
 IDENT	S
 =	=
@@ -528,7 +528,7 @@ IDENT	1
 IDENT	H
 +	+
 IDENT	S
-*	* 
+*	*
 (	(
 IDENT	H
 +	+
@@ -574,7 +574,7 @@ IDENT	i
 IDENT	h
 =	=
 IDENT	g
-*	* 
+*	*
 (	(
 IDENT	p
 /	/
@@ -589,7 +589,7 @@ IDENT	L
 )	)
 =	=
 IDENT	S
-*	* 
+*	*
 IDENT	G
 IDENT	D
 (	(
@@ -640,7 +640,7 @@ IDENT	L
 )	)
 =	=
 IDENT	H
-*	* 
+*	*
 IDENT	E2
 (	(
 IDENT	L

@@ -18,7 +18,7 @@ IDENT	square
 IDENT	square
 =	=
 IDENT	x
-*	* 
+*	*
 IDENT	x
 IDENT	end
 token(101)	function

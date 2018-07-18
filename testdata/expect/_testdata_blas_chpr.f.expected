@@ -163,11 +163,13 @@ COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
 IDENT	AP
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	X
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -361,8 +363,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 else	ELSE
 if	IF
 (	(
@@ -429,8 +431,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*C
-IDENT	ONJG
+*	*
+IDENT	CONJG
 (	(
 IDENT	X
 (	(
@@ -463,8 +465,8 @@ IDENT	X
 (	(
 IDENT	I
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	K
 =	=
 IDENT	K
@@ -499,8 +501,8 @@ IDENT	X
 (	(
 IDENT	J
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 )	)
 else	ELSE
 IDENT	AP
@@ -558,8 +560,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*C
-IDENT	ONJG
+*	*
+IDENT	CONJG
 (	(
 IDENT	X
 (	(
@@ -594,8 +596,8 @@ IDENT	X
 (	(
 IDENT	IX
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	IX
 =	=
 IDENT	IX
@@ -630,8 +632,8 @@ IDENT	X
 (	(
 IDENT	JX
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 )	)
 else	ELSE
 IDENT	AP
@@ -705,8 +707,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*C
-IDENT	ONJG
+*	*
+IDENT	CONJG
 (	(
 IDENT	X
 (	(
@@ -729,7 +731,8 @@ IDENT	KK
 IDENT	REAL
 (	(
 IDENT	TEMP
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	J
 )	)
@@ -762,8 +765,8 @@ IDENT	X
 (	(
 IDENT	I
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	K
 =	=
 IDENT	K
@@ -823,8 +826,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*C
-IDENT	ONJG
+*	*
+IDENT	CONJG
 (	(
 IDENT	X
 (	(
@@ -847,7 +850,8 @@ IDENT	KK
 IDENT	REAL
 (	(
 IDENT	TEMP
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	JX
 )	)
@@ -887,8 +891,8 @@ IDENT	X
 (	(
 IDENT	IX
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	70
 IDENT	CONTINUE
 else	ELSE

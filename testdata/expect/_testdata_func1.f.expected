@@ -23,11 +23,11 @@ COMMENT	! output
 IDENT	j
 =	=
 IDENT	i
-*	**
+token(95)	**
 IDENT	2
 +	+
 IDENT	i
-*	**
+token(95)	**
 IDENT	3
 IDENT	end
 token(101)	function
@@ -46,7 +46,8 @@ IDENT	i
 =	=
 IDENT	3
 IDENT	print
-*	*,
+*	*
+,	,
 STRING	"sum of the square and cube of"
 ,	,
 IDENT	i

@@ -150,8 +150,8 @@ IDENT	CB
 IDENT	NORM
 =	=
 IDENT	SCALE
-*	*S
-IDENT	QRT
+*	*
+IDENT	SQRT
 (	(
 (	(
 IDENT	CABS
@@ -161,7 +161,7 @@ IDENT	CA
 IDENT	SCALE
 )	)
 )	)
-*	**
+token(95)	**
 IDENT	2
 +	+
 (	(
@@ -172,7 +172,7 @@ IDENT	CB
 IDENT	SCALE
 )	)
 )	)
-*	**
+token(95)	**
 IDENT	2
 )	)
 IDENT	ALPHA
@@ -194,8 +194,8 @@ IDENT	NORM
 IDENT	S
 =	=
 IDENT	ALPHA
-*	*C
-IDENT	ONJG
+*	*
+IDENT	CONJG
 (	(
 IDENT	CB
 )	)
@@ -204,8 +204,8 @@ IDENT	NORM
 IDENT	CA
 =	=
 IDENT	ALPHA
-*	*N
-IDENT	ORM
+*	*
+IDENT	NORM
 IDENT	END
 if	IF
 IDENT	RETURN

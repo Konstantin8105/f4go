@@ -96,7 +96,8 @@ IDENT	DOUBLE
 IDENT	PRECISION
 IDENT	DX
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================

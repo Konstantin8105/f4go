@@ -171,25 +171,27 @@ IDENT	UPLO
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	A
 (	(
 IDENT	LDA
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	X
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
 COMMENT	*
 COMMENT	*     .. Parameters ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ZERO
 IDENT	PARAMETER
 (	(
@@ -214,8 +216,8 @@ IDENT	0
 COMMENT	*     ..
 COMMENT	*     .. Local Scalars ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	TEMP
 token(98)	INTEGER
 IDENT	I
@@ -395,8 +397,8 @@ IDENT	N
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 else	ELSE
 if	IF
 (	(
@@ -461,8 +463,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	X
 (	(
@@ -496,8 +498,8 @@ IDENT	X
 (	(
 IDENT	I
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	10
 IDENT	CONTINUE
 IDENT	A
@@ -523,8 +525,8 @@ IDENT	X
 (	(
 IDENT	J
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 )	)
 else	ELSE
 IDENT	A
@@ -573,8 +575,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	X
 (	(
@@ -611,8 +613,8 @@ IDENT	X
 (	(
 IDENT	IX
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	IX
 =	=
 IDENT	IX
@@ -643,8 +645,8 @@ IDENT	X
 (	(
 IDENT	JX
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 )	)
 else	ELSE
 IDENT	A
@@ -709,8 +711,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	X
 (	(
@@ -737,7 +739,8 @@ IDENT	J
 IDENT	DBLE
 (	(
 IDENT	TEMP
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	J
 )	)
@@ -769,8 +772,8 @@ IDENT	X
 (	(
 IDENT	I
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	50
 IDENT	CONTINUE
 else	ELSE
@@ -820,8 +823,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	X
 (	(
@@ -848,7 +851,8 @@ IDENT	J
 IDENT	DBLE
 (	(
 IDENT	TEMP
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	JX
 )	)
@@ -888,8 +892,8 @@ IDENT	X
 (	(
 IDENT	IX
 )	)
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	70
 IDENT	CONTINUE
 else	ELSE

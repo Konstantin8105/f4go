@@ -22,12 +22,14 @@ IDENT	suba
 IDENT	c
 )	)
 IDENT	character
-*	*2
+*	*
+IDENT	2
 IDENT	c
 (	(
 IDENT	100
 )	)
 IDENT	print
-*	*,
+*	*
+,	,
 IDENT	c
 IDENT	end

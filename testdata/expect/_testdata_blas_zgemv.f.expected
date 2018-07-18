@@ -189,8 +189,8 @@ COMMENT	*     December 2016
 COMMENT	*
 COMMENT	*     .. Scalar Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ALPHA
 ,	,
 IDENT	BETA
@@ -209,29 +209,32 @@ IDENT	TRANS
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	A
 (	(
 IDENT	LDA
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	X
 (	(
-*	*)
+*	*
+)	)
 ,	,
 IDENT	Y
 (	(
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
 COMMENT	*
 COMMENT	*     .. Parameters ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ONE
 IDENT	PARAMETER
 (	(
@@ -254,8 +257,8 @@ IDENT	0
 )	)
 )	)
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	ZERO
 IDENT	PARAMETER
 (	(
@@ -280,8 +283,8 @@ IDENT	0
 COMMENT	*     ..
 COMMENT	*     .. Local Scalars ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	TEMP
 token(98)	INTEGER
 IDENT	I
@@ -569,8 +572,8 @@ IDENT	LENX
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 IDENT	END
 if	IF
 if	IF
@@ -595,8 +598,8 @@ IDENT	LENY
 -	-
 IDENT	1
 )	)
-*	*I
-IDENT	NCY
+*	*
+IDENT	INCY
 IDENT	END
 if	IF
 COMMENT	*
@@ -661,7 +664,8 @@ IDENT	I
 )	)
 =	=
 IDENT	BETA
-*	*Y
+*	*
+IDENT	Y
 (	(
 IDENT	I
 )	)
@@ -716,7 +720,8 @@ IDENT	IY
 )	)
 =	=
 IDENT	BETA
-*	*Y
+*	*
+IDENT	Y
 (	(
 IDENT	IY
 )	)
@@ -777,7 +782,8 @@ IDENT	N
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	JX
 )	)
@@ -799,7 +805,8 @@ IDENT	I
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -825,7 +832,8 @@ IDENT	N
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	JX
 )	)
@@ -850,7 +858,8 @@ IDENT	IY
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -920,7 +929,8 @@ IDENT	I
 ,	,
 IDENT	J
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -947,7 +957,8 @@ IDENT	I
 IDENT	J
 )	)
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	I
 )	)
@@ -966,8 +977,8 @@ IDENT	JY
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	JY
 =	=
 IDENT	JY
@@ -1011,7 +1022,8 @@ IDENT	I
 ,	,
 IDENT	J
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)
@@ -1043,7 +1055,8 @@ IDENT	I
 IDENT	J
 )	)
 )	)
-*	*X
+*	*
+IDENT	X
 (	(
 IDENT	IX
 )	)
@@ -1067,8 +1080,8 @@ IDENT	JY
 )	)
 +	+
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 IDENT	JY
 =	=
 IDENT	JY

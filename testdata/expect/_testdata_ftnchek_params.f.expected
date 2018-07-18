@@ -1,6 +1,7 @@
 token(100)	implicit
 IDENT	real
-*	*8
+*	*
+IDENT	8
 (	(
 IDENT	a
 -	-
@@ -45,11 +46,13 @@ IDENT	1
 )	)
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 IDENT	minus1
-*	*p
-IDENT	i
+*	*
+IDENT	pi
 ,	,
 IDENT	half
 IDENT	stop

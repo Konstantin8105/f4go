@@ -18,7 +18,8 @@ IDENT	func_name
 =	=
 (	(
 IDENT	2
-*	*a
+*	*
+IDENT	a
 )	)
 +	+
 IDENT	b
@@ -33,7 +34,8 @@ token(98)	INTEGER
 token(99)	::
 IDENT	func_name
 IDENT	PRINT
-*	*,
+*	*
+,	,
 IDENT	func_name
 (	(
 IDENT	2

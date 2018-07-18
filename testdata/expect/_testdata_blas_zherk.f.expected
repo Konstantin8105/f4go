@@ -221,19 +221,21 @@ IDENT	UPLO
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	A
 (	(
 IDENT	LDA
 ,	,
-*	*)
+*	*
+)	)
 ,	,
 IDENT	C
 (	(
 IDENT	LDC
 ,	,
-*	*)
+*	*
+)	)
 COMMENT	*     ..
 COMMENT	*
 COMMENT	*  =====================================================================
@@ -260,8 +262,8 @@ IDENT	MAX
 COMMENT	*     ..
 COMMENT	*     .. Local Scalars ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	TEMP
 IDENT	DOUBLE
 IDENT	PRECISION
@@ -610,7 +612,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -626,8 +629,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*D
-IDENT	BLE
+*	*
+IDENT	DBLE
 (	(
 IDENT	C
 (	(
@@ -692,8 +695,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*D
-IDENT	BLE
+*	*
+IDENT	DBLE
 (	(
 IDENT	C
 (	(
@@ -719,7 +722,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -817,7 +821,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -833,8 +838,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*D
-IDENT	BLE
+*	*
+IDENT	DBLE
 (	(
 IDENT	C
 (	(
@@ -889,8 +894,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	A
 (	(
@@ -923,7 +928,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -951,7 +957,8 @@ IDENT	J
 IDENT	DBLE
 (	(
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -1016,8 +1023,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*D
-IDENT	BLE
+*	*
+IDENT	DBLE
 (	(
 IDENT	C
 (	(
@@ -1043,7 +1050,8 @@ IDENT	J
 )	)
 =	=
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -1097,8 +1105,8 @@ IDENT	THEN
 IDENT	TEMP
 =	=
 IDENT	ALPHA
-*	*D
-IDENT	CONJG
+*	*
+IDENT	DCONJG
 (	(
 IDENT	A
 (	(
@@ -1127,7 +1135,8 @@ IDENT	J
 IDENT	DBLE
 (	(
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	J
 ,	,
@@ -1158,7 +1167,8 @@ IDENT	J
 )	)
 +	+
 IDENT	TEMP
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	I
 ,	,
@@ -1222,7 +1232,8 @@ IDENT	L
 IDENT	I
 )	)
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	L
 ,	,
@@ -1247,8 +1258,8 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 else	ELSE
 IDENT	C
 (	(
@@ -1258,11 +1269,12 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 +	+
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,
@@ -1295,7 +1307,8 @@ IDENT	L
 IDENT	J
 )	)
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	L
 ,	,
@@ -1320,8 +1333,8 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*R
-IDENT	TEMP
+*	*
+IDENT	RTEMP
 else	ELSE
 IDENT	C
 (	(
@@ -1331,12 +1344,12 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*R
-IDENT	TEMP
+*	*
+IDENT	RTEMP
 +	+
 IDENT	BETA
-*	*D
-IDENT	BLE
+*	*
+IDENT	DBLE
 (	(
 IDENT	C
 (	(
@@ -1380,7 +1393,8 @@ IDENT	L
 IDENT	J
 )	)
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	L
 ,	,
@@ -1405,8 +1419,8 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*R
-IDENT	TEMP
+*	*
+IDENT	RTEMP
 else	ELSE
 IDENT	C
 (	(
@@ -1416,12 +1430,12 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*R
-IDENT	TEMP
+*	*
+IDENT	RTEMP
 +	+
 IDENT	BETA
-*	*D
-IDENT	BLE
+*	*
+IDENT	DBLE
 (	(
 IDENT	C
 (	(
@@ -1464,7 +1478,8 @@ IDENT	L
 IDENT	I
 )	)
 )	)
-*	*A
+*	*
+IDENT	A
 (	(
 IDENT	L
 ,	,
@@ -1489,8 +1504,8 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 else	ELSE
 IDENT	C
 (	(
@@ -1500,11 +1515,12 @@ IDENT	J
 )	)
 =	=
 IDENT	ALPHA
-*	*T
-IDENT	EMP
+*	*
+IDENT	TEMP
 +	+
 IDENT	BETA
-*	*C
+*	*
+IDENT	C
 (	(
 IDENT	I
 ,	,

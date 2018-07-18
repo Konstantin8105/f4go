@@ -134,16 +134,16 @@ IDENT	S
 COMMENT	*     ..
 COMMENT	*     .. Array Arguments ..
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	CX
 (	(
-*	* 
+*	*
 )	)
 ,	,
 IDENT	CY
 (	(
-*	* 
+*	*
 )	)
 COMMENT	*     ..
 COMMENT	*
@@ -157,8 +157,8 @@ IDENT	IX
 ,	,
 IDENT	IY
 IDENT	COMPLEX
-*	*1
-IDENT	6
+*	*
+IDENT	16
 IDENT	CTEMP
 COMMENT	*     ..
 COMMENT	*     .. Executable Statements ..
@@ -201,15 +201,15 @@ IDENT	N
 IDENT	CTEMP
 =	=
 IDENT	C
-*	*C
-IDENT	X
+*	*
+IDENT	CX
 (	(
 IDENT	I
 )	)
 +	+
 IDENT	S
-*	*C
-IDENT	Y
+*	*
+IDENT	CY
 (	(
 IDENT	I
 )	)
@@ -219,15 +219,15 @@ IDENT	I
 )	)
 =	=
 IDENT	C
-*	*C
-IDENT	Y
+*	*
+IDENT	CY
 (	(
 IDENT	I
 )	)
 -	-
 IDENT	S
-*	*C
-IDENT	X
+*	*
+IDENT	CX
 (	(
 IDENT	I
 )	)
@@ -266,8 +266,8 @@ IDENT	N
 +	+
 IDENT	1
 )	)
-*	*I
-IDENT	NCX
+*	*
+IDENT	INCX
 +	+
 IDENT	1
 if	IF
@@ -286,8 +286,8 @@ IDENT	N
 +	+
 IDENT	1
 )	)
-*	*I
-IDENT	NCY
+*	*
+IDENT	INCY
 +	+
 IDENT	1
 IDENT	DO
@@ -299,15 +299,15 @@ IDENT	N
 IDENT	CTEMP
 =	=
 IDENT	C
-*	*C
-IDENT	X
+*	*
+IDENT	CX
 (	(
 IDENT	IX
 )	)
 +	+
 IDENT	S
-*	*C
-IDENT	Y
+*	*
+IDENT	CY
 (	(
 IDENT	IY
 )	)
@@ -317,15 +317,15 @@ IDENT	IY
 )	)
 =	=
 IDENT	C
-*	*C
-IDENT	Y
+*	*
+IDENT	CY
 (	(
 IDENT	IY
 )	)
 -	-
 IDENT	S
-*	*C
-IDENT	X
+*	*
+IDENT	CX
 (	(
 IDENT	IX
 )	)

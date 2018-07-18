@@ -4,8 +4,8 @@ token(100)	implicit
 IDENT	none
 IDENT	c
 IDENT	character
-*	*3
-IDENT	2
+*	*
+IDENT	32
 IDENT	text
 IDENT	c
 IDENT	text
@@ -13,7 +13,9 @@ IDENT	text
 STRING	'Hello\nA\n World'
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 IDENT	text
 IDENT	c

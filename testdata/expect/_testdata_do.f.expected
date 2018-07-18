@@ -37,7 +37,9 @@ IDENT	sum
 IDENT	n
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 STRING	'Sum = '
 ,	,

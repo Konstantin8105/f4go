@@ -22,10 +22,12 @@ IDENT	end
 token(97)	program
 IDENT	main
 IDENT	real
-*	*8
+*	*
+IDENT	8
 IDENT	f
 IDENT	real
-*	*8
+*	*
+IDENT	8
 IDENT	x
 ,	,
 IDENT	y
@@ -42,7 +44,9 @@ IDENT	0
 IDENT	d0
 IDENT	write
 (	(
-token(95)	*,
+*	*
+,	,
+*	*
 )	)
 IDENT	f
 (	(
