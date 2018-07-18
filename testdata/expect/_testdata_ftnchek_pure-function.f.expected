@@ -1,5 +1,5 @@
 IDENT	real
-IDENT	function
+token(101)	function
 IDENT	notpure
 (	(
 IDENT	a

@@ -84,7 +84,7 @@ COMMENT	*  =====================================================================
 IDENT	COMPLEX
 *	*1
 IDENT	6
-IDENT	FUNCTION
+token(101)	FUNCTION
 IDENT	ZDOTU
 (	(
 IDENT	N

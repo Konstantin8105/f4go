@@ -70,7 +70,7 @@ COMMENT	*> \endverbatim
 COMMENT	*>
 COMMENT	*  =====================================================================
 token(98)	INTEGER
-IDENT	FUNCTION
+token(101)	FUNCTION
 IDENT	ICAMAX
 (	(
 IDENT	N

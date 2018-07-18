@@ -82,7 +82,7 @@ COMMENT	*> \endverbatim
 COMMENT	*>
 COMMENT	*  =====================================================================
 IDENT	COMPLEX
-IDENT	FUNCTION
+token(101)	FUNCTION
 IDENT	CDOTU
 (	(
 IDENT	N

@@ -101,7 +101,7 @@ IDENT	end
 IDENT	do
 IDENT	end
 token(98)	integer
-IDENT	function
+token(101)	function
 IDENT	makeprimes
 (	(
 IDENT	p
@@ -205,7 +205,7 @@ IDENT	numprimes
 IDENT	return
 IDENT	end
 IDENT	logical
-IDENT	function
+token(101)	function
 IDENT	divisible
 (	(
 IDENT	n

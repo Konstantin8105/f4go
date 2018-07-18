@@ -543,7 +543,7 @@ IDENT	End
 COMMENT	C
 COMMENT	C     Function to return integer value of a character in range of uppercase.
 COMMENT	C
-IDENT	Function
+token(101)	Function
 IDENT	IntUpCase
 (	(
 IDENT	I

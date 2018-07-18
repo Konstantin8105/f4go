@@ -162,7 +162,7 @@ IDENT	c
 -	-
 IDENT	double
 IDENT	precision
-IDENT	function
+token(101)	function
 IDENT	s
 (	(
 IDENT	x

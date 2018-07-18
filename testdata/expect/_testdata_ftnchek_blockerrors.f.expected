@@ -302,7 +302,7 @@ COMMENT	! should be end if
 IDENT	end
 token(97)	program
 IDENT	blocks
-IDENT	function
+token(101)	function
 IDENT	bar
 (	(
 IDENT	c

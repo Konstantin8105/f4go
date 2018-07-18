@@ -1,6 +1,6 @@
 IDENT	character
 *	*3
-IDENT	function
+token(101)	function
 IDENT	foo
 (	(
 IDENT	s

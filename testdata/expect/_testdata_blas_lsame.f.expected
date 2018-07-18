@@ -52,7 +52,7 @@ COMMENT	*> \ingroup aux_blas
 COMMENT	*
 COMMENT	*  =====================================================================
 IDENT	LOGICAL
-IDENT	FUNCTION
+token(101)	FUNCTION
 IDENT	LSAME
 (	(
 IDENT	CA

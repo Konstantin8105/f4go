@@ -6,7 +6,7 @@ COMMENT	C		SUM ->   sum of the test scores
 COMMENT	C		COUNT -> counter of scores read in
 COMMENT	C		I ->     loop counter              
 IDENT	REAL
-IDENT	FUNCTION
+token(101)	FUNCTION
 IDENT	COMPAV
 (	(
 IDENT	SCORE

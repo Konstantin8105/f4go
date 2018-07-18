@@ -71,7 +71,7 @@ COMMENT	*> \endverbatim
 COMMENT	*>
 COMMENT	*  =====================================================================
 IDENT	REAL
-IDENT	FUNCTION
+token(101)	FUNCTION
 IDENT	SCASUM
 (	(
 IDENT	N

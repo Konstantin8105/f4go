@@ -76,7 +76,7 @@ IDENT	abc
 IDENT	1
 )	)
 IDENT	end
-IDENT	function
+token(101)	function
 IDENT	abc
 (	(
 IDENT	n

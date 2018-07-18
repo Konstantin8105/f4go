@@ -75,7 +75,7 @@ COMMENT	*>
 COMMENT	*  =====================================================================
 IDENT	DOUBLE
 IDENT	PRECISION
-IDENT	FUNCTION
+token(101)	FUNCTION
 IDENT	DZNRM2
 (	(
 IDENT	N

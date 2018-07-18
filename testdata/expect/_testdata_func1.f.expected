@@ -1,4 +1,4 @@
-IDENT	function
+token(101)	function
 IDENT	func
 (	(
 IDENT	i
@@ -30,7 +30,7 @@ IDENT	i
 *	**
 IDENT	3
 IDENT	end
-IDENT	function
+token(101)	function
 IDENT	func
 token(97)	program
 IDENT	xfunc

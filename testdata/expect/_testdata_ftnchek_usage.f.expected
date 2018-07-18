@@ -312,7 +312,7 @@ IDENT	hurt
 IDENT	a
 IDENT	bit
 token(98)	integer
-IDENT	function
+token(101)	function
 IDENT	xray
 (	(
 IDENT	beta

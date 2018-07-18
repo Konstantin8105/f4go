@@ -1,5 +1,5 @@
 IDENT	pure
-IDENT	function
+token(101)	function
 IDENT	square
 (	(
 IDENT	x
@@ -21,7 +21,7 @@ IDENT	x
 *	* 
 IDENT	x
 IDENT	end
-IDENT	function
+token(101)	function
 token(97)	program
 IDENT	main
 IDENT	real

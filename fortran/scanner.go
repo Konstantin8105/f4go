@@ -249,6 +249,8 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		return IMPLICIT, buf.String()
 	case "INTEGER":
 		return INTEGER, buf.String()
+	case "FUNCTION":
+		return FUNCTION, buf.String()
 	}
 
 	// Otherwise return as a regular identifier.
