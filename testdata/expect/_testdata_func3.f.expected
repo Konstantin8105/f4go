@@ -10,12 +10,10 @@ IDENT	intent
 (	(
 IDENT	in
 )	)
-:	:
-:	:
+token(99)	::
 IDENT	x
 IDENT	real
-:	:
-:	:
+token(99)	::
 IDENT	square
 IDENT	square
 =	=
@@ -27,8 +25,7 @@ IDENT	function
 token(97)	program
 IDENT	main
 IDENT	real
-:	:
-:	:
+token(99)	::
 IDENT	a
 ,	,
 IDENT	b

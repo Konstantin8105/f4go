@@ -4,8 +4,7 @@ COMMENT	C  Here we use modern standard F90 initializers
 token(96)	subroutine
 IDENT	f90
 token(98)	integer
-:	:
-:	:
+token(99)	::
 IDENT	m
 ,	,
 IDENT	n
@@ -18,8 +17,7 @@ IDENT	dimension
 (	(
 IDENT	5
 )	)
-:	:
-:	:
+token(99)	::
 IDENT	a
 =	=
 (	(
@@ -36,8 +34,7 @@ IDENT	5
 /	/
 )	)
 IDENT	real
-:	:
-:	:
+token(99)	::
 IDENT	pi
 =	=
 IDENT	3
@@ -45,15 +42,13 @@ IDENT	3
 IDENT	14159265358979
 IDENT	d0
 IDENT	character
-:	:
-:	:
+token(99)	::
 IDENT	c
 =	=
 IDENT	32
 COMMENT	! type mismatch
 token(98)	integer
-:	:
-:	:
+token(99)	::
 IDENT	q
 =	=
 STRING	'hello'

@@ -75,7 +75,7 @@ func TestScanner(t *testing.T) {
 					t.Fatalf("error: %s", err)
 				}
 
-				diff := ShowDiff(buf.String(), string(expect))
+				diff := ShowDiff(string(expect), buf.String())
 				if diff != "" {
 					t.Fatalf("%s", diff)
 				}
@@ -117,6 +117,11 @@ func ShowDiff(a, b string) (out string) {
 			continue
 		}
 		out += fmt.Sprintf("%s %3d %-40s%s\n", diffFlag, lineNumber+1, aLine, bLine)
+		break
+	}
+
+	if out != "" {
+		out = "\n" + out
 	}
 
 	return out

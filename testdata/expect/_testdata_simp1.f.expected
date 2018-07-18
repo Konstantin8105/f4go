@@ -1,8 +1,7 @@
 token(97)	PROGRAM
 IDENT	cows
 token(98)	INTEGER
-:	:
-:	:
+token(99)	::
 IDENT	n
 COMMENT	C          INTEGER :: n2
 IDENT	n

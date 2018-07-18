@@ -63,7 +63,8 @@ func (s *Scanner) Scan() (tok token.Token, lit string) {
 	case ',':
 		return token.COMMA, string(ch)
 	case ':':
-		return token.COLON, string(ch)
+		s.unread()
+		return s.scanColon()
 	case '=':
 		return token.ASSIGN, string(ch)
 	case '/':
@@ -122,6 +123,35 @@ func (s *Scanner) scanStar() (tok token.Token, lit string) {
 	}
 
 	return token.MUL, buf.String()
+}
+
+func (s *Scanner) scanColon() (tok token.Token, lit string) {
+	// Create a buffer and read the current character into it.
+	var buf bytes.Buffer
+	buf.WriteRune(s.read())
+
+	// Read every subsequent ident character into the buffer.
+	// Non-ident characters and EOF will cause the loop to exit.
+	for {
+		if ch := s.read(); ch == eof {
+			break
+		} else if ch != ':' {
+			s.unread()
+			break
+		} else {
+			_, _ = buf.WriteRune(ch)
+		}
+	}
+
+	switch buf.String() {
+	case ":":
+		return token.COLON, buf.String()
+	case "::":
+		return DOUBLE_COLON, buf.String()
+	}
+
+	// Otherwise return as a regular identifier.
+	return token.ILLEGAL, buf.String()
 }
 
 func (s *Scanner) scanNumber() (tok token.Token, lit string) {

@@ -1,14 +1,12 @@
 token(97)	PROGRAM
 IDENT	cows
 token(98)	INTEGER
-:	:
-:	:
+token(99)	::
 IDENT	n
 ,	,
 IDENT	n3
 token(98)	INTEGER
-:	:
-:	:
+token(99)	::
 IDENT	n2
 IDENT	n
 =	=
