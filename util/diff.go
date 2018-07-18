@@ -10,7 +10,15 @@ import (
 )
 
 func IsDiff(filename string, actual string) (out string, err error) {
-	if _, err = os.Stat(filename); err == nil {
+
+	var update bool
+
+	key := os.Getenv("UPDATE")
+	if key != "" {
+		update = true
+	}
+
+	if _, err = os.Stat(filename); err == nil && !update {
 		// file is exist
 		var expect []byte
 		expect, err = ioutil.ReadFile(filename)
