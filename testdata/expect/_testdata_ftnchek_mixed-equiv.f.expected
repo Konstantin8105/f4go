@@ -1,6 +1,6 @@
 IDENT               	real
 *                   	*
-IDENT               	8
+INT                 	8
 IDENT               	x
 IDENT               	double
 IDENT               	precision
@@ -21,9 +21,7 @@ IDENT               	r
 )                   	)
 IDENT               	x
 =                   	=
-IDENT               	1
-.                   	.
-IDENT               	0
+FLOAT               	1.0
 IDENT               	write
 (                   	(
 *                   	*
@@ -33,9 +31,7 @@ IDENT               	write
 IDENT               	y
 IDENT               	r
 =                   	=
-IDENT               	0
-.                   	.
-IDENT               	0
+FLOAT               	0.0
 IDENT               	write
 (                   	(
 *                   	*

@@ -96,11 +96,11 @@ IDENT               	WRITE
 ,                   	,
 IDENT               	FMT
 =                   	=
-IDENT               	9999
+INT                 	9999
 )                   	)
 IDENT               	SRNAME
 (                   	(
-IDENT               	1
+INT                 	1
 :                   	:
 IDENT               	LEN_TRIM
 (                   	(
@@ -112,7 +112,7 @@ IDENT               	INFO
 COMMENT             	*
 IDENT               	STOP
 COMMENT             	*
-IDENT               	9999
+INT                 	9999
 IDENT               	FORMAT
 (                   	(
 STRING              	' ** On entry to '

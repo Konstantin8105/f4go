@@ -1,14 +1,14 @@
 token(98)           	integer
 IDENT               	c
 (                   	(
-IDENT               	10
+INT                 	10
 ,                   	,
-IDENT               	10
+INT                 	10
 )                   	)
 IDENT               	data
 IDENT               	c
 /                   	/
-IDENT               	1
+INT                 	1
 /                   	/
 IDENT               	call
 IDENT               	suba
@@ -24,7 +24,7 @@ IDENT               	c
 token(98)           	integer
 IDENT               	c
 (                   	(
-IDENT               	100
+INT                 	100
 )                   	)
 IDENT               	print
 *                   	*

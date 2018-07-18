@@ -115,7 +115,7 @@ IDENT               	B
 IDENT               	C
 )                   	)
 /                   	/
-IDENT               	3
+INT                 	3
 IDENT               	Return
 token(102)          	End
 token(96)           	Subroutine
@@ -147,6 +147,6 @@ STRING              	'Average ='
 IDENT               	Averag
 IDENT               	n1
 =                   	=
-IDENT               	8
+INT                 	8
 IDENT               	Return
 token(102)          	End

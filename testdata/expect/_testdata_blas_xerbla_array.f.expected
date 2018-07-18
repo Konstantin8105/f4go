@@ -102,7 +102,7 @@ COMMENT             	*     ..
 COMMENT             	*     .. Array Arguments ..
 IDENT               	CHARACTER
 (                   	(
-IDENT               	1
+INT                 	1
 )                   	)
 IDENT               	SRNAME_ARRAY
 (                   	(
@@ -120,7 +120,7 @@ COMMENT             	*     ..
 COMMENT             	*     .. Local Arrays ..
 IDENT               	CHARACTER
 *                   	*
-IDENT               	32
+INT                 	32
 IDENT               	SRNAME
 COMMENT             	*     ..
 COMMENT             	*     .. Intrinsic Functions ..
@@ -140,7 +140,7 @@ STRING              	''
 token(103)          	DO
 IDENT               	I
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	MIN
 (                   	(

@@ -4,13 +4,13 @@ COMMENT             	C  Go out of graphics mode back to
 COMMENT             	C  text mode.
 IDENT               	character
 *                   	*
-IDENT               	1
+INT                 	1
 IDENT               	esc
 IDENT               	esc
 =                   	=
 IDENT               	char
 (                   	(
-IDENT               	27
+INT                 	27
 )                   	)
 IDENT               	write
 (                   	(

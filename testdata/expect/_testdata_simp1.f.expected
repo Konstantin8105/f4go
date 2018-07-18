@@ -6,7 +6,7 @@ IDENT               	n
 COMMENT             	C          INTEGER :: n2
 IDENT               	n
 =                   	=
-IDENT               	306
+INT                 	306
 COMMENT             	C          n2 = n + 2
 token(102)          	END
 token(97)           	PROGRAM

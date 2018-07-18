@@ -114,21 +114,11 @@ IDENT               	PARAMETER
 (                   	(
 IDENT               	ONE
 =                   	=
-IDENT               	1
-.                   	.
-IDENT               	0
-IDENT               	E
-+                   	+
-IDENT               	0
+FLOAT               	1.0E+0
 ,                   	,
 IDENT               	ZERO
 =                   	=
-IDENT               	0
-.                   	.
-IDENT               	0
-IDENT               	E
-+                   	+
-IDENT               	0
+FLOAT               	0.0E+0
 )                   	)
 COMMENT             	*     ..
 COMMENT             	*     .. Local Scalars ..
@@ -159,7 +149,7 @@ IDENT               	N
 .                   	.
 IDENT               	LT
 .                   	.
-IDENT               	1
+INT                 	1
 .                   	.
 IDENT               	OR
 .                   	.
@@ -167,7 +157,7 @@ IDENT               	INCX
 .                   	.
 IDENT               	LT
 .                   	.
-IDENT               	1
+INT                 	1
 )                   	)
 IDENT               	THEN
 IDENT               	NORM
@@ -185,17 +175,17 @@ COMMENT             	*        auxiliary routine:
 COMMENT             	*        CALL CLASSQ( N, X, INCX, SCALE, SSQ )
 COMMENT             	*
 token(103)          	DO
-IDENT               	10
+INT                 	10
 IDENT               	IX
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
-IDENT               	1
+INT                 	1
 +                   	+
 (                   	(
 IDENT               	N
 -                   	-
-IDENT               	1
+INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCX
@@ -249,7 +239,7 @@ IDENT               	SCALE
 IDENT               	TEMP
 )                   	)
 token(95)           	**
-IDENT               	2
+INT                 	2
 IDENT               	SCALE
 =                   	=
 IDENT               	TEMP
@@ -264,7 +254,7 @@ IDENT               	TEMP
 IDENT               	SCALE
 )                   	)
 token(95)           	**
-IDENT               	2
+INT                 	2
 token(102)          	END
 if                  	IF
 token(102)          	END
@@ -317,7 +307,7 @@ IDENT               	SCALE
 IDENT               	TEMP
 )                   	)
 token(95)           	**
-IDENT               	2
+INT                 	2
 IDENT               	SCALE
 =                   	=
 IDENT               	TEMP
@@ -332,12 +322,12 @@ IDENT               	TEMP
 IDENT               	SCALE
 )                   	)
 token(95)           	**
-IDENT               	2
+INT                 	2
 token(102)          	END
 if                  	IF
 token(102)          	END
 if                  	IF
-IDENT               	10
+INT                 	10
 continue            	CONTINUE
 IDENT               	NORM
 =                   	=

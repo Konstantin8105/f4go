@@ -96,7 +96,7 @@ COMMENT             	*     ..
 COMMENT             	*     .. Array Arguments ..
 IDENT               	COMPLEX
 *                   	*
-IDENT               	16
+INT                 	16
 IDENT               	ZX
 (                   	(
 *                   	*
@@ -123,15 +123,11 @@ IDENT               	DCABS1
 COMMENT             	*     ..
 IDENT               	DZASUM
 =                   	=
-IDENT               	0
-.                   	.
-IDENT               	0
+FLOAT               	0.0
 IDENT               	d0
 IDENT               	STEMP
 =                   	=
-IDENT               	0
-.                   	.
-IDENT               	0
+FLOAT               	0.0
 IDENT               	d0
 if                  	IF
 (                   	(
@@ -139,7 +135,7 @@ IDENT               	N
 .                   	.
 IDENT               	LE
 .                   	.
-IDENT               	0
+INT                 	0
 .                   	.
 IDENT               	OR
 .                   	.
@@ -147,7 +143,7 @@ IDENT               	INCX
 .                   	.
 IDENT               	LE
 .                   	.
-IDENT               	0
+INT                 	0
 )                   	)
 IDENT               	RETURN
 if                  	IF
@@ -156,7 +152,7 @@ IDENT               	INCX
 .                   	.
 IDENT               	EQ
 .                   	.
-IDENT               	1
+INT                 	1
 )                   	)
 IDENT               	THEN
 COMMENT             	*
@@ -165,7 +161,7 @@ COMMENT             	*
 token(103)          	DO
 IDENT               	I
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	N
 IDENT               	STEMP
@@ -193,7 +189,7 @@ IDENT               	INCX
 token(103)          	DO
 IDENT               	I
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	NINCX
 ,                   	,

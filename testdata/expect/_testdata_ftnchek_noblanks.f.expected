@@ -9,7 +9,7 @@ IDENT               	incx
 IDENT               	integernext
 IDENT               	doubleprecisiondx
 (                   	(
-IDENT               	1
+INT                 	1
 )                   	)
 ,                   	,
 IDENT               	cutlo
@@ -29,14 +29,10 @@ IDENT               	datazero
 ,                   	,
 IDENT               	one
 /                   	/
-IDENT               	0
-.                   	.
-IDENT               	0
+FLOAT               	0.0
 IDENT               	d0
 ,                   	,
-IDENT               	1
-.                   	.
-IDENT               	0
+FLOAT               	1.0
 IDENT               	d0
 /                   	/
 COMMENT             	c
@@ -81,16 +77,12 @@ IDENT               	datacutlo
 ,                   	,
 IDENT               	cuthi
 /                   	/
-IDENT               	8
-.                   	.
-IDENT               	232
+FLOAT               	8.232
 IDENT               	d
 -                   	-
-IDENT               	11
+INT                 	11
 ,                   	,
-IDENT               	1
-.                   	.
-IDENT               	304
+FLOAT               	1.304
 IDENT               	d19
 /                   	/
 COMMENT             	c
@@ -100,7 +92,7 @@ IDENT               	n
 .                   	.
 IDENT               	gt
 .                   	.
-IDENT               	0
+INT                 	0
 )                   	)
 IDENT               	goto10
 IDENT               	dnrm2
@@ -108,7 +100,7 @@ IDENT               	dnrm2
 IDENT               	zero
 IDENT               	goto300
 COMMENT             	c
-IDENT               	10
+INT                 	10
 IDENT               	assign30tonext
 IDENT               	sum
 =                   	=
@@ -121,20 +113,20 @@ IDENT               	incx
 COMMENT             	c     beginmainloop
 IDENT               	i
 =                   	=
-IDENT               	1
-IDENT               	20
+INT                 	1
+INT                 	20
 IDENT               	gotonext
 ,                   	,
 (                   	(
-IDENT               	30
+INT                 	30
 ,                   	,
-IDENT               	50
+INT                 	50
 ,                   	,
-IDENT               	70
+INT                 	70
 ,                   	,
-IDENT               	110
+INT                 	110
 )                   	)
-IDENT               	30
+INT                 	30
 if                  	if
 (                   	(
 IDENT               	dabs
@@ -157,7 +149,7 @@ IDENT               	zero
 COMMENT             	c
 COMMENT             	c     phase1.sumiszero
 COMMENT             	c
-IDENT               	50
+INT                 	50
 if                  	if
 (                   	(
 IDENT               	dx
@@ -192,7 +184,7 @@ IDENT               	goto105
 COMMENT             	c
 COMMENT             	c     prepareforphase4.
 COMMENT             	c
-IDENT               	100
+INT                 	100
 IDENT               	i
 =                   	=
 IDENT               	j
@@ -212,7 +204,7 @@ IDENT               	dx
 (                   	(
 IDENT               	i
 )                   	)
-IDENT               	105
+INT                 	105
 IDENT               	xmax
 =                   	=
 IDENT               	dabs
@@ -227,7 +219,7 @@ COMMENT             	c
 COMMENT             	c     phase2.sumissmall.
 COMMENT             	c     scaletoavoiddestructiveunderflow.
 COMMENT             	c
-IDENT               	70
+INT                 	70
 if                  	if
 (                   	(
 IDENT               	dabs
@@ -247,7 +239,7 @@ COMMENT             	c
 COMMENT             	c     commoncodeforphases2and4.
 COMMENT             	c     inphase4sumislarge.scaletoavoidoverflow.
 COMMENT             	c
-IDENT               	110
+INT                 	110
 if                  	if
 (                   	(
 IDENT               	dabs
@@ -278,7 +270,7 @@ IDENT               	i
 )                   	)
 )                   	)
 token(95)           	**
-IDENT               	2
+INT                 	2
 IDENT               	xmax
 =                   	=
 IDENT               	dabs
@@ -290,7 +282,7 @@ IDENT               	i
 )                   	)
 IDENT               	goto200
 COMMENT             	c
-IDENT               	115
+INT                 	115
 IDENT               	sum
 =                   	=
 IDENT               	sum
@@ -304,13 +296,13 @@ IDENT               	i
 IDENT               	xmax
 )                   	)
 token(95)           	**
-IDENT               	2
+INT                 	2
 IDENT               	goto200
 COMMENT             	c
 COMMENT             	c
 COMMENT             	c     prepareforphase3.
 COMMENT             	c
-IDENT               	75
+INT                 	75
 IDENT               	sum
 =                   	=
 (                   	(
@@ -325,7 +317,7 @@ COMMENT             	c
 COMMENT             	c     forrealord.p.sethitest=cuthi/n
 COMMENT             	c     forcomplexsethitest=cuthi/(2*n)
 COMMENT             	c
-IDENT               	85
+INT                 	85
 IDENT               	hitest
 =                   	=
 IDENT               	cuthi
@@ -359,7 +351,7 @@ IDENT               	ge
 IDENT               	hitest
 )                   	)
 IDENT               	goto100
-IDENT               	95
+INT                 	95
 IDENT               	sum
 =                   	=
 IDENT               	sum
@@ -369,7 +361,7 @@ IDENT               	dx
 IDENT               	j
 )                   	)
 token(95)           	**
-IDENT               	2
+INT                 	2
 IDENT               	dnrm2
 =                   	=
 IDENT               	dsqrt
@@ -378,7 +370,7 @@ IDENT               	sum
 )                   	)
 IDENT               	goto300
 COMMENT             	c
-IDENT               	200
+INT                 	200
 continue            	continue
 IDENT               	i
 =                   	=
@@ -407,7 +399,7 @@ IDENT               	dsqrt
 (                   	(
 IDENT               	sum
 )                   	)
-IDENT               	300
+INT                 	300
 continue            	continue
 IDENT               	return
 token(102)          	end

@@ -4,7 +4,7 @@ IDENT               	parameter
 (                   	(
 IDENT               	MAXTOK
 =                   	=
-IDENT               	10
+INT                 	10
 )                   	)
 IDENT               	character
 *                   	*

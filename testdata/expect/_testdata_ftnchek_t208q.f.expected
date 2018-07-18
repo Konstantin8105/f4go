@@ -4,7 +4,7 @@ IDENT               	PARAMETER
 (                   	(
 IDENT               	MAXTOK
 =                   	=
-IDENT               	10
+INT                 	10
 )                   	)
 IDENT               	CHARACTER
 *                   	*
@@ -14,6 +14,6 @@ IDENT               	MAXTOK
 IDENT               	TOKLMX
 IDENT               	CHARACTER
 *                   	*
-IDENT               	10
+INT                 	10
 IDENT               	TOKL10
 token(102)          	END

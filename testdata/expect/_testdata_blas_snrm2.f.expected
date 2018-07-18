@@ -113,21 +113,11 @@ IDENT               	PARAMETER
 (                   	(
 IDENT               	ONE
 =                   	=
-IDENT               	1
-.                   	.
-IDENT               	0
-IDENT               	E
-+                   	+
-IDENT               	0
+FLOAT               	1.0E+0
 ,                   	,
 IDENT               	ZERO
 =                   	=
-IDENT               	0
-.                   	.
-IDENT               	0
-IDENT               	E
-+                   	+
-IDENT               	0
+FLOAT               	0.0E+0
 )                   	)
 COMMENT             	*     ..
 COMMENT             	*     .. Local Scalars ..
@@ -154,7 +144,7 @@ IDENT               	N
 .                   	.
 IDENT               	LT
 .                   	.
-IDENT               	1
+INT                 	1
 .                   	.
 IDENT               	OR
 .                   	.
@@ -162,7 +152,7 @@ IDENT               	INCX
 .                   	.
 IDENT               	LT
 .                   	.
-IDENT               	1
+INT                 	1
 )                   	)
 IDENT               	THEN
 IDENT               	NORM
@@ -175,7 +165,7 @@ IDENT               	N
 .                   	.
 IDENT               	EQ
 .                   	.
-IDENT               	1
+INT                 	1
 )                   	)
 IDENT               	THEN
 IDENT               	NORM
@@ -184,7 +174,7 @@ IDENT               	ABS
 (                   	(
 IDENT               	X
 (                   	(
-IDENT               	1
+INT                 	1
 )                   	)
 )                   	)
 else                	ELSE
@@ -199,17 +189,17 @@ COMMENT             	*        auxiliary routine:
 COMMENT             	*        CALL SLASSQ( N, X, INCX, SCALE, SSQ )
 COMMENT             	*
 token(103)          	DO
-IDENT               	10
+INT                 	10
 IDENT               	IX
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
-IDENT               	1
+INT                 	1
 +                   	+
 (                   	(
 IDENT               	N
 -                   	-
-IDENT               	1
+INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCX
@@ -257,7 +247,7 @@ IDENT               	SCALE
 IDENT               	ABSXI
 )                   	)
 token(95)           	**
-IDENT               	2
+INT                 	2
 IDENT               	SCALE
 =                   	=
 IDENT               	ABSXI
@@ -272,12 +262,12 @@ IDENT               	ABSXI
 IDENT               	SCALE
 )                   	)
 token(95)           	**
-IDENT               	2
+INT                 	2
 token(102)          	END
 if                  	IF
 token(102)          	END
 if                  	IF
-IDENT               	10
+INT                 	10
 continue            	CONTINUE
 IDENT               	NORM
 =                   	=

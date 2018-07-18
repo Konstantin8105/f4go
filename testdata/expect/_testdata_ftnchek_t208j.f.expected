@@ -6,9 +6,7 @@ IDENT               	sqrt
 (                   	(
 IDENT               	cos
 (                   	(
-IDENT               	0
-.                   	.
-IDENT               	35
+FLOAT               	0.35
 )                   	)
 )                   	)
 token(102)          	end

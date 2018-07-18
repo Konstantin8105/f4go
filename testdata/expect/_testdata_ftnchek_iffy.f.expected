@@ -27,7 +27,7 @@ IDENT               	USE1
 IDENT               	THEN
 IDENT               	M
 =                   	=
-IDENT               	1
+INT                 	1
 COMMENT             	* else-if statement is OK
 else                	ELSE
 if                  	IF
@@ -37,11 +37,11 @@ IDENT               	USE2
 IDENT               	THEN
 IDENT               	M
 =                   	=
-IDENT               	2
+INT                 	2
 else                	ELSE
 IDENT               	M
 =                   	=
-IDENT               	3
+INT                 	3
 token(102)          	END
 if                  	IF
 COMMENT             	* this logical if is OK
@@ -51,24 +51,24 @@ IDENT               	M
 .                   	.
 IDENT               	eq
 .                   	.
-IDENT               	3
+INT                 	3
 )                   	)
 IDENT               	L
 =                   	=
 IDENT               	L
 +                   	+
-IDENT               	1
+INT                 	1
 COMMENT             	* this arithmetic if is OK
 if                  	IF
 (                   	(
 IDENT               	L
 )                   	)
-IDENT               	100
+INT                 	100
 ,                   	,
-IDENT               	100
+INT                 	100
 ,                   	,
-IDENT               	100
-IDENT               	100
+INT                 	100
+INT                 	100
 IDENT               	X
 =                   	=
 IDENT               	L
@@ -77,12 +77,12 @@ if                  	IF
 (                   	(
 IDENT               	X
 )                   	)
-IDENT               	150
+INT                 	150
 ,                   	,
-IDENT               	150
+INT                 	150
 ,                   	,
-IDENT               	150
-IDENT               	150
+INT                 	150
+INT                 	150
 continue            	CONTINUE
 COMMENT             	* violate a block if statement
 if                  	IF
@@ -94,7 +94,7 @@ IDENT               	M
 =                   	=
 IDENT               	M
 +                   	+
-IDENT               	1
+INT                 	1
 COMMENT             	* violate an elseif statement
 else                	ELSE
 if                  	IF
@@ -106,13 +106,13 @@ IDENT               	M
 =                   	=
 IDENT               	M
 +                   	+
-IDENT               	2
+INT                 	2
 else                	ELSE
 IDENT               	M
 =                   	=
 IDENT               	M
 +                   	+
-IDENT               	3
+INT                 	3
 token(102)          	END
 if                  	IF
 COMMENT             	* violate a logical if statement
@@ -124,7 +124,7 @@ IDENT               	L
 =                   	=
 IDENT               	L
 +                   	+
-IDENT               	1
+INT                 	1
 COMMENT             	* violate an arithmetic if statement
 if                  	IF
 (                   	(
@@ -132,13 +132,13 @@ IDENT               	L
 .                   	.
 IDENT               	EQ
 .                   	.
-IDENT               	3
+INT                 	3
 )                   	)
-IDENT               	200
+INT                 	200
 ,                   	,
-IDENT               	200
+INT                 	200
 ,                   	,
-IDENT               	200
-IDENT               	200
+INT                 	200
+INT                 	200
 continue            	CONTINUE
 token(102)          	END

@@ -1,14 +1,14 @@
 IDENT               	character
 IDENT               	c
 (                   	(
-IDENT               	50
+INT                 	50
 )                   	)
 IDENT               	call
 IDENT               	suba
 (                   	(
 IDENT               	c
 (                   	(
-IDENT               	1
+INT                 	1
 )                   	)
 )                   	)
 token(102)          	end
@@ -19,7 +19,7 @@ IDENT               	c
 )                   	)
 IDENT               	character
 *                   	*
-IDENT               	2
+INT                 	2
 IDENT               	c
 IDENT               	read
 *                   	*

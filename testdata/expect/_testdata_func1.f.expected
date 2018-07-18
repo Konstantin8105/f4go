@@ -24,11 +24,11 @@ IDENT               	j
 =                   	=
 IDENT               	i
 token(95)           	**
-IDENT               	2
+INT                 	2
 +                   	+
 IDENT               	i
 token(95)           	**
-IDENT               	3
+INT                 	3
 token(102)          	end
 token(101)          	function
 IDENT               	func
@@ -44,7 +44,7 @@ token(99)           	::
 IDENT               	func
 IDENT               	i
 =                   	=
-IDENT               	3
+INT                 	3
 IDENT               	print
 *                   	*
 ,                   	,

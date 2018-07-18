@@ -4,7 +4,7 @@ COMMENT             	c
 IDENT               	character
 IDENT               	STRING1
 *                   	*
-IDENT               	6
+INT                 	6
 IDENT               	parameter
 (                   	(
 IDENT               	STRING1
@@ -15,7 +15,7 @@ IDENT               	character
 IDENT               	STRING2
 *                   	*
 (                   	(
-IDENT               	6
+INT                 	6
 )                   	)
 IDENT               	parameter
 (                   	(

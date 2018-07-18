@@ -15,14 +15,14 @@ IDENT               	r
 COMMENT             	c
 IDENT               	sum
 =                   	=
-IDENT               	0
+INT                 	0
 IDENT               	n
 =                   	=
-IDENT               	5
+INT                 	5
 token(103)          	do
 IDENT               	i
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	n
 IDENT               	sum

@@ -61,7 +61,7 @@ COMMENT             	*
 COMMENT             	*     .. Scalar Arguments ..
 IDENT               	COMPLEX
 *                   	*
-IDENT               	16
+INT                 	16
 IDENT               	Z
 COMMENT             	*     ..
 COMMENT             	*     ..

@@ -10,7 +10,7 @@ IDENT               	parameter
 (                   	(
 IDENT               	MAXPRIMES
 =                   	=
-IDENT               	10000
+INT                 	10000
 )                   	)
 token(98)           	integer
 IDENT               	primes
@@ -79,7 +79,7 @@ IDENT               	n
 ,                   	,
 IDENT               	a
 (                   	(
-IDENT               	1
+INT                 	1
 )                   	)
 IDENT               	write
 (                   	(
@@ -91,7 +91,7 @@ IDENT               	heading
 token(103)          	do
 IDENT               	i
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	n
 IDENT               	write
@@ -141,22 +141,22 @@ IDENT               	divisible
 COMMENT             	C put the even prime into the list
 IDENT               	numprimes
 =                   	=
-IDENT               	1
+INT                 	1
 IDENT               	p
 (                   	(
 IDENT               	numprimes
 )                   	)
 =                   	=
-IDENT               	2
+INT                 	2
 COMMENT             	C loop thru odd integers, testing if divisible
 token(103)          	do
 IDENT               	i
 =                   	=
-IDENT               	3
+INT                 	3
 ,                   	,
 IDENT               	n
 ,                   	,
-IDENT               	2
+INT                 	2
 if                  	if
 (                   	(
 .                   	.
@@ -176,7 +176,7 @@ IDENT               	numprimes
 =                   	=
 IDENT               	numprimes
 +                   	+
-IDENT               	1
+INT                 	1
 if                  	if
 (                   	(
 IDENT               	numprimes
@@ -234,14 +234,14 @@ IDENT               	nump
 ,                   	,
 IDENT               	p
 (                   	(
-IDENT               	1
+INT                 	1
 )                   	)
 token(98)           	integer
 IDENT               	i
 token(103)          	do
 IDENT               	i
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	nump
 if                  	if
@@ -258,7 +258,7 @@ IDENT               	i
 .                   	.
 IDENT               	eq
 .                   	.
-IDENT               	0
+INT                 	0
 )                   	)
 IDENT               	then
 IDENT               	divisible

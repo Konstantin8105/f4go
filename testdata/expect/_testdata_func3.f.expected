@@ -33,9 +33,7 @@ IDENT               	b
 IDENT               	square
 IDENT               	a
 =                   	=
-IDENT               	2
-.                   	.
-IDENT               	0
+FLOAT               	2.0
 IDENT               	b
 =                   	=
 IDENT               	square

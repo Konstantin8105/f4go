@@ -1,6 +1,6 @@
 IDENT               	character
 *                   	*
-IDENT               	80
+INT                 	80
 IDENT               	argmt
 COMMENT             	C  Test recognition of standard intrinsic
 IDENT               	x
@@ -31,7 +31,7 @@ IDENT               	ior
 (                   	(
 IDENT               	i
 ,                   	,
-IDENT               	8
+INT                 	8
 )                   	)
 IDENT               	i
 =                   	=
@@ -43,7 +43,7 @@ COMMENT             	C  Test recognition of unix intrinsics
 IDENT               	call
 IDENT               	getarg
 (                   	(
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	argmt
 )                   	)
@@ -57,7 +57,7 @@ IDENT               	i
 =                   	=
 IDENT               	iargc
 (                   	(
-IDENT               	0
+INT                 	0
 )                   	)
 IDENT               	x
 =                   	=
@@ -68,13 +68,13 @@ IDENT               	x
 =                   	=
 IDENT               	rand
 (                   	(
-IDENT               	0
+INT                 	0
 )                   	)
 COMMENT             	C Test recognition of vms intrinsics
 IDENT               	x
 =                   	=
 IDENT               	ran
 (                   	(
-IDENT               	0
+INT                 	0
 )                   	)
 token(102)          	end

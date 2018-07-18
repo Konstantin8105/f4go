@@ -124,15 +124,11 @@ IDENT               	MOD
 COMMENT             	*     ..
 IDENT               	DASUM
 =                   	=
-IDENT               	0
-.                   	.
-IDENT               	0
+FLOAT               	0.0
 IDENT               	d0
 IDENT               	DTEMP
 =                   	=
-IDENT               	0
-.                   	.
-IDENT               	0
+FLOAT               	0.0
 IDENT               	d0
 if                  	IF
 (                   	(
@@ -140,7 +136,7 @@ IDENT               	N
 .                   	.
 IDENT               	LE
 .                   	.
-IDENT               	0
+INT                 	0
 .                   	.
 IDENT               	OR
 .                   	.
@@ -148,7 +144,7 @@ IDENT               	INCX
 .                   	.
 IDENT               	LE
 .                   	.
-IDENT               	0
+INT                 	0
 )                   	)
 IDENT               	RETURN
 if                  	IF
@@ -157,7 +153,7 @@ IDENT               	INCX
 .                   	.
 IDENT               	EQ
 .                   	.
-IDENT               	1
+INT                 	1
 )                   	)
 IDENT               	THEN
 COMMENT             	*        code for increment equal to 1
@@ -171,7 +167,7 @@ IDENT               	MOD
 (                   	(
 IDENT               	N
 ,                   	,
-IDENT               	6
+INT                 	6
 )                   	)
 if                  	IF
 (                   	(
@@ -179,13 +175,13 @@ IDENT               	M
 .                   	.
 IDENT               	NE
 .                   	.
-IDENT               	0
+INT                 	0
 )                   	)
 IDENT               	THEN
 token(103)          	DO
 IDENT               	I
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	M
 IDENT               	DTEMP
@@ -207,7 +203,7 @@ IDENT               	N
 .                   	.
 IDENT               	LT
 .                   	.
-IDENT               	6
+INT                 	6
 )                   	)
 IDENT               	THEN
 IDENT               	DASUM
@@ -222,7 +218,7 @@ IDENT               	MP1
 =                   	=
 IDENT               	M
 +                   	+
-IDENT               	1
+INT                 	1
 token(103)          	DO
 IDENT               	I
 =                   	=
@@ -230,7 +226,7 @@ IDENT               	MP1
 ,                   	,
 IDENT               	N
 ,                   	,
-IDENT               	6
+INT                 	6
 IDENT               	DTEMP
 =                   	=
 IDENT               	DTEMP
@@ -249,7 +245,7 @@ IDENT               	DX
 (                   	(
 IDENT               	I
 +                   	+
-IDENT               	1
+INT                 	1
 )                   	)
 )                   	)
 +                   	+
@@ -259,7 +255,7 @@ IDENT               	DX
 (                   	(
 IDENT               	I
 +                   	+
-IDENT               	2
+INT                 	2
 )                   	)
 )                   	)
 +                   	+
@@ -269,7 +265,7 @@ IDENT               	DX
 (                   	(
 IDENT               	I
 +                   	+
-IDENT               	3
+INT                 	3
 )                   	)
 )                   	)
 +                   	+
@@ -279,7 +275,7 @@ IDENT               	DX
 (                   	(
 IDENT               	I
 +                   	+
-IDENT               	4
+INT                 	4
 )                   	)
 )                   	)
 +                   	+
@@ -289,7 +285,7 @@ IDENT               	DX
 (                   	(
 IDENT               	I
 +                   	+
-IDENT               	5
+INT                 	5
 )                   	)
 )                   	)
 token(102)          	END
@@ -306,7 +302,7 @@ IDENT               	INCX
 token(103)          	DO
 IDENT               	I
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	NINCX
 ,                   	,

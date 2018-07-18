@@ -105,7 +105,7 @@ COMMENT             	*     ..
 COMMENT             	*     .. Array Arguments ..
 IDENT               	COMPLEX
 *                   	*
-IDENT               	16
+INT                 	16
 IDENT               	ZX
 (                   	(
 *                   	*
@@ -130,7 +130,7 @@ IDENT               	N
 .                   	.
 IDENT               	LE
 .                   	.
-IDENT               	0
+INT                 	0
 .                   	.
 IDENT               	OR
 .                   	.
@@ -138,7 +138,7 @@ IDENT               	INCX
 .                   	.
 IDENT               	LE
 .                   	.
-IDENT               	0
+INT                 	0
 )                   	)
 IDENT               	RETURN
 if                  	IF
@@ -147,7 +147,7 @@ IDENT               	INCX
 .                   	.
 IDENT               	EQ
 .                   	.
-IDENT               	1
+INT                 	1
 )                   	)
 IDENT               	THEN
 COMMENT             	*
@@ -156,7 +156,7 @@ COMMENT             	*
 token(103)          	DO
 IDENT               	I
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	N
 IDENT               	ZX
@@ -168,9 +168,7 @@ IDENT               	DCMPLX
 (                   	(
 IDENT               	DA
 ,                   	,
-IDENT               	0
-.                   	.
-IDENT               	0
+FLOAT               	0.0
 IDENT               	d0
 )                   	)
 *                   	*
@@ -192,7 +190,7 @@ IDENT               	INCX
 token(103)          	DO
 IDENT               	I
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	NINCX
 ,                   	,
@@ -206,9 +204,7 @@ IDENT               	DCMPLX
 (                   	(
 IDENT               	DA
 ,                   	,
-IDENT               	0
-.                   	.
-IDENT               	0
+FLOAT               	0.0
 IDENT               	d0
 )                   	)
 *                   	*

@@ -167,7 +167,15 @@ func (s *Scanner) scanNumber() (tok token.Token, lit string) {
 	for {
 		if ch := s.read(); ch == eof {
 			break
-		} else if !isDigit(ch) {
+		} else if ch == 'E' {
+			_, _ = buf.WriteRune(ch)
+			d := s.read()
+			if d == '+' || d == '-' || isDigit(d) {
+				_, _ = buf.WriteRune(d)
+			} else {
+				s.unread()
+			}
+		} else if !isDigit(ch) && ch != '.' && ch != 'E' {
 			s.unread()
 			break
 		} else {
@@ -175,8 +183,12 @@ func (s *Scanner) scanNumber() (tok token.Token, lit string) {
 		}
 	}
 
+	if !strings.Contains(buf.String(), ".") {
+		return token.INT, buf.String()
+	}
+
 	// Otherwise return as a regular identifier.
-	return token.IDENT, buf.String()
+	return token.FLOAT, buf.String()
 }
 
 func (s *Scanner) scanString() (tok token.Token, lit string) {

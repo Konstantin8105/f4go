@@ -15,9 +15,7 @@ IDENT               	Row
 =                   	=
 IDENT               	Int
 (                   	(
-IDENT               	300
-.                   	.
-IDENT               	0
+FLOAT               	300.0
 *                   	*
 IDENT               	DSIN
 (                   	(
@@ -28,9 +26,7 @@ IDENT               	Col
 =                   	=
 IDENT               	Int
 (                   	(
-IDENT               	300
-.                   	.
-IDENT               	0
+FLOAT               	300.0
 *                   	*
 IDENT               	DCOS
 (                   	(

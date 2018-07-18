@@ -1,7 +1,7 @@
 IDENT               	call
 IDENT               	suba
 (                   	(
-IDENT               	4
+INT                 	4
 IDENT               	hjunk
 )                   	)
 token(102)          	end

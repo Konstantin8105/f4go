@@ -2,9 +2,7 @@ COMMENT             	C tests message about statement out of order.
 IDENT               	data
 IDENT               	x
 /                   	/
-IDENT               	1
-.                   	.
-IDENT               	0
+FLOAT               	1.0
 /                   	/
 token(98)           	integer
 IDENT               	a

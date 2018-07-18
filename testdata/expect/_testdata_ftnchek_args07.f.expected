@@ -1,11 +1,11 @@
 IDENT               	character
 *                   	*
-IDENT               	2
+INT                 	2
 IDENT               	c
 (                   	(
-IDENT               	10
+INT                 	10
 ,                   	,
-IDENT               	10
+INT                 	10
 )                   	)
 IDENT               	data
 IDENT               	c
@@ -26,7 +26,7 @@ IDENT               	c
 IDENT               	character
 IDENT               	c
 (                   	(
-IDENT               	100
+INT                 	100
 )                   	)
 IDENT               	print
 *                   	*

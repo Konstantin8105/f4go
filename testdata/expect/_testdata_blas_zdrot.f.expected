@@ -135,7 +135,7 @@ COMMENT             	*     ..
 COMMENT             	*     .. Array Arguments ..
 IDENT               	COMPLEX
 *                   	*
-IDENT               	16
+INT                 	16
 IDENT               	CX
 (                   	(
 *                   	*
@@ -158,7 +158,7 @@ IDENT               	IX
 IDENT               	IY
 IDENT               	COMPLEX
 *                   	*
-IDENT               	16
+INT                 	16
 IDENT               	CTEMP
 COMMENT             	*     ..
 COMMENT             	*     .. Executable Statements ..
@@ -169,7 +169,7 @@ IDENT               	N
 .                   	.
 IDENT               	LE
 .                   	.
-IDENT               	0
+INT                 	0
 )                   	)
 IDENT               	RETURN
 if                  	IF
@@ -178,7 +178,7 @@ IDENT               	INCX
 .                   	.
 IDENT               	EQ
 .                   	.
-IDENT               	1
+INT                 	1
 .                   	.
 IDENT               	AND
 .                   	.
@@ -186,7 +186,7 @@ IDENT               	INCY
 .                   	.
 IDENT               	EQ
 .                   	.
-IDENT               	1
+INT                 	1
 )                   	)
 IDENT               	THEN
 COMMENT             	*
@@ -195,7 +195,7 @@ COMMENT             	*
 token(103)          	DO
 IDENT               	I
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	N
 IDENT               	CTEMP
@@ -246,17 +246,17 @@ COMMENT             	*          to 1
 COMMENT             	*
 IDENT               	IX
 =                   	=
-IDENT               	1
+INT                 	1
 IDENT               	IY
 =                   	=
-IDENT               	1
+INT                 	1
 if                  	IF
 (                   	(
 IDENT               	INCX
 .                   	.
 IDENT               	LT
 .                   	.
-IDENT               	0
+INT                 	0
 )                   	)
 IDENT               	IX
 =                   	=
@@ -264,19 +264,19 @@ IDENT               	IX
 -                   	-
 IDENT               	N
 +                   	+
-IDENT               	1
+INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCX
 +                   	+
-IDENT               	1
+INT                 	1
 if                  	IF
 (                   	(
 IDENT               	INCY
 .                   	.
 IDENT               	LT
 .                   	.
-IDENT               	0
+INT                 	0
 )                   	)
 IDENT               	IY
 =                   	=
@@ -284,16 +284,16 @@ IDENT               	IY
 -                   	-
 IDENT               	N
 +                   	+
-IDENT               	1
+INT                 	1
 )                   	)
 *                   	*
 IDENT               	INCY
 +                   	+
-IDENT               	1
+INT                 	1
 token(103)          	DO
 IDENT               	I
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	N
 IDENT               	CTEMP

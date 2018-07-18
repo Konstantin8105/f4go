@@ -2,7 +2,7 @@ COMMENT             	C  To see if handling of strings that are split across line
 COMMENT             	C23456789012345678901234567890123456789012345678901234567890123456789012
 IDENT               	character
 *                   	*
-IDENT               	255
+INT                 	255
 IDENT               	S
 ,                   	,
 IDENT               	T

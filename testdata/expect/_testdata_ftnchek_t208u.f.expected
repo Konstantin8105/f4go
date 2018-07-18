@@ -4,7 +4,7 @@ IDENT               	parameter
 (                   	(
 IDENT               	MAXTOK
 =                   	=
-IDENT               	10
+INT                 	10
 )                   	)
 IDENT               	character
 *                   	*
@@ -16,7 +16,7 @@ IDENT               	toklst
 IDENT               	tokls2
 *                   	*
 (                   	(
-IDENT               	2
+INT                 	2
 *                   	*
 IDENT               	MAXTOK
 )                   	)
@@ -26,7 +26,7 @@ IDENT               	tokls3
 (                   	(
 IDENT               	MAXTOK
 token(95)           	**
-IDENT               	2
+INT                 	2
 )                   	)
 IDENT               	character
 *                   	*
@@ -35,16 +35,16 @@ IDENT               	MAXTOK
 )                   	)
 IDENT               	tokarr
 (                   	(
-IDENT               	100
+INT                 	100
 )                   	)
 ,                   	,
 IDENT               	tokar2
 (                   	(
-IDENT               	200
+INT                 	200
 )                   	)
 *                   	*
 (                   	(
-IDENT               	2
+INT                 	2
 *                   	*
 IDENT               	MAXTOK
 )                   	)
@@ -52,13 +52,13 @@ IDENT               	MAXTOK
 IDENT               	x
 IDENT               	tokar3
 (                   	(
-IDENT               	300
+INT                 	300
 )                   	)
 *                   	*
 (                   	(
 IDENT               	MAXTOK
 token(95)           	**
-IDENT               	2
+INT                 	2
 )                   	)
 token(98)           	integer
 IDENT               	MAXTK1
@@ -66,7 +66,7 @@ IDENT               	parameter
 (                   	(
 IDENT               	MAXTK1
 =                   	=
-IDENT               	10
+INT                 	10
 )                   	)
 COMMENT             	*     Test with comment lines between continuation lines
 IDENT               	character
@@ -83,7 +83,7 @@ IDENT               	x
 IDENT               	tk1ls2
 *                   	*
 (                   	(
-IDENT               	2
+INT                 	2
 *                   	*
 IDENT               	MAXTK1
 )                   	)
@@ -95,7 +95,7 @@ IDENT               	tk1ls3
 (                   	(
 IDENT               	MAXTK1
 token(95)           	**
-IDENT               	2
+INT                 	2
 )                   	)
 COMMENT             	*     Test with blank lines between continuation lines
 token(98)           	integer
@@ -104,7 +104,7 @@ IDENT               	parameter
 (                   	(
 IDENT               	MAXTK2
 =                   	=
-IDENT               	10
+INT                 	10
 )                   	)
 IDENT               	character
 *                   	*
@@ -114,17 +114,17 @@ IDENT               	MAXTK2
 IDENT               	x
 IDENT               	tk2arr
 (                   	(
-IDENT               	100
+INT                 	100
 )                   	)
 ,                   	,
 IDENT               	x
 IDENT               	tk2ar2
 (                   	(
-IDENT               	200
+INT                 	200
 )                   	)
 *                   	*
 (                   	(
-IDENT               	2
+INT                 	2
 *                   	*
 IDENT               	MAXTK2
 )                   	)
@@ -132,12 +132,12 @@ IDENT               	MAXTK2
 IDENT               	x
 IDENT               	tk2ar3
 (                   	(
-IDENT               	300
+INT                 	300
 )                   	)
 *                   	*
 (                   	(
 IDENT               	MAXTK2
 token(95)           	**
-IDENT               	2
+INT                 	2
 )                   	)
 token(102)          	end

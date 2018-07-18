@@ -31,12 +31,12 @@ IDENT               	isquare
 =                   	=
 IDENT               	i
 token(95)           	**
-IDENT               	2
+INT                 	2
 IDENT               	icube
 =                   	=
 IDENT               	i
 token(95)           	**
-IDENT               	3
+INT                 	3
 token(102)          	end
 token(96)           	subroutine
 IDENT               	square_cube
@@ -53,7 +53,7 @@ IDENT               	isq
 IDENT               	icub
 IDENT               	i
 =                   	=
-IDENT               	4
+INT                 	4
 IDENT               	call
 IDENT               	square_cube
 (                   	(

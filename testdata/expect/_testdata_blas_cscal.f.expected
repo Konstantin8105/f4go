@@ -123,7 +123,7 @@ IDENT               	N
 .                   	.
 IDENT               	LE
 .                   	.
-IDENT               	0
+INT                 	0
 .                   	.
 IDENT               	OR
 .                   	.
@@ -131,7 +131,7 @@ IDENT               	INCX
 .                   	.
 IDENT               	LE
 .                   	.
-IDENT               	0
+INT                 	0
 )                   	)
 IDENT               	RETURN
 if                  	IF
@@ -140,7 +140,7 @@ IDENT               	INCX
 .                   	.
 IDENT               	EQ
 .                   	.
-IDENT               	1
+INT                 	1
 )                   	)
 IDENT               	THEN
 COMMENT             	*
@@ -149,7 +149,7 @@ COMMENT             	*
 token(103)          	DO
 IDENT               	I
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	N
 IDENT               	CX
@@ -177,7 +177,7 @@ IDENT               	INCX
 token(103)          	DO
 IDENT               	I
 =                   	=
-IDENT               	1
+INT                 	1
 ,                   	,
 IDENT               	NINCX
 ,                   	,

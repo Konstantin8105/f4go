@@ -12,7 +12,7 @@ IDENT               	d
 IDENT               	real
 IDENT               	a
 (                   	(
-IDENT               	1
+INT                 	1
 )                   	)
 ,                   	,
 IDENT               	b
@@ -22,14 +22,14 @@ IDENT               	b
 ,                   	,
 IDENT               	c
 (                   	(
-IDENT               	21
+INT                 	21
 ,                   	,
 *                   	*
 )                   	)
 ,                   	,
 IDENT               	d
 (                   	(
-IDENT               	2
+INT                 	2
 )                   	)
 IDENT               	parameter
 (                   	(
@@ -58,9 +58,7 @@ IDENT               	u
 =                   	=
 COMMENT             	! this is a comment
 IDENT               	x
-IDENT               	25
-.                   	.
-IDENT               	0
+FLOAT               	25.0
 )                   	)
 IDENT               	parameter
 (                   	(
@@ -69,11 +67,9 @@ IDENT               	v
 COMMENT             	*  comment ( ( (
 COMMENT             	*  more comments
 IDENT               	x
-IDENT               	2
-.                   	.
-IDENT               	18281828
+FLOAT               	2.18281828
 IDENT               	D
 +                   	+
-IDENT               	00
+INT                 	00
 )                   	)
 token(102)          	end

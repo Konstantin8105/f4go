@@ -4,7 +4,7 @@ token(100)          	implicit
 IDENT               	none
 IDENT               	character
 *                   	*
-IDENT               	32
+INT                 	32
 IDENT               	text
 COMMENT             	c
 IDENT               	text
@@ -26,7 +26,7 @@ token(100)          	implicit
 IDENT               	none
 IDENT               	character
 *                   	*
-IDENT               	32
+INT                 	32
 IDENT               	text
 COMMENT             	c
 IDENT               	write

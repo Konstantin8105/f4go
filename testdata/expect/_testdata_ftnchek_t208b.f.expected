@@ -2,7 +2,7 @@ IDENT               	PARAMETER
 (                   	(
 IDENT               	NPI
 =                   	=
-IDENT               	9
+INT                 	9
 )                   	)
 IDENT               	INTRINSIC
 IDENT               	SQRT
