@@ -312,8 +312,6 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 	switch strings.ToUpper(buf.String()) {
 	case "SUBROUTINE":
 		return SUBROUTINE, buf.String()
-	case "PROGRAM":
-		return PROGRAM, buf.String()
 	case "IMPLICIT":
 		return IMPLICIT, buf.String()
 	case "INTEGER":

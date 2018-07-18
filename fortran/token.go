@@ -8,7 +8,6 @@ import (
 const (
 	DOUBLE_STAR token.Token = iota + token.VAR + 10 // **
 	SUBROUTINE
-	PROGRAM
 	INTEGER
 	DOUBLE_COLON
 	IMPLICIT
@@ -30,7 +29,6 @@ func view(t token.Token) string {
 
 var o = [...]string{
 	SUBROUTINE:   "SUBROUTINE",
-	PROGRAM:      "PROGRAM",
 	INTEGER:      "INTEGER",
 	DOUBLE_COLON: "DOUBLE_COLON",
 	IMPLICIT:     "IMPLICIT",

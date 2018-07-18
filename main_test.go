@@ -44,10 +44,6 @@ func TestOk(t *testing.T) {
 
 func getFortranTestFiles() (files []string, err error) {
 	locations := []string{
-		"testdata/other/*.f",
-		"testdata/other/*.f90",
-		"testdata/ftnchek/*.f",
-		"testdata/ftnchek/*.f90",
 		"testdata/blas/*.f",
 	}
 	for _, loc := range locations {
