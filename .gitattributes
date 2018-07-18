@@ -1,2 +1,3 @@
-testdata/ftnchek/* linguist-vendored
 testdata/* linguist-vendored
+testdata/ftnchek/* linguist-vendored
+testdata/blas/* linguist-vendored
