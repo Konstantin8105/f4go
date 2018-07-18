@@ -160,8 +160,7 @@ IDENT               	DCMPLX
 (                   	(
 IDENT               	DA
 ,                   	,
-FLOAT               	0.0
-IDENT               	d0
+FLOAT               	0.0d0
 )                   	)
 *                   	*
 IDENT               	ZX
@@ -196,8 +195,7 @@ IDENT               	DCMPLX
 (                   	(
 IDENT               	DA
 ,                   	,
-FLOAT               	0.0
-IDENT               	d0
+FLOAT               	0.0d0
 )                   	)
 *                   	*
 IDENT               	ZX

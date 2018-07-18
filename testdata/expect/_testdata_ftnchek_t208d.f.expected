@@ -1768,11 +1768,11 @@ IDENT               	NX0028
 <                   	.LT.
 FLOAT               	1.
 IDENT               	OR
-.                   	.NX00
-FLOAT               	028.
+.                   	.
+FLOAT               	28.
 IDENT               	GT
-.                   	.4) G
-IDENT               	GO
+.                   	.
+IDENT               	O
 IDENT               	TO
 INT                 	20028
 IDENT               	GO
@@ -2817,11 +2817,11 @@ IDENT               	NX0050
 <                   	.LT.
 FLOAT               	1.
 IDENT               	OR
-.                   	.NX00
-FLOAT               	050.
+.                   	.
+FLOAT               	50.
 IDENT               	GT
-.                   	.8) G
-IDENT               	GO
+.                   	.
+IDENT               	O
 IDENT               	TO
 INT                 	20050
 IDENT               	GO
@@ -3889,11 +3889,11 @@ IDENT               	NX0061
 <                   	.LT.
 FLOAT               	1.
 IDENT               	OR
-.                   	.NX00
-FLOAT               	061.
+.                   	.
+FLOAT               	61.
 IDENT               	GT
-.                   	.2) G
-IDENT               	GO
+.                   	.
+IDENT               	O
 IDENT               	TO
 INT                 	20061
 IDENT               	GO
@@ -5521,11 +5521,11 @@ IDENT               	NX0100
 <                   	.LT.
 FLOAT               	1.
 IDENT               	OR
-.                   	.NX01
-FLOAT               	100.
+.                   	.
+FLOAT               	00.
 IDENT               	GT
-.                   	.4) G
-IDENT               	GO
+.                   	.
+IDENT               	O
 IDENT               	TO
 INT                 	20100
 IDENT               	GO
@@ -6889,11 +6889,11 @@ IDENT               	NX0114
 <                   	.LT.
 FLOAT               	1.
 IDENT               	OR
-.                   	.NX01
-FLOAT               	114.
+.                   	.
+FLOAT               	14.
 IDENT               	GT
-.                   	.4) G
-IDENT               	GO
+.                   	.
+IDENT               	O
 IDENT               	TO
 INT                 	20114
 IDENT               	GO
@@ -7192,11 +7192,11 @@ IDENT               	NX0141
 <                   	.LT.
 FLOAT               	1.
 IDENT               	OR
-.                   	.NX01
-FLOAT               	141.
+.                   	.
+FLOAT               	41.
 IDENT               	GT
-.                   	.8) G
-IDENT               	GO
+.                   	.
+IDENT               	O
 IDENT               	TO
 INT                 	20141
 IDENT               	GO
@@ -8227,10 +8227,9 @@ INT                 	0
 INT                 	20144
 IDENT               	ERROR
 =                   	=
-.                   	.FALS
-IDENT               	SE
 .                   	.
-   
+IDENT               	E
+.                   	.
 IDENT               	NFONT
 =                   	=
 IDENT               	MOD
@@ -8333,10 +8332,7 @@ IDENT               	CALL
 IDENT               	ERRCK
 IDENT               	ERROR
 =                   	=
-.                   	.TRUE
-IDENT               	E
-.                   	.
-   
+IDENT               	.TRUE.
 if                  	IF
 (                   	(
 IDENT               	ERROR
@@ -8838,10 +8834,10 @@ IDENT               	NX0204
 <                   	.LT.
 FLOAT               	1.
 IDENT               	OR
-.                   	.NX02
-FLOAT               	204.
+.                   	.
+FLOAT               	04.
 IDENT               	GT
-.                   	.20) 
+.                   	.
 IDENT               	GO
 IDENT               	TO
 INT                 	20204
@@ -9217,11 +9213,8 @@ IDENT               	FCASE
 INT                 	0
 IDENT               	ERROR
 =                   	=
-.                   	.TRUE
-IDENT               	E
-.                   	.
-202
-INT                 	228
+IDENT               	.TRUE.
+INT                 	20228
 IDENT               	GO
 IDENT               	TO
 INT                 	20002
@@ -9854,11 +9847,8 @@ IDENT               	FTYPE
 INT                 	0
 IDENT               	ERROR
 =                   	=
-.                   	.TRUE
-IDENT               	E
-.                   	.
-202
-INT                 	231
+IDENT               	.TRUE.
+INT                 	20231
 IDENT               	GO
 IDENT               	TO
 INT                 	20003
@@ -9995,11 +9985,8 @@ IDENT               	FVAR
 INT                 	0
 IDENT               	ERROR
 =                   	=
-.                   	.TRUE
-IDENT               	E
-.                   	.
-202
-INT                 	234
+IDENT               	.TRUE.
+INT                 	20234
 IDENT               	GO
 IDENT               	TO
 INT                 	20004
@@ -10079,11 +10066,11 @@ IDENT               	NX0244
 <                   	.LT.
 FLOAT               	1.
 IDENT               	OR
-.                   	.NX02
-FLOAT               	244.
+.                   	.
+FLOAT               	44.
 IDENT               	GT
-.                   	.4) G
-IDENT               	GO
+.                   	.
+IDENT               	O
 IDENT               	TO
 INT                 	20244
 IDENT               	GO

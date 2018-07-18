@@ -19,8 +19,7 @@ IDENT               	de
 /                   	/
 (                   	(
 +                   	+
-INT                 	23
-IDENT               	e5
+INT                 	23e5
 ,                   	,
 INT                 	0
 )                   	)
@@ -46,8 +45,7 @@ IDENT               	a
 INT                 	5
 ,                   	,
 -                   	-
-INT                 	3
-IDENT               	e5
+INT                 	3e5
 )                   	)
 IDENT               	write
 (                   	(
@@ -64,8 +62,7 @@ IDENT               	x
 ,                   	,
 INT                 	2
 IDENT               	f10
-.                   	.2)
- 
+.                   	.
 IDENT               	print
 INT                 	22
 ,                   	,
@@ -94,12 +91,12 @@ IDENT               	format
 INT                 	1
 IDENT               	x
 ,                   	,
+FLOAT               	2e10.3
+,                   	,
 INT                 	2
-IDENT               	e10
-.                   	.3,2f
 IDENT               	f10
-.                   	.2,4i
-IDENT               	i4
+.                   	.
+INT                 	4
 )                   	)
 IDENT               	call
 IDENT               	abc

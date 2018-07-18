@@ -119,10 +119,8 @@ IDENT               	EnterGraphicsMode
 token(103)          	do
 IDENT               	while
 (                   	(
-.                   	.true
-IDENT               	e
-.                   	.)
-  
+IDENT               	.true.
+)                   	)
 IDENT               	a
 =                   	=
 (                   	(
@@ -210,8 +208,7 @@ IDENT               	T15
 STRING              	'= '
 ,                   	,
 IDENT               	D12
-.                   	.4/
- 
+.                   	.
 INT                 	1
 INT                 	1
 IDENT               	x
@@ -223,8 +220,7 @@ IDENT               	T15
 STRING              	'= '
 ,                   	,
 IDENT               	D12
-.                   	.4/
- 
+.                   	.
 INT                 	2
 INT                 	1
 IDENT               	x
@@ -236,8 +232,7 @@ IDENT               	T15
 STRING              	'= '
 ,                   	,
 IDENT               	D12
-.                   	.4/
- 
+.                   	.
 INT                 	3
 INT                 	1
 IDENT               	x
@@ -249,8 +244,7 @@ IDENT               	T15
 STRING              	'= '
 ,                   	,
 IDENT               	D12
-.                   	.4/)
-
+.                   	.
 INT                 	100
 IDENT               	format
 (                   	(

@@ -187,15 +187,9 @@ IDENT               	PARAMETER
 IDENT               	ZERO
 =                   	=
 (                   	(
-FLOAT               	0.0
-IDENT               	D
-+                   	+
-INT                 	0
+FLOAT               	0.0D+0
 ,                   	,
-FLOAT               	0.0
-IDENT               	D
-+                   	+
-INT                 	0
+FLOAT               	0.0D+0
 )                   	)
 )                   	)
 COMMENT             	*     ..

@@ -123,12 +123,10 @@ IDENT               	DCABS1
 COMMENT             	*     ..
 IDENT               	DZASUM
 =                   	=
-FLOAT               	0.0
-IDENT               	d0
+FLOAT               	0.0d0
 IDENT               	STEMP
 =                   	=
-FLOAT               	0.0
-IDENT               	d0
+FLOAT               	0.0d0
 if                  	IF
 (                   	(
 IDENT               	N

@@ -143,12 +143,10 @@ IDENT               	MOD
 COMMENT             	*     ..
 IDENT               	STEMP
 =                   	=
-FLOAT               	0.0
-IDENT               	e0
+FLOAT               	0.0e0
 IDENT               	SDOT
 =                   	=
-FLOAT               	0.0
-IDENT               	e0
+FLOAT               	0.0e0
 if                  	IF
 (                   	(
 IDENT               	N

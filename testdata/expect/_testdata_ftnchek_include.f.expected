@@ -72,10 +72,8 @@ INT                 	999
 token(103)          	Do
 IDENT               	While
 (                   	(
-.                   	.TRUE
-IDENT               	E
-.                   	.)
-  
+IDENT               	.TRUE.
+)                   	)
 IDENT               	Read
 (                   	(
 INT                 	8
@@ -332,15 +330,13 @@ INT                 	1
 IDENT               	X
 STRING              	'Average characters per word = '
 IDENT               	F6
-.                   	.2/
- 
+.                   	.
 INT                 	2
 INT                 	1
 IDENT               	X
 STRING              	'Average words per sentence  = '
 IDENT               	F6
-.                   	.2/
- 
+.                   	.
 INT                 	3
 INT                 	1
 IDENT               	X

@@ -179,14 +179,11 @@ IDENT               	ONE
 ,                   	,
 IDENT               	TWO
 /                   	/
-FLOAT               	0.
-IDENT               	D0
+FLOAT               	0.D0
 ,                   	,
-FLOAT               	1.
-IDENT               	D0
+FLOAT               	1.D0
 ,                   	,
-FLOAT               	2.
-IDENT               	D0
+FLOAT               	2.D0
 /                   	/
 IDENT               	DATA
 IDENT               	GAM
@@ -195,16 +192,11 @@ IDENT               	GAMSQ
 ,                   	,
 IDENT               	RGAMSQ
 /                   	/
-FLOAT               	4096.
-IDENT               	D0
+FLOAT               	4096.D0
 ,                   	,
-FLOAT               	16777216.
-IDENT               	D0
+FLOAT               	16777216.D0
 ,                   	,
-FLOAT               	5.9604645
-IDENT               	D
--                   	-
-INT                 	8
+FLOAT               	5.9604645D-8
 /                   	/
 COMMENT             	*     ..
 if                  	IF

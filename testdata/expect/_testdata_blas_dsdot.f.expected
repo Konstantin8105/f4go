@@ -182,8 +182,7 @@ IDENT               	DBLE
 COMMENT             	*     ..
 IDENT               	DSDOT
 =                   	=
-FLOAT               	0.0
-IDENT               	D0
+FLOAT               	0.0D0
 if                  	IF
 (                   	(
 IDENT               	N

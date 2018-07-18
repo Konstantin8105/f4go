@@ -12,8 +12,7 @@ IDENT               	x
 =                   	=
 IDENT               	dsqrt
 (                   	(
-FLOAT               	2.0
-IDENT               	d0
+FLOAT               	2.0d0
 )                   	)
 IDENT               	y
 =                   	=

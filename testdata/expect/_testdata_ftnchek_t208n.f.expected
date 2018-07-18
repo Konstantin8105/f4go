@@ -67,9 +67,6 @@ IDENT               	v
 COMMENT             	*  comment ( ( (
 COMMENT             	*  more comments
 IDENT               	x
-FLOAT               	2.18281828
-IDENT               	D
-+                   	+
-INT                 	00
+FLOAT               	2.18281828D+00
 )                   	)
 token(102)          	end

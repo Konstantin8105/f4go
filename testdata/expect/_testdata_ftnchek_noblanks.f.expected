@@ -29,11 +29,9 @@ IDENT               	datazero
 ,                   	,
 IDENT               	one
 /                   	/
-FLOAT               	0.0
-IDENT               	d0
+FLOAT               	0.0d0
 ,                   	,
-FLOAT               	1.0
-IDENT               	d0
+FLOAT               	1.0d0
 /                   	/
 COMMENT             	c
 COMMENT             	c     euclideannormofthen-vectorstoredindx()withstorage
@@ -77,13 +75,9 @@ IDENT               	datacutlo
 ,                   	,
 IDENT               	cuthi
 /                   	/
-FLOAT               	8.232
-IDENT               	d
--                   	-
-INT                 	11
+FLOAT               	8.232d-11
 ,                   	,
-FLOAT               	1.304
-IDENT               	d19
+FLOAT               	1.304d19
 /                   	/
 COMMENT             	c
 if                  	if

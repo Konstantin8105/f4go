@@ -89,8 +89,7 @@ IDENT               	x
 ,                   	,
 INT                 	2
 IDENT               	f6
-.                   	.0)
- 
+.                   	.
 INT                 	91
 IDENT               	format
 (                   	(

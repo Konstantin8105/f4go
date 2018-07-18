@@ -37,8 +37,7 @@ IDENT               	real
 token(99)           	::
 IDENT               	pi
 =                   	=
-FLOAT               	3.14159265358979
-IDENT               	d0
+FLOAT               	3.14159265358979d0
 IDENT               	character
 token(99)           	::
 IDENT               	c
@@ -112,8 +111,7 @@ INT                 	5
 IDENT               	data
 IDENT               	pi
 /                   	/
-FLOAT               	3.14159265358979
-IDENT               	d0
+FLOAT               	3.14159265358979d0
 /                   	/
 IDENT               	data
 IDENT               	c
@@ -178,8 +176,7 @@ INT                 	5
 IDENT               	real
 IDENT               	pi
 /                   	/
-FLOAT               	3.14159265358979
-IDENT               	d0
+FLOAT               	3.14159265358979d0
 /                   	/
 IDENT               	character
 IDENT               	c

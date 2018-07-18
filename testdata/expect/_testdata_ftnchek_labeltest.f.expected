@@ -13,8 +13,7 @@ INT                 	1900
 IDENT               	format
 (                   	(
 IDENT               	f10
-.                   	.0)
- 
+.                   	.
 if                  	if
 (                   	(
 IDENT               	x
@@ -82,8 +81,7 @@ INT                 	1
 IDENT               	x
 ,                   	,
 IDENT               	f10
-.                   	.3)
- 
+.                   	.
 INT                 	200
 continue            	continue
 IDENT               	print
@@ -112,8 +110,7 @@ IDENT               	format
 STRING              	' The sqrt of 2 is '
 ,                   	,
 IDENT               	f15
-.                   	.5)
- 
+.                   	.
 IDENT               	write
 (                   	(
 *                   	*

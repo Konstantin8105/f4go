@@ -19,11 +19,7 @@ IDENT               	ivar1
 INT                 	3
 IDENT               	lvar1
 =                   	=
-.                   	.true
-IDENT               	e
-.                   	.
-
-  
+IDENT               	.true.
 IDENT               	select
 IDENT               	case
 (                   	(
@@ -84,29 +80,25 @@ IDENT               	lvar1
 )                   	)
 IDENT               	case
 (                   	(
-.                   	.fals
-IDENT               	se
-.                   	.)
-  
+.                   	.
+IDENT               	e
+.                   	.
 IDENT               	case
 (                   	(
-.                   	.true
-IDENT               	e
-.                   	.:)
- 
+IDENT               	.true.
+:                   	:
+)                   	)
 IDENT               	case
 (                   	(
 :                   	:
-.                   	.fals
-IDENT               	se
-.                   	.)
-  
+.                   	.
+IDENT               	e
+.                   	.
 IDENT               	case
 (                   	(
-FLOAT               	1.
-IDENT               	eq
-.                   	.0)
- 
+FLOAT               	1.e
+IDENT               	q
+.                   	.
 token(102)          	end
 IDENT               	select
 IDENT               	cvar1
@@ -167,10 +159,9 @@ IDENT               	ivar1
 IDENT               	case
 (                   	(
 :                   	:
-.                   	.fals
-IDENT               	se
-.                   	.)
-  
+.                   	.
+IDENT               	e
+.                   	.
 token(102)          	end
 IDENT               	select
 IDENT               	stop

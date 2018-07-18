@@ -334,10 +334,7 @@ IDENT               	LASTY
 IDENT               	IY
 IDENT               	VILAST
 =                   	=
-.                   	.TRUE
-IDENT               	E
-.                   	.
-   
+IDENT               	.TRUE.
 IDENT               	MAXX
 =                   	=
 IDENT               	MAX0

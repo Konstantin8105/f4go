@@ -36,8 +36,7 @@ IDENT               	x
 FLOAT               	1.0
 IDENT               	y
 =                   	=
-FLOAT               	2.0
-IDENT               	d0
+FLOAT               	2.0d0
 IDENT               	write
 (                   	(
 *                   	*

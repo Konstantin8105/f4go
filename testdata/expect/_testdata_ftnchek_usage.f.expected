@@ -131,8 +131,7 @@ IDENT               	parameter
 (                   	(
 IDENT               	Pi
 =                   	=
-FLOAT               	3.14159265358979
-IDENT               	D0
+FLOAT               	3.14159265358979D0
 )                   	)
 IDENT               	logical
 IDENT               	stop
@@ -194,11 +193,8 @@ IDENT               	compl1
 IDENT               	compl2
 IDENT               	test
 =                   	=
-.                   	.true
-IDENT               	e
-.                   	.
-	da
-IDENT               	ata
+IDENT               	.true.
+IDENT               	data
 (                   	(
 (                   	(
 IDENT               	a123
@@ -244,8 +240,7 @@ STRING              	't'
 IDENT               	com4
 /                   	/
 -                   	-
-INT                 	1
-IDENT               	e7
+INT                 	1e7
 ,                   	,
 +                   	+
 FLOAT               	5.2
@@ -253,9 +248,8 @@ FLOAT               	5.2
 INT                 	4
 IDENT               	habcd
 ,                   	,
-.                   	.1, 1
-FLOAT               	1.
-/                   	/
+.                   	.
+.                   	.
 if                  	if
 (                   	(
 IDENT               	dbl1
@@ -470,11 +464,10 @@ INT                 	3
 IDENT               	endif
 IDENT               	test
 =                   	=
-.                   	.fals
-IDENT               	se
 .                   	.
-	db
-IDENT               	bl1
+IDENT               	e
+.                   	.
+IDENT               	l1
 =                   	=
 FLOAT               	1.2345
 IDENT               	write
@@ -488,8 +481,7 @@ INT                 	900
 IDENT               	format
 (                   	(
 IDENT               	f10
-.                   	.2)
-	
+.                   	.
 if                  	if
 (                   	(
 IDENT               	test
@@ -525,8 +517,7 @@ IDENT               	beta
 )                   	)
 IDENT               	xray
 =                   	=
-FLOAT               	1.0
-IDENT               	D0
+FLOAT               	1.0D0
 token(102)          	end
 token(96)           	subroutine
 IDENT               	home
@@ -591,8 +582,7 @@ FLOAT               	1.234
 token(95)           	**
 (                   	(
 +                   	+
-FLOAT               	1.7
-IDENT               	e10
+FLOAT               	1.7e10
 )                   	)
 IDENT               	endif
 IDENT               	com4

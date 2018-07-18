@@ -242,10 +242,7 @@ INT                 	10
 )                   	)
 IDENT               	bool
 =                   	=
-.                   	.TRUE
-IDENT               	E
-.                   	.
-   
+IDENT               	.TRUE.
 if                  	IF
 (                   	(
 IDENT               	bool
@@ -265,10 +262,10 @@ IDENT               	z
 IDENT               	ELSEIF
 (                   	(
 !=                  	.NOT.
-.                   	.FALS
-IDENT               	SE
-.                   	. ) T
-IDENT               	THEN
+.                   	.
+IDENT               	E
+.                   	.
+IDENT               	HEN
 IDENT               	WRITE
 (                   	(
 IDENT               	UNIT
@@ -406,11 +403,9 @@ INT                 	1
 )                   	)
 =                   	=
 (                   	(
-FLOAT               	1.0
-IDENT               	d1
+FLOAT               	1.0d1
 ,                   	,
-FLOAT               	2.0
-IDENT               	d2
+FLOAT               	2.0d2
 )                   	)
 IDENT               	a
 (                   	(

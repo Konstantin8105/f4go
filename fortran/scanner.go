@@ -3,7 +3,6 @@ package fortran
 import (
 	"bufio"
 	"bytes"
-	"fmt"
 	"go/token"
 	"io"
 	"strings"
@@ -140,7 +139,7 @@ func (s *Scanner) scanStar() (tok token.Token, lit string) {
 func (s *Scanner) scanPeriod() (tok token.Token, lit string) {
 	var buf bytes.Buffer
 
-	for i := 0; i < 5; i++ {
+	for i := 0; i < 6; i++ {
 		if ch := s.read(); ch == eof {
 			break
 		} else if ch == '.' && i != 0 {
@@ -168,8 +167,9 @@ func (s *Scanner) scanPeriod() (tok token.Token, lit string) {
 		return token.LAND, buf.String()
 	case ".OR.":
 		return token.LOR, buf.String()
+	case ".TRUE.", ".FALSE.":
+		return token.IDENT, buf.String()
 	}
-	fmt.Println(">>> ", buf.String())
 
 	for i := 0; i < buf.Len()-1; i++ {
 		s.unread()
@@ -218,7 +218,8 @@ func (s *Scanner) scanNumber() (tok token.Token, lit string) {
 	for {
 		if ch := s.read(); ch == eof {
 			break
-		} else if ch == 'E' {
+		} else if ch == 'E' || ch == 'e' ||
+			ch == 'D' || ch == 'd' {
 			_, _ = buf.WriteRune(ch)
 			d := s.read()
 			if d == '+' || d == '-' || isDigit(d) {
@@ -226,7 +227,9 @@ func (s *Scanner) scanNumber() (tok token.Token, lit string) {
 			} else {
 				s.unread()
 			}
-		} else if !isDigit(ch) && ch != '.' && ch != 'E' {
+		} else if !isDigit(ch) && ch != '.' &&
+			ch != 'E' && ch != 'e' &&
+			ch != 'D' && ch != 'd' {
 			s.unread()
 			break
 		} else {

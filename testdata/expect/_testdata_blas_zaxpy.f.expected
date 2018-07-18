@@ -165,8 +165,7 @@ IDENT               	DCABS1
 IDENT               	ZA
 )                   	)
 ==                  	.EQ.
-FLOAT               	0.0
-IDENT               	d0
+FLOAT               	0.0d0
 )                   	)
 IDENT               	RETURN
 if                  	IF

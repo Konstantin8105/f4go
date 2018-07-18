@@ -265,17 +265,11 @@ IDENT               	PARAMETER
 (                   	(
 IDENT               	ONE
 =                   	=
-FLOAT               	1.0
-IDENT               	D
-+                   	+
-INT                 	0
+FLOAT               	1.0D+0
 ,                   	,
 IDENT               	ZERO
 =                   	=
-FLOAT               	0.0
-IDENT               	D
-+                   	+
-INT                 	0
+FLOAT               	0.0D+0
 )                   	)
 COMMENT             	*     ..
 COMMENT             	*     .. Local Scalars ..
