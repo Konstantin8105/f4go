@@ -1,4 +1,3 @@
-
  SUBROUTINE SROT ( N , SX , INCX , SY , INCY , C , S )
  REAL C , S
  INTEGER INCX , INCY , N

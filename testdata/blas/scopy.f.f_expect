@@ -1,4 +1,3 @@
-
  SUBROUTINE SCOPY ( N , SX , INCX , SY , INCY )
  INTEGER INCX , INCY , N
  REAL SX ( * ) , SY ( * )

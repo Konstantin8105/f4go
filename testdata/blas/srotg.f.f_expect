@@ -1,4 +1,3 @@
-
  SUBROUTINE SROTG ( SA , SB , C , S )
  REAL C , S , SA , SB
  REAL R , ROE , SCALE , Z

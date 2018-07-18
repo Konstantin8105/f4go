@@ -44,6 +44,10 @@ func prepare(filename string) (ns []node, err error) {
 		last = tok
 	}
 
+	if len(ns) > 0 && ns[0].tok == NEW_LINE {
+		ns = ns[1:]
+	}
+
 	return
 }
 

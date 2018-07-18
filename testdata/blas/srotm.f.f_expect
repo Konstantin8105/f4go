@@ -1,4 +1,3 @@
-
  SUBROUTINE SROTM ( N , SX , INCX , SY , INCY , SPARAM )
  INTEGER INCX , INCY , N
  REAL SPARAM ( 5 ) , SX ( * ) , SY ( * )

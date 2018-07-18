@@ -1,4 +1,3 @@
-
  REAL FUNCTION SASUM ( N , SX , INCX )
  INTEGER INCX , N
  REAL SX ( * )
