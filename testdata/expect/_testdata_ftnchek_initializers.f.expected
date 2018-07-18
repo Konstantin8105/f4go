@@ -1,4 +1,4 @@
-COMMENT             	  Testing syntax recognition and assignment type checking of
+COMMENT             	C  Testing syntax recognition and assignment type checking of
 COMMENT             	C  standard and non-standard initializing declarations.
 COMMENT             	C  Here we use modern standard F90 initializers
 token(96)           	subroutine

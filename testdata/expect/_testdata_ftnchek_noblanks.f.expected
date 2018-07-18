@@ -39,291 +39,44 @@ IDENT               	1
 IDENT               	0
 IDENT               	d0
 /                   	/
-IDENT               	c
-IDENT               	c
-IDENT               	euclideannormofthen
--                   	-
-IDENT               	vectorstoredindx
-(                   	(
-)                   	)
-IDENT               	withstorage
-IDENT               	c
-IDENT               	incrementincx
-.                   	.
-IDENT               	c
-IDENT               	ifn
-.                   	.
-IDENT               	le
-.                   	.
-IDENT               	0
-IDENT               	returnwithresult
-=                   	=
-IDENT               	0
-.                   	.
-IDENT               	c
-IDENT               	ifn
-.                   	.
-IDENT               	ge
-.                   	.
-IDENT               	1
-IDENT               	thenincxmustbe
-.                   	.
-IDENT               	ge
-.                   	.
-IDENT               	1
-IDENT               	c
-IDENT               	c
-IDENT               	c
-.                   	.
-IDENT               	l
-.                   	.
-IDENT               	lawson
-,                   	,
-IDENT               	1978
-IDENT               	jan08
-IDENT               	c
-IDENT               	c
-IDENT               	fourphasemethodusingtwobuilt
--                   	-
-IDENT               	inconstantsthatare
-IDENT               	c
-IDENT               	hopefullyapplicabletoallmachines
-.                   	.
-IDENT               	c
-IDENT               	cutlo
-=                   	=
-IDENT               	maximumofdsqrt
-(                   	(
-IDENT               	u
-/                   	/
-IDENT               	eps
-)                   	)
-IDENT               	overallknownmachines
-.                   	.
-IDENT               	c
-IDENT               	cuthi
-=                   	=
-IDENT               	minimumofdsqrt
-(                   	(
-IDENT               	v
-)                   	)
-IDENT               	overallknownmachines
-.                   	.
-IDENT               	c
-IDENT               	where
-IDENT               	c
-IDENT               	eps
-=                   	=
-IDENT               	smallestno
-.                   	.
-IDENT               	suchthateps
-+                   	+
-IDENT               	1
-.                   	.
-.                   	.
-IDENT               	gt
-.                   	.
-IDENT               	1
-.                   	.
-IDENT               	c
-IDENT               	u
-=                   	=
-IDENT               	smallestpositiveno
-.                   	.
-(                   	(
-IDENT               	underflowlimit
-)                   	)
-IDENT               	c
-IDENT               	v
-=                   	=
-IDENT               	largestno
-.                   	.
-(                   	(
-IDENT               	overflowlimit
-)                   	)
-IDENT               	c
-IDENT               	c
-IDENT               	briefoutlineofalgorithm
-.                   	.
-.                   	.
-IDENT               	c
-IDENT               	c
-IDENT               	phase1scanszerocomponents
-.                   	.
-IDENT               	c
-IDENT               	movetophase2whenacomponentisnonzeroand
-.                   	.
-IDENT               	le
-.                   	.
-IDENT               	cutlo
-IDENT               	c
-IDENT               	movetophase3whenacomponentis
-.                   	.
-IDENT               	gt
-.                   	.
-IDENT               	cutlo
-IDENT               	c
-IDENT               	movetophase4whenacomponentis
-.                   	.
-IDENT               	ge
-.                   	.
-IDENT               	cuthi
-/                   	/
-IDENT               	m
-IDENT               	c
-IDENT               	wherem
-=                   	=
-IDENT               	nforx
-(                   	(
-)                   	)
-IDENT               	realandm
-=                   	=
-IDENT               	2
-*                   	*
-IDENT               	nforcomplex
-.                   	.
-IDENT               	c
-IDENT               	c
-IDENT               	valuesforcutloandcuthi
-.                   	.
-.                   	.
-IDENT               	c
-IDENT               	fromtheenvironmentalparameterslistedintheimslconverter
-IDENT               	c
-IDENT               	documentthelimitingvaluesareasfollows
-.                   	.
-.                   	.
-IDENT               	c
-IDENT               	cutlo
-,                   	,
-IDENT               	s
-.                   	.
-IDENT               	p
-.                   	.
-IDENT               	u
-/                   	/
-IDENT               	eps
-=                   	=
-IDENT               	2
-token(95)           	**
-(                   	(
--                   	-
-IDENT               	102
-)                   	)
-IDENT               	forhoneywell
-.                   	.
-IDENT               	closesecondsare
-IDENT               	c
-IDENT               	univacanddecat2
-token(95)           	**
-(                   	(
--                   	-
-IDENT               	103
-)                   	)
-IDENT               	c
-IDENT               	thuscutlo
-=                   	=
-IDENT               	2
-token(95)           	**
-(                   	(
--                   	-
-IDENT               	51
-)                   	)
-=                   	=
-IDENT               	4
-.                   	.
-IDENT               	44089
-IDENT               	e
--                   	-
-IDENT               	16
-IDENT               	c
-IDENT               	cuthi
-,                   	,
-IDENT               	s
-.                   	.
-IDENT               	p
-.                   	.
-IDENT               	v
-=                   	=
-IDENT               	2
-token(95)           	**
-IDENT               	127
-IDENT               	forunivac
-,                   	,
-IDENT               	honeywell
-,                   	,
-IDENT               	anddec
-.                   	.
-IDENT               	c
-IDENT               	thuscuthi
-=                   	=
-IDENT               	2
-token(95)           	**
-(                   	(
-IDENT               	63
-.                   	.
-IDENT               	5
-)                   	)
-=                   	=
-IDENT               	1
-.                   	.
-IDENT               	30438
-IDENT               	e19
-IDENT               	c
-IDENT               	cutlo
-,                   	,
-IDENT               	d
-.                   	.
-IDENT               	p
-.                   	.
-IDENT               	u
-/                   	/
-IDENT               	eps
-=                   	=
-IDENT               	2
-token(95)           	**
-(                   	(
--                   	-
-IDENT               	67
-)                   	)
-IDENT               	forhoneywellanddec
-.                   	.
-IDENT               	c
-IDENT               	thuscutlo
-=                   	=
-IDENT               	2
-token(95)           	**
-(                   	(
--                   	-
-IDENT               	33
-.                   	.
-IDENT               	5
-)                   	)
-=                   	=
-IDENT               	8
-.                   	.
-IDENT               	23181
-IDENT               	d
--                   	-
-IDENT               	11
-IDENT               	c
-IDENT               	cuthi
-,                   	,
-IDENT               	d
-.                   	.
-IDENT               	p
-.                   	.
-IDENT               	sameass
-.                   	.
-IDENT               	p
-.                   	.
-IDENT               	cuthi
-=                   	=
-IDENT               	1
-.                   	.
-IDENT               	30438
-IDENT               	d19
-IDENT               	c
+COMMENT             	c
+COMMENT             	c     euclideannormofthen-vectorstoredindx()withstorage
+COMMENT             	c     incrementincx.
+COMMENT             	c     ifn.le.0returnwithresult=0.
+COMMENT             	c     ifn.ge.1thenincxmustbe.ge.1
+COMMENT             	c
+COMMENT             	c     c.l.lawson,1978jan08
+COMMENT             	c
+COMMENT             	c     fourphasemethodusingtwobuilt-inconstantsthatare
+COMMENT             	c     hopefullyapplicabletoallmachines.
+COMMENT             	c     cutlo=maximumofdsqrt(u/eps)overallknownmachines.
+COMMENT             	c     cuthi=minimumofdsqrt(v)overallknownmachines.
+COMMENT             	c     where
+COMMENT             	c     eps=smallestno.suchthateps+1..gt.1.
+COMMENT             	c     u=smallestpositiveno.(underflowlimit)
+COMMENT             	c     v=largestno.(overflowlimit)
+COMMENT             	c
+COMMENT             	c     briefoutlineofalgorithm..
+COMMENT             	c
+COMMENT             	c     phase1scanszerocomponents.
+COMMENT             	c     movetophase2whenacomponentisnonzeroand.le.cutlo
+COMMENT             	c     movetophase3whenacomponentis.gt.cutlo
+COMMENT             	c     movetophase4whenacomponentis.ge.cuthi/m
+COMMENT             	c     wherem=nforx()realandm=2*nforcomplex.
+COMMENT             	c
+COMMENT             	c     valuesforcutloandcuthi..
+COMMENT             	c     fromtheenvironmentalparameterslistedintheimslconverter
+COMMENT             	c     documentthelimitingvaluesareasfollows..
+COMMENT             	c     cutlo,s.p.u/eps=2**(-102)forhoneywell.closesecondsare
+COMMENT             	c     univacanddecat2**(-103)
+COMMENT             	c     thuscutlo=2**(-51)=4.44089e-16
+COMMENT             	c     cuthi,s.p.v=2**127forunivac,honeywell,anddec.
+COMMENT             	c     thuscuthi=2**(63.5)=1.30438e19
+COMMENT             	c     cutlo,d.p.u/eps=2**(-67)forhoneywellanddec.
+COMMENT             	c     thuscutlo=2**(-33.5)=8.23181d-11
+COMMENT             	c     cuthi,d.p.sameass.p.cuthi=1.30438d19
+COMMENT             	c     datacutlo,cuthi/8.232d-11,1.304d19/
+COMMENT             	c     datacutlo,cuthi/4.441e-16,1.304e19/
 IDENT               	datacutlo
 ,                   	,
 IDENT               	cuthi
@@ -340,40 +93,7 @@ IDENT               	1
 IDENT               	304
 IDENT               	d19
 /                   	/
-IDENT               	c
-IDENT               	datacutlo
-,                   	,
-IDENT               	cuthi
-/                   	/
-IDENT               	4
-.                   	.
-IDENT               	441
-IDENT               	e
--                   	-
-IDENT               	16
-,                   	,
-IDENT               	1
-.                   	.
-IDENT               	304
-IDENT               	e19
-/                   	/
-IDENT               	datacutlo
-,                   	,
-IDENT               	cuthi
-/                   	/
-IDENT               	8
-.                   	.
-IDENT               	232
-IDENT               	d
--                   	-
-IDENT               	11
-,                   	,
-IDENT               	1
-.                   	.
-IDENT               	304
-IDENT               	d19
-/                   	/
-IDENT               	c
+COMMENT             	c
 if                  	if
 (                   	(
 IDENT               	n
@@ -387,7 +107,7 @@ IDENT               	dnrm2
 =                   	=
 IDENT               	zero
 IDENT               	goto300
-IDENT               	c
+COMMENT             	c
 IDENT               	10
 IDENT               	assign30tonext
 IDENT               	sum
@@ -398,8 +118,7 @@ IDENT               	nn
 IDENT               	n
 *                   	*
 IDENT               	incx
-IDENT               	c
-IDENT               	beginmainloop
+COMMENT             	c     beginmainloop
 IDENT               	i
 =                   	=
 IDENT               	1
@@ -435,12 +154,9 @@ IDENT               	assign50tonext
 IDENT               	xmax
 =                   	=
 IDENT               	zero
-IDENT               	c
-IDENT               	c
-IDENT               	phase1
-.                   	.
-IDENT               	sumiszero
-IDENT               	c
+COMMENT             	c
+COMMENT             	c     phase1.sumiszero
+COMMENT             	c
 IDENT               	50
 if                  	if
 (                   	(
@@ -469,17 +185,13 @@ IDENT               	gt
 IDENT               	cutlo
 )                   	)
 IDENT               	goto85
-IDENT               	c
-IDENT               	c
-IDENT               	prepareforphase2
-.                   	.
+COMMENT             	c
+COMMENT             	c     prepareforphase2.
 IDENT               	assign70tonext
 IDENT               	goto105
-IDENT               	c
-IDENT               	c
-IDENT               	prepareforphase4
-.                   	.
-IDENT               	c
+COMMENT             	c
+COMMENT             	c     prepareforphase4.
+COMMENT             	c
 IDENT               	100
 IDENT               	i
 =                   	=
@@ -511,16 +223,10 @@ IDENT               	i
 )                   	)
 )                   	)
 IDENT               	goto115
-IDENT               	c
-IDENT               	c
-IDENT               	phase2
-.                   	.
-IDENT               	sumissmall
-.                   	.
-IDENT               	c
-IDENT               	scaletoavoiddestructiveunderflow
-.                   	.
-IDENT               	c
+COMMENT             	c
+COMMENT             	c     phase2.sumissmall.
+COMMENT             	c     scaletoavoiddestructiveunderflow.
+COMMENT             	c
 IDENT               	70
 if                  	if
 (                   	(
@@ -537,16 +243,10 @@ IDENT               	gt
 IDENT               	cutlo
 )                   	)
 IDENT               	goto75
-IDENT               	c
-IDENT               	c
-IDENT               	commoncodeforphases2and4
-.                   	.
-IDENT               	c
-IDENT               	inphase4sumislarge
-.                   	.
-IDENT               	scaletoavoidoverflow
-.                   	.
-IDENT               	c
+COMMENT             	c
+COMMENT             	c     commoncodeforphases2and4.
+COMMENT             	c     inphase4sumislarge.scaletoavoidoverflow.
+COMMENT             	c
 IDENT               	110
 if                  	if
 (                   	(
@@ -589,7 +289,7 @@ IDENT               	i
 )                   	)
 )                   	)
 IDENT               	goto200
-IDENT               	c
+COMMENT             	c
 IDENT               	115
 IDENT               	sum
 =                   	=
@@ -606,12 +306,10 @@ IDENT               	xmax
 token(95)           	**
 IDENT               	2
 IDENT               	goto200
-IDENT               	c
-IDENT               	c
-IDENT               	c
-IDENT               	prepareforphase3
-.                   	.
-IDENT               	c
+COMMENT             	c
+COMMENT             	c
+COMMENT             	c     prepareforphase3.
+COMMENT             	c
 IDENT               	75
 IDENT               	sum
 =                   	=
@@ -622,29 +320,11 @@ IDENT               	xmax
 )                   	)
 *                   	*
 IDENT               	xmax
-IDENT               	c
-IDENT               	c
-IDENT               	c
-IDENT               	forrealord
-.                   	.
-IDENT               	p
-.                   	.
-IDENT               	sethitest
-=                   	=
-IDENT               	cuthi
-/                   	/
-IDENT               	n
-IDENT               	c
-IDENT               	forcomplexsethitest
-=                   	=
-IDENT               	cuthi
-/                   	/
-(                   	(
-IDENT               	2
-*                   	*
-IDENT               	n
-)                   	)
-IDENT               	c
+COMMENT             	c
+COMMENT             	c
+COMMENT             	c     forrealord.p.sethitest=cuthi/n
+COMMENT             	c     forcomplexsethitest=cuthi/(2*n)
+COMMENT             	c
 IDENT               	85
 IDENT               	hitest
 =                   	=
@@ -654,17 +334,9 @@ IDENT               	float
 (                   	(
 IDENT               	n
 )                   	)
-IDENT               	c
-IDENT               	c
-IDENT               	phase3
-.                   	.
-IDENT               	sumismid
--                   	-
-IDENT               	range
-.                   	.
-IDENT               	noscaling
-.                   	.
-IDENT               	c
+COMMENT             	c
+COMMENT             	c     phase3.sumismid-range.noscaling.
+COMMENT             	c
 IDENT               	do95j
 =                   	=
 IDENT               	i
@@ -705,7 +377,7 @@ IDENT               	dsqrt
 IDENT               	sum
 )                   	)
 IDENT               	goto300
-IDENT               	c
+COMMENT             	c
 IDENT               	200
 IDENT               	continue
 IDENT               	i
@@ -722,15 +394,11 @@ IDENT               	le
 IDENT               	nn
 )                   	)
 IDENT               	goto20
-IDENT               	c
-IDENT               	c
-IDENT               	endofmainloop
-.                   	.
-IDENT               	c
-IDENT               	c
-IDENT               	computesquarerootandadjustforscaling
-.                   	.
-IDENT               	c
+COMMENT             	c
+COMMENT             	c     endofmainloop.
+COMMENT             	c
+COMMENT             	c     computesquarerootandadjustforscaling.
+COMMENT             	c
 IDENT               	dnrm2
 =                   	=
 IDENT               	xmax

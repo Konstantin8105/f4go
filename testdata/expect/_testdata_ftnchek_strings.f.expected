@@ -1,4 +1,4 @@
-COMMENT             	  To see if handling of strings that are split across lines is done right
+COMMENT             	C  To see if handling of strings that are split across lines is done right
 COMMENT             	C23456789012345678901234567890123456789012345678901234567890123456789012
 IDENT               	character
 *                   	*

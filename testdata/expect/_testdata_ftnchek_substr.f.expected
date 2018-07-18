@@ -1,4 +1,4 @@
-COMMENT             	 This program tickled a bug in gcc under DEC Unix for Alpha
+COMMENT             	C This program tickled a bug in gcc under DEC Unix for Alpha
 token(97)           	PROGRAM
 IDENT               	X
 IDENT               	CHARACTER

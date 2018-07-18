@@ -24,19 +24,24 @@ func NewScanner(r io.Reader) *Scanner {
 
 // Scan returns the next token and literal value.
 func (s *Scanner) Scan() (tok token.Token, lit string) {
-	// Read the next rune.
-	firstLetterInLine := s.ignoreWhitespace()
-	if firstLetterInLine == 'C' || firstLetterInLine == '*' {
-		return s.scanComment()
-	}
-	ch := s.read()
 
 	if s.start {
+		ch := s.read()
+		s.unread()
 		s.start = false
-		if ch == 'C' || ch == '*' {
+		if ch == 'C' || ch == 'c' || ch == '*' {
 			return s.scanComment()
 		}
 	}
+
+	// Read the next rune.
+	firstLetterInLine := s.ignoreWhitespace()
+	if firstLetterInLine == 'C' ||
+		firstLetterInLine == 'c' ||
+		firstLetterInLine == '*' {
+		return s.scanComment()
+	}
+	ch := s.read()
 
 	// If we see whitespace then consume all contiguous whitespace.
 	// If we see a letter then consume as an ident or reserved word.
@@ -93,7 +98,7 @@ func (s *Scanner) ignoreWhitespace() (firstLetterInLine rune) {
 	for {
 		if ch := s.read(); ch == eof {
 			break
-		} else if ch != ' ' && ch != '\t' && ch != '\n' {
+		} else if ch != ' ' && ch != '\t' && ch != '\n' && ch != '\r' {
 			s.unread()
 			break
 		} else if ch == '\n' {

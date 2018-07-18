@@ -1,727 +1,4629 @@
-IDENT               	c
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
--                   	-
-IDENT               	c
-IDENT               	ftnchek
-IDENT               	test
-IDENT               	file
-:                   	:
-IDENT               	t208x
-.                   	.
+COMMENT             	c-----------------------------------------------------------------------
+COMMENT             	c     ftnchek test file: t208x.f, Mon Mar 13 14:13:16 1995
+COMMENT             	c     Adapted from a benchmark program at the University of Utah, with
+COMMENT             	c     code bodies and most comments eliminated.  ftnchek's -makedcls
+COMMENT             	c     option and the dcl2inc program have been subsequently used on
+COMMENT             	c     the original copy of this program to replace all in-line COMMON
+COMMENT             	c     blocks with INCLUDE statements and separate include files.
+COMMENT             	c
+COMMENT             	c  Modified Sat Feb  3 10:07:52 EST 2001 by R. Moniot to include a
+COMMENT             	c  NAMELIST declaration to improve it as a test of ftnchek.  The
+COMMENT             	c  declarations were excerpted from the PLOT79 grfgg3.sf3 file.
+COMMENT             	c-----------------------------------------------------------------------
+token(97)           	program
+IDENT               	prob5_4dim
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	ngp1
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	ngp2
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	nr
+=                   	=
+IDENT               	32
+,                   	,
+IDENT               	nt
+=                   	=
+IDENT               	16
+,                   	,
+IDENT               	nr2
+=                   	=
+IDENT               	nr
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nt1
+=                   	=
+IDENT               	nt
++                   	+
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	nw
+=                   	=
+IDENT               	2
+*                   	*
+IDENT               	nt
++                   	+
+IDENT               	15
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	mmax
+=                   	=
+IDENT               	200
+)                   	)
+COMMENT             	c
+COMMENT             	c common block variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	u
+,                   	,
 IDENT               	f
 ,                   	,
-IDENT               	Mon
-IDENT               	Mar
-IDENT               	13
-IDENT               	14
-:                   	:
-IDENT               	13
-:                   	:
-IDENT               	16
-IDENT               	1995
-IDENT               	c
-IDENT               	Adapted
-IDENT               	from
-IDENT               	a
-IDENT               	benchmark
-token(97)           	program
-IDENT               	at
-IDENT               	the
-IDENT               	University
-IDENT               	of
-IDENT               	Utah
+IDENT               	fb
 ,                   	,
-IDENT               	with
+IDENT               	elf
+,                   	,
+IDENT               	elfn
+IDENT               	double
+IDENT               	precision
+IDENT               	phin
+,                   	,
+IDENT               	phinn
+,                   	,
+IDENT               	phia
+,                   	,
+IDENT               	phian
+IDENT               	double
+IDENT               	precision
 IDENT               	c
-IDENT               	code
-IDENT               	bodies
-IDENT               	and
-IDENT               	most
-IDENT               	comments
-IDENT               	eliminated
-.                   	.
-IDENT               	ftnchek
-STRING              	's -makedcls
-c     option and the dcl2inc program have been subsequently used on
-c     the original copy of this program to replace all in-line COMMON
-c     blocks with INCLUDE statements and separate include files.
-c
-c  Modified Sat Feb  3 10:07:52 EST 2001 by R. Moniot to include a
-c  NAMELIST declaration to improve it as a test of ftnchek.  The
-c  declarations were excerpted from the PLOT79 grfgg3.sf3 file.
-c-----------------------------------------------------------------------
-      program prob5_4dim
-      parameter(l2ng=6,ng=2**l2ng,nb=ng+2,ngm1=ng-1)
-      parameter(ngp1=ng+1,ngp2=ng+2,nbp1=nb+1)
-      parameter(nr=32, nt=16, nr2=nr+2, nt1=nt+1)
-      parameter(nw=2*nt+15)
-      parameter(mmax=200)
-c
-c common block variables
-c
-      double precision u,f,fb,elf,elfn
-      double precision phin,phinn,phia,phian
-      double precision c,cn
-      double precision xm
-      double precision h,dlt
-      double precision zag,zagn
-      double precision k0
-      double precision uy,vy,ux,vx
-      double precision wsave,dr,r
-c
-c other variables
-c
-      character*15 rname
-      character*18 ufile,ffile,pafile,zfile
-      character*18 pnfile,efile
-      character*18 cfile,mfile,parfile,fmfile
-      character*18 mmfile,maifile,symfile
-      character*18 e1file,e2file,e3file,e4file,e5file
-      character*18 e6file,e7file,e8file,e9file,e10file
-      character*18 e11file,e12file,e13file,e14file,e15file
-      character*18 e16file,e17file,e18file,e19file,e20file
-      character*18 e21file,e22file,e23file,e24file
-      integer      rlen
-      double precision uold(0:nbp1,0:nbp1,2)
-      double precision zagi(0:nbp1,0:nbp1)
-
-      LOGICAL             AVRAGE(06),  AXES3D,      BCLIP,       BOX
-      LOGICAL             BYROWS,      CHKDUP,    DERIV(06)
-      REAL                DUSUB,       DVSUB,       DXSUB,       DYSUB
-c
-c namelists
-c
-      NAMELIST / DATA /
-     X                  AVRAGE, AXES3D, BCLIP,  BOX,    BYROWS, CHKDUP,
-     X                  DERIV,  DUSUB,  DVSUB,  DXSUB,  DYSUB,  DZSUB
-c
-      common/vel   /u(0:nbp1,0:nbp1,2)
-      common/vel   /uy(0:nbp1,0:nbp1),vy(0:nbp1,0:nbp1)
-      common/vel   /ux(0:nbp1,0:nbp1),vx(0:nbp1,0:nbp1)
-      common/force /f(0:nbp1,0:nbp1,2)
-      common/link  /elf (0:nbp1,0:nbp1,0:nr2,nt1)
-      common/link  /elfn(0:nbp1,0:nbp1,0:nr2,nt1)
-      common/phi   /phin (0:nbp1,0:nbp1)
-      common/phi   /phinn(0:nbp1,0:nbp1)
-      common/phi   /phia (0:nbp1,0:nbp1)
-      common/phi   /phian(0:nbp1,0:nbp1)
-      common/adp   /c  (0:nbp1,0:nbp1)
-      common/adp   /cn (0:nbp1,0:nbp1)
-      common/agg   /zag   (0:nbp1,0:nbp1)
-      common/agg   /zagn  (0:nbp1,0:nbp1)
-      common/forceb/fb(0:nbp1,0:nbp1,2)
-      common/stiff /k0
-      common/steps /h,dlt
-      common/rsize  /dr(nr2),r(0:nr2),nk
-      common/wave   /wsave(nw)
-      common/mth    /method,mthlim
-      common/efnum  /nfil
-c
-      common/fmarkers/xm(mmax,2)
-c
-      double precision cmax,cmin,phiamax,phiamin
-      double precision phinmax,phinmin,zagmax,zagmin
-c
-      double precision umax,usmax,fbmax,flmax,q
-      double precision tcoef,time,tfreq,tpi,f0
-c
-c.... code body eliminated ....
-c
-      end
-c
-c-------------------------------------------------
-c
-      subroutine uinit
-c
-c
-      parameter(l2ng=6,ng=2**l2ng,nb=ng+2,ngm1=ng-1)
-      parameter(ngp1=ng+1,ngp2=ng+2,nbp1=nb+1)
-      parameter(nr=32, nt=16, nr2=nr+2, nt1=nt+1)
-      parameter(mmax=200)
-c
-c common block variables
-c
-      double precision u,fb
-      double precision elf,elfn
-      double precision phin,phinn,phia,phian
-      double precision c,cn
-      double precision zag,zagn,xm
-      double precision h,dlt,s1,s2,s3,a
-      double precision re,pen,pec,cnd1,cnd2,cnd3,cnd4,cnd5
-      double precision uy,vy,ux,vx,x,y
-      double precision theta,dr,r
-      double precision k0,alpha0,beta0
-c
-c
-c other variables
-c
-      double precision ro,mu,achem,ct,r0,a2,a0
-      double precision c0,c1,c2,d,pi,tpi,u0,b0
-      double precision s0,phi0,z0,elf0,adp0,xlow,ylow,wl
-      double precision xchar,uchar,tchar,pchar,fchar
-      double precision elfchar,phichar,zchar,cchar
-      double precision ang,ax,ay,co,cx,cxh,cy,cyh
-      double precision dc,dn,si,sx,sxh,sy,syh,th,xh,yh
-      double precision cmax,cmin
-c
-      common/vel   /u (0:nbp1,0:nbp1,2)
-      common/vel   /uy(0:nbp1,0:nbp1),vy(0:nbp1,0:nbp1)
-      common/vel   /ux(0:nbp1,0:nbp1),vx(0:nbp1,0:nbp1)
-      common/forceb/fb(0:nbp1,0:nbp1,2)
-      common/link  /elf  (0:nbp1,0:nbp1,0:nr2,nt1)
-      common/link  /elfn (0:nbp1,0:nbp1,0:nr2,nt1)
-      common/phi   /phin (0:nbp1,0:nbp1)
-      common/phi   /phinn(0:nbp1,0:nbp1)
-      common/phi   /phia (0:nbp1,0:nbp1)
-      common/phi   /phian(0:nbp1,0:nbp1)
-      common/adp   /c  (0:nbp1,0:nbp1)
-      common/adp   /cn (0:nbp1,0:nbp1)
-      common/agg   /zag   (0:nbp1,0:nbp1)
-      common/agg   /zagn  (0:nbp1,0:nbp1)
-      common/coefs /s1,s2,s3,re,a
-      common/cnd   /cnd1,cnd2,cnd3,cnd4,cnd5
-      common/steps /h,dlt
-      common/psteps /theta
-      common/rsize  /dr(nr2),r(0:nr2),nk
-      common/grid  /x(0:nbp1),y(0:nbp1)
-      common/diffn /pen
-      common/diffc /pec
-c
-      common/stiff /k0
-      common/linkf /alpha0
-      common/linkb /beta0
-      common/char  /fchar,zchar,phichar
-c
-      common/fmarkers/xm(mmax,2)
-c
-c.... code body eliminated ....
-c
-      end
-c
-c--------------------------------------------------------------
-c
-          subroutine xinit
-c
-      parameter(l2ng=6,ng=2**l2ng,nb =ng+2,ngm1=ng-1)
-      parameter(nbp1=nb+1)
-c
-      double precision sinsq,bzero,z
-      double precision h,dlt
-      double precision re,s1,s2,s3,a
-      double precision pi,tpon,si,sj
-c
-      common/fft   /sinsq(0:nbp1,0:nbp1)
-      common/fft   /bzero(0:nbp1,0:nbp1)
-      common/ptds  /z(0:nbp1,0:nbp1)
-      common/steps /h,dlt
-      common/coefs /s1,s2,s3,re,a
-c
-c.... code body eliminated ....
-c
-      end
-c
-c-------------------------------------------------
-c
-      subroutine navs2d
-c
-      parameter(l2ng=6,ng=2**l2ng,nb =ng+2,ngm1=ng-1)
-      parameter(nbp1=nb+1)
-c
-      double precision u,f,sinsq,bzero,z
-      double precision h,dlt,re,s1,s2,s3,a
-      double precision uy,vy,ux,vx
-c
-      double precision w1,w2,b,r,yp,c,lam,yh,p,d
-      double precision pro,xl,yl
-c
-      common/vel   /u(0:nbp1,0:nbp1,2)
-      common/vel   /uy(0:nbp1,0:nbp1),vy(0:nbp1,0:nbp1)
-      common/vel   /ux(0:nbp1,0:nbp1),vx(0:nbp1,0:nbp1)
-      common/force /f(0:nbp1,0:nbp1,2)
-      common/pres  /p(0:nbp1,0:nbp1)
-      common/fft   /sinsq(0:nbp1,0:nbp1)
-      common/fft   /bzero(0:nbp1,0:nbp1)
-      common/ptds  /z(0:nbp1,0:nbp1)
-      common/steps /h,dlt
-      common/coefs /s1,s2,s3,re,a
-c
-      dimension w1(0:nbp1,0:nbp1,1:2)
-      dimension w2(0:nbp1,0:nbp1,1:2)
-c
-      dimension b (0:nbp1,0:nbp1)
-      dimension r (0:nbp1,0:nbp1)
-      dimension yp(0:nbp1,0:nbp1)
-      dimension c (0:nbp1,0:nbp1)
-      dimension yh(0:nbp1,0:nbp1)
-      dimension d (0:nbp1,0:nbp1)
-      dimension lam(ng)
-c
-      equivalence(f,w1,w2)
-      equivalence(d,p)
-c
-c.... code body eliminated ....
-c
-      end
-c
-c---------------------------------------------------------------
-c
-      subroutine tridgx(a,b,c,w,y)
-c
-      parameter(l2ng=6,ng=2**l2ng,nb =ng+2,ngm1=ng-1)
-      parameter(n=ng-1,np1=n+1,nm1=n-1)
-      parameter(nbp1=nb+1)
-c
-      double precision a,b,c,w,y
-c
-      double precision x,l,r,d
-c
-      common/tdspace/x(0:nbp1,0:nbp1)
-      common/tdspace/l(0:nbp1,0:nbp1)
-      common/tdspace/r(0:nbp1,0:nbp1)
-      common/tdspace/d(0:nbp1,0:nbp1)
-c
-      dimension y(0:nbp1,0:nbp1)
-      dimension b(0:nbp1,0:nbp1)
-      dimension c(0:nbp1,0:nbp1)
-      dimension w(0:nbp1,0:nbp1)
-c
-c.... code body eliminated ....
-c
-      end
-c
-c---------------------------------------------------------------
-c
-      subroutine tridgy(a,b,c,w,y)
-c
-      parameter(l2ng=6,ng=2**l2ng,nb =ng+2,ngm1=ng-1)
-      parameter(n=ng-1,np1=n+1,nm1=n-1)
-      parameter(nbp1=nb+1)
-c
-      double precision a,b,c,w,y
-c
-      double precision x,l,r,d
-c
-      common/tdspace/x(0:nbp1,0:nbp1)
-      common/tdspace/l(0:nbp1,0:nbp1)
-      common/tdspace/r(0:nbp1,0:nbp1)
-      common/tdspace/d(0:nbp1,0:nbp1)
-c
-      dimension y(0:nbp1,0:nbp1)
-      dimension b(0:nbp1,0:nbp1)
-      dimension c(0:nbp1,0:nbp1)
-      dimension w(0:nbp1,0:nbp1)
-c
-c.... code body eliminated ....
-c
-      end
-c
-c------------------------------------------------------------
-c
-      subroutine newu(w2,p)
-c
-      parameter(l2ng=6,ng=2**l2ng,nb =ng+2,ngm1=ng-1)
-      parameter(nbp1=nb+1)
-c
-      double precision u,uy,vy,ux,vx
-      double precision h,k
-      common/vel   /u(0:nbp1,0:nbp1,2)
-      common/vel   /uy(0:nbp1,0:nbp1),vy(0:nbp1,0:nbp1)
-      common/vel   /ux(0:nbp1,0:nbp1),vx(0:nbp1,0:nbp1)
-      common/steps /h,k
-c
-      double precision p (0:nbp1,0:nbp1)
-      double precision w2(0:nbp1,0:nbp1,2),s
-c
-c.... code body eliminated ....
-c
-      end
-c
-c------------------------------------------------------------
-c
-      subroutine div(s3,w2,d)
-c
-      parameter(l2ng=6,ng=2**l2ng,nb =ng+2,ngm1=ng-1)
-      parameter(nbp1=nb+1)
-c
-      double precision w2(0:nbp1,0:nbp1,2)
-      double precision d (0:nbp1,0:nbp1)
-      double precision s3
-c
-c.... code body eliminated ....
-c
-      end
-c
-c------------------------------------------------------------------
-c
-      subroutine fft2d(a,b,isign)
-      parameter(l2ng=6,ng=2**l2ng,nb =ng+2,ngm1=ng-1)
-      parameter(n=ng,m=l2ng)
-      parameter(nbp1=nb+1)
-c
-      double precision a(0:nbp1,0:nbp1)
-      double precision b(0:nbp1,0:nbp1)
-      double precision t1(n),t2(n),t3(n),t4(n)
-      double precision pi,ang,ssign,tu1,u1,u2,w1,w2
-c
-c.... code body eliminated ....
-c
-      end
-c
-c-----------------------------------------------------
-c
-      subroutine phia2d(n)
-      parameter(l2ng=6,ng=2**l2ng,nb=ng+2,ngm1=ng-1)
-      parameter(ngp1=ng+1,ngp2=ng+2,nbp1=nb+1)
-c
-c common block variables
-c
-      double precision k,h
-      double precision u,phin,phinn,phia,phian
-      double precision uy,vy,ux,vx
-c
-c other variables
-c
-c
-      common/vel   /u(0:nbp1,0:nbp1,2)
-      common/vel   /uy(0:nbp1,0:nbp1),vy(0:nbp1,0:nbp1)
-      common/vel   /ux(0:nbp1,0:nbp1),vx(0:nbp1,0:nbp1)
-c
-      common/phi   /phin (0:nbp1,0:nbp1)
-      common/phi   /phinn(0:nbp1,0:nbp1)
-      common/phi   /phia (0:nbp1,0:nbp1)
-      common/phi   /phian(0:nbp1,0:nbp1)
-c
-      common/steps /h,k
-c
-c.... code body eliminated ....
-c
-      end
-c
-c----------------------------------------------------------------
-c
-      subroutine zag2d(n)
-      parameter(l2ng=6,ng=2**l2ng,nb=ng+2,ngm1=ng-1)
-      parameter(ngp1=ng+1,ngp2=ng+2,nbp1=nb+1)
-c
-c common block variables
-c
-      double precision k,h
-      double precision u,zag,zagn
-      double precision uy,vy,ux,vx
-c
-c other variables
-c
-c
-      common/vel   /u(0:nbp1,0:nbp1,2)
-      common/vel   /uy(0:nbp1,0:nbp1),vy(0:nbp1,0:nbp1)
-      common/vel   /ux(0:nbp1,0:nbp1),vx(0:nbp1,0:nbp1)
-      common/agg   /zag   (0:nbp1,0:nbp1)
-      common/agg   /zagn  (0:nbp1,0:nbp1)
-c
-      common/steps /h,k
-c
-c.... code body eliminated ....
-c
-      end
-c
-c--------------------------------------------------------------------
-c
-      subroutine plot(time,n,u,f,phia,phin,c,zag,xm,elf,nk)
-c
-c prints out data(0:ng,0:ng) for subsequent plotting
-c
-      parameter(l2ng=6,ng=2**l2ng,nb=ng+2,ngm1=ng-1)
-      parameter(ngp1=ng+1,ngp2=ng+2,nbp1=nb+1)
-      parameter(nr=32, nt=16, nr2=nr+2, nt1=nt+1)
-      parameter(mmax=200)
-c
-c argument list variables
-c
-      double precision u,f,elf
-      double precision phin,phia
-      double precision c
-      double precision zag
-      double precision xm
-      double precision time
-      integer n,nk
-c
-      dimension u(0:nbp1,0:nbp1,2)
-      dimension f(0:nbp1,0:nbp1,2)
-      dimension phia (0:nbp1,0:nbp1)
-      dimension zag   (0:nbp1,0:nbp1)
-c
-      dimension xm(mmax,2)
-c
-      dimension elf (0:nbp1,0:nbp1,0:nr2,nt1)
-      dimension phin (0:nbp1,0:nbp1)
-      dimension c    (0:nbp1,0:nbp1)
-      common/efnum/nfil
-c
-c.... code body eliminated ....
-c
-      end
-c
-c---------------------------------------------------------------------
-c
-      subroutine markers
-      parameter(l2ng=6,ng=2**l2ng,nb=ng+2,ngm1=ng-1)
-      parameter(ngp1=ng+1,ngp2=ng+2,nbp1=nb+1)
-      parameter(mmax=200)
-c
-c common block variables
-c
-      double precision u
-      double precision h,dlt
-      double precision uy,vy,ux,vx,xm
-c
-c argument list variables
-c
-      double precision ax,ay,um,umn,vm,vmn,x,xn,y,yn
-c
-      common/vel   /u(0:nbp1,0:nbp1,2)
-      common/vel   /uy(0:nbp1,0:nbp1),vy(0:nbp1,0:nbp1)
-      common/vel   /ux(0:nbp1,0:nbp1),vx(0:nbp1,0:nbp1)
-c
-      common/steps /h,dlt
-      common/fmarkers/xm(mmax,2)
-c
-c.... code body eliminated ....
-c
-       end
-c
-c-------------------------------------------------------------
-c
-      subroutine phin2d(n)
-      parameter(l2ng=6,ng=2**l2ng,nb=ng+2,ngm1=ng-1)
-      parameter(ngp1=ng+1,ngp2=ng+2,nbp1=nb+1)
-      parameter(mmax=200)
-c
-c common block variables
-c
-      double precision k,h
-      double precision u,phin,phinn,phia,phian
-      double precision pen
-      double precision uy,vy,ux,vx
-c
-      common/vel   /u(0:nbp1,0:nbp1,2)
-      common/vel   /uy(0:nbp1,0:nbp1),vy(0:nbp1,0:nbp1)
-      common/vel   /ux(0:nbp1,0:nbp1),vx(0:nbp1,0:nbp1)
-      common/phi   /phin (0:nbp1,0:nbp1)
-      common/phi   /phinn(0:nbp1,0:nbp1)
-      common/phi   /phia (0:nbp1,0:nbp1)
-      common/phi   /phian(0:nbp1,0:nbp1)
-c
-      common/diffn /pen
-c
-      common/steps /h,k
-c
-c.... code body eliminated ....
-c
-      end
-c
-c-------------------------------------------------------------
-c
-      subroutine chem2d(n)
-      parameter(l2ng=6,ng=2**l2ng,nb=ng+2,ngm1=ng-1)
-      parameter(ngp1=ng+1,ngp2=ng+2,nbp1=nb+1)
-      parameter(mmax=200)
-c
-c common block variables
-c
-      double precision k,h
-      double precision u,c,cn
-      double precision pec
-      double precision uy,vy,ux,vx
-c
-      common/vel   /u(0:nbp1,0:nbp1,2)
-      common/vel   /uy(0:nbp1,0:nbp1),vy(0:nbp1,0:nbp1)
-      common/vel   /ux(0:nbp1,0:nbp1),vx(0:nbp1,0:nbp1)
-      common/adp   /c  (0:nbp1,0:nbp1)
-      common/adp   /cn (0:nbp1,0:nbp1)
-c
-      common/steps /h,k
-      common/diffc /pec
-c
-c.... code body eliminated ....
-c
-      end
-c
-c-------------------------------------------------
-c
-      subroutine chlfac(diag,subd,nn)
-      double precision   diag(nn),subd(nn)
-c
-c.... code body eliminated ....
-c
-      end
-c
-c-------------------------------------------------
-c
-      subroutine chlslv(diag,sub,nm1,b,x)
-      parameter(l2ng=6,ng=2**l2ng,nb=ng+2,ngm1=ng-1)
-      parameter(ngp1=ng+1,ngp2=ng+2,nbp1=nb+1)
-      parameter (max = nbp1)
-c
-      double precision   diag(nm1), sub(nm1), b(nm1+1), x(nm1), y(max)
-c
-c.... code body eliminated ....
-c
-      end
-c
-c-------------------------------------------------
-c
-      subroutine period(ph)
-c
-c extend ph periodically
-c
-      parameter(l2ng=6,ng=2**l2ng,nb=ng+2,ngm1=ng-1)
-      parameter(ngp1=ng+1,ngp2=ng+2,nbp1=nb+1)
-      double precision ph
-      dimension ph(0:nbp1,0:nbp1)
-c
-c.... code body eliminated ....
-c
-      end
-c
-c-------------------------------------------------
-c
-      function sol(v,l,r)
-      double precision v,l,r,sol
-c
-c.... code body eliminated ....
-c
-      end
-c
-c-----------------------------------------------------------------------
-c
-      subroutine diffu(ph,phn,k1,alpha)
-      parameter (l2ng=6,ng=2**l2ng,nb=ng+2,ngm1=ng-1)
-      parameter (ngp1=ng+1,ngp2=ng+2,nbp1=nb+1)
-c
-c common block variables
-c
-      double precision h,k
-c
-c other variables
-c
-      double precision k1,alpha,ph,phn
-      double precision gdiag,gsub,b,z,y,lam,eta
-c
-      dimension gdiag(nb-1),gsub(nb-1),b(nb)
-      dimension z(nb-1),y(nb-1)
-      dimension ph (0:nbp1,0:nbp1)
-      dimension phn(0:nbp1,0:nbp1)
-c
-      common/steps /h,k
-c
-c.... code body eliminated ....
-c
-      end
-c
-c-----------------------------------------------------------------------
-c
-      subroutine react
-      parameter(l2ng=6,ng=2**l2ng,nb=ng+2,ngm1=ng-1)
-      parameter(ngp1=ng+1,ngp2=ng+2,nbp1=nb+1)
-      parameter(nr=32, nt=16, nr2=nr+2, nt1=nt+1)
-c
-c common block variables
-c
-      double precision k,h,cnd1,cnd2,cnd3,cnd4,cnd5
-      double precision elf,elfn,phin,phinn,phia,phian,c,cn,zag,zagn
-      double precision dr,r
-c
-c other variables
-c
-      double precision rc,y,yn,temp1,temp2,temp3,temp4,c4,alpha
-c
-      common/link  /elf (0:nbp1,0:nbp1,0:nr2,nt1)
-      common/link  /elfn(0:nbp1,0:nbp1,0:nr2,nt1)
-      common/phi   /phin (0:nbp1,0:nbp1)
-      common/phi   /phinn(0:nbp1,0:nbp1)
-      common/phi   /phia (0:nbp1,0:nbp1)
-      common/phi   /phian(0:nbp1,0:nbp1)
-      common/adp   /c  (0:nbp1,0:nbp1)
-      common/adp   /cn (0:nbp1,0:nbp1)
-      common/agg   /zag(0:nbp1,0:nbp1)
-      common/agg   /zagn(0:nbp1,0:nbp1)
-      common/cnd   /cnd1,cnd2,cnd3,cnd4,cnd5
-      common/steps /h,k
-      common/rsize/dr(nr2),r(0:nr2),nk
-c
-      dimension rc (0:nbp1)
-      dimension y  (0:nbp1,4), yn(0:nbp1,4)
-c
-c.... code body eliminated ....
-c
-      end
-
+,                   	,
+IDENT               	cn
+IDENT               	double
+IDENT               	precision
+IDENT               	xm
+IDENT               	double
+IDENT               	precision
+IDENT               	h
+,                   	,
+IDENT               	dlt
+IDENT               	double
+IDENT               	precision
+IDENT               	zag
+,                   	,
+IDENT               	zagn
+IDENT               	double
+IDENT               	precision
+IDENT               	k0
+IDENT               	double
+IDENT               	precision
+IDENT               	uy
+,                   	,
+IDENT               	vy
+,                   	,
+IDENT               	ux
+,                   	,
+IDENT               	vx
+IDENT               	double
+IDENT               	precision
+IDENT               	wsave
+,                   	,
+IDENT               	dr
+,                   	,
+IDENT               	r
+COMMENT             	c
+COMMENT             	c other variables
+COMMENT             	c
+IDENT               	character
+*                   	*
+IDENT               	15
+IDENT               	rname
+IDENT               	character
+*                   	*
+IDENT               	18
+IDENT               	ufile
+,                   	,
+IDENT               	ffile
+,                   	,
+IDENT               	pafile
+,                   	,
+IDENT               	zfile
+IDENT               	character
+*                   	*
+IDENT               	18
+IDENT               	pnfile
+,                   	,
+IDENT               	efile
+IDENT               	character
+*                   	*
+IDENT               	18
+IDENT               	cfile
+,                   	,
+IDENT               	mfile
+,                   	,
+IDENT               	parfile
+,                   	,
+IDENT               	fmfile
+IDENT               	character
+*                   	*
+IDENT               	18
+IDENT               	mmfile
+,                   	,
+IDENT               	maifile
+,                   	,
+IDENT               	symfile
+IDENT               	character
+*                   	*
+IDENT               	18
+IDENT               	e1file
+,                   	,
+IDENT               	e2file
+,                   	,
+IDENT               	e3file
+,                   	,
+IDENT               	e4file
+,                   	,
+IDENT               	e5file
+IDENT               	character
+*                   	*
+IDENT               	18
+IDENT               	e6file
+,                   	,
+IDENT               	e7file
+,                   	,
+IDENT               	e8file
+,                   	,
+IDENT               	e9file
+,                   	,
+IDENT               	e10file
+IDENT               	character
+*                   	*
+IDENT               	18
+IDENT               	e11file
+,                   	,
+IDENT               	e12file
+,                   	,
+IDENT               	e13file
+,                   	,
+IDENT               	e14file
+,                   	,
+IDENT               	e15file
+IDENT               	character
+*                   	*
+IDENT               	18
+IDENT               	e16file
+,                   	,
+IDENT               	e17file
+,                   	,
+IDENT               	e18file
+,                   	,
+IDENT               	e19file
+,                   	,
+IDENT               	e20file
+IDENT               	character
+*                   	*
+IDENT               	18
+IDENT               	e21file
+,                   	,
+IDENT               	e22file
+,                   	,
+IDENT               	e23file
+,                   	,
+IDENT               	e24file
+token(98)           	integer
+IDENT               	rlen
+IDENT               	double
+IDENT               	precision
+IDENT               	uold
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	double
+IDENT               	precision
+IDENT               	zagi
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	LOGICAL
+IDENT               	AVRAGE
+(                   	(
+IDENT               	06
+)                   	)
+,                   	,
+IDENT               	AXES3D
+,                   	,
+IDENT               	BCLIP
+,                   	,
+IDENT               	BOX
+IDENT               	LOGICAL
+IDENT               	BYROWS
+,                   	,
+IDENT               	CHKDUP
+,                   	,
+IDENT               	DERIV
+(                   	(
+IDENT               	06
+)                   	)
+IDENT               	REAL
+IDENT               	DUSUB
+,                   	,
+IDENT               	DVSUB
+,                   	,
+IDENT               	DXSUB
+,                   	,
+IDENT               	DYSUB
+COMMENT             	c
+COMMENT             	c namelists
+COMMENT             	c
+IDENT               	NAMELIST
+/                   	/
+IDENT               	DATA
+/                   	/
+IDENT               	X
+IDENT               	AVRAGE
+,                   	,
+IDENT               	AXES3D
+,                   	,
+IDENT               	BCLIP
+,                   	,
+IDENT               	BOX
+,                   	,
+IDENT               	BYROWS
+,                   	,
+IDENT               	CHKDUP
+,                   	,
+IDENT               	X
+IDENT               	DERIV
+,                   	,
+IDENT               	DUSUB
+,                   	,
+IDENT               	DVSUB
+,                   	,
+IDENT               	DXSUB
+,                   	,
+IDENT               	DYSUB
+,                   	,
+IDENT               	DZSUB
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	u
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	uy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	ux
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vx
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	force
+/                   	/
+IDENT               	f
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	link
+/                   	/
+IDENT               	elf
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nr2
+,                   	,
+IDENT               	nt1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	link
+/                   	/
+IDENT               	elfn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nr2
+,                   	,
+IDENT               	nt1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phin
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phinn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phia
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phian
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	adp
+/                   	/
+IDENT               	c
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	adp
+/                   	/
+IDENT               	cn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	agg
+/                   	/
+IDENT               	zag
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	agg
+/                   	/
+IDENT               	zagn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	forceb
+/                   	/
+IDENT               	fb
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	stiff
+/                   	/
+IDENT               	k0
+IDENT               	common
+/                   	/
+IDENT               	steps
+/                   	/
+IDENT               	h
+,                   	,
+IDENT               	dlt
+IDENT               	common
+/                   	/
+IDENT               	rsize
+/                   	/
+IDENT               	dr
+(                   	(
+IDENT               	nr2
+)                   	)
+,                   	,
+IDENT               	r
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nr2
+)                   	)
+,                   	,
+IDENT               	nk
+IDENT               	common
+/                   	/
+IDENT               	wave
+/                   	/
+IDENT               	wsave
+(                   	(
+IDENT               	nw
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	mth
+/                   	/
+IDENT               	method
+,                   	,
+IDENT               	mthlim
+IDENT               	common
+/                   	/
+IDENT               	efnum
+/                   	/
+IDENT               	nfil
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	fmarkers
+/                   	/
+IDENT               	xm
+(                   	(
+IDENT               	mmax
+,                   	,
+IDENT               	2
+)                   	)
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	cmax
+,                   	,
+IDENT               	cmin
+,                   	,
+IDENT               	phiamax
+,                   	,
+IDENT               	phiamin
+IDENT               	double
+IDENT               	precision
+IDENT               	phinmax
+,                   	,
+IDENT               	phinmin
+,                   	,
+IDENT               	zagmax
+,                   	,
+IDENT               	zagmin
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	umax
+,                   	,
+IDENT               	usmax
+,                   	,
+IDENT               	fbmax
+,                   	,
+IDENT               	flmax
+,                   	,
+IDENT               	q
+IDENT               	double
+IDENT               	precision
+IDENT               	tcoef
+,                   	,
+IDENT               	time
+,                   	,
+IDENT               	tfreq
+,                   	,
+IDENT               	tpi
+,                   	,
+IDENT               	f0
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c-------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	uinit
+COMMENT             	c
+COMMENT             	c
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	ngp1
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	ngp2
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	nr
+=                   	=
+IDENT               	32
+,                   	,
+IDENT               	nt
+=                   	=
+IDENT               	16
+,                   	,
+IDENT               	nr2
+=                   	=
+IDENT               	nr
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nt1
+=                   	=
+IDENT               	nt
++                   	+
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	mmax
+=                   	=
+IDENT               	200
+)                   	)
+COMMENT             	c
+COMMENT             	c common block variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	u
+,                   	,
+IDENT               	fb
+IDENT               	double
+IDENT               	precision
+IDENT               	elf
+,                   	,
+IDENT               	elfn
+IDENT               	double
+IDENT               	precision
+IDENT               	phin
+,                   	,
+IDENT               	phinn
+,                   	,
+IDENT               	phia
+,                   	,
+IDENT               	phian
+IDENT               	double
+IDENT               	precision
+IDENT               	c
+,                   	,
+IDENT               	cn
+IDENT               	double
+IDENT               	precision
+IDENT               	zag
+,                   	,
+IDENT               	zagn
+,                   	,
+IDENT               	xm
+IDENT               	double
+IDENT               	precision
+IDENT               	h
+,                   	,
+IDENT               	dlt
+,                   	,
+IDENT               	s1
+,                   	,
+IDENT               	s2
+,                   	,
+IDENT               	s3
+,                   	,
+IDENT               	a
+IDENT               	double
+IDENT               	precision
+IDENT               	re
+,                   	,
+IDENT               	pen
+,                   	,
+IDENT               	pec
+,                   	,
+IDENT               	cnd1
+,                   	,
+IDENT               	cnd2
+,                   	,
+IDENT               	cnd3
+,                   	,
+IDENT               	cnd4
+,                   	,
+IDENT               	cnd5
+IDENT               	double
+IDENT               	precision
+IDENT               	uy
+,                   	,
+IDENT               	vy
+,                   	,
+IDENT               	ux
+,                   	,
+IDENT               	vx
+,                   	,
+IDENT               	x
+,                   	,
+IDENT               	y
+IDENT               	double
+IDENT               	precision
+IDENT               	theta
+,                   	,
+IDENT               	dr
+,                   	,
+IDENT               	r
+IDENT               	double
+IDENT               	precision
+IDENT               	k0
+,                   	,
+IDENT               	alpha0
+,                   	,
+IDENT               	beta0
+COMMENT             	c
+COMMENT             	c
+COMMENT             	c other variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	ro
+,                   	,
+IDENT               	mu
+,                   	,
+IDENT               	achem
+,                   	,
+IDENT               	ct
+,                   	,
+IDENT               	r0
+,                   	,
+IDENT               	a2
+,                   	,
+IDENT               	a0
+IDENT               	double
+IDENT               	precision
+IDENT               	c0
+,                   	,
+IDENT               	c1
+,                   	,
+IDENT               	c2
+,                   	,
+IDENT               	d
+,                   	,
+IDENT               	pi
+,                   	,
+IDENT               	tpi
+,                   	,
+IDENT               	u0
+,                   	,
+IDENT               	b0
+IDENT               	double
+IDENT               	precision
+IDENT               	s0
+,                   	,
+IDENT               	phi0
+,                   	,
+IDENT               	z0
+,                   	,
+IDENT               	elf0
+,                   	,
+IDENT               	adp0
+,                   	,
+IDENT               	xlow
+,                   	,
+IDENT               	ylow
+,                   	,
+IDENT               	wl
+IDENT               	double
+IDENT               	precision
+IDENT               	xchar
+,                   	,
+IDENT               	uchar
+,                   	,
+IDENT               	tchar
+,                   	,
+IDENT               	pchar
+,                   	,
+IDENT               	fchar
+IDENT               	double
+IDENT               	precision
+IDENT               	elfchar
+,                   	,
+IDENT               	phichar
+,                   	,
+IDENT               	zchar
+,                   	,
+IDENT               	cchar
+IDENT               	double
+IDENT               	precision
+IDENT               	ang
+,                   	,
+IDENT               	ax
+,                   	,
+IDENT               	ay
+,                   	,
+IDENT               	co
+,                   	,
+IDENT               	cx
+,                   	,
+IDENT               	cxh
+,                   	,
+IDENT               	cy
+,                   	,
+IDENT               	cyh
+IDENT               	double
+IDENT               	precision
+IDENT               	dc
+,                   	,
+IDENT               	dn
+,                   	,
+IDENT               	si
+,                   	,
+IDENT               	sx
+,                   	,
+IDENT               	sxh
+,                   	,
+IDENT               	sy
+,                   	,
+IDENT               	syh
+,                   	,
+IDENT               	th
+,                   	,
+IDENT               	xh
+,                   	,
+IDENT               	yh
+IDENT               	double
+IDENT               	precision
+IDENT               	cmax
+,                   	,
+IDENT               	cmin
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	u
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	uy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	ux
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vx
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	forceb
+/                   	/
+IDENT               	fb
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	link
+/                   	/
+IDENT               	elf
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nr2
+,                   	,
+IDENT               	nt1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	link
+/                   	/
+IDENT               	elfn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nr2
+,                   	,
+IDENT               	nt1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phin
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phinn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phia
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phian
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	adp
+/                   	/
+IDENT               	c
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	adp
+/                   	/
+IDENT               	cn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	agg
+/                   	/
+IDENT               	zag
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	agg
+/                   	/
+IDENT               	zagn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	coefs
+/                   	/
+IDENT               	s1
+,                   	,
+IDENT               	s2
+,                   	,
+IDENT               	s3
+,                   	,
+IDENT               	re
+,                   	,
+IDENT               	a
+IDENT               	common
+/                   	/
+IDENT               	cnd
+/                   	/
+IDENT               	cnd1
+,                   	,
+IDENT               	cnd2
+,                   	,
+IDENT               	cnd3
+,                   	,
+IDENT               	cnd4
+,                   	,
+IDENT               	cnd5
+IDENT               	common
+/                   	/
+IDENT               	steps
+/                   	/
+IDENT               	h
+,                   	,
+IDENT               	dlt
+IDENT               	common
+/                   	/
+IDENT               	psteps
+/                   	/
+IDENT               	theta
+IDENT               	common
+/                   	/
+IDENT               	rsize
+/                   	/
+IDENT               	dr
+(                   	(
+IDENT               	nr2
+)                   	)
+,                   	,
+IDENT               	r
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nr2
+)                   	)
+,                   	,
+IDENT               	nk
+IDENT               	common
+/                   	/
+IDENT               	grid
+/                   	/
+IDENT               	x
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	y
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	diffn
+/                   	/
+IDENT               	pen
+IDENT               	common
+/                   	/
+IDENT               	diffc
+/                   	/
+IDENT               	pec
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	stiff
+/                   	/
+IDENT               	k0
+IDENT               	common
+/                   	/
+IDENT               	linkf
+/                   	/
+IDENT               	alpha0
+IDENT               	common
+/                   	/
+IDENT               	linkb
+/                   	/
+IDENT               	beta0
+IDENT               	common
+/                   	/
+IDENT               	char
+/                   	/
+IDENT               	fchar
+,                   	,
+IDENT               	zchar
+,                   	,
+IDENT               	phichar
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	fmarkers
+/                   	/
+IDENT               	xm
+(                   	(
+IDENT               	mmax
+,                   	,
+IDENT               	2
+)                   	)
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c--------------------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	xinit
+COMMENT             	c
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	sinsq
+,                   	,
+IDENT               	bzero
+,                   	,
+IDENT               	z
+IDENT               	double
+IDENT               	precision
+IDENT               	h
+,                   	,
+IDENT               	dlt
+IDENT               	double
+IDENT               	precision
+IDENT               	re
+,                   	,
+IDENT               	s1
+,                   	,
+IDENT               	s2
+,                   	,
+IDENT               	s3
+,                   	,
+IDENT               	a
+IDENT               	double
+IDENT               	precision
+IDENT               	pi
+,                   	,
+IDENT               	tpon
+,                   	,
+IDENT               	si
+,                   	,
+IDENT               	sj
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	fft
+/                   	/
+IDENT               	sinsq
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	fft
+/                   	/
+IDENT               	bzero
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	ptds
+/                   	/
+IDENT               	z
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	steps
+/                   	/
+IDENT               	h
+,                   	,
+IDENT               	dlt
+IDENT               	common
+/                   	/
+IDENT               	coefs
+/                   	/
+IDENT               	s1
+,                   	,
+IDENT               	s2
+,                   	,
+IDENT               	s3
+,                   	,
+IDENT               	re
+,                   	,
+IDENT               	a
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c-------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	navs2d
+COMMENT             	c
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	u
+,                   	,
+IDENT               	f
+,                   	,
+IDENT               	sinsq
+,                   	,
+IDENT               	bzero
+,                   	,
+IDENT               	z
+IDENT               	double
+IDENT               	precision
+IDENT               	h
+,                   	,
+IDENT               	dlt
+,                   	,
+IDENT               	re
+,                   	,
+IDENT               	s1
+,                   	,
+IDENT               	s2
+,                   	,
+IDENT               	s3
+,                   	,
+IDENT               	a
+IDENT               	double
+IDENT               	precision
+IDENT               	uy
+,                   	,
+IDENT               	vy
+,                   	,
+IDENT               	ux
+,                   	,
+IDENT               	vx
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	w1
+,                   	,
+IDENT               	w2
+,                   	,
+IDENT               	b
+,                   	,
+IDENT               	r
+,                   	,
+IDENT               	yp
+,                   	,
+IDENT               	c
+,                   	,
+IDENT               	lam
+,                   	,
+IDENT               	yh
+,                   	,
+IDENT               	p
+,                   	,
+IDENT               	d
+IDENT               	double
+IDENT               	precision
+IDENT               	pro
+,                   	,
+IDENT               	xl
+,                   	,
+IDENT               	yl
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	u
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	uy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	ux
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vx
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	force
+/                   	/
+IDENT               	f
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	pres
+/                   	/
+IDENT               	p
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	fft
+/                   	/
+IDENT               	sinsq
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	fft
+/                   	/
+IDENT               	bzero
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	ptds
+/                   	/
+IDENT               	z
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	steps
+/                   	/
+IDENT               	h
+,                   	,
+IDENT               	dlt
+IDENT               	common
+/                   	/
+IDENT               	coefs
+/                   	/
+IDENT               	s1
+,                   	,
+IDENT               	s2
+,                   	,
+IDENT               	s3
+,                   	,
+IDENT               	re
+,                   	,
+IDENT               	a
+COMMENT             	c
+IDENT               	dimension
+IDENT               	w1
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	1
+:                   	:
+IDENT               	2
+)                   	)
+IDENT               	dimension
+IDENT               	w2
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	1
+:                   	:
+IDENT               	2
+)                   	)
+COMMENT             	c
+IDENT               	dimension
+IDENT               	b
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	r
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	yp
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	c
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	yh
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	d
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	lam
+(                   	(
+IDENT               	ng
+)                   	)
+COMMENT             	c
+IDENT               	equivalence
+(                   	(
+IDENT               	f
+,                   	,
+IDENT               	w1
+,                   	,
+IDENT               	w2
+)                   	)
+IDENT               	equivalence
+(                   	(
+IDENT               	d
+,                   	,
+IDENT               	p
+)                   	)
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c---------------------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	tridgx
+(                   	(
+IDENT               	a
+,                   	,
+IDENT               	b
+,                   	,
+IDENT               	c
+,                   	,
+IDENT               	w
+,                   	,
+IDENT               	y
+)                   	)
+COMMENT             	c
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	n
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+,                   	,
+IDENT               	np1
+=                   	=
+IDENT               	n
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	nm1
+=                   	=
+IDENT               	n
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	a
+,                   	,
+IDENT               	b
+,                   	,
+IDENT               	c
+,                   	,
+IDENT               	w
+,                   	,
+IDENT               	y
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	x
+,                   	,
+IDENT               	l
+,                   	,
+IDENT               	r
+,                   	,
+IDENT               	d
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	tdspace
+/                   	/
+IDENT               	x
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	tdspace
+/                   	/
+IDENT               	l
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	tdspace
+/                   	/
+IDENT               	r
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	tdspace
+/                   	/
+IDENT               	d
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+IDENT               	dimension
+IDENT               	y
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	b
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	c
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	w
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c---------------------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	tridgy
+(                   	(
+IDENT               	a
+,                   	,
+IDENT               	b
+,                   	,
+IDENT               	c
+,                   	,
+IDENT               	w
+,                   	,
+IDENT               	y
+)                   	)
+COMMENT             	c
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	n
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+,                   	,
+IDENT               	np1
+=                   	=
+IDENT               	n
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	nm1
+=                   	=
+IDENT               	n
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	a
+,                   	,
+IDENT               	b
+,                   	,
+IDENT               	c
+,                   	,
+IDENT               	w
+,                   	,
+IDENT               	y
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	x
+,                   	,
+IDENT               	l
+,                   	,
+IDENT               	r
+,                   	,
+IDENT               	d
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	tdspace
+/                   	/
+IDENT               	x
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	tdspace
+/                   	/
+IDENT               	l
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	tdspace
+/                   	/
+IDENT               	r
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	tdspace
+/                   	/
+IDENT               	d
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+IDENT               	dimension
+IDENT               	y
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	b
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	c
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	w
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c------------------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	newu
+(                   	(
+IDENT               	w2
+,                   	,
+IDENT               	p
+)                   	)
+COMMENT             	c
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	u
+,                   	,
+IDENT               	uy
+,                   	,
+IDENT               	vy
+,                   	,
+IDENT               	ux
+,                   	,
+IDENT               	vx
+IDENT               	double
+IDENT               	precision
+IDENT               	h
+,                   	,
+IDENT               	k
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	u
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	uy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	ux
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vx
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	steps
+/                   	/
+IDENT               	h
+,                   	,
+IDENT               	k
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	p
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	double
+IDENT               	precision
+IDENT               	w2
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+,                   	,
+IDENT               	s
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c------------------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	div
+(                   	(
+IDENT               	s3
+,                   	,
+IDENT               	w2
+,                   	,
+IDENT               	d
+)                   	)
+COMMENT             	c
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	w2
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	double
+IDENT               	precision
+IDENT               	d
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	double
+IDENT               	precision
+IDENT               	s3
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c------------------------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	fft2d
+(                   	(
+IDENT               	a
+,                   	,
+IDENT               	b
+,                   	,
+IDENT               	isign
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	n
+=                   	=
+IDENT               	ng
+,                   	,
+IDENT               	m
+=                   	=
+IDENT               	l2ng
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	a
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	double
+IDENT               	precision
+IDENT               	b
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	double
+IDENT               	precision
+IDENT               	t1
+(                   	(
+IDENT               	n
+)                   	)
+,                   	,
+IDENT               	t2
+(                   	(
+IDENT               	n
+)                   	)
+,                   	,
+IDENT               	t3
+(                   	(
+IDENT               	n
+)                   	)
+,                   	,
+IDENT               	t4
+(                   	(
+IDENT               	n
+)                   	)
+IDENT               	double
+IDENT               	precision
+IDENT               	pi
+,                   	,
+IDENT               	ang
+,                   	,
+IDENT               	ssign
+,                   	,
+IDENT               	tu1
+,                   	,
+IDENT               	u1
+,                   	,
+IDENT               	u2
+,                   	,
+IDENT               	w1
+,                   	,
+IDENT               	w2
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c-----------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	phia2d
+(                   	(
+IDENT               	n
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	ngp1
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	ngp2
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+COMMENT             	c
+COMMENT             	c common block variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	k
+,                   	,
+IDENT               	h
+IDENT               	double
+IDENT               	precision
+IDENT               	u
+,                   	,
+IDENT               	phin
+,                   	,
+IDENT               	phinn
+,                   	,
+IDENT               	phia
+,                   	,
+IDENT               	phian
+IDENT               	double
+IDENT               	precision
+IDENT               	uy
+,                   	,
+IDENT               	vy
+,                   	,
+IDENT               	ux
+,                   	,
+IDENT               	vx
+COMMENT             	c
+COMMENT             	c other variables
+COMMENT             	c
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	u
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	uy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	ux
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vx
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phin
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phinn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phia
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phian
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	steps
+/                   	/
+IDENT               	h
+,                   	,
+IDENT               	k
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c----------------------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	zag2d
+(                   	(
+IDENT               	n
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	ngp1
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	ngp2
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+COMMENT             	c
+COMMENT             	c common block variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	k
+,                   	,
+IDENT               	h
+IDENT               	double
+IDENT               	precision
+IDENT               	u
+,                   	,
+IDENT               	zag
+,                   	,
+IDENT               	zagn
+IDENT               	double
+IDENT               	precision
+IDENT               	uy
+,                   	,
+IDENT               	vy
+,                   	,
+IDENT               	ux
+,                   	,
+IDENT               	vx
+COMMENT             	c
+COMMENT             	c other variables
+COMMENT             	c
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	u
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	uy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	ux
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vx
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	agg
+/                   	/
+IDENT               	zag
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	agg
+/                   	/
+IDENT               	zagn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	steps
+/                   	/
+IDENT               	h
+,                   	,
+IDENT               	k
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c--------------------------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	plot
+(                   	(
+IDENT               	time
+,                   	,
+IDENT               	n
+,                   	,
+IDENT               	u
+,                   	,
+IDENT               	f
+,                   	,
+IDENT               	phia
+,                   	,
+IDENT               	phin
+,                   	,
+IDENT               	c
+,                   	,
+IDENT               	zag
+,                   	,
+IDENT               	xm
+,                   	,
+IDENT               	elf
+,                   	,
+IDENT               	nk
+)                   	)
+COMMENT             	c
+COMMENT             	c prints out data(0:ng,0:ng) for subsequent plotting
+COMMENT             	c
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	ngp1
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	ngp2
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	nr
+=                   	=
+IDENT               	32
+,                   	,
+IDENT               	nt
+=                   	=
+IDENT               	16
+,                   	,
+IDENT               	nr2
+=                   	=
+IDENT               	nr
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nt1
+=                   	=
+IDENT               	nt
++                   	+
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	mmax
+=                   	=
+IDENT               	200
+)                   	)
+COMMENT             	c
+COMMENT             	c argument list variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	u
+,                   	,
+IDENT               	f
+,                   	,
+IDENT               	elf
+IDENT               	double
+IDENT               	precision
+IDENT               	phin
+,                   	,
+IDENT               	phia
+IDENT               	double
+IDENT               	precision
+IDENT               	c
+IDENT               	double
+IDENT               	precision
+IDENT               	zag
+IDENT               	double
+IDENT               	precision
+IDENT               	xm
+IDENT               	double
+IDENT               	precision
+IDENT               	time
+token(98)           	integer
+IDENT               	n
+,                   	,
+IDENT               	nk
+COMMENT             	c
+IDENT               	dimension
+IDENT               	u
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	dimension
+IDENT               	f
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	dimension
+IDENT               	phia
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	zag
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+IDENT               	dimension
+IDENT               	xm
+(                   	(
+IDENT               	mmax
+,                   	,
+IDENT               	2
+)                   	)
+COMMENT             	c
+IDENT               	dimension
+IDENT               	elf
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nr2
+,                   	,
+IDENT               	nt1
+)                   	)
+IDENT               	dimension
+IDENT               	phin
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	c
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	efnum
+/                   	/
+IDENT               	nfil
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c---------------------------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	markers
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	ngp1
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	ngp2
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	mmax
+=                   	=
+IDENT               	200
+)                   	)
+COMMENT             	c
+COMMENT             	c common block variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	u
+IDENT               	double
+IDENT               	precision
+IDENT               	h
+,                   	,
+IDENT               	dlt
+IDENT               	double
+IDENT               	precision
+IDENT               	uy
+,                   	,
+IDENT               	vy
+,                   	,
+IDENT               	ux
+,                   	,
+IDENT               	vx
+,                   	,
+IDENT               	xm
+COMMENT             	c
+COMMENT             	c argument list variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	ax
+,                   	,
+IDENT               	ay
+,                   	,
+IDENT               	um
+,                   	,
+IDENT               	umn
+,                   	,
+IDENT               	vm
+,                   	,
+IDENT               	vmn
+,                   	,
+IDENT               	x
+,                   	,
+IDENT               	xn
+,                   	,
+IDENT               	y
+,                   	,
+IDENT               	yn
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	u
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	uy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	ux
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vx
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	steps
+/                   	/
+IDENT               	h
+,                   	,
+IDENT               	dlt
+IDENT               	common
+/                   	/
+IDENT               	fmarkers
+/                   	/
+IDENT               	xm
+(                   	(
+IDENT               	mmax
+,                   	,
+IDENT               	2
+)                   	)
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c-------------------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	phin2d
+(                   	(
+IDENT               	n
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	ngp1
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	ngp2
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	mmax
+=                   	=
+IDENT               	200
+)                   	)
+COMMENT             	c
+COMMENT             	c common block variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	k
+,                   	,
+IDENT               	h
+IDENT               	double
+IDENT               	precision
+IDENT               	u
+,                   	,
+IDENT               	phin
+,                   	,
+IDENT               	phinn
+,                   	,
+IDENT               	phia
+,                   	,
+IDENT               	phian
+IDENT               	double
+IDENT               	precision
+IDENT               	pen
+IDENT               	double
+IDENT               	precision
+IDENT               	uy
+,                   	,
+IDENT               	vy
+,                   	,
+IDENT               	ux
+,                   	,
+IDENT               	vx
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	u
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	uy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	ux
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vx
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phin
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phinn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phia
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phian
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	diffn
+/                   	/
+IDENT               	pen
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	steps
+/                   	/
+IDENT               	h
+,                   	,
+IDENT               	k
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c-------------------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	chem2d
+(                   	(
+IDENT               	n
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	ngp1
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	ngp2
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	mmax
+=                   	=
+IDENT               	200
+)                   	)
+COMMENT             	c
+COMMENT             	c common block variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	k
+,                   	,
+IDENT               	h
+IDENT               	double
+IDENT               	precision
+IDENT               	u
+,                   	,
+IDENT               	c
+,                   	,
+IDENT               	cn
+IDENT               	double
+IDENT               	precision
+IDENT               	pec
+IDENT               	double
+IDENT               	precision
+IDENT               	uy
+,                   	,
+IDENT               	vy
+,                   	,
+IDENT               	ux
+,                   	,
+IDENT               	vx
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	u
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	2
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	uy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vy
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	vel
+/                   	/
+IDENT               	ux
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+,                   	,
+IDENT               	vx
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	adp
+/                   	/
+IDENT               	c
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	adp
+/                   	/
+IDENT               	cn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	steps
+/                   	/
+IDENT               	h
+,                   	,
+IDENT               	k
+IDENT               	common
+/                   	/
+IDENT               	diffc
+/                   	/
+IDENT               	pec
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c-------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	chlfac
+(                   	(
+IDENT               	diag
+,                   	,
+IDENT               	subd
+,                   	,
+IDENT               	nn
+)                   	)
+IDENT               	double
+IDENT               	precision
+IDENT               	diag
+(                   	(
+IDENT               	nn
+)                   	)
+,                   	,
+IDENT               	subd
+(                   	(
+IDENT               	nn
+)                   	)
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c-------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	chlslv
+(                   	(
+IDENT               	diag
+,                   	,
+IDENT               	sub
+,                   	,
+IDENT               	nm1
+,                   	,
+IDENT               	b
+,                   	,
+IDENT               	x
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	ngp1
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	ngp2
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	max
+=                   	=
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	diag
+(                   	(
+IDENT               	nm1
+)                   	)
+,                   	,
+IDENT               	sub
+(                   	(
+IDENT               	nm1
+)                   	)
+,                   	,
+IDENT               	b
+(                   	(
+IDENT               	nm1
++                   	+
+IDENT               	1
+)                   	)
+,                   	,
+IDENT               	x
+(                   	(
+IDENT               	nm1
+)                   	)
+,                   	,
+IDENT               	y
+(                   	(
+IDENT               	max
+)                   	)
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c-------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	period
+(                   	(
+IDENT               	ph
+)                   	)
+COMMENT             	c
+COMMENT             	c extend ph periodically
+COMMENT             	c
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	ngp1
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	ngp2
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+IDENT               	double
+IDENT               	precision
+IDENT               	ph
+IDENT               	dimension
+IDENT               	ph
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c-------------------------------------------------
+COMMENT             	c
+token(101)          	function
+IDENT               	sol
+(                   	(
+IDENT               	v
+,                   	,
+IDENT               	l
+,                   	,
+IDENT               	r
+)                   	)
+IDENT               	double
+IDENT               	precision
+IDENT               	v
+,                   	,
+IDENT               	l
+,                   	,
+IDENT               	r
+,                   	,
+IDENT               	sol
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c-----------------------------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	diffu
+(                   	(
+IDENT               	ph
+,                   	,
+IDENT               	phn
+,                   	,
+IDENT               	k1
+,                   	,
+IDENT               	alpha
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	ngp1
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	ngp2
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+COMMENT             	c
+COMMENT             	c common block variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	h
+,                   	,
+IDENT               	k
+COMMENT             	c
+COMMENT             	c other variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	k1
+,                   	,
+IDENT               	alpha
+,                   	,
+IDENT               	ph
+,                   	,
+IDENT               	phn
+IDENT               	double
+IDENT               	precision
+IDENT               	gdiag
+,                   	,
+IDENT               	gsub
+,                   	,
+IDENT               	b
+,                   	,
+IDENT               	z
+,                   	,
+IDENT               	y
+,                   	,
+IDENT               	lam
+,                   	,
+IDENT               	eta
+COMMENT             	c
+IDENT               	dimension
+IDENT               	gdiag
+(                   	(
+IDENT               	nb
+-                   	-
+IDENT               	1
+)                   	)
+,                   	,
+IDENT               	gsub
+(                   	(
+IDENT               	nb
+-                   	-
+IDENT               	1
+)                   	)
+,                   	,
+IDENT               	b
+(                   	(
+IDENT               	nb
+)                   	)
+IDENT               	dimension
+IDENT               	z
+(                   	(
+IDENT               	nb
+-                   	-
+IDENT               	1
+)                   	)
+,                   	,
+IDENT               	y
+(                   	(
+IDENT               	nb
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	dimension
+IDENT               	ph
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	phn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	steps
+/                   	/
+IDENT               	h
+,                   	,
+IDENT               	k
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end
+COMMENT             	c
+COMMENT             	c-----------------------------------------------------------------------
+COMMENT             	c
+token(96)           	subroutine
+IDENT               	react
+IDENT               	parameter
+(                   	(
+IDENT               	l2ng
+=                   	=
+IDENT               	6
+,                   	,
+IDENT               	ng
+=                   	=
+IDENT               	2
+token(95)           	**
+IDENT               	l2ng
+,                   	,
+IDENT               	nb
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	ngm1
+=                   	=
+IDENT               	ng
+-                   	-
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	ngp1
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	1
+,                   	,
+IDENT               	ngp2
+=                   	=
+IDENT               	ng
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nbp1
+=                   	=
+IDENT               	nb
++                   	+
+IDENT               	1
+)                   	)
+IDENT               	parameter
+(                   	(
+IDENT               	nr
+=                   	=
+IDENT               	32
+,                   	,
+IDENT               	nt
+=                   	=
+IDENT               	16
+,                   	,
+IDENT               	nr2
+=                   	=
+IDENT               	nr
++                   	+
+IDENT               	2
+,                   	,
+IDENT               	nt1
+=                   	=
+IDENT               	nt
++                   	+
+IDENT               	1
+)                   	)
+COMMENT             	c
+COMMENT             	c common block variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	k
+,                   	,
+IDENT               	h
+,                   	,
+IDENT               	cnd1
+,                   	,
+IDENT               	cnd2
+,                   	,
+IDENT               	cnd3
+,                   	,
+IDENT               	cnd4
+,                   	,
+IDENT               	cnd5
+IDENT               	double
+IDENT               	precision
+IDENT               	elf
+,                   	,
+IDENT               	elfn
+,                   	,
+IDENT               	phin
+,                   	,
+IDENT               	phinn
+,                   	,
+IDENT               	phia
+,                   	,
+IDENT               	phian
+,                   	,
+IDENT               	c
+,                   	,
+IDENT               	cn
+,                   	,
+IDENT               	zag
+,                   	,
+IDENT               	zagn
+IDENT               	double
+IDENT               	precision
+IDENT               	dr
+,                   	,
+IDENT               	r
+COMMENT             	c
+COMMENT             	c other variables
+COMMENT             	c
+IDENT               	double
+IDENT               	precision
+IDENT               	rc
+,                   	,
+IDENT               	y
+,                   	,
+IDENT               	yn
+,                   	,
+IDENT               	temp1
+,                   	,
+IDENT               	temp2
+,                   	,
+IDENT               	temp3
+,                   	,
+IDENT               	temp4
+,                   	,
+IDENT               	c4
+,                   	,
+IDENT               	alpha
+COMMENT             	c
+IDENT               	common
+/                   	/
+IDENT               	link
+/                   	/
+IDENT               	elf
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nr2
+,                   	,
+IDENT               	nt1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	link
+/                   	/
+IDENT               	elfn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nr2
+,                   	,
+IDENT               	nt1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phin
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phinn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phia
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	phi
+/                   	/
+IDENT               	phian
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	adp
+/                   	/
+IDENT               	c
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	adp
+/                   	/
+IDENT               	cn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	agg
+/                   	/
+IDENT               	zag
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	agg
+/                   	/
+IDENT               	zagn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	cnd
+/                   	/
+IDENT               	cnd1
+,                   	,
+IDENT               	cnd2
+,                   	,
+IDENT               	cnd3
+,                   	,
+IDENT               	cnd4
+,                   	,
+IDENT               	cnd5
+IDENT               	common
+/                   	/
+IDENT               	steps
+/                   	/
+IDENT               	h
+,                   	,
+IDENT               	k
+IDENT               	common
+/                   	/
+IDENT               	rsize
+/                   	/
+IDENT               	dr
+(                   	(
+IDENT               	nr2
+)                   	)
+,                   	,
+IDENT               	r
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nr2
+)                   	)
+,                   	,
+IDENT               	nk
+COMMENT             	c
+IDENT               	dimension
+IDENT               	rc
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+)                   	)
+IDENT               	dimension
+IDENT               	y
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	4
+)                   	)
+,                   	,
+IDENT               	yn
+(                   	(
+IDENT               	0
+:                   	:
+IDENT               	nbp1
+,                   	,
+IDENT               	4
+)                   	)
+COMMENT             	c
+COMMENT             	c.... code body eliminated ....
+COMMENT             	c
+IDENT               	end

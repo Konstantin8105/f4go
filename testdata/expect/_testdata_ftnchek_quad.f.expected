@@ -1,4 +1,4 @@
-COMMENT             	  Test of parsing and checking quad precision variables & constants.
+COMMENT             	C  Test of parsing and checking quad precision variables & constants.
 COMMENT             	C  No intrinsic functions at this time.
 IDENT               	real
 IDENT               	r

@@ -1,4 +1,4 @@
-COMMENT             	 Test program for checking aliasing of arguments to common variables
+COMMENT             	C Test program for checking aliasing of arguments to common variables
 COMMENT             	C
 IDENT               	COMMON
 IDENT               	Q

@@ -1,4 +1,15 @@
-COMMENT             	OMMON A,B,C/ABC/M,N
+IDENT               	COMMON
+IDENT               	A
+,                   	,
+IDENT               	B
+,                   	,
+IDENT               	C
+/                   	/
+IDENT               	ABC
+/                   	/
+IDENT               	M
+,                   	,
+IDENT               	N
 IDENT               	COMMON
 IDENT               	X
 ,                   	,

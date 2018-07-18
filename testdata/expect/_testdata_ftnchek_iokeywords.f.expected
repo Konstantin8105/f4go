@@ -1,4 +1,4 @@
-COMMENT             	  Exerciser for recognition and flagging of various I/O keywords.
+COMMENT             	C  Exerciser for recognition and flagging of various I/O keywords.
 token(97)           	program
 IDENT               	iokeywds
 IDENT               	call

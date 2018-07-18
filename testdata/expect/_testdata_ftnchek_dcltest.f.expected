@@ -1,6 +1,6 @@
 token(97)           	program
 IDENT               	test1
-IDENT               	c
+COMMENT             	c
 IDENT               	character
 IDENT               	STRING1
 *                   	*
@@ -23,7 +23,7 @@ IDENT               	STRING2
 =                   	=
 STRING              	'xyz789'
 )                   	)
-IDENT               	c
+COMMENT             	c
 IDENT               	write
 (                   	(
 *                   	*
@@ -33,5 +33,5 @@ IDENT               	write
 IDENT               	STRING1
 ,                   	,
 IDENT               	STRING2
-IDENT               	c
+COMMENT             	c
 IDENT               	end

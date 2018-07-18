@@ -1,4 +1,4 @@
-COMMENT             	 checks makedcl generation of "Built-in" section
+COMMENT             	C checks makedcl generation of "Built-in" section
 IDENT               	double
 IDENT               	precision
 IDENT               	dsqrt

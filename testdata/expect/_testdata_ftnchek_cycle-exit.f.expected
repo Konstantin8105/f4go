@@ -1,4 +1,4 @@
-COMMENT             	  Testing of recognition of CYCLE and EXIT statements.
+COMMENT             	C  Testing of recognition of CYCLE and EXIT statements.
 COMMENT             	C  Also tests that no-path warning is generated.
 IDENT               	do
 IDENT               	i

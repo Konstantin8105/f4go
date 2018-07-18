@@ -1,4 +1,4 @@
-COMMENT             	      IMPLICIT INTEGER(a-z)
+COMMENT             	C      IMPLICIT INTEGER(a-z)
 IDENT               	PARAMETER
 IDENT               	shipmoves
 =                   	=

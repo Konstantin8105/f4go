@@ -3,18 +3,7 @@ IDENT               	PlotBall
 (                   	(
 IDENT               	Theta
 )                   	)
-IDENT               	c
-IDENT               	Clear
-IDENT               	the
-IDENT               	screen
-IDENT               	and
-IDENT               	draw
-/                   	/
-IDENT               	redraw
-IDENT               	the
-IDENT               	ball
-IDENT               	circle
-.                   	.
+COMMENT             	c       Clear the screen and draw/redraw the ball circle.
 IDENT               	Double
 IDENT               	Precision
 IDENT               	Theta

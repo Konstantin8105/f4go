@@ -1,4 +1,4 @@
-COMMENT             	  Derived from Brian Downing's WC program, replacing common decls by INCLUDEs
+COMMENT             	C  Derived from Brian Downing's WC program, replacing common decls by INCLUDEs
 COMMENT             	C
 COMMENT             	C     main(){   Get a file, open it, read and determine semi-useful
 COMMENT             	C               statistics, print them to screen, and exit quietly.

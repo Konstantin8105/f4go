@@ -6,11 +6,11 @@ IDENT               	character
 *                   	*
 IDENT               	32
 IDENT               	text
-IDENT               	c
+COMMENT             	c
 IDENT               	text
 =                   	=
 STRING              	'Hello World'
-IDENT               	c
+COMMENT             	c
 IDENT               	call
 IDENT               	printtext
 (                   	(
@@ -28,7 +28,7 @@ IDENT               	character
 *                   	*
 IDENT               	32
 IDENT               	text
-IDENT               	c
+COMMENT             	c
 IDENT               	write
 (                   	(
 *                   	*
@@ -36,5 +36,5 @@ IDENT               	write
 *                   	*
 )                   	)
 IDENT               	text
-IDENT               	c
+COMMENT             	c
 IDENT               	end

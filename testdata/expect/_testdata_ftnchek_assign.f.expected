@@ -1,10 +1,4 @@
-IDENT               	c
-IDENT               	for
-IDENT               	testing
-IDENT               	propagation
-IDENT               	of
-IDENT               	type
-IDENT               	sizes
+COMMENT             	c  for testing propagation of type sizes
 token(96)           	subroutine
 IDENT               	sizeprop
 (                   	(

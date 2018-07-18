@@ -2,7 +2,7 @@ token(97)           	program
 IDENT               	hello_world2
 token(100)          	implicit
 IDENT               	none
-IDENT               	c
+COMMENT             	c
 IDENT               	call
 IDENT               	hello
 IDENT               	call
@@ -16,7 +16,7 @@ IDENT               	character
 *                   	*
 IDENT               	32
 IDENT               	text
-IDENT               	c
+COMMENT             	c
 IDENT               	text
 =                   	=
 STRING              	'Hello\nR\nWorld '
@@ -27,5 +27,5 @@ IDENT               	write
 *                   	*
 )                   	)
 IDENT               	text
-IDENT               	c
+COMMENT             	c
 IDENT               	end

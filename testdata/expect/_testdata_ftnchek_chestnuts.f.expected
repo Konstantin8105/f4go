@@ -1,4 +1,4 @@
-COMMENT             	 Famous difficult cases in Fortran syntax
+COMMENT             	C Famous difficult cases in Fortran syntax
 token(98)           	INTEGER
 IDENT               	FORMAT
 (                   	(

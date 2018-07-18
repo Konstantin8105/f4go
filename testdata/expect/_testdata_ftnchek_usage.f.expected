@@ -1,13 +1,7 @@
 token(97)           	program
 IDENT               	yacctest
-IDENT               	c
-IDENT               	c
-IDENT               	Tests
-IDENT               	the
-IDENT               	Yacc
-IDENT               	fortran
-IDENT               	parser
-.                   	.
+COMMENT             	c
+COMMENT             	c  Tests the Yacc fortran parser.
 COMMENT             	*  Should pass the current version.
 COMMENT             	C  It is also a legal, though not especially meaningful, program
 COMMENT             	*
@@ -25,21 +19,7 @@ IDENT               	3
 )                   	)
 ,                   	,
 IDENT               	abc
-IDENT               	c
-IDENT               	The
-IDENT               	next
-IDENT               	line
-IDENT               	has
-IDENT               	some
-IDENT               	whitespace
-,                   	,
-IDENT               	but
-IDENT               	nothing
-else                	else
-.                   	.
-IDENT               	Note
-IDENT               	continuation
-COMMENT             	!!
+COMMENT             	c  The next line has some whitespace, but nothing else.  Note continuation!!
 (                   	(
 IDENT               	9
 ,                   	,
@@ -66,7 +46,7 @@ IDENT               	intrinsic
 IDENT               	sqrt
 ,                   	,
 IDENT               	log
-IDENT               	c
+COMMENT             	c
 IDENT               	common
 IDENT               	com1
 ,                   	,
@@ -537,31 +517,125 @@ IDENT               	456
 IDENT               	goto
 IDENT               	34567
 IDENT               	end
-IDENT               	c
-IDENT               	comments
-IDENT               	in
-IDENT               	here
-IDENT               	don
-STRING              	't hurt a bit
-
-	integer function xray(beta,gamma)
-	character *(*) gamma
-*
-
-	logical beta
-	if( beta ) xray = 1.0D0
-	end
-
-	subroutine home(x,*)
-	common /blk1/ com3,com4(5),com6
-	save /blk1/,xray
-	if((x-1.0)**(sqrt(2.0))/(5/4+com6) .gt. com3) then
-		xray = 1.234
-		return
-	else
-		xray = -1.234 ** (+1.7e10)
-	endif
-	com4(com2+com6) = com4(xray)
-	return 1
-	end
-
+COMMENT             	c comments in here don't hurt a bit
+token(98)           	integer
+token(101)          	function
+IDENT               	xray
+(                   	(
+IDENT               	beta
+,                   	,
+IDENT               	gamma
+)                   	)
+IDENT               	character
+*                   	*
+(                   	(
+*                   	*
+)                   	)
+IDENT               	gamma
+COMMENT             	*
+IDENT               	logical
+IDENT               	beta
+if                  	if
+(                   	(
+IDENT               	beta
+)                   	)
+IDENT               	xray
+=                   	=
+IDENT               	1
+.                   	.
+IDENT               	0
+IDENT               	D0
+IDENT               	end
+token(96)           	subroutine
+IDENT               	home
+(                   	(
+IDENT               	x
+,                   	,
+*                   	*
+)                   	)
+IDENT               	common
+/                   	/
+IDENT               	blk1
+/                   	/
+IDENT               	com3
+,                   	,
+IDENT               	com4
+(                   	(
+IDENT               	5
+)                   	)
+,                   	,
+IDENT               	com6
+IDENT               	save
+/                   	/
+IDENT               	blk1
+/                   	/
+,                   	,
+IDENT               	xray
+if                  	if
+(                   	(
+(                   	(
+IDENT               	x
+-                   	-
+IDENT               	1
+.                   	.
+IDENT               	0
+)                   	)
+token(95)           	**
+(                   	(
+IDENT               	sqrt
+(                   	(
+IDENT               	2
+.                   	.
+IDENT               	0
+)                   	)
+)                   	)
+/                   	/
+(                   	(
+IDENT               	5
+/                   	/
+IDENT               	4
++                   	+
+IDENT               	com6
+)                   	)
+.                   	.
+IDENT               	gt
+.                   	.
+IDENT               	com3
+)                   	)
+IDENT               	then
+IDENT               	xray
+=                   	=
+IDENT               	1
+.                   	.
+IDENT               	234
+IDENT               	return
+else                	else
+IDENT               	xray
+=                   	=
+-                   	-
+IDENT               	1
+.                   	.
+IDENT               	234
+token(95)           	**
+(                   	(
++                   	+
+IDENT               	1
+.                   	.
+IDENT               	7
+IDENT               	e10
+)                   	)
+IDENT               	endif
+IDENT               	com4
+(                   	(
+IDENT               	com2
++                   	+
+IDENT               	com6
+)                   	)
+=                   	=
+IDENT               	com4
+(                   	(
+IDENT               	xray
+)                   	)
+IDENT               	return
+IDENT               	1
+IDENT               	end

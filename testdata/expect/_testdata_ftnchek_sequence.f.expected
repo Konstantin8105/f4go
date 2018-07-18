@@ -1,4 +1,4 @@
-COMMENT             	 tests message about statement out of order.
+COMMENT             	C tests message about statement out of order.
 IDENT               	data
 IDENT               	x
 /                   	/
