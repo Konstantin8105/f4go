@@ -4,7 +4,6 @@ import (
 	"fmt"
 	goast "go/ast"
 	"go/token"
-	"os"
 )
 
 type node struct {
@@ -12,18 +11,16 @@ type node struct {
 	lit string
 }
 
-func prepare(filename string) (ns []node, err error) {
-	file, err := os.Open(filename)
-	if err != nil {
-		return
-	}
-	defer file.Close()
+type parser struct {
+	sc    *Scanner
+	ident int
+	ns    []node
+}
 
-	sc := NewScanner(file)
-
+func (p *parser) prepare() (err error) {
 	var last token.Token
 	for {
-		tok, lit := sc.Scan()
+		tok, lit := p.sc.Scan()
 		if tok == token.EOF {
 			break
 		}
@@ -37,15 +34,15 @@ func prepare(filename string) (ns []node, err error) {
 			continue
 		}
 
-		ns = append(ns, node{
+		p.ns = append(p.ns, node{
 			tok: tok,
 			lit: lit,
 		})
 		last = tok
 	}
 
-	if len(ns) > 0 && ns[0].tok == NEW_LINE {
-		ns = ns[1:]
+	if len(p.ns) > 0 && p.ns[0].tok == NEW_LINE {
+		p.ns = p.ns[1:]
 	}
 
 	return
@@ -65,5 +62,6 @@ func a(ns []node) (out string) {
 
 func p(ns []node) (ast goast.File, err error) {
 	ast.Name = goast.NewIdent("main")
+
 	return
 }

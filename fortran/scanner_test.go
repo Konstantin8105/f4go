@@ -40,7 +40,9 @@ func TestScanner(t *testing.T) {
 	for _, filename := range files {
 		index := strings.LastIndex(filename, "/")
 		testName := filename[index+1:]
-		t.Run(testName, func(t *testing.T) {
+		fn := filename[:index+1] + testName
+
+		t.Run(fmt.Sprintf("scan/%v", testName), func(t *testing.T) {
 			file, err := os.Open(filename)
 			if err != nil {
 				t.Fatal(err)
@@ -62,8 +64,6 @@ func TestScanner(t *testing.T) {
 				buf.WriteString(fmt.Sprintf("%-20s\t%v\n", view(tok), lit))
 			}
 
-			fn := filename[:index+1] + testName
-
 			var out string
 			out, err = util.IsDiff(fn+".expected", buf.String())
 			if err != nil {
@@ -72,12 +72,24 @@ func TestScanner(t *testing.T) {
 			if out != "" {
 				t.Fatal(out)
 			}
+		})
 
-			ns, err := prepare(filename)
+		t.Run(fmt.Sprintf("parse/%v", testName), func(t *testing.T) {
+			file, err := os.Open(filename)
+			if err != nil {
+				t.Fatal(err)
+				return
+			}
+			defer file.Close()
+			pr := parser{
+				sc: NewScanner(file),
+			}
+
+			err = pr.prepare()
 			if err != nil {
 				t.Fatal(err)
 			}
-			out, err = util.IsDiff(fn+".f_expect", a(ns))
+			out, err := util.IsDiff(fn+".f_expect", a(pr.ns))
 			if err != nil {
 				t.Fatal(err)
 			}
