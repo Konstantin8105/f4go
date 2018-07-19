@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
+	"go/format"
 	"go/token"
 	"os"
 	"path/filepath"
@@ -81,6 +82,7 @@ func TestScanner(t *testing.T) {
 				return
 			}
 			defer file.Close()
+
 			pr := parser{
 				sc: NewScanner(file),
 			}
@@ -96,6 +98,39 @@ func TestScanner(t *testing.T) {
 			if out != "" {
 				t.Fatal(out)
 			}
+		})
+
+		t.Run(fmt.Sprintf("transpile/%v", testName), func(t *testing.T) {
+			file, err := os.Open(filename)
+			if err != nil {
+				t.Fatal(err)
+				return
+			}
+			defer file.Close()
+
+			pr := parser{
+				sc: NewScanner(file),
+			}
+
+			err = pr.parse()
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			var buf bytes.Buffer
+			if err = format.Node(&buf, token.NewFileSet(), &pr.ast); err != nil {
+				t.Fatal(err)
+			}
+
+			fmt.Println("> ", buf.String())
+
+			// out, err := util.IsDiff(fn+".go", a(pr.ns))
+			// if err != nil {
+			// 	t.Fatal(err)
+			// }
+			// if out != "" {
+			// 	t.Fatal(out)
+			// }
 		})
 	}
 }
