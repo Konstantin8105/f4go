@@ -129,9 +129,8 @@ func (s *Scanner) scanStar() (tok token.Token, lit string) {
 	if ch == '*' {
 		buf.WriteRune(ch)
 		return DOUBLE_STAR, buf.String()
-	} else {
-		s.unread()
 	}
+	s.unread()
 
 	return token.MUL, buf.String()
 }

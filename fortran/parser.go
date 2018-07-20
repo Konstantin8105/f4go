@@ -4,6 +4,7 @@ import (
 	"fmt"
 	goast "go/ast"
 	"go/token"
+	"strconv"
 )
 
 type node struct {
@@ -73,8 +74,11 @@ func (p *parser) parse() (err error) {
 
 	var decls []goast.Decl
 	p.ident = 0
-	decls, err = p.transpileToNode()
-	if err != nil {
+	decls = p.transpileToNode()
+	if len(p.errs) > 0 {
+		for _, e := range p.errs {
+			err = fmt.Errorf("%v\n%v", err, e)
+		}
 		return
 	}
 
@@ -82,55 +86,155 @@ func (p *parser) parse() (err error) {
 	return
 }
 
-func (p *parser) transpileToNode() (decls []goast.Decl, err error) {
+func (p *parser) transpileToNode() (decls []goast.Decl) {
 
 	if p.ident < 0 || p.ident >= len(p.ns) {
-		err = fmt.Errorf("Ident is outside nodes: %d/%d", p.ident, len(p.ns))
+		p.errs = append(p.errs,
+			fmt.Errorf("Ident is outside nodes: %d/%d", p.ident, len(p.ns)))
 		return
 	}
 
 	switch p.ns[p.ident].tok {
 	case SUBROUTINE:
 		var decl goast.Decl
-		decl, err = p.transpileSubroutine()
-		if err != nil {
-			return
-		}
+		decl = p.transpileSubroutine()
 		decls = append(decls, decl)
 
 	default:
 		// move to next NEW_LINE
-		var line string
-		for ; p.ident < len(p.ns); p.ident++ {
-			if p.ns[p.ident].tok == NEW_LINE {
-				break
-			}
-			line += fmt.Sprintf(" %s", p.ns[p.ident].lit)
-		}
-		err = fmt.Errorf("Cannot parse line: `%s`", line)
+		p.addError("Cannot parse line: " + p.getLine())
 	}
 
 	return
 }
 
-func (p *parser) transpileSubroutine() (decl goast.Decl, err error) {
+func (p *parser) getLine() (line string) {
+	if p.ident < 0 || p.ident >= len(p.ns) {
+		p.addError("Cannot get line, ident = " + strconv.Itoa(p.ident))
+		return
+	}
+	for ; p.ident < len(p.ns); p.ident++ {
+		if p.ns[p.ident].tok == NEW_LINE {
+			break
+		}
+		line += fmt.Sprintf(" %s", p.ns[p.ident].lit)
+	}
+	return
+}
+
+func (p *parser) transpileSubroutine() (decl goast.Decl) {
+	var fd goast.FuncDecl
+
 	p.expect(SUBROUTINE)
+
 	p.ident++
 	p.expect(token.IDENT)
 	name := p.ns[p.ident].lit
 
-	var fd goast.FuncDecl
+	p.ident++
+	p.expect(token.LPAREN)
+
+	// Parameters
+	p.ident++
+	fd.Type = &goast.FuncType{
+		Params: &goast.FieldList{},
+	}
+	fd.Type.Params.List = p.parseParamDecl()
+
+	p.ident++
+	p.expect(token.RPAREN)
+
+	p.ident++
+	p.expect(NEW_LINE)
+
+	p.ident++
 	fd.Name = goast.NewIdent(name)
-	fd.Type = &goast.FuncType{}
-	fd.Body = &goast.BlockStmt{}
+	fd.Body = &goast.BlockStmt{
+		Lbrace: 1,
+		List:   p.transpileListStmt(),
+	}
+
+	p.ident++
+	// p.expect(END)
 
 	decl = &fd
 	return
 }
 
+func (p *parser) addError(msg string) {
+	p.errs = append(p.errs, fmt.Errorf("%s", msg))
+}
+
 func (p *parser) expect(t token.Token) {
 	if t != p.ns[p.ident].tok {
-		p.errs = append(p.errs, fmt.Errorf("Expect %s, but we have %s",
-			view(t), view(p.ns[p.ident].tok)))
+		panic(fmt.Errorf("Expect %s, but we have {{%s,%s}}",
+			view(t), view(p.ns[p.ident].tok), p.ns[p.ident].lit))
 	}
+}
+
+func (p *parser) transpileListStmt() (stmts []goast.Stmt) {
+	for p.ident < len(p.ns) {
+		if p.ns[p.ident].tok == END {
+			// TODO
+			break
+		}
+		stmt := p.parseStmt()
+		if stmt == nil {
+			// p.addError("stmt is nil in line : " + p.getLine())
+			// break
+			continue
+		}
+		stmts = append(stmts, stmt)
+	}
+	return
+}
+
+func (p *parser) parseStmt() (stmt goast.Stmt) {
+	switch p.ns[p.ident].tok {
+	case token.RETURN:
+		stmt = &goast.ReturnStmt{}
+		p.ident++
+
+		p.expect(NEW_LINE)
+		p.ident++
+
+	case END:
+		// ignore
+		p.ident++
+
+		// TODO : p.expect(NEW_LINE)
+		p.ident++
+
+	default:
+		fmt.Println("stmt:", p.getLine())
+		p.ident++
+	}
+	return
+}
+
+func (p *parser) parseParamDecl() (fields []*goast.Field) {
+	for ; p.ns[p.ident].tok != token.EOF; p.ident++ {
+		var exit bool
+		switch p.ns[p.ident].tok {
+		case token.COMMA:
+			// ignore
+		case token.IDENT:
+			id := p.ns[p.ident].lit
+			field := &goast.Field{
+				Names: []*goast.Ident{goast.NewIdent(id)},
+				Type:  goast.NewIdent("int"),
+			}
+			fields = append(fields, field)
+		case token.RPAREN:
+			p.ident--
+			exit = true
+		default:
+			p.addError("Cannot parse parameter decl " + p.ns[p.ident].lit)
+			return
+		}
+		if exit {
+			break
+		}
+	}
+	return
 }
