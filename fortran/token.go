@@ -8,7 +8,12 @@ import (
 const (
 	DOUBLE_STAR token.Token = iota + token.VAR + 10 // **
 	SUBROUTINE
+
 	INTEGER
+	CHARACTER
+	COMPLEX
+	LOGICAL
+
 	DOUBLE_COLON
 	IMPLICIT
 	FUNCTION
@@ -18,7 +23,6 @@ const (
 	CALL
 	THEN
 	NEW_LINE
-	COMPLEX
 )
 
 func view(t token.Token) string {
@@ -29,8 +33,13 @@ func view(t token.Token) string {
 }
 
 var o = [...]string{
-	SUBROUTINE:   "SUBROUTINE",
-	INTEGER:      "INTEGER",
+	SUBROUTINE: "SUBROUTINE",
+
+	INTEGER:   "INTEGER",
+	CHARACTER: "CHARACTER",
+	COMPLEX:   "COMPLEX",
+	LOGICAL:   "LOGICAL",
+
 	DOUBLE_COLON: "DOUBLE_COLON",
 	IMPLICIT:     "IMPLICIT",
 	FUNCTION:     "FUNCTION",
@@ -40,5 +49,4 @@ var o = [...]string{
 	CALL:         "CALL",
 	THEN:         "THEN",
 	NEW_LINE:     "NEW_LINE",
-	COMPLEX:      "COMPLEX",
 }

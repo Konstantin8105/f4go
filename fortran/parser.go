@@ -79,7 +79,9 @@ func (p *parser) parse() (err error) {
 		for _, e := range p.errs {
 			err = fmt.Errorf("%v\n%v", err, e)
 		}
-		return
+		fmt.Println("Errors:\n ", err)
+		err = nil
+		// return
 	}
 
 	p.ast.Decls = append(p.ast.Decls, decls...)
@@ -184,15 +186,40 @@ func (p *parser) transpileListStmt() (stmts []goast.Stmt) {
 			// break
 			continue
 		}
-		stmts = append(stmts, stmt)
+		stmts = append(stmts, stmt...)
 	}
 	return
 }
 
-func (p *parser) parseStmt() (stmt goast.Stmt) {
+func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	switch p.ns[p.ident].tok {
+	case INTEGER, CHARACTER, COMPLEX, LOGICAL:
+		p.ident++
+
+		for ; p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+			switch p.ns[p.ident].tok {
+			case token.IDENT:
+				name := p.ns[p.ident].lit
+				stmts = append(stmts, &goast.DeclStmt{
+					Decl: &goast.GenDecl{
+						Tok: token.VAR,
+						Specs: []goast.Spec{
+							&goast.ValueSpec{
+								Names: []*goast.Ident{goast.NewIdent(name)},
+								Type:  goast.NewIdent("int"),
+							},
+						},
+					},
+				})
+			case token.COMMA:
+				// ignore
+			default:
+				p.addError("Cannot parse INTEGER value : " + p.ns[p.ident].lit)
+			}
+		}
+
 	case token.RETURN:
-		stmt = &goast.ReturnStmt{}
+		stmts = append(stmts, &goast.ReturnStmt{})
 		p.ident++
 
 		p.expect(NEW_LINE)

@@ -313,8 +313,16 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		return SUBROUTINE, buf.String()
 	case "IMPLICIT":
 		return IMPLICIT, buf.String()
+
 	case "INTEGER":
 		return INTEGER, buf.String()
+	case "CHARACTER":
+		return CHARACTER, buf.String()
+	case "LOGICAL":
+		return LOGICAL, buf.String()
+	case "COMPLEX":
+		return COMPLEX, buf.String()
+
 	case "END":
 		return END, buf.String()
 	case "DO":
@@ -335,8 +343,6 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		return THEN, buf.String()
 	case "RETURN":
 		return token.RETURN, buf.String()
-	case "COMPLEX":
-		return COMPLEX, buf.String()
 	}
 
 	// Otherwise return as a regular identifier.
