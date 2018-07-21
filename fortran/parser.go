@@ -126,6 +126,9 @@ func (p *parser) getLine() (line string) {
 
 func (p *parser) transpileSubroutine() (decl goast.Decl) {
 	var fd goast.FuncDecl
+	fd.Type = &goast.FuncType{
+		Params: &goast.FieldList{},
+	}
 
 	p.expect(SUBROUTINE)
 
@@ -134,20 +137,20 @@ func (p *parser) transpileSubroutine() (decl goast.Decl) {
 	name := p.ns[p.ident].lit
 
 	p.ident++
-	p.expect(token.LPAREN)
+	var hasParens bool = p.ns[p.ident].tok == token.LPAREN
+	if hasParens {
+		p.expect(token.LPAREN)
 
-	// Parameters
-	p.ident++
-	fd.Type = &goast.FuncType{
-		Params: &goast.FieldList{},
+		// Parameters
+		p.ident++
+		fd.Type.Params.List = p.parseParamDecl()
+
+		p.ident++
+		p.expect(token.RPAREN)
+
+		p.ident++
+		p.expect(NEW_LINE)
 	}
-	fd.Type.Params.List = p.parseParamDecl()
-
-	p.ident++
-	p.expect(token.RPAREN)
-
-	p.ident++
-	p.expect(NEW_LINE)
 
 	p.ident++
 	fd.Name = goast.NewIdent(name)
@@ -191,42 +194,51 @@ func (p *parser) transpileListStmt() (stmts []goast.Stmt) {
 	return
 }
 
+func (p *parser) parseInit() (stmts []goast.Stmt) {
+
+	identType := "int"
+	switch p.ns[p.ident].tok {
+	case LOGICAL:
+		identType = "bool"
+	case CHARACTER:
+		identType = "byte"
+	case COMPLEX:
+		identType = "complex128"
+	}
+
+	p.ident++
+	for ; p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+		switch p.ns[p.ident].tok {
+		case token.IDENT:
+			name := p.ns[p.ident].lit
+			stmts = append(stmts, &goast.DeclStmt{
+				Decl: &goast.GenDecl{
+					Tok: token.VAR,
+					Specs: []goast.Spec{
+						&goast.ValueSpec{
+							Names: []*goast.Ident{goast.NewIdent(name)},
+							Type:  goast.NewIdent(identType),
+						},
+					},
+				},
+			})
+		case token.MUL, token.INT:
+			// TODO
+		case token.COMMA:
+			// ignore
+		default:
+			p.addError("Cannot parse INTEGER value : " + p.ns[p.ident].lit)
+		}
+	}
+
+	return
+}
+
 func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	switch p.ns[p.ident].tok {
 	case INTEGER, CHARACTER, COMPLEX, LOGICAL:
 
-		identType := "int"
-		switch p.ns[p.ident].tok {
-		case LOGICAL:
-			identType = "bool"
-		case CHARACTER:
-			identType = "byte"
-		case COMPLEX:
-			identType = "complex128"
-		}
-
-		p.ident++
-		for ; p.ns[p.ident].tok != NEW_LINE; p.ident++ {
-			switch p.ns[p.ident].tok {
-			case token.IDENT:
-				name := p.ns[p.ident].lit
-				stmts = append(stmts, &goast.DeclStmt{
-					Decl: &goast.GenDecl{
-						Tok: token.VAR,
-						Specs: []goast.Spec{
-							&goast.ValueSpec{
-								Names: []*goast.Ident{goast.NewIdent(name)},
-								Type:  goast.NewIdent(identType),
-							},
-						},
-					},
-				})
-			case token.COMMA:
-				// ignore
-			default:
-				p.addError("Cannot parse INTEGER value : " + p.ns[p.ident].lit)
-			}
-		}
+		stmts = append(stmts, p.parseInit()...)
 
 	case token.RETURN:
 		stmts = append(stmts, &goast.ReturnStmt{})
