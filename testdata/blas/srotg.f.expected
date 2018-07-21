@@ -239,7 +239,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	C
 ,                   	,
 IDENT               	S
@@ -264,7 +264,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	R
 ,                   	,
 IDENT               	ROE

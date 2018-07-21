@@ -223,7 +223,7 @@ NEW_LINE
 COMMENT             	*  =====================================================================
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 FUNCTION            	FUNCTION
 IDENT               	SCNRM2
 (                   	(
@@ -290,7 +290,7 @@ NEW_LINE
 COMMENT             	*     .. Parameters ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	ONE
 ,                   	,
 IDENT               	ZERO
@@ -314,7 +314,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	NORM
 ,                   	,
 IDENT               	SCALE
@@ -339,7 +339,7 @@ IDENT               	ABS
 ,                   	,
 IDENT               	AIMAG
 ,                   	,
-IDENT               	REAL
+REAL                	REAL
 ,                   	,
 IDENT               	SQRT
 NEW_LINE            	
@@ -411,7 +411,7 @@ NEW_LINE
 
 if                  	IF
 (                   	(
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	X
 (                   	(
@@ -428,7 +428,7 @@ IDENT               	TEMP
 =                   	=
 IDENT               	ABS
 (                   	(
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	X
 (                   	(

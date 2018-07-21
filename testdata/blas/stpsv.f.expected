@@ -490,7 +490,7 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	AP
 (                   	(
 *                   	*
@@ -517,7 +517,7 @@ NEW_LINE
 COMMENT             	*     .. Parameters ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	ZERO
 NEW_LINE            	
 
@@ -535,7 +535,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	TEMP
 NEW_LINE            	
 
@@ -571,7 +571,7 @@ LOGICAL             	LOGICAL
 IDENT               	LSAME
 NEW_LINE            	
 
-IDENT               	EXTERNAL
+EXTERNAL            	EXTERNAL
 IDENT               	LSAME
 NEW_LINE            	
 
@@ -581,7 +581,7 @@ NEW_LINE
 COMMENT             	*     .. External Subroutines ..
 NEW_LINE            	
 
-IDENT               	EXTERNAL
+EXTERNAL            	EXTERNAL
 IDENT               	XERBLA
 NEW_LINE            	
 

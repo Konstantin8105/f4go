@@ -226,7 +226,7 @@ IDENT               	CB
 IDENT               	S
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	C
 NEW_LINE            	
 
@@ -249,7 +249,7 @@ COMPLEX             	COMPLEX
 IDENT               	ALPHA
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	NORM
 ,                   	,
 IDENT               	SCALE

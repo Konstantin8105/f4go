@@ -640,7 +640,7 @@ LOGICAL             	LOGICAL
 IDENT               	LSAME
 NEW_LINE            	
 
-IDENT               	EXTERNAL
+EXTERNAL            	EXTERNAL
 IDENT               	LSAME
 NEW_LINE            	
 
@@ -650,7 +650,7 @@ NEW_LINE
 COMMENT             	*     .. External Subroutines ..
 NEW_LINE            	
 
-IDENT               	EXTERNAL
+EXTERNAL            	EXTERNAL
 IDENT               	XERBLA
 NEW_LINE            	
 
@@ -665,7 +665,7 @@ IDENT               	CONJG
 ,                   	,
 IDENT               	MAX
 ,                   	,
-IDENT               	REAL
+REAL                	REAL
 NEW_LINE            	
 
 COMMENT             	*     ..
@@ -1249,7 +1249,7 @@ IDENT               	J
 +                   	+
 IDENT               	TEMP1
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	A
 (                   	(
@@ -1396,7 +1396,7 @@ IDENT               	JY
 +                   	+
 IDENT               	TEMP1
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	A
 (                   	(
@@ -1498,7 +1498,7 @@ IDENT               	J
 +                   	+
 IDENT               	TEMP1
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	A
 (                   	(
@@ -1632,7 +1632,7 @@ IDENT               	JY
 +                   	+
 IDENT               	TEMP1
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	A
 (                   	(

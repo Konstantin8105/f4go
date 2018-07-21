@@ -266,7 +266,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	SA
 NEW_LINE            	
 
@@ -321,7 +321,7 @@ IDENT               	AIMAG
 ,                   	,
 IDENT               	CMPLX
 ,                   	,
-IDENT               	REAL
+REAL                	REAL
 NEW_LINE            	
 
 COMMENT             	*     ..
@@ -375,7 +375,7 @@ IDENT               	CMPLX
 (                   	(
 IDENT               	SA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	CX
 (                   	(
@@ -437,7 +437,7 @@ IDENT               	CMPLX
 (                   	(
 IDENT               	SA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	CX
 (                   	(

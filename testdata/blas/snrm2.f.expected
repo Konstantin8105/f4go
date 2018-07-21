@@ -220,7 +220,7 @@ NEW_LINE
 COMMENT             	*  =====================================================================
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 FUNCTION            	FUNCTION
 IDENT               	SNRM2
 (                   	(
@@ -265,7 +265,7 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	X
 (                   	(
 *                   	*
@@ -287,7 +287,7 @@ NEW_LINE
 COMMENT             	*     .. Parameters ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	ONE
 ,                   	,
 IDENT               	ZERO
@@ -311,7 +311,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	ABSXI
 ,                   	,
 IDENT               	NORM

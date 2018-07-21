@@ -643,7 +643,7 @@ COMPLEX             	COMPLEX
 IDENT               	ALPHA
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	BETA
 NEW_LINE            	
 
@@ -713,7 +713,7 @@ LOGICAL             	LOGICAL
 IDENT               	LSAME
 NEW_LINE            	
 
-IDENT               	EXTERNAL
+EXTERNAL            	EXTERNAL
 IDENT               	LSAME
 NEW_LINE            	
 
@@ -723,7 +723,7 @@ NEW_LINE
 COMMENT             	*     .. External Subroutines ..
 NEW_LINE            	
 
-IDENT               	EXTERNAL
+EXTERNAL            	EXTERNAL
 IDENT               	XERBLA
 NEW_LINE            	
 
@@ -738,7 +738,7 @@ IDENT               	CONJG
 ,                   	,
 IDENT               	MAX
 ,                   	,
-IDENT               	REAL
+REAL                	REAL
 NEW_LINE            	
 
 COMMENT             	*     ..
@@ -775,7 +775,7 @@ NEW_LINE
 COMMENT             	*     .. Parameters ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	ONE
 NEW_LINE            	
 
@@ -1114,7 +1114,7 @@ if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	ZERO
 )                   	)
@@ -1211,7 +1211,7 @@ IDENT               	J
 =                   	=
 IDENT               	BETA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1237,7 +1237,7 @@ if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	ZERO
 )                   	)
@@ -1302,7 +1302,7 @@ IDENT               	J
 =                   	=
 IDENT               	BETA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1417,7 +1417,7 @@ if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	ZERO
 )                   	)
@@ -1499,7 +1499,7 @@ IDENT               	J
 =                   	=
 IDENT               	BETA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1520,7 +1520,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1659,7 +1659,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1672,7 +1672,7 @@ IDENT               	J
 NEW_LINE            	
 
 +                   	+
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	A
 (                   	(
@@ -1722,7 +1722,7 @@ if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	ZERO
 )                   	)
@@ -1804,7 +1804,7 @@ IDENT               	J
 =                   	=
 IDENT               	BETA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1825,7 +1825,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1964,7 +1964,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1977,7 +1977,7 @@ IDENT               	J
 NEW_LINE            	
 
 +                   	+
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	A
 (                   	(
@@ -2135,7 +2135,7 @@ if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	ZERO
 )                   	)
@@ -2150,7 +2150,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	ALPHA
 *                   	*
@@ -2180,7 +2180,7 @@ IDENT               	J
 =                   	=
 IDENT               	BETA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -2193,7 +2193,7 @@ IDENT               	J
 NEW_LINE            	
 
 +                   	+
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	ALPHA
 *                   	*
@@ -2222,7 +2222,7 @@ if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	ZERO
 )                   	)
@@ -2400,7 +2400,7 @@ if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	ZERO
 )                   	)
@@ -2415,7 +2415,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	ALPHA
 *                   	*
@@ -2445,7 +2445,7 @@ IDENT               	J
 =                   	=
 IDENT               	BETA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -2458,7 +2458,7 @@ IDENT               	J
 NEW_LINE            	
 
 +                   	+
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	ALPHA
 *                   	*
@@ -2487,7 +2487,7 @@ if                  	IF
 (                   	(
 IDENT               	BETA
 ==                  	.EQ.
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	ZERO
 )                   	)

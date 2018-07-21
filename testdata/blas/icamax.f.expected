@@ -278,7 +278,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	SMAX
 NEW_LINE            	
 
@@ -294,11 +294,11 @@ NEW_LINE
 COMMENT             	*     .. External Functions ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	SCABS1
 NEW_LINE            	
 
-IDENT               	EXTERNAL
+EXTERNAL            	EXTERNAL
 IDENT               	SCABS1
 NEW_LINE            	
 

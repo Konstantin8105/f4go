@@ -204,6 +204,8 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 		identType = "byte"
 	case COMPLEX:
 		identType = "complex128"
+	case REAL:
+		identType = "float64"
 	}
 
 	p.ident++
@@ -236,7 +238,7 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 
 func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	switch p.ns[p.ident].tok {
-	case INTEGER, CHARACTER, COMPLEX, LOGICAL:
+	case INTEGER, CHARACTER, COMPLEX, LOGICAL, REAL:
 
 		stmts = append(stmts, p.parseInit()...)
 

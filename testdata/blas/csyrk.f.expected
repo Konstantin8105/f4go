@@ -608,7 +608,7 @@ LOGICAL             	LOGICAL
 IDENT               	LSAME
 NEW_LINE            	
 
-IDENT               	EXTERNAL
+EXTERNAL            	EXTERNAL
 IDENT               	LSAME
 NEW_LINE            	
 
@@ -618,7 +618,7 @@ NEW_LINE
 COMMENT             	*     .. External Subroutines ..
 NEW_LINE            	
 
-IDENT               	EXTERNAL
+EXTERNAL            	EXTERNAL
 IDENT               	XERBLA
 NEW_LINE            	
 

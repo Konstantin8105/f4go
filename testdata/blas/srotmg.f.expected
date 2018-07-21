@@ -304,7 +304,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	SD1
 ,                   	,
 IDENT               	SD2
@@ -320,7 +320,7 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	SPARAM
 (                   	(
 INT                 	5
@@ -342,7 +342,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	GAM
 ,                   	,
 IDENT               	GAMSQ

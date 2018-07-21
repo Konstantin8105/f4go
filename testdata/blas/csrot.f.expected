@@ -340,7 +340,7 @@ IDENT               	INCY
 IDENT               	N
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	C
 ,                   	,
 IDENT               	S

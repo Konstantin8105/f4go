@@ -563,7 +563,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	ALPHA
 ,                   	,
 IDENT               	BETA
@@ -626,7 +626,7 @@ LOGICAL             	LOGICAL
 IDENT               	LSAME
 NEW_LINE            	
 
-IDENT               	EXTERNAL
+EXTERNAL            	EXTERNAL
 IDENT               	LSAME
 NEW_LINE            	
 
@@ -636,7 +636,7 @@ NEW_LINE
 COMMENT             	*     .. External Subroutines ..
 NEW_LINE            	
 
-IDENT               	EXTERNAL
+EXTERNAL            	EXTERNAL
 IDENT               	XERBLA
 NEW_LINE            	
 
@@ -653,7 +653,7 @@ IDENT               	CONJG
 ,                   	,
 IDENT               	MAX
 ,                   	,
-IDENT               	REAL
+REAL                	REAL
 NEW_LINE            	
 
 COMMENT             	*     ..
@@ -666,7 +666,7 @@ COMPLEX             	COMPLEX
 IDENT               	TEMP
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	RTEMP
 NEW_LINE            	
 
@@ -692,7 +692,7 @@ NEW_LINE
 COMMENT             	*     .. Parameters ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	ONE
 ,                   	,
 IDENT               	ZERO
@@ -1095,7 +1095,7 @@ IDENT               	J
 =                   	=
 IDENT               	BETA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1183,7 +1183,7 @@ IDENT               	J
 =                   	=
 IDENT               	BETA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1374,7 +1374,7 @@ IDENT               	J
 =                   	=
 IDENT               	BETA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1395,7 +1395,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1497,7 +1497,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1507,7 +1507,7 @@ IDENT               	J
 )                   	)
 )                   	)
 +                   	+
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	TEMP
 *                   	*
@@ -1595,7 +1595,7 @@ IDENT               	J
 =                   	=
 IDENT               	BETA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1648,7 +1648,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1711,7 +1711,7 @@ IDENT               	J
 IDENT               	J
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -1721,7 +1721,7 @@ IDENT               	J
 )                   	)
 )                   	)
 +                   	+
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	TEMP
 *                   	*
@@ -1998,7 +1998,7 @@ IDENT               	RTEMP
 +                   	+
 IDENT               	BETA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(
@@ -2106,7 +2106,7 @@ IDENT               	RTEMP
 +                   	+
 IDENT               	BETA
 *                   	*
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	C
 (                   	(

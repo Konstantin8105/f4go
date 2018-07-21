@@ -591,7 +591,7 @@ LOGICAL             	LOGICAL
 IDENT               	LSAME
 NEW_LINE            	
 
-IDENT               	EXTERNAL
+EXTERNAL            	EXTERNAL
 IDENT               	LSAME
 NEW_LINE            	
 
@@ -601,7 +601,7 @@ NEW_LINE
 COMMENT             	*     .. External Subroutines ..
 NEW_LINE            	
 
-IDENT               	EXTERNAL
+EXTERNAL            	EXTERNAL
 IDENT               	XERBLA
 NEW_LINE            	
 
@@ -614,7 +614,7 @@ NEW_LINE
 IDENT               	INTRINSIC
 IDENT               	CONJG
 ,                   	,
-IDENT               	REAL
+REAL                	REAL
 NEW_LINE            	
 
 COMMENT             	*     ..
@@ -1045,7 +1045,7 @@ IDENT               	J
 INT                 	1
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	AP
 (                   	(
@@ -1060,7 +1060,7 @@ INT                 	1
 NEW_LINE            	
 
 +                   	+
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	X
 (                   	(
@@ -1090,7 +1090,7 @@ IDENT               	J
 INT                 	1
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	AP
 (                   	(
@@ -1254,7 +1254,7 @@ IDENT               	J
 INT                 	1
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	AP
 (                   	(
@@ -1269,7 +1269,7 @@ INT                 	1
 NEW_LINE            	
 
 +                   	+
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	X
 (                   	(
@@ -1299,7 +1299,7 @@ IDENT               	J
 INT                 	1
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	AP
 (                   	(
@@ -1437,7 +1437,7 @@ IDENT               	AP
 IDENT               	KK
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	AP
 (                   	(
@@ -1448,7 +1448,7 @@ IDENT               	KK
 NEW_LINE            	
 
 +                   	+
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	X
 (                   	(
@@ -1528,7 +1528,7 @@ IDENT               	AP
 IDENT               	KK
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	AP
 (                   	(
@@ -1622,7 +1622,7 @@ IDENT               	AP
 IDENT               	KK
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	AP
 (                   	(
@@ -1633,7 +1633,7 @@ IDENT               	KK
 NEW_LINE            	
 
 +                   	+
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	X
 (                   	(
@@ -1727,7 +1727,7 @@ IDENT               	AP
 IDENT               	KK
 )                   	)
 =                   	=
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	AP
 (                   	(

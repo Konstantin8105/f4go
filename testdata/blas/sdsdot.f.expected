@@ -490,7 +490,7 @@ NEW_LINE
 COMMENT             	*  =====================================================================
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 FUNCTION            	FUNCTION
 IDENT               	SDSDOT
 (                   	(
@@ -529,7 +529,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	SB
 NEW_LINE            	
 
@@ -547,7 +547,7 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 IDENT               	SX
 (                   	(
 *                   	*

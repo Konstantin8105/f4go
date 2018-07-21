@@ -136,7 +136,7 @@ NEW_LINE
 COMMENT             	*  =====================================================================
 NEW_LINE            	
 
-IDENT               	REAL
+REAL                	REAL
 FUNCTION            	FUNCTION
 IDENT               	SCABS1
 (                   	(
@@ -189,7 +189,7 @@ IDENT               	ABS
 ,                   	,
 IDENT               	AIMAG
 ,                   	,
-IDENT               	REAL
+REAL                	REAL
 NEW_LINE            	
 
 COMMENT             	*     ..
@@ -199,7 +199,7 @@ IDENT               	SCABS1
 =                   	=
 IDENT               	ABS
 (                   	(
-IDENT               	REAL
+REAL                	REAL
 (                   	(
 IDENT               	Z
 )                   	)
