@@ -53,62 +53,64 @@ func TestScanner(t *testing.T) {
 		testName := filename[index+1:]
 		fn := filename[:index+1] + testName
 
-		t.Run(fmt.Sprintf("scan/%v", testName), func(t *testing.T) {
-			file, err := os.Open(filename)
-			if err != nil {
-				t.Fatal(err)
-				return
-			}
-			defer file.Close()
-
-			s := NewScanner(bufio.NewReader(file))
-			buf := &bytes.Buffer{}
-			for {
-				tok, lit := s.Scan()
-				if tok == token.ILLEGAL {
-					t.Fatalf("ILLEGAL literal : %v", lit)
+		if !testing.Short() {
+			t.Run(fmt.Sprintf("scan/%v", testName), func(t *testing.T) {
+				file, err := os.Open(filename)
+				if err != nil {
+					t.Fatal(err)
 					return
 				}
-				if tok == token.EOF {
-					break
+				defer file.Close()
+
+				s := NewScanner(bufio.NewReader(file))
+				buf := &bytes.Buffer{}
+				for {
+					tok, lit := s.Scan()
+					if tok == token.ILLEGAL {
+						t.Fatalf("ILLEGAL literal : %v", lit)
+						return
+					}
+					if tok == token.EOF {
+						break
+					}
+					buf.WriteString(fmt.Sprintf("%-20s\t%v\n", view(tok), lit))
 				}
-				buf.WriteString(fmt.Sprintf("%-20s\t%v\n", view(tok), lit))
-			}
 
-			var out string
-			out, err = util.IsDiff(fn+".expected", buf.String())
-			if err != nil {
-				t.Fatal(err)
-			}
-			if out != "" {
-				t.Fatal(out)
-			}
-		})
+				var out string
+				out, err = util.IsDiff(fn+".expected", buf.String())
+				if err != nil {
+					t.Fatal(err)
+				}
+				if out != "" {
+					t.Fatal(out)
+				}
+			})
 
-		t.Run(fmt.Sprintf("parse/%v", testName), func(t *testing.T) {
-			file, err := os.Open(filename)
-			if err != nil {
-				t.Fatal(err)
-				return
-			}
-			defer file.Close()
+			t.Run(fmt.Sprintf("parse/%v", testName), func(t *testing.T) {
+				file, err := os.Open(filename)
+				if err != nil {
+					t.Fatal(err)
+					return
+				}
+				defer file.Close()
 
-			pr := parser{
-				sc: NewScanner(file),
-			}
+				pr := parser{
+					sc: NewScanner(file),
+				}
 
-			err = pr.prepare()
-			if err != nil {
-				t.Fatal(err)
-			}
-			out, err := util.IsDiff(fn+".f_expect", a(pr.ns))
-			if err != nil {
-				t.Fatal(err)
-			}
-			if out != "" {
-				t.Fatal(out)
-			}
-		})
+				err = pr.prepare()
+				if err != nil {
+					t.Fatal(err)
+				}
+				out, err := util.IsDiff(fn+".f_expect", a(pr.ns))
+				if err != nil {
+					t.Fatal(err)
+				}
+				if out != "" {
+					t.Fatal(out)
+				}
+			})
+		}
 
 		t.Run(fmt.Sprintf("transpile/%v", testName), func(t *testing.T) {
 			file, err := os.Open(filename)
