@@ -194,8 +194,18 @@ func (p *parser) transpileListStmt() (stmts []goast.Stmt) {
 func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	switch p.ns[p.ident].tok {
 	case INTEGER, CHARACTER, COMPLEX, LOGICAL:
-		p.ident++
 
+		identType := "int"
+		switch p.ns[p.ident].tok {
+		case LOGICAL:
+			identType = "bool"
+		case CHARACTER:
+			identType = "byte"
+		case COMPLEX:
+			identType = "complex128"
+		}
+
+		p.ident++
 		for ; p.ns[p.ident].tok != NEW_LINE; p.ident++ {
 			switch p.ns[p.ident].tok {
 			case token.IDENT:
@@ -206,7 +216,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 						Specs: []goast.Spec{
 							&goast.ValueSpec{
 								Names: []*goast.Ident{goast.NewIdent(name)},
-								Type:  goast.NewIdent("int"),
+								Type:  goast.NewIdent(identType),
 							},
 						},
 					},
