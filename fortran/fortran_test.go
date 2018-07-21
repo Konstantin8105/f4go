@@ -6,33 +6,43 @@ import (
 	"fmt"
 	"go/format"
 	"go/token"
+	"io/ioutil"
 	"os"
-	"path/filepath"
 	"strings"
 	"testing"
 
 	"github.com/Konstantin8105/f4go/util"
 )
 
-func getFortranTestFiles() (files []string, err error) {
-	locations := []string{
-		"../testdata/blas/*.f",
+func getFortranTestFiles(dir string) (files []string, err error) {
+	ents, err := ioutil.ReadDir(dir)
+	if err != nil {
+		return
 	}
-	for _, loc := range locations {
-		var fs []string
-		fs, err = filepath.Glob(loc)
-		if err != nil {
-			fmt.Println("err = ", err)
-			return
+
+	for _, ent := range ents {
+		if ent.IsDir() {
+			var fs []string
+			fs, err = getFortranTestFiles(dir + "/" + ent.Name())
+			if err != nil {
+				return
+			}
+			files = append(files, fs...)
+			continue
 		}
-		files = append(files, fs...)
+		if !strings.HasSuffix(ent.Name(), ".f") &&
+			!strings.HasSuffix(ent.Name(), ".f90") {
+			continue
+		}
+		files = append(files, dir+"/"+ent.Name())
 	}
+
 	return
 }
 
 func TestScanner(t *testing.T) {
 
-	files, err := getFortranTestFiles()
+	files, err := getFortranTestFiles("../testdata")
 	if err != nil {
 		fmt.Println("err = ", err)
 		return

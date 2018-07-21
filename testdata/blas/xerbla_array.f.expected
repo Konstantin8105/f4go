@@ -282,7 +282,7 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-IDENT               	CHARACTER
+CHARACTER           	CHARACTER
 (                   	(
 INT                 	1
 )                   	)
@@ -320,7 +320,7 @@ NEW_LINE
 COMMENT             	*     .. Local Arrays ..
 NEW_LINE            	
 
-IDENT               	CHARACTER
+CHARACTER           	CHARACTER
 *                   	*
 INT                 	32
 IDENT               	SRNAME

@@ -208,7 +208,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	CHARACTER
+CHARACTER           	CHARACTER
 *                   	*
 (                   	(
 *                   	*

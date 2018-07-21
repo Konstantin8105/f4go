@@ -603,7 +603,7 @@ IDENT               	M
 IDENT               	N
 NEW_LINE            	
 
-IDENT               	CHARACTER
+CHARACTER           	CHARACTER
 IDENT               	DIAG
 ,                   	,
 IDENT               	SIDE
@@ -650,7 +650,7 @@ NEW_LINE
 COMMENT             	*     .. External Functions ..
 NEW_LINE            	
 
-IDENT               	LOGICAL
+LOGICAL             	LOGICAL
 IDENT               	LSAME
 NEW_LINE            	
 
@@ -700,7 +700,7 @@ IDENT               	K
 IDENT               	NROWA
 NEW_LINE            	
 
-IDENT               	LOGICAL
+LOGICAL             	LOGICAL
 IDENT               	LSIDE
 ,                   	,
 IDENT               	NOUNIT

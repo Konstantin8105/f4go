@@ -497,7 +497,7 @@ IDENT               	INCY
 IDENT               	N
 NEW_LINE            	
 
-IDENT               	CHARACTER
+CHARACTER           	CHARACTER
 IDENT               	UPLO
 NEW_LINE            	
 
@@ -599,7 +599,7 @@ NEW_LINE
 COMMENT             	*     .. External Functions ..
 NEW_LINE            	
 
-IDENT               	LOGICAL
+LOGICAL             	LOGICAL
 IDENT               	LSAME
 NEW_LINE            	
 

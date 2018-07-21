@@ -157,7 +157,7 @@ NEW_LINE
 COMMENT             	*  =====================================================================
 NEW_LINE            	
 
-IDENT               	LOGICAL
+LOGICAL             	LOGICAL
 FUNCTION            	FUNCTION
 IDENT               	LSAME
 (                   	(
@@ -188,7 +188,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	CHARACTER
+CHARACTER           	CHARACTER
 IDENT               	CA
 ,                   	,
 IDENT               	CB
