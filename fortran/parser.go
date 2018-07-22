@@ -122,6 +122,10 @@ func (p *parser) transpileToNode() (decls []goast.Decl) {
 	return
 }
 
+func (p *parser) gotoEndLine() {
+	_ = p.getLine()
+}
+
 func (p *parser) getLine() (line string) {
 	if p.ident < 0 || p.ident >= len(p.ns) {
 		p.addError("Cannot get line, ident = " + strconv.Itoa(p.ident))
@@ -185,7 +189,7 @@ checkExternalFunction:
 			}
 		}
 		if remove {
-			fmt.Println("Remove external function definition: ", name)
+			// fmt.Println("Remove external function definition: ", name)
 			p.initVars = append(p.initVars[:i], p.initVars[i+1:]...)
 			goto checkExternalFunction
 		}
@@ -199,7 +203,7 @@ checkArguments:
 			if fieldName == p.initVars[j].name {
 				fd.Type.Params.List[i].Type = goast.NewIdent(p.initVars[j].typ)
 
-				fmt.Println("Remove to arg : ", fieldName)
+				// fmt.Println("Remove to arg : ", fieldName)
 				p.initVars = append(p.initVars[:j], p.initVars[j+1:]...)
 				goto checkArguments
 			}
@@ -340,7 +344,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 		List:   p.transpileListStmt(),
 	}
 
-	fmt.Println("|| ", p.getLine()) // go to next line
+	p.gotoEndLine()
 
 	return
 }
@@ -350,9 +354,9 @@ func (p *parser) parseIf() (sIf goast.IfStmt) {
 	p.ident++
 	p.expect(token.LPAREN)
 
+	p.ident++
 	start := p.ident
-	var counter int = 0
-	for ; p.ns[p.ident].tok != token.EOF; p.ident++ {
+	for counter := 1; p.ns[p.ident].tok != token.EOF; p.ident++ {
 		var exit bool
 		switch p.ns[p.ident].tok {
 		case token.LPAREN:
@@ -374,7 +378,7 @@ func (p *parser) parseIf() (sIf goast.IfStmt) {
 	p.ident++
 
 	if p.ns[p.ident].tok == THEN {
-		fmt.Println("} ", p.getLine()) // to go next line
+		p.gotoEndLine()
 		p.ident++
 		sIf.Body = &goast.BlockStmt{
 			Lbrace: 1,
@@ -399,6 +403,11 @@ func (p *parser) parseIf() (sIf goast.IfStmt) {
 }
 
 func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
+	var str string
+	for i := start; i < end; i++ {
+		str += " " + p.ns[i].lit
+	}
+	fmt.Println("Expr : ", str)
 	//TODO
 	return &goast.BinaryExpr{
 		X:  goast.NewIdent("temp"),
@@ -423,7 +432,7 @@ func (p *parser) parseExternal() {
 		case token.IDENT:
 			name := p.ns[p.ident].lit
 			p.functionExternalName = append(p.functionExternalName, name)
-			fmt.Println("Function external: ", name)
+			// fmt.Println("Function external: ", name)
 		case token.COMMA:
 			// ingore
 		default:
@@ -468,7 +477,16 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	// 	fmt.Println("Go to end ->", p.getLine())
 
 	default:
-		fmt.Println("stmt:", p.getLine())
+		start := p.ident
+		for ; p.ident < len(p.ns); p.ident++ {
+			if p.ns[p.ident].tok == NEW_LINE {
+				stmts = append(stmts, &goast.ExprStmt{
+					X: p.parseExpr(start, p.ident),
+				})
+				break
+			}
+		}
+
 		p.ident++
 	}
 	return
