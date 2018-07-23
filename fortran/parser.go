@@ -447,13 +447,16 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 	for i := start; i < end; i++ {
 		switch p.ns[i].tok {
 		case
-			token.LAND,   // &&
-			token.LOR,    // ||
-			token.EQL,    // ==
 			token.LSS,    // <
 			token.GTR,    // >
-			token.ASSIGN, // =
-			token.NOT:    // !
+			token.LEQ,    // <=
+			token.GEQ,    // >=
+			token.NOT,    // !
+			token.NEQ,    // !=
+			token.EQL,    // ==
+			token.LAND,   // &&
+			token.LOR,    // ||
+			token.ASSIGN: // =
 			str += " " + view(p.ns[i].tok)
 		default:
 			str += " " + p.ns[i].lit
