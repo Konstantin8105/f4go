@@ -4,7 +4,6 @@ import (
 	"fmt"
 	goast "go/ast"
 	"go/token"
-	"strconv"
 )
 
 type node struct {
@@ -192,28 +191,17 @@ func (p *parser) parse() (err error) {
 }
 
 func (p *parser) showErrors() {
+	fmt.Println("--------")
+	fmt.Println("Errors:")
 	if len(p.errs) > 0 {
-		fmt.Println("--------")
-		fmt.Println("Errors:")
 		for index, e := range p.errs {
 			fmt.Printf("[%3d]\t%v\n", index+1, e)
 		}
 		return
 	}
 
-	last := p.ident
-	defer func() {
-		p.ident = last
-	}()
-	for ; p.ident >= 0 && p.ns[p.ident].tok != NEW_LINE; p.ident-- {
-	}
-	p.ident++
-	var line string
-	for ; p.ident < len(p.ns) && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
-		line += " " + p.ns[p.ident].lit
-	}
+	line := p.getLine()
 	if line != "" {
-		fmt.Println("--------")
 		fmt.Println("Present line: ", line)
 	}
 }
@@ -245,13 +233,19 @@ func (p *parser) gotoEndLine() {
 }
 
 func (p *parser) getLine() (line string) {
-	if p.ident < 0 || p.ident >= len(p.ns) {
-		p.addError("Cannot get line, ident = " + strconv.Itoa(p.ident))
-		return
+	if !(p.ident < len(p.ns)) {
+		p.ident = len(p.ns) - 1
 	}
-	for p.ident < len(p.ns) && p.ns[p.ident].tok == NEW_LINE {
-		line += fmt.Sprintf(" %s", p.ns[p.ident].lit)
-		p.ident++
+
+	last := p.ident
+	defer func() {
+		p.ident = last
+	}()
+	for ; p.ident >= 0 && p.ns[p.ident].tok != NEW_LINE; p.ident-- {
+	}
+	p.ident++
+	for ; p.ident < len(p.ns) && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+		line += " " + p.ns[p.ident].lit
 	}
 	return
 }
@@ -353,8 +347,6 @@ func (p *parser) addError(msg string) {
 	defer func() {
 		p.ident = last
 	}()
-	for ; p.ident != 0 && p.ns[p.ident].tok != NEW_LINE; p.ident-- {
-	}
 
 	p.errs = append(p.errs, fmt.Errorf("%s\nCode line :%s", msg, p.getLine()))
 }
