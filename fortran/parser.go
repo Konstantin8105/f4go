@@ -437,9 +437,39 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 	return
 }
 
-func (p *parser) parseDo() (sDo goast.ForStmt) {
+func (p *parser) parseDoWhile() (sDo goast.ForStmt) {
+	p.expect(DO)
+	p.ident++
+	p.expect(WHILE)
+	p.ident++
+	start := p.ident
+	for ; p.ident < len(p.ns); p.ident++ {
+		if p.ns[p.ident].tok == NEW_LINE {
+			break
+		}
+	}
+	p.ident--
+	sDo.Cond = p.parseExpr(start, p.ident)
 
 	p.ident++
+	p.expect(NEW_LINE)
+	p.ident++
+
+	sDo.Body = &goast.BlockStmt{
+		Lbrace: 1,
+		List:   p.transpileListStmt(),
+	}
+
+	return
+}
+
+func (p *parser) parseDo() (sDo goast.ForStmt) {
+	p.expect(DO)
+	p.ident++
+	if p.ns[p.ident].tok == WHILE {
+		p.ident--
+		return p.parseDoWhile()
+	}
 	p.expect(token.IDENT)
 	name := p.ns[p.ident].lit
 
