@@ -431,6 +431,11 @@ func (p *parser) parseIf() (sIf goast.IfStmt) {
 }
 
 func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
+
+	if end-start == 1 {
+		return goast.NewIdent(p.ns[start].lit)
+	}
+
 	var str string
 	for i := start; i < end; i++ {
 		str += " " + p.ns[i].lit
