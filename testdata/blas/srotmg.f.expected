@@ -926,7 +926,7 @@ END                 	END
 if                  	IF
 NEW_LINE            	
 
-ENDDO               	ENDDO
+END                 	ENDDO
 NEW_LINE            	
 
 END                 	END

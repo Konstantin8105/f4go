@@ -16,7 +16,7 @@
  IZAMAX = I
  DMAX = DCABS1 ( ZX ( I ) )
  END
- END DO
+ END
  ELSE
  IX = 1
  DMAX = DCABS1 ( ZX ( 1 ) )
@@ -27,7 +27,7 @@
  DMAX = DCABS1 ( ZX ( IX ) )
  END
  IX = IX + INCX
- END DO
+ END
  END
  RETURN
  END

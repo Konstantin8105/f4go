@@ -9,7 +9,7 @@
  CTEMP = CX ( I )
  CX ( I ) = CY ( I )
  CY ( I ) = CTEMP
- END DO
+ END
  ELSE
  IX = 1
  IY = 1
@@ -21,7 +21,7 @@
  CY ( IY ) = CTEMP
  IX = IX + INCX
  IY = IY + INCY
- END DO
+ END
  END
  RETURN
  END

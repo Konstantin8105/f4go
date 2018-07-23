@@ -16,7 +16,7 @@
  ICAMAX = I
  SMAX = SCABS1 ( CX ( I ) )
  END
- END DO
+ END
  ELSE
  IX = 1
  SMAX = SCABS1 ( CX ( 1 ) )
@@ -27,7 +27,7 @@
  SMAX = SCABS1 ( CX ( IX ) )
  END
  IX = IX + INCX
- END DO
+ END
  END
  RETURN
  END

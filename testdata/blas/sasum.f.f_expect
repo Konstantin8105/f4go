@@ -12,7 +12,7 @@
  IF ( M .NE. 0 ) THEN
  DO I = 1 , M
  STEMP = STEMP + ABS ( SX ( I ) )
- END DO
+ END
  IF ( N .LT. 6 ) THEN
  SASUM = STEMP
  RETURN
@@ -23,12 +23,12 @@
  STEMP = STEMP + ABS ( SX ( I ) ) + ABS ( SX ( I + 1 ) ) +
  ABS ( SX ( I + 2 ) ) + ABS ( SX ( I + 3 ) ) +
  ABS ( SX ( I + 4 ) ) + ABS ( SX ( I + 5 ) )
- END DO
+ END
  ELSE
  NINCX = N * INCX
  DO I = 1 , NINCX , INCX
  STEMP = STEMP + ABS ( SX ( I ) )
- END DO
+ END
  END
  SASUM = STEMP
  RETURN

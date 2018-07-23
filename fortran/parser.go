@@ -45,13 +45,24 @@ func (p *parser) prepare() (err error) {
 			continue
 		}
 
-		if last == NEW_LINE && tok == NEW_LINE {
+		// From:
+		//  END SUBROUTINE
+		//  END IF
+		// To:
+		//  END
+		if last == END && tok != NEW_LINE {
+			for tok != token.EOF && tok != NEW_LINE && tok != token.ILLEGAL {
+				tok, lit = p.sc.Scan()
+			}
+			p.ns = append(p.ns, node{
+				tok: tok,
+				lit: lit,
+			})
+			last = tok
 			continue
 		}
 
-		// from : END IF
-		// to   : END
-		if last == END && tok == token.IF {
+		if last == NEW_LINE && tok == NEW_LINE {
 			continue
 		}
 
@@ -100,12 +111,6 @@ func (p *parser) prepare() (err error) {
 	//  END
 	//  END
 	//-------------
-
-	// TODO: simplification END
-	// From:
-	//  END SUBROUTINE
-	// To:
-	//  END
 
 	return
 }

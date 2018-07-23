@@ -8,12 +8,12 @@
  IF ( INCX .EQ. 1 ) THEN
  DO I = 1 , N
  CX ( I ) = CMPLX ( SA * REAL ( CX ( I ) ) , SA * AIMAG ( CX ( I ) ) )
- END DO
+ END
  ELSE
  NINCX = N * INCX
  DO I = 1 , NINCX , INCX
  CX ( I ) = CMPLX ( SA * REAL ( CX ( I ) ) , SA * AIMAG ( CX ( I ) ) )
- END DO
+ END
  END
  RETURN
  END

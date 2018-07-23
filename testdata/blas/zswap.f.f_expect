@@ -9,7 +9,7 @@
  ZTEMP = ZX ( I )
  ZX ( I ) = ZY ( I )
  ZY ( I ) = ZTEMP
- END DO
+ END
  ELSE
  IX = 1
  IY = 1
@@ -21,7 +21,7 @@
  ZY ( IY ) = ZTEMP
  IX = IX + INCX
  IY = IY + INCY
- END DO
+ END
  END
  RETURN
  END

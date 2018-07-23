@@ -10,7 +10,7 @@
  IF ( M .NE. 0 ) THEN
  DO I = 1 , M
  DX ( I ) = DA * DX ( I )
- END DO
+ END
  IF ( N .LT. 5 ) RETURN
  END
  MP1 = M + 1
@@ -20,12 +20,12 @@
  DX ( I + 2 ) = DA * DX ( I + 2 )
  DX ( I + 3 ) = DA * DX ( I + 3 )
  DX ( I + 4 ) = DA * DX ( I + 4 )
- END DO
+ END
  ELSE
  NINCX = N * INCX
  DO I = 1 , NINCX , INCX
  DX ( I ) = DA * DX ( I )
- END DO
+ END
  END
  RETURN
  END

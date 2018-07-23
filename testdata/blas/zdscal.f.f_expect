@@ -8,12 +8,12 @@
  IF ( INCX .EQ. 1 ) THEN
  DO I = 1 , N
  ZX ( I ) = DCMPLX ( DA , 0.0d0 ) * ZX ( I )
- END DO
+ END
  ELSE
  NINCX = N * INCX
  DO I = 1 , NINCX , INCX
  ZX ( I ) = DCMPLX ( DA , 0.0d0 ) * ZX ( I )
- END DO
+ END
  END
  RETURN
  END

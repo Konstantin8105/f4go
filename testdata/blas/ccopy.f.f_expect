@@ -6,7 +6,7 @@
  IF ( INCX .EQ. 1 .AND. INCY .EQ. 1 ) THEN
  DO I = 1 , N
  CY ( I ) = CX ( I )
- END DO
+ END
  ELSE
  IX = 1
  IY = 1
@@ -16,7 +16,7 @@
  CY ( IY ) = CX ( IX )
  IX = IX + INCX
  IY = IY + INCY
- END DO
+ END
  END
  RETURN
  END

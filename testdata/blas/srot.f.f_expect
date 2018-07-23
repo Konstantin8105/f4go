@@ -10,7 +10,7 @@
  STEMP = C * SX ( I ) + S * SY ( I )
  SY ( I ) = C * SY ( I ) - S * SX ( I )
  SX ( I ) = STEMP
- END DO
+ END
  ELSE
  IX = 1
  IY = 1
@@ -22,7 +22,7 @@
  SX ( IX ) = STEMP
  IX = IX + INCX
  IY = IY + INCY
- END DO
+ END
  END
  RETURN
  END

@@ -11,7 +11,7 @@
  IF ( M .NE. 0 ) THEN
  DO I = 1 , M
  SY ( I ) = SY ( I ) + SA * SX ( I )
- END DO
+ END
  END
  IF ( N .LT. 4 ) RETURN
  MP1 = M + 1
@@ -20,7 +20,7 @@
  SY ( I + 1 ) = SY ( I + 1 ) + SA * SX ( I + 1 )
  SY ( I + 2 ) = SY ( I + 2 ) + SA * SX ( I + 2 )
  SY ( I + 3 ) = SY ( I + 3 ) + SA * SX ( I + 3 )
- END DO
+ END
  ELSE
  IX = 1
  IY = 1
@@ -30,7 +30,7 @@
  SY ( IY ) = SY ( IY ) + SA * SX ( IX )
  IX = IX + INCX
  IY = IY + INCY
- END DO
+ END
  END
  RETURN
  END

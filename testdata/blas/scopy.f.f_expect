@@ -9,7 +9,7 @@
  IF ( M .NE. 0 ) THEN
  DO I = 1 , M
  SY ( I ) = SX ( I )
- END DO
+ END
  IF ( N .LT. 7 ) RETURN
  END
  MP1 = M + 1
@@ -21,7 +21,7 @@
  SY ( I + 4 ) = SX ( I + 4 )
  SY ( I + 5 ) = SX ( I + 5 )
  SY ( I + 6 ) = SX ( I + 6 )
- END DO
+ END
  ELSE
  IX = 1
  IY = 1
@@ -31,7 +31,7 @@
  SY ( IY ) = SX ( IX )
  IX = IX + INCX
  IY = IY + INCY
- END DO
+ END
  END
  RETURN
  END

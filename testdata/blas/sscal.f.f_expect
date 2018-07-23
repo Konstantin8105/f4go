@@ -10,7 +10,7 @@
  IF ( M .NE. 0 ) THEN
  DO I = 1 , M
  SX ( I ) = SA * SX ( I )
- END DO
+ END
  IF ( N .LT. 5 ) RETURN
  END
  MP1 = M + 1
@@ -20,12 +20,12 @@
  SX ( I + 2 ) = SA * SX ( I + 2 )
  SX ( I + 3 ) = SA * SX ( I + 3 )
  SX ( I + 4 ) = SA * SX ( I + 4 )
- END DO
+ END
  ELSE
  NINCX = N * INCX
  DO I = 1 , NINCX , INCX
  SX ( I ) = SA * SX ( I )
- END DO
+ END
  END
  RETURN
  END

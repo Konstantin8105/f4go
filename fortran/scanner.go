@@ -329,7 +329,7 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 
 	case "EXTERNAL":
 		return EXTERNAL, buf.String()
-	case "END":
+	case "END", "ENDDO":
 		return END, buf.String()
 	case "DO":
 		return DO, buf.String()

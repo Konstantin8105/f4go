@@ -10,12 +10,12 @@
  IF ( INCX .EQ. 1 ) THEN
  DO I = 1 , N
  STEMP = STEMP + ABS ( REAL ( CX ( I ) ) ) + ABS ( AIMAG ( CX ( I ) ) )
- END DO
+ END
  ELSE
  NINCX = N * INCX
  DO I = 1 , NINCX , INCX
  STEMP = STEMP + ABS ( REAL ( CX ( I ) ) ) + ABS ( AIMAG ( CX ( I ) ) )
- END DO
+ END
  END
  SCASUM = STEMP
  RETURN

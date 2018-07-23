@@ -12,7 +12,7 @@
  STEMP = SX ( I )
  SX ( I ) = SY ( I )
  SY ( I ) = STEMP
- END DO
+ END
  IF ( N .LT. 3 ) RETURN
  END
  MP1 = M + 1
@@ -26,7 +26,7 @@
  STEMP = SX ( I + 2 )
  SX ( I + 2 ) = SY ( I + 2 )
  SY ( I + 2 ) = STEMP
- END DO
+ END
  ELSE
  IX = 1
  IY = 1
@@ -38,7 +38,7 @@
  SY ( IY ) = STEMP
  IX = IX + INCX
  IY = IY + INCY
- END DO
+ END
  END
  RETURN
  END

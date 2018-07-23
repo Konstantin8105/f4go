@@ -15,7 +15,7 @@
  ISAMAX = I
  SMAX = ABS ( SX ( I ) )
  END
- END DO
+ END
  ELSE
  IX = 1
  SMAX = ABS ( SX ( 1 ) )
@@ -26,7 +26,7 @@
  SMAX = ABS ( SX ( IX ) )
  END
  IX = IX + INCX
- END DO
+ END
  END
  RETURN
  END

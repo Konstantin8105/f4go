@@ -10,7 +10,7 @@
  DTEMP = C * DX ( I ) + S * DY ( I )
  DY ( I ) = C * DY ( I ) - S * DX ( I )
  DX ( I ) = DTEMP
- END DO
+ END
  ELSE
  IX = 1
  IY = 1
@@ -22,7 +22,7 @@
  DX ( IX ) = DTEMP
  IX = IX + INCX
  IY = IY + INCY
- END DO
+ END
  END
  RETURN
  END

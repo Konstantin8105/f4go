@@ -7,12 +7,12 @@
  IF ( INCX .EQ. 1 ) THEN
  DO I = 1 , N
  CX ( I ) = CA * CX ( I )
- END DO
+ END
  ELSE
  NINCX = N * INCX
  DO I = 1 , NINCX , INCX
  CX ( I ) = CA * CX ( I )
- END DO
+ END
  END
  RETURN
  END
