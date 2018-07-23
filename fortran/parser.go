@@ -435,6 +435,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 	p.expect(token.ASSIGN)
 
 	p.ident++
+	// TODO: this is expression
 	start := p.ns[p.ident].lit
 	sDo.Init = &goast.AssignStmt{
 		Lhs: []goast.Expr{
