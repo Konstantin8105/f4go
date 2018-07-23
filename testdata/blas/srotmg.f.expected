@@ -785,7 +785,7 @@ THEN                	THEN
 NEW_LINE            	
 
 DO                  	DO
-IDENT               	WHILE
+WHILE               	WHILE
 (                   	(
 (                   	(
 IDENT               	SD1
@@ -945,7 +945,7 @@ THEN                	THEN
 NEW_LINE            	
 
 DO                  	DO
-IDENT               	WHILE
+WHILE               	WHILE
 (                   	(
 (                   	(
 IDENT               	ABS

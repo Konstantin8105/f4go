@@ -26,6 +26,7 @@ const (
 	NEW_LINE
 
 	WRITE
+	WHILE
 
 	PARAMETER
 )
@@ -57,6 +58,7 @@ var o = [...]string{
 	NEW_LINE:     "NEW_LINE",
 
 	WRITE: "WRITE",
+	WHILE: "WHILE",
 
 	PARAMETER: "PARAMETER",
 }
