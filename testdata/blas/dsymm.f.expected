@@ -835,7 +835,7 @@ NEW_LINE
 if                  	IF
 (                   	(
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	SIDE
@@ -845,7 +845,7 @@ STRING              	'L'
 )                   	)
 &&                  	.AND.
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	SIDE
@@ -866,12 +866,12 @@ else                	ELSE
 if                  	IF
 (                   	(
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	UPPER
 )                   	)
 &&                  	.AND.
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	UPLO

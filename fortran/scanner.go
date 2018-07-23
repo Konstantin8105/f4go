@@ -158,7 +158,9 @@ func (s *Scanner) scanPeriod() (tok token.Token, lit string) {
 		return token.LEQ, buf.String()
 	case ".GE.":
 		return token.GEQ, buf.String()
-	case ".NOT.", ".NE.":
+	case ".NOT.":
+		return token.NOT, buf.String()
+	case ".NE.":
 		return token.NEQ, buf.String()
 	case ".EQ.":
 		return token.EQL, buf.String()

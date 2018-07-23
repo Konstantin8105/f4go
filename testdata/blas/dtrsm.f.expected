@@ -813,12 +813,12 @@ NEW_LINE
 if                  	IF
 (                   	(
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSIDE
 )                   	)
 &&                  	.AND.
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	SIDE
@@ -839,12 +839,12 @@ else                	ELSE
 if                  	IF
 (                   	(
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	UPPER
 )                   	)
 &&                  	.AND.
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	UPLO
@@ -865,7 +865,7 @@ else                	ELSE
 if                  	IF
 (                   	(
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	TRANSA
@@ -878,7 +878,7 @@ NEW_LINE
 
 +                   	+
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	TRANSA
@@ -891,7 +891,7 @@ NEW_LINE
 
 +                   	+
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	TRANSA
@@ -912,7 +912,7 @@ else                	ELSE
 if                  	IF
 (                   	(
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	DIAG
@@ -922,7 +922,7 @@ STRING              	'U'
 )                   	)
 &&                  	.AND.
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	DIAG

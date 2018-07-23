@@ -773,7 +773,7 @@ NEW_LINE
 
 if                  	IF
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	UPLO
@@ -781,7 +781,7 @@ IDENT               	UPLO
 STRING              	'U'
 )                   	)
 &&                  	.AND.
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	UPLO

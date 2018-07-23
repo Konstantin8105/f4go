@@ -88,10 +88,10 @@ func (p *parser) parse() (err error) {
 	p.ident = 0
 	decls = p.transpileToNode()
 	if len(p.errs) > 0 {
-		for _, e := range p.errs {
-			err = fmt.Errorf("%v\n%v", err, e)
+		for index, e := range p.errs {
+			err = fmt.Errorf("[%5d]\t%v", index, e)
 		}
-		fmt.Println("Errors:\n ", err)
+		fmt.Println("Errors:\n", err)
 		err = nil
 		// return
 	}
@@ -233,7 +233,14 @@ checkArguments:
 }
 
 func (p *parser) addError(msg string) {
-	p.errs = append(p.errs, fmt.Errorf("%s", msg))
+	last := p.ident
+	defer func() {
+		p.ident = last
+	}()
+	for ; p.ident == 0 || p.ns[p.ident].tok == NEW_LINE; p.ident-- {
+	}
+
+	p.errs = append(p.errs, fmt.Errorf("%s\nCode line :%s", msg, p.getLine()))
 }
 
 func (p *parser) expect(t token.Token) {
@@ -438,15 +445,23 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 
 	var str string
 	for i := start; i < end; i++ {
-		str += " " + p.ns[i].lit
+		switch p.ns[i].tok {
+		case
+			token.LAND,   // &&
+			token.LOR,    // ||
+			token.EQL,    // ==
+			token.LSS,    // <
+			token.GTR,    // >
+			token.ASSIGN, // =
+			token.NOT:    // !
+			str += " " + view(p.ns[i].tok)
+		default:
+			str += " " + p.ns[i].lit
+		}
 	}
 	fmt.Println("Expr : ", str)
-	//TODO
-	return &goast.BinaryExpr{
-		X:  goast.NewIdent("temp"),
-		Op: token.LSS,
-		Y:  goast.NewIdent("4"),
-	}
+	//TODO add support of array
+	return goast.NewIdent(str)
 }
 
 func (p *parser) parseExternal() {

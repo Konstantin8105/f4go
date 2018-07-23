@@ -818,7 +818,7 @@ NEW_LINE
 
 if                  	IF
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	TRANS
@@ -826,7 +826,7 @@ IDENT               	TRANS
 STRING              	'N'
 )                   	)
 &&                  	.AND.
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	TRANS
@@ -837,7 +837,7 @@ STRING              	'T'
 NEW_LINE            	
 
 +                   	+
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	TRANS

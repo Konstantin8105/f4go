@@ -882,12 +882,12 @@ NEW_LINE
 if                  	IF
 (                   	(
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	NOTA
 )                   	)
 &&                  	.AND.
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	TRANSA
@@ -900,7 +900,7 @@ NEW_LINE
 
 +                   	+
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	TRANSA
@@ -921,12 +921,12 @@ else                	ELSE
 if                  	IF
 (                   	(
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	NOTB
 )                   	)
 &&                  	.AND.
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	TRANSB
@@ -939,7 +939,7 @@ NEW_LINE
 
 +                   	+
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	TRANSB

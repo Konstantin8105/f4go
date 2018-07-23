@@ -779,12 +779,12 @@ NEW_LINE
 if                  	IF
 (                   	(
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	UPPER
 )                   	)
 &&                  	.AND.
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	UPLO
@@ -805,7 +805,7 @@ else                	ELSE
 if                  	IF
 (                   	(
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	TRANS
@@ -818,7 +818,7 @@ NEW_LINE
 
 +                   	+
 (                   	(
-!=                  	.NOT.
+!                   	.NOT.
 IDENT               	LSAME
 (                   	(
 IDENT               	TRANS
