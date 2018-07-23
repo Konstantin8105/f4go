@@ -581,6 +581,9 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		//TODO: add CALL
 		// CALL XERBLA ( 'CGEMM ' , INFO )
 
+		//TODO: add INTRINSIC
+		// INTRINSIC CONJG , MAX
+
 	default:
 		start := p.ident
 		for ; p.ident < len(p.ns); p.ident++ {
