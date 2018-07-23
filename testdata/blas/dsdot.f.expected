@@ -355,7 +355,7 @@ NEW_LINE
 COMMENT             	*  =====================================================================
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 FUNCTION            	FUNCTION
 IDENT               	DSDOT

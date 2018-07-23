@@ -304,7 +304,7 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	DD1
 ,                   	,
@@ -321,7 +321,7 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	DPARAM
 (                   	(
@@ -344,7 +344,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	DFLAG
 ,                   	,
@@ -402,7 +402,7 @@ NEW_LINE
 COMMENT             	*
 NEW_LINE            	
 
-IDENT               	DATA
+DATA                	DATA
 IDENT               	ZERO
 ,                   	,
 IDENT               	ONE
@@ -417,7 +417,7 @@ FLOAT               	2.D0
 /                   	/
 NEW_LINE            	
 
-IDENT               	DATA
+DATA                	DATA
 IDENT               	GAM
 ,                   	,
 IDENT               	GAMSQ

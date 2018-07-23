@@ -223,7 +223,7 @@ NEW_LINE
 COMMENT             	*  =====================================================================
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 FUNCTION            	FUNCTION
 IDENT               	DZNRM2
@@ -293,7 +293,7 @@ NEW_LINE
 COMMENT             	*     .. Parameters ..
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	ONE
 ,                   	,
@@ -318,7 +318,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	NORM
 ,                   	,

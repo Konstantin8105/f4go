@@ -399,7 +399,7 @@ NEW_LINE
 COMMENT             	*
 NEW_LINE            	
 
-IDENT               	DATA
+DATA                	DATA
 IDENT               	ZERO
 ,                   	,
 IDENT               	ONE
@@ -414,7 +414,7 @@ FLOAT               	2.E0
 /                   	/
 NEW_LINE            	
 
-IDENT               	DATA
+DATA                	DATA
 IDENT               	GAM
 ,                   	,
 IDENT               	GAMSQ

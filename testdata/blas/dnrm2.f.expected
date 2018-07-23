@@ -220,7 +220,7 @@ NEW_LINE
 COMMENT             	*  =====================================================================
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 FUNCTION            	FUNCTION
 IDENT               	DNRM2
@@ -266,7 +266,7 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	X
 (                   	(
@@ -289,7 +289,7 @@ NEW_LINE
 COMMENT             	*     .. Parameters ..
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	ONE
 ,                   	,
@@ -314,7 +314,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	ABSXI
 ,                   	,

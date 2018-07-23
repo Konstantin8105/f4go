@@ -340,7 +340,7 @@ IDENT               	INCY
 IDENT               	N
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	C
 ,                   	,

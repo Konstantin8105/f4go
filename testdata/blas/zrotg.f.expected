@@ -228,7 +228,7 @@ IDENT               	CB
 IDENT               	S
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	C
 NEW_LINE            	
@@ -254,7 +254,7 @@ INT                 	16
 IDENT               	ALPHA
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	NORM
 ,                   	,

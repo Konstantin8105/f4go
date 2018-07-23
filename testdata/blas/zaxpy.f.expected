@@ -363,7 +363,7 @@ NEW_LINE
 COMMENT             	*     .. External Functions ..
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	DCABS1
 NEW_LINE            	

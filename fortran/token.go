@@ -14,6 +14,7 @@ const (
 	COMPLEX
 	LOGICAL
 	REAL
+	DATA
 
 	EXTERNAL
 	DOUBLE_COLON
@@ -46,6 +47,7 @@ var o = [...]string{
 	COMPLEX:   "COMPLEX",
 	LOGICAL:   "LOGICAL",
 	REAL:      "REAL",
+	DATA:      "DATA",
 
 	EXTERNAL:     "EXTERNAL",
 	DOUBLE_COLON: "DOUBLE_COLON",

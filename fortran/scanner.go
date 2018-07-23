@@ -327,8 +327,10 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		return LOGICAL, buf.String()
 	case "COMPLEX":
 		return COMPLEX, buf.String()
-	case "REAL":
+	case "REAL", "DOUBLE":
 		return REAL, buf.String()
+	case "DATA":
+		return DATA, buf.String()
 
 	case "EXTERNAL":
 		return EXTERNAL, buf.String()

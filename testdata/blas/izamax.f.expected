@@ -280,7 +280,7 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	DMAX
 NEW_LINE            	
@@ -297,7 +297,7 @@ NEW_LINE
 COMMENT             	*     .. External Functions ..
 NEW_LINE            	
 
-IDENT               	DOUBLE
+REAL                	DOUBLE
 IDENT               	PRECISION
 IDENT               	DCABS1
 NEW_LINE            	
