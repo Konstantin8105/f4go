@@ -29,7 +29,8 @@ func (s *Scanner) Scan() (tok token.Token, lit string) {
 		s.start = false
 		ch := s.read()
 		s.unread()
-		if ch == 'C' || ch == 'c' || ch == '*' {
+		switch ch {
+		case 'C', 'c', '*', '!', 'd', 'D':
 			return s.scanComment()
 		}
 	}
