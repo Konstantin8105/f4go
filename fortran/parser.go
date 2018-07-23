@@ -192,12 +192,29 @@ func (p *parser) parse() (err error) {
 }
 
 func (p *parser) showErrors() {
-	if len(p.errs) == 0 {
+	if len(p.errs) > 0 {
+		fmt.Println("--------")
+		fmt.Println("Errors:")
+		for index, e := range p.errs {
+			fmt.Printf("[%3d]\t%v\n", index+1, e)
+		}
 		return
 	}
-	fmt.Println("--------\nErrors:")
-	for index, e := range p.errs {
-		fmt.Printf("[%3d]\t%v\n", index+1, e)
+
+	last := p.ident
+	defer func() {
+		p.ident = last
+	}()
+	for ; p.ident >= 0 && p.ns[p.ident].tok != NEW_LINE; p.ident-- {
+	}
+	p.ident++
+	var line string
+	for ; p.ident < len(p.ns) && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+		line += " " + p.ns[p.ident].lit
+	}
+	if line != "" {
+		fmt.Println("--------")
+		fmt.Println("Present line: ", line)
 	}
 }
 
