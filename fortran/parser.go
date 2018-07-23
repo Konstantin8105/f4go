@@ -139,11 +139,10 @@ func (p *parser) showErrors() {
 	if len(p.errs) == 0 {
 		return
 	}
-	var err string
+	fmt.Println("--------\nErrors:")
 	for index, e := range p.errs {
-		err += fmt.Sprintf("[%5d]\t%v\n", index+1, e)
+		fmt.Printf("[%3d]\t%v\n", index+1, e)
 	}
-	fmt.Println("--------\nErrors:\n", err)
 }
 
 func (p *parser) transpileToNode() (decls []goast.Decl) {
@@ -356,7 +355,6 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 				fmt.Printf(" %v", p.ns[p.ident].lit)
 			}
 			fmt.Printf("\n")
-			p.ident++
 			if len(p.initVars) == 0 {
 				p.addError("Cannot parse initVars , because len = 0")
 				break
