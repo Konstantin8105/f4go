@@ -372,7 +372,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 		Lhs: []goast.Expr{
 			goast.NewIdent(name),
 		},
-		Tok: token.DEFINE,
+		Tok: token.ASSIGN,
 		Rhs: []goast.Expr{
 			goast.NewIdent(start),
 		},
@@ -503,6 +503,7 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 			str += " " + p.ns[i].lit
 		}
 	}
+
 	fmt.Println("Expr : ", str)
 	//TODO add support of array
 	return goast.NewIdent(str)
