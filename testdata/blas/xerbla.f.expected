@@ -248,7 +248,7 @@ NEW_LINE
 COMMENT             	*
 NEW_LINE            	
 
-IDENT               	WRITE
+WRITE               	WRITE
 (                   	(
 *                   	*
 ,                   	,

@@ -88,7 +88,7 @@ func (p *parser) prepare() (err error) {
 		p.ns = p.ns[1:]
 	}
 
-	// TODO: simplification DO
+	// Simplification DO
 	//-------------
 	// From:
 	//  DO 40 J = 1 , N
@@ -111,6 +111,17 @@ func (p *parser) prepare() (err error) {
 	//  END
 	//  END
 	//-------------
+	// for i := range p.ns {
+	// 	if i == 0 {
+	// 		continue
+	// 	}
+	// 	if p.ns[i-1].tok == DO && p.ns[i].tok == token.INT {
+	// 		fmt.Println(">", p.ns[i-1].lit, p.ns[i].lit)
+	// 	}
+	// 	if p.ns[i-1].tok == token.INT && p.ns[i].tok == token.CONTINUE {
+	// 		fmt.Println(">>>", p.ns[i-1].lit, p.ns[i].lit)
+	// 	}
+	// }
 
 	return
 }
