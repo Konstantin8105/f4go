@@ -632,31 +632,7 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 		return goast.NewIdent(p.ns[start].lit)
 	}
 
-	var str string
-	for i := start; i < end; i++ {
-		switch p.ns[i].tok {
-		case
-			token.LSS,    // <
-			token.GTR,    // >
-			token.LEQ,    // <=
-			token.GEQ,    // >=
-			token.NOT,    // !
-			token.NEQ,    // !=
-			token.EQL,    // ==
-			token.LAND,   // &&
-			token.LOR,    // ||
-			token.ASSIGN: // =
-			str += " " + view(p.ns[i].tok)
-		default:
-			str += " " + p.ns[i].lit
-		}
-	}
-
-	fmt.Println("Expr : ", str)
-	//TODO add support of array
-	//TODO change to parseExpr from go package
-	//TODO check operation **
-	return goast.NewIdent(str)
+	return p.parseBinaryExpr(p.ns[start:end])
 }
 
 func (p *parser) parseExternal() {
@@ -724,11 +700,27 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		start := p.ident
 		for ; p.ident < len(p.ns); p.ident++ {
 			if p.ns[p.ident].tok == NEW_LINE {
-				stmts = append(stmts, &goast.ExprStmt{
-					X: p.parseExpr(start, p.ident),
-				})
 				break
 			}
+		}
+		var isAssignStmt bool
+		var pos int
+		for i := start; i < p.ident; i++ {
+			if p.ns[i].tok == token.ASSIGN {
+				isAssignStmt = true
+				pos = i
+			}
+		}
+		if isAssignStmt {
+			stmts = append(stmts, &goast.AssignStmt{
+				Lhs: []goast.Expr{p.parseExpr(start, pos)},
+				Tok: token.ASSIGN,
+				Rhs: []goast.Expr{p.parseExpr(pos+1, p.ident)},
+			})
+		} else {
+			stmts = append(stmts, &goast.ExprStmt{
+				X: p.parseExpr(start, p.ident),
+			})
 		}
 
 		p.ident++
