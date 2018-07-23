@@ -303,6 +303,7 @@ func (p *parser) transpileListStmt() (stmts []goast.Stmt) {
 	for p.ident < len(p.ns) {
 		if p.ns[p.ident].tok == END {
 			p.ident++
+			p.gotoEndLine()
 			// TODO need gotoEndLine() ??
 			break
 		}
