@@ -21,7 +21,6 @@ const (
 	FUNCTION
 	END
 	DO
-	ENDDO
 	CALL
 	THEN
 	NEW_LINE
@@ -49,7 +48,6 @@ var o = [...]string{
 	FUNCTION:     "FUNCTION",
 	END:          "END",
 	DO:           "DO",
-	ENDDO:        "ENDDO",
 	CALL:         "CALL",
 	THEN:         "THEN",
 	NEW_LINE:     "NEW_LINE",

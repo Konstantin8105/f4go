@@ -333,8 +333,6 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		return END, buf.String()
 	case "DO":
 		return DO, buf.String()
-	case "ENDDO":
-		return ENDDO, buf.String()
 	case "FUNCTION":
 		return FUNCTION, buf.String()
 	case "IF":
