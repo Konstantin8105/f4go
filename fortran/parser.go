@@ -286,9 +286,18 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 			// Fortran example: INTEGER A(*)
 			p.expect(token.LPAREN)
 			p.ident++
-			p.expect(token.MUL)
+			fmt.Printf("Ignore in initialization : ")
+			for ; p.ns[p.ident].tok != token.RPAREN; p.ident++ {
+				// ignore inside () for example:
+				// COMPLEX A ( LDA , * ) , X ( * ) , Y ( * )
+				fmt.Printf(" %v", p.ns[p.ident].lit)
+			}
+			fmt.Printf("\n")
 			p.ident++
-			p.expect(token.RPAREN)
+			if len(p.initVars) == 0 {
+				p.addError("Cannot parse initVars , because len = 0")
+				break
+			}
 			p.initVars[len(p.initVars)-1].typ =
 				"[]" + p.initVars[len(p.initVars)-1].typ
 		case token.COMMA:
@@ -325,19 +334,38 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 	p.expect(token.COMMA)
 
 	p.ident++
-	finish := p.ns[p.ident].lit
+	st := p.ident
+	for ; p.ns[p.ident].tok != token.COMMA && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+	}
+	finish := p.parseExpr(st, p.ident)
 	sDo.Cond = &goast.BinaryExpr{
 		X:  goast.NewIdent(name),
 		Op: token.LSS,
-		Y:  goast.NewIdent(finish),
-	}
-	sDo.Post = &goast.IncDecStmt{
-		X:   goast.NewIdent(name),
-		Tok: token.INC,
+		Y:  finish,
 	}
 
-	p.ident++
+	if p.ns[p.ident].tok == NEW_LINE {
+		sDo.Post = &goast.IncDecStmt{
+			X:   goast.NewIdent(name),
+			Tok: token.INC,
+		}
+	} else {
+		p.expect(token.COMMA)
+		p.ident++
+
+		st = p.ident
+		for ; p.ns[p.ident].tok != token.COMMA && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+		}
+		finish = p.parseExpr(st, p.ident)
+		sDo.Post = &goast.AssignStmt{
+			Lhs: []goast.Expr{goast.NewIdent(name)},
+			Tok: token.ADD_ASSIGN,
+			Rhs: []goast.Expr{finish},
+		}
+	}
+
 	p.expect(NEW_LINE)
+	p.ident++
 
 	sDo.Body = &goast.BlockStmt{
 		Lbrace: 1,
