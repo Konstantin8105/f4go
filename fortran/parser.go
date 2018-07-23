@@ -233,6 +233,9 @@ func (p *parser) gotoEndLine() {
 }
 
 func (p *parser) getLine() (line string) {
+	if p.ident < 0 {
+		p.ident = 0
+	}
 	if !(p.ident < len(p.ns)) {
 		p.ident = len(p.ns) - 1
 	}
