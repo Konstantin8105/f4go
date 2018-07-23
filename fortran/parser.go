@@ -717,6 +717,9 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		//TODO: add INTRINSIC
 		// INTRINSIC CONJG , MAX
 
+		//TODO: add DATA
+		// DATA GAM , GAMSQ , RGAMSQ / 4096.D0 , 16777216.D0 , 5.9604645D-8 /
+
 	default:
 		start := p.ident
 		for ; p.ident < len(p.ns); p.ident++ {
