@@ -24,12 +24,12 @@
  ELSE
  NROWA = K
  NCOLA = M
- END IF
+ END
  IF ( NOTB ) THEN
  NROWB = K
  ELSE
  NROWB = N
- END IF
+ END
  INFO = 0
  IF ( ( .NOT. NOTA ) .AND. ( .NOT. CONJA ) .AND.
  + ( .NOT. LSAME ( TRANSA , 'T' ) ) ) THEN
@@ -49,11 +49,11 @@
  INFO = 10
  ELSE IF ( LDC .LT. MAX ( 1 , M ) ) THEN
  INFO = 13
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'CGEMM ' , INFO )
  RETURN
- END IF
+ END
  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR.
  + ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
@@ -69,9 +69,9 @@
  C ( I , J ) = BETA * C ( I , J )
  30 CONTINUE
  40 CONTINUE
- END IF
+ END
  RETURN
- END IF
+ END
  IF ( NOTB ) THEN
  IF ( NOTA ) THEN
  DO 90 J = 1 , N
@@ -83,7 +83,7 @@
  DO 60 I = 1 , M
  C ( I , J ) = BETA * C ( I , J )
  60 CONTINUE
- END IF
+ END
  DO 80 L = 1 , K
  TEMP = ALPHA * B ( L , J )
  DO 70 I = 1 , M
@@ -102,7 +102,7 @@
  C ( I , J ) = ALPHA * TEMP
  ELSE
  C ( I , J ) = ALPHA * TEMP + BETA * C ( I , J )
- END IF
+ END
  110 CONTINUE
  120 CONTINUE
  ELSE
@@ -116,10 +116,10 @@
  C ( I , J ) = ALPHA * TEMP
  ELSE
  C ( I , J ) = ALPHA * TEMP + BETA * C ( I , J )
- END IF
+ END
  140 CONTINUE
  150 CONTINUE
- END IF
+ END
  ELSE IF ( NOTA ) THEN
  IF ( CONJB ) THEN
  DO 200 J = 1 , N
@@ -131,7 +131,7 @@
  DO 170 I = 1 , M
  C ( I , J ) = BETA * C ( I , J )
  170 CONTINUE
- END IF
+ END
  DO 190 L = 1 , K
  TEMP = ALPHA * CONJG ( B ( J , L ) )
  DO 180 I = 1 , M
@@ -149,7 +149,7 @@
  DO 220 I = 1 , M
  C ( I , J ) = BETA * C ( I , J )
  220 CONTINUE
- END IF
+ END
  DO 240 L = 1 , K
  TEMP = ALPHA * B ( J , L )
  DO 230 I = 1 , M
@@ -157,7 +157,7 @@
  230 CONTINUE
  240 CONTINUE
  250 CONTINUE
- END IF
+ END
  ELSE IF ( CONJA ) THEN
  IF ( CONJB ) THEN
  DO 280 J = 1 , N
@@ -170,7 +170,7 @@
  C ( I , J ) = ALPHA * TEMP
  ELSE
  C ( I , J ) = ALPHA * TEMP + BETA * C ( I , J )
- END IF
+ END
  270 CONTINUE
  280 CONTINUE
  ELSE
@@ -184,10 +184,10 @@
  C ( I , J ) = ALPHA * TEMP
  ELSE
  C ( I , J ) = ALPHA * TEMP + BETA * C ( I , J )
- END IF
+ END
  300 CONTINUE
  310 CONTINUE
- END IF
+ END
  ELSE
  IF ( CONJB ) THEN
  DO 340 J = 1 , N
@@ -200,7 +200,7 @@
  C ( I , J ) = ALPHA * TEMP
  ELSE
  C ( I , J ) = ALPHA * TEMP + BETA * C ( I , J )
- END IF
+ END
  330 CONTINUE
  340 CONTINUE
  ELSE
@@ -214,10 +214,10 @@
  C ( I , J ) = ALPHA * TEMP
  ELSE
  C ( I , J ) = ALPHA * TEMP + BETA * C ( I , J )
- END IF
+ END
  360 CONTINUE
  370 CONTINUE
- END IF
- END IF
+ END
+ END
  RETURN
  END

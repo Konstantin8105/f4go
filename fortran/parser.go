@@ -41,12 +41,17 @@ func (p *parser) prepare() (err error) {
 			break
 		}
 
-		switch tok {
-		case token.COMMENT:
+		if tok == token.COMMENT {
 			continue
 		}
 
 		if last == NEW_LINE && tok == NEW_LINE {
+			continue
+		}
+
+		// from : END IF
+		// to   : END
+		if last == END && tok == token.IF {
 			continue
 		}
 
@@ -60,6 +65,36 @@ func (p *parser) prepare() (err error) {
 	if len(p.ns) > 0 && p.ns[0].tok == NEW_LINE {
 		p.ns = p.ns[1:]
 	}
+
+	// TODO:
+	//-------------
+	// From:
+	//  DO 40 J = 1 , N
+	//  DO 30 I = 1 , M
+	//  C ( I , J ) = BETA * C ( I , J )
+	//  30 CONTINUE
+	//  40 CONTINUE
+	//
+	// Or from:
+	//  DO 30 J = 1 , N
+	//  DO 30 I = 1 , M
+	//  C ( I , J ) = BETA * C ( I , J )
+	//  30 CONTINUE
+	//
+	//-------------
+	// To:
+	//  DO J = 1 , N
+	//  DO I = 1 , M
+	//  C ( I , J ) = BETA * C ( I , J )
+	//  END
+	//  END
+	//-------------
+
+	// TODO:
+	// From:
+	//  END SUBROUTINE
+	// To:
+	//  END
 
 	return
 }
@@ -252,7 +287,12 @@ func (p *parser) expect(t token.Token) {
 
 func (p *parser) transpileListStmt() (stmts []goast.Stmt) {
 	for p.ident < len(p.ns) {
-		if p.ns[p.ident].tok == END || p.ns[p.ident].tok == token.ELSE {
+		if p.ns[p.ident].tok == END {
+			p.ident++
+			// TODO
+			break
+		}
+		if p.ns[p.ident].tok == token.ELSE {
 			// TODO
 			break
 		}
@@ -320,6 +360,7 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 func (p *parser) parseDo() (sDo goast.ForStmt) {
 
 	p.ident++
+	p.expect(token.IDENT)
 	name := p.ns[p.ident].lit
 
 	p.ident++
