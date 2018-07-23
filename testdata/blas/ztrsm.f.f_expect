@@ -19,7 +19,7 @@
  NROWA = M
  ELSE
  NROWA = N
- END IF
+ END
  NOCONJ = LSAME ( TRANSA , 'T' )
  NOUNIT = LSAME ( DIAG , 'N' )
  UPPER = LSAME ( UPLO , 'U' )
@@ -42,11 +42,11 @@
  INFO = 9
  ELSE IF ( LDB .LT. MAX ( 1 , M ) ) THEN
  INFO = 11
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'ZTRSM ' , INFO )
  RETURN
- END IF
+ END
  IF ( M .EQ. 0 .OR. N .EQ. 0 ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
  DO 20 J = 1 , N
@@ -55,7 +55,7 @@
  10 CONTINUE
  20 CONTINUE
  RETURN
- END IF
+ END
  IF ( LSIDE ) THEN
  IF ( LSAME ( TRANSA , 'N' ) ) THEN
  IF ( UPPER ) THEN
@@ -64,14 +64,14 @@
  DO 30 I = 1 , M
  B ( I , J ) = ALPHA * B ( I , J )
  30 CONTINUE
- END IF
+ END
  DO 50 K = M , 1 , - 1
  IF ( B ( K , J ) .NE. ZERO ) THEN
  IF ( NOUNIT ) B ( K , J ) = B ( K , J ) / A ( K , K )
  DO 40 I = 1 , K - 1
  B ( I , J ) = B ( I , J ) - B ( K , J ) * A ( I , K )
  40 CONTINUE
- END IF
+ END
  50 CONTINUE
  60 CONTINUE
  ELSE
@@ -80,17 +80,17 @@
  DO 70 I = 1 , M
  B ( I , J ) = ALPHA * B ( I , J )
  70 CONTINUE
- END IF
+ END
  DO 90 K = 1 , M
  IF ( B ( K , J ) .NE. ZERO ) THEN
  IF ( NOUNIT ) B ( K , J ) = B ( K , J ) / A ( K , K )
  DO 80 I = K + 1 , M
  B ( I , J ) = B ( I , J ) - B ( K , J ) * A ( I , K )
  80 CONTINUE
- END IF
+ END
  90 CONTINUE
  100 CONTINUE
- END IF
+ END
  ELSE
  IF ( UPPER ) THEN
  DO 140 J = 1 , N
@@ -106,7 +106,7 @@
  TEMP = TEMP - DCONJG ( A ( K , I ) ) * B ( K , J )
  120 CONTINUE
  IF ( NOUNIT ) TEMP = TEMP / DCONJG ( A ( I , I ) )
- END IF
+ END
  B ( I , J ) = TEMP
  130 CONTINUE
  140 CONTINUE
@@ -124,12 +124,12 @@
  TEMP = TEMP - DCONJG ( A ( K , I ) ) * B ( K , J )
  160 CONTINUE
  IF ( NOUNIT ) TEMP = TEMP / DCONJG ( A ( I , I ) )
- END IF
+ END
  B ( I , J ) = TEMP
  170 CONTINUE
  180 CONTINUE
- END IF
- END IF
+ END
+ END
  ELSE
  IF ( LSAME ( TRANSA , 'N' ) ) THEN
  IF ( UPPER ) THEN
@@ -138,20 +138,20 @@
  DO 190 I = 1 , M
  B ( I , J ) = ALPHA * B ( I , J )
  190 CONTINUE
- END IF
+ END
  DO 210 K = 1 , J - 1
  IF ( A ( K , J ) .NE. ZERO ) THEN
  DO 200 I = 1 , M
  B ( I , J ) = B ( I , J ) - A ( K , J ) * B ( I , K )
  200 CONTINUE
- END IF
+ END
  210 CONTINUE
  IF ( NOUNIT ) THEN
  TEMP = ONE / A ( J , J )
  DO 220 I = 1 , M
  B ( I , J ) = TEMP * B ( I , J )
  220 CONTINUE
- END IF
+ END
  230 CONTINUE
  ELSE
  DO 280 J = N , 1 , - 1
@@ -159,22 +159,22 @@
  DO 240 I = 1 , M
  B ( I , J ) = ALPHA * B ( I , J )
  240 CONTINUE
- END IF
+ END
  DO 260 K = J + 1 , N
  IF ( A ( K , J ) .NE. ZERO ) THEN
  DO 250 I = 1 , M
  B ( I , J ) = B ( I , J ) - A ( K , J ) * B ( I , K )
  250 CONTINUE
- END IF
+ END
  260 CONTINUE
  IF ( NOUNIT ) THEN
  TEMP = ONE / A ( J , J )
  DO 270 I = 1 , M
  B ( I , J ) = TEMP * B ( I , J )
  270 CONTINUE
- END IF
+ END
  280 CONTINUE
- END IF
+ END
  ELSE
  IF ( UPPER ) THEN
  DO 330 K = N , 1 , - 1
@@ -183,28 +183,28 @@
  TEMP = ONE / A ( K , K )
  ELSE
  TEMP = ONE / DCONJG ( A ( K , K ) )
- END IF
+ END
  DO 290 I = 1 , M
  B ( I , K ) = TEMP * B ( I , K )
  290 CONTINUE
- END IF
+ END
  DO 310 J = 1 , K - 1
  IF ( A ( J , K ) .NE. ZERO ) THEN
  IF ( NOCONJ ) THEN
  TEMP = A ( J , K )
  ELSE
  TEMP = DCONJG ( A ( J , K ) )
- END IF
+ END
  DO 300 I = 1 , M
  B ( I , J ) = B ( I , J ) - TEMP * B ( I , K )
  300 CONTINUE
- END IF
+ END
  310 CONTINUE
  IF ( ALPHA .NE. ONE ) THEN
  DO 320 I = 1 , M
  B ( I , K ) = ALPHA * B ( I , K )
  320 CONTINUE
- END IF
+ END
  330 CONTINUE
  ELSE
  DO 380 K = 1 , N
@@ -213,31 +213,31 @@
  TEMP = ONE / A ( K , K )
  ELSE
  TEMP = ONE / DCONJG ( A ( K , K ) )
- END IF
+ END
  DO 340 I = 1 , M
  B ( I , K ) = TEMP * B ( I , K )
  340 CONTINUE
- END IF
+ END
  DO 360 J = K + 1 , N
  IF ( A ( J , K ) .NE. ZERO ) THEN
  IF ( NOCONJ ) THEN
  TEMP = A ( J , K )
  ELSE
  TEMP = DCONJG ( A ( J , K ) )
- END IF
+ END
  DO 350 I = 1 , M
  B ( I , J ) = B ( I , J ) - TEMP * B ( I , K )
  350 CONTINUE
- END IF
+ END
  360 CONTINUE
  IF ( ALPHA .NE. ONE ) THEN
  DO 370 I = 1 , M
  B ( I , K ) = ALPHA * B ( I , K )
  370 CONTINUE
- END IF
+ END
  380 CONTINUE
- END IF
- END IF
- END IF
+ END
+ END
+ END
  RETURN
  END

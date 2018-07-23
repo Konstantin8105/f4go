@@ -25,18 +25,18 @@
  INFO = 6
  ELSE IF ( INCX .EQ. 0 ) THEN
  INFO = 8
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'STRMV ' , INFO )
  RETURN
- END IF
+ END
  IF ( N .EQ. 0 ) RETURN
  NOUNIT = LSAME ( DIAG , 'N' )
  IF ( INCX .LE. 0 ) THEN
  KX = 1 - ( N - 1 ) * INCX
  ELSE IF ( INCX .NE. 1 ) THEN
  KX = 1
- END IF
+ END
  IF ( LSAME ( TRANS , 'N' ) ) THEN
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  IF ( INCX .EQ. 1 ) THEN
@@ -47,7 +47,7 @@
  X ( I ) = X ( I ) + TEMP * A ( I , J )
  10 CONTINUE
  IF ( NOUNIT ) X ( J ) = X ( J ) * A ( J , J )
- END IF
+ END
  20 CONTINUE
  ELSE
  JX = KX
@@ -60,10 +60,10 @@
  IX = IX + INCX
  30 CONTINUE
  IF ( NOUNIT ) X ( JX ) = X ( JX ) * A ( J , J )
- END IF
+ END
  JX = JX + INCX
  40 CONTINUE
- END IF
+ END
  ELSE
  IF ( INCX .EQ. 1 ) THEN
  DO 60 J = N , 1 , - 1
@@ -73,7 +73,7 @@
  X ( I ) = X ( I ) + TEMP * A ( I , J )
  50 CONTINUE
  IF ( NOUNIT ) X ( J ) = X ( J ) * A ( J , J )
- END IF
+ END
  60 CONTINUE
  ELSE
  KX = KX + ( N - 1 ) * INCX
@@ -87,11 +87,11 @@
  IX = IX - INCX
  70 CONTINUE
  IF ( NOUNIT ) X ( JX ) = X ( JX ) * A ( J , J )
- END IF
+ END
  JX = JX - INCX
  80 CONTINUE
- END IF
- END IF
+ END
+ END
  ELSE
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  IF ( INCX .EQ. 1 ) THEN
@@ -116,7 +116,7 @@
  X ( JX ) = TEMP
  JX = JX - INCX
  120 CONTINUE
- END IF
+ END
  ELSE
  IF ( INCX .EQ. 1 ) THEN
  DO 140 J = 1 , N
@@ -140,8 +140,8 @@
  X ( JX ) = TEMP
  JX = JX + INCX
  160 CONTINUE
- END IF
- END IF
- END IF
+ END
+ END
+ END
  RETURN
  END

@@ -27,18 +27,18 @@
  INFO = 7
  ELSE IF ( INCX .EQ. 0 ) THEN
  INFO = 9
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'DTBSV ' , INFO )
  RETURN
- END IF
+ END
  IF ( N .EQ. 0 ) RETURN
  NOUNIT = LSAME ( DIAG , 'N' )
  IF ( INCX .LE. 0 ) THEN
  KX = 1 - ( N - 1 ) * INCX
  ELSE IF ( INCX .NE. 1 ) THEN
  KX = 1
- END IF
+ END
  IF ( LSAME ( TRANS , 'N' ) ) THEN
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  KPLUS1 = K + 1
@@ -51,7 +51,7 @@
  DO 10 I = J - 1 , MAX ( 1 , J - K ) , - 1
  X ( I ) = X ( I ) - TEMP * A ( L + I , J )
  10 CONTINUE
- END IF
+ END
  20 CONTINUE
  ELSE
  KX = KX + ( N - 1 ) * INCX
@@ -67,10 +67,10 @@
  X ( IX ) = X ( IX ) - TEMP * A ( L + I , J )
  IX = IX - INCX
  30 CONTINUE
- END IF
+ END
  JX = JX - INCX
  40 CONTINUE
- END IF
+ END
  ELSE
  IF ( INCX .EQ. 1 ) THEN
  DO 60 J = 1 , N
@@ -81,7 +81,7 @@
  DO 50 I = J + 1 , MIN ( N , J + K )
  X ( I ) = X ( I ) - TEMP * A ( L + I , J )
  50 CONTINUE
- END IF
+ END
  60 CONTINUE
  ELSE
  JX = KX
@@ -96,11 +96,11 @@
  X ( IX ) = X ( IX ) - TEMP * A ( L + I , J )
  IX = IX + INCX
  70 CONTINUE
- END IF
+ END
  JX = JX + INCX
  80 CONTINUE
- END IF
- END IF
+ END
+ END
  ELSE
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  KPLUS1 = K + 1
@@ -129,7 +129,7 @@
  JX = JX + INCX
  IF ( J .GT. K ) KX = KX + INCX
  120 CONTINUE
- END IF
+ END
  ELSE
  IF ( INCX .EQ. 1 ) THEN
  DO 140 J = N , 1 , - 1
@@ -157,8 +157,8 @@
  JX = JX - INCX
  IF ( ( N - J ) .GE. K ) KX = KX - INCX
  160 CONTINUE
- END IF
- END IF
- END IF
+ END
+ END
+ END
  RETURN
  END

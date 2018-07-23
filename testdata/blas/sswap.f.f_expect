@@ -14,7 +14,7 @@
  SY ( I ) = STEMP
  END DO
  IF ( N .LT. 3 ) RETURN
- END IF
+ END
  MP1 = M + 1
  DO I = MP1 , N , 3
  STEMP = SX ( I )
@@ -39,6 +39,6 @@
  IX = IX + INCX
  IY = IY + INCY
  END DO
- END IF
+ END
  RETURN
  END

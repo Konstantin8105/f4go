@@ -17,7 +17,7 @@
  NROWA = M
  ELSE
  NROWA = N
- END IF
+ END
  NOUNIT = LSAME ( DIAG , 'N' )
  UPPER = LSAME ( UPLO , 'U' )
  INFO = 0
@@ -39,11 +39,11 @@
  INFO = 9
  ELSE IF ( LDB .LT. MAX ( 1 , M ) ) THEN
  INFO = 11
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'STRSM ' , INFO )
  RETURN
- END IF
+ END
  IF ( M .EQ. 0 .OR. N .EQ. 0 ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
  DO 20 J = 1 , N
@@ -52,7 +52,7 @@
  10 CONTINUE
  20 CONTINUE
  RETURN
- END IF
+ END
  IF ( LSIDE ) THEN
  IF ( LSAME ( TRANSA , 'N' ) ) THEN
  IF ( UPPER ) THEN
@@ -61,14 +61,14 @@
  DO 30 I = 1 , M
  B ( I , J ) = ALPHA * B ( I , J )
  30 CONTINUE
- END IF
+ END
  DO 50 K = M , 1 , - 1
  IF ( B ( K , J ) .NE. ZERO ) THEN
  IF ( NOUNIT ) B ( K , J ) = B ( K , J ) / A ( K , K )
  DO 40 I = 1 , K - 1
  B ( I , J ) = B ( I , J ) - B ( K , J ) * A ( I , K )
  40 CONTINUE
- END IF
+ END
  50 CONTINUE
  60 CONTINUE
  ELSE
@@ -77,17 +77,17 @@
  DO 70 I = 1 , M
  B ( I , J ) = ALPHA * B ( I , J )
  70 CONTINUE
- END IF
+ END
  DO 90 K = 1 , M
  IF ( B ( K , J ) .NE. ZERO ) THEN
  IF ( NOUNIT ) B ( K , J ) = B ( K , J ) / A ( K , K )
  DO 80 I = K + 1 , M
  B ( I , J ) = B ( I , J ) - B ( K , J ) * A ( I , K )
  80 CONTINUE
- END IF
+ END
  90 CONTINUE
  100 CONTINUE
- END IF
+ END
  ELSE
  IF ( UPPER ) THEN
  DO 130 J = 1 , N
@@ -111,8 +111,8 @@
  B ( I , J ) = TEMP
  150 CONTINUE
  160 CONTINUE
- END IF
- END IF
+ END
+ END
  ELSE
  IF ( LSAME ( TRANSA , 'N' ) ) THEN
  IF ( UPPER ) THEN
@@ -121,20 +121,20 @@
  DO 170 I = 1 , M
  B ( I , J ) = ALPHA * B ( I , J )
  170 CONTINUE
- END IF
+ END
  DO 190 K = 1 , J - 1
  IF ( A ( K , J ) .NE. ZERO ) THEN
  DO 180 I = 1 , M
  B ( I , J ) = B ( I , J ) - A ( K , J ) * B ( I , K )
  180 CONTINUE
- END IF
+ END
  190 CONTINUE
  IF ( NOUNIT ) THEN
  TEMP = ONE / A ( J , J )
  DO 200 I = 1 , M
  B ( I , J ) = TEMP * B ( I , J )
  200 CONTINUE
- END IF
+ END
  210 CONTINUE
  ELSE
  DO 260 J = N , 1 , - 1
@@ -142,22 +142,22 @@
  DO 220 I = 1 , M
  B ( I , J ) = ALPHA * B ( I , J )
  220 CONTINUE
- END IF
+ END
  DO 240 K = J + 1 , N
  IF ( A ( K , J ) .NE. ZERO ) THEN
  DO 230 I = 1 , M
  B ( I , J ) = B ( I , J ) - A ( K , J ) * B ( I , K )
  230 CONTINUE
- END IF
+ END
  240 CONTINUE
  IF ( NOUNIT ) THEN
  TEMP = ONE / A ( J , J )
  DO 250 I = 1 , M
  B ( I , J ) = TEMP * B ( I , J )
  250 CONTINUE
- END IF
+ END
  260 CONTINUE
- END IF
+ END
  ELSE
  IF ( UPPER ) THEN
  DO 310 K = N , 1 , - 1
@@ -166,20 +166,20 @@
  DO 270 I = 1 , M
  B ( I , K ) = TEMP * B ( I , K )
  270 CONTINUE
- END IF
+ END
  DO 290 J = 1 , K - 1
  IF ( A ( J , K ) .NE. ZERO ) THEN
  TEMP = A ( J , K )
  DO 280 I = 1 , M
  B ( I , J ) = B ( I , J ) - TEMP * B ( I , K )
  280 CONTINUE
- END IF
+ END
  290 CONTINUE
  IF ( ALPHA .NE. ONE ) THEN
  DO 300 I = 1 , M
  B ( I , K ) = ALPHA * B ( I , K )
  300 CONTINUE
- END IF
+ END
  310 CONTINUE
  ELSE
  DO 360 K = 1 , N
@@ -188,23 +188,23 @@
  DO 320 I = 1 , M
  B ( I , K ) = TEMP * B ( I , K )
  320 CONTINUE
- END IF
+ END
  DO 340 J = K + 1 , N
  IF ( A ( J , K ) .NE. ZERO ) THEN
  TEMP = A ( J , K )
  DO 330 I = 1 , M
  B ( I , J ) = B ( I , J ) - TEMP * B ( I , K )
  330 CONTINUE
- END IF
+ END
  340 CONTINUE
  IF ( ALPHA .NE. ONE ) THEN
  DO 350 I = 1 , M
  B ( I , K ) = ALPHA * B ( I , K )
  350 CONTINUE
- END IF
+ END
  360 CONTINUE
- END IF
- END IF
- END IF
+ END
+ END
+ END
  RETURN
  END

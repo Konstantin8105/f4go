@@ -37,7 +37,7 @@
  DX ( I ) = W * DH11 + Z
  DY ( I ) = - W + DH22 * Z
  END DO
- END IF
+ END
  ELSE
  KX = 1
  KY = 1
@@ -78,7 +78,7 @@
  KX = KX + INCX
  KY = KY + INCY
  END DO
- END IF
- END IF
+ END
+ END
  RETURN
  END

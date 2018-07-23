@@ -19,22 +19,22 @@
  INFO = 6
  ELSE IF ( INCY .EQ. 0 ) THEN
  INFO = 9
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'SSPMV ' , INFO )
  RETURN
- END IF
+ END
  IF ( ( N .EQ. 0 ) .OR. ( ( ALPHA .EQ. ZERO ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
  IF ( INCX .GT. 0 ) THEN
  KX = 1
  ELSE
  KX = 1 - ( N - 1 ) * INCX
- END IF
+ END
  IF ( INCY .GT. 0 ) THEN
  KY = 1
  ELSE
  KY = 1 - ( N - 1 ) * INCY
- END IF
+ END
  IF ( BETA .NE. ONE ) THEN
  IF ( INCY .EQ. 1 ) THEN
  IF ( BETA .EQ. ZERO ) THEN
@@ -45,7 +45,7 @@
  DO 20 I = 1 , N
  Y ( I ) = BETA * Y ( I )
  20 CONTINUE
- END IF
+ END
  ELSE
  IY = KY
  IF ( BETA .EQ. ZERO ) THEN
@@ -58,9 +58,9 @@
  Y ( IY ) = BETA * Y ( IY )
  IY = IY + INCY
  40 CONTINUE
- END IF
- END IF
- END IF
+ END
+ END
+ END
  IF ( ALPHA .EQ. ZERO ) RETURN
  KK = 1
  IF ( LSAME ( UPLO , 'U' ) ) THEN
@@ -96,7 +96,7 @@
  JY = JY + INCY
  KK = KK + J
  80 CONTINUE
- END IF
+ END
  ELSE
  IF ( ( INCX .EQ. 1 ) .AND. ( INCY .EQ. 1 ) ) THEN
  DO 100 J = 1 , N
@@ -132,7 +132,7 @@
  JY = JY + INCY
  KK = KK + ( N - J + 1 )
  120 CONTINUE
- END IF
- END IF
+ END
+ END
  RETURN
  END

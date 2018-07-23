@@ -11,7 +11,7 @@
  DY ( I ) = DX ( I )
  END DO
  IF ( N .LT. 7 ) RETURN
- END IF
+ END
  MP1 = M + 1
  DO I = MP1 , N , 7
  DY ( I ) = DX ( I )
@@ -32,6 +32,6 @@
  IX = IX + INCX
  IY = IY + INCY
  END DO
- END IF
+ END
  RETURN
  END

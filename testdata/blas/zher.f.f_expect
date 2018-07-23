@@ -20,17 +20,17 @@
  INFO = 5
  ELSE IF ( LDA .LT. MAX ( 1 , N ) ) THEN
  INFO = 7
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'ZHER  ' , INFO )
  RETURN
- END IF
+ END
  IF ( ( N .EQ. 0 ) .OR. ( ALPHA .EQ. DBLE ( ZERO ) ) ) RETURN
  IF ( INCX .LE. 0 ) THEN
  KX = 1 - ( N - 1 ) * INCX
  ELSE IF ( INCX .NE. 1 ) THEN
  KX = 1
- END IF
+ END
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  IF ( INCX .EQ. 1 ) THEN
  DO 20 J = 1 , N
@@ -42,7 +42,7 @@
  A ( J , J ) = DBLE ( A ( J , J ) ) + DBLE ( X ( J ) * TEMP )
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
- END IF
+ END
  20 CONTINUE
  ELSE
  JX = KX
@@ -57,10 +57,10 @@
  A ( J , J ) = DBLE ( A ( J , J ) ) + DBLE ( X ( JX ) * TEMP )
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
- END IF
+ END
  JX = JX + INCX
  40 CONTINUE
- END IF
+ END
  ELSE
  IF ( INCX .EQ. 1 ) THEN
  DO 60 J = 1 , N
@@ -72,7 +72,7 @@
  50 CONTINUE
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
- END IF
+ END
  60 CONTINUE
  ELSE
  JX = KX
@@ -87,10 +87,10 @@
  70 CONTINUE
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
- END IF
+ END
  JX = JX + INCX
  80 CONTINUE
- END IF
- END IF
+ END
+ END
  RETURN
  END

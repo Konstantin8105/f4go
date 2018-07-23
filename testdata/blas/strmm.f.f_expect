@@ -17,7 +17,7 @@
  NROWA = M
  ELSE
  NROWA = N
- END IF
+ END
  NOUNIT = LSAME ( DIAG , 'N' )
  UPPER = LSAME ( UPLO , 'U' )
  INFO = 0
@@ -39,11 +39,11 @@
  INFO = 9
  ELSE IF ( LDB .LT. MAX ( 1 , M ) ) THEN
  INFO = 11
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'STRMM ' , INFO )
  RETURN
- END IF
+ END
  IF ( M .EQ. 0 .OR. N .EQ. 0 ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
  DO 20 J = 1 , N
@@ -52,7 +52,7 @@
  10 CONTINUE
  20 CONTINUE
  RETURN
- END IF
+ END
  IF ( LSIDE ) THEN
  IF ( LSAME ( TRANSA , 'N' ) ) THEN
  IF ( UPPER ) THEN
@@ -65,7 +65,7 @@
  30 CONTINUE
  IF ( NOUNIT ) TEMP = TEMP * A ( K , K )
  B ( K , J ) = TEMP
- END IF
+ END
  40 CONTINUE
  50 CONTINUE
  ELSE
@@ -78,10 +78,10 @@
  DO 60 I = K + 1 , M
  B ( I , J ) = B ( I , J ) + TEMP * A ( I , K )
  60 CONTINUE
- END IF
+ END
  70 CONTINUE
  80 CONTINUE
- END IF
+ END
  ELSE
  IF ( UPPER ) THEN
  DO 110 J = 1 , N
@@ -105,8 +105,8 @@
  B ( I , J ) = ALPHA * TEMP
  130 CONTINUE
  140 CONTINUE
- END IF
- END IF
+ END
+ END
  ELSE
  IF ( LSAME ( TRANSA , 'N' ) ) THEN
  IF ( UPPER ) THEN
@@ -122,7 +122,7 @@
  DO 160 I = 1 , M
  B ( I , J ) = B ( I , J ) + TEMP * B ( I , K )
  160 CONTINUE
- END IF
+ END
  170 CONTINUE
  180 CONTINUE
  ELSE
@@ -138,10 +138,10 @@
  DO 200 I = 1 , M
  B ( I , J ) = B ( I , J ) + TEMP * B ( I , K )
  200 CONTINUE
- END IF
+ END
  210 CONTINUE
  220 CONTINUE
- END IF
+ END
  ELSE
  IF ( UPPER ) THEN
  DO 260 K = 1 , N
@@ -151,7 +151,7 @@
  DO 230 I = 1 , M
  B ( I , J ) = B ( I , J ) + TEMP * B ( I , K )
  230 CONTINUE
- END IF
+ END
  240 CONTINUE
  TEMP = ALPHA
  IF ( NOUNIT ) TEMP = TEMP * A ( K , K )
@@ -159,7 +159,7 @@
  DO 250 I = 1 , M
  B ( I , K ) = TEMP * B ( I , K )
  250 CONTINUE
- END IF
+ END
  260 CONTINUE
  ELSE
  DO 300 K = N , 1 , - 1
@@ -169,7 +169,7 @@
  DO 270 I = 1 , M
  B ( I , J ) = B ( I , J ) + TEMP * B ( I , K )
  270 CONTINUE
- END IF
+ END
  280 CONTINUE
  TEMP = ALPHA
  IF ( NOUNIT ) TEMP = TEMP * A ( K , K )
@@ -177,10 +177,10 @@
  DO 290 I = 1 , M
  B ( I , K ) = TEMP * B ( I , K )
  290 CONTINUE
- END IF
+ END
  300 CONTINUE
- END IF
- END IF
- END IF
+ END
+ END
+ END
  RETURN
  END

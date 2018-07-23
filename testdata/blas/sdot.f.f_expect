@@ -16,8 +16,8 @@
  IF ( N .LT. 5 ) THEN
  SDOT = STEMP
  RETURN
- END IF
- END IF
+ END
+ END
  MP1 = M + 1
  DO I = MP1 , N , 5
  STEMP = STEMP + SX ( I ) * SY ( I ) + SX ( I + 1 ) * SY ( I + 1 ) +
@@ -33,7 +33,7 @@
  IX = IX + INCX
  IY = IY + INCY
  END DO
- END IF
+ END
  SDOT = STEMP
  RETURN
  END

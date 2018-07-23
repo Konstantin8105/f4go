@@ -16,6 +16,6 @@
  C = CDABS ( CA ) / NORM
  S = ALPHA * DCONJG ( CB ) / NORM
  CA = ALPHA * NORM
- END IF
+ END
  RETURN
  END

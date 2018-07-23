@@ -17,7 +17,7 @@
  NROWA = N
  ELSE
  NROWA = K
- END IF
+ END
  UPPER = LSAME ( UPLO , 'U' )
  INFO = 0
  IF ( ( .NOT. UPPER ) .AND. ( .NOT. LSAME ( UPLO , 'L' ) ) ) THEN
@@ -33,11 +33,11 @@
  INFO = 7
  ELSE IF ( LDC .LT. MAX ( 1 , N ) ) THEN
  INFO = 10
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'CHERK ' , INFO )
  RETURN
- END IF
+ END
  IF ( ( N .EQ. 0 ) .OR. ( ( ( ALPHA .EQ. ZERO ) .OR.
  + ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
@@ -55,7 +55,7 @@
  30 CONTINUE
  C ( J , J ) = BETA * REAL ( C ( J , J ) )
  40 CONTINUE
- END IF
+ END
  ELSE
  IF ( BETA .EQ. ZERO ) THEN
  DO 60 J = 1 , N
@@ -70,10 +70,10 @@
  C ( I , J ) = BETA * C ( I , J )
  70 CONTINUE
  80 CONTINUE
- END IF
- END IF
+ END
+ END
  RETURN
- END IF
+ END
  IF ( LSAME ( TRANS , 'N' ) ) THEN
  IF ( UPPER ) THEN
  DO 130 J = 1 , N
@@ -88,7 +88,7 @@
  C ( J , J ) = BETA * REAL ( C ( J , J ) )
  ELSE
  C ( J , J ) = REAL ( C ( J , J ) )
- END IF
+ END
  DO 120 L = 1 , K
  IF ( A ( J , L ) .NE. CMPLX ( ZERO ) ) THEN
  TEMP = ALPHA * CONJG ( A ( J , L ) )
@@ -96,7 +96,7 @@
  C ( I , J ) = C ( I , J ) + TEMP * A ( I , L )
  110 CONTINUE
  C ( J , J ) = REAL ( C ( J , J ) ) + REAL ( TEMP * A ( I , L ) )
- END IF
+ END
  120 CONTINUE
  130 CONTINUE
  ELSE
@@ -112,7 +112,7 @@
  150 CONTINUE
  ELSE
  C ( J , J ) = REAL ( C ( J , J ) )
- END IF
+ END
  DO 170 L = 1 , K
  IF ( A ( J , L ) .NE. CMPLX ( ZERO ) ) THEN
  TEMP = ALPHA * CONJG ( A ( J , L ) )
@@ -120,10 +120,10 @@
  DO 160 I = J + 1 , N
  C ( I , J ) = C ( I , J ) + TEMP * A ( I , L )
  160 CONTINUE
- END IF
+ END
  170 CONTINUE
  180 CONTINUE
- END IF
+ END
  ELSE
  IF ( UPPER ) THEN
  DO 220 J = 1 , N
@@ -136,7 +136,7 @@
  C ( I , J ) = ALPHA * TEMP
  ELSE
  C ( I , J ) = ALPHA * TEMP + BETA * C ( I , J )
- END IF
+ END
  200 CONTINUE
  RTEMP = ZERO
  DO 210 L = 1 , K
@@ -146,7 +146,7 @@
  C ( J , J ) = ALPHA * RTEMP
  ELSE
  C ( J , J ) = ALPHA * RTEMP + BETA * REAL ( C ( J , J ) )
- END IF
+ END
  220 CONTINUE
  ELSE
  DO 260 J = 1 , N
@@ -158,7 +158,7 @@
  C ( J , J ) = ALPHA * RTEMP
  ELSE
  C ( J , J ) = ALPHA * RTEMP + BETA * REAL ( C ( J , J ) )
- END IF
+ END
  DO 250 I = J + 1 , N
  TEMP = ZERO
  DO 240 L = 1 , K
@@ -168,10 +168,10 @@
  C ( I , J ) = ALPHA * TEMP
  ELSE
  C ( I , J ) = ALPHA * TEMP + BETA * C ( I , J )
- END IF
+ END
  250 CONTINUE
  260 CONTINUE
- END IF
- END IF
+ END
+ END
  RETURN
  END

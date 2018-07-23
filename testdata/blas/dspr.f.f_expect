@@ -17,17 +17,17 @@
  INFO = 2
  ELSE IF ( INCX .EQ. 0 ) THEN
  INFO = 5
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'DSPR  ' , INFO )
  RETURN
- END IF
+ END
  IF ( ( N .EQ. 0 ) .OR. ( ALPHA .EQ. ZERO ) ) RETURN
  IF ( INCX .LE. 0 ) THEN
  KX = 1 - ( N - 1 ) * INCX
  ELSE IF ( INCX .NE. 1 ) THEN
  KX = 1
- END IF
+ END
  KK = 1
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  IF ( INCX .EQ. 1 ) THEN
@@ -39,7 +39,7 @@
  AP ( K ) = AP ( K ) + X ( I ) * TEMP
  K = K + 1
  10 CONTINUE
- END IF
+ END
  KK = KK + J
  20 CONTINUE
  ELSE
@@ -52,11 +52,11 @@
  AP ( K ) = AP ( K ) + X ( IX ) * TEMP
  IX = IX + INCX
  30 CONTINUE
- END IF
+ END
  JX = JX + INCX
  KK = KK + J
  40 CONTINUE
- END IF
+ END
  ELSE
  IF ( INCX .EQ. 1 ) THEN
  DO 60 J = 1 , N
@@ -67,7 +67,7 @@
  AP ( K ) = AP ( K ) + X ( I ) * TEMP
  K = K + 1
  50 CONTINUE
- END IF
+ END
  KK = KK + N - J + 1
  60 CONTINUE
  ELSE
@@ -80,11 +80,11 @@
  AP ( K ) = AP ( K ) + X ( IX ) * TEMP
  IX = IX + INCX
  70 CONTINUE
- END IF
+ END
  JX = JX + INCX
  KK = KK + N - J + 1
  80 CONTINUE
- END IF
- END IF
+ END
+ END
  RETURN
  END

@@ -18,7 +18,7 @@
  NROWA = N
  ELSE
  NROWA = K
- END IF
+ END
  UPPER = LSAME ( UPLO , 'U' )
  INFO = 0
  IF ( ( .NOT. UPPER ) .AND. ( .NOT. LSAME ( UPLO , 'L' ) ) ) THEN
@@ -34,11 +34,11 @@
  INFO = 7
  ELSE IF ( LDC .LT. MAX ( 1 , N ) ) THEN
  INFO = 10
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'ZSYRK ' , INFO )
  RETURN
- END IF
+ END
  IF ( ( N .EQ. 0 ) .OR. ( ( ( ALPHA .EQ. ZERO ) .OR.
  + ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
@@ -55,7 +55,7 @@
  C ( I , J ) = BETA * C ( I , J )
  30 CONTINUE
  40 CONTINUE
- END IF
+ END
  ELSE
  IF ( BETA .EQ. ZERO ) THEN
  DO 60 J = 1 , N
@@ -69,10 +69,10 @@
  C ( I , J ) = BETA * C ( I , J )
  70 CONTINUE
  80 CONTINUE
- END IF
- END IF
+ END
+ END
  RETURN
- END IF
+ END
  IF ( LSAME ( TRANS , 'N' ) ) THEN
  IF ( UPPER ) THEN
  DO 130 J = 1 , N
@@ -84,14 +84,14 @@
  DO 100 I = 1 , J
  C ( I , J ) = BETA * C ( I , J )
  100 CONTINUE
- END IF
+ END
  DO 120 L = 1 , K
  IF ( A ( J , L ) .NE. ZERO ) THEN
  TEMP = ALPHA * A ( J , L )
  DO 110 I = 1 , J
  C ( I , J ) = C ( I , J ) + TEMP * A ( I , L )
  110 CONTINUE
- END IF
+ END
  120 CONTINUE
  130 CONTINUE
  ELSE
@@ -104,17 +104,17 @@
  DO 150 I = J , N
  C ( I , J ) = BETA * C ( I , J )
  150 CONTINUE
- END IF
+ END
  DO 170 L = 1 , K
  IF ( A ( J , L ) .NE. ZERO ) THEN
  TEMP = ALPHA * A ( J , L )
  DO 160 I = J , N
  C ( I , J ) = C ( I , J ) + TEMP * A ( I , L )
  160 CONTINUE
- END IF
+ END
  170 CONTINUE
  180 CONTINUE
- END IF
+ END
  ELSE
  IF ( UPPER ) THEN
  DO 210 J = 1 , N
@@ -127,7 +127,7 @@
  C ( I , J ) = ALPHA * TEMP
  ELSE
  C ( I , J ) = ALPHA * TEMP + BETA * C ( I , J )
- END IF
+ END
  200 CONTINUE
  210 CONTINUE
  ELSE
@@ -141,10 +141,10 @@
  C ( I , J ) = ALPHA * TEMP
  ELSE
  C ( I , J ) = ALPHA * TEMP + BETA * C ( I , J )
- END IF
+ END
  230 CONTINUE
  240 CONTINUE
- END IF
- END IF
+ END
+ END
  RETURN
  END

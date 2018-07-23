@@ -16,8 +16,8 @@
  IF ( N .LT. 6 ) THEN
  DASUM = DTEMP
  RETURN
- END IF
- END IF
+ END
+ END
  MP1 = M + 1
  DO I = MP1 , N , 6
  DTEMP = DTEMP + DABS ( DX ( I ) ) + DABS ( DX ( I + 1 ) ) +
@@ -29,7 +29,7 @@
  DO I = 1 , NINCX , INCX
  DTEMP = DTEMP + DABS ( DX ( I ) )
  END DO
- END IF
+ END
  DASUM = DTEMP
  RETURN
  END

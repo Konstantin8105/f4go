@@ -14,6 +14,6 @@
  DO I = 1 , NINCX , INCX
  ZX ( I ) = DCMPLX ( DA , 0.0d0 ) * ZX ( I )
  END DO
- END IF
+ END
  RETURN
  END

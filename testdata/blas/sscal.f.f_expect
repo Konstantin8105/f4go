@@ -12,7 +12,7 @@
  SX ( I ) = SA * SX ( I )
  END DO
  IF ( N .LT. 5 ) RETURN
- END IF
+ END
  MP1 = M + 1
  DO I = MP1 , N , 5
  SX ( I ) = SA * SX ( I )
@@ -26,6 +26,6 @@
  DO I = 1 , NINCX , INCX
  SX ( I ) = SA * SX ( I )
  END DO
- END IF
+ END
  RETURN
  END

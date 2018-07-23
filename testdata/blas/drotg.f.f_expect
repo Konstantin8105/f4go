@@ -18,7 +18,7 @@
  Z = 1.0d0
  IF ( DABS ( DA ) .GT. DABS ( DB ) ) Z = S
  IF ( DABS ( DB ) .GE. DABS ( DA ) .AND. C .NE. 0.0d0 ) Z = 1.0d0 / C
- END IF
+ END
  DA = R
  DB = Z
  RETURN

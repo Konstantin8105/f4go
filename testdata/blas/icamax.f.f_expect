@@ -15,7 +15,7 @@
  IF ( SCABS1 ( CX ( I ) ) .GT. SMAX ) THEN
  ICAMAX = I
  SMAX = SCABS1 ( CX ( I ) )
- END IF
+ END
  END DO
  ELSE
  IX = 1
@@ -25,9 +25,9 @@
  IF ( SCABS1 ( CX ( IX ) ) .GT. SMAX ) THEN
  ICAMAX = I
  SMAX = SCABS1 ( CX ( IX ) )
- END IF
+ END
  IX = IX + INCX
  END DO
- END IF
+ END
  RETURN
  END

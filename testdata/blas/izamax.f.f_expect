@@ -15,7 +15,7 @@
  IF ( DCABS1 ( ZX ( I ) ) .GT. DMAX ) THEN
  IZAMAX = I
  DMAX = DCABS1 ( ZX ( I ) )
- END IF
+ END
  END DO
  ELSE
  IX = 1
@@ -25,9 +25,9 @@
  IF ( DCABS1 ( ZX ( IX ) ) .GT. DMAX ) THEN
  IZAMAX = I
  DMAX = DCABS1 ( ZX ( IX ) )
- END IF
+ END
  IX = IX + INCX
  END DO
- END IF
+ END
  RETURN
  END

@@ -23,6 +23,6 @@
  IX = IX + INCX
  IY = IY + INCY
  END DO
- END IF
+ END
  RETURN
  END

@@ -16,8 +16,8 @@
  IF ( N .LT. 5 ) THEN
  DDOT = DTEMP
  RETURN
- END IF
- END IF
+ END
+ END
  MP1 = M + 1
  DO I = MP1 , N , 5
  DTEMP = DTEMP + DX ( I ) * DY ( I ) + DX ( I + 1 ) * DY ( I + 1 ) +
@@ -33,7 +33,7 @@
  IX = IX + INCX
  IY = IY + INCY
  END DO
- END IF
+ END
  DDOT = DTEMP
  RETURN
  END

@@ -9,7 +9,7 @@
  IF ( N .LE. 0 ) THEN
  SDSDOT = DSDOT
  RETURN
- END IF
+ END
  IF ( INCX .EQ. INCY .AND. INCX .GT. 0 ) THEN
  NS = N * INCX
  DO I = 1 , NS , INCX
@@ -25,7 +25,7 @@
  KX = KX + INCX
  KY = KY + INCY
  END DO
- END IF
+ END
  SDSDOT = DSDOT
  RETURN
  END

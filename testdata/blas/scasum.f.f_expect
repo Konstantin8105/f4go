@@ -16,7 +16,7 @@
  DO I = 1 , NINCX , INCX
  STEMP = STEMP + ABS ( REAL ( CX ( I ) ) ) + ABS ( AIMAG ( CX ( I ) ) )
  END DO
- END IF
+ END
  SCASUM = STEMP
  RETURN
  END

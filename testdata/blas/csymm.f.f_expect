@@ -18,7 +18,7 @@
  NROWA = M
  ELSE
  NROWA = N
- END IF
+ END
  UPPER = LSAME ( UPLO , 'U' )
  INFO = 0
  IF ( ( .NOT. LSAME ( SIDE , 'L' ) ) .AND. ( .NOT. LSAME ( SIDE , 'R' ) ) ) THEN
@@ -35,11 +35,11 @@
  INFO = 9
  ELSE IF ( LDC .LT. MAX ( 1 , M ) ) THEN
  INFO = 12
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'CSYMM ' , INFO )
  RETURN
- END IF
+ END
  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR.
  + ( ( ALPHA .EQ. ZERO ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
@@ -55,9 +55,9 @@
  C ( I , J ) = BETA * C ( I , J )
  30 CONTINUE
  40 CONTINUE
- END IF
+ END
  RETURN
- END IF
+ END
  IF ( LSAME ( SIDE , 'L' ) ) THEN
  IF ( UPPER ) THEN
  DO 70 J = 1 , N
@@ -73,7 +73,7 @@
  ELSE
  C ( I , J ) = BETA * C ( I , J ) + TEMP1 * A ( I , I ) +
  + ALPHA * TEMP2
- END IF
+ END
  60 CONTINUE
  70 CONTINUE
  ELSE
@@ -90,10 +90,10 @@
  ELSE
  C ( I , J ) = BETA * C ( I , J ) + TEMP1 * A ( I , I ) +
  + ALPHA * TEMP2
- END IF
+ END
  90 CONTINUE
  100 CONTINUE
- END IF
+ END
  ELSE
  DO 170 J = 1 , N
  TEMP1 = ALPHA * A ( J , J )
@@ -105,13 +105,13 @@
  DO 120 I = 1 , M
  C ( I , J ) = BETA * C ( I , J ) + TEMP1 * B ( I , J )
  120 CONTINUE
- END IF
+ END
  DO 140 K = 1 , J - 1
  IF ( UPPER ) THEN
  TEMP1 = ALPHA * A ( K , J )
  ELSE
  TEMP1 = ALPHA * A ( J , K )
- END IF
+ END
  DO 130 I = 1 , M
  C ( I , J ) = C ( I , J ) + TEMP1 * B ( I , K )
  130 CONTINUE
@@ -121,12 +121,12 @@
  TEMP1 = ALPHA * A ( J , K )
  ELSE
  TEMP1 = ALPHA * A ( K , J )
- END IF
+ END
  DO 150 I = 1 , M
  C ( I , J ) = C ( I , J ) + TEMP1 * B ( I , K )
  150 CONTINUE
  160 CONTINUE
  170 CONTINUE
- END IF
+ END
  RETURN
  END

@@ -23,11 +23,11 @@
  INFO = 4
  ELSE IF ( INCX .EQ. 0 ) THEN
  INFO = 7
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'CTPSV ' , INFO )
  RETURN
- END IF
+ END
  IF ( N .EQ. 0 ) RETURN
  NOCONJ = LSAME ( TRANS , 'T' )
  NOUNIT = LSAME ( DIAG , 'N' )
@@ -35,7 +35,7 @@
  KX = 1 - ( N - 1 ) * INCX
  ELSE IF ( INCX .NE. 1 ) THEN
  KX = 1
- END IF
+ END
  IF ( LSAME ( TRANS , 'N' ) ) THEN
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  KK = ( N * ( N + 1 ) ) / 2
@@ -49,7 +49,7 @@
  X ( I ) = X ( I ) - TEMP * AP ( K )
  K = K - 1
  10 CONTINUE
- END IF
+ END
  KK = KK - J
  20 CONTINUE
  ELSE
@@ -63,11 +63,11 @@
  IX = IX - INCX
  X ( IX ) = X ( IX ) - TEMP * AP ( K )
  30 CONTINUE
- END IF
+ END
  JX = JX - INCX
  KK = KK - J
  40 CONTINUE
- END IF
+ END
  ELSE
  KK = 1
  IF ( INCX .EQ. 1 ) THEN
@@ -80,7 +80,7 @@
  X ( I ) = X ( I ) - TEMP * AP ( K )
  K = K + 1
  50 CONTINUE
- END IF
+ END
  KK = KK + ( N - J + 1 )
  60 CONTINUE
  ELSE
@@ -94,12 +94,12 @@
  IX = IX + INCX
  X ( IX ) = X ( IX ) - TEMP * AP ( K )
  70 CONTINUE
- END IF
+ END
  JX = JX + INCX
  KK = KK + ( N - J + 1 )
  80 CONTINUE
- END IF
- END IF
+ END
+ END
  ELSE
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  KK = 1
@@ -119,7 +119,7 @@
  K = K + 1
  100 CONTINUE
  IF ( NOUNIT ) TEMP = TEMP / CONJG ( AP ( KK + J - 1 ) )
- END IF
+ END
  X ( J ) = TEMP
  KK = KK + J
  110 CONTINUE
@@ -140,12 +140,12 @@
  IX = IX + INCX
  130 CONTINUE
  IF ( NOUNIT ) TEMP = TEMP / CONJG ( AP ( KK + J - 1 ) )
- END IF
+ END
  X ( JX ) = TEMP
  JX = JX + INCX
  KK = KK + J
  140 CONTINUE
- END IF
+ END
  ELSE
  KK = ( N * ( N + 1 ) ) / 2
  IF ( INCX .EQ. 1 ) THEN
@@ -164,7 +164,7 @@
  K = K - 1
  160 CONTINUE
  IF ( NOUNIT ) TEMP = TEMP / CONJG ( AP ( KK - N + J ) )
- END IF
+ END
  X ( J ) = TEMP
  KK = KK - ( N - J + 1 )
  170 CONTINUE
@@ -186,13 +186,13 @@
  IX = IX - INCX
  190 CONTINUE
  IF ( NOUNIT ) TEMP = TEMP / CONJG ( AP ( KK - N + J ) )
- END IF
+ END
  X ( JX ) = TEMP
  JX = JX - INCX
  KK = KK - ( N - J + 1 )
  200 CONTINUE
- END IF
- END IF
- END IF
+ END
+ END
+ END
  RETURN
  END

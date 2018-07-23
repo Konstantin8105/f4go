@@ -14,7 +14,7 @@
  IF ( ABS ( SX ( I ) ) .GT. SMAX ) THEN
  ISAMAX = I
  SMAX = ABS ( SX ( I ) )
- END IF
+ END
  END DO
  ELSE
  IX = 1
@@ -24,9 +24,9 @@
  IF ( ABS ( SX ( IX ) ) .GT. SMAX ) THEN
  ISAMAX = I
  SMAX = ABS ( SX ( IX ) )
- END IF
+ END
  IX = IX + INCX
  END DO
- END IF
+ END
  RETURN
  END

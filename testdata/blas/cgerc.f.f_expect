@@ -19,17 +19,17 @@
  INFO = 7
  ELSE IF ( LDA .LT. MAX ( 1 , M ) ) THEN
  INFO = 9
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'CGERC ' , INFO )
  RETURN
- END IF
+ END
  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR. ( ALPHA .EQ. ZERO ) ) RETURN
  IF ( INCY .GT. 0 ) THEN
  JY = 1
  ELSE
  JY = 1 - ( N - 1 ) * INCY
- END IF
+ END
  IF ( INCX .EQ. 1 ) THEN
  DO 20 J = 1 , N
  IF ( Y ( JY ) .NE. ZERO ) THEN
@@ -37,7 +37,7 @@
  DO 10 I = 1 , M
  A ( I , J ) = A ( I , J ) + X ( I ) * TEMP
  10 CONTINUE
- END IF
+ END
  JY = JY + INCY
  20 CONTINUE
  ELSE
@@ -45,7 +45,7 @@
  KX = 1
  ELSE
  KX = 1 - ( M - 1 ) * INCX
- END IF
+ END
  DO 40 J = 1 , N
  IF ( Y ( JY ) .NE. ZERO ) THEN
  TEMP = ALPHA * CONJG ( Y ( JY ) )
@@ -54,9 +54,9 @@
  A ( I , J ) = A ( I , J ) + X ( IX ) * TEMP
  IX = IX + INCX
  30 CONTINUE
- END IF
+ END
  JY = JY + INCY
  40 CONTINUE
- END IF
+ END
  RETURN
  END

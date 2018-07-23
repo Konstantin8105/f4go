@@ -15,6 +15,6 @@
  C = CABS ( CA ) / NORM
  S = ALPHA * CONJG ( CB ) / NORM
  CA = ALPHA * NORM
- END IF
+ END
  RETURN
  END

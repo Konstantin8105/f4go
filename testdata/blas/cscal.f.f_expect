@@ -13,6 +13,6 @@
  DO I = 1 , NINCX , INCX
  CX ( I ) = CA * CX ( I )
  END DO
- END IF
+ END
  RETURN
  END

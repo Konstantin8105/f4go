@@ -18,7 +18,7 @@
  Z = 1.0
  IF ( ABS ( SA ) .GT. ABS ( SB ) ) Z = S
  IF ( ABS ( SB ) .GE. ABS ( SA ) .AND. C .NE. 0.0 ) Z = 1.0 / C
- END IF
+ END
  SA = R
  SB = Z
  RETURN

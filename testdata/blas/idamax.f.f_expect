@@ -14,7 +14,7 @@
  IF ( DABS ( DX ( I ) ) .GT. DMAX ) THEN
  IDAMAX = I
  DMAX = DABS ( DX ( I ) )
- END IF
+ END
  END DO
  ELSE
  IX = 1
@@ -24,9 +24,9 @@
  IF ( DABS ( DX ( IX ) ) .GT. DMAX ) THEN
  IDAMAX = I
  DMAX = DABS ( DX ( IX ) )
- END IF
+ END
  IX = IX + INCX
  END DO
- END IF
+ END
  RETURN
  END

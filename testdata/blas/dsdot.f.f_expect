@@ -20,6 +20,6 @@
  KX = KX + INCX
  KY = KY + INCY
  END DO
- END IF
+ END
  RETURN
  END

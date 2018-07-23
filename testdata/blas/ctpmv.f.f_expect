@@ -23,11 +23,11 @@
  INFO = 4
  ELSE IF ( INCX .EQ. 0 ) THEN
  INFO = 7
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'CTPMV ' , INFO )
  RETURN
- END IF
+ END
  IF ( N .EQ. 0 ) RETURN
  NOCONJ = LSAME ( TRANS , 'T' )
  NOUNIT = LSAME ( DIAG , 'N' )
@@ -35,7 +35,7 @@
  KX = 1 - ( N - 1 ) * INCX
  ELSE IF ( INCX .NE. 1 ) THEN
  KX = 1
- END IF
+ END
  IF ( LSAME ( TRANS , 'N' ) ) THEN
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  KK = 1
@@ -49,7 +49,7 @@
  K = K + 1
  10 CONTINUE
  IF ( NOUNIT ) X ( J ) = X ( J ) * AP ( KK + J - 1 )
- END IF
+ END
  KK = KK + J
  20 CONTINUE
  ELSE
@@ -63,11 +63,11 @@
  IX = IX + INCX
  30 CONTINUE
  IF ( NOUNIT ) X ( JX ) = X ( JX ) * AP ( KK + J - 1 )
- END IF
+ END
  JX = JX + INCX
  KK = KK + J
  40 CONTINUE
- END IF
+ END
  ELSE
  KK = ( N * ( N + 1 ) ) / 2
  IF ( INCX .EQ. 1 ) THEN
@@ -80,7 +80,7 @@
  K = K - 1
  50 CONTINUE
  IF ( NOUNIT ) X ( J ) = X ( J ) * AP ( KK - N + J )
- END IF
+ END
  KK = KK - ( N - J + 1 )
  60 CONTINUE
  ELSE
@@ -95,12 +95,12 @@
  IX = IX - INCX
  70 CONTINUE
  IF ( NOUNIT ) X ( JX ) = X ( JX ) * AP ( KK - N + J )
- END IF
+ END
  JX = JX - INCX
  KK = KK - ( N - J + 1 )
  80 CONTINUE
- END IF
- END IF
+ END
+ END
  ELSE
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  KK = ( N * ( N + 1 ) ) / 2
@@ -120,7 +120,7 @@
  TEMP = TEMP + CONJG ( AP ( K ) ) * X ( I )
  K = K - 1
  100 CONTINUE
- END IF
+ END
  X ( J ) = TEMP
  KK = KK - J
  110 CONTINUE
@@ -141,12 +141,12 @@
  IX = IX - INCX
  TEMP = TEMP + CONJG ( AP ( K ) ) * X ( IX )
  130 CONTINUE
- END IF
+ END
  X ( JX ) = TEMP
  JX = JX - INCX
  KK = KK - J
  140 CONTINUE
- END IF
+ END
  ELSE
  KK = 1
  IF ( INCX .EQ. 1 ) THEN
@@ -165,7 +165,7 @@
  TEMP = TEMP + CONJG ( AP ( K ) ) * X ( I )
  K = K + 1
  160 CONTINUE
- END IF
+ END
  X ( J ) = TEMP
  KK = KK + ( N - J + 1 )
  170 CONTINUE
@@ -186,13 +186,13 @@
  IX = IX + INCX
  TEMP = TEMP + CONJG ( AP ( K ) ) * X ( IX )
  190 CONTINUE
- END IF
+ END
  X ( JX ) = TEMP
  JX = JX + INCX
  KK = KK + ( N - J + 1 )
  200 CONTINUE
- END IF
- END IF
- END IF
+ END
+ END
+ END
  RETURN
  END

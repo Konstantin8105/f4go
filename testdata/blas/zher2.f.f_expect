@@ -22,26 +22,26 @@
  INFO = 7
  ELSE IF ( LDA .LT. MAX ( 1 , N ) ) THEN
  INFO = 9
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'ZHER2 ' , INFO )
  RETURN
- END IF
+ END
  IF ( ( N .EQ. 0 ) .OR. ( ALPHA .EQ. ZERO ) ) RETURN
  IF ( ( INCX .NE. 1 ) .OR. ( INCY .NE. 1 ) ) THEN
  IF ( INCX .GT. 0 ) THEN
  KX = 1
  ELSE
  KX = 1 - ( N - 1 ) * INCX
- END IF
+ END
  IF ( INCY .GT. 0 ) THEN
  KY = 1
  ELSE
  KY = 1 - ( N - 1 ) * INCY
- END IF
+ END
  JX = KX
  JY = KY
- END IF
+ END
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  IF ( ( INCX .EQ. 1 ) .AND. ( INCY .EQ. 1 ) ) THEN
  DO 20 J = 1 , N
@@ -55,7 +55,7 @@
  + DBLE ( X ( J ) * TEMP1 + Y ( J ) * TEMP2 )
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
- END IF
+ END
  20 CONTINUE
  ELSE
  DO 40 J = 1 , N
@@ -73,11 +73,11 @@
  + DBLE ( X ( JX ) * TEMP1 + Y ( JY ) * TEMP2 )
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
- END IF
+ END
  JX = JX + INCX
  JY = JY + INCY
  40 CONTINUE
- END IF
+ END
  ELSE
  IF ( ( INCX .EQ. 1 ) .AND. ( INCY .EQ. 1 ) ) THEN
  DO 60 J = 1 , N
@@ -91,7 +91,7 @@
  50 CONTINUE
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
- END IF
+ END
  60 CONTINUE
  ELSE
  DO 80 J = 1 , N
@@ -109,11 +109,11 @@
  70 CONTINUE
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
- END IF
+ END
  JX = JX + INCX
  JY = JY + INCY
  80 CONTINUE
- END IF
- END IF
+ END
+ END
  RETURN
  END

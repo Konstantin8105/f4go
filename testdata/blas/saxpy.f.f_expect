@@ -12,7 +12,7 @@
  DO I = 1 , M
  SY ( I ) = SY ( I ) + SA * SX ( I )
  END DO
- END IF
+ END
  IF ( N .LT. 4 ) RETURN
  MP1 = M + 1
  DO I = MP1 , N , 4
@@ -31,6 +31,6 @@
  IX = IX + INCX
  IY = IY + INCY
  END DO
- END IF
+ END
  RETURN
  END

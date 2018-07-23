@@ -22,18 +22,18 @@
  INFO = 4
  ELSE IF ( INCX .EQ. 0 ) THEN
  INFO = 7
- END IF
+ END
  IF ( INFO .NE. 0 ) THEN
  CALL XERBLA ( 'DTPSV ' , INFO )
  RETURN
- END IF
+ END
  IF ( N .EQ. 0 ) RETURN
  NOUNIT = LSAME ( DIAG , 'N' )
  IF ( INCX .LE. 0 ) THEN
  KX = 1 - ( N - 1 ) * INCX
  ELSE IF ( INCX .NE. 1 ) THEN
  KX = 1
- END IF
+ END
  IF ( LSAME ( TRANS , 'N' ) ) THEN
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  KK = ( N * ( N + 1 ) ) / 2
@@ -47,7 +47,7 @@
  X ( I ) = X ( I ) - TEMP * AP ( K )
  K = K - 1
  10 CONTINUE
- END IF
+ END
  KK = KK - J
  20 CONTINUE
  ELSE
@@ -61,11 +61,11 @@
  IX = IX - INCX
  X ( IX ) = X ( IX ) - TEMP * AP ( K )
  30 CONTINUE
- END IF
+ END
  JX = JX - INCX
  KK = KK - J
  40 CONTINUE
- END IF
+ END
  ELSE
  KK = 1
  IF ( INCX .EQ. 1 ) THEN
@@ -78,7 +78,7 @@
  X ( I ) = X ( I ) - TEMP * AP ( K )
  K = K + 1
  50 CONTINUE
- END IF
+ END
  KK = KK + ( N - J + 1 )
  60 CONTINUE
  ELSE
@@ -92,12 +92,12 @@
  IX = IX + INCX
  X ( IX ) = X ( IX ) - TEMP * AP ( K )
  70 CONTINUE
- END IF
+ END
  JX = JX + INCX
  KK = KK + ( N - J + 1 )
  80 CONTINUE
- END IF
- END IF
+ END
+ END
  ELSE
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  KK = 1
@@ -127,7 +127,7 @@
  JX = JX + INCX
  KK = KK + J
  120 CONTINUE
- END IF
+ END
  ELSE
  KK = ( N * ( N + 1 ) ) / 2
  IF ( INCX .EQ. 1 ) THEN
@@ -157,8 +157,8 @@
  JX = JX - INCX
  KK = KK - ( N - J + 1 )
  160 CONTINUE
- END IF
- END IF
- END IF
+ END
+ END
+ END
  RETURN
  END
