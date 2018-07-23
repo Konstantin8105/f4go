@@ -44,139 +44,169 @@
  END
  IF ( M .EQ. 0 .OR. N .EQ. 0 ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
- DO 20 J = 1 , N
- DO 10 I = 1 , M
+ DO J = 1 , N
+ DO I = 1 , M
  B ( I , J ) = ZERO
- 10 CONTINUE
- 20 CONTINUE
+ end
+
+ end
+
  RETURN
  END
  IF ( LSIDE ) THEN
  IF ( LSAME ( TRANSA , 'N' ) ) THEN
  IF ( UPPER ) THEN
- DO 50 J = 1 , N
- DO 40 K = 1 , M
+ DO J = 1 , N
+ DO K = 1 , M
  IF ( B ( K , J ) .NE. ZERO ) THEN
  TEMP = ALPHA * B ( K , J )
- DO 30 I = 1 , K - 1
+ DO I = 1 , K - 1
  B ( I , J ) = B ( I , J ) + TEMP * A ( I , K )
- 30 CONTINUE
+ end
+
  IF ( NOUNIT ) TEMP = TEMP * A ( K , K )
  B ( K , J ) = TEMP
  END
- 40 CONTINUE
- 50 CONTINUE
+ end
+
+ end
+
  ELSE
- DO 80 J = 1 , N
- DO 70 K = M , 1 , - 1
+ DO J = 1 , N
+ DO K = M , 1 , - 1
  IF ( B ( K , J ) .NE. ZERO ) THEN
  TEMP = ALPHA * B ( K , J )
  B ( K , J ) = TEMP
  IF ( NOUNIT ) B ( K , J ) = B ( K , J ) * A ( K , K )
- DO 60 I = K + 1 , M
+ DO I = K + 1 , M
  B ( I , J ) = B ( I , J ) + TEMP * A ( I , K )
- 60 CONTINUE
+ end
+
  END
- 70 CONTINUE
- 80 CONTINUE
+ end
+
+ end
+
  END
  ELSE
  IF ( UPPER ) THEN
- DO 110 J = 1 , N
- DO 100 I = M , 1 , - 1
+ DO J = 1 , N
+ DO I = M , 1 , - 1
  TEMP = B ( I , J )
  IF ( NOUNIT ) TEMP = TEMP * A ( I , I )
- DO 90 K = 1 , I - 1
+ DO K = 1 , I - 1
  TEMP = TEMP + A ( K , I ) * B ( K , J )
- 90 CONTINUE
+ end
+
  B ( I , J ) = ALPHA * TEMP
- 100 CONTINUE
- 110 CONTINUE
+ end
+
+ end
+
  ELSE
- DO 140 J = 1 , N
- DO 130 I = 1 , M
+ DO J = 1 , N
+ DO I = 1 , M
  TEMP = B ( I , J )
  IF ( NOUNIT ) TEMP = TEMP * A ( I , I )
- DO 120 K = I + 1 , M
+ DO K = I + 1 , M
  TEMP = TEMP + A ( K , I ) * B ( K , J )
- 120 CONTINUE
+ end
+
  B ( I , J ) = ALPHA * TEMP
- 130 CONTINUE
- 140 CONTINUE
+ end
+
+ end
+
  END
  END
  ELSE
  IF ( LSAME ( TRANSA , 'N' ) ) THEN
  IF ( UPPER ) THEN
- DO 180 J = N , 1 , - 1
+ DO J = N , 1 , - 1
  TEMP = ALPHA
  IF ( NOUNIT ) TEMP = TEMP * A ( J , J )
- DO 150 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = TEMP * B ( I , J )
- 150 CONTINUE
- DO 170 K = 1 , J - 1
+ end
+
+ DO K = 1 , J - 1
  IF ( A ( K , J ) .NE. ZERO ) THEN
  TEMP = ALPHA * A ( K , J )
- DO 160 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = B ( I , J ) + TEMP * B ( I , K )
- 160 CONTINUE
+ end
+
  END
- 170 CONTINUE
- 180 CONTINUE
+ end
+
+ end
+
  ELSE
- DO 220 J = 1 , N
+ DO J = 1 , N
  TEMP = ALPHA
  IF ( NOUNIT ) TEMP = TEMP * A ( J , J )
- DO 190 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = TEMP * B ( I , J )
- 190 CONTINUE
- DO 210 K = J + 1 , N
+ end
+
+ DO K = J + 1 , N
  IF ( A ( K , J ) .NE. ZERO ) THEN
  TEMP = ALPHA * A ( K , J )
- DO 200 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = B ( I , J ) + TEMP * B ( I , K )
- 200 CONTINUE
+ end
+
  END
- 210 CONTINUE
- 220 CONTINUE
+ end
+
+ end
+
  END
  ELSE
  IF ( UPPER ) THEN
- DO 260 K = 1 , N
- DO 240 J = 1 , K - 1
+ DO K = 1 , N
+ DO J = 1 , K - 1
  IF ( A ( J , K ) .NE. ZERO ) THEN
  TEMP = ALPHA * A ( J , K )
- DO 230 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = B ( I , J ) + TEMP * B ( I , K )
- 230 CONTINUE
+ end
+
  END
- 240 CONTINUE
+ end
+
  TEMP = ALPHA
  IF ( NOUNIT ) TEMP = TEMP * A ( K , K )
  IF ( TEMP .NE. ONE ) THEN
- DO 250 I = 1 , M
+ DO I = 1 , M
  B ( I , K ) = TEMP * B ( I , K )
- 250 CONTINUE
+ end
+
  END
- 260 CONTINUE
+ end
+
  ELSE
- DO 300 K = N , 1 , - 1
- DO 280 J = K + 1 , N
+ DO K = N , 1 , - 1
+ DO J = K + 1 , N
  IF ( A ( J , K ) .NE. ZERO ) THEN
  TEMP = ALPHA * A ( J , K )
- DO 270 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = B ( I , J ) + TEMP * B ( I , K )
- 270 CONTINUE
+ end
+
  END
- 280 CONTINUE
+ end
+
  TEMP = ALPHA
  IF ( NOUNIT ) TEMP = TEMP * A ( K , K )
  IF ( TEMP .NE. ONE ) THEN
- DO 290 I = 1 , M
+ DO I = 1 , M
  B ( I , K ) = TEMP * B ( I , K )
- 290 CONTINUE
+ end
+
  END
- 300 CONTINUE
+ end
+
  END
  END
  END

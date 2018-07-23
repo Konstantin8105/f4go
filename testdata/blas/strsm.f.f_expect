@@ -44,163 +44,199 @@
  END
  IF ( M .EQ. 0 .OR. N .EQ. 0 ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
- DO 20 J = 1 , N
- DO 10 I = 1 , M
+ DO J = 1 , N
+ DO I = 1 , M
  B ( I , J ) = ZERO
- 10 CONTINUE
- 20 CONTINUE
+ end
+
+ end
+
  RETURN
  END
  IF ( LSIDE ) THEN
  IF ( LSAME ( TRANSA , 'N' ) ) THEN
  IF ( UPPER ) THEN
- DO 60 J = 1 , N
+ DO J = 1 , N
  IF ( ALPHA .NE. ONE ) THEN
- DO 30 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = ALPHA * B ( I , J )
- 30 CONTINUE
+ end
+
  END
- DO 50 K = M , 1 , - 1
+ DO K = M , 1 , - 1
  IF ( B ( K , J ) .NE. ZERO ) THEN
  IF ( NOUNIT ) B ( K , J ) = B ( K , J ) / A ( K , K )
- DO 40 I = 1 , K - 1
+ DO I = 1 , K - 1
  B ( I , J ) = B ( I , J ) - B ( K , J ) * A ( I , K )
- 40 CONTINUE
+ end
+
  END
- 50 CONTINUE
- 60 CONTINUE
+ end
+
+ end
+
  ELSE
- DO 100 J = 1 , N
+ DO J = 1 , N
  IF ( ALPHA .NE. ONE ) THEN
- DO 70 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = ALPHA * B ( I , J )
- 70 CONTINUE
+ end
+
  END
- DO 90 K = 1 , M
+ DO K = 1 , M
  IF ( B ( K , J ) .NE. ZERO ) THEN
  IF ( NOUNIT ) B ( K , J ) = B ( K , J ) / A ( K , K )
- DO 80 I = K + 1 , M
+ DO I = K + 1 , M
  B ( I , J ) = B ( I , J ) - B ( K , J ) * A ( I , K )
- 80 CONTINUE
+ end
+
  END
- 90 CONTINUE
- 100 CONTINUE
+ end
+
+ end
+
  END
  ELSE
  IF ( UPPER ) THEN
- DO 130 J = 1 , N
- DO 120 I = 1 , M
+ DO J = 1 , N
+ DO I = 1 , M
  TEMP = ALPHA * B ( I , J )
- DO 110 K = 1 , I - 1
+ DO K = 1 , I - 1
  TEMP = TEMP - A ( K , I ) * B ( K , J )
- 110 CONTINUE
+ end
+
  IF ( NOUNIT ) TEMP = TEMP / A ( I , I )
  B ( I , J ) = TEMP
- 120 CONTINUE
- 130 CONTINUE
+ end
+
+ end
+
  ELSE
- DO 160 J = 1 , N
- DO 150 I = M , 1 , - 1
+ DO J = 1 , N
+ DO I = M , 1 , - 1
  TEMP = ALPHA * B ( I , J )
- DO 140 K = I + 1 , M
+ DO K = I + 1 , M
  TEMP = TEMP - A ( K , I ) * B ( K , J )
- 140 CONTINUE
+ end
+
  IF ( NOUNIT ) TEMP = TEMP / A ( I , I )
  B ( I , J ) = TEMP
- 150 CONTINUE
- 160 CONTINUE
+ end
+
+ end
+
  END
  END
  ELSE
  IF ( LSAME ( TRANSA , 'N' ) ) THEN
  IF ( UPPER ) THEN
- DO 210 J = 1 , N
+ DO J = 1 , N
  IF ( ALPHA .NE. ONE ) THEN
- DO 170 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = ALPHA * B ( I , J )
- 170 CONTINUE
+ end
+
  END
- DO 190 K = 1 , J - 1
+ DO K = 1 , J - 1
  IF ( A ( K , J ) .NE. ZERO ) THEN
- DO 180 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = B ( I , J ) - A ( K , J ) * B ( I , K )
- 180 CONTINUE
+ end
+
  END
- 190 CONTINUE
+ end
+
  IF ( NOUNIT ) THEN
  TEMP = ONE / A ( J , J )
- DO 200 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = TEMP * B ( I , J )
- 200 CONTINUE
+ end
+
  END
- 210 CONTINUE
+ end
+
  ELSE
- DO 260 J = N , 1 , - 1
+ DO J = N , 1 , - 1
  IF ( ALPHA .NE. ONE ) THEN
- DO 220 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = ALPHA * B ( I , J )
- 220 CONTINUE
+ end
+
  END
- DO 240 K = J + 1 , N
+ DO K = J + 1 , N
  IF ( A ( K , J ) .NE. ZERO ) THEN
- DO 230 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = B ( I , J ) - A ( K , J ) * B ( I , K )
- 230 CONTINUE
+ end
+
  END
- 240 CONTINUE
+ end
+
  IF ( NOUNIT ) THEN
  TEMP = ONE / A ( J , J )
- DO 250 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = TEMP * B ( I , J )
- 250 CONTINUE
+ end
+
  END
- 260 CONTINUE
+ end
+
  END
  ELSE
  IF ( UPPER ) THEN
- DO 310 K = N , 1 , - 1
+ DO K = N , 1 , - 1
  IF ( NOUNIT ) THEN
  TEMP = ONE / A ( K , K )
- DO 270 I = 1 , M
+ DO I = 1 , M
  B ( I , K ) = TEMP * B ( I , K )
- 270 CONTINUE
+ end
+
  END
- DO 290 J = 1 , K - 1
+ DO J = 1 , K - 1
  IF ( A ( J , K ) .NE. ZERO ) THEN
  TEMP = A ( J , K )
- DO 280 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = B ( I , J ) - TEMP * B ( I , K )
- 280 CONTINUE
+ end
+
  END
- 290 CONTINUE
+ end
+
  IF ( ALPHA .NE. ONE ) THEN
- DO 300 I = 1 , M
+ DO I = 1 , M
  B ( I , K ) = ALPHA * B ( I , K )
- 300 CONTINUE
+ end
+
  END
- 310 CONTINUE
+ end
+
  ELSE
- DO 360 K = 1 , N
+ DO K = 1 , N
  IF ( NOUNIT ) THEN
  TEMP = ONE / A ( K , K )
- DO 320 I = 1 , M
+ DO I = 1 , M
  B ( I , K ) = TEMP * B ( I , K )
- 320 CONTINUE
+ end
+
  END
- DO 340 J = K + 1 , N
+ DO J = K + 1 , N
  IF ( A ( J , K ) .NE. ZERO ) THEN
  TEMP = A ( J , K )
- DO 330 I = 1 , M
+ DO I = 1 , M
  B ( I , J ) = B ( I , J ) - TEMP * B ( I , K )
- 330 CONTINUE
+ end
+
  END
- 340 CONTINUE
+ end
+
  IF ( ALPHA .NE. ONE ) THEN
- DO 350 I = 1 , M
+ DO I = 1 , M
  B ( I , K ) = ALPHA * B ( I , K )
- 350 CONTINUE
+ end
+
  END
- 360 CONTINUE
+ end
+
  END
  END
  END

@@ -13,7 +13,7 @@
  ELSE
  SCALE = ZERO
  SSQ = ONE
- DO 10 IX = 1 , 1 + ( N - 1 ) * INCX , INCX
+ DO IX = 1 , 1 + ( N - 1 ) * INCX , INCX
  IF ( X ( IX ) .NE. ZERO ) THEN
  ABSXI = ABS ( X ( IX ) )
  IF ( SCALE .LT. ABSXI ) THEN
@@ -23,7 +23,8 @@
  SSQ = SSQ + ( ABSXI / SCALE ) ** 2
  END
  END
- 10 CONTINUE
+ end
+
  NORM = SCALE * SQRT ( SSQ )
  END
  DNRM2 = NORM

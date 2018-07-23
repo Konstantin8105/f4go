@@ -33,63 +33,71 @@
  END
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  IF ( INCX .EQ. 1 ) THEN
- DO 20 J = 1 , N
+ DO J = 1 , N
  IF ( X ( J ) .NE. ZERO ) THEN
  TEMP = ALPHA * DCONJG ( X ( J ) )
- DO 10 I = 1 , J - 1
+ DO I = 1 , J - 1
  A ( I , J ) = A ( I , J ) + X ( I ) * TEMP
- 10 CONTINUE
+ end
+
  A ( J , J ) = DBLE ( A ( J , J ) ) + DBLE ( X ( J ) * TEMP )
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
  END
- 20 CONTINUE
+ end
+
  ELSE
  JX = KX
- DO 40 J = 1 , N
+ DO J = 1 , N
  IF ( X ( JX ) .NE. ZERO ) THEN
  TEMP = ALPHA * DCONJG ( X ( JX ) )
  IX = KX
- DO 30 I = 1 , J - 1
+ DO I = 1 , J - 1
  A ( I , J ) = A ( I , J ) + X ( IX ) * TEMP
  IX = IX + INCX
- 30 CONTINUE
+ end
+
  A ( J , J ) = DBLE ( A ( J , J ) ) + DBLE ( X ( JX ) * TEMP )
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
  END
  JX = JX + INCX
- 40 CONTINUE
+ end
+
  END
  ELSE
  IF ( INCX .EQ. 1 ) THEN
- DO 60 J = 1 , N
+ DO J = 1 , N
  IF ( X ( J ) .NE. ZERO ) THEN
  TEMP = ALPHA * DCONJG ( X ( J ) )
  A ( J , J ) = DBLE ( A ( J , J ) ) + DBLE ( TEMP * X ( J ) )
- DO 50 I = J + 1 , N
+ DO I = J + 1 , N
  A ( I , J ) = A ( I , J ) + X ( I ) * TEMP
- 50 CONTINUE
+ end
+
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
  END
- 60 CONTINUE
+ end
+
  ELSE
  JX = KX
- DO 80 J = 1 , N
+ DO J = 1 , N
  IF ( X ( JX ) .NE. ZERO ) THEN
  TEMP = ALPHA * DCONJG ( X ( JX ) )
  A ( J , J ) = DBLE ( A ( J , J ) ) + DBLE ( TEMP * X ( JX ) )
  IX = JX
- DO 70 I = J + 1 , N
+ DO I = J + 1 , N
  IX = IX + INCX
  A ( I , J ) = A ( I , J ) + X ( IX ) * TEMP
- 70 CONTINUE
+ end
+
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
  END
  JX = JX + INCX
- 80 CONTINUE
+ end
+
  END
  END
  RETURN

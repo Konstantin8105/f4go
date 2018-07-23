@@ -44,71 +44,79 @@
  END
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  IF ( ( INCX .EQ. 1 ) .AND. ( INCY .EQ. 1 ) ) THEN
- DO 20 J = 1 , N
+ DO J = 1 , N
  IF ( ( X ( J ) .NE. ZERO ) .OR. ( Y ( J ) .NE. ZERO ) ) THEN
  TEMP1 = ALPHA * CONJG ( Y ( J ) )
  TEMP2 = CONJG ( ALPHA * X ( J ) )
- DO 10 I = 1 , J - 1
+ DO I = 1 , J - 1
  A ( I , J ) = A ( I , J ) + X ( I ) * TEMP1 + Y ( I ) * TEMP2
- 10 CONTINUE
+ end
+
  A ( J , J ) = REAL ( A ( J , J ) ) + REAL ( X ( J ) * TEMP1 + Y ( J ) * TEMP2 )
  ELSE
  A ( J , J ) = REAL ( A ( J , J ) )
  END
- 20 CONTINUE
+ end
+
  ELSE
- DO 40 J = 1 , N
+ DO J = 1 , N
  IF ( ( X ( JX ) .NE. ZERO ) .OR. ( Y ( JY ) .NE. ZERO ) ) THEN
  TEMP1 = ALPHA * CONJG ( Y ( JY ) )
  TEMP2 = CONJG ( ALPHA * X ( JX ) )
  IX = KX
  IY = KY
- DO 30 I = 1 , J - 1
+ DO I = 1 , J - 1
  A ( I , J ) = A ( I , J ) + X ( IX ) * TEMP1 + Y ( IY ) * TEMP2
  IX = IX + INCX
  IY = IY + INCY
- 30 CONTINUE
+ end
+
  A ( J , J ) = REAL ( A ( J , J ) ) + REAL ( X ( JX ) * TEMP1 + Y ( JY ) * TEMP2 )
  ELSE
  A ( J , J ) = REAL ( A ( J , J ) )
  END
  JX = JX + INCX
  JY = JY + INCY
- 40 CONTINUE
+ end
+
  END
  ELSE
  IF ( ( INCX .EQ. 1 ) .AND. ( INCY .EQ. 1 ) ) THEN
- DO 60 J = 1 , N
+ DO J = 1 , N
  IF ( ( X ( J ) .NE. ZERO ) .OR. ( Y ( J ) .NE. ZERO ) ) THEN
  TEMP1 = ALPHA * CONJG ( Y ( J ) )
  TEMP2 = CONJG ( ALPHA * X ( J ) )
  A ( J , J ) = REAL ( A ( J , J ) ) + REAL ( X ( J ) * TEMP1 + Y ( J ) * TEMP2 )
- DO 50 I = J + 1 , N
+ DO I = J + 1 , N
  A ( I , J ) = A ( I , J ) + X ( I ) * TEMP1 + Y ( I ) * TEMP2
- 50 CONTINUE
+ end
+
  ELSE
  A ( J , J ) = REAL ( A ( J , J ) )
  END
- 60 CONTINUE
+ end
+
  ELSE
- DO 80 J = 1 , N
+ DO J = 1 , N
  IF ( ( X ( JX ) .NE. ZERO ) .OR. ( Y ( JY ) .NE. ZERO ) ) THEN
  TEMP1 = ALPHA * CONJG ( Y ( JY ) )
  TEMP2 = CONJG ( ALPHA * X ( JX ) )
  A ( J , J ) = REAL ( A ( J , J ) ) + REAL ( X ( JX ) * TEMP1 + Y ( JY ) * TEMP2 )
  IX = JX
  IY = JY
- DO 70 I = J + 1 , N
+ DO I = J + 1 , N
  IX = IX + INCX
  IY = IY + INCY
  A ( I , J ) = A ( I , J ) + X ( IX ) * TEMP1 + Y ( IY ) * TEMP2
- 70 CONTINUE
+ end
+
  ELSE
  A ( J , J ) = REAL ( A ( J , J ) )
  END
  JX = JX + INCX
  JY = JY + INCY
- 80 CONTINUE
+ end
+
  END
  END
  RETURN

@@ -51,87 +51,107 @@
  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR. ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
  IF ( BETA .EQ. ZERO ) THEN
- DO 20 J = 1 , N
- DO 10 I = 1 , M
+ DO J = 1 , N
+ DO I = 1 , M
  C ( I , J ) = ZERO
- 10 CONTINUE
- 20 CONTINUE
+ end
+
+ end
+
  ELSE
- DO 40 J = 1 , N
- DO 30 I = 1 , M
+ DO J = 1 , N
+ DO I = 1 , M
  C ( I , J ) = BETA * C ( I , J )
- 30 CONTINUE
- 40 CONTINUE
+ end
+
+ end
+
  END
  RETURN
  END
  IF ( NOTB ) THEN
  IF ( NOTA ) THEN
- DO 90 J = 1 , N
+ DO J = 1 , N
  IF ( BETA .EQ. ZERO ) THEN
- DO 50 I = 1 , M
+ DO I = 1 , M
  C ( I , J ) = ZERO
- 50 CONTINUE
+ end
+
  ELSE IF ( BETA .NE. ONE ) THEN
- DO 60 I = 1 , M
+ DO I = 1 , M
  C ( I , J ) = BETA * C ( I , J )
- 60 CONTINUE
+ end
+
  END
- DO 80 L = 1 , K
+ DO L = 1 , K
  TEMP = ALPHA * B ( L , J )
- DO 70 I = 1 , M
+ DO I = 1 , M
  C ( I , J ) = C ( I , J ) + TEMP * A ( I , L )
- 70 CONTINUE
- 80 CONTINUE
- 90 CONTINUE
+ end
+
+ end
+
+ end
+
  ELSE
- DO 120 J = 1 , N
- DO 110 I = 1 , M
+ DO J = 1 , N
+ DO I = 1 , M
  TEMP = ZERO
- DO 100 L = 1 , K
+ DO L = 1 , K
  TEMP = TEMP + A ( L , I ) * B ( L , J )
- 100 CONTINUE
+ end
+
  IF ( BETA .EQ. ZERO ) THEN
  C ( I , J ) = ALPHA * TEMP
  ELSE
  C ( I , J ) = ALPHA * TEMP + BETA * C ( I , J )
  END
- 110 CONTINUE
- 120 CONTINUE
+ end
+
+ end
+
  END
  ELSE
  IF ( NOTA ) THEN
- DO 170 J = 1 , N
+ DO J = 1 , N
  IF ( BETA .EQ. ZERO ) THEN
- DO 130 I = 1 , M
+ DO I = 1 , M
  C ( I , J ) = ZERO
- 130 CONTINUE
+ end
+
  ELSE IF ( BETA .NE. ONE ) THEN
- DO 140 I = 1 , M
+ DO I = 1 , M
  C ( I , J ) = BETA * C ( I , J )
- 140 CONTINUE
+ end
+
  END
- DO 160 L = 1 , K
+ DO L = 1 , K
  TEMP = ALPHA * B ( J , L )
- DO 150 I = 1 , M
+ DO I = 1 , M
  C ( I , J ) = C ( I , J ) + TEMP * A ( I , L )
- 150 CONTINUE
- 160 CONTINUE
- 170 CONTINUE
+ end
+
+ end
+
+ end
+
  ELSE
- DO 200 J = 1 , N
- DO 190 I = 1 , M
+ DO J = 1 , N
+ DO I = 1 , M
  TEMP = ZERO
- DO 180 L = 1 , K
+ DO L = 1 , K
  TEMP = TEMP + A ( L , I ) * B ( J , L )
- 180 CONTINUE
+ end
+
  IF ( BETA .EQ. ZERO ) THEN
  C ( I , J ) = ALPHA * TEMP
  ELSE
  C ( I , J ) = ALPHA * TEMP + BETA * C ( I , J )
  END
- 190 CONTINUE
- 200 CONTINUE
+ end
+
+ end
+
  END
  END
  RETURN

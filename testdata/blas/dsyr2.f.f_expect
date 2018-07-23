@@ -44,59 +44,67 @@
  END
  IF ( LSAME ( UPLO , 'U' ) ) THEN
  IF ( ( INCX .EQ. 1 ) .AND. ( INCY .EQ. 1 ) ) THEN
- DO 20 J = 1 , N
+ DO J = 1 , N
  IF ( ( X ( J ) .NE. ZERO ) .OR. ( Y ( J ) .NE. ZERO ) ) THEN
  TEMP1 = ALPHA * Y ( J )
  TEMP2 = ALPHA * X ( J )
- DO 10 I = 1 , J
+ DO I = 1 , J
  A ( I , J ) = A ( I , J ) + X ( I ) * TEMP1 + Y ( I ) * TEMP2
- 10 CONTINUE
+ end
+
  END
- 20 CONTINUE
+ end
+
  ELSE
- DO 40 J = 1 , N
+ DO J = 1 , N
  IF ( ( X ( JX ) .NE. ZERO ) .OR. ( Y ( JY ) .NE. ZERO ) ) THEN
  TEMP1 = ALPHA * Y ( JY )
  TEMP2 = ALPHA * X ( JX )
  IX = KX
  IY = KY
- DO 30 I = 1 , J
+ DO I = 1 , J
  A ( I , J ) = A ( I , J ) + X ( IX ) * TEMP1 + Y ( IY ) * TEMP2
  IX = IX + INCX
  IY = IY + INCY
- 30 CONTINUE
+ end
+
  END
  JX = JX + INCX
  JY = JY + INCY
- 40 CONTINUE
+ end
+
  END
  ELSE
  IF ( ( INCX .EQ. 1 ) .AND. ( INCY .EQ. 1 ) ) THEN
- DO 60 J = 1 , N
+ DO J = 1 , N
  IF ( ( X ( J ) .NE. ZERO ) .OR. ( Y ( J ) .NE. ZERO ) ) THEN
  TEMP1 = ALPHA * Y ( J )
  TEMP2 = ALPHA * X ( J )
- DO 50 I = J , N
+ DO I = J , N
  A ( I , J ) = A ( I , J ) + X ( I ) * TEMP1 + Y ( I ) * TEMP2
- 50 CONTINUE
+ end
+
  END
- 60 CONTINUE
+ end
+
  ELSE
- DO 80 J = 1 , N
+ DO J = 1 , N
  IF ( ( X ( JX ) .NE. ZERO ) .OR. ( Y ( JY ) .NE. ZERO ) ) THEN
  TEMP1 = ALPHA * Y ( JY )
  TEMP2 = ALPHA * X ( JX )
  IX = JX
  IY = JY
- DO 70 I = J , N
+ DO I = J , N
  A ( I , J ) = A ( I , J ) + X ( IX ) * TEMP1 + Y ( IY ) * TEMP2
  IX = IX + INCX
  IY = IY + INCY
- 70 CONTINUE
+ end
+
  END
  JX = JX + INCX
  JY = JY + INCY
- 80 CONTINUE
+ end
+
  END
  END
  RETURN

@@ -58,26 +58,30 @@
  IF ( BETA .NE. ONE ) THEN
  IF ( INCY .EQ. 1 ) THEN
  IF ( BETA .EQ. ZERO ) THEN
- DO 10 I = 1 , LENY
+ DO I = 1 , LENY
  Y ( I ) = ZERO
- 10 CONTINUE
+ end
+
  ELSE
- DO 20 I = 1 , LENY
+ DO I = 1 , LENY
  Y ( I ) = BETA * Y ( I )
- 20 CONTINUE
+ end
+
  END
  ELSE
  IY = KY
  IF ( BETA .EQ. ZERO ) THEN
- DO 30 I = 1 , LENY
+ DO I = 1 , LENY
  Y ( IY ) = ZERO
  IY = IY + INCY
- 30 CONTINUE
+ end
+
  ELSE
- DO 40 I = 1 , LENY
+ DO I = 1 , LENY
  Y ( IY ) = BETA * Y ( IY )
  IY = IY + INCY
- 40 CONTINUE
+ end
+
  END
  END
  END
@@ -86,65 +90,75 @@
  IF ( LSAME ( TRANS , 'N' ) ) THEN
  JX = KX
  IF ( INCY .EQ. 1 ) THEN
- DO 60 J = 1 , N
+ DO J = 1 , N
  TEMP = ALPHA * X ( JX )
  K = KUP1 - J
- DO 50 I = MAX ( 1 , J - KU ) , MIN ( M , J + KL )
+ DO I = MAX ( 1 , J - KU ) , MIN ( M , J + KL )
  Y ( I ) = Y ( I ) + TEMP * A ( K + I , J )
- 50 CONTINUE
+ end
+
  JX = JX + INCX
- 60 CONTINUE
+ end
+
  ELSE
- DO 80 J = 1 , N
+ DO J = 1 , N
  TEMP = ALPHA * X ( JX )
  IY = KY
  K = KUP1 - J
- DO 70 I = MAX ( 1 , J - KU ) , MIN ( M , J + KL )
+ DO I = MAX ( 1 , J - KU ) , MIN ( M , J + KL )
  Y ( IY ) = Y ( IY ) + TEMP * A ( K + I , J )
  IY = IY + INCY
- 70 CONTINUE
+ end
+
  JX = JX + INCX
  IF ( J .GT. KU ) KY = KY + INCY
- 80 CONTINUE
+ end
+
  END
  ELSE
  JY = KY
  IF ( INCX .EQ. 1 ) THEN
- DO 110 J = 1 , N
+ DO J = 1 , N
  TEMP = ZERO
  K = KUP1 - J
  IF ( NOCONJ ) THEN
- DO 90 I = MAX ( 1 , J - KU ) , MIN ( M , J + KL )
+ DO I = MAX ( 1 , J - KU ) , MIN ( M , J + KL )
  TEMP = TEMP + A ( K + I , J ) * X ( I )
- 90 CONTINUE
+ end
+
  ELSE
- DO 100 I = MAX ( 1 , J - KU ) , MIN ( M , J + KL )
+ DO I = MAX ( 1 , J - KU ) , MIN ( M , J + KL )
  TEMP = TEMP + CONJG ( A ( K + I , J ) ) * X ( I )
- 100 CONTINUE
+ end
+
  END
  Y ( JY ) = Y ( JY ) + ALPHA * TEMP
  JY = JY + INCY
- 110 CONTINUE
+ end
+
  ELSE
- DO 140 J = 1 , N
+ DO J = 1 , N
  TEMP = ZERO
  IX = KX
  K = KUP1 - J
  IF ( NOCONJ ) THEN
- DO 120 I = MAX ( 1 , J - KU ) , MIN ( M , J + KL )
+ DO I = MAX ( 1 , J - KU ) , MIN ( M , J + KL )
  TEMP = TEMP + A ( K + I , J ) * X ( IX )
  IX = IX + INCX
- 120 CONTINUE
+ end
+
  ELSE
- DO 130 I = MAX ( 1 , J - KU ) , MIN ( M , J + KL )
+ DO I = MAX ( 1 , J - KU ) , MIN ( M , J + KL )
  TEMP = TEMP + CONJG ( A ( K + I , J ) ) * X ( IX )
  IX = IX + INCX
- 130 CONTINUE
+ end
+
  END
  Y ( JY ) = Y ( JY ) + ALPHA * TEMP
  JY = JY + INCY
  IF ( J .GT. KU ) KX = KX + INCX
- 140 CONTINUE
+ end
+
  END
  END
  RETURN

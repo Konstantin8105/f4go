@@ -54,26 +54,30 @@
  IF ( BETA .NE. ONE ) THEN
  IF ( INCY .EQ. 1 ) THEN
  IF ( BETA .EQ. ZERO ) THEN
- DO 10 I = 1 , LENY
+ DO I = 1 , LENY
  Y ( I ) = ZERO
- 10 CONTINUE
+ end
+
  ELSE
- DO 20 I = 1 , LENY
+ DO I = 1 , LENY
  Y ( I ) = BETA * Y ( I )
- 20 CONTINUE
+ end
+
  END
  ELSE
  IY = KY
  IF ( BETA .EQ. ZERO ) THEN
- DO 30 I = 1 , LENY
+ DO I = 1 , LENY
  Y ( IY ) = ZERO
  IY = IY + INCY
- 30 CONTINUE
+ end
+
  ELSE
- DO 40 I = 1 , LENY
+ DO I = 1 , LENY
  Y ( IY ) = BETA * Y ( IY )
  IY = IY + INCY
- 40 CONTINUE
+ end
+
  END
  END
  END
@@ -81,59 +85,69 @@
  IF ( LSAME ( TRANS , 'N' ) ) THEN
  JX = KX
  IF ( INCY .EQ. 1 ) THEN
- DO 60 J = 1 , N
+ DO J = 1 , N
  TEMP = ALPHA * X ( JX )
- DO 50 I = 1 , M
+ DO I = 1 , M
  Y ( I ) = Y ( I ) + TEMP * A ( I , J )
- 50 CONTINUE
+ end
+
  JX = JX + INCX
- 60 CONTINUE
+ end
+
  ELSE
- DO 80 J = 1 , N
+ DO J = 1 , N
  TEMP = ALPHA * X ( JX )
  IY = KY
- DO 70 I = 1 , M
+ DO I = 1 , M
  Y ( IY ) = Y ( IY ) + TEMP * A ( I , J )
  IY = IY + INCY
- 70 CONTINUE
+ end
+
  JX = JX + INCX
- 80 CONTINUE
+ end
+
  END
  ELSE
  JY = KY
  IF ( INCX .EQ. 1 ) THEN
- DO 110 J = 1 , N
+ DO J = 1 , N
  TEMP = ZERO
  IF ( NOCONJ ) THEN
- DO 90 I = 1 , M
+ DO I = 1 , M
  TEMP = TEMP + A ( I , J ) * X ( I )
- 90 CONTINUE
+ end
+
  ELSE
- DO 100 I = 1 , M
+ DO I = 1 , M
  TEMP = TEMP + CONJG ( A ( I , J ) ) * X ( I )
- 100 CONTINUE
+ end
+
  END
  Y ( JY ) = Y ( JY ) + ALPHA * TEMP
  JY = JY + INCY
- 110 CONTINUE
+ end
+
  ELSE
- DO 140 J = 1 , N
+ DO J = 1 , N
  TEMP = ZERO
  IX = KX
  IF ( NOCONJ ) THEN
- DO 120 I = 1 , M
+ DO I = 1 , M
  TEMP = TEMP + A ( I , J ) * X ( IX )
  IX = IX + INCX
- 120 CONTINUE
+ end
+
  ELSE
- DO 130 I = 1 , M
+ DO I = 1 , M
  TEMP = TEMP + CONJG ( A ( I , J ) ) * X ( IX )
  IX = IX + INCX
- 130 CONTINUE
+ end
+
  END
  Y ( JY ) = Y ( JY ) + ALPHA * TEMP
  JY = JY + INCY
- 140 CONTINUE
+ end
+
  END
  END
  RETURN

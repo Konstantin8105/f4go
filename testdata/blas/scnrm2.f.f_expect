@@ -11,7 +11,7 @@
  ELSE
  SCALE = ZERO
  SSQ = ONE
- DO 10 IX = 1 , 1 + ( N - 1 ) * INCX , INCX
+ DO IX = 1 , 1 + ( N - 1 ) * INCX , INCX
  IF ( REAL ( X ( IX ) ) .NE. ZERO ) THEN
  TEMP = ABS ( REAL ( X ( IX ) ) )
  IF ( SCALE .LT. TEMP ) THEN
@@ -30,7 +30,8 @@
  SSQ = SSQ + ( TEMP / SCALE ) ** 2
  END
  END
- 10 CONTINUE
+ end
+
  NORM = SCALE * SQRT ( SSQ )
  END
  SCNRM2 = NORM

@@ -31,32 +31,36 @@
  JY = 1 - ( N - 1 ) * INCY
  END
  IF ( INCX .EQ. 1 ) THEN
- DO 20 J = 1 , N
+ DO J = 1 , N
  IF ( Y ( JY ) .NE. ZERO ) THEN
  TEMP = ALPHA * DCONJG ( Y ( JY ) )
- DO 10 I = 1 , M
+ DO I = 1 , M
  A ( I , J ) = A ( I , J ) + X ( I ) * TEMP
- 10 CONTINUE
+ end
+
  END
  JY = JY + INCY
- 20 CONTINUE
+ end
+
  ELSE
  IF ( INCX .GT. 0 ) THEN
  KX = 1
  ELSE
  KX = 1 - ( M - 1 ) * INCX
  END
- DO 40 J = 1 , N
+ DO J = 1 , N
  IF ( Y ( JY ) .NE. ZERO ) THEN
  TEMP = ALPHA * DCONJG ( Y ( JY ) )
  IX = KX
- DO 30 I = 1 , M
+ DO I = 1 , M
  A ( I , J ) = A ( I , J ) + X ( IX ) * TEMP
  IX = IX + INCX
- 30 CONTINUE
+ end
+
  END
  JY = JY + INCY
- 40 CONTINUE
+ end
+
  END
  RETURN
  END

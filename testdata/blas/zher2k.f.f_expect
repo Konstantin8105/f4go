@@ -45,99 +45,118 @@
  IF ( ALPHA .EQ. ZERO ) THEN
  IF ( UPPER ) THEN
  IF ( BETA .EQ. DBLE ( ZERO ) ) THEN
- DO 20 J = 1 , N
- DO 10 I = 1 , J
+ DO J = 1 , N
+ DO I = 1 , J
  C ( I , J ) = ZERO
- 10 CONTINUE
- 20 CONTINUE
+ end
+
+ end
+
  ELSE
- DO 40 J = 1 , N
- DO 30 I = 1 , J - 1
+ DO J = 1 , N
+ DO I = 1 , J - 1
  C ( I , J ) = BETA * C ( I , J )
- 30 CONTINUE
+ end
+
  C ( J , J ) = BETA * DBLE ( C ( J , J ) )
- 40 CONTINUE
+ end
+
  END
  ELSE
  IF ( BETA .EQ. DBLE ( ZERO ) ) THEN
- DO 60 J = 1 , N
- DO 50 I = J , N
+ DO J = 1 , N
+ DO I = J , N
  C ( I , J ) = ZERO
- 50 CONTINUE
- 60 CONTINUE
+ end
+
+ end
+
  ELSE
- DO 80 J = 1 , N
+ DO J = 1 , N
  C ( J , J ) = BETA * DBLE ( C ( J , J ) )
- DO 70 I = J + 1 , N
+ DO I = J + 1 , N
  C ( I , J ) = BETA * C ( I , J )
- 70 CONTINUE
- 80 CONTINUE
+ end
+
+ end
+
  END
  END
  RETURN
  END
  IF ( LSAME ( TRANS , 'N' ) ) THEN
  IF ( UPPER ) THEN
- DO 130 J = 1 , N
+ DO J = 1 , N
  IF ( BETA .EQ. DBLE ( ZERO ) ) THEN
- DO 90 I = 1 , J
+ DO I = 1 , J
  C ( I , J ) = ZERO
- 90 CONTINUE
+ end
+
  ELSE IF ( BETA .NE. ONE ) THEN
- DO 100 I = 1 , J - 1
+ DO I = 1 , J - 1
  C ( I , J ) = BETA * C ( I , J )
- 100 CONTINUE
+ end
+
  C ( J , J ) = BETA * DBLE ( C ( J , J ) )
  ELSE
  C ( J , J ) = DBLE ( C ( J , J ) )
  END
- DO 120 L = 1 , K
+ DO L = 1 , K
  IF ( ( A ( J , L ) .NE. ZERO ) .OR. ( B ( J , L ) .NE. ZERO ) ) THEN
  TEMP1 = ALPHA * DCONJG ( B ( J , L ) )
  TEMP2 = DCONJG ( ALPHA * A ( J , L ) )
- DO 110 I = 1 , J - 1
+ DO I = 1 , J - 1
  C ( I , J ) = C ( I , J ) + A ( I , L ) * TEMP1 + B ( I , L ) * TEMP2
- 110 CONTINUE
+ end
+
  C ( J , J ) = DBLE ( C ( J , J ) ) + DBLE ( A ( J , L ) * TEMP1 + B ( J , L ) * TEMP2 )
  END
- 120 CONTINUE
- 130 CONTINUE
+ end
+
+ end
+
  ELSE
- DO 180 J = 1 , N
+ DO J = 1 , N
  IF ( BETA .EQ. DBLE ( ZERO ) ) THEN
- DO 140 I = J , N
+ DO I = J , N
  C ( I , J ) = ZERO
- 140 CONTINUE
+ end
+
  ELSE IF ( BETA .NE. ONE ) THEN
- DO 150 I = J + 1 , N
+ DO I = J + 1 , N
  C ( I , J ) = BETA * C ( I , J )
- 150 CONTINUE
+ end
+
  C ( J , J ) = BETA * DBLE ( C ( J , J ) )
  ELSE
  C ( J , J ) = DBLE ( C ( J , J ) )
  END
- DO 170 L = 1 , K
+ DO L = 1 , K
  IF ( ( A ( J , L ) .NE. ZERO ) .OR. ( B ( J , L ) .NE. ZERO ) ) THEN
  TEMP1 = ALPHA * DCONJG ( B ( J , L ) )
  TEMP2 = DCONJG ( ALPHA * A ( J , L ) )
- DO 160 I = J + 1 , N
+ DO I = J + 1 , N
  C ( I , J ) = C ( I , J ) + A ( I , L ) * TEMP1 + B ( I , L ) * TEMP2
- 160 CONTINUE
+ end
+
  C ( J , J ) = DBLE ( C ( J , J ) ) + DBLE ( A ( J , L ) * TEMP1 + B ( J , L ) * TEMP2 )
  END
- 170 CONTINUE
- 180 CONTINUE
+ end
+
+ end
+
  END
  ELSE
  IF ( UPPER ) THEN
- DO 210 J = 1 , N
- DO 200 I = 1 , J
+ DO J = 1 , N
+ DO I = 1 , J
  TEMP1 = ZERO
  TEMP2 = ZERO
- DO 190 L = 1 , K
+ DO L = 1 , K
  TEMP1 = TEMP1 + DCONJG ( A ( L , I ) ) * B ( L , J )
  TEMP2 = TEMP2 + DCONJG ( B ( L , I ) ) * A ( L , J )
- 190 CONTINUE
+ end
+
  IF ( I .EQ. J ) THEN
  IF ( BETA .EQ. DBLE ( ZERO ) ) THEN
  C ( J , J ) = DBLE ( ALPHA * TEMP1 + DCONJG ( ALPHA ) * TEMP2 )
@@ -151,17 +170,20 @@
  C ( I , J ) = BETA * C ( I , J ) + ALPHA * TEMP1 + DCONJG ( ALPHA ) * TEMP2
  END
  END
- 200 CONTINUE
- 210 CONTINUE
+ end
+
+ end
+
  ELSE
- DO 240 J = 1 , N
- DO 230 I = J , N
+ DO J = 1 , N
+ DO I = J , N
  TEMP1 = ZERO
  TEMP2 = ZERO
- DO 220 L = 1 , K
+ DO L = 1 , K
  TEMP1 = TEMP1 + DCONJG ( A ( L , I ) ) * B ( L , J )
  TEMP2 = TEMP2 + DCONJG ( B ( L , I ) ) * A ( L , J )
- 220 CONTINUE
+ end
+
  IF ( I .EQ. J ) THEN
  IF ( BETA .EQ. DBLE ( ZERO ) ) THEN
  C ( J , J ) = DBLE ( ALPHA * TEMP1 + DCONJG ( ALPHA ) * TEMP2 )
@@ -175,8 +197,10 @@
  C ( I , J ) = BETA * C ( I , J ) + ALPHA * TEMP1 + DCONJG ( ALPHA ) * TEMP2
  END
  END
- 230 CONTINUE
- 240 CONTINUE
+ end
+
+ end
+
  END
  END
  RETURN

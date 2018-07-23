@@ -41,87 +41,104 @@
  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR. ( ( ALPHA .EQ. ZERO ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
  IF ( BETA .EQ. ZERO ) THEN
- DO 20 J = 1 , N
- DO 10 I = 1 , M
+ DO J = 1 , N
+ DO I = 1 , M
  C ( I , J ) = ZERO
- 10 CONTINUE
- 20 CONTINUE
+ end
+
+ end
+
  ELSE
- DO 40 J = 1 , N
- DO 30 I = 1 , M
+ DO J = 1 , N
+ DO I = 1 , M
  C ( I , J ) = BETA * C ( I , J )
- 30 CONTINUE
- 40 CONTINUE
+ end
+
+ end
+
  END
  RETURN
  END
  IF ( LSAME ( SIDE , 'L' ) ) THEN
  IF ( UPPER ) THEN
- DO 70 J = 1 , N
- DO 60 I = 1 , M
+ DO J = 1 , N
+ DO I = 1 , M
  TEMP1 = ALPHA * B ( I , J )
  TEMP2 = ZERO
- DO 50 K = 1 , I - 1
+ DO K = 1 , I - 1
  C ( K , J ) = C ( K , J ) + TEMP1 * A ( K , I )
  TEMP2 = TEMP2 + B ( K , J ) * A ( K , I )
- 50 CONTINUE
+ end
+
  IF ( BETA .EQ. ZERO ) THEN
  C ( I , J ) = TEMP1 * A ( I , I ) + ALPHA * TEMP2
  ELSE
  C ( I , J ) = BETA * C ( I , J ) + TEMP1 * A ( I , I ) + ALPHA * TEMP2
  END
- 60 CONTINUE
- 70 CONTINUE
+ end
+
+ end
+
  ELSE
- DO 100 J = 1 , N
- DO 90 I = M , 1 , - 1
+ DO J = 1 , N
+ DO I = M , 1 , - 1
  TEMP1 = ALPHA * B ( I , J )
  TEMP2 = ZERO
- DO 80 K = I + 1 , M
+ DO K = I + 1 , M
  C ( K , J ) = C ( K , J ) + TEMP1 * A ( K , I )
  TEMP2 = TEMP2 + B ( K , J ) * A ( K , I )
- 80 CONTINUE
+ end
+
  IF ( BETA .EQ. ZERO ) THEN
  C ( I , J ) = TEMP1 * A ( I , I ) + ALPHA * TEMP2
  ELSE
  C ( I , J ) = BETA * C ( I , J ) + TEMP1 * A ( I , I ) + ALPHA * TEMP2
  END
- 90 CONTINUE
- 100 CONTINUE
+ end
+
+ end
+
  END
  ELSE
- DO 170 J = 1 , N
+ DO J = 1 , N
  TEMP1 = ALPHA * A ( J , J )
  IF ( BETA .EQ. ZERO ) THEN
- DO 110 I = 1 , M
+ DO I = 1 , M
  C ( I , J ) = TEMP1 * B ( I , J )
- 110 CONTINUE
+ end
+
  ELSE
- DO 120 I = 1 , M
+ DO I = 1 , M
  C ( I , J ) = BETA * C ( I , J ) + TEMP1 * B ( I , J )
- 120 CONTINUE
+ end
+
  END
- DO 140 K = 1 , J - 1
+ DO K = 1 , J - 1
  IF ( UPPER ) THEN
  TEMP1 = ALPHA * A ( K , J )
  ELSE
  TEMP1 = ALPHA * A ( J , K )
  END
- DO 130 I = 1 , M
+ DO I = 1 , M
  C ( I , J ) = C ( I , J ) + TEMP1 * B ( I , K )
- 130 CONTINUE
- 140 CONTINUE
- DO 160 K = J + 1 , N
+ end
+
+ end
+
+ DO K = J + 1 , N
  IF ( UPPER ) THEN
  TEMP1 = ALPHA * A ( J , K )
  ELSE
  TEMP1 = ALPHA * A ( K , J )
  END
- DO 150 I = 1 , M
+ DO I = 1 , M
  C ( I , J ) = C ( I , J ) + TEMP1 * B ( I , K )
- 150 CONTINUE
- 160 CONTINUE
- 170 CONTINUE
+ end
+
+ end
+
+ end
+
  END
  RETURN
  END
