@@ -232,11 +232,9 @@ func (p *parser) getLine() (line string) {
 		p.addError("Cannot get line, ident = " + strconv.Itoa(p.ident))
 		return
 	}
-	for ; p.ident < len(p.ns); p.ident++ {
-		if p.ns[p.ident].tok == NEW_LINE {
-			break
-		}
+	for p.ident < len(p.ns) && p.ns[p.ident].tok == NEW_LINE {
 		line += fmt.Sprintf(" %s", p.ns[p.ident].lit)
+		p.ident++
 	}
 	return
 }
@@ -338,7 +336,7 @@ func (p *parser) addError(msg string) {
 	defer func() {
 		p.ident = last
 	}()
-	for ; p.ident == 0 || p.ns[p.ident].tok == NEW_LINE; p.ident-- {
+	for ; p.ident != 0 && p.ns[p.ident].tok != NEW_LINE; p.ident-- {
 	}
 
 	p.errs = append(p.errs, fmt.Errorf("%s\nCode line :%s", msg, p.getLine()))
@@ -539,9 +537,14 @@ func (p *parser) parseIf() (sIf goast.IfStmt) {
 
 	if p.ns[p.ident].tok == token.ELSE {
 		p.ident++
-		sIf.Else = &goast.BlockStmt{
-			Lbrace: 1,
-			List:   p.transpileListStmt(),
+		if p.ns[p.ident].tok == token.IF {
+			ifr := p.parseIf()
+			sIf.Else = &ifr
+		} else {
+			sIf.Else = &goast.BlockStmt{
+				Lbrace: 1,
+				List:   p.transpileListStmt(),
+			}
 		}
 	}
 
