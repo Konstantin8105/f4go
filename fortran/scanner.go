@@ -221,7 +221,8 @@ func (s *Scanner) scanNumber() (tok token.Token, lit string) {
 		if ch := s.read(); ch == eof {
 			break
 		} else if ch == 'E' || ch == 'e' ||
-			ch == 'D' || ch == 'd' {
+			ch == 'D' || ch == 'd' ||
+			ch == 'Q' || ch == 'q' {
 			_, _ = buf.WriteRune(ch)
 			d := s.read()
 			if d == '+' || d == '-' || isDigit(d) {
@@ -231,7 +232,8 @@ func (s *Scanner) scanNumber() (tok token.Token, lit string) {
 			}
 		} else if !isDigit(ch) && ch != '.' &&
 			ch != 'E' && ch != 'e' &&
-			ch != 'D' && ch != 'd' {
+			ch != 'D' && ch != 'd' &&
+			ch != 'Q' && ch != 'q' {
 			s.unread()
 			break
 		} else {
