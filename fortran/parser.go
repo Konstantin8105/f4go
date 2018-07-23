@@ -510,9 +510,6 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 }
 
 func (p *parser) parseExternal() {
-	// TODO : remove variable because it is name of funciton
-	// TODO : remember definition funciton
-
 	p.expect(EXTERNAL)
 
 	p.ident++
