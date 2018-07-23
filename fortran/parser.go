@@ -122,17 +122,21 @@ func (p *parser) parse() (err error) {
 	var decls []goast.Decl
 	p.ident = 0
 	decls = p.transpileToNode()
-	if len(p.errs) > 0 {
-		for index, e := range p.errs {
-			err = fmt.Errorf("[%5d]\t%v", index, e)
-		}
-		fmt.Println("Errors:\n", err)
-		err = nil
-		// return
-	}
+	p.showErrors()
 
 	p.ast.Decls = append(p.ast.Decls, decls...)
 	return
+}
+
+func (p *parser) showErrors() {
+	if len(p.errs) == 0 {
+		return
+	}
+	var err string
+	for index, e := range p.errs {
+		err += fmt.Sprintf("[%5d]\t%v\n", index+1, e)
+	}
+	fmt.Println("--------\nErrors:\n", err)
 }
 
 func (p *parser) transpileToNode() (decls []goast.Decl) {
@@ -280,6 +284,9 @@ func (p *parser) addError(msg string) {
 
 func (p *parser) expect(t token.Token) {
 	if t != p.ns[p.ident].tok {
+		// Show all errors
+		p.showErrors()
+		// Panic
 		panic(fmt.Errorf("Expect %s, but we have {{%s,%s}}",
 			view(t), view(p.ns[p.ident].tok), p.ns[p.ident].lit))
 	}
