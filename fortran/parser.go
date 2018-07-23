@@ -96,6 +96,13 @@ func (p *parser) prepare() (err error) {
 	// To:
 	//  END
 
+	// TODO: multiline expression
+	// From:
+	//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR.
+	//  + ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
+	// To:
+	//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR. ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
+
 	return
 }
 
@@ -565,6 +572,12 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	case DO:
 		sDo := p.parseDo()
 		stmts = append(stmts, &sDo)
+
+		//TODO: add PARAMETER
+		// PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 ) )
+
+		//TODO: add CALL
+		// CALL XERBLA ( 'CGEMM ' , INFO )
 
 	default:
 		start := p.ident
