@@ -66,7 +66,7 @@ func (p *parser) prepare() (err error) {
 		p.ns = p.ns[1:]
 	}
 
-	// TODO:
+	// TODO: simplification DO
 	//-------------
 	// From:
 	//  DO 40 J = 1 , N
@@ -90,7 +90,7 @@ func (p *parser) prepare() (err error) {
 	//  END
 	//-------------
 
-	// TODO:
+	// TODO: simplification END
 	// From:
 	//  END SUBROUTINE
 	// To:
@@ -289,11 +289,11 @@ func (p *parser) transpileListStmt() (stmts []goast.Stmt) {
 	for p.ident < len(p.ns) {
 		if p.ns[p.ident].tok == END {
 			p.ident++
-			// TODO
+			// TODO need gotoEndLine() ??
 			break
 		}
 		if p.ns[p.ident].tok == token.ELSE {
-			// TODO
+			// TODO need gotoEndLine() ??
 			break
 		}
 		stmt := p.parseStmt()
@@ -506,6 +506,7 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 
 	fmt.Println("Expr : ", str)
 	//TODO add support of array
+	//TODO change to parseExpr from go package
 	return goast.NewIdent(str)
 }
 
@@ -557,14 +558,6 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	case DO:
 		sDo := p.parseDo()
 		stmts = append(stmts, &sDo)
-
-	// case END:
-	// 	// ignore
-	// 	p.ident++
-	//
-	// 	// TODO : p.expect(NEW_LINE)
-	// 	// p.ident++
-	// 	fmt.Println("Go to end ->", p.getLine())
 
 	default:
 		start := p.ident
