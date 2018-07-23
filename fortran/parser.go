@@ -447,30 +447,56 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 	p.expect(token.ASSIGN)
 
 	p.ident++
-	// TODO: this is expression
-	start := p.ns[p.ident].lit
+	// Init is expression
+	start := p.ident
+	counter := 0
+	for ; p.ident < len(p.ns); p.ident++ {
+		if p.ns[p.ident].tok == token.LPAREN {
+			counter++
+			continue
+		}
+		if p.ns[p.ident].tok == token.RPAREN {
+			counter--
+			continue
+		}
+		if p.ns[p.ident].tok == token.COMMA && counter == 0 {
+			break
+		}
+	}
 	sDo.Init = &goast.AssignStmt{
 		Lhs: []goast.Expr{
 			goast.NewIdent(name),
 		},
 		Tok: token.ASSIGN,
 		Rhs: []goast.Expr{
-			goast.NewIdent(start),
+			p.parseExpr(start, p.ident),
 		},
 	}
 
-	p.ident++
 	p.expect(token.COMMA)
 
+	// Cond is expression
 	p.ident++
-	st := p.ident
-	for ; p.ns[p.ident].tok != token.COMMA && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+	start = p.ident
+	counter = 0
+	for ; p.ident < len(p.ns); p.ident++ {
+		if p.ns[p.ident].tok == token.LPAREN {
+			counter++
+			continue
+		}
+		if p.ns[p.ident].tok == token.RPAREN {
+			counter--
+			continue
+		}
+		if (p.ns[p.ident].tok == token.COMMA || p.ns[p.ident].tok == NEW_LINE) &&
+			counter == 0 {
+			break
+		}
 	}
-	finish := p.parseExpr(st, p.ident)
 	sDo.Cond = &goast.BinaryExpr{
 		X:  goast.NewIdent(name),
 		Op: token.LSS,
-		Y:  finish,
+		Y:  p.parseExpr(start, p.ident),
 	}
 
 	if p.ns[p.ident].tok == NEW_LINE {
@@ -482,14 +508,17 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 		p.expect(token.COMMA)
 		p.ident++
 
-		st = p.ident
-		for ; p.ns[p.ident].tok != token.COMMA && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+		// Post is expression
+		start = p.ident
+		for ; p.ident < len(p.ns); p.ident++ {
+			if p.ns[p.ident].tok == NEW_LINE {
+				break
+			}
 		}
-		finish = p.parseExpr(st, p.ident)
 		sDo.Post = &goast.AssignStmt{
 			Lhs: []goast.Expr{goast.NewIdent(name)},
 			Tok: token.ADD_ASSIGN,
-			Rhs: []goast.Expr{finish},
+			Rhs: []goast.Expr{p.parseExpr(start, p.ident)},
 		}
 	}
 
@@ -500,8 +529,6 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 		Lbrace: 1,
 		List:   p.transpileListStmt(),
 	}
-
-	p.gotoEndLine()
 
 	return
 }
@@ -565,6 +592,11 @@ func (p *parser) parseIf() (sIf goast.IfStmt) {
 }
 
 func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
+	for i := start; i < end; i++ {
+		if p.ns[i].tok == NEW_LINE {
+			p.addError("NEW_LINE is not acceptable inside expression")
+		}
+	}
 
 	if end-start == 1 {
 		return goast.NewIdent(p.ns[start].lit)
