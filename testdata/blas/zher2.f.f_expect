@@ -51,8 +51,7 @@
  DO 10 I = 1 , J - 1
  A ( I , J ) = A ( I , J ) + X ( I ) * TEMP1 + Y ( I ) * TEMP2
  10 CONTINUE
- A ( J , J ) = DBLE ( A ( J , J ) ) +
- + DBLE ( X ( J ) * TEMP1 + Y ( J ) * TEMP2 )
+ A ( J , J ) = DBLE ( A ( J , J ) ) + DBLE ( X ( J ) * TEMP1 + Y ( J ) * TEMP2 )
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
  END
@@ -69,8 +68,7 @@
  IX = IX + INCX
  IY = IY + INCY
  30 CONTINUE
- A ( J , J ) = DBLE ( A ( J , J ) ) +
- + DBLE ( X ( JX ) * TEMP1 + Y ( JY ) * TEMP2 )
+ A ( J , J ) = DBLE ( A ( J , J ) ) + DBLE ( X ( JX ) * TEMP1 + Y ( JY ) * TEMP2 )
  ELSE
  A ( J , J ) = DBLE ( A ( J , J ) )
  END
@@ -84,8 +82,7 @@
  IF ( ( X ( J ) .NE. ZERO ) .OR. ( Y ( J ) .NE. ZERO ) ) THEN
  TEMP1 = ALPHA * DCONJG ( Y ( J ) )
  TEMP2 = DCONJG ( ALPHA * X ( J ) )
- A ( J , J ) = DBLE ( A ( J , J ) ) +
- + DBLE ( X ( J ) * TEMP1 + Y ( J ) * TEMP2 )
+ A ( J , J ) = DBLE ( A ( J , J ) ) + DBLE ( X ( J ) * TEMP1 + Y ( J ) * TEMP2 )
  DO 50 I = J + 1 , N
  A ( I , J ) = A ( I , J ) + X ( I ) * TEMP1 + Y ( I ) * TEMP2
  50 CONTINUE
@@ -98,8 +95,7 @@
  IF ( ( X ( JX ) .NE. ZERO ) .OR. ( Y ( JY ) .NE. ZERO ) ) THEN
  TEMP1 = ALPHA * DCONJG ( Y ( JY ) )
  TEMP2 = DCONJG ( ALPHA * X ( JX ) )
- A ( J , J ) = DBLE ( A ( J , J ) ) +
- + DBLE ( X ( JX ) * TEMP1 + Y ( JY ) * TEMP2 )
+ A ( J , J ) = DBLE ( A ( J , J ) ) + DBLE ( X ( JX ) * TEMP1 + Y ( JY ) * TEMP2 )
  IX = JX
  IY = JY
  DO 70 I = J + 1 , N

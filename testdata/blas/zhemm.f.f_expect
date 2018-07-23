@@ -40,8 +40,7 @@
  CALL XERBLA ( 'ZHEMM ' , INFO )
  RETURN
  END
- IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR.
- + ( ( ALPHA .EQ. ZERO ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
+ IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR. ( ( ALPHA .EQ. ZERO ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
  IF ( BETA .EQ. ZERO ) THEN
  DO 20 J = 1 , N
@@ -71,8 +70,7 @@
  IF ( BETA .EQ. ZERO ) THEN
  C ( I , J ) = TEMP1 * DBLE ( A ( I , I ) ) + ALPHA * TEMP2
  ELSE
- C ( I , J ) = BETA * C ( I , J ) + TEMP1 * DBLE ( A ( I , I ) ) +
- + ALPHA * TEMP2
+ C ( I , J ) = BETA * C ( I , J ) + TEMP1 * DBLE ( A ( I , I ) ) + ALPHA * TEMP2
  END
  60 CONTINUE
  70 CONTINUE
@@ -88,8 +86,7 @@
  IF ( BETA .EQ. ZERO ) THEN
  C ( I , J ) = TEMP1 * DBLE ( A ( I , I ) ) + ALPHA * TEMP2
  ELSE
- C ( I , J ) = BETA * C ( I , J ) + TEMP1 * DBLE ( A ( I , I ) ) +
- + ALPHA * TEMP2
+ C ( I , J ) = BETA * C ( I , J ) + TEMP1 * DBLE ( A ( I , I ) ) + ALPHA * TEMP2
  END
  90 CONTINUE
  100 CONTINUE

@@ -31,11 +31,9 @@
  NROWB = N
  END
  INFO = 0
- IF ( ( .NOT. NOTA ) .AND. ( .NOT. CONJA ) .AND.
- + ( .NOT. LSAME ( TRANSA , 'T' ) ) ) THEN
+ IF ( ( .NOT. NOTA ) .AND. ( .NOT. CONJA ) .AND. ( .NOT. LSAME ( TRANSA , 'T' ) ) ) THEN
  INFO = 1
- ELSE IF ( ( .NOT. NOTB ) .AND. ( .NOT. CONJB ) .AND.
- + ( .NOT. LSAME ( TRANSB , 'T' ) ) ) THEN
+ ELSE IF ( ( .NOT. NOTB ) .AND. ( .NOT. CONJB ) .AND. ( .NOT. LSAME ( TRANSB , 'T' ) ) ) THEN
  INFO = 2
  ELSE IF ( M .LT. 0 ) THEN
  INFO = 3
@@ -54,8 +52,7 @@
  CALL XERBLA ( 'CGEMM ' , INFO )
  RETURN
  END
- IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR.
- + ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
+ IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR. ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
  IF ( BETA .EQ. ZERO ) THEN
  DO 20 J = 1 , N

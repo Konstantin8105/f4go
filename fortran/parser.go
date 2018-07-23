@@ -55,6 +55,17 @@ func (p *parser) prepare() (err error) {
 			continue
 		}
 
+		// Multiline expression
+		// From:
+		//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR.
+		//  + ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
+		// To:
+		//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR. ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
+		if last == NEW_LINE && tok == token.ADD {
+			p.ns = p.ns[:len(p.ns)-1]
+			continue
+		}
+
 		p.ns = append(p.ns, node{
 			tok: tok,
 			lit: lit,
@@ -95,13 +106,6 @@ func (p *parser) prepare() (err error) {
 	//  END SUBROUTINE
 	// To:
 	//  END
-
-	// TODO: multiline expression
-	// From:
-	//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR.
-	//  + ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
-	// To:
-	//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR. ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
 
 	return
 }

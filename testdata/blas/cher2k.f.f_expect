@@ -24,8 +24,7 @@
  INFO = 0
  IF ( ( .NOT. UPPER ) .AND. ( .NOT. LSAME ( UPLO , 'L' ) ) ) THEN
  INFO = 1
- ELSE IF ( ( .NOT. LSAME ( TRANS , 'N' ) ) .AND.
- + ( .NOT. LSAME ( TRANS , 'C' ) ) ) THEN
+ ELSE IF ( ( .NOT. LSAME ( TRANS , 'N' ) ) .AND. ( .NOT. LSAME ( TRANS , 'C' ) ) ) THEN
  INFO = 2
  ELSE IF ( N .LT. 0 ) THEN
  INFO = 3
@@ -42,8 +41,7 @@
  CALL XERBLA ( 'CHER2K' , INFO )
  RETURN
  END
- IF ( ( N .EQ. 0 ) .OR. ( ( ( ALPHA .EQ. ZERO ) .OR.
- + ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
+ IF ( ( N .EQ. 0 ) .OR. ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
  IF ( ALPHA .EQ. ZERO ) THEN
  IF ( UPPER ) THEN
  IF ( BETA .EQ. REAL ( ZERO ) ) THEN
@@ -98,11 +96,9 @@
  TEMP1 = ALPHA * CONJG ( B ( J , L ) )
  TEMP2 = CONJG ( ALPHA * A ( J , L ) )
  DO 110 I = 1 , J - 1
- C ( I , J ) = C ( I , J ) + A ( I , L ) * TEMP1 +
- + B ( I , L ) * TEMP2
+ C ( I , J ) = C ( I , J ) + A ( I , L ) * TEMP1 + B ( I , L ) * TEMP2
  110 CONTINUE
- C ( J , J ) = REAL ( C ( J , J ) ) +
- + REAL ( A ( J , L ) * TEMP1 + B ( J , L ) * TEMP2 )
+ C ( J , J ) = REAL ( C ( J , J ) ) + REAL ( A ( J , L ) * TEMP1 + B ( J , L ) * TEMP2 )
  END
  120 CONTINUE
  130 CONTINUE
@@ -125,11 +121,9 @@
  TEMP1 = ALPHA * CONJG ( B ( J , L ) )
  TEMP2 = CONJG ( ALPHA * A ( J , L ) )
  DO 160 I = J + 1 , N
- C ( I , J ) = C ( I , J ) + A ( I , L ) * TEMP1 +
- + B ( I , L ) * TEMP2
+ C ( I , J ) = C ( I , J ) + A ( I , L ) * TEMP1 + B ( I , L ) * TEMP2
  160 CONTINUE
- C ( J , J ) = REAL ( C ( J , J ) ) +
- + REAL ( A ( J , L ) * TEMP1 + B ( J , L ) * TEMP2 )
+ C ( J , J ) = REAL ( C ( J , J ) ) + REAL ( A ( J , L ) * TEMP1 + B ( J , L ) * TEMP2 )
  END
  170 CONTINUE
  180 CONTINUE
@@ -146,19 +140,15 @@
  190 CONTINUE
  IF ( I .EQ. J ) THEN
  IF ( BETA .EQ. REAL ( ZERO ) ) THEN
- C ( J , J ) = REAL ( ALPHA * TEMP1 +
- + CONJG ( ALPHA ) * TEMP2 )
+ C ( J , J ) = REAL ( ALPHA * TEMP1 + CONJG ( ALPHA ) * TEMP2 )
  ELSE
- C ( J , J ) = BETA * REAL ( C ( J , J ) ) +
- + REAL ( ALPHA * TEMP1 +
- + CONJG ( ALPHA ) * TEMP2 )
+ C ( J , J ) = BETA * REAL ( C ( J , J ) ) + REAL ( ALPHA * TEMP1 + CONJG ( ALPHA ) * TEMP2 )
  END
  ELSE
  IF ( BETA .EQ. REAL ( ZERO ) ) THEN
  C ( I , J ) = ALPHA * TEMP1 + CONJG ( ALPHA ) * TEMP2
  ELSE
- C ( I , J ) = BETA * C ( I , J ) + ALPHA * TEMP1 +
- + CONJG ( ALPHA ) * TEMP2
+ C ( I , J ) = BETA * C ( I , J ) + ALPHA * TEMP1 + CONJG ( ALPHA ) * TEMP2
  END
  END
  200 CONTINUE
@@ -174,19 +164,15 @@
  220 CONTINUE
  IF ( I .EQ. J ) THEN
  IF ( BETA .EQ. REAL ( ZERO ) ) THEN
- C ( J , J ) = REAL ( ALPHA * TEMP1 +
- + CONJG ( ALPHA ) * TEMP2 )
+ C ( J , J ) = REAL ( ALPHA * TEMP1 + CONJG ( ALPHA ) * TEMP2 )
  ELSE
- C ( J , J ) = BETA * REAL ( C ( J , J ) ) +
- + REAL ( ALPHA * TEMP1 +
- + CONJG ( ALPHA ) * TEMP2 )
+ C ( J , J ) = BETA * REAL ( C ( J , J ) ) + REAL ( ALPHA * TEMP1 + CONJG ( ALPHA ) * TEMP2 )
  END
  ELSE
  IF ( BETA .EQ. REAL ( ZERO ) ) THEN
  C ( I , J ) = ALPHA * TEMP1 + CONJG ( ALPHA ) * TEMP2
  ELSE
- C ( I , J ) = BETA * C ( I , J ) + ALPHA * TEMP1 +
- + CONJG ( ALPHA ) * TEMP2
+ C ( I , J ) = BETA * C ( I , J ) + ALPHA * TEMP1 + CONJG ( ALPHA ) * TEMP2
  END
  END
  230 CONTINUE
