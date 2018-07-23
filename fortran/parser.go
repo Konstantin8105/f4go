@@ -521,6 +521,7 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 	fmt.Println("Expr : ", str)
 	//TODO add support of array
 	//TODO change to parseExpr from go package
+	//TODO check operation **
 	return goast.NewIdent(str)
 }
 
