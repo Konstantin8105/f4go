@@ -350,6 +350,9 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 
 	case "WRITE":
 		return WRITE, buf.String()
+
+	case "PARAMETER":
+		return PARAMETER, buf.String()
 	}
 
 	// Otherwise return as a regular identifier.

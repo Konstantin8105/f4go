@@ -521,7 +521,7 @@ REAL                	REAL
 IDENT               	ZERO
 NEW_LINE            	
 
-IDENT               	PARAMETER
+PARAMETER           	PARAMETER
 (                   	(
 IDENT               	ZERO
 =                   	=

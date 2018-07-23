@@ -586,7 +586,7 @@ COMPLEX             	COMPLEX
 IDENT               	ONE
 NEW_LINE            	
 
-IDENT               	PARAMETER
+PARAMETER           	PARAMETER
 (                   	(
 IDENT               	ONE
 =                   	=
@@ -602,7 +602,7 @@ COMPLEX             	COMPLEX
 IDENT               	ZERO
 NEW_LINE            	
 
-IDENT               	PARAMETER
+PARAMETER           	PARAMETER
 (                   	(
 IDENT               	ZERO
 =                   	=

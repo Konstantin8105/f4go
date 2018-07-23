@@ -26,6 +26,8 @@ const (
 	NEW_LINE
 
 	WRITE
+
+	PARAMETER
 )
 
 func view(t token.Token) string {
@@ -55,4 +57,6 @@ var o = [...]string{
 	NEW_LINE:     "NEW_LINE",
 
 	WRITE: "WRITE",
+
+	PARAMETER: "PARAMETER",
 }

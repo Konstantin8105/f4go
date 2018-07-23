@@ -546,7 +546,7 @@ INT                 	16
 IDENT               	ZERO
 NEW_LINE            	
 
-IDENT               	PARAMETER
+PARAMETER           	PARAMETER
 (                   	(
 IDENT               	ZERO
 =                   	=
