@@ -307,7 +307,8 @@ func (p *parser) transpileListStmt() (stmts []goast.Stmt) {
 			break
 		}
 		if p.ns[p.ident].tok == token.ELSE {
-			// TODO need gotoEndLine() ??
+			// gotoEndLine() is no need for case:
+			// ELSE IF (...)...
 			break
 		}
 		stmt := p.parseStmt()
