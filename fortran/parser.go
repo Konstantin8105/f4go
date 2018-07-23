@@ -111,17 +111,20 @@ func (p *parser) prepare() (err error) {
 	//  END
 	//  END
 	//-------------
-	// for i := range p.ns {
-	// 	if i == 0 {
-	// 		continue
-	// 	}
-	// 	if p.ns[i-1].tok == DO && p.ns[i].tok == token.INT {
-	// 		fmt.Println(">", p.ns[i-1].lit, p.ns[i].lit)
-	// 	}
-	// 	if p.ns[i-1].tok == token.INT && p.ns[i].tok == token.CONTINUE {
-	// 		fmt.Println(">>>", p.ns[i-1].lit, p.ns[i].lit)
-	// 	}
-	// }
+	doLabels := map[string]int{}
+	for i := range p.ns {
+		if i == 0 {
+			continue
+		}
+		if p.ns[i-1].tok == DO && p.ns[i].tok == token.INT {
+			fmt.Println(">", p.ns[i-1].lit, p.ns[i].lit)
+			doLabels[p.ns[i].lit]++
+		}
+		if p.ns[i-1].tok == token.INT && p.ns[i].tok == token.CONTINUE {
+			fmt.Println(">>>", p.ns[i-1].lit, p.ns[i].lit)
+		}
+	}
+	fmt.Println(doLabels)
 
 	return
 }
