@@ -84,6 +84,16 @@ func (p *parser) prepare() (err error) {
 			continue
 		}
 
+		// Multiline function arguments
+		// From:
+		//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' ,
+		//  'an illegal value' )
+		// To:
+		//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' , 'an illegal value' )
+		if last == token.COMMA && tok == NEW_LINE {
+			continue
+		}
+
 		p.ns = append(p.ns, node{
 			tok: tok,
 			lit: lit,
@@ -804,10 +814,26 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 			}
 		}
 		var isAssignStmt bool
-		var pos int
+		pos := start
 		if p.ns[start].tok == token.IDENT {
-			if p.ns[start+1].tok == token.ASSIGN {
-				pos = start + 1
+			pos++
+			if p.ns[pos].tok == token.LPAREN {
+				counter := 0
+				for ; pos < len(p.ns); pos++ {
+					switch p.ns[pos].tok {
+					case token.LPAREN:
+						counter++
+					case token.RPAREN:
+						counter--
+					}
+					if counter == 0 {
+						break
+					}
+				}
+				pos++
+			}
+			if p.ns[pos].tok == token.ASSIGN {
+				isAssignStmt = true
 			}
 		}
 
