@@ -8,11 +8,7 @@ import (
 	"strings"
 )
 
-func (p *parser) parseBinaryExpr(nodes []node) goast.Expr {
-
-	p.fixArrayVariables(&nodes)
-
-	var str string
+func ExprString(nodes []node) (str string) {
 	for _, n := range nodes {
 		switch n.tok {
 		case
@@ -31,6 +27,18 @@ func (p *parser) parseBinaryExpr(nodes []node) goast.Expr {
 			str += " " + n.lit
 		}
 	}
+	return str
+}
+
+func (p *parser) parseBinaryExpr(in []node) goast.Expr {
+
+	base := make([]node, len(in))
+	copy(base, in)
+
+	nodes := make([]node, len(in))
+	copy(nodes, in)
+
+	p.fixArrayVariables(&nodes)
 
 	var haveDoubleStar bool
 	for _, n := range nodes {
@@ -40,17 +48,19 @@ func (p *parser) parseBinaryExpr(nodes []node) goast.Expr {
 		}
 	}
 
-	//TODO add support of array
 	//TODO change to parseExpr from go package
 	//TODO check operation **
+
+	str := ExprString(nodes)
 
 	if !haveDoubleStar {
 		ast, err := goparser.ParseExpr(str)
 		if err == nil {
 			return ast
 		}
-		p.addError("Cannot parse Expression : " + str + "\terr = " + err.Error())
 	}
+
+	p.addError("Cannot parse Expression : " + ExprString(base) + "\t" + str)
 
 	return goast.NewIdent(str)
 }
@@ -74,6 +84,10 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 		if n.tok == token.IDENT && p.isArrayVariable(n.lit) {
 			positions = append(positions, i)
 		}
+	}
+
+	if len(positions) == 0 {
+		return
 	}
 
 	// modify tokens
