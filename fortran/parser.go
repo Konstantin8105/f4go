@@ -788,6 +788,14 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		//TODO: add DATA
 		// DATA GAM , GAMSQ , RGAMSQ / 4096.D0 , 16777216.D0 , 5.9604645D-8 /
 
+	case WRITE:
+		p.addError("WRITE is not support")
+		for ; p.ident < len(p.ns); p.ident++ {
+			if p.ns[p.ident].tok == NEW_LINE || p.ns[p.ident].tok == token.EOF {
+				break
+			}
+		}
+
 	default:
 		start := p.ident
 		for ; p.ident < len(p.ns); p.ident++ {
@@ -797,12 +805,12 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		}
 		var isAssignStmt bool
 		var pos int
-		for i := start; i < p.ident; i++ {
-			if p.ns[i].tok == token.ASSIGN {
-				isAssignStmt = true
-				pos = i
+		if p.ns[start].tok == token.IDENT {
+			if p.ns[start+1].tok == token.ASSIGN {
+				pos = start + 1
 			}
 		}
+
 		if isAssignStmt {
 			stmts = append(stmts, &goast.AssignStmt{
 				Lhs: []goast.Expr{p.parseExpr(start, pos)},

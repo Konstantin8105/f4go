@@ -41,17 +41,7 @@ func (p *parser) parseBinaryExpr(in []node) goast.Expr {
 	p.fixArrayVariables(&nodes)
 	p.fixDoubleStar(&nodes)
 	p.fixString(&nodes)
-
-	var haveDoubleStar bool
-	for _, n := range nodes {
-		switch n.tok {
-		case DOUBLE_STAR: // **
-			haveDoubleStar = true
-		}
-	}
-	if haveDoubleStar {
-		p.addError("have double star" + ExprString(nodes))
-	}
+	p.fixComplexValue(&nodes)
 
 	str := ExprString(nodes)
 
@@ -170,10 +160,12 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 	p.addImport("math")
 
 	// Example of possible variables:
-	// IDENT
-	// ARRAY[...][...]
-	// ( EXPRESSION )
-	// FUNCTION (...)
+	//  IDENT
+	//  INT
+	//  FLOAT
+	//  ARRAY[...][...]
+	//  ( EXPRESSION )
+	//  FUNCTION (...)
 
 	// separate expression on 2 parts
 	// leftPart ** rightPart
@@ -242,7 +234,7 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 			token.LEQ, // <=
 			token.GEQ, // >=
 
-			token.LPAREN: //(
+			token.LPAREN: // (
 
 			leftSeparator++
 			br = true
@@ -339,4 +331,115 @@ func (p *parser) fixString(nodes *[]node) {
 			(*nodes)[i].lit = strings.Replace((*nodes)[i].lit, "'", "\"", -1)
 		}
 	}
+}
+
+// parse complex init
+// From :
+// ( 1.0E+0 , 0.0E+0 )
+// To :
+//  1.0E+0 + 0.0E+0i
+//
+// Common pattern is:
+//  ( .leftNodes. , .rightNodes. )
+// Example of .nodes. :
+//  IDENT
+//  INT
+//  FLOAT
+//  ARRAY[...][...]
+//  ( EXPRESSION )
+//  EXPRESSION
+//  FUNCTION (...)
+func (p *parser) fixComplexValue(nodes *[]node) {
+	var start, comma, end int
+	var find bool
+	for i := range *nodes {
+		if i != 0 {
+			if (*nodes)[i-1].tok == token.IDENT {
+				// this is function
+				continue
+			}
+		}
+		// find (
+		start = i
+		if (*nodes)[i].tok != token.LPAREN {
+			continue
+		}
+		i++
+		// create function
+		getNodes := func() bool {
+			var j int
+			for j = i; j < len(*nodes); j++ {
+				var exit bool
+				switch (*nodes)[j].tok {
+				case token.LPAREN:
+					counter := 0
+					for ; j < len(*nodes); j++ {
+						switch (*nodes)[j].tok {
+						case token.LPAREN:
+							counter++
+						case token.RPAREN:
+							counter--
+						}
+						if counter == 0 {
+							break
+						}
+					}
+				case NEW_LINE, token.EOF:
+					return false
+				case token.COMMA, token.RPAREN:
+					exit = true
+				}
+				if exit {
+					break
+				}
+			}
+			i = j - 1
+			return true
+		}
+		// find leftNodes
+		if !getNodes() {
+			continue
+		}
+		i++
+		// is comma?
+		comma = i
+		if (*nodes)[i].tok != token.COMMA {
+			continue
+		}
+		i++
+		// find rightNodes
+		if !getNodes() {
+			continue
+		}
+		i++
+		// if )
+		end = i
+		if (*nodes)[i].tok != token.RPAREN {
+			continue
+		}
+		// all part of complex value if found
+		find = true
+		break
+	}
+	if !find {
+		return
+	}
+	// combine new complex value interpretation
+	var comb []node
+	comb = append(comb, (*nodes)[:start]...)
+
+	comb = append(comb, node{tok: token.LPAREN, lit: "("})
+	comb = append(comb, (*nodes)[start:comma]...)
+	comb = append(comb, node{tok: token.ADD, lit: "+"})
+	comb = append(comb, node{tok: token.LPAREN, lit: "("})
+	comb = append(comb, (*nodes)[comma+1:end]...)
+	comb = append(comb, node{tok: token.RPAREN, lit: ")"})
+	comb = append(comb, node{tok: token.MUL, lit: "*"})
+	comb = append(comb, node{tok: token.FLOAT, lit: "1i"})
+	comb = append(comb, node{tok: token.RPAREN, lit: ")"})
+	comb = append(comb, (*nodes)[end:]...)
+
+	*nodes = comb
+
+	p.fixComplexValue(nodes)
 }
