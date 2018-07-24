@@ -40,6 +40,7 @@ func (p *parser) parseBinaryExpr(in []node) goast.Expr {
 
 	p.fixArrayVariables(&nodes)
 	p.fixDoubleStar(&nodes)
+	p.fixString(&nodes)
 
 	var haveDoubleStar bool
 	for _, n := range nodes {
@@ -330,4 +331,12 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 
 	// again checking, because we can have a few DOUBLE_STAR
 	p.fixDoubleStar(nodes)
+}
+
+func (p *parser) fixString(nodes *[]node) {
+	for i := range *nodes {
+		if (*nodes)[i].tok == token.STRING {
+			(*nodes)[i].lit = strings.Replace((*nodes)[i].lit, "'", "\"", -1)
+		}
+	}
 }

@@ -711,11 +711,22 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		// PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 ) )
 		// PARAMETER ( ONE = 1.0E+0 , ZERO = 0.0E+0 )
 
-		//TODO: add CALL
+	case CALL:
+		// Example:
 		// CALL XERBLA ( 'CGEMM ' , INFO )
+		p.expect(CALL)
+		p.ident++
+		start := p.ident
+		for ; p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+		}
+		stmts = append(stmts, &goast.ExprStmt{
+			X: p.parseExpr(start, p.ident),
+		})
+		p.expect(NEW_LINE)
 
 	case INTRINSIC:
-		// INTRINSIC CONJG , MAX
+		// Example:
+		//  INTRINSIC CONJG , MAX
 		p.expect(INTRINSIC)
 		p.ident++
 		for ; p.ident < len(p.ns) && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
