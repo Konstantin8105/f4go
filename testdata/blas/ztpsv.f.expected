@@ -603,7 +603,7 @@ NEW_LINE
 COMMENT             	*     .. Intrinsic Functions ..
 NEW_LINE            	
 
-IDENT               	INTRINSIC
+INTRINSIC           	INTRINSIC
 IDENT               	DCONJG
 NEW_LINE            	
 

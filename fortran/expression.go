@@ -255,6 +255,9 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 			break
 		}
 	}
+	if leftSeparator < 0 {
+		leftSeparator = 0
+	}
 
 	// separate right part on
 	// rightVariable rightOther

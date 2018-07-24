@@ -591,7 +591,7 @@ NEW_LINE
 COMMENT             	*     .. Intrinsic Functions ..
 NEW_LINE            	
 
-IDENT               	INTRINSIC
+INTRINSIC           	INTRINSIC
 IDENT               	CONJG
 NEW_LINE            	
 

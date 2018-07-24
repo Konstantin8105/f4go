@@ -30,6 +30,7 @@ const (
 	WHILE
 
 	PARAMETER
+	INTRINSIC
 )
 
 func view(t token.Token) string {
@@ -63,4 +64,5 @@ var o = [...]string{
 	WHILE: "WHILE",
 
 	PARAMETER: "PARAMETER",
+	INTRINSIC: "INTRINSIC",
 }

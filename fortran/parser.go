@@ -714,8 +714,23 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		//TODO: add CALL
 		// CALL XERBLA ( 'CGEMM ' , INFO )
 
-		//TODO: add INTRINSIC
+	case INTRINSIC:
 		// INTRINSIC CONJG , MAX
+		p.expect(INTRINSIC)
+		p.ident++
+		for ; p.ident < len(p.ns) && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+			switch p.ns[p.ident].tok {
+			case token.IDENT:
+				p.functionExternalName = append(p.functionExternalName,
+					p.ns[p.ident].lit)
+			case token.COMMA:
+				// ignore
+			default:
+				p.addError("Cannot parse function name in INTRINSIC:" +
+					p.ns[p.ident].lit)
+			}
+		}
+		p.expect(NEW_LINE)
 
 		//TODO: add DATA
 		// DATA GAM , GAMSQ , RGAMSQ / 4096.D0 , 16777216.D0 , 5.9604645D-8 /

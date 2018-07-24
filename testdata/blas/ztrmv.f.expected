@@ -614,7 +614,7 @@ NEW_LINE
 COMMENT             	*     .. Intrinsic Functions ..
 NEW_LINE            	
 
-IDENT               	INTRINSIC
+INTRINSIC           	INTRINSIC
 IDENT               	DCONJG
 ,                   	,
 IDENT               	MAX

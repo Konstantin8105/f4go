@@ -235,7 +235,7 @@ NEW_LINE
 COMMENT             	*     .. Intrinsic Functions ..
 NEW_LINE            	
 
-IDENT               	INTRINSIC
+INTRINSIC           	INTRINSIC
 IDENT               	LEN_TRIM
 NEW_LINE            	
 

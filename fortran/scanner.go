@@ -360,6 +360,8 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 
 	case "PARAMETER":
 		return PARAMETER, buf.String()
+	case "INTRINSIC":
+		return INTRINSIC, buf.String()
 	}
 
 	// Otherwise return as a regular identifier.
