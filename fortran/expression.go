@@ -41,6 +41,17 @@ func (p *parser) parseBinaryExpr(in []node) goast.Expr {
 	p.fixArrayVariables(&nodes)
 	p.fixDoubleStar(&nodes)
 
+	var haveDoubleStar bool
+	for _, n := range nodes {
+		switch n.tok {
+		case DOUBLE_STAR: // **
+			haveDoubleStar = true
+		}
+	}
+	if haveDoubleStar {
+		p.addError("have double star" + ExprString(nodes))
+	}
+
 	str := ExprString(nodes)
 
 	//use std package go/parser for change to parse expression
@@ -52,6 +63,15 @@ func (p *parser) parseBinaryExpr(in []node) goast.Expr {
 		return goast.NewIdent(str)
 	}
 	return ast
+}
+
+func (p *parser) isVariable(name string) bool {
+	for _, v := range p.initVars {
+		if v.name == name {
+			return true
+		}
+	}
+	return false
 }
 
 func (p *parser) isArrayVariable(name string) bool {
@@ -157,17 +177,19 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 	// separate expression on 2 parts
 	// leftPart ** rightPart
 	leftPart := (*nodes)[:pos]
-	rightPart := (*nodes)[pos+1]
+	rightPart := (*nodes)[pos+1:]
 
 	// separate left part on
 	// leftOther leftVariable
 	//          |
 	//          +- leftSeparator
 	var leftSeparator int
-	for leftSeparator = len(leftPart); leftSeparator >= 0; leftSeparator-- {
+	for leftSeparator = len(leftPart) - 1; leftSeparator >= 0; leftSeparator-- {
 		var br bool
-		switch leftPart[leftSeparator] {
-		case token.IDENT: // find IDENT
+		switch leftPart[leftSeparator].tok {
+		case token.INT, token.FLOAT: // find Numbers
+			br = true
+		case token.IDENT: // find array name or function name
 			br = true
 		case token.RBRACK: // find ]
 			// go to token [
@@ -195,7 +217,8 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 			}
 		default:
 			p.addError("Cannot identify token in left part separation :" +
-				view(leftPart[leftSeparator]))
+				view(leftPart[leftSeparator].tok))
+			br = true
 		}
 		if br {
 			break
@@ -206,16 +229,71 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 	// rightVariable rightOther
 	//              |
 	//              +- rightSeparator
-
-	// parse expression leftVariable
-
-	// parse expression rightVariable
+	var rightSeparator int
+	for rightSeparator = 0; rightSeparator < len(rightPart); rightSeparator++ {
+		var br bool
+		switch rightPart[rightSeparator].tok {
+		case token.INT, token.FLOAT:
+			br = true
+		case token.IDENT: // find IDENT, so it can be func or not
+			if !p.isVariable(rightPart[rightSeparator].lit) {
+				// function
+				counter := 0
+				for {
+					if rightPart[rightSeparator].tok == token.LPAREN {
+						counter++
+					}
+					if rightPart[rightSeparator].tok == token.RPAREN {
+						counter--
+					}
+					if counter == 0 {
+						break
+					}
+					rightSeparator++
+				}
+			}
+			br = true
+		case token.LPAREN: // find (
+			counter := 0
+			for {
+				if rightPart[rightSeparator].tok == token.LPAREN {
+					counter++
+				}
+				if rightPart[rightSeparator].tok == token.RPAREN {
+					counter--
+				}
+				if counter == 0 {
+					break
+				}
+				rightSeparator++
+			}
+			br = true
+		default:
+			p.addError("Cannot identify token in right part separation :" +
+				view(rightPart[rightSeparator].tok))
+			br = true
+		}
+		if br {
+			break
+		}
+	}
 
 	// combine expression by next formula:
 	// leftOther math.Pow(leftVariable , rightVariable) rightOther
+	var comb []node
+	comb = append(comb, leftPart[:leftSeparator]...)
+	comb = append(comb, []node{
+		node{tok: token.IDENT, lit: "math.Pow"},
+		node{tok: token.LPAREN, lit: "("},
+	}...)
+	comb = append(comb, leftPart[leftSeparator:]...)
+	comb = append(comb, node{tok: token.COMMA, lit: ","})
+	comb = append(comb, rightPart[:rightSeparator]...)
+	comb = append(comb, node{tok: token.RPAREN, lit: ")"})
+	comb = append(comb, rightPart[rightSeparator:]...)
 
-	p.addError("have double star" + ExprString(*nodes))
+	*nodes = comb
 
 	// again checking, because we can have a few DOUBLE_STAR
-	// TODO : uncomment p.fixDoubleStar(nodes)
+	p.fixDoubleStar(nodes)
 }
