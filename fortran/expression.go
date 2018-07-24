@@ -448,8 +448,8 @@ func (p *parser) fixComplexValue(nodes *[]node) {
 func (p *parser) fixFloats(nodes *[]node) {
 	for i := range *nodes {
 		if (*nodes)[i].tok == token.FLOAT {
-			(*nodes)[i].lit = strings.ToUpper((*nodes)[i].lit)
-			(*nodes)[i].lit = strings.Replace((*nodes)[i].lit, "D", "E", -1)
+			(*nodes)[i].lit = strings.ToLower((*nodes)[i].lit)
+			(*nodes)[i].lit = strings.Replace((*nodes)[i].lit, "d", "e", -1)
 		}
 	}
 }
