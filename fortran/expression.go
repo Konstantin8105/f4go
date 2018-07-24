@@ -42,6 +42,7 @@ func (p *parser) parseBinaryExpr(in []node) goast.Expr {
 	p.fixDoubleStar(&nodes)
 	p.fixString(&nodes)
 	p.fixComplexValue(&nodes)
+	p.fixFloats(&nodes)
 
 	str := ExprString(nodes)
 
@@ -442,4 +443,13 @@ func (p *parser) fixComplexValue(nodes *[]node) {
 	*nodes = comb
 
 	p.fixComplexValue(nodes)
+}
+
+func (p *parser) fixFloats(nodes *[]node) {
+	for i := range *nodes {
+		if (*nodes)[i].tok == token.FLOAT {
+			(*nodes)[i].lit = strings.ToUpper((*nodes)[i].lit)
+			(*nodes)[i].lit = strings.Replace((*nodes)[i].lit, "D", "E", -1)
+		}
+	}
 }
