@@ -48,12 +48,12 @@ func (p *parser) parseBinaryExpr(in []node) goast.Expr {
 		}
 	}
 
-	//TODO change to parseExpr from go package
 	//TODO check operation **
 
 	str := ExprString(nodes)
 
 	if !haveDoubleStar {
+		//use std package go/parser for change to parse expression
 		ast, err := goparser.ParseExpr(str)
 		if err == nil {
 			return ast
