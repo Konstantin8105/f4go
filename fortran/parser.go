@@ -448,10 +448,8 @@ func (p *parser) parseDoWhile() (sDo goast.ForStmt) {
 			break
 		}
 	}
-	p.ident--
 	sDo.Cond = p.parseExpr(start, p.ident)
 
-	p.ident++
 	p.expect(NEW_LINE)
 	p.ident++
 
