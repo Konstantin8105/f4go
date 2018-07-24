@@ -2,26 +2,60 @@
 
 Transpiling fortran code to golang code
 
-AST from `gfortran`. Example:
-```bash
-	gfortran -fdump-tree-original-raw=ast.tree -c hello.f
-```
-
 Present result:
 ```fortran
-        function func(i) result(j)
-           integer, intent(in) :: i ! input
-           integer             :: j ! output
-           j = i**2 + i**3
-        end function func
-      
-      program xfunc
-         implicit none
-         integer :: i
-         integer :: func
-         i = 3
-         print*,"sum of the square and cube of",i," is",func(i)
-      end program xfunc
+*  =====================================================================
+      SUBROUTINE CAXPY(N,CA,CX,INCX,CY,INCY)
+*
+*  -- Reference BLAS level1 routine (version 3.8.0) --
+*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+*     November 2017
+*
+*     .. Scalar Arguments ..
+      COMPLEX CA
+      INTEGER INCX,INCY,N
+*     ..
+*     .. Array Arguments ..
+      COMPLEX CX(*),CY(*)
+*     ..
+*
+*  =====================================================================
+*
+*     .. Local Scalars ..
+      INTEGER I,IX,IY
+*     ..
+*     .. External Functions ..
+      REAL SCABS1
+      EXTERNAL SCABS1
+*     ..
+      IF (N.LE.0) RETURN
+      IF (SCABS1(CA).EQ.0.0E+0) RETURN
+      IF (INCX.EQ.1 .AND. INCY.EQ.1) THEN
+*
+*        code for both increments equal to 1
+*
+         DO I = 1,N
+            CY(I) = CY(I) + CA*CX(I)
+         END DO
+      ELSE
+*
+*        code for unequal increments or equal increments
+*          not equal to 1
+*
+         IX = 1
+         IY = 1
+         IF (INCX.LT.0) IX = (-N+1)*INCX + 1
+         IF (INCY.LT.0) IY = (-N+1)*INCY + 1
+         DO I = 1,N
+            CY(IY) = CY(IY) + CA*CX(IX)
+            IX = IX + INCX
+            IY = IY + INCY
+         END DO
+      END IF
+*
+      RETURN
+      END
 ```
 
 Go code:
@@ -29,56 +63,36 @@ Go code:
 ```golang
 package main
 
-func func() int {
-	{
-		var j int
-		{
-			var tempVarF4GO_34 int
-			var tempVarF4GO_44 int
-			tempVarF4GO_44 = *i
-			var tempVarF4GO_46 int
-			tempVarF4GO_46 = tempVarF4GO_44 * tempVarF4GO_44
-			var tempVarF4GO_48 int
-			tempVarF4GO_48 = *i
-			var tempVarF4GO_50 int
-			tempVarF4GO_50 = tempVarF4GO_48 * tempVarF4GO_48
-			tempVarF4GO_34 = tempVarF4GO_48 * tempVarF4GO_50
-			j = tempVarF4GO_46 + tempVarF4GO_34
-		}
-		return f4goUndefinedmodify_expr
+func CAXPY(N int, CA complex128, CX []complex128, INCX int, CY []complex128, INCY int) {
+	var I int
+	var IX int
+	var IY int
+	if N <= 0 {
+		return
 	}
-}
-func xfunc() {
-	{
-		var i int
-		i = 3
-		{
-			var dt_parm.0 __st_parameter_dt
-			dt_parm.0.common.filename = "testdata/func1.f "[1]
-			dt_parm.0.common.line = 12
-			dt_parm.0.common.flags = 128
-			dt_parm.0.common.unit = 6
-			_gfortran_st_write(dt_parm.0)
-			_gfortran_transfer_character_write(dt_parm.0, "sum of the square and cube of"[1], 29)
-			_gfortran_transfer_integer_write(dt_parm.0, i, 4)
-			_gfortran_transfer_character_write(dt_parm.0, " is"[1], 3)
-			{
-				var tempVarF4GO_67 int
-				tempVarF4GO_67 = func(i)
-				_gfortran_transfer_integer_write(dt_parm.0, tempVarF4GO_67, 4)
-			}
-			_gfortran_st_write_done(dt_parm.0)
+	if SCABS1(CA) == 0.0E+0 {
+		return
+	}
+	if INCX == 1 && INCY == 1 {
+		for I = 1; I < N; I++ {
+			CY[I] = CY[I] + CA*CX[I]
+		}
+	} else {
+		IX = 1
+		IY = 1
+		if INCX < 0 {
+			IX = (-N+1)*INCX + 1
+		}
+		if INCY < 0 {
+			IY = (-N+1)*INCY + 1
+		}
+		for I = 1; I < N; I++ {
+			CY[IY] = CY[IY] + CA*CX[IX]
+			IX = IX + INCX
+			IY = IY + INCY
 		}
 	}
-}
-func main() int {
-	{
-		var options.1 [288]int
-		_gfortran_set_args(argc, argv)
-		_gfortran_set_options(9, options.1[0])
-		xfunc()
-		return f4goUndefinedmodify_expr
-	}
+	return
 }
 ```
 
