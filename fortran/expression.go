@@ -58,6 +58,11 @@ func (p *parser) parseBinaryExpr(in []node) goast.Expr {
 		if err == nil {
 			return ast
 		}
+	} else {
+		// Examples:
+		//   SD2 / GAM ** 2
+		//   DSQRT ( ( DA / SCALE ) ** 2 + ( DB / SCALE ) ** 2 )
+		p.addError("TODO : ** is not implemented : " + ExprString(base))
 	}
 
 	p.addError("Cannot parse Expression : " + ExprString(base) + "\t" + str)
