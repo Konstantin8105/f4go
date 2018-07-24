@@ -4,7 +4,10 @@
  CHARACTER UPLO
  COMPLEX AP ( * ) , X ( * )
  COMPLEX ZERO
- PARAMETER ( ZERO = ( 0.0E+0 , 0.0E+0 ) )
+
+
+ ZERO = ( 0.0E+0 , 0.0E+0 )
+
  COMPLEX TEMP
  INTEGER I , INFO , IX , J , JX , K , KK , KX
  LOGICAL LSAME

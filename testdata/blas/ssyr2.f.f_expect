@@ -4,7 +4,10 @@
  CHARACTER UPLO
  REAL A ( LDA , * ) , X ( * ) , Y ( * )
  REAL ZERO
- PARAMETER ( ZERO = 0.0E+0 )
+
+
+ ZERO = 0.0E+0
+
  REAL TEMP1 , TEMP2
  INTEGER I , INFO , IX , IY , J , JX , JY , KX , KY
  LOGICAL LSAME

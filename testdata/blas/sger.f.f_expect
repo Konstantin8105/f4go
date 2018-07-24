@@ -3,7 +3,10 @@
  INTEGER INCX , INCY , LDA , M , N
  REAL A ( LDA , * ) , X ( * ) , Y ( * )
  REAL ZERO
- PARAMETER ( ZERO = 0.0E+0 )
+
+
+ ZERO = 0.0E+0
+
  REAL TEMP
  INTEGER I , INFO , IX , J , JY , KX
  EXTERNAL XERBLA

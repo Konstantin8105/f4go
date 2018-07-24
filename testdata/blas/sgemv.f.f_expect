@@ -4,7 +4,11 @@
  CHARACTER TRANS
  REAL A ( LDA , * ) , X ( * ) , Y ( * )
  REAL ONE , ZERO
- PARAMETER ( ONE = 1.0E+0 , ZERO = 0.0E+0 )
+
+
+ ONE = 1.0E+0
+ ZERO = 0.0E+0
+
  REAL TEMP
  INTEGER I , INFO , IX , IY , J , JX , JY , KX , KY , LENX , LENY
  LOGICAL LSAME

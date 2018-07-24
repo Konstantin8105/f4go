@@ -11,9 +11,15 @@
  INTEGER I , INFO , J , L , NROWA
  LOGICAL UPPER
  COMPLEX * 16 ONE
- PARAMETER ( ONE = ( 1.0D+0 , 0.0D+0 ) )
+
+
+ ONE = ( 1.0D+0 , 0.0D+0 )
+
  COMPLEX * 16 ZERO
- PARAMETER ( ZERO = ( 0.0D+0 , 0.0D+0 ) )
+
+
+ ZERO = ( 0.0D+0 , 0.0D+0 )
+
  IF ( LSAME ( TRANS , 'N' ) ) THEN
  NROWA = N
  ELSE

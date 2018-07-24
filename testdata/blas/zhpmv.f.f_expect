@@ -4,9 +4,15 @@
  CHARACTER UPLO
  COMPLEX * 16 AP ( * ) , X ( * ) , Y ( * )
  COMPLEX * 16 ONE
- PARAMETER ( ONE = ( 1.0D+0 , 0.0D+0 ) )
+
+
+ ONE = ( 1.0D+0 , 0.0D+0 )
+
  COMPLEX * 16 ZERO
- PARAMETER ( ZERO = ( 0.0D+0 , 0.0D+0 ) )
+
+
+ ZERO = ( 0.0D+0 , 0.0D+0 )
+
  COMPLEX * 16 TEMP1 , TEMP2
  INTEGER I , INFO , IX , IY , J , JX , JY , K , KK , KX , KY
  LOGICAL LSAME

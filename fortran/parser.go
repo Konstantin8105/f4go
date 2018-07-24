@@ -166,6 +166,52 @@ again:
 		}
 	}
 
+	// Simplification of PARAMETER:
+	// From:
+	//  PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 )  , ZERO = 0.0E+0 )
+	// To:
+	//  ONE = ( 1.0E+0 , 0.0E+0 )
+	//  ZERO = 0.0E+0
+	//
+	for i := 0; i < len(p.ns); i++ {
+		if p.ns[i].tok != PARAMETER {
+			continue
+		}
+		// replace PARAMETER to NEW_LINE
+		p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
+		i++
+		// replace ( to NEW_LINE
+		if p.ns[i].tok != token.LPAREN {
+			panic("is not LPAREN")
+		}
+		p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
+		i++
+		// find end )
+		counter := 1
+		for j := i; p.ns[j].tok != NEW_LINE; j, i = j+1, i+1 {
+			if p.ns[j].tok == token.LPAREN {
+				counter++
+			}
+			if p.ns[j].tok == token.RPAREN {
+				counter--
+			}
+			if counter == 1 && p.ns[j].tok == token.COMMA {
+				// replace , to NEW_LINE
+				p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
+			}
+			if counter == 0 {
+				break
+			}
+		}
+		// replace ) to NEW_LINE
+		if p.ns[i].tok != token.RPAREN {
+			panic("is not RPAREN : " + view(p.ns[i].tok))
+		}
+		p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
+		i++
+
+	}
+
 	return
 }
 
@@ -706,10 +752,6 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	case DO:
 		sDo := p.parseDo()
 		stmts = append(stmts, &sDo)
-
-		//TODO: add PARAMETER
-		// PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 ) )
-		// PARAMETER ( ONE = 1.0E+0 , ZERO = 0.0E+0 )
 
 	case CALL:
 		// Example:

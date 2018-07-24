@@ -4,9 +4,15 @@
  CHARACTER TRANS
  COMPLEX A ( LDA , * ) , X ( * ) , Y ( * )
  COMPLEX ONE
- PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 ) )
+
+
+ ONE = ( 1.0E+0 , 0.0E+0 )
+
  COMPLEX ZERO
- PARAMETER ( ZERO = ( 0.0E+0 , 0.0E+0 ) )
+
+
+ ZERO = ( 0.0E+0 , 0.0E+0 )
+
  COMPLEX TEMP
  INTEGER I , INFO , IX , IY , J , JX , JY , K , KUP1 , KX , KY , LENX , LENY
  LOGICAL NOCONJ
