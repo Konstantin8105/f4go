@@ -210,11 +210,42 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 				if leftPart[leftSeparator].tok == token.LPAREN {
 					counter--
 				}
-				leftSeparator--
 				if counter == 0 {
 					break
 				}
+				leftSeparator--
 			}
+		case token.ADD, // +
+			token.SUB, // -
+			token.MUL, // *
+			token.QUO, // /
+			token.REM, // %
+
+			token.AND,     // &
+			token.OR,      // |
+			token.XOR,     // ^
+			token.SHL,     // <<
+			token.SHR,     // >>
+			token.AND_NOT, // &^
+
+			token.LAND, // &&
+			token.LOR,  // ||
+
+			token.EQL,    // ==
+			token.LSS,    // <
+			token.GTR,    // >
+			token.ASSIGN, // =
+			token.NOT,    // !
+
+			token.NEQ, // !=
+			token.LEQ, // <=
+			token.GEQ, // >=
+
+			token.LPAREN: //(
+
+			leftSeparator++
+			br = true
+
 		default:
 			p.addError("Cannot identify token in left part separation :" +
 				view(leftPart[leftSeparator].tok))
