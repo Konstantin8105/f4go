@@ -163,6 +163,10 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 	// separate right part on
 	// rightVariable rightOther
 
+	// parse expression leftVariable
+
+	// parse expression rightVariable
+
 	// combine expression by next formula:
 	// leftOther math.Pow(leftVariable , rightVariable) rightOther
 
