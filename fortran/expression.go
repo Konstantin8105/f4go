@@ -124,12 +124,15 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 	}
 }
 
+// TODO : add test for avoid comments /*...*/ in Go code
+// TODO : add test for calc amount of TODO
+
 // Examples:
 //   SD2 / GAM ** 2
 //   DSQRT ( ( DA / SCALE ) ** 2 + ( DB / SCALE ) ** 2 )
 func (p *parser) fixDoubleStar(nodes *[]node) {
 	var haveDoubleStar bool
-	var pos int
+	var pos int // saving last position of DOUBLE_STAR
 	for i, n := range *nodes {
 		switch n.tok {
 		case DOUBLE_STAR: // **
@@ -145,8 +148,13 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 	// add package in source
 	p.addImport("math")
 
+	// Example of possible variables:
+	// IDENT
+	// ARRAY[...][...]
+	// ( EXPRESSION )
+	// FUCNTION (...)
+
 	p.addError("have double star" + ExprString(*nodes))
-	_ = pos
 
 	// again checking, because we can have a few DOUBLE_STAR
 	// TODO : uncomment p.fixDoubleStar(nodes)
