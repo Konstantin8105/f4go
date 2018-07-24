@@ -39,35 +39,19 @@ func (p *parser) parseBinaryExpr(in []node) goast.Expr {
 	copy(nodes, in)
 
 	p.fixArrayVariables(&nodes)
-
-	var haveDoubleStar bool
-	for _, n := range nodes {
-		switch n.tok {
-		case DOUBLE_STAR: // **
-			haveDoubleStar = true
-		}
-	}
-
-	//TODO check operation **
+	p.fixDoubleStar(&nodes)
 
 	str := ExprString(nodes)
 
-	if !haveDoubleStar {
-		//use std package go/parser for change to parse expression
-		ast, err := goparser.ParseExpr(str)
-		if err == nil {
-			return ast
-		}
-	} else {
-		// Examples:
-		//   SD2 / GAM ** 2
-		//   DSQRT ( ( DA / SCALE ) ** 2 + ( DB / SCALE ) ** 2 )
-		p.addError("TODO : ** is not implemented : " + ExprString(base))
+	//use std package go/parser for change to parse expression
+	ast, err := goparser.ParseExpr(str)
+	if err != nil {
+		p.addError("Cannot parse Expression : " + ExprString(base) +
+			"\t" + str +
+			"\t" + fmt.Sprintf("%v", err))
+		return goast.NewIdent(str)
 	}
-
-	p.addError("Cannot parse Expression : " + ExprString(base) + "\t" + str)
-
-	return goast.NewIdent(str)
+	return ast
 }
 
 func (p *parser) isArrayVariable(name string) bool {
@@ -138,4 +122,23 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 			}
 		}
 	}
+}
+
+// Examples:
+//   SD2 / GAM ** 2
+//   DSQRT ( ( DA / SCALE ) ** 2 + ( DB / SCALE ) ** 2 )
+func (p *parser) fixDoubleStar(nodes *[]node) {
+	var haveDoubleStar bool
+	for _, n := range *nodes {
+		switch n.tok {
+		case DOUBLE_STAR: // **
+			haveDoubleStar = true
+		}
+	}
+
+	if !haveDoubleStar {
+		return
+	}
+
+	p.addError("have double star" + ExprString(*nodes))
 }
