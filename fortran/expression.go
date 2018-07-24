@@ -154,6 +154,18 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 	// ( EXPRESSION )
 	// FUCNTION (...)
 
+	// separate expression on 2 parts
+	// leftPart ** rightPart
+
+	// separate left part on
+	// leftOther leftVariable
+
+	// separate right part on
+	// rightVariable rightOther
+
+	// combine expression by next formula:
+	// leftOther math.Pow(leftVariable , rightVariable) rightOther
+
 	p.addError("have double star" + ExprString(*nodes))
 
 	// again checking, because we can have a few DOUBLE_STAR
