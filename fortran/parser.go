@@ -20,7 +20,14 @@ type parser struct {
 	functionExternalName []string
 	initVars             []initialVar
 
+	// import packeges
+	pkgs map[string]bool
+
 	errs []error
+}
+
+func (p *parser) addImport(pkg string) {
+	p.pkgs[pkg] = true
 }
 
 type initialVar struct {
@@ -30,6 +37,7 @@ type initialVar struct {
 
 func (p *parser) init() {
 	p.functionExternalName = make([]string, 0)
+	p.pkgs = map[string]bool{}
 }
 
 func (p *parser) prepare() (err error) {
@@ -186,7 +194,23 @@ func (p *parser) parse() (err error) {
 	decls = p.transpileToNode()
 	p.showErrors()
 
+	// add packages
+	for pkg := range p.pkgs {
+		p.ast.Decls = append(p.ast.Decls, &goast.GenDecl{
+			Tok: token.IMPORT,
+			Specs: []goast.Spec{
+				&goast.ImportSpec{
+					Path: &goast.BasicLit{
+						Kind:  token.STRING,
+						Value: "\"" + pkg + "\"",
+					},
+				},
+			},
+		})
+	}
+
 	p.ast.Decls = append(p.ast.Decls, decls...)
+
 	return
 }
 

@@ -129,10 +129,12 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 //   DSQRT ( ( DA / SCALE ) ** 2 + ( DB / SCALE ) ** 2 )
 func (p *parser) fixDoubleStar(nodes *[]node) {
 	var haveDoubleStar bool
-	for _, n := range *nodes {
+	var pos int
+	for i, n := range *nodes {
 		switch n.tok {
 		case DOUBLE_STAR: // **
 			haveDoubleStar = true
+			pos = i
 		}
 	}
 
@@ -140,5 +142,12 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 		return
 	}
 
+	// add package in source
+	p.addImport("math")
+
 	p.addError("have double star" + ExprString(*nodes))
+	_ = pos
+
+	// again checking, because we can have a few DOUBLE_STAR
+	// TODO : uncomment p.fixDoubleStar(nodes)
 }
