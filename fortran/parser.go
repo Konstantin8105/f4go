@@ -626,10 +626,6 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 		}
 	}
 
-	if end-start == 1 {
-		return goast.NewIdent(p.ns[start].lit)
-	}
-
 	return p.parseBinaryExpr(p.ns[start:end])
 }
 

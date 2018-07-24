@@ -9,8 +9,6 @@ import (
 func (p *parser) parseBinaryExpr(nodes []node) goast.Expr {
 	var str string
 
-	var haveDoubleStar bool
-
 	for _, n := range nodes {
 		switch n.tok {
 		case
@@ -25,11 +23,18 @@ func (p *parser) parseBinaryExpr(nodes []node) goast.Expr {
 			token.LOR,    // ||
 			token.ASSIGN: // =
 			str += " " + view(n.tok)
-		case DOUBLE_STAR: // **
-			str += " " + n.lit
-			haveDoubleStar = true
 		default:
 			str += " " + n.lit
+		}
+	}
+
+	var haveDoubleStar, haveParen bool
+	for _, n := range nodes {
+		switch n.tok {
+		case DOUBLE_STAR: // **
+			haveDoubleStar = true
+		case token.LPAREN:
+			haveParen = true
 		}
 	}
 
@@ -37,7 +42,7 @@ func (p *parser) parseBinaryExpr(nodes []node) goast.Expr {
 	//TODO change to parseExpr from go package
 	//TODO check operation **
 
-	if !haveDoubleStar {
+	if !haveDoubleStar && !haveParen {
 		ast, err := goparser.ParseExpr(str)
 		if err == nil {
 			return ast
