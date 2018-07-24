@@ -414,6 +414,11 @@ func (p *parser) transpileListStmt() (stmts []goast.Stmt) {
 
 func (p *parser) parseInit() (stmts []goast.Stmt) {
 
+	// TODO: Example of function initialization
+	// COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
+	// DOUBLE PRECISION FUNCTION DNRM2 ( N , X , INCX )
+	// COMPLEX * 16 FUNCTION ZDOTC ( N , ZX , INCX , ZY , INCY )
+
 	identType := "int"
 	switch p.ns[p.ident].tok {
 	case LOGICAL:
@@ -704,6 +709,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 		//TODO: add PARAMETER
 		// PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 ) )
+		// PARAMETER ( ONE = 1.0E+0 , ZERO = 0.0E+0 )
 
 		//TODO: add CALL
 		// CALL XERBLA ( 'CGEMM ' , INFO )
