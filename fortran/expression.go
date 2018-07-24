@@ -210,10 +210,10 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 				if leftPart[leftSeparator].tok == token.LPAREN {
 					counter--
 				}
+				leftSeparator--
 				if counter == 0 {
 					break
 				}
-				leftSeparator--
 			}
 		default:
 			p.addError("Cannot identify token in left part separation :" +
@@ -281,12 +281,12 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 	// combine expression by next formula:
 	// leftOther math.Pow(leftVariable , rightVariable) rightOther
 	var comb []node
-	comb = append(comb, leftPart[:leftSeparator+1]...)
+	comb = append(comb, leftPart[:leftSeparator]...)
 	comb = append(comb, []node{
 		node{tok: token.IDENT, lit: "math.Pow"},
 		node{tok: token.LPAREN, lit: "("},
 	}...)
-	comb = append(comb, leftPart[leftSeparator+1:]...)
+	comb = append(comb, leftPart[leftSeparator:]...)
 	comb = append(comb, node{tok: token.COMMA, lit: ","})
 	comb = append(comb, rightPart[:rightSeparator+1]...)
 	comb = append(comb, node{tok: token.RPAREN, lit: ")"})
