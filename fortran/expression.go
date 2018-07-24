@@ -152,16 +152,60 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 	// IDENT
 	// ARRAY[...][...]
 	// ( EXPRESSION )
-	// FUCNTION (...)
+	// FUNCTION (...)
 
 	// separate expression on 2 parts
 	// leftPart ** rightPart
+	leftPart := (*nodes)[:pos]
+	rightPart := (*nodes)[pos+1]
 
 	// separate left part on
 	// leftOther leftVariable
+	//          |
+	//          +- leftSeparator
+	var leftSeparator int
+	for leftSeparator = len(leftPart); leftSeparator >= 0; leftSeparator-- {
+		var br bool
+		switch leftPart[leftSeparator] {
+		case token.IDENT: // find IDENT
+			br = true
+		case token.RBRACK: // find ]
+			// go to token [
+			for {
+				if leftPart[leftSeparator].tok == token.LBRACK {
+					break
+				}
+				leftSeparator--
+			}
+		case token.RPAREN: // find ), so we have function or not
+			// go to token (
+			// inside parens can be another parens
+			counter := 0
+			for {
+				if leftPart[leftSeparator].tok == token.RPAREN {
+					counter++
+				}
+				if leftPart[leftSeparator].tok == token.LPAREN {
+					counter--
+				}
+				if counter == 0 {
+					break
+				}
+				leftSeparator--
+			}
+		default:
+			p.addError("Cannot identify token in left part separation :" +
+				view(leftPart[leftSeparator]))
+		}
+		if br {
+			break
+		}
+	}
 
 	// separate right part on
 	// rightVariable rightOther
+	//              |
+	//              +- rightSeparator
 
 	// parse expression leftVariable
 
