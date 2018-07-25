@@ -488,6 +488,7 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 	}
 
 	p.ident++
+	var varPos int = -1
 	for ; p.ns[p.ident].tok != NEW_LINE; p.ident++ {
 		switch p.ns[p.ident].tok {
 		case token.IDENT:
@@ -495,6 +496,7 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 				name: p.ns[p.ident].lit,
 				typ:  identType,
 			})
+			varPos = len(p.initVars) - 1
 		case token.LPAREN:
 			// Fortran example: INTEGER A(*)
 			p.expect(token.LPAREN)
@@ -508,6 +510,10 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 			fmt.Printf("\n")
 			if len(p.initVars) == 0 {
 				p.addError("Cannot parse initVars , because len = 0")
+				break
+			}
+			if varPos == -1 {
+				p.addError("Undefine variable name")
 				break
 			}
 			p.initVars[len(p.initVars)-1].typ =
