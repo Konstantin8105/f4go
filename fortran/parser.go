@@ -843,6 +843,8 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 					p.ns[p.ident].lit)
 			case token.COMMA:
 				// ignore
+			case INTEGER, CHARACTER, COMPLEX, LOGICAL, REAL:
+				// type convertion - ignore
 			default:
 				p.addError("Cannot parse function name in INTRINSIC:" +
 					p.ns[p.ident].lit)
