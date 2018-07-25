@@ -842,8 +842,11 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		}
 		p.expect(NEW_LINE)
 
-		//TODO: add DATA
+	case DATA:
+		// Example:
 		// DATA GAM , GAMSQ , RGAMSQ / 4096.D0 , 16777216.D0 , 5.9604645D-8 /
+		sData := p.parseData()
+		stmts = append(stmts, sData...)
 
 	case WRITE:
 		p.addError("WRITE is not support")
@@ -924,6 +927,81 @@ func (p *parser) parseParamDecl() (fields []*goast.Field) {
 		if exit {
 			break
 		}
+	}
+	return
+}
+
+// Example:
+// DATA GAM , GAMSQ , RGAMSQ / 4096.D0 , 16777216.D0 , 5.9604645D-8 /
+func (p *parser) parseData() (stmts []goast.Stmt) {
+	p.expect(DATA)
+	p.ident++
+
+	type dis struct {
+		start, end int
+	}
+	var (
+		names  []string
+		values []dis
+	)
+	// find names
+	for ; p.ident < len(p.ns); p.ident++ {
+		var exit bool
+		switch p.ns[p.ident].tok {
+		case token.IDENT:
+			names = append(names, p.ns[p.ident].lit)
+		case token.COMMA:
+			// ignore
+		case token.QUO: // /
+			exit = true
+		default:
+			p.addError("Cannot parse name in Data :" + p.ns[p.ident].lit)
+		}
+		if exit {
+			break
+		}
+	}
+	// find values
+	p.expect(token.QUO)
+	p.ident++
+	valPos := 0
+	for ; p.ident < len(p.ns); p.ident++ {
+		var exit bool
+		switch p.ns[p.ident].tok {
+		case token.INT, token.FLOAT, token.STRING:
+			values = append(values, dis{
+				start: p.ident,
+				end:   p.ident + 1,
+			})
+		case token.COMMA:
+			// ignore
+		case token.QUO: // /
+			exit = true
+		default:
+			p.addError("Cannot parse value in Data :" + p.ns[p.ident].lit)
+		}
+		if exit {
+			break
+		}
+		valPos++
+	}
+	p.expect(token.QUO)
+	p.ident++
+
+	// create stmts
+	if len(names) != len(values) {
+		p.addError("Cannot create stmts in DATA: " +
+			" names " + fmt.Sprintf("%d", len(names)) +
+			" values " + fmt.Sprintf("%d", len(values)))
+		return
+	}
+
+	for i := range names {
+		stmts = append(stmts, &goast.AssignStmt{
+			Lhs: []goast.Expr{goast.NewIdent(names[i])},
+			Tok: token.ASSIGN,
+			Rhs: []goast.Expr{p.parseExpr(values[i].start, values[i].end)},
+		})
 	}
 	return
 }
