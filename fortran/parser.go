@@ -73,17 +73,6 @@ func (p *parser) prepare() (err error) {
 			continue
 		}
 
-		// Multiline expression
-		// From:
-		//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR.
-		//  + ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
-		// To:
-		//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR. ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
-		if last == NEW_LINE && tok == token.ADD {
-			p.ns = p.ns[:len(p.ns)-1]
-			continue
-		}
-
 		// Multiline function arguments
 		// From:
 		//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' ,
@@ -219,7 +208,67 @@ again:
 		}
 		p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
 		i++
+	}
 
+	// Multiline expression
+	// From:
+	//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR.
+	//  + ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
+	// To:
+	//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR. ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
+	//
+	// From:
+	//  NORM = SCALE * DSQRT ( ( CDABS ( CA / DCMPLX ( SCALE , 0.0d0 ) ) ) ** 2 +
+	//  ( CDABS ( CB / DCMPLX ( SCALE , 0.0d0 ) ) ) ** 2 )
+	// To:
+	//  NORM = SCALE * DSQRT ( ( CDABS ( CA / DCMPLX ( SCALE , 0.0d0 ) ) ) ** 2 + ( CDABS ( CB / DCMPLX ( SCALE , 0.0d0 ) ) ) ** 2 )
+	isOp := func(t token.Token) bool {
+		switch t {
+		case token.ADD, // +
+			token.SUB, // -
+			// token.MUL, // *
+			// token.QUO, // /
+			// token.REM, // %
+
+			token.AND, // &
+			token.OR,  // |
+			token.XOR, // ^
+			token.SHL, // <<
+			token.SHR, // >>
+
+			token.LAND, // &&
+			token.LOR:  // ||
+			return true
+		}
+		return false
+	}
+E:
+	for i := range p.ns {
+		if i < 2 {
+			continue
+		}
+		if isOp(p.ns[i-2].tok) && p.ns[i-1].tok == NEW_LINE && p.ns[i].tok == token.ADD {
+			p.ns = append(p.ns[:i-1], p.ns[i+1:]...)
+			goto E
+		}
+	}
+	for i := range p.ns {
+		if i < 1 {
+			continue
+		}
+		if p.ns[i-1].tok == NEW_LINE && p.ns[i].tok == token.ADD {
+			p.ns = append(p.ns[:i-1], p.ns[i+1:]...)
+			goto E
+		}
+	}
+	for i := range p.ns {
+		if i < 1 {
+			continue
+		}
+		if isOp(p.ns[i-1].tok) && p.ns[i].tok == NEW_LINE {
+			p.ns = append(p.ns[:i], p.ns[i+1:]...)
+			goto E
+		}
 	}
 
 	return
