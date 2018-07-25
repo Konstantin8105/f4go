@@ -348,12 +348,20 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 		var decl goast.Decl
 		decl = p.parseSubroutine()
 		decls = append(decls, decl)
-
-	default:
-		// move to next NEW_LINE
-		p.addError("Cannot parse line: " + p.getLine())
+		return
 	}
 
+	// Example :
+	//  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
+	for i := p.ident; i < len(p.ns) && p.ns[i].tok != NEW_LINE; i++ {
+		if p.ns[i].tok == FUNCTION {
+			var decl goast.Decl
+			decl = p.parseFunction()
+			decls = append(decls, decl)
+			return
+		}
+	}
+	p.addError("Cannot parse line: " + p.getLine())
 	return
 }
 
