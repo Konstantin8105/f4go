@@ -296,7 +296,7 @@ func (p *parser) parse() (err error) {
 
 	var decls []goast.Decl
 	p.ident = 0
-	decls = p.transpileToNode()
+	decls = p.parseNodes()
 	p.showErrors()
 
 	// add packages
@@ -335,7 +335,7 @@ func (p *parser) showErrors() {
 	}
 }
 
-func (p *parser) transpileToNode() (decls []goast.Decl) {
+func (p *parser) parseNodes() (decls []goast.Decl) {
 
 	if p.ident < 0 || p.ident >= len(p.ns) {
 		p.errs = append(p.errs,
@@ -346,7 +346,7 @@ func (p *parser) transpileToNode() (decls []goast.Decl) {
 	switch p.ns[p.ident].tok {
 	case SUBROUTINE:
 		var decl goast.Decl
-		decl = p.transpileSubroutine()
+		decl = p.parseSubroutine()
 		decls = append(decls, decl)
 
 	default:
@@ -382,7 +382,7 @@ func (p *parser) getLine() (line string) {
 	return
 }
 
-func (p *parser) transpileSubroutine() (decl goast.Decl) {
+func (p *parser) parseSubroutine() (decl goast.Decl) {
 	p.init()
 
 	var fd goast.FuncDecl
@@ -416,7 +416,7 @@ func (p *parser) transpileSubroutine() (decl goast.Decl) {
 	fd.Name = goast.NewIdent(name)
 	fd.Body = &goast.BlockStmt{
 		Lbrace: 1,
-		List:   p.transpileListStmt(),
+		List:   p.parseListStmt(),
 	}
 	p.ident++
 
@@ -493,7 +493,7 @@ func (p *parser) expect(t token.Token) {
 	}
 }
 
-func (p *parser) transpileListStmt() (stmts []goast.Stmt) {
+func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 	for p.ident < len(p.ns) {
 		if p.ns[p.ident].tok == END {
 			p.ident++
@@ -595,7 +595,7 @@ func (p *parser) parseDoWhile() (sDo goast.ForStmt) {
 
 	sDo.Body = &goast.BlockStmt{
 		Lbrace: 1,
-		List:   p.transpileListStmt(),
+		List:   p.parseListStmt(),
 	}
 
 	return
@@ -695,7 +695,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 
 	sDo.Body = &goast.BlockStmt{
 		Lbrace: 1,
-		List:   p.transpileListStmt(),
+		List:   p.parseListStmt(),
 	}
 
 	return
@@ -734,7 +734,7 @@ func (p *parser) parseIf() (sIf goast.IfStmt) {
 		p.ident++
 		sIf.Body = &goast.BlockStmt{
 			Lbrace: 1,
-			List:   p.transpileListStmt(),
+			List:   p.parseListStmt(),
 		}
 	} else {
 		sIf.Body = &goast.BlockStmt{
@@ -751,22 +751,12 @@ func (p *parser) parseIf() (sIf goast.IfStmt) {
 		} else {
 			sIf.Else = &goast.BlockStmt{
 				Lbrace: 1,
-				List:   p.transpileListStmt(),
+				List:   p.parseListStmt(),
 			}
 		}
 	}
 
 	return
-}
-
-func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
-	for i := start; i < end; i++ {
-		if p.ns[i].tok == NEW_LINE {
-			p.addError("NEW_LINE is not acceptable inside expression")
-		}
-	}
-
-	return p.parseBinaryExpr(p.ns[start:end])
 }
 
 func (p *parser) parseExternal() {

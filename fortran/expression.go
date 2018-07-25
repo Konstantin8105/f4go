@@ -30,7 +30,14 @@ func ExprString(nodes []node) (str string) {
 	return str
 }
 
-func (p *parser) parseBinaryExpr(in []node) goast.Expr {
+func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
+	for i := start; i < end; i++ {
+		if p.ns[i].tok == NEW_LINE {
+			p.addError("NEW_LINE is not acceptable inside expression")
+		}
+	}
+
+	in := p.ns[start:end]
 
 	base := make([]node, len(in))
 	copy(base, in)
