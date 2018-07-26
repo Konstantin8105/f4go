@@ -1,11 +1,12 @@
 package fortran
 
 import (
+	"bytes"
 	"fmt"
 	goast "go/ast"
 	"go/token"
 	"log"
-	"os"
+	"strings"
 )
 
 type node struct {
@@ -47,9 +48,9 @@ func (p *parser) init() {
 
 func (p *parser) prepare() (err error) {
 
-	// var buf bytes.Buffer
-	// p.logger = log.New(&buf, "f4go log:", log.Lshortfile)
-	p.logger = log.New(os.Stdout, "f4go log:", log.Lshortfile)
+	var buf bytes.Buffer
+	p.logger = log.New(&buf, "f4go log:", log.Lshortfile)
+	// p.logger = log.New(os.Stdout, "f4go log:", log.Lshortfile)
 
 	var last token.Token
 	for {
@@ -278,6 +279,22 @@ E:
 		if isOp(p.ns[i-1].tok) && p.ns[i].tok == NEW_LINE {
 			p.ns = append(p.ns[:i], p.ns[i+1:]...)
 			goto E
+		}
+	}
+
+	// Replase ELSEIF to ELSE IF
+elseif:
+	for i := range p.ns {
+		if p.ns[i].tok == token.IDENT && strings.ToUpper(p.ns[i].lit) == "ELSEIF" {
+			var comb []node
+			comb = append(comb, p.ns[:i]...)
+			comb = append(comb, []node{
+				node{tok: token.ELSE, lit: "ELSE"},
+				node{tok: token.IF, lit: "IF"},
+			}...)
+			comb = append(comb, p.ns[i+1:]...)
+			p.ns = comb
+			goto elseif
 		}
 	}
 
@@ -679,10 +696,6 @@ func (p *parser) expect(t token.Token) {
 }
 
 func (p *parser) parseListStmt() (stmts []goast.Stmt) {
-	defer func() {
-		p.logger.Printf(
-			"parseListStmt end: pos = %d %s", p.ident, view(p.ns[p.ident].tok))
-	}()
 	for p.ident < len(p.ns) {
 
 		p.logger.Printf("parseListStmt: pos = %d", p.ident)
