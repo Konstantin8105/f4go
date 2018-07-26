@@ -306,7 +306,9 @@ func (p *parser) parse() (err error) {
 	var decls []goast.Decl
 	p.ident = 0
 	decls = p.parseNodes()
-	p.showErrors()
+	if len(p.errs) > 0 {
+		p.showErrors()
+	}
 
 	// add packages
 	for pkg := range p.pkgs {
@@ -356,7 +358,6 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 	}
 
 	for ; p.ident < len(p.ns); p.ident++ {
-
 		p.logger.Printf("parseNodes: node = %#v", p.ns[p.ident])
 
 		p.init()
@@ -378,6 +379,15 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 				decls = append(decls, decl)
 				continue
 			}
+		}
+
+		if p.ident >= len(p.ns) {
+			break
+		}
+
+		switch p.ns[p.ident].tok {
+		case NEW_LINE, token.EOF:
+			continue
 		}
 		p.addError("Cannot parse line: " + p.getLine())
 	}
@@ -664,6 +674,17 @@ func (p *parser) parseType(nodes []node) (typ string) {
 	}
 
 	nodes = nodes[1:]
+	if len(nodes) == 0 {
+		return
+	}
+
+	// * 16
+	if nodes[0].tok == token.MUL {
+		nodes = nodes[1:]
+		if nodes[0].tok == token.INT {
+			nodes = nodes[1:]
+		}
+	}
 	if len(nodes) == 0 {
 		return
 	}

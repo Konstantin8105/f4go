@@ -134,7 +134,7 @@ func TestScanner(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			fmt.Println("> ", buf.String())
+			fmt.Println(buf.String())
 
 			// out, err := util.IsDiff(fn+".go", a(pr.ns))
 			// if err != nil {
