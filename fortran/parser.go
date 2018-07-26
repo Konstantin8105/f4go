@@ -1129,6 +1129,12 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 }
 
 func (p *parser) parseParamDecl() (fields []*goast.Field) {
+	if p.ns[p.ident].tok != token.LPAREN {
+		// Function or SUBROUTINE without arguments
+		// Example:
+		//  SubRoutine CLS
+		return
+	}
 	p.expect(token.LPAREN)
 
 	// Parameters
