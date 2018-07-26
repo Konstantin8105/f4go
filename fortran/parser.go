@@ -1,9 +1,11 @@
 package fortran
 
 import (
+	"bytes"
 	"fmt"
 	goast "go/ast"
 	"go/token"
+	"log"
 )
 
 type node struct {
@@ -23,6 +25,9 @@ type parser struct {
 	// import packeges
 	pkgs map[string]bool
 
+	// logger
+	logger *log.Logger
+
 	errs []error
 }
 
@@ -41,6 +46,10 @@ func (p *parser) init() {
 }
 
 func (p *parser) prepare() (err error) {
+
+	var buf bytes.Buffer
+	p.logger = log.New(&buf /*os.Stdout*/, "f4go log:", log.Lshortfile)
+
 	var last token.Token
 	for {
 		tok, lit := p.sc.Scan()
@@ -337,31 +346,42 @@ func (p *parser) showErrors() {
 
 func (p *parser) parseNodes() (decls []goast.Decl) {
 
+	p.logger.Println("start of parseNodes")
+	defer func() { p.logger.Println("end of parseNodes") }()
+
 	if p.ident < 0 || p.ident >= len(p.ns) {
 		p.errs = append(p.errs,
 			fmt.Errorf("Ident is outside nodes: %d/%d", p.ident, len(p.ns)))
 		return
 	}
 
-	switch p.ns[p.ident].tok {
-	case SUBROUTINE:
-		var decl goast.Decl
-		decl = p.parseSubroutine()
-		decls = append(decls, decl)
-		return
+	for ; p.ident < len(p.ns); p.ident++ {
+
+		p.logger.Printf("parseNodes: node = %#v", p.ns[p.ident])
+
+		p.init()
+		// SUBROUTINE
+		switch p.ns[p.ident].tok {
+		case SUBROUTINE:
+			var decl goast.Decl
+			decl = p.parseSubroutine()
+			decls = append(decls, decl)
+			continue
+		}
+
+		// Example :
+		//  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
+		for i := p.ident; i < len(p.ns) && p.ns[i].tok != NEW_LINE; i++ {
+			if p.ns[i].tok == FUNCTION {
+				var decl goast.Decl
+				decl = p.parseFunction()
+				decls = append(decls, decl)
+				continue
+			}
+		}
+		p.addError("Cannot parse line: " + p.getLine())
 	}
 
-	// Example :
-	//  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
-	for i := p.ident; i < len(p.ns) && p.ns[i].tok != NEW_LINE; i++ {
-		if p.ns[i].tok == FUNCTION {
-			var decl goast.Decl
-			decl = p.parseFunction()
-			decls = append(decls, decl)
-			return
-		}
-	}
-	p.addError("Cannot parse line: " + p.getLine())
 	return
 }
 
@@ -390,38 +410,46 @@ func (p *parser) getLine() (line string) {
 	return
 }
 
-func (p *parser) parseSubroutine() (decl goast.Decl) {
-	p.init()
+// Example :
+//  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
+//  DOUBLE PRECISION FUNCTION DNRM2 ( N , X , INCX )
+//  COMPLEX * 16 FUNCTION ZDOTC ( N , ZX , INCX , ZY , INCY )
+
+func (p *parser) parseFunction() (decl goast.Decl) {
+
+	p.logger.Println("start of parseFunction")
+	defer func() { p.logger.Println("end of parseFunction") }()
 
 	var fd goast.FuncDecl
 	fd.Type = &goast.FuncType{
 		Params: &goast.FieldList{},
 	}
 
-	p.expect(SUBROUTINE)
+	var returnType []node
+	for ; p.ns[p.ident].tok != FUNCTION && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+		returnType = append(returnType, p.ns[p.ident])
+	}
+	p.expect(FUNCTION)
 
 	p.ident++
 	p.expect(token.IDENT)
 	name := p.ns[p.ident].lit
-
-	p.ident++
-	var hasParens bool = p.ns[p.ident].tok == token.LPAREN
-	if hasParens {
-		p.expect(token.LPAREN)
-
-		// Parameters
-		p.ident++
-		fd.Type.Params.List = p.parseParamDecl()
-
-		p.ident++
-		p.expect(token.RPAREN)
-
-		p.ident++
-		p.expect(NEW_LINE)
+	fd.Name = goast.NewIdent(name)
+	returnName := name + "_RES"
+	fd.Type.Results = &goast.FieldList{
+		List: []*goast.Field{
+			&goast.Field{
+				Names: []*goast.Ident{goast.NewIdent(returnName)},
+				Type:  goast.NewIdent(p.parseType(returnType)),
+			},
+		},
 	}
 
+	// Parameters
 	p.ident++
-	fd.Name = goast.NewIdent(name)
+	fd.Type.Params.List = p.parseParamDecl()
+
+	p.ident++
 	fd.Body = &goast.BlockStmt{
 		Lbrace: 1,
 		List:   p.parseListStmt(),
@@ -429,6 +457,20 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	p.ident++
 
 	// delete external function type definition
+	p.removeExternalFunction()
+
+	// add correct type of subroutine arguments
+	p.argumentCorrection(fd)
+
+	// init vars
+	fd.Body.List = append(p.initializeVars(), fd.Body.List...)
+
+	decl = &fd
+	return
+}
+
+// delete external function type definition
+func (p *parser) removeExternalFunction() {
 checkExternalFunction:
 	for i := range p.initVars {
 		var remove bool
@@ -444,8 +486,10 @@ checkExternalFunction:
 			goto checkExternalFunction
 		}
 	}
+}
 
-	// add correct type of subroutine arguments
+// add correct type of subroutine arguments
+func (p *parser) argumentCorrection(fd goast.FuncDecl) {
 checkArguments:
 	for i := range fd.Type.Params.List {
 		fieldName := fd.Type.Params.List[i].Names[0].Name
@@ -459,9 +503,10 @@ checkArguments:
 			}
 		}
 	}
+}
 
-	// init vars
-	var vars []goast.Stmt
+// init vars
+func (p *parser) initializeVars() (vars []goast.Stmt) {
 	for i := range p.initVars {
 		vars = append(vars, &goast.DeclStmt{
 			Decl: &goast.GenDecl{
@@ -475,8 +520,47 @@ checkArguments:
 			},
 		})
 	}
+	return
+}
 
-	fd.Body.List = append(vars, fd.Body.List...)
+// Example :
+//  SUBROUTINE CHBMV ( UPLO , N , K , ALPHA , A , LDA , X , INCX , BETA , Y , INCY )
+func (p *parser) parseSubroutine() (decl goast.Decl) {
+
+	p.logger.Println("start of parseSubroutine")
+	defer func() { p.logger.Println("end of parseSubroutine") }()
+
+	var fd goast.FuncDecl
+	fd.Type = &goast.FuncType{
+		Params: &goast.FieldList{},
+	}
+
+	p.expect(SUBROUTINE)
+
+	p.ident++
+	p.expect(token.IDENT)
+	name := p.ns[p.ident].lit
+	fd.Name = goast.NewIdent(name)
+
+	// Parameters
+	p.ident++
+	fd.Type.Params.List = p.parseParamDecl()
+
+	p.ident++
+	fd.Body = &goast.BlockStmt{
+		Lbrace: 1,
+		List:   p.parseListStmt(),
+	}
+	p.ident++
+
+	// delete external function type definition
+	p.removeExternalFunction()
+
+	// add correct type of subroutine arguments
+	p.argumentCorrection(fd)
+
+	// init vars
+	fd.Body.List = append(p.initializeVars(), fd.Body.List...)
 
 	decl = &fd
 	return
@@ -525,60 +609,127 @@ func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 	return
 }
 
-func (p *parser) parseInit() (stmts []goast.Stmt) {
+// Examples:
+//  INTEGER
+//  COMPLEX
+//  COMPLEX*16
+//  REAL (LDA,*)
+//  DOUBLE PRECISION (*)
+//  LOGICAL
+//  CHARACTER*32
+func (p *parser) parseType(nodes []node) (typ string) {
 
-	// TODO: Example of function initialization
-	// COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
-	// DOUBLE PRECISION FUNCTION DNRM2 ( N , X , INCX )
-	// COMPLEX * 16 FUNCTION ZDOTC ( N , ZX , INCX , ZY , INCY )
-
-	identType := "int"
-	switch p.ns[p.ident].tok {
+	typ = "int"
+	switch nodes[0].tok {
 	case LOGICAL:
-		identType = "bool"
+		typ = "bool"
 	case CHARACTER:
-		identType = "byte"
+		typ = "byte"
 	case COMPLEX:
-		identType = "complex128"
+		typ = "complex128"
 	case REAL:
-		identType = "float64"
+		typ = "float64"
 	}
 
-	p.ident++
-	var varPos int = -1
-	for ; p.ns[p.ident].tok != NEW_LINE; p.ident++ {
-		switch p.ns[p.ident].tok {
-		case token.IDENT:
-			p.initVars = append(p.initVars, initialVar{
-				name: p.ns[p.ident].lit,
-				typ:  identType,
-			})
-			varPos = len(p.initVars) - 1
-		case token.LPAREN:
-			// Fortran example: INTEGER A(*)
-			p.expect(token.LPAREN)
-			p.ident++
-			fmt.Printf("Ignore in initialization : ")
-			for ; p.ns[p.ident].tok != token.RPAREN; p.ident++ {
-				// ignore inside () for example:
-				// COMPLEX A ( LDA , * ) , X ( * ) , Y ( * )
-				fmt.Printf(" %v", p.ns[p.ident].lit)
+	nodes = nodes[1:]
+	if len(nodes) == 0 {
+		return
+	}
+
+	var arraySize int = 1
+	if nodes[0].tok != token.LPAREN {
+		p.addError("Cannot parse part of type " + ExprString(nodes))
+		return
+	}
+
+	for nodes[0].tok != token.RPAREN {
+		if nodes[0].tok == token.COMMA {
+			arraySize++
+		}
+		nodes = nodes[1:]
+		if len(nodes) == 0 {
+			p.addError("Cannot parse type : not expected end of nodes")
+			return
+		}
+	}
+
+	if nodes[0].tok != token.RPAREN {
+		p.addError("Cannot parse part of type " + ExprString(nodes))
+		return
+	}
+	nodes = nodes[1:]
+
+	for i := 0; i < arraySize; i++ {
+		typ = "[]" + typ
+	}
+
+	if len(nodes) != 0 {
+		p.addError("Cannot parse type at the end : " + ExprString(nodes))
+		return
+	}
+
+	return
+}
+
+// Examples:
+//  INTEGER INCX , INCY , N
+//  COMPLEX CX ( * ) , CY ( * )
+//  COMPLEX*16 A(LDA,*),X(*)
+//  REAL A(LDA,*),B(LDB,*)
+//  DOUBLE PRECISION DX(*)
+//  LOGICAL CONJA,CONJB,NOTA,NOTB
+//  CHARACTER*32 SRNAME
+func (p *parser) parseInit() (stmts []goast.Stmt) {
+
+	// parse base type
+	var baseType []node
+	for ; p.ns[p.ident].tok != token.IDENT; p.ident++ {
+		baseType = append(baseType, p.ns[p.ident])
+	}
+	p.expect(token.IDENT)
+
+	var name string
+	var additionType []node
+	for ; p.ns[p.ident].tok != NEW_LINE &&
+		p.ns[p.ident].tok != token.EOF; p.ident++ {
+		// parse name
+		p.expect(token.IDENT)
+		name = p.ns[p.ident].lit
+
+		// parse addition type
+		additionType = make([]node, 0, 0)
+		p.ident++
+		for ; p.ns[p.ident].tok != NEW_LINE &&
+			p.ns[p.ident].tok != token.EOF &&
+			p.ns[p.ident].tok != token.COMMA; p.ident++ {
+			if p.ns[p.ident].tok == token.LPAREN {
+				counter := 0
+				for ; ; p.ident++ {
+					switch p.ns[p.ident].tok {
+					case token.LPAREN:
+						counter++
+					case token.RPAREN:
+						counter--
+					case NEW_LINE:
+						p.addError("Cannot parse type : not expected NEW_LINE")
+						return
+					}
+					if counter == 0 {
+						break
+					}
+					additionType = append(additionType, p.ns[p.ident])
+				}
 			}
-			fmt.Printf("\n")
-			if len(p.initVars) == 0 {
-				p.addError("Cannot parse initVars , because len = 0")
-				break
-			}
-			if varPos == -1 {
-				p.addError("Undefine variable name")
-				break
-			}
-			p.initVars[len(p.initVars)-1].typ =
-				"[]" + p.initVars[len(p.initVars)-1].typ
-		case token.COMMA:
-			// ignore
-		default:
-			p.addError("Cannot parseInit value : " + p.ns[p.ident].lit)
+			additionType = append(additionType, p.ns[p.ident])
+		}
+
+		// parse type = base type + addition type
+		p.initVars = append(p.initVars, initialVar{
+			name: name,
+			typ:  p.parseType(append(baseType, additionType...)),
+		})
+		if p.ns[p.ident].tok != token.COMMA {
+			p.ident--
 		}
 	}
 
@@ -711,6 +862,9 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 
 func (p *parser) parseIf() (sIf goast.IfStmt) {
 
+	p.logger.Println("start of parseIf")
+	defer func() { p.logger.Println("end of parseIf") }()
+
 	p.ident++
 	p.expect(token.LPAREN)
 
@@ -749,6 +903,13 @@ func (p *parser) parseIf() (sIf goast.IfStmt) {
 			Lbrace: 1,
 			List:   p.parseStmt(),
 		}
+		p.ident--
+		return
+	}
+
+	if p.ident >= len(p.ns) {
+		p.logger.Printf("parseIf: outside of nodes")
+		return
 	}
 
 	if p.ns[p.ident].tok == token.ELSE {
@@ -790,6 +951,7 @@ func (p *parser) parseExternal() {
 }
 
 func (p *parser) parseStmt() (stmts []goast.Stmt) {
+
 	switch p.ns[p.ident].tok {
 	case INTEGER, CHARACTER, COMPLEX, LOGICAL, REAL:
 		stmts = append(stmts, p.parseInit()...)
@@ -909,10 +1071,15 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 		p.ident++
 	}
+
 	return
 }
 
 func (p *parser) parseParamDecl() (fields []*goast.Field) {
+	p.expect(token.LPAREN)
+
+	// Parameters
+	p.ident++
 	for ; p.ns[p.ident].tok != token.EOF; p.ident++ {
 		var exit bool
 		switch p.ns[p.ident].tok {
@@ -936,6 +1103,13 @@ func (p *parser) parseParamDecl() (fields []*goast.Field) {
 			break
 		}
 	}
+
+	p.ident++
+	p.expect(token.RPAREN)
+
+	p.ident++
+	p.expect(NEW_LINE)
+
 	return
 }
 
