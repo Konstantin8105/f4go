@@ -362,6 +362,8 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 
 	case "PARAMETER":
 		return PARAMETER, buf.String()
+	case "PROGRAM":
+		return PROGRAM, buf.String()
 	case "PRECISION":
 		return PRECISION, buf.String()
 	case "INTRINSIC":

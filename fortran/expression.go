@@ -31,6 +31,7 @@ func ExprString(nodes []node) (str string) {
 }
 
 func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
+
 	for i := start; i < end; i++ {
 		if p.ns[i].tok == NEW_LINE {
 			p.addError("NEW_LINE is not acceptable inside expression")
@@ -38,6 +39,13 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 	}
 
 	in := p.ns[start:end]
+
+	defer func() {
+		if r := recover(); r != nil {
+			p.addError(fmt.Sprintf("%v", r))
+			expr = goast.NewIdent(ExprString(in))
+		}
+	}()
 
 	base := make([]node, len(in))
 	copy(base, in)
@@ -102,8 +110,11 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 	var step int
 	for _, pos := range positions {
 		pos += step
-		if (*nodes)[pos+1].tok != token.LPAREN {
-			p.addError("Cannot found LPAREN in array" + fmt.Sprintf("%v", *nodes))
+		if pos+1 >= len(*nodes) || (*nodes)[pos+1].tok != token.LPAREN {
+			// Example:
+			//  ingeter c(10)
+			//  call func(c) ! in function no LPAREN
+			continue
 		}
 		(*nodes)[pos+1].tok, (*nodes)[pos+1].lit = token.LBRACK, "["
 		var counter int = 1

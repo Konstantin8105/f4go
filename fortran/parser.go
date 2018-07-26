@@ -1,11 +1,11 @@
 package fortran
 
 import (
-	"bytes"
 	"fmt"
 	goast "go/ast"
 	"go/token"
 	"log"
+	"os"
 )
 
 type node struct {
@@ -47,8 +47,9 @@ func (p *parser) init() {
 
 func (p *parser) prepare() (err error) {
 
-	var buf bytes.Buffer
-	p.logger = log.New(&buf /*os.Stdout*/, "f4go log:", log.Lshortfile)
+	// var buf bytes.Buffer
+	// p.logger = log.New(&buf, "f4go log:", log.Lshortfile)
+	p.logger = log.New(os.Stdout, "f4go log:", log.Lshortfile)
 
 	var last token.Token
 	for {
@@ -357,27 +358,61 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 		return
 	}
 
+	// find all names of FUNCTION, SUBROUTINE, PROGRAM
+	var internalFunction []string
 	for ; p.ident < len(p.ns); p.ident++ {
-		p.logger.Printf("parseNodes: node = %#v", p.ns[p.ident])
+		switch p.ns[p.ident].tok {
+		case SUBROUTINE: // SUBROUTINE
+			p.expect(SUBROUTINE)
+			p.ident++
+			p.expect(token.IDENT)
+			internalFunction = append(internalFunction, p.ns[p.ident].lit)
+		case PROGRAM:
+			p.expect(PROGRAM)
+			p.ident++
+			p.expect(token.IDENT)
+			internalFunction = append(internalFunction, p.ns[p.ident].lit)
+		}
+		for i := p.ident; i < len(p.ns) && p.ns[i].tok != NEW_LINE; i++ {
+			if p.ns[p.ident].tok == FUNCTION {
+				p.expect(FUNCTION)
+				p.ident++
+				p.expect(token.IDENT)
+				internalFunction = append(internalFunction, p.ns[p.ident].lit)
+			}
+		}
+	}
+	p.ident = 0
+
+	for ; p.ident < len(p.ns); p.ident++ {
+
+		p.logger.Printf("parseNodes: pos = %d", p.ident)
 
 		p.init()
-		// SUBROUTINE
+		p.functionExternalName = append(p.functionExternalName,
+			internalFunction...)
+
 		switch p.ns[p.ident].tok {
-		case SUBROUTINE:
+		case SUBROUTINE: // SUBROUTINE
 			var decl goast.Decl
 			decl = p.parseSubroutine()
 			decls = append(decls, decl)
 			continue
-		}
-
-		// Example :
-		//  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
-		for i := p.ident; i < len(p.ns) && p.ns[i].tok != NEW_LINE; i++ {
-			if p.ns[i].tok == FUNCTION {
-				var decl goast.Decl
-				decl = p.parseFunction()
-				decls = append(decls, decl)
-				continue
+		case PROGRAM: // PROGRAM
+			var decl goast.Decl
+			decl = p.parseProgram()
+			decls = append(decls, decl)
+			continue
+		default:
+			// Example :
+			//  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
+			for i := p.ident; i < len(p.ns) && p.ns[i].tok != NEW_LINE; i++ {
+				if p.ns[i].tok == FUNCTION {
+					var decl goast.Decl
+					decl = p.parseFunction()
+					decls = append(decls, decl)
+					continue
+				}
 			}
 		}
 
@@ -389,7 +424,22 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 		case NEW_LINE, token.EOF:
 			continue
 		}
-		p.addError("Cannot parse line: " + p.getLine())
+
+		// if at the begin we haven't SUBROUTINE , FUNCTION,...
+		// then add fake Program
+		var comb []node
+		comb = append(comb, p.ns[:p.ident]...)
+		comb = append(comb, []node{
+			node{tok: NEW_LINE, lit: "\n"},
+			node{tok: PROGRAM, lit: "PROGRAM"},
+			node{tok: token.IDENT, lit: "MAIN"},
+			node{tok: NEW_LINE, lit: "\n"},
+		}...)
+		comb = append(comb, p.ns[p.ident:]...)
+		p.ns = comb
+		p.ident -= 1
+
+		p.addError("Add fake PROGRAM MAIN")
 	}
 
 	return
@@ -477,7 +527,6 @@ func (p *parser) parseFunction() (decl goast.Decl) {
 		Lbrace: 1,
 		List:   p.parseListStmt(),
 	}
-	p.ident++
 
 	// delete external function type definition
 	p.removeExternalFunction()
@@ -553,6 +602,18 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 	return
 }
 
+func (p *parser) parseProgram() (decl goast.Decl) {
+
+	p.logger.Println("start of parseProgram")
+	defer func() { p.logger.Println("end of parseProgram") }()
+
+	p.expect(PROGRAM)
+
+	p.ns[p.ident].tok = SUBROUTINE
+
+	return p.parseSubroutine()
+}
+
 // Example :
 //  SUBROUTINE CHBMV ( UPLO , N , K , ALPHA , A , LDA , X , INCX , BETA , Y , INCY )
 func (p *parser) parseSubroutine() (decl goast.Decl) {
@@ -571,6 +632,9 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	p.expect(token.IDENT)
 	name := p.ns[p.ident].lit
 	fd.Name = goast.NewIdent(name)
+	defer func() {
+		p.logger.Println("SUBROUTINE name is ", name)
+	}()
 
 	// Parameters
 	p.ident++
@@ -581,7 +645,6 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 		Lbrace: 1,
 		List:   p.parseListStmt(),
 	}
-	p.ident++
 
 	// delete external function type definition
 	p.removeExternalFunction()
@@ -616,7 +679,14 @@ func (p *parser) expect(t token.Token) {
 }
 
 func (p *parser) parseListStmt() (stmts []goast.Stmt) {
+	defer func() {
+		p.logger.Printf(
+			"parseListStmt end: pos = %d %s", p.ident, view(p.ns[p.ident].tok))
+	}()
 	for p.ident < len(p.ns) {
+
+		p.logger.Printf("parseListStmt: pos = %d", p.ident)
+
 		if p.ns[p.ident].tok == END {
 			p.ident++
 			p.gotoEndLine()
@@ -630,7 +700,7 @@ func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 		}
 		stmt := p.parseStmt()
 		if stmt == nil {
-			// p.addError("stmt is nil in line : " + p.getLine())
+			// p.addError("stmt is nil in line ")
 			// break
 			continue
 		}
@@ -1004,6 +1074,8 @@ func (p *parser) parseExternal() {
 }
 
 func (p *parser) parseStmt() (stmts []goast.Stmt) {
+
+	p.logger.Printf("parseStmt: %v\tident pos = %d", p.ns[p.ident], p.ident)
 
 	switch p.ns[p.ident].tok {
 	case INTEGER, CHARACTER, COMPLEX, LOGICAL, REAL, DOUBLE:
