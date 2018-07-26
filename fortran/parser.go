@@ -237,7 +237,7 @@ again:
 		switch t {
 		case token.ADD, // +
 			token.SUB, // -
-			// token.MUL, // *
+			token.MUL, // *
 			// token.QUO, // /
 			// token.REM, // %
 
@@ -246,6 +246,10 @@ again:
 			token.XOR, // ^
 			token.SHL, // <<
 			token.SHR, // >>
+
+			token.NEQ, // !=
+			token.LEQ, // <=
+			token.GEQ, // >=
 
 			token.LAND, // &&
 			token.LOR:  // ||
@@ -258,7 +262,8 @@ E:
 		if i < 2 {
 			continue
 		}
-		if isOp(p.ns[i-2].tok) && p.ns[i-1].tok == NEW_LINE && p.ns[i].tok == token.ADD {
+		if isOp(p.ns[i-2].tok) && p.ns[i-1].tok == NEW_LINE &&
+			(p.ns[i].tok == token.ADD || p.ns[i].lit == "$") {
 			p.ns = append(p.ns[:i-1], p.ns[i+1:]...)
 			goto E
 		}

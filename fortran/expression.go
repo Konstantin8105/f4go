@@ -34,7 +34,8 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 
 	for i := start; i < end; i++ {
 		if p.ns[i].tok == NEW_LINE {
-			p.addError("NEW_LINE is not acceptable inside expression")
+			p.addError("NEW_LINE is not acceptable inside expression : " +
+				ExprString(p.ns[start:end]))
 		}
 	}
 
