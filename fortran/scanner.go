@@ -368,6 +368,8 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		return PRECISION, buf.String()
 	case "INTRINSIC":
 		return INTRINSIC, buf.String()
+	case "FORMAT":
+		return FORMAT, buf.String()
 	}
 
 	// Otherwise return as a regular identifier.

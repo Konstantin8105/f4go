@@ -279,7 +279,7 @@ COMMENT             	*
 NEW_LINE            	
 
 INT                 	9999
-IDENT               	FORMAT
+FORMAT              	FORMAT
 (                   	(
 STRING              	' ** On entry to '
 ,                   	,

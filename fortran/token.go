@@ -34,6 +34,7 @@ const (
 	PRECISION
 	PROGRAM
 	INTRINSIC
+	FORMAT
 )
 
 func view(t token.Token) string {
@@ -71,4 +72,5 @@ var o = [...]string{
 	PRECISION: "PRECISION",
 	PROGRAM:   "PROGRAM",
 	INTRINSIC: "INTRINSIC",
+	FORMAT:    "FORMAT",
 }
