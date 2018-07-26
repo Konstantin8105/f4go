@@ -410,11 +410,24 @@ func (p *parser) getLine() (line string) {
 	return
 }
 
+// go/ast Visitor for parse FUNCTION
+type vis struct {
+	from, to string
+}
+
+func (v vis) Visit(node goast.Node) (w goast.Visitor) {
+	if ident, ok := node.(*goast.Ident); ok {
+		if ident.Name == v.from {
+			ident.Name = v.to
+		}
+	}
+	return v
+}
+
 // Example :
 //  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
 //  DOUBLE PRECISION FUNCTION DNRM2 ( N , X , INCX )
 //  COMPLEX * 16 FUNCTION ZDOTC ( N , ZX , INCX , ZY , INCY )
-
 func (p *parser) parseFunction() (decl goast.Decl) {
 
 	p.logger.Println("start of parseFunction")
@@ -464,6 +477,13 @@ func (p *parser) parseFunction() (decl goast.Decl) {
 
 	// init vars
 	fd.Body.List = append(p.initializeVars(), fd.Body.List...)
+
+	// change function name variable to returnName
+	v := vis{
+		from: name,
+		to:   returnName,
+	}
+	goast.Walk(v, fd.Body)
 
 	decl = &fd
 	return
