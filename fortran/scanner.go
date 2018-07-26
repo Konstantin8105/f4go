@@ -327,7 +327,7 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		return LOGICAL, buf.String()
 	case "COMPLEX":
 		return COMPLEX, buf.String()
-	case "REAL", "DOUBLE":
+	case "REAL":
 		return REAL, buf.String()
 	case "DATA":
 		return DATA, buf.String()
@@ -338,6 +338,8 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 		return END, buf.String()
 	case "DO":
 		return DO, buf.String()
+	case "DOUBLE":
+		return DOUBLE, buf.String()
 	case "FUNCTION":
 		return FUNCTION, buf.String()
 	case "IF":
@@ -360,6 +362,8 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 
 	case "PARAMETER":
 		return PARAMETER, buf.String()
+	case "PRECISION":
+		return PRECISION, buf.String()
 	case "INTRINSIC":
 		return INTRINSIC, buf.String()
 	}

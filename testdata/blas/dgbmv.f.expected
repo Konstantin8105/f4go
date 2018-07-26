@@ -605,8 +605,8 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	ALPHA
 ,                   	,
 IDENT               	BETA
@@ -638,8 +638,8 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	A
 (                   	(
 IDENT               	LDA
@@ -673,8 +673,8 @@ NEW_LINE
 COMMENT             	*     .. Parameters ..
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	ONE
 ,                   	,
 IDENT               	ZERO
@@ -698,8 +698,8 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	TEMP
 NEW_LINE            	
 

@@ -22,6 +22,7 @@ const (
 	FUNCTION
 	END
 	DO
+	DOUBLE
 	CALL
 	THEN
 	NEW_LINE
@@ -30,6 +31,7 @@ const (
 	WHILE
 
 	PARAMETER
+	PRECISION
 	INTRINSIC
 )
 
@@ -56,6 +58,7 @@ var o = [...]string{
 	FUNCTION:     "FUNCTION",
 	END:          "END",
 	DO:           "DO",
+	DOUBLE:       "DOUBLE",
 	CALL:         "CALL",
 	THEN:         "THEN",
 	NEW_LINE:     "NEW_LINE",
@@ -64,5 +67,6 @@ var o = [...]string{
 	WHILE: "WHILE",
 
 	PARAMETER: "PARAMETER",
+	PRECISION: "PRECISION",
 	INTRINSIC: "INTRINSIC",
 }

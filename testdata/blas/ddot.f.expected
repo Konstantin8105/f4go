@@ -244,8 +244,8 @@ NEW_LINE
 COMMENT             	*  =====================================================================
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 FUNCTION            	FUNCTION
 IDENT               	DDOT
 (                   	(
@@ -296,8 +296,8 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	DX
 (                   	(
 *                   	*
@@ -324,8 +324,8 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	DTEMP
 NEW_LINE            	
 

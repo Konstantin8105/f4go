@@ -641,6 +641,8 @@ func (p *parser) parseType(nodes []node) (typ string) {
 
 	typ = "int"
 	switch nodes[0].tok {
+	case INTEGER:
+		typ = "int"
 	case LOGICAL:
 		typ = "bool"
 	case CHARACTER:
@@ -649,6 +651,16 @@ func (p *parser) parseType(nodes []node) (typ string) {
 		typ = "complex128"
 	case REAL:
 		typ = "float64"
+	case DOUBLE:
+		typ = "float64"
+		// next may be PRECISION
+		if nodes[1].tok == PRECISION {
+			// ignore
+			nodes = nodes[1:]
+		}
+	default:
+		p.addError("Cannot parse type format: " + nodes[0].lit)
+		return
 	}
 
 	nodes = nodes[1:]
@@ -973,7 +985,7 @@ func (p *parser) parseExternal() {
 func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	switch p.ns[p.ident].tok {
-	case INTEGER, CHARACTER, COMPLEX, LOGICAL, REAL:
+	case INTEGER, CHARACTER, COMPLEX, LOGICAL, REAL, DOUBLE:
 		stmts = append(stmts, p.parseInit()...)
 
 	case token.RETURN:

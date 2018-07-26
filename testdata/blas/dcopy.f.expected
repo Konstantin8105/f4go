@@ -294,8 +294,8 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	DX
 (                   	(
 *                   	*

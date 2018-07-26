@@ -304,8 +304,8 @@ NEW_LINE
 COMMENT             	*     .. Scalar Arguments ..
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	DD1
 ,                   	,
 IDENT               	DD2
@@ -321,8 +321,8 @@ NEW_LINE
 COMMENT             	*     .. Array Arguments ..
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	DPARAM
 (                   	(
 INT                 	5
@@ -344,8 +344,8 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	DFLAG
 ,                   	,
 IDENT               	DH11

@@ -214,8 +214,8 @@ NEW_LINE
 COMMENT             	*  =====================================================================
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 FUNCTION            	FUNCTION
 IDENT               	DZASUM
 (                   	(
@@ -284,8 +284,8 @@ NEW_LINE
 COMMENT             	*     .. Local Scalars ..
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	STEMP
 NEW_LINE            	
 
@@ -301,8 +301,8 @@ NEW_LINE
 COMMENT             	*     .. External Functions ..
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	DCABS1
 NEW_LINE            	
 

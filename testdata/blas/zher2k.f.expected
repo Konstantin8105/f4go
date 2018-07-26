@@ -648,8 +648,8 @@ INT                 	16
 IDENT               	ALPHA
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	BETA
 NEW_LINE            	
 
@@ -785,8 +785,8 @@ NEW_LINE
 COMMENT             	*     .. Parameters ..
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 IDENT               	ONE
 NEW_LINE            	
 

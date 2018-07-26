@@ -139,8 +139,8 @@ NEW_LINE
 COMMENT             	*  =====================================================================
 NEW_LINE            	
 
-REAL                	DOUBLE
-IDENT               	PRECISION
+DOUBLE              	DOUBLE
+PRECISION           	PRECISION
 FUNCTION            	FUNCTION
 IDENT               	DCABS1
 (                   	(
