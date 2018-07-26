@@ -35,6 +35,7 @@ const (
 	PROGRAM
 	INTRINSIC
 	FORMAT
+	STOP
 )
 
 func view(t token.Token) string {
@@ -73,4 +74,5 @@ var o = [...]string{
 	PROGRAM:   "PROGRAM",
 	INTRINSIC: "INTRINSIC",
 	FORMAT:    "FORMAT",
+	STOP:      "STOP",
 }

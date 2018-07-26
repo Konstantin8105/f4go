@@ -272,7 +272,7 @@ NEW_LINE
 COMMENT             	*
 NEW_LINE            	
 
-IDENT               	STOP
+STOP                	STOP
 NEW_LINE            	
 
 COMMENT             	*
