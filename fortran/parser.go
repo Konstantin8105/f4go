@@ -15,7 +15,7 @@ type node struct {
 }
 
 type parser struct {
-	sc    *Scanner
+	sc    *scanner
 	ast   goast.File
 	ident int
 	ns    []node

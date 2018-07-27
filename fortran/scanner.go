@@ -8,22 +8,22 @@ import (
 	"strings"
 )
 
-// Scanner represents a lexical scanner.
-type Scanner struct {
+// scanner represents a lexical scanner.
+type scanner struct {
 	r     *bufio.Reader
 	start bool
 }
 
 // NewScanner returns a new instance of Scanner.
-func NewScanner(r io.Reader) *Scanner {
-	return &Scanner{
+func NewScanner(r io.Reader) *scanner {
+	return &scanner{
 		r:     bufio.NewReader(r),
 		start: true,
 	}
 }
 
 // Scan returns the next token and literal value.
-func (s *Scanner) Scan() (tok token.Token, lit string) {
+func (s *scanner) Scan() (tok token.Token, lit string) {
 
 	if s.start {
 		s.start = false
@@ -106,7 +106,7 @@ func (s *Scanner) Scan() (tok token.Token, lit string) {
 	return token.ILLEGAL, string(ch)
 }
 
-func (s *Scanner) ignoreWhitespace() (
+func (s *scanner) ignoreWhitespace() (
 	tok token.Token, lit string, found bool) {
 	for {
 		if ch := s.read(); ch == eof {
@@ -124,7 +124,7 @@ func (s *Scanner) ignoreWhitespace() (
 	return
 }
 
-func (s *Scanner) scanStar() (tok token.Token, lit string) {
+func (s *scanner) scanStar() (tok token.Token, lit string) {
 	// Create a buffer and read the current character into it.
 	var buf bytes.Buffer
 	buf.WriteRune(s.read())
@@ -141,7 +141,7 @@ func (s *Scanner) scanStar() (tok token.Token, lit string) {
 	return token.MUL, buf.String()
 }
 
-func (s *Scanner) scanPeriod() (tok token.Token, lit string) {
+func (s *scanner) scanPeriod() (tok token.Token, lit string) {
 	var buf bytes.Buffer
 
 	for i := 0; i < 6; i++ {
@@ -186,7 +186,7 @@ func (s *Scanner) scanPeriod() (tok token.Token, lit string) {
 	return token.PERIOD, "."
 }
 
-func (s *Scanner) scanColon() (tok token.Token, lit string) {
+func (s *scanner) scanColon() (tok token.Token, lit string) {
 	// Create a buffer and read the current character into it.
 	var buf bytes.Buffer
 	buf.WriteRune(s.read())
@@ -215,7 +215,7 @@ func (s *Scanner) scanColon() (tok token.Token, lit string) {
 	return token.ILLEGAL, buf.String()
 }
 
-func (s *Scanner) scanNumber() (tok token.Token, lit string) {
+func (s *scanner) scanNumber() (tok token.Token, lit string) {
 	// Create a buffer and read the current character into it.
 	var buf bytes.Buffer
 	buf.WriteRune(s.read())
@@ -296,7 +296,7 @@ func (s *Scanner) scanNumber() (tok token.Token, lit string) {
 	return token.FLOAT, buf.String()
 }
 
-func (s *Scanner) scanString() (tok token.Token, lit string) {
+func (s *scanner) scanString() (tok token.Token, lit string) {
 	// Create a buffer and read the current character into it.
 	var buf bytes.Buffer
 	symbol := s.read()
@@ -319,7 +319,7 @@ func (s *Scanner) scanString() (tok token.Token, lit string) {
 	return token.STRING, buf.String()
 }
 
-func (s *Scanner) scanComment() (tok token.Token, lit string) {
+func (s *scanner) scanComment() (tok token.Token, lit string) {
 	// Create a buffer and read the current character into it.
 	var buf bytes.Buffer
 	buf.WriteRune(s.read())
@@ -342,7 +342,7 @@ func (s *Scanner) scanComment() (tok token.Token, lit string) {
 }
 
 // scanIdent consumes the current rune and all contiguous ident runes.
-func (s *Scanner) scanIdent() (tok token.Token, lit string) {
+func (s *scanner) scanIdent() (tok token.Token, lit string) {
 	// Create a buffer and read the current character into it.
 	var buf bytes.Buffer
 	buf.WriteRune(s.read())
@@ -427,7 +427,7 @@ func (s *Scanner) scanIdent() (tok token.Token, lit string) {
 
 // read reads the next rune from the buffered reader.
 // Returns the rune(0) if an error occurs (or io.EOF is returned).
-func (s *Scanner) read() rune {
+func (s *scanner) read() rune {
 	ch, _, err := s.r.ReadRune()
 	if err != nil {
 		return eof
@@ -436,7 +436,7 @@ func (s *Scanner) read() rune {
 }
 
 // unread places the previously read rune back on the reader.
-func (s *Scanner) unread() { _ = s.r.UnreadRune() }
+func (s *scanner) unread() { _ = s.r.UnreadRune() }
 
 // isLetter returns true if the rune is a letter.
 func isLetter(ch rune) bool { return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') }
