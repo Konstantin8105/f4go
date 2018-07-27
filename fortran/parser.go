@@ -771,7 +771,7 @@ func (p *parser) parseType(nodes []node) (typ string) {
 
 	var arraySize int = 1
 	if nodes[0].tok != token.LPAREN {
-		p.addError("Cannot parse part of type " + ExprString(nodes))
+		p.addError("Cannot parse part of type " + nodesToString(nodes))
 		return
 	}
 
@@ -787,7 +787,7 @@ func (p *parser) parseType(nodes []node) (typ string) {
 	}
 
 	if nodes[0].tok != token.RPAREN {
-		p.addError("Cannot parse part of type " + ExprString(nodes))
+		p.addError("Cannot parse part of type " + nodesToString(nodes))
 		return
 	}
 	nodes = nodes[1:]
@@ -797,7 +797,7 @@ func (p *parser) parseType(nodes []node) (typ string) {
 	}
 
 	if len(nodes) != 0 {
-		p.addError("Cannot parse type at the end : " + ExprString(nodes))
+		p.addError("Cannot parse type at the end : " + nodesToString(nodes))
 		return
 	}
 
@@ -1168,7 +1168,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 			}
 			nodes = append(nodes, p.ns[p.ident])
 		}
-		p.addError("WRITE is not support.\n" + ExprString(nodes))
+		p.addError("WRITE is not support.\n" + nodesToString(nodes))
 
 	case STOP:
 		p.expect(STOP)
@@ -1185,7 +1185,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 			}
 			nodes = append(nodes, p.ns[p.ident])
 		}
-		p.addError("INT is not support.\n" + ExprString(nodes))
+		p.addError("INT is not support.\n" + nodesToString(nodes))
 
 	default:
 		start := p.ident

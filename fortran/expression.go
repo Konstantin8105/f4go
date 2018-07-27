@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func ExprString(nodes []node) (str string) {
+func nodesToString(nodes []node) (str string) {
 	for _, n := range nodes {
 		switch n.tok {
 		case
@@ -35,7 +35,7 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 	for i := start; i < end; i++ {
 		if p.ns[i].tok == NEW_LINE {
 			p.addError("NEW_LINE is not acceptable inside expression : " +
-				ExprString(p.ns[start:end]))
+				nodesToString(p.ns[start:end]))
 		}
 	}
 
@@ -44,7 +44,7 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 	defer func() {
 		if r := recover(); r != nil {
 			p.addError(fmt.Sprintf("%v", r))
-			expr = goast.NewIdent(ExprString(in))
+			expr = goast.NewIdent(nodesToString(in))
 		}
 	}()
 
@@ -60,12 +60,12 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 	p.fixComplexValue(&nodes)
 	p.fixFloats(&nodes)
 
-	str := ExprString(nodes)
+	str := nodesToString(nodes)
 
 	//use std package go/parser for change to parse expression
 	ast, err := goparser.ParseExpr(str)
 	if err != nil {
-		p.addError("Cannot parse Expression : " + ExprString(base) +
+		p.addError("Cannot parse Expression : " + nodesToString(base) +
 			"\t" + str +
 			"\t" + fmt.Sprintf("%v", err))
 		return goast.NewIdent(str)
