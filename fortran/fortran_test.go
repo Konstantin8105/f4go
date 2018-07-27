@@ -1,13 +1,11 @@
 package fortran
 
 import (
-	"bufio"
 	"bytes"
 	"fmt"
 	"go/format"
 	"go/token"
 	"io/ioutil"
-	"os"
 	"strings"
 	"testing"
 
@@ -58,14 +56,14 @@ func TestScanner(t *testing.T) {
 
 		if !testing.Short() {
 			t.Run(fmt.Sprintf("scan/%v", testName), func(t *testing.T) {
-				file, err := os.Open(filename)
+
+				// read body of file
+				b, err := ioutil.ReadFile(filename)
 				if err != nil {
 					t.Fatal(err)
-					return
 				}
-				defer file.Close()
 
-				s := newScanner(bufio.NewReader(file))
+				s := newScanner(b)
 				buf := &bytes.Buffer{}
 				for {
 					tok, lit := s.scan()
@@ -90,15 +88,15 @@ func TestScanner(t *testing.T) {
 			})
 
 			t.Run(fmt.Sprintf("parse/%v", testName), func(t *testing.T) {
-				file, err := os.Open(filename)
+
+				// read body of file
+				b, err := ioutil.ReadFile(filename)
 				if err != nil {
 					t.Fatal(err)
-					return
 				}
-				defer file.Close()
 
 				pr := parser{
-					sc: newScanner(file),
+					sc: newScanner(b),
 				}
 
 				pr.prepare()
@@ -114,15 +112,15 @@ func TestScanner(t *testing.T) {
 		}
 
 		t.Run(fmt.Sprintf("transpile/%v", testName), func(t *testing.T) {
-			file, err := os.Open(filename)
+
+			// read body of file
+			b, err := ioutil.ReadFile(filename)
 			if err != nil {
 				t.Fatal(err)
-				return
 			}
-			defer file.Close()
 
 			pr := parser{
-				sc: newScanner(file),
+				sc: newScanner(b),
 			}
 
 			errs := pr.parse()

@@ -1,23 +1,22 @@
 package fortran
 
 import (
-	"bufio"
 	"bytes"
 	"go/token"
-	"io"
 	"strings"
 )
 
 // scanner represents a lexical scanner.
 type scanner struct {
-	r     *bufio.Reader
+	pos   int // position in "b"
+	b     []byte
 	start bool
 }
 
 // newScanner returns a new instance of Scanner.
-func newScanner(r io.Reader) *scanner {
+func newScanner(b []byte) *scanner {
 	return &scanner{
-		r:     bufio.NewReader(r),
+		b:     b,
 		start: true,
 	}
 }
@@ -428,15 +427,19 @@ func (s *scanner) scanIdent() (tok token.Token, lit string) {
 // read reads the next rune from the buffered reader.
 // Returns the rune(0) if an error occurs (or io.EOF is returned).
 func (s *scanner) read() rune {
-	ch, _, err := s.r.ReadRune()
-	if err != nil {
+	defer func() {
+		s.pos++
+	}()
+	if s.pos >= len(s.b) {
 		return eof
 	}
-	return ch
+	return rune(s.b[s.pos])
 }
 
 // unread places the previously read rune back on the reader.
-func (s *scanner) unread() { _ = s.r.UnreadRune() }
+func (s *scanner) unread() {
+	s.pos--
+}
 
 // isLetter returns true if the rune is a letter.
 func isLetter(ch rune) bool { return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') }
