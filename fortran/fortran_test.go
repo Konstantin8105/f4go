@@ -101,10 +101,8 @@ func TestScanner(t *testing.T) {
 					sc: NewScanner(file),
 				}
 
-				err = pr.prepare()
-				if err != nil {
-					t.Fatal(err)
-				}
+				pr.prepare()
+
 				out, err := util.IsDiff(fn+".f_expect", a(pr.ns))
 				if err != nil {
 					t.Fatal(err)
@@ -127,9 +125,12 @@ func TestScanner(t *testing.T) {
 				sc: NewScanner(file),
 			}
 
-			err = pr.parse()
-			if err != nil {
-				amountFailTests++
+			errs := pr.parse()
+			if len(errs) > 0 {
+				amountFailTests += len(errs)
+				for _, err := range errs {
+					t.Logf("Error: %v", err)
+				}
 				t.Fatal(err)
 			}
 

@@ -46,7 +46,7 @@ func (p *parser) init() {
 	p.pkgs = map[string]bool{}
 }
 
-func (p *parser) prepare() (err error) {
+func (p *parser) prepare() {
 
 	var buf bytes.Buffer
 	p.logger = log.New(&buf, "f4go log:", log.Lshortfile)
@@ -318,11 +318,8 @@ func a(ns []node) (out string) {
 	return
 }
 
-func (p *parser) parse() (err error) {
-	err = p.prepare()
-	if err != nil {
-		return
-	}
+func (p *parser) parse() (err []error) {
+	p.prepare()
 
 	p.ast.Name = goast.NewIdent("main")
 
@@ -330,8 +327,7 @@ func (p *parser) parse() (err error) {
 	p.ident = 0
 	decls = p.parseNodes()
 	if len(p.errs) > 0 {
-		err = fmt.Errorf("%s", p.showErrors())
-		return
+		return p.errs
 	}
 
 	// add packages
@@ -349,17 +345,10 @@ func (p *parser) parse() (err error) {
 		})
 	}
 
+	// TODO : add INTRINSIC fortran functions
+
 	p.ast.Decls = append(p.ast.Decls, decls...)
 
-	return
-}
-
-func (p *parser) showErrors() (serr string) {
-	if len(p.errs) > 0 {
-		for index, e := range p.errs {
-			serr += fmt.Sprintf("[%3d]\t%v\n", index+1, e)
-		}
-	}
 	return
 }
 
@@ -687,7 +676,9 @@ func (p *parser) addError(msg string) {
 func (p *parser) expect(t token.Token) {
 	if t != p.ns[p.ident].tok {
 		// Show all errors
-		p.showErrors()
+		for _, err := range p.errs {
+			fmt.Println("Error : ", err.Error())
+		}
 		// Panic
 		panic(fmt.Errorf("Expect %s, but we have {{%s,%s}}",
 			view(t), view(p.ns[p.ident].tok), p.ns[p.ident].lit))
@@ -1162,7 +1153,26 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		stmts = append(stmts, sData...)
 
 	case WRITE:
+		// TODO: add support WRITE
 		p.addError("WRITE is not support")
+		for ; p.ident < len(p.ns); p.ident++ {
+			if p.ns[p.ident].tok == NEW_LINE || p.ns[p.ident].tok == token.EOF {
+				break
+			}
+		}
+
+	case STOP:
+		// TODO: add support STOP
+		p.addError("STOP is not support")
+		for ; p.ident < len(p.ns); p.ident++ {
+			if p.ns[p.ident].tok == NEW_LINE || p.ns[p.ident].tok == token.EOF {
+				break
+			}
+		}
+
+	case token.INT:
+		// TODO: add support INT label
+		p.addError("INT is not support")
 		for ; p.ident < len(p.ns); p.ident++ {
 			if p.ns[p.ident].tok == NEW_LINE || p.ns[p.ident].tok == token.EOF {
 				break
