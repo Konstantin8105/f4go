@@ -330,7 +330,8 @@ func (p *parser) parse() (err error) {
 	p.ident = 0
 	decls = p.parseNodes()
 	if len(p.errs) > 0 {
-		p.showErrors()
+		err = fmt.Errorf("%s", p.showErrors())
+		return
 	}
 
 	// add packages
@@ -353,20 +354,13 @@ func (p *parser) parse() (err error) {
 	return
 }
 
-func (p *parser) showErrors() {
-	fmt.Println("--------")
-	fmt.Println("Errors:")
+func (p *parser) showErrors() (serr string) {
 	if len(p.errs) > 0 {
 		for index, e := range p.errs {
-			fmt.Printf("[%3d]\t%v\n", index+1, e)
+			serr += fmt.Sprintf("[%3d]\t%v\n", index+1, e)
 		}
-		return
 	}
-
-	line := p.getLine()
-	if line != "" {
-		fmt.Println("Present line: ", line)
-	}
+	return
 }
 
 func (p *parser) parseNodes() (decls []goast.Decl) {

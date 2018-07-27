@@ -48,8 +48,11 @@ func TestScanner(t *testing.T) {
 		return
 	}
 
+	var amountFailTests int
+
 	for _, filename := range files {
 		index := strings.LastIndex(filename, "/")
+		index = strings.LastIndex(filename[:index], "/")
 		testName := filename[index+1:]
 		fn := filename[:index+1] + testName
 
@@ -126,6 +129,7 @@ func TestScanner(t *testing.T) {
 
 			err = pr.parse()
 			if err != nil {
+				amountFailTests++
 				t.Fatal(err)
 			}
 
@@ -145,4 +149,6 @@ func TestScanner(t *testing.T) {
 			// }
 		})
 	}
+
+	t.Logf("Amount fail tests = %v", amountFailTests)
 }
