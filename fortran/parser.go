@@ -9,7 +9,7 @@ import (
 )
 
 type parser struct {
-	sc    *scanner
+	// sc    *scanner
 	ast   goast.File
 	ident int
 	ns    []node
@@ -40,273 +40,270 @@ func (p *parser) init() {
 	p.pkgs = map[string]bool{}
 }
 
-func (p *parser) prepare() {
-
-	var buf bytes.Buffer
-	p.logger = log.New(&buf, "f4go log:", log.Lshortfile)
-	// p.logger = log.New(os.Stdout, "f4go log:", log.Lshortfile)
-
-	var last token.Token
-	_ = last
-	for {
-		tok, lit := p.sc.scan()
-		if tok == token.EOF {
-			break
-		}
-
-		if tok == token.COMMENT {
-			continue
-		}
-
-		// From:
-		//  END SUBROUTINE
-		//  END IF
-		// To:
-		//  END
-		// if last == END && tok != NEW_LINE {
-		// 	for tok != token.EOF && tok != NEW_LINE && tok != token.ILLEGAL {
-		// 		tok, lit = p.sc.scan()
-		// 	}
-		// 	p.ns = append(p.ns, node{
-		// 		tok: tok,
-		// 		lit: lit,
-		// 	})
-		// 	last = tok
-		// 	continue
-		// }
-		//
-		// if last == NEW_LINE && tok == NEW_LINE {
-		// 	continue
-		// }
-
-		// Multiline function arguments
-		// From:
-		//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' ,
-		//  'an illegal value' )
-		// To:
-		//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' , 'an illegal value' )
-		// if last == token.COMMA && tok == NEW_LINE {
-		// 	continue
-		// }
-
-		p.ns = append(p.ns, node{
-			tok: tok,
-			lit: lit,
-		})
-		last = tok
-	}
-
-	if len(p.ns) > 0 && p.ns[0].tok == NEW_LINE {
-		p.ns = p.ns[1:]
-	}
-
-	// Simplification DO
-	//-------------
-	// From:
-	//  DO 40 J = 1 , N
-	//  DO 30 I = 1 , M
-	//  C ( I , J ) = BETA * C ( I , J )
-	//  30 CONTINUE
-	//  40 CONTINUE
-	//
-	// Or from:
-	//  DO 30 J = 1 , N
-	//  DO 30 I = 1 , M
-	//  C ( I , J ) = BETA * C ( I , J )
-	//  30 CONTINUE
-	//
-	//-------------
-	// To:
-	//  DO J = 1 , N
-	//  DO I = 1 , M
-	//  C ( I , J ) = BETA * C ( I , J )
-	//  END
-	//  END
-	//-------------
-	// 	doLabels := map[string]int{}
-	// doLabelAgain:
-	// 	for i := range p.ns {
-	// 		if i == 0 {
-	// 			continue
-	// 		}
-	// 		if p.ns[i-1].tok == DO && p.ns[i].tok == token.INT {
-	// 			doLabels[p.ns[i].lit]++
-	// 			p.ns = append(p.ns[:i], p.ns[i+1:]...)
-	// 			goto doLabelAgain
-	// 		}
-	// 	}
-	// again:
-	// 	for i := range p.ns {
-	// 		if i == 0 {
-	// 			continue
-	// 		}
-	// 		if p.ns[i-1].tok == token.INT && p.ns[i].tok == token.CONTINUE {
-	// 			if v, ok := doLabels[p.ns[i-1].lit]; ok {
-	// 				if v <= 0 {
-	// 					panic("Not acceptable")
-	// 				}
-	// 				p.ns[i-1].tok, p.ns[i-1].lit = END, "end"
-	// 				p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
-	//
-	// 				var inject []node
-	// 				for j := 1; j < v; j++ {
-	// 					inject = append(inject, []node{
-	// 						node{
-	// 							tok: END,
-	// 							lit: "end",
-	// 						},
-	// 						node{
-	// 							tok: NEW_LINE,
-	// 							lit: "\n",
-	// 						},
-	// 					}...)
-	// 				}
-	//
-	// 				if len(inject) > 0 {
-	// 					inject = append(inject, p.ns[i+1:]...)
-	// 					p.ns = append(p.ns[:i+1], inject...)
-	// 					goto again
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-
-	// Simplification of PARAMETER:
-	// From:
-	//  PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 )  , ZERO = 0.0E+0 )
-	// To:
-	//  ONE = ( 1.0E+0 , 0.0E+0 )
-	//  ZERO = 0.0E+0
-	//
-	for i := 0; i < len(p.ns); i++ {
-		if p.ns[i].tok != PARAMETER {
-			continue
-		}
-		// replace PARAMETER to NEW_LINE
-		p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
-		i++
-		// replace ( to NEW_LINE
-		if p.ns[i].tok != token.LPAREN {
-			panic("is not LPAREN")
-		}
-		p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
-		i++
-		// find end )
-		counter := 1
-		for j := i; p.ns[j].tok != NEW_LINE; j, i = j+1, i+1 {
-			if p.ns[j].tok == token.LPAREN {
-				counter++
-			}
-			if p.ns[j].tok == token.RPAREN {
-				counter--
-			}
-			if counter == 1 && p.ns[j].tok == token.COMMA {
-				// replace , to NEW_LINE
-				p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
-			}
-			if counter == 0 {
-				break
-			}
-		}
-		// replace ) to NEW_LINE
-		if p.ns[i].tok != token.RPAREN {
-			panic("is not RPAREN : " + view(p.ns[i].tok))
-		}
-		p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
-		i++
-	}
-
-	// replace string concatenation
-	// for i := range p.ns {
-	// 	if p.ns[i].tok == STRING_CONCAT {
-	// 		p.ns[i] = node{tok: token.ADD, lit: "+"}
-	// 	}
-	// }
-
-	// Multiline expression
-	// From:
-	//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR.
-	//  + ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
-	// To:
-	//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR. ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
-	//
-	// From:
-	//  NORM = SCALE * DSQRT ( ( CDABS ( CA / DCMPLX ( SCALE , 0.0d0 ) ) ) ** 2 +
-	//  ( CDABS ( CB / DCMPLX ( SCALE , 0.0d0 ) ) ) ** 2 )
-	// To:
-	//  NORM = SCALE * DSQRT ( ( CDABS ( CA / DCMPLX ( SCALE , 0.0d0 ) ) ) ** 2 + ( CDABS ( CB / DCMPLX ( SCALE , 0.0d0 ) ) ) ** 2 )
-	isOp := func(t token.Token) bool {
-		switch t {
-		case token.ADD, // +
-			token.SUB, // -
-			token.MUL, // *
-			// token.QUO, // /
-			// token.REM, // %
-
-			token.AND, // &
-			token.OR,  // |
-			token.XOR, // ^
-			token.SHL, // <<
-			token.SHR, // >>
-
-			token.NEQ, // !=
-			token.LEQ, // <=
-			token.GEQ, // >=
-
-			token.LAND, // &&
-			token.LOR:  // ||
-			return true
-		}
-		return false
-	}
-E:
-	for i := range p.ns {
-		if i < 2 {
-			continue
-		}
-		if isOp(p.ns[i-2].tok) && p.ns[i-1].tok == NEW_LINE &&
-			(p.ns[i].tok == token.ADD || p.ns[i].lit == "$") {
-			p.ns = append(p.ns[:i-1], p.ns[i+1:]...)
-			goto E
-		}
-	}
-	for i := range p.ns {
-		if i < 1 {
-			continue
-		}
-		if p.ns[i-1].tok == NEW_LINE && p.ns[i].tok == token.ADD {
-			p.ns = append(p.ns[:i-1], p.ns[i+1:]...)
-			goto E
-		}
-	}
-	for i := range p.ns {
-		if i < 1 {
-			continue
-		}
-		if isOp(p.ns[i-1].tok) && p.ns[i].tok == NEW_LINE {
-			p.ns = append(p.ns[:i], p.ns[i+1:]...)
-			goto E
-		}
-	}
-
-	// Replase ELSEIF to ELSE IF
-	// elseif:
-	// 	for i := range p.ns {
-	// 		if p.ns[i].tok == token.IDENT && strings.ToUpper(p.ns[i].lit) == "ELSEIF" {
-	// 			var comb []node
-	// 			comb = append(comb, p.ns[:i]...)
-	// 			comb = append(comb, []node{
-	// 				node{tok: token.ELSE, lit: "ELSE"},
-	// 				node{tok: token.IF, lit: "IF"},
-	// 			}...)
-	// 			comb = append(comb, p.ns[i+1:]...)
-	// 			p.ns = comb
-	// 			goto elseif
-	// 		}
-	// 	}
-
-	return
-}
+//
+// func (p *parser) prepare() {
+//
+// 	var last token.Token
+// 	_ = last
+// 	for {
+// 		tok, lit := p.sc.scan()
+// 		if tok == token.EOF {
+// 			break
+// 		}
+//
+// 		if tok == token.COMMENT {
+// 			continue
+// 		}
+//
+// 		// From:
+// 		//  END SUBROUTINE
+// 		//  END IF
+// 		// To:
+// 		//  END
+// 		// if last == END && tok != NEW_LINE {
+// 		// 	for tok != token.EOF && tok != NEW_LINE && tok != token.ILLEGAL {
+// 		// 		tok, lit = p.sc.scan()
+// 		// 	}
+// 		// 	p.ns = append(p.ns, node{
+// 		// 		tok: tok,
+// 		// 		lit: lit,
+// 		// 	})
+// 		// 	last = tok
+// 		// 	continue
+// 		// }
+// 		//
+// 		// if last == NEW_LINE && tok == NEW_LINE {
+// 		// 	continue
+// 		// }
+//
+// 		// Multiline function arguments
+// 		// From:
+// 		//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' ,
+// 		//  'an illegal value' )
+// 		// To:
+// 		//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' , 'an illegal value' )
+// 		// if last == token.COMMA && tok == NEW_LINE {
+// 		// 	continue
+// 		// }
+//
+// 		p.ns = append(p.ns, node{
+// 			tok: tok,
+// 			lit: lit,
+// 		})
+// 		last = tok
+// 	}
+//
+// 	if len(p.ns) > 0 && p.ns[0].tok == NEW_LINE {
+// 		p.ns = p.ns[1:]
+// 	}
+//
+// 	// Simplification DO
+// 	//-------------
+// 	// From:
+// 	//  DO 40 J = 1 , N
+// 	//  DO 30 I = 1 , M
+// 	//  C ( I , J ) = BETA * C ( I , J )
+// 	//  30 CONTINUE
+// 	//  40 CONTINUE
+// 	//
+// 	// Or from:
+// 	//  DO 30 J = 1 , N
+// 	//  DO 30 I = 1 , M
+// 	//  C ( I , J ) = BETA * C ( I , J )
+// 	//  30 CONTINUE
+// 	//
+// 	//-------------
+// 	// To:
+// 	//  DO J = 1 , N
+// 	//  DO I = 1 , M
+// 	//  C ( I , J ) = BETA * C ( I , J )
+// 	//  END
+// 	//  END
+// 	//-------------
+// 	// 	doLabels := map[string]int{}
+// 	// doLabelAgain:
+// 	// 	for i := range p.ns {
+// 	// 		if i == 0 {
+// 	// 			continue
+// 	// 		}
+// 	// 		if p.ns[i-1].tok == DO && p.ns[i].tok == token.INT {
+// 	// 			doLabels[p.ns[i].lit]++
+// 	// 			p.ns = append(p.ns[:i], p.ns[i+1:]...)
+// 	// 			goto doLabelAgain
+// 	// 		}
+// 	// 	}
+// 	// again:
+// 	// 	for i := range p.ns {
+// 	// 		if i == 0 {
+// 	// 			continue
+// 	// 		}
+// 	// 		if p.ns[i-1].tok == token.INT && p.ns[i].tok == token.CONTINUE {
+// 	// 			if v, ok := doLabels[p.ns[i-1].lit]; ok {
+// 	// 				if v <= 0 {
+// 	// 					panic("Not acceptable")
+// 	// 				}
+// 	// 				p.ns[i-1].tok, p.ns[i-1].lit = END, "end"
+// 	// 				p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
+// 	//
+// 	// 				var inject []node
+// 	// 				for j := 1; j < v; j++ {
+// 	// 					inject = append(inject, []node{
+// 	// 						node{
+// 	// 							tok: END,
+// 	// 							lit: "end",
+// 	// 						},
+// 	// 						node{
+// 	// 							tok: NEW_LINE,
+// 	// 							lit: "\n",
+// 	// 						},
+// 	// 					}...)
+// 	// 				}
+// 	//
+// 	// 				if len(inject) > 0 {
+// 	// 					inject = append(inject, p.ns[i+1:]...)
+// 	// 					p.ns = append(p.ns[:i+1], inject...)
+// 	// 					goto again
+// 	// 				}
+// 	// 			}
+// 	// 		}
+// 	// 	}
+//
+// 	// Simplification of PARAMETER:
+// 	// From:
+// 	//  PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 )  , ZERO = 0.0E+0 )
+// 	// To:
+// 	//  ONE = ( 1.0E+0 , 0.0E+0 )
+// 	//  ZERO = 0.0E+0
+// 	//
+// 	for i := 0; i < len(p.ns); i++ {
+// 		if p.ns[i].tok != PARAMETER {
+// 			continue
+// 		}
+// 		// replace PARAMETER to NEW_LINE
+// 		p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
+// 		i++
+// 		// replace ( to NEW_LINE
+// 		if p.ns[i].tok != token.LPAREN {
+// 			panic("is not LPAREN")
+// 		}
+// 		p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
+// 		i++
+// 		// find end )
+// 		counter := 1
+// 		for j := i; p.ns[j].tok != NEW_LINE; j, i = j+1, i+1 {
+// 			if p.ns[j].tok == token.LPAREN {
+// 				counter++
+// 			}
+// 			if p.ns[j].tok == token.RPAREN {
+// 				counter--
+// 			}
+// 			if counter == 1 && p.ns[j].tok == token.COMMA {
+// 				// replace , to NEW_LINE
+// 				p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
+// 			}
+// 			if counter == 0 {
+// 				break
+// 			}
+// 		}
+// 		// replace ) to NEW_LINE
+// 		if p.ns[i].tok != token.RPAREN {
+// 			panic("is not RPAREN : " + view(p.ns[i].tok))
+// 		}
+// 		p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
+// 		i++
+// 	}
+//
+// 	// replace string concatenation
+// 	// for i := range p.ns {
+// 	// 	if p.ns[i].tok == STRING_CONCAT {
+// 	// 		p.ns[i] = node{tok: token.ADD, lit: "+"}
+// 	// 	}
+// 	// }
+//
+// 	// Multiline expression
+// 	// From:
+// 	//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR.
+// 	//  + ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
+// 	// To:
+// 	//  IF ( ( M .EQ. 0 ) .OR. ( N .EQ. 0 ) .OR. ( ( ( ALPHA .EQ. ZERO ) .OR. ( K .EQ. 0 ) ) .AND. ( BETA .EQ. ONE ) ) ) RETURN
+// 	//
+// 	// From:
+// 	//  NORM = SCALE * DSQRT ( ( CDABS ( CA / DCMPLX ( SCALE , 0.0d0 ) ) ) ** 2 +
+// 	//  ( CDABS ( CB / DCMPLX ( SCALE , 0.0d0 ) ) ) ** 2 )
+// 	// To:
+// 	//  NORM = SCALE * DSQRT ( ( CDABS ( CA / DCMPLX ( SCALE , 0.0d0 ) ) ) ** 2 + ( CDABS ( CB / DCMPLX ( SCALE , 0.0d0 ) ) ) ** 2 )
+// 	isOp := func(t token.Token) bool {
+// 		switch t {
+// 		case token.ADD, // +
+// 			token.SUB, // -
+// 			token.MUL, // *
+// 			// token.QUO, // /
+// 			// token.REM, // %
+//
+// 			token.AND, // &
+// 			token.OR,  // |
+// 			token.XOR, // ^
+// 			token.SHL, // <<
+// 			token.SHR, // >>
+//
+// 			token.NEQ, // !=
+// 			token.LEQ, // <=
+// 			token.GEQ, // >=
+//
+// 			token.LAND, // &&
+// 			token.LOR:  // ||
+// 			return true
+// 		}
+// 		return false
+// 	}
+// E:
+// 	for i := range p.ns {
+// 		if i < 2 {
+// 			continue
+// 		}
+// 		if isOp(p.ns[i-2].tok) && p.ns[i-1].tok == NEW_LINE &&
+// 			(p.ns[i].tok == token.ADD || p.ns[i].lit == "$") {
+// 			p.ns = append(p.ns[:i-1], p.ns[i+1:]...)
+// 			goto E
+// 		}
+// 	}
+// 	for i := range p.ns {
+// 		if i < 1 {
+// 			continue
+// 		}
+// 		if p.ns[i-1].tok == NEW_LINE && p.ns[i].tok == token.ADD {
+// 			p.ns = append(p.ns[:i-1], p.ns[i+1:]...)
+// 			goto E
+// 		}
+// 	}
+// 	for i := range p.ns {
+// 		if i < 1 {
+// 			continue
+// 		}
+// 		if isOp(p.ns[i-1].tok) && p.ns[i].tok == NEW_LINE {
+// 			p.ns = append(p.ns[:i], p.ns[i+1:]...)
+// 			goto E
+// 		}
+// 	}
+//
+// 	// Replase ELSEIF to ELSE IF
+// 	// elseif:
+// 	// 	for i := range p.ns {
+// 	// 		if p.ns[i].tok == token.IDENT && strings.ToUpper(p.ns[i].lit) == "ELSEIF" {
+// 	// 			var comb []node
+// 	// 			comb = append(comb, p.ns[:i]...)
+// 	// 			comb = append(comb, []node{
+// 	// 				node{tok: token.ELSE, lit: "ELSE"},
+// 	// 				node{tok: token.IF, lit: "IF"},
+// 	// 			}...)
+// 	// 			comb = append(comb, p.ns[i+1:]...)
+// 	// 			p.ns = comb
+// 	// 			goto elseif
+// 	// 		}
+// 	// 	}
+//
+// 	return
+// }
 
 func a(ns []node) (out string) {
 	for _, n := range ns {
@@ -320,8 +317,21 @@ func a(ns []node) (out string) {
 	return
 }
 
-func (p *parser) parse() (err []error) {
-	p.prepare()
+func parse(b []byte) (ast goast.File, err []error) {
+	// p.prepare()
+
+	var p parser
+	var buf bytes.Buffer
+	p.logger = log.New(&buf, "f4go log:", log.Lshortfile)
+	// p.logger = log.New(os.Stdout, "f4go log:", log.Lshortfile)
+
+	l := scanT(b)
+	for e := l.Front(); e != nil; e = e.Next() {
+		p.ns = append(p.ns, node{
+			tok: e.Value.(*ele).tok,
+			lit: string(e.Value.(*ele).b),
+		})
+	}
 
 	p.ast.Name = goast.NewIdent("main")
 
@@ -329,7 +339,7 @@ func (p *parser) parse() (err []error) {
 	p.ident = 0
 	decls = p.parseNodes()
 	if len(p.errs) > 0 {
-		return p.errs
+		return p.ast, p.errs
 	}
 
 	// add packages
@@ -400,6 +410,12 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 			internalFunction...)
 
 		switch p.ns[p.ident].tok {
+		case NEW_LINE:
+			p.ident++ // TODO
+			continue
+		case token.COMMENT:
+			p.ident++ // TODO
+			continue
 		case SUBROUTINE: // SUBROUTINE
 			var decl goast.Decl
 			decl = p.parseSubroutine()
@@ -690,7 +706,19 @@ func (p *parser) expect(t token.Token) {
 func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 	for p.ident < len(p.ns) {
 
-		p.logger.Printf("parseListStmt: pos = %d", p.ident)
+		if p.ns[p.ident].tok == token.COMMENT {
+			// TODO : stmts = append(stmts, &goast.ExprStmt{X: goast.NewIdent(p.ns[p.ident].lit)})
+			p.ident++
+			continue
+		}
+		if p.ns[p.ident].tok == NEW_LINE {
+			p.ident++
+			continue
+		}
+
+		p.logger.Printf("parseListStmt: pos = %d `%v` `%v`", p.ident,
+			view(p.ns[p.ident].tok),
+			p.ns[p.ident].lit)
 
 		if p.ns[p.ident].tok == END {
 			p.ident++
@@ -703,6 +731,7 @@ func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 			// ELSE IF (...)...
 			break
 		}
+
 		stmt := p.parseStmt()
 		if stmt == nil {
 			// p.addError("stmt is nil in line ")
