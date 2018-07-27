@@ -36,6 +36,8 @@ const (
 	INTRINSIC
 	FORMAT
 	STOP
+
+	STRING_CONCAT
 )
 
 func view(t token.Token) string {
@@ -75,4 +77,6 @@ var o = [...]string{
 	INTRINSIC: "INTRINSIC",
 	FORMAT:    "FORMAT",
 	STOP:      "STOP",
+
+	STRING_CONCAT: "STRING_CONCAT",
 }

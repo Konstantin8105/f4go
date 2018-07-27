@@ -72,6 +72,11 @@ func (s *Scanner) Scan() (tok token.Token, lit string) {
 	case '=':
 		return token.ASSIGN, string(ch)
 	case '/':
+		if ch := s.read(); ch == '/' {
+			return STRING_CONCAT, "//"
+		} else {
+			s.unread()
+		}
 		return token.QUO, string(ch)
 	case '+':
 		return token.ADD, string(ch)
