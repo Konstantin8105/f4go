@@ -65,7 +65,7 @@ func TestScanner(t *testing.T) {
 				}
 				defer file.Close()
 
-				s := NewScanner(bufio.NewReader(file))
+				s := newScanner(bufio.NewReader(file))
 				buf := &bytes.Buffer{}
 				for {
 					tok, lit := s.scan()
@@ -98,7 +98,7 @@ func TestScanner(t *testing.T) {
 				defer file.Close()
 
 				pr := parser{
-					sc: NewScanner(file),
+					sc: newScanner(file),
 				}
 
 				pr.prepare()
@@ -122,7 +122,7 @@ func TestScanner(t *testing.T) {
 			defer file.Close()
 
 			pr := parser{
-				sc: NewScanner(file),
+				sc: newScanner(file),
 			}
 
 			errs := pr.parse()

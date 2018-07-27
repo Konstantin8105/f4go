@@ -14,8 +14,8 @@ type scanner struct {
 	start bool
 }
 
-// NewScanner returns a new instance of Scanner.
-func NewScanner(r io.Reader) *scanner {
+// newScanner returns a new instance of Scanner.
+func newScanner(r io.Reader) *scanner {
 	return &scanner{
 		r:     bufio.NewReader(r),
 		start: true,
