@@ -691,11 +691,17 @@ empty:
 			}
 			bs := bytes.Split(e.Value.(*ele).b, []byte{' '})
 			if len(bs) > 1 {
+				offset := 0
 				for i := len(bs) - 1; i >= 1; i-- {
+					offset += len(bs[i])
 					if len(bs[i]) > 0 {
 						s.eles.InsertAfter(&ele{
 							tok: undefine,
 							b:   bs[i],
+							pos: position{
+								line: e.Value.(*ele).pos.line,
+								col:  len(e.Value.(*ele).b) - offset - 1,
+							},
 						}, e)
 					}
 				}
