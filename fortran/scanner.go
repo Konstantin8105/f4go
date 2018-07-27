@@ -15,6 +15,7 @@ type scanner struct {
 
 // newScanner returns a new instance of Scanner.
 func newScanner(b []byte) *scanner {
+	preprocessor(&b)
 	return &scanner{
 		b:     b,
 		start: true,
@@ -244,47 +245,6 @@ func (s *scanner) scanNumber() (tok token.Token, lit string) {
 			_, _ = buf.WriteRune(ch)
 		}
 	}
-	// Example of possible error:
-	// IF ( 2.LE.1) ...
-	//       |
-	//       +- error here, because it is not value "2."
-	//          it is value "2"
-	// ops := []string{
-	// 	".LT.",
-	// 	".GT.",
-	// 	".LE.",
-	// 	".GE.",
-	// 	".NOT.",
-	// 	".NE.",
-	// 	".EQ.",
-	// 	".AND.",
-	// 	".OR.",
-	// 	".TRUE.",
-	// 	".FALSE.",
-	// }
-	// now in buffer "2.LE.1"
-	//                ==
-	//                this
-	// TODO:
-	// if buf.Bytes()[buf.Len()-1] == '.' {
-	// 	var small string
-	// 	for i := 0; i < 3; i++ {
-	// 		small += string(s.read())
-	// 	}
-	// 	for i := 0; i < 3; i++ {
-	// 		s.unread()
-	// 	}
-	// 	var found bool
-	// 	for _, op := range ops {
-	// 		if small == op[1:4] {
-	// 			found = true
-	// 			break
-	// 		}
-	// 	}
-	// 	if found {
-	// 		s.unread()
-	// 	}
-	// }
 
 	// is it int?
 	if !strings.Contains(buf.String(), ".") {

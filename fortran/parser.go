@@ -9,11 +9,6 @@ import (
 	"strings"
 )
 
-type node struct {
-	tok token.Token
-	lit string
-}
-
 type parser struct {
 	sc    *scanner
 	ast   goast.File
