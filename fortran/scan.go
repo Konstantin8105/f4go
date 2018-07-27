@@ -9,9 +9,15 @@ import (
 	"strings"
 )
 
+type position struct {
+	line int // line
+	col  int // column
+}
+
 type ele struct {
 	tok token.Token
 	b   []byte
+	pos position
 }
 
 // scanner represents a lexical scanner.
@@ -26,6 +32,10 @@ func scanT(b []byte) *list.List {
 	s.eles.PushFront(&ele{
 		tok: undefine,
 		b:   b,
+		pos: position{
+			line: 1,
+			col:  0,
+		},
 	})
 
 	// separate lines
@@ -78,6 +88,13 @@ func (s *elScan) scanBreakLines() {
 				s.extract(j, j+1, e, NEW_LINE)
 				break
 			}
+		}
+	}
+	line := 1
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		e.Value.(*ele).pos.line = line
+		if e.Value.(*ele).tok == NEW_LINE {
+			line++
 		}
 	}
 }
@@ -148,6 +165,10 @@ func (s *elScan) extract(start, end int, e *list.Element, tok token.Token) {
 			s.eles.InsertAfter(&ele{
 				tok: undefine,
 				b:   aft,
+				pos: position{
+					line: e.Value.(*ele).pos.line,
+					col:  e.Value.(*ele).pos.col + start,
+				},
 			}, e)
 		}
 		return
@@ -160,6 +181,10 @@ func (s *elScan) extract(start, end int, e *list.Element, tok token.Token) {
 		s.eles.InsertAfter(&ele{
 			tok: tok,
 			b:   present,
+			pos: position{
+				line: e.Value.(*ele).pos.line,
+				col:  e.Value.(*ele).pos.col + start,
+			},
 		}, e)
 		e.Value.(*ele).tok = undefine
 		e.Value.(*ele).b = bef
@@ -177,10 +202,18 @@ func (s *elScan) extract(start, end int, e *list.Element, tok token.Token) {
 	pre := s.eles.InsertAfter(&ele{
 		tok: tok,
 		b:   present,
+		pos: position{
+			line: e.Value.(*ele).pos.line,
+			col:  e.Value.(*ele).pos.col + start,
+		},
 	}, e)
 	s.eles.InsertAfter(&ele{
 		tok: undefine,
 		b:   aft,
+		pos: position{
+			line: pre.Value.(*ele).pos.line,
+			col:  pre.Value.(*ele).pos.col + start,
+		},
 	}, pre)
 }
 
@@ -365,10 +398,12 @@ func (s *elScan) postprocessor() {
 					s.eles.InsertAfter(&ele{
 						tok: NEW_LINE,
 						b:   []byte("\n"),
+						pos: n.Value.(*ele).pos,
 					}, n)
 					s.eles.InsertAfter(&ele{
 						tok: END,
 						b:   []byte("END"),
+						pos: n.Value.(*ele).pos,
 					}, n)
 				}
 			} else {
