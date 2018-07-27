@@ -54,7 +54,7 @@ func (p *parser) prepare() {
 
 	var last token.Token
 	for {
-		tok, lit := p.sc.Scan()
+		tok, lit := p.sc.scan()
 		if tok == token.EOF {
 			break
 		}
@@ -70,7 +70,7 @@ func (p *parser) prepare() {
 		//  END
 		if last == END && tok != NEW_LINE {
 			for tok != token.EOF && tok != NEW_LINE && tok != token.ILLEGAL {
-				tok, lit = p.sc.Scan()
+				tok, lit = p.sc.scan()
 			}
 			p.ns = append(p.ns, node{
 				tok: tok,

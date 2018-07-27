@@ -22,8 +22,8 @@ func NewScanner(r io.Reader) *scanner {
 	}
 }
 
-// Scan returns the next token and literal value.
-func (s *scanner) Scan() (tok token.Token, lit string) {
+// scan returns the next token and literal value.
+func (s *scanner) scan() (tok token.Token, lit string) {
 
 	if s.start {
 		s.start = false
@@ -57,7 +57,7 @@ func (s *scanner) Scan() (tok token.Token, lit string) {
 	switch ch {
 	case '$':
 		// contiguous line
-		return s.Scan()
+		return s.scan()
 	case eof:
 		return token.EOF, ""
 	case '(':

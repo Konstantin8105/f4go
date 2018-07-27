@@ -68,7 +68,7 @@ func TestScanner(t *testing.T) {
 				s := NewScanner(bufio.NewReader(file))
 				buf := &bytes.Buffer{}
 				for {
-					tok, lit := s.Scan()
+					tok, lit := s.scan()
 					if tok == token.ILLEGAL {
 						t.Fatalf("ILLEGAL literal : %v", lit)
 						return
