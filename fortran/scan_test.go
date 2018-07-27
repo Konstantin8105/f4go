@@ -82,7 +82,7 @@ func lv(l *list.List) {
 	}
 }
 
-func TestScan(t *testing.T) {
+func TestScanR(t *testing.T) {
 
 	files, err := getFortranTestFiles("../testdata")
 	if err != nil {

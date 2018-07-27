@@ -93,6 +93,7 @@ func (s *elScan) scanBreakLines() {
 	line := 1
 	for e := s.eles.Front(); e != nil; e = e.Next() {
 		e.Value.(*ele).pos.line = line
+		e.Value.(*ele).pos.col = 1
 		if e.Value.(*ele).tok == NEW_LINE {
 			line++
 		}
@@ -421,6 +422,23 @@ func (s *elScan) postprocessor() {
 		}
 	}
 
+	// Multiline expression
+	// if any in column 6, then merge lines
+multi:
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == NEW_LINE {
+			n := e.Next()
+			if n == nil {
+				continue
+			}
+			if n.Value.(*ele).pos.col == 6 {
+				s.eles.Remove(e)
+				s.eles.Remove(n)
+				goto multi
+			}
+		}
+	}
+
 }
 
 func (s *elScan) scanTokens() {
@@ -460,10 +478,6 @@ func (s *elScan) scanTokens() {
 		{
 			tok:     token.RPAREN,
 			pattern: []string{")"},
-		},
-		{
-			tok:     token.PERIOD,
-			pattern: []string{"."},
 		},
 		{
 			tok:     token.ASSIGN,
@@ -643,6 +657,10 @@ func (s *elScan) scanTokens() {
 			tok:     STOP,
 			pattern: []string{"STOP"},
 		},
+		{
+			tok:     token.PERIOD,
+			pattern: []string{"."},
+		},
 	}
 A:
 	var changed bool
@@ -690,24 +708,25 @@ empty:
 				continue
 			}
 			bs := bytes.Split(e.Value.(*ele).b, []byte{' '})
-			if len(bs) > 1 {
-				offset := 0
-				for i := len(bs) - 1; i >= 1; i-- {
-					offset += len(bs[i])
-					if len(bs[i]) > 0 {
-						s.eles.InsertAfter(&ele{
-							tok: undefine,
-							b:   bs[i],
-							pos: position{
-								line: e.Value.(*ele).pos.line,
-								col:  len(e.Value.(*ele).b) - offset - 1,
-							},
-						}, e)
-					}
-				}
-				e.Value.(*ele).b = bs[0]
-				again = true
+			if len(bs) == 1 {
+				continue
 			}
+			offset := 0
+			for i := len(bs) - 1; i >= 1; i-- {
+				offset += len(bs[i])
+				if len(bs[i]) > 0 {
+					s.eles.InsertAfter(&ele{
+						tok: undefine,
+						b:   bs[i],
+						pos: position{
+							line: e.Value.(*ele).pos.line,
+							col:  len(e.Value.(*ele).b) - offset - 1,
+						},
+					}, e)
+				}
+			}
+			e.Value.(*ele).b = bs[0]
+			again = true
 		}
 	}
 	if again {
