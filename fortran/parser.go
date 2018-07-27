@@ -670,7 +670,7 @@ func (p *parser) addError(msg string) {
 		p.ident = last
 	}()
 
-	p.errs = append(p.errs, fmt.Errorf("%s\nCode line :%s", msg, p.getLine()))
+	p.errs = append(p.errs, fmt.Errorf("%s", msg))
 }
 
 func (p *parser) expect(t token.Token) {
@@ -1154,30 +1154,31 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	case WRITE:
 		// TODO: add support WRITE
-		p.addError("WRITE is not support")
+		var nodes []node
 		for ; p.ident < len(p.ns); p.ident++ {
 			if p.ns[p.ident].tok == NEW_LINE || p.ns[p.ident].tok == token.EOF {
 				break
 			}
+			nodes = append(nodes, p.ns[p.ident])
 		}
+		p.addError("WRITE is not support.\n" + ExprString(nodes))
 
 	case STOP:
-		// TODO: add support STOP
-		p.addError("STOP is not support")
-		for ; p.ident < len(p.ns); p.ident++ {
-			if p.ns[p.ident].tok == NEW_LINE || p.ns[p.ident].tok == token.EOF {
-				break
-			}
-		}
+		p.expect(STOP)
+		p.ident++
+		p.expect(NEW_LINE)
+		stmts = append(stmts, &goast.ReturnStmt{})
 
 	case token.INT:
-		// TODO: add support INT label
-		p.addError("INT is not support")
+		// TODO: add support INT
+		var nodes []node
 		for ; p.ident < len(p.ns); p.ident++ {
 			if p.ns[p.ident].tok == NEW_LINE || p.ns[p.ident].tok == token.EOF {
 				break
 			}
+			nodes = append(nodes, p.ns[p.ident])
 		}
+		p.addError("INT is not support.\n" + ExprString(nodes))
 
 	default:
 		start := p.ident

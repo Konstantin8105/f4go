@@ -131,7 +131,7 @@ func TestScanner(t *testing.T) {
 				for _, err := range errs {
 					t.Logf("Error: %v", err)
 				}
-				t.Fatal(err)
+				t.Fatal("Errors is more zero")
 			}
 
 			var buf bytes.Buffer
