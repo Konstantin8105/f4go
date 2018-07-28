@@ -38,6 +38,9 @@ const (
 	STOP
 
 	STRING_CONCAT
+
+	// undefine tokens
+	undefine
 )
 
 func view(t token.Token) string {
@@ -79,4 +82,6 @@ var o = [...]string{
 	STOP:      "STOP",
 
 	STRING_CONCAT: "STRING_CONCAT",
+
+	undefine: "UNDEFINE",
 }
