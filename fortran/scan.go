@@ -7,14 +7,8 @@ import (
 	"go/token"
 )
 
-type position struct {
-	line   int
-	column int
-}
-
 type ele struct {
 	tok token.Token
-	pos position
 	b   []rune
 }
 
@@ -29,11 +23,7 @@ func scanT(b []byte) *list.List {
 	s.eles = list.New()
 	s.eles.PushFront(&ele{
 		tok: undefine,
-		pos: position{
-			line:   1,
-			column: 0,
-		},
-		b: bytes.Runes(b),
+		b:   bytes.Runes(b),
 	})
 
 	// separate lines
@@ -116,7 +106,6 @@ func (s *elScan) scanComments() {
 // start - column started  (included)
 // end   - column finished (not included)
 func (s *elScan) extract(start, end int, e *list.Element, tok token.Token) {
-	fmt.Println(">", start, end, view(tok))
 	b := e.Value.(*ele).b
 
 	if start == end {
@@ -141,11 +130,7 @@ func (s *elScan) extract(start, end int, e *list.Element, tok token.Token) {
 		if len(aft) > 0 {
 			s.eles.InsertAfter(&ele{
 				tok: undefine,
-				pos: position{
-					// line:   e.Value.(*ele).pos.line + 1,
-					// column: start,
-				},
-				b: aft,
+				b:   aft,
 			}, e)
 		}
 		return
@@ -157,11 +142,7 @@ func (s *elScan) extract(start, end int, e *list.Element, tok token.Token) {
 		bef, present := b[:start], b[start:]
 		s.eles.InsertAfter(&ele{
 			tok: tok,
-			pos: position{
-				// line:   e.Value.(*ele).pos.line + 1,
-				// column: start,
-			},
-			b: present,
+			b:   present,
 		}, e)
 		e.Value.(*ele).tok = undefine
 		e.Value.(*ele).b = bef
@@ -178,19 +159,11 @@ func (s *elScan) extract(start, end int, e *list.Element, tok token.Token) {
 
 	pre := s.eles.InsertAfter(&ele{
 		tok: tok,
-		pos: position{
-			// line:   e.Value.(*ele).pos.line + 1,
-			// column: start,
-		},
-		b: present,
+		b:   present,
 	}, e)
 	s.eles.InsertAfter(&ele{
 		tok: undefine,
-		pos: position{
-			// line:   e.Value.(*ele).pos.line + 1,
-			// column: start,
-		},
-		b: aft,
+		b:   aft,
 	}, pre)
 }
 
