@@ -15,7 +15,18 @@ type scanner struct {
 
 // newScanner returns a new instance of Scanner.
 func newScanner(b []byte) *scanner {
+
+	// TODO: separate comments
+
+	// TODO: separate strings
+
+	// TODO: preprocessor
 	preprocessor(&b)
+
+	// TODO: separate on other token
+
+	// TODO: check ILLEGAL tokens
+
 	return &scanner{
 		b:     b,
 		start: true,
