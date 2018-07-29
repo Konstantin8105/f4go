@@ -382,6 +382,13 @@ func (s *elScan) postprocessor() {
 		}
 	}
 
+	// replace string concatenation
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == STRING_CONCAT {
+			e.Value.(*ele).tok, e.Value.(*ele).b = token.ADD, []byte('+')
+		}
+	}
+
 }
 
 func (s *elScan) scanTokens() {

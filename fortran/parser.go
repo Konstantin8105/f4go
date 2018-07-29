@@ -216,11 +216,11 @@ func (p *parser) prepare() {
 	}
 
 	// replace string concatenation
-	for i := range p.ns {
-		if p.ns[i].tok == STRING_CONCAT {
-			p.ns[i] = node{tok: token.ADD, lit: "+"}
-		}
-	}
+	// for i := range p.ns {
+	// 	if p.ns[i].tok == STRING_CONCAT {
+	// 		p.ns[i] = node{tok: token.ADD, lit: "+"}
+	// 	}
+	// }
 
 	// Multiline expression
 	// From:
