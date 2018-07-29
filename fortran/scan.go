@@ -36,7 +36,7 @@ func scanT(b []byte) *list.List {
 	s.scanStrings()
 
 	// preprocessor: add specific spaces
-	// s.preprocessor()
+	s.preprocessor()
 
 	// separate on other token
 	// s.scanTokens()
@@ -188,6 +188,40 @@ func (s *elScan) scanStrings() {
 					s.extract(j, end+1, e, token.STRING)
 					break
 				}
+			}
+		}
+	}
+}
+
+// preprocessor for identification
+func (s *elScan) preprocessor() {
+	// Example of possible error:
+	// IF ( 2.LE.1) ...
+	//       |
+	//       +- error here, because it is not value "2."
+	//          it is value "2"
+
+	ops := []string{
+		".LT.",
+		".GT.",
+		".LE.",
+		".GE.",
+		".NOT.",
+		".NE.",
+		".EQ.",
+		".AND.",
+		".OR.",
+		".TRUE.",
+		".FALSE.",
+	}
+
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		switch e.Value.(*ele).tok {
+		case undefine:
+			for _, op := range ops {
+				e.Value.(*ele).b = bytes.Replace(e.Value.(*ele).b,
+					[]byte(op),
+					[]byte(" "+op+" "), -1)
 			}
 		}
 	}
