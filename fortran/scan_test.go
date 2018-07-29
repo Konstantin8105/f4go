@@ -44,12 +44,13 @@ func TestScanIn(t *testing.T) {
 		},
 		{
 			in:  "RRR\n sdfse rw\nRRR",
-			out: []string{"RRR", "\n", "sdfse rw", "\n", "RRR"},
+			out: []string{"RRR", "\n", "sdfse", "rw", "\n", "RRR"},
 		},
 	}
 	for i, tc := range tcs {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			l := scanT([]byte(tc.in))
+			lv(l)
 			var le int
 			for e, j := l.Front(), 0; e != nil; e, j = e.Next(), j+1 {
 				if tc.out[j] != string(e.Value.(*ele).b) {
@@ -62,7 +63,6 @@ func TestScanIn(t *testing.T) {
 			if le != len(tc.out) {
 				t.Fatalf("Not same : %v != %v", le, len(tc.out))
 			}
-			lv(l)
 		})
 	}
 }
@@ -71,7 +71,7 @@ func lv(l *list.List) {
 	for e := l.Front(); e != nil; e = e.Next() {
 		b := string(e.Value.(*ele).b)
 		if e.Value.(*ele).tok != NEW_LINE {
-			fmt.Printf("%20s\t|%s\n",
+			fmt.Printf("%20s\t|`%s`\n",
 				view(e.Value.(*ele).tok),
 				b)
 			// } else {

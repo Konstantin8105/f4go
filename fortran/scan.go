@@ -47,14 +47,11 @@ func scanT(b []byte) *list.List {
 	// separate on other token
 	s.scanTokens()
 
-	// remove empty
-	s.scanEmpty()
-	defer func() {
-		s.scanEmpty()
-	}()
-
 	// scan numbers
 	s.scanNumbers()
+
+	// remove empty
+	s.scanEmpty()
 
 	// IDENT for undefine
 	for e := s.eles.Front(); e != nil; e = e.Next() {
@@ -643,6 +640,13 @@ empty:
 	for e := s.eles.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*ele).tok {
 		case undefine:
+			if len(e.Value.(*ele).b) == 0 {
+				n := e.Next()
+				s.eles.Remove(e)
+				e = n
+				again = true
+				continue
+			}
 			if len(bytes.TrimSpace([]byte(string(e.Value.(*ele).b)))) == 0 {
 				n := e.Next()
 				s.eles.Remove(e)
@@ -651,13 +655,18 @@ empty:
 				continue
 			}
 			bs := bytes.Split(e.Value.(*ele).b, []byte{' '})
-			for i := len(bs) - 1; i >= 1; i-- {
-				s.eles.InsertAfter(&ele{
-					tok: undefine,
-					b:   bs[i],
-				}, e)
+			if len(bs) > 1 {
+				for i := len(bs) - 1; i >= 1; i-- {
+					if len(bs[i]) > 0 {
+						s.eles.InsertAfter(&ele{
+							tok: undefine,
+							b:   bs[i],
+						}, e)
+					}
+				}
+				e.Value.(*ele).b = bs[0]
+				again = true
 			}
-			e.Value.(*ele).b = bs[0]
 		}
 	}
 	if again {
