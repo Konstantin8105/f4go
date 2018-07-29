@@ -6,7 +6,6 @@ import (
 	goast "go/ast"
 	"go/token"
 	"log"
-	"strings"
 )
 
 type parser struct {
@@ -290,20 +289,20 @@ E:
 	}
 
 	// Replase ELSEIF to ELSE IF
-elseif:
-	for i := range p.ns {
-		if p.ns[i].tok == token.IDENT && strings.ToUpper(p.ns[i].lit) == "ELSEIF" {
-			var comb []node
-			comb = append(comb, p.ns[:i]...)
-			comb = append(comb, []node{
-				node{tok: token.ELSE, lit: "ELSE"},
-				node{tok: token.IF, lit: "IF"},
-			}...)
-			comb = append(comb, p.ns[i+1:]...)
-			p.ns = comb
-			goto elseif
-		}
-	}
+	// elseif:
+	// 	for i := range p.ns {
+	// 		if p.ns[i].tok == token.IDENT && strings.ToUpper(p.ns[i].lit) == "ELSEIF" {
+	// 			var comb []node
+	// 			comb = append(comb, p.ns[:i]...)
+	// 			comb = append(comb, []node{
+	// 				node{tok: token.ELSE, lit: "ELSE"},
+	// 				node{tok: token.IF, lit: "IF"},
+	// 			}...)
+	// 			comb = append(comb, p.ns[i+1:]...)
+	// 			p.ns = comb
+	// 			goto elseif
+	// 		}
+	// 	}
 
 	return
 }

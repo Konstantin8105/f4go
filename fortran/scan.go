@@ -39,6 +39,10 @@ func scanT(b []byte) *list.List {
 
 	// preprocessor: add specific spaces
 	s.preprocessor()
+	defer func() {
+		// postprocessor
+		s.postprocessor()
+	}()
 
 	// separate on other token
 	s.scanTokens()
@@ -243,6 +247,30 @@ func (s *elScan) preprocessor() {
 			}
 		}
 	}
+
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		switch e.Value.(*ele).tok {
+		case undefine:
+			for _, op := range ops {
+				// Replase ELSEIF to ELSE IF
+				e.Value.(*ele).b = bytes.Replace(
+					[]byte(string(e.Value.(*ele).b)),
+					[]byte("ELSEIF"),
+					[]byte("ELSE IF"),
+					-1)
+				// Replace ENDDO to END
+				e.Value.(*ele).b = bytes.Replace(
+					[]byte(string(e.Value.(*ele).b)),
+					[]byte("ENDDO"),
+					[]byte("END"),
+					-1)
+			}
+		}
+	}
+}
+
+// postprocessor
+func (s *elScan) postprocessor() {
 }
 
 func (s *elScan) scanTokens() {
