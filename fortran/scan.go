@@ -52,8 +52,13 @@ func scanT(b []byte) *list.List {
 	// scan numbers
 	s.scanNumbers()
 
-	// check ILLEGAL tokens
-	// s.checkScan()
+	// IDENT for undefine
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		switch e.Value.(*ele).tok {
+		case undefine:
+			e.Value.(*ele).tok = token.IDENT
+		}
+	}
 
 	return s.eles
 }

@@ -69,9 +69,6 @@ func TestScanIn(t *testing.T) {
 
 func lv(l *list.List) {
 	for e := l.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok != undefine {
-			continue
-		}
 		fmt.Printf("%20s\t|%s\n",
 			view(e.Value.(*ele).tok),
 			string(e.Value.(*ele).b))
