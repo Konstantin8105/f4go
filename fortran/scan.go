@@ -251,26 +251,24 @@ func (s *elScan) preprocessor() {
 	for e := s.eles.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*ele).tok {
 		case undefine:
-			for _, op := range ops {
-				// Replase ELSEIF to ELSE IF
-				e.Value.(*ele).b = bytes.Replace(
-					[]byte(string(e.Value.(*ele).b)),
-					[]byte("ELSEIF"),
-					[]byte("ELSE IF"),
-					-1)
-				// Replace ENDDO to END
-				e.Value.(*ele).b = bytes.Replace(
-					[]byte(string(e.Value.(*ele).b)),
-					[]byte("ENDDO"),
-					[]byte("END"),
-					-1)
-				// Replace ENDIF to END
-				e.Value.(*ele).b = bytes.Replace(
-					[]byte(string(e.Value.(*ele).b)),
-					[]byte("ENDIF"),
-					[]byte("END"),
-					-1)
-			}
+			// Replase ELSEIF to ELSE IF
+			e.Value.(*ele).b = bytes.Replace(
+				[]byte(string(e.Value.(*ele).b)),
+				[]byte("ELSEIF"),
+				[]byte("ELSE IF"),
+				-1)
+			// Replace ENDDO to END
+			e.Value.(*ele).b = bytes.Replace(
+				[]byte(string(e.Value.(*ele).b)),
+				[]byte("ENDDO"),
+				[]byte("END"),
+				-1)
+			// Replace ENDIF to END
+			e.Value.(*ele).b = bytes.Replace(
+				[]byte(string(e.Value.(*ele).b)),
+				[]byte("ENDIF"),
+				[]byte("END"),
+				-1)
 		}
 	}
 }
@@ -288,6 +286,8 @@ func (s *elScan) postprocessor() {
 			for n := e.Next(); n != nil; n = e.Next() {
 				if n.Value.(*ele).tok != NEW_LINE {
 					s.eles.Remove(n)
+				} else {
+					break
 				}
 			}
 		}
@@ -353,7 +353,7 @@ func (s *elScan) postprocessor() {
 			if n == nil {
 				continue
 			}
-			if n.Value.(*ele).tok != CONTINUE {
+			if n.Value.(*ele).tok != token.CONTINUE {
 				continue
 			}
 			// Example : 30 CONTINUE
@@ -385,7 +385,7 @@ func (s *elScan) postprocessor() {
 	// replace string concatenation
 	for e := s.eles.Front(); e != nil; e = e.Next() {
 		if e.Value.(*ele).tok == STRING_CONCAT {
-			e.Value.(*ele).tok, e.Value.(*ele).b = token.ADD, []byte('+')
+			e.Value.(*ele).tok, e.Value.(*ele).b = token.ADD, []byte("+")
 		}
 	}
 

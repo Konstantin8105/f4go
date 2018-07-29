@@ -47,6 +47,7 @@ func (p *parser) prepare() {
 	// p.logger = log.New(os.Stdout, "f4go log:", log.Lshortfile)
 
 	var last token.Token
+	_ = last
 	for {
 		tok, lit := p.sc.scan()
 		if tok == token.EOF {

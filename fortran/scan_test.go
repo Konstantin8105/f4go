@@ -69,9 +69,15 @@ func TestScanIn(t *testing.T) {
 
 func lv(l *list.List) {
 	for e := l.Front(); e != nil; e = e.Next() {
-		fmt.Printf("%20s\t|%s\n",
-			view(e.Value.(*ele).tok),
-			string(e.Value.(*ele).b))
+		b := string(e.Value.(*ele).b)
+		if e.Value.(*ele).tok != NEW_LINE {
+			fmt.Printf("%20s\t|%s\n",
+				view(e.Value.(*ele).tok),
+				b)
+			// } else {
+			// 	fmt.Printf("%20s\n",
+			// 		view(e.Value.(*ele).tok))
+		}
 	}
 }
 
