@@ -62,21 +62,21 @@ func (p *parser) prepare() {
 		//  END IF
 		// To:
 		//  END
-		if last == END && tok != NEW_LINE {
-			for tok != token.EOF && tok != NEW_LINE && tok != token.ILLEGAL {
-				tok, lit = p.sc.scan()
-			}
-			p.ns = append(p.ns, node{
-				tok: tok,
-				lit: lit,
-			})
-			last = tok
-			continue
-		}
-
-		if last == NEW_LINE && tok == NEW_LINE {
-			continue
-		}
+		// if last == END && tok != NEW_LINE {
+		// 	for tok != token.EOF && tok != NEW_LINE && tok != token.ILLEGAL {
+		// 		tok, lit = p.sc.scan()
+		// 	}
+		// 	p.ns = append(p.ns, node{
+		// 		tok: tok,
+		// 		lit: lit,
+		// 	})
+		// 	last = tok
+		// 	continue
+		// }
+		//
+		// if last == NEW_LINE && tok == NEW_LINE {
+		// 	continue
+		// }
 
 		// Multiline function arguments
 		// From:
@@ -84,9 +84,9 @@ func (p *parser) prepare() {
 		//  'an illegal value' )
 		// To:
 		//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' , 'an illegal value' )
-		if last == token.COMMA && tok == NEW_LINE {
-			continue
-		}
+		// if last == token.COMMA && tok == NEW_LINE {
+		// 	continue
+		// }
 
 		p.ns = append(p.ns, node{
 			tok: tok,

@@ -264,6 +264,12 @@ func (s *elScan) preprocessor() {
 					[]byte("ENDDO"),
 					[]byte("END"),
 					-1)
+				// Replace ENDIF to END
+				e.Value.(*ele).b = bytes.Replace(
+					[]byte(string(e.Value.(*ele).b)),
+					[]byte("ENDIF"),
+					[]byte("END"),
+					-1)
 			}
 		}
 	}
@@ -271,6 +277,39 @@ func (s *elScan) preprocessor() {
 
 // postprocessor
 func (s *elScan) postprocessor() {
+
+	// From:
+	//  END SUBROUTINE
+	//  END IF
+	// To:
+	//  END
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == END {
+			for n := e.Next(); n != nil; n = e.Next() {
+				if n.Value.(*ele).tok != NEW_LINE {
+					s.eles.Remove(n)
+				}
+			}
+		}
+	}
+
+	// Multiline function arguments
+	// From:
+	//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' ,
+	//  'an illegal value' )
+	// To:
+	//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' , 'an illegal value' )
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == token.COMMA {
+			n := e.Next()
+			if n == nil {
+				continue
+			}
+			if n.Value.(*ele).tok == NEW_LINE {
+				s.eles.Remove(n)
+			}
+		}
+	}
 }
 
 func (s *elScan) scanTokens() {
