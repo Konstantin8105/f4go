@@ -28,14 +28,14 @@ func TestScanIn(t *testing.T) {
 		},
 		{
 			in:  "C ttt\n  ddd",
-			out: []string{"C ttt", "\n", "  ddd"},
+			out: []string{"C ttt", "\n", "ddd"},
 		},
 		{
 			in: "C ttt\n  ddd\nC ttt\n  ddd\nC ttt\n  ddd\nC ttt\n  ddd\n",
-			out: []string{"C ttt", "\n", "  ddd", "\n",
-				"C ttt", "\n", "  ddd", "\n",
-				"C ttt", "\n", "  ddd", "\n",
-				"C ttt", "\n", "  ddd", "\n",
+			out: []string{"C ttt", "\n", "ddd", "\n",
+				"C ttt", "\n", "ddd", "\n",
+				"C ttt", "\n", "ddd", "\n",
+				"C ttt", "\n", "ddd", "\n",
 			},
 		},
 		{
@@ -44,7 +44,7 @@ func TestScanIn(t *testing.T) {
 		},
 		{
 			in:  "RRR\n sdfse rw\nRRR",
-			out: []string{"RRR", "\n", " sdfse rw", "\n", "RRR"},
+			out: []string{"RRR", "\n", "sdfse rw", "\n", "RRR"},
 		},
 	}
 	for i, tc := range tcs {

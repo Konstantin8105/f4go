@@ -36,6 +36,7 @@ const (
 	INTRINSIC
 	FORMAT
 	STOP
+	DOLLAR
 
 	STRING_CONCAT
 
@@ -82,6 +83,8 @@ var o = [...]string{
 	STOP:      "STOP",
 
 	STRING_CONCAT: "STRING_CONCAT",
+
+	DOLLAR: "$",
 
 	undefine: "UNDEFINE",
 }
