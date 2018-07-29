@@ -310,6 +310,78 @@ func (s *elScan) postprocessor() {
 			}
 		}
 	}
+
+	// Simplification DO
+	//-------------
+	// From:
+	//  DO 40 J = 1 , N
+	//  DO 30 I = 1 , M
+	//  C ( I , J ) = BETA * C ( I , J )
+	//  30 CONTINUE
+	//  40 CONTINUE
+	//
+	// Or from:
+	//  DO 30 J = 1 , N
+	//  DO 30 I = 1 , M
+	//  C ( I , J ) = BETA * C ( I , J )
+	//  30 CONTINUE
+	//
+	//-------------
+	// To:
+	//  DO J = 1 , N
+	//  DO I = 1 , M
+	//  C ( I , J ) = BETA * C ( I , J )
+	//  END
+	//  END
+	//-------------
+	doLabels := map[string]int{}
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == DO {
+			n := e.Next()
+			if n == nil {
+				continue
+			}
+			if n.Value.(*ele).tok == token.INT {
+				doLabels[string(n.Value.(*ele).b)]++
+				s.eles.Remove(n)
+			}
+		}
+	}
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == token.INT {
+			n := e.Next()
+			if n == nil {
+				continue
+			}
+			if n.Value.(*ele).tok != CONTINUE {
+				continue
+			}
+			// Example : 30 CONTINUE
+			if v, ok := doLabels[string(e.Value.(*ele).b)]; ok {
+				if v <= 0 {
+					panic("Not acceptable")
+				}
+				e.Value.(*ele).tok, e.Value.(*ele).b = END, []byte("END")
+				n.Value.(*ele).tok, n.Value.(*ele).b = NEW_LINE, []byte("\n")
+
+				for j := 1; j < v; j++ {
+					s.eles.InsertAfter(&ele{
+						tok: NEW_LINE,
+						b:   []byte("\n"),
+					}, n)
+					s.eles.InsertAfter(&ele{
+						tok: END,
+						b:   []byte("END"),
+					}, n)
+				}
+			} else {
+				panic(fmt.Errorf("Cannot found label number: %v",
+					string(e.Value.(*ele).b)))
+			}
+
+		}
+	}
+
 }
 
 func (s *elScan) scanTokens() {

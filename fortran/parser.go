@@ -122,53 +122,53 @@ func (p *parser) prepare() {
 	//  END
 	//  END
 	//-------------
-	doLabels := map[string]int{}
-doLabelAgain:
-	for i := range p.ns {
-		if i == 0 {
-			continue
-		}
-		if p.ns[i-1].tok == DO && p.ns[i].tok == token.INT {
-			doLabels[p.ns[i].lit]++
-			p.ns = append(p.ns[:i], p.ns[i+1:]...)
-			goto doLabelAgain
-		}
-	}
-again:
-	for i := range p.ns {
-		if i == 0 {
-			continue
-		}
-		if p.ns[i-1].tok == token.INT && p.ns[i].tok == token.CONTINUE {
-			if v, ok := doLabels[p.ns[i-1].lit]; ok {
-				if v <= 0 {
-					panic("Not acceptable")
-				}
-				p.ns[i-1].tok, p.ns[i-1].lit = END, "end"
-				p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
-
-				var inject []node
-				for j := 1; j < v; j++ {
-					inject = append(inject, []node{
-						node{
-							tok: END,
-							lit: "end",
-						},
-						node{
-							tok: NEW_LINE,
-							lit: "\n",
-						},
-					}...)
-				}
-
-				if len(inject) > 0 {
-					inject = append(inject, p.ns[i+1:]...)
-					p.ns = append(p.ns[:i+1], inject...)
-					goto again
-				}
-			}
-		}
-	}
+	// 	doLabels := map[string]int{}
+	// doLabelAgain:
+	// 	for i := range p.ns {
+	// 		if i == 0 {
+	// 			continue
+	// 		}
+	// 		if p.ns[i-1].tok == DO && p.ns[i].tok == token.INT {
+	// 			doLabels[p.ns[i].lit]++
+	// 			p.ns = append(p.ns[:i], p.ns[i+1:]...)
+	// 			goto doLabelAgain
+	// 		}
+	// 	}
+	// again:
+	// 	for i := range p.ns {
+	// 		if i == 0 {
+	// 			continue
+	// 		}
+	// 		if p.ns[i-1].tok == token.INT && p.ns[i].tok == token.CONTINUE {
+	// 			if v, ok := doLabels[p.ns[i-1].lit]; ok {
+	// 				if v <= 0 {
+	// 					panic("Not acceptable")
+	// 				}
+	// 				p.ns[i-1].tok, p.ns[i-1].lit = END, "end"
+	// 				p.ns[i].tok, p.ns[i].lit = NEW_LINE, "\n"
+	//
+	// 				var inject []node
+	// 				for j := 1; j < v; j++ {
+	// 					inject = append(inject, []node{
+	// 						node{
+	// 							tok: END,
+	// 							lit: "end",
+	// 						},
+	// 						node{
+	// 							tok: NEW_LINE,
+	// 							lit: "\n",
+	// 						},
+	// 					}...)
+	// 				}
+	//
+	// 				if len(inject) > 0 {
+	// 					inject = append(inject, p.ns[i+1:]...)
+	// 					p.ns = append(p.ns[:i+1], inject...)
+	// 					goto again
+	// 				}
+	// 			}
+	// 		}
+	// 	}
 
 	// Simplification of PARAMETER:
 	// From:
