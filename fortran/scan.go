@@ -727,25 +727,27 @@ numb:
 				if stage == 0 && isDigit(rune(e.Value.(*ele).b[st])) {
 					var en int
 					for en = st; en < len(e.Value.(*ele).b); en++ {
-						fmt.Println("---->", string(e.Value.(*ele).b[en]))
 						if !isDigit(rune(e.Value.(*ele).b[en])) {
 							break
 						}
 					}
-					if en >= len(e.Value.(*ele).b) || e.Value.(*ele).b[en] != '.' {
-						// INT
-						fmt.Println("INT")
-						s.extract(st, en, e, token.INT)
-						goto numb
-					} else {
+					if en < len(e.Value.(*ele).b) && (e.Value.(*ele).b[en] == '.' ||
+						e.Value.(*ele).b[en] == 'E' || e.Value.(*ele).b[en] == 'e' ||
+						e.Value.(*ele).b[en] == 'D' || e.Value.(*ele).b[en] == 'd' ||
+						e.Value.(*ele).b[en] == 'Q' || e.Value.(*ele).b[en] == 'q') {
 						// FLOAT
+						isPoint := e.Value.(*ele).b[en] == '.'
+						fmt.Println(">", isPoint)
 						for en = en + 1; en < len(e.Value.(*ele).b); en++ {
-							fmt.Println("2--->", string(e.Value.(*ele).b[en]))
 							if !isDigit(rune(e.Value.(*ele).b[en])) {
 								break
 							}
 						}
 						s.extract(st, en, e, token.FLOAT)
+						goto numb
+					} else {
+						// INT
+						s.extract(st, en, e, token.INT)
 						goto numb
 					}
 				}
