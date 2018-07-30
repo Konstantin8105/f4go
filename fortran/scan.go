@@ -5,8 +5,6 @@ import (
 	"container/list"
 	"fmt"
 	"go/token"
-	"strconv"
-	"strings"
 )
 
 type position struct {
@@ -706,6 +704,7 @@ empty:
 }
 
 func (s *elScan) scanNumbers() {
+numb:
 	for e := s.eles.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*ele).tok {
 		case undefine:
@@ -714,26 +713,8 @@ func (s *elScan) scanNumbers() {
 			// -44
 			// 2
 			// +123.213545Q-5
-
-			// try int
-			_, ierr := strconv.Atoi(string(e.Value.(*ele).b))
-			if ierr == nil {
-				e.Value.(*ele).tok = token.INT
-				continue
-			}
-
-			// try float
-			val := strings.ToUpper(string(e.Value.(*ele).b))
-			val = strings.Replace(val, "D", "E", 1)
-			val = strings.Replace(val, "Q", "E", 1)
-			_, ferr := strconv.ParseFloat(val, 64)
-			if ferr == nil {
-				e.Value.(*ele).tok = token.FLOAT
-				continue
-			}
-
-			// try float
 			// 12.324e34
+			// 4E23
 			// STAGES:        //
 			//  1. Digits     // must
 			//  2. Point      // must
@@ -741,7 +722,33 @@ func (s *elScan) scanNumbers() {
 			//  4. Exponenta  // maybe
 			//  5. Sign       // maybe
 			//  6. Digits     // maybe
-			for i := 0; i < len(e.Value.(*ele).b); i++ {
+			stage := 0
+			for st := 0; st < len(e.Value.(*ele).b); st++ {
+				if stage == 0 && isDigit(rune(e.Value.(*ele).b[st])) {
+					var en int
+					for en = st; en < len(e.Value.(*ele).b); en++ {
+						fmt.Println("---->", string(e.Value.(*ele).b[en]))
+						if !isDigit(rune(e.Value.(*ele).b[en])) {
+							break
+						}
+					}
+					if en >= len(e.Value.(*ele).b) || e.Value.(*ele).b[en] != '.' {
+						// INT
+						fmt.Println("INT")
+						s.extract(st, en, e, token.INT)
+						goto numb
+					} else {
+						// FLOAT
+						for en = en + 1; en < len(e.Value.(*ele).b); en++ {
+							fmt.Println("2--->", string(e.Value.(*ele).b[en]))
+							if !isDigit(rune(e.Value.(*ele).b[en])) {
+								break
+							}
+						}
+						s.extract(st, en, e, token.FLOAT)
+						goto numb
+					}
+				}
 			}
 		}
 	}
