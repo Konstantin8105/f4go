@@ -20,6 +20,49 @@ type ele struct {
 	pos position
 }
 
+func (e *ele) Split() (eles []ele) {
+	var b []byte
+	b = append(b, e.b...)
+
+	var offset int
+	for {
+		if len(b) == 0 {
+			break
+		}
+
+		var ind int
+		for ind = 0; ind < len(b); ind++ {
+			if b[ind] != ' ' {
+				break
+			}
+		}
+
+		var end int
+		for end = ind; end < len(b) && b[end] != ' '; end++ {
+		}
+
+		if end-ind == 0 {
+			break
+		} else {
+			eles = append(eles, ele{
+				tok: e.tok,
+				pos: position{
+					line: e.pos.line,
+					col:  e.pos.col + ind + offset,
+				},
+				b: b[ind:end],
+			})
+		}
+		if end >= len(b) {
+			break
+		}
+		b = b[end:]
+		offset += end
+	}
+
+	return
+}
+
 // scanner represents a lexical scanner.
 type elScan struct {
 	eles *list.List
@@ -34,7 +77,7 @@ func scanT(b []byte) *list.List {
 		b:   b,
 		pos: position{
 			line: 1,
-			col:  0,
+			col:  1,
 		},
 	})
 
@@ -57,8 +100,16 @@ func scanT(b []byte) *list.List {
 	// separate on other token
 	s.scanTokens()
 
+	// remove empty
+	s.scanEmpty()
+
 	// scan numbers
 	s.scanNumbers()
+
+	// remove empty
+	s.scanEmpty()
+
+	s.scanTokensAfter()
 
 	// remove empty
 	s.scanEmpty()
@@ -439,6 +490,61 @@ multi:
 		}
 	}
 
+	// Simplification of PARAMETER:
+	// From:
+	//  PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 )  , ZERO = 0.0E+0 )
+	// To:
+	//  ONE = ( 1.0E+0 , 0.0E+0 )
+	//  ZERO = 0.0E+0
+	//
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok != NEW_LINE {
+			continue
+		}
+		e = e.Next()
+		if e == nil {
+			break
+		}
+		if e.Value.(*ele).tok != PARAMETER {
+			continue
+		}
+		// replace PARAMETER to NEW_LINE
+		n := e.Next()
+		e.Value.(*ele).b, e.Value.(*ele).tok = []byte{'\n'}, NEW_LINE
+		e = n
+		// replace ( to NEW_LINE
+		if e.Value.(*ele).tok != token.LPAREN {
+			panic("is not LPAREN")
+		}
+		e.Value.(*ele).b, e.Value.(*ele).tok = []byte{'\n'}, NEW_LINE
+		e = e.Next()
+		// find end )
+		counter := 1
+		for ; e != nil; e = e.Next() {
+			if e.Value.(*ele).tok == NEW_LINE {
+				panic("NEW_LINE is not accepted")
+				break
+			}
+			if e.Value.(*ele).tok == token.LPAREN {
+				counter++
+			}
+			if e.Value.(*ele).tok == token.RPAREN {
+				counter--
+			}
+			if counter == 1 && e.Value.(*ele).tok == token.COMMA {
+				// replace , to NEW_LINE
+				e.Value.(*ele).b, e.Value.(*ele).tok = []byte{'\n'}, NEW_LINE
+			}
+			if counter == 0 {
+				if e.Value.(*ele).tok != token.RPAREN {
+					panic("Must RPAREN")
+				}
+				// replace ) to NEW_LINE
+				e.Value.(*ele).b, e.Value.(*ele).tok = []byte{'\n'}, NEW_LINE
+				break
+			}
+		}
+	}
 }
 
 func (s *elScan) scanTokens() {
@@ -446,221 +552,92 @@ func (s *elScan) scanTokens() {
 		tok     token.Token
 		pattern []string
 	}{
-		{
-			tok:     DOUBLE_COLON,
-			pattern: []string{"::"},
-		},
-		{
-			tok:     token.COLON,
-			pattern: []string{":"},
-		},
-		{
-			tok:     DOUBLE_STAR,
-			pattern: []string{"**"},
-		},
-		{
-			tok:     token.MUL,
-			pattern: []string{"*"},
-		},
-		{
-			tok:     STRING_CONCAT,
-			pattern: []string{"//"},
-		},
+		{tok: DOUBLE_COLON, pattern: []string{"::"}},
+		{tok: token.COLON, pattern: []string{":"}},
+		{tok: DOUBLE_STAR, pattern: []string{"**"}},
+		{tok: token.MUL, pattern: []string{"*"}},
+		{tok: STRING_CONCAT, pattern: []string{"//"}},
 		// Operations
-		{
-			tok:     token.COMMA,
-			pattern: []string{","},
-		},
-		{
-			tok:     token.LPAREN,
-			pattern: []string{"("},
-		},
-		{
-			tok:     token.RPAREN,
-			pattern: []string{")"},
-		},
-		{
-			tok:     token.ASSIGN,
-			pattern: []string{"="},
-		},
-		{
-			tok:     token.QUO,
-			pattern: []string{"/"},
-		},
-		{
-			tok:     token.ADD,
-			pattern: []string{"+"},
-		},
-		{
-			tok:     token.SUB,
-			pattern: []string{"-"},
-		},
-		{
-			tok:     token.GTR,
-			pattern: []string{">"},
-		},
-		{
-			tok:     token.LSS,
-			pattern: []string{"<"},
-		},
-		{
-			tok:     DOLLAR,
-			pattern: []string{"$"},
-		},
+		{tok: token.COMMA, pattern: []string{","}},
+		{tok: token.LPAREN, pattern: []string{"("}},
+		{tok: token.RPAREN, pattern: []string{")"}},
+		{tok: token.ASSIGN, pattern: []string{"="}},
+		{tok: token.QUO, pattern: []string{"/"}},
+		{tok: token.GTR, pattern: []string{">"}},
+		{tok: token.LSS, pattern: []string{"<"}},
+		{tok: DOLLAR, pattern: []string{"$"}},
 		// Logicals
-		{
-			tok:     token.LSS,
-			pattern: []string{".LT."},
-		},
-		{
-			tok:     token.GTR,
-			pattern: []string{".GT."},
-		},
-		{
-			tok:     token.LEQ,
-			pattern: []string{".LE."},
-		},
-		{
-			tok:     token.GEQ,
-			pattern: []string{".GE."},
-		},
-		{
-			tok:     token.NOT,
-			pattern: []string{".NOT."},
-		},
-		{
-			tok:     token.NEQ,
-			pattern: []string{".NE."},
-		},
-		{
-			tok:     token.EQL,
-			pattern: []string{".EQ."},
-		},
-		{
-			tok:     token.LAND,
-			pattern: []string{".AND."},
-		},
-		{
-			tok:     token.LOR,
-			pattern: []string{".OR."},
-		},
-		{
-			tok:     token.IDENT,
-			pattern: []string{".TRUE.", ".FALSE."},
-		},
+		{tok: token.LSS, pattern: []string{".LT."}},
+		{tok: token.GTR, pattern: []string{".GT."}},
+		{tok: token.LEQ, pattern: []string{".LE."}},
+		{tok: token.GEQ, pattern: []string{".GE."}},
+		{tok: token.NOT, pattern: []string{".NOT."}},
+		{tok: token.NEQ, pattern: []string{".NE."}},
+		{tok: token.EQL, pattern: []string{".EQ."}},
+		{tok: token.LAND, pattern: []string{".AND."}},
+		{tok: token.LOR, pattern: []string{".OR."}},
+		{tok: token.IDENT, pattern: []string{".TRUE.", ".FALSE."}},
 		// Other
-		{
-			tok:     SUBROUTINE,
-			pattern: []string{"SUBROUTINE"},
-		},
-		{
-			tok:     IMPLICIT,
-			pattern: []string{"IMPLICIT"},
-		},
-		{
-			tok:     INTEGER,
-			pattern: []string{"INTEGER"},
-		},
-		{
-			tok:     CHARACTER,
-			pattern: []string{"CHARACTER"},
-		},
-		{
-			tok:     LOGICAL,
-			pattern: []string{"LOGICAL"},
-		},
-		{
-			tok:     COMPLEX,
-			pattern: []string{"COMPLEX"},
-		},
-		{
-			tok:     REAL,
-			pattern: []string{"REAL"},
-		},
-		{
-			tok:     DATA,
-			pattern: []string{"DATA"},
-		},
-		{
-			tok:     EXTERNAL,
-			pattern: []string{"EXTERNAL"},
-		},
-		{
-			tok:     END,
-			pattern: []string{"END", "ENDDO"},
-		},
-		{
-			tok:     DO,
-			pattern: []string{"DO"},
-		},
-		{
-			tok:     DOUBLE,
-			pattern: []string{"DOUBLE"},
-		},
-		{
-			tok:     FUNCTION,
-			pattern: []string{"FUNCTION"},
-		},
-		{
-			tok:     token.IF,
-			pattern: []string{"IF"},
-		},
-		{
-			tok:     token.ELSE,
-			pattern: []string{"ELSE"},
-		},
-		{
-			tok:     token.CONTINUE,
-			pattern: []string{"CONTINUE"},
-		},
-		{
-			tok:     CALL,
-			pattern: []string{"CALL"},
-		},
-		{
-			tok:     THEN,
-			pattern: []string{"THEN"},
-		},
-		{
-			tok:     token.RETURN,
-			pattern: []string{"RETURN"},
-		},
-		{
-			tok:     WRITE,
-			pattern: []string{"WRITE"},
-		},
-		{
-			tok:     WHILE,
-			pattern: []string{"WHILE"},
-		},
-		{
-			tok:     PARAMETER,
-			pattern: []string{"PARAMETER"},
-		},
-		{
-			tok:     PROGRAM,
-			pattern: []string{"PROGRAM"},
-		},
-		{
-			tok:     PRECISION,
-			pattern: []string{"PRECISION"},
-		},
-		{
-			tok:     INTRINSIC,
-			pattern: []string{"INTRINSIC"},
-		},
-		{
-			tok:     FORMAT,
-			pattern: []string{"FORMAT"},
-		},
-		{
-			tok:     STOP,
-			pattern: []string{"STOP"},
-		},
-		{
-			tok:     token.PERIOD,
-			pattern: []string{"."},
-		},
+		{tok: SUBROUTINE, pattern: []string{"SUBROUTINE"}},
+		{tok: IMPLICIT, pattern: []string{"IMPLICIT"}},
+		{tok: INTEGER, pattern: []string{"INTEGER"}},
+		{tok: CHARACTER, pattern: []string{"CHARACTER"}},
+		{tok: LOGICAL, pattern: []string{"LOGICAL"}},
+		{tok: COMPLEX, pattern: []string{"COMPLEX"}},
+		{tok: REAL, pattern: []string{"REAL"}},
+		{tok: DATA, pattern: []string{"DATA"}},
+		{tok: EXTERNAL, pattern: []string{"EXTERNAL"}},
+		{tok: END, pattern: []string{"END", "ENDDO"}},
+		{tok: DO, pattern: []string{"DO"}},
+		{tok: DOUBLE, pattern: []string{"DOUBLE"}},
+		{tok: FUNCTION, pattern: []string{"FUNCTION"}},
+		{tok: token.IF, pattern: []string{"IF"}},
+		{tok: token.ELSE, pattern: []string{"ELSE"}},
+		{tok: token.CONTINUE, pattern: []string{"CONTINUE"}},
+		{tok: CALL, pattern: []string{"CALL"}},
+		{tok: THEN, pattern: []string{"THEN"}},
+		{tok: token.RETURN, pattern: []string{"RETURN"}},
+		{tok: WRITE, pattern: []string{"WRITE"}},
+		{tok: WHILE, pattern: []string{"WHILE"}},
+		{tok: PARAMETER, pattern: []string{"PARAMETER"}},
+		{tok: PROGRAM, pattern: []string{"PROGRAM"}},
+		{tok: PRECISION, pattern: []string{"PRECISION"}},
+		{tok: INTRINSIC, pattern: []string{"INTRINSIC"}},
+		{tok: FORMAT, pattern: []string{"FORMAT"}},
+		{tok: STOP, pattern: []string{"STOP"}},
+	}
+A:
+	var changed bool
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		for _, ent := range entities {
+			for _, pat := range ent.pattern {
+				switch e.Value.(*ele).tok {
+				case undefine:
+					index := bytes.Index([]byte(string(e.Value.(*ele).b)), []byte(pat))
+					if index < 0 {
+						continue
+					}
+					s.extract(index, index+len(pat), e, ent.tok)
+					changed = true
+					goto en
+				}
+			}
+		}
+	en:
+	}
+	if changed {
+		goto A
+	}
+}
+
+func (s *elScan) scanTokensAfter() {
+	entities := []struct {
+		tok     token.Token
+		pattern []string
+	}{
+		{tok: token.PERIOD, pattern: []string{"."}},
+		{tok: token.ADD, pattern: []string{"+"}},
+		{tok: token.SUB, pattern: []string{"-"}},
 	}
 A:
 	var changed bool
@@ -707,26 +684,20 @@ empty:
 				again = true
 				continue
 			}
-			bs := bytes.Split(e.Value.(*ele).b, []byte{' '})
-			if len(bs) == 1 {
+			es := e.Value.(*ele).Split()
+			if len(es) == 1 && bytes.Equal(e.Value.(*ele).b, es[0].b) {
 				continue
 			}
-			offset := 0
-			for i := len(bs) - 1; i >= 1; i-- {
-				offset += len(bs[i])
-				if len(bs[i]) > 0 {
-					s.eles.InsertAfter(&ele{
-						tok: undefine,
-						b:   bs[i],
-						pos: position{
-							line: e.Value.(*ele).pos.line,
-							col:  len(e.Value.(*ele).b) - offset - 1,
-						},
-					}, e)
-				}
+			for i := len(es) - 1; i >= 1; i-- {
+				s.eles.InsertAfter(&es[i], e)
 			}
-			e.Value.(*ele).b = bs[0]
-			again = true
+			if len(es) == 0 {
+				s.eles.Remove(e)
+				goto empty
+			}
+			e.Value.(*ele).b = es[0].b
+			e.Value.(*ele).pos = es[0].pos
+			goto empty
 		}
 	}
 	if again {
@@ -759,6 +730,18 @@ func (s *elScan) scanNumbers() {
 			if ferr == nil {
 				e.Value.(*ele).tok = token.FLOAT
 				continue
+			}
+
+			// try float
+			// 12.324e34
+			// STAGES:        //
+			//  1. Digits     // must
+			//  2. Point      // must
+			//  3. Digits     // maybe
+			//  4. Exponenta  // maybe
+			//  5. Sign       // maybe
+			//  6. Digits     // maybe
+			for i := 0; i < len(e.Value.(*ele).b); i++ {
 			}
 		}
 	}

@@ -9,6 +9,13 @@ import (
 	"testing"
 )
 
+func TestEle(t *testing.T) {
+	e := &ele{
+		b: []byte(string("1  4  7 9 1")),
+	}
+	e.Split()
+}
+
 func TestScanIn(t *testing.T) {
 	tcs := []struct {
 		in  string
@@ -43,8 +50,16 @@ func TestScanIn(t *testing.T) {
 			out: []string{"RRR", "\n", "C sdfse rw", "\n", "RRR"},
 		},
 		{
-			in:  "RRR\n sdfse rw\nRRR",
-			out: []string{"RRR", "\n", "sdfse", "rw", "\n", "RRR"},
+			in:  "       sdfse   S  rw   ",
+			out: []string{"sdfse", "S", "rw"},
+		},
+		{
+			in:  "RRR\n       sdfse   S  rw   \n E      \nRRR",
+			out: []string{"RRR", "\n", "sdfse", "S", "rw", "\n", "E", "\n", "RRR"},
+		},
+		{
+			in:  "          -0.004-S-12-12.34Q-5",
+			out: []string{"-0.004", "-", "S", "-", "12", "-", "12.34Q-5"},
 		},
 	}
 	for i, tc := range tcs {

@@ -331,7 +331,7 @@
                   DO 110 I = 1,M
                       TEMP = ZERO
                       DO 100 L = 1,K
-                          TEMP = TEMP + CONJG(A(L,I))*B(L,J)
+                          TEMP = TEMP+CONJG(A(L,I))*B(L,J)
   100                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP
