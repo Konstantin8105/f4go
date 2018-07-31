@@ -87,7 +87,7 @@ func lv(l *list.List) {
 	for e := l.Front(); e != nil; e = e.Next() {
 		b := string(e.Value.(*ele).b)
 		if e.Value.(*ele).tok != NEW_LINE {
-			fmt.Printf("%20s\t%10s\t|`%s`\n",
+			fmt.Printf("%10s\t%10s\t|`%s`\n",
 				view(e.Value.(*ele).tok),
 				fmt.Sprintf("%v", e.Value.(*ele).pos),
 				b)
