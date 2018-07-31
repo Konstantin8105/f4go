@@ -74,6 +74,16 @@ func TestScanIn(t *testing.T) {
 			in:  "         GO TO 12",
 			out: []string{"GOTO", "12"},
 		},
+		{
+			in: `      SMAX = ZERO
+      DO 20 I = 1, N
+         SMAX = I
+   20 CONTINUE`,
+			out: []string{"SMAX", "=", "ZERO", "\n",
+				"DO", "I", "=", "1", ",", "N", "\n",
+				"SMAX", "=", "I", "\n",
+				"END", "\n"},
+		},
 	}
 	for i, tc := range tcs {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
@@ -81,7 +91,7 @@ func TestScanIn(t *testing.T) {
 			lv(l)
 			var le int
 			for e, j := l.Front(), 0; e != nil; e, j = e.Next(), j+1 {
-				if tc.out[j] != string(e.Value.(*ele).b) {
+				if j < len(tc.out) && tc.out[j] != string(e.Value.(*ele).b) {
 					t.Fatalf("Not same: `%s` != `%s`",
 						tc.out[j],
 						string(e.Value.(*ele).b))
@@ -103,9 +113,9 @@ func lv(l *list.List) {
 				view(e.Value.(*ele).tok),
 				fmt.Sprintf("%v", e.Value.(*ele).pos),
 				b)
-			// } else {
-			// 	fmt.Printf("%20s\n",
-			// 		view(e.Value.(*ele).tok))
+		} else {
+			fmt.Printf("%20s\n",
+				view(e.Value.(*ele).tok))
 		}
 	}
 }

@@ -128,6 +128,7 @@ func scanT(b []byte) *list.List {
 
 // separate break lines
 func (s *elScan) scanBreakLines() {
+B:
 	for e := s.eles.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*ele).tok {
 		case NEW_LINE:
@@ -138,7 +139,7 @@ func (s *elScan) scanBreakLines() {
 					continue
 				}
 				s.extract(j, j+1, e, NEW_LINE)
-				break
+				goto B
 			}
 		}
 	}
@@ -252,7 +253,16 @@ func (s *elScan) extract(start, end int, e *list.Element, tok token.Token) {
 	e.Value.(*ele).tok = undefine
 	e.Value.(*ele).b = bef
 
-	pre := s.eles.InsertAfter(&ele{
+	s.eles.InsertAfter(&ele{
+		tok: undefine,
+		b:   aft,
+		pos: position{
+			line: e.Value.(*ele).pos.line,
+			col:  e.Value.(*ele).pos.col + end,
+		},
+	}, e)
+
+	s.eles.InsertAfter(&ele{
 		tok: tok,
 		b:   present,
 		pos: position{
@@ -260,14 +270,6 @@ func (s *elScan) extract(start, end int, e *list.Element, tok token.Token) {
 			col:  e.Value.(*ele).pos.col + start,
 		},
 	}, e)
-	s.eles.InsertAfter(&ele{
-		tok: undefine,
-		b:   aft,
-		pos: position{
-			line: pre.Value.(*ele).pos.line,
-			col:  pre.Value.(*ele).pos.col + start,
-		},
-	}, pre)
 }
 
 // separate strings
@@ -514,33 +516,6 @@ multi:
 			}
 		}
 	}
-	gotoLabels := map[string]int{}
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok == token.GOTO {
-			n := e.Next()
-			if n == nil {
-				continue
-			}
-			if n.Value.(*ele).tok == token.INT {
-				gotoLabels[string(n.Value.(*ele).b)]++
-			}
-		}
-	}
-	continueLabels := map[string]int{}
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok == token.INT {
-			n := e.Next()
-			if n == nil {
-				continue
-			}
-			if n.Value.(*ele).tok == token.CONTINUE {
-				continueLabels[string(n.Value.(*ele).b)]++
-			}
-		}
-	}
-	fmt.Println("DO       labels: ", doLabels)
-	fmt.Println("GOTO     labels: ", gotoLabels)
-	fmt.Println("CONTINUE labels: ", gotoLabels)
 	for e := s.eles.Front(); e != nil; e = e.Next() {
 		if e.Value.(*ele).tok == token.INT {
 			n := e.Next()
