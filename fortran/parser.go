@@ -1,11 +1,11 @@
 package fortran
 
 import (
+	"bytes"
 	"fmt"
 	goast "go/ast"
 	"go/token"
 	"log"
-	"os"
 )
 
 type parser struct {
@@ -321,9 +321,9 @@ func parse(b []byte) (ast goast.File, err []error) {
 	// p.prepare()
 
 	var p parser
-	// var buf bytes.Buffer
-	// p.logger = log.New(&buf, "f4go log:", log.Lshortfile)
-	p.logger = log.New(os.Stdout, "f4go log:", log.Lshortfile)
+	var buf bytes.Buffer
+	p.logger = log.New(&buf, "f4go log:", log.Lshortfile)
+	// p.logger = log.New(os.Stdout, "f4go log:", log.Lshortfile)
 
 	l := scanT(b)
 	for e := l.Front(); e != nil; e = e.Next() {
@@ -332,7 +332,6 @@ func parse(b []byte) (ast goast.File, err []error) {
 			lit: string(e.Value.(*ele).b),
 		})
 	}
-	lv(l)
 
 	p.ast.Name = goast.NewIdent("main")
 
