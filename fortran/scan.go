@@ -5,6 +5,7 @@ import (
 	"container/list"
 	"fmt"
 	"go/token"
+	"strings"
 )
 
 type position struct {
@@ -516,6 +517,19 @@ multi:
 			}
 		}
 	}
+	gotoLabels := map[string]int{}
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == token.GOTO {
+			n := e.Next()
+			if n == nil {
+				continue
+			}
+			if n.Value.(*ele).tok == token.INT {
+				gotoLabels[string(n.Value.(*ele).b)]++
+				n.Value.(*ele).tok, n.Value.(*ele).b = token.IDENT, []byte("Label"+string(n.Value.(*ele).b))
+			}
+		}
+	}
 	for e := s.eles.Front(); e != nil; e = e.Next() {
 		if e.Value.(*ele).tok == token.INT {
 			n := e.Next()
@@ -545,13 +559,26 @@ multi:
 						pos: n.Value.(*ele).pos,
 					}, n)
 				}
-			} else {
-				fmt.Printf("Cannot found label number: %v. doLabels = %v",
-					string(e.Value.(*ele).b), doLabels)
+				// } else {
+				// 	fmt.Printf("Cannot found label number: %v. doLabels = %v",
+				// 		string(e.Value.(*ele).b), doLabels)
 			}
 		}
 	}
 
+	// .TRUE. to true
+	// .FALSE. to false
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok != token.IDENT {
+			continue
+		}
+		switch strings.ToUpper(string(e.Value.(*ele).b)) {
+		case ".TRUE.":
+			e.Value.(*ele).b = []byte("true")
+		case ".FALSE.":
+			e.Value.(*ele).b = []byte("false")
+		}
+	}
 }
 
 func (s *elScan) scanTokens() {

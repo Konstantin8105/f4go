@@ -1007,7 +1007,6 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 	}
 
 	p.expect(NEW_LINE)
-	p.ident++
 
 	sDo.Body = &goast.BlockStmt{
 		Lbrace: 1,
@@ -1060,7 +1059,6 @@ func (p *parser) parseIf() (sIf goast.IfStmt) {
 			Lbrace: 1,
 			List:   p.parseStmt(),
 		}
-		p.ident--
 		return
 	}
 
@@ -1109,11 +1107,11 @@ func (p *parser) parseExternal() {
 
 func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
-	defer func() {
-		if r := recover(); r != nil {
-			p.addError(fmt.Sprintf("%v", r))
-		}
-	}()
+	// defer func() {
+	// 	if r := recover(); r != nil {
+	// 		p.addError(fmt.Sprintf("%v", r))
+	// 	}
+	// }()
 
 	p.logger.Printf("parseStmt: %v\tident pos = %d", p.ns[p.ident], p.ident)
 
@@ -1124,9 +1122,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	case token.RETURN:
 		stmts = append(stmts, &goast.ReturnStmt{})
 		p.ident++
-
 		p.expect(NEW_LINE)
-		p.ident++
 
 	case EXTERNAL:
 		p.parseExternal()
@@ -1200,7 +1196,28 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		p.expect(NEW_LINE)
 		stmts = append(stmts, &goast.ReturnStmt{})
 
+	case token.GOTO:
+		p.ident++
+		stmts = append(stmts, &goast.BranchStmt{
+			Tok:   token.GOTO,
+			Label: goast.NewIdent(p.ns[p.ident].lit),
+		})
+		p.ident++
+		p.expect(NEW_LINE)
+
 	case token.INT:
+		if p.ns[p.ident+1].tok == token.CONTINUE {
+			stmts = append(stmts, &goast.LabeledStmt{
+				Label: goast.NewIdent("Label" + p.ns[p.ident].lit),
+				Colon: 1,
+				Stmt:  &goast.EmptyStmt{},
+			})
+			p.ident++
+			p.ns[p.ident].tok, p.ns[p.ident].lit = NEW_LINE, "\n"
+
+			return
+		}
+
 		// TODO: add support INT
 		var nodes []node
 		for ; p.ident < len(p.ns); p.ident++ {

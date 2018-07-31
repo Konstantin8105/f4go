@@ -65,9 +65,8 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 	//use std package go/parser for change to parse expression
 	ast, err := goparser.ParseExpr(str)
 	if err != nil {
-		p.addError("Cannot parse Expression : " + nodesToString(base) +
-			"\t" + str +
-			"\t" + fmt.Sprintf("%v", err))
+		p.addError("Cannot parse Expression : " +
+			fmt.Sprintf("`%s`\t`%s`\t`%s`", nodesToString(base), str, err))
 		return goast.NewIdent(str)
 	}
 	return ast
