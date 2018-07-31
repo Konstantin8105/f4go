@@ -305,6 +305,7 @@ func (s *elScan) scanTokenWithPoint() {
 		tok     token.Token
 		pattern string
 	}{
+		// operation with points
 		{tok: token.LSS, pattern: ".LT."},
 		{tok: token.GTR, pattern: ".GT."},
 		{tok: token.LEQ, pattern: ".LE."},
@@ -316,6 +317,16 @@ func (s *elScan) scanTokenWithPoint() {
 		{tok: token.LOR, pattern: ".OR."},
 		{tok: token.IDENT, pattern: ".TRUE."},
 		{tok: token.IDENT, pattern: ".FALSE."},
+
+		// other
+		{tok: DOUBLE_COLON, pattern: "::"},
+		{tok: token.COMMA, pattern: ","},
+		{tok: token.LPAREN, pattern: "("},
+		{tok: token.RPAREN, pattern: ")"},
+		{tok: token.ASSIGN, pattern: "="},
+		{tok: token.GTR, pattern: ">"},
+		{tok: token.LSS, pattern: "<"},
+		{tok: DOLLAR, pattern: "$"},
 	}
 
 A:
@@ -536,20 +547,12 @@ func (s *elScan) scanTokens() {
 		tok     token.Token
 		pattern []string
 	}{
-		{tok: DOUBLE_COLON, pattern: []string{"::"}},
 		{tok: token.COLON, pattern: []string{":"}},
 		{tok: DOUBLE_STAR, pattern: []string{"**"}},
 		{tok: token.MUL, pattern: []string{"*"}},
 		{tok: STRING_CONCAT, pattern: []string{"//"}},
 		// Operations
-		{tok: token.COMMA, pattern: []string{","}},
-		{tok: token.LPAREN, pattern: []string{"("}},
-		{tok: token.RPAREN, pattern: []string{")"}},
-		{tok: token.ASSIGN, pattern: []string{"="}},
 		{tok: token.QUO, pattern: []string{"/"}},
-		{tok: token.GTR, pattern: []string{">"}},
-		{tok: token.LSS, pattern: []string{"<"}},
-		{tok: DOLLAR, pattern: []string{"$"}},
 		// Logicals
 		// Other
 		{tok: SUBROUTINE, pattern: []string{"SUBROUTINE"}},

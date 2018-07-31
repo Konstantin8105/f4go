@@ -332,6 +332,7 @@ func parse(b []byte) (ast goast.File, err []error) {
 			lit: string(e.Value.(*ele).b),
 		})
 	}
+	lv(l)
 
 	p.ast.Name = goast.NewIdent("main")
 
