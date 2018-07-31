@@ -23,6 +23,9 @@ type parser struct {
 	// logger
 	logger *log.Logger
 
+	// label of DO
+	endLabelDo map[string]int
+
 	errs []error
 }
 
@@ -38,6 +41,7 @@ type initialVar struct {
 func (p *parser) init() {
 	p.functionExternalName = make([]string, 0)
 	p.pkgs = map[string]bool{}
+	p.endLabelDo = map[string]int{}
 }
 
 //
@@ -926,6 +930,11 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 		p.ident--
 		return p.parseDoWhile()
 	}
+	// possible label
+	if p.ns[p.ident].tok == token.INT {
+		p.endLabelDo[string(p.ns[p.ident].b)]++
+		p.ident++
+	}
 	// for case with comma "DO 40, J = 1, N"
 	if p.ns[p.ident].tok == token.COMMA {
 		p.ident++
@@ -1214,13 +1223,32 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	case token.INT:
 		if p.ns[p.ident+1].tok == token.CONTINUE {
+			label := string(p.ns[p.ident].b)
 			stmts = append(stmts, &goast.LabeledStmt{
-				Label: goast.NewIdent("Label" + string(p.ns[p.ident].b)),
+				Label: goast.NewIdent("Label" + label),
 				Colon: 1,
 				Stmt:  &goast.EmptyStmt{},
 			})
+			// replace CONTINUE to NEW_LINE
 			p.ident++
 			p.ns[p.ident].tok, p.ns[p.ident].b = NEW_LINE, []byte("\n")
+
+			// if label have END DO, then add them
+			if v, ok := p.endLabelDo[label]; ok && v > 0 {
+				var add []ele
+				for j := 0; j < v; j++ {
+					add = append(add, []ele{
+						ele{tok: NEW_LINE, b: []byte("\n")},
+						ele{tok: END, b: []byte("END")},
+						ele{tok: NEW_LINE, b: []byte("\n")},
+					}...)
+				}
+				var comb []ele
+				comb = append(comb, p.ns[:p.ident]...)
+				comb = append(comb, add...)
+				comb = append(comb, p.ns[p.ident:]...)
+				p.ns = comb
+			}
 
 			return
 		}
