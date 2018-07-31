@@ -726,9 +726,11 @@ numb:
 			//  4. Exponenta  // maybe
 			//  5. Sign       // maybe
 			//  6. Digits     // maybe
-			stage := 0
 			for st := 0; st < len(e.Value.(*ele).b); st++ {
-				if stage == 0 && isDigit(rune(e.Value.(*ele).b[st])) {
+				if isDigit(rune(e.Value.(*ele).b[st])) {
+					if !(st == 0 || !isLetter(rune(e.Value.(*ele).b[st-1]))) {
+						continue
+					}
 					var en int
 					for en = st; en < len(e.Value.(*ele).b); en++ {
 						if !isDigit(rune(e.Value.(*ele).b[en])) {
