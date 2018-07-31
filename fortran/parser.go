@@ -12,7 +12,7 @@ type parser struct {
 	// sc    *scanner
 	ast   goast.File
 	ident int
-	ns    []node
+	ns    []ele
 
 	functionExternalName []string
 	initVars             []initialVar
@@ -327,10 +327,11 @@ func parse(b []byte) (ast goast.File, err []error) {
 
 	l := scanT(b)
 	for e := l.Front(); e != nil; e = e.Next() {
-		p.ns = append(p.ns, node{
-			tok: e.Value.(*ele).tok,
-			lit: string(e.Value.(*ele).b),
-		})
+		p.ns = append(p.ns, *e.Value.(*ele))
+		// p.ns = append(p.ns, node{
+		// 	tok: e.Value.(*ele).tok,
+		// 	lit: string(e.Value.(*ele).b),
+		// })
 	}
 
 	p.ast.Name = goast.NewIdent("main")
@@ -383,19 +384,19 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 			p.expect(SUBROUTINE)
 			p.ident++
 			p.expect(token.IDENT)
-			internalFunction = append(internalFunction, p.ns[p.ident].lit)
+			internalFunction = append(internalFunction, string(p.ns[p.ident].b))
 		case PROGRAM:
 			p.expect(PROGRAM)
 			p.ident++
 			p.expect(token.IDENT)
-			internalFunction = append(internalFunction, p.ns[p.ident].lit)
+			internalFunction = append(internalFunction, string(p.ns[p.ident].b))
 		}
 		for i := p.ident; i < len(p.ns) && p.ns[i].tok != NEW_LINE; i++ {
 			if p.ns[p.ident].tok == FUNCTION {
 				p.expect(FUNCTION)
 				p.ident++
 				p.expect(token.IDENT)
-				internalFunction = append(internalFunction, p.ns[p.ident].lit)
+				internalFunction = append(internalFunction, string(p.ns[p.ident].b))
 			}
 		}
 	}
@@ -450,13 +451,13 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 
 		// if at the begin we haven't SUBROUTINE , FUNCTION,...
 		// then add fake Program
-		var comb []node
+		var comb []ele
 		comb = append(comb, p.ns[:p.ident]...)
-		comb = append(comb, []node{
-			node{tok: NEW_LINE, lit: "\n"},
-			node{tok: PROGRAM, lit: "PROGRAM"},
-			node{tok: token.IDENT, lit: "MAIN"},
-			node{tok: NEW_LINE, lit: "\n"},
+		comb = append(comb, []ele{
+			ele{tok: NEW_LINE, b: []byte("\n")},
+			ele{tok: PROGRAM, b: []byte("PROGRAM")},
+			ele{tok: token.IDENT, b: []byte("MAIN")},
+			ele{tok: NEW_LINE, b: []byte("\n")},
 		}...)
 		comb = append(comb, p.ns[p.ident:]...)
 		p.ns = comb
@@ -488,7 +489,7 @@ func (p *parser) getLine() (line string) {
 	}
 	p.ident++
 	for ; p.ident < len(p.ns) && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
-		line += " " + p.ns[p.ident].lit
+		line += " " + string(p.ns[p.ident].b)
 	}
 	return
 }
@@ -521,7 +522,7 @@ func (p *parser) parseFunction() (decl goast.Decl) {
 		Params: &goast.FieldList{},
 	}
 
-	var returnType []node
+	var returnType []ele
 	for ; p.ns[p.ident].tok != FUNCTION && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
 		returnType = append(returnType, p.ns[p.ident])
 	}
@@ -529,7 +530,7 @@ func (p *parser) parseFunction() (decl goast.Decl) {
 
 	p.ident++
 	p.expect(token.IDENT)
-	name := p.ns[p.ident].lit
+	name := string(p.ns[p.ident].b)
 	fd.Name = goast.NewIdent(name)
 	returnName := name + "_RES"
 	fd.Type.Results = &goast.FieldList{
@@ -653,7 +654,7 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 
 	p.ident++
 	p.expect(token.IDENT)
-	name := p.ns[p.ident].lit
+	name := string(p.ns[p.ident].b)
 	fd.Name = goast.NewIdent(name)
 	defer func() {
 		p.logger.Println("SUBROUTINE name is ", name)
@@ -698,8 +699,9 @@ func (p *parser) expect(t token.Token) {
 			fmt.Println("Error : ", err.Error())
 		}
 		// Panic
-		panic(fmt.Errorf("Expect %s, but we have {{%s,%s}}",
-			view(t), view(p.ns[p.ident].tok), p.ns[p.ident].lit))
+		panic(fmt.Errorf("Expect %s, but we have {{%s,%s}}. Pos = %v",
+			view(t), view(p.ns[p.ident].tok), string(p.ns[p.ident].b),
+			p.ns[p.ident].pos))
 	}
 }
 
@@ -718,7 +720,7 @@ func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 
 		p.logger.Printf("parseListStmt: pos = %d `%v` `%v`", p.ident,
 			view(p.ns[p.ident].tok),
-			p.ns[p.ident].lit)
+			string(p.ns[p.ident].b))
 
 		if p.ns[p.ident].tok == END {
 			p.ident++
@@ -751,7 +753,7 @@ func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 //  DOUBLE PRECISION (*)
 //  LOGICAL
 //  CHARACTER*32
-func (p *parser) parseType(nodes []node) (typ string) {
+func (p *parser) parseType(nodes []ele) (typ string) {
 
 	typ = "int"
 	switch nodes[0].tok {
@@ -773,7 +775,7 @@ func (p *parser) parseType(nodes []node) (typ string) {
 			nodes = nodes[1:]
 		}
 	default:
-		p.addError("Cannot parse type format: " + nodes[0].lit)
+		p.addError("Cannot parse type format: " + string(nodes[0].b))
 		return
 	}
 
@@ -839,22 +841,22 @@ func (p *parser) parseType(nodes []node) (typ string) {
 func (p *parser) parseInit() (stmts []goast.Stmt) {
 
 	// parse base type
-	var baseType []node
+	var baseType []ele
 	for ; p.ns[p.ident].tok != token.IDENT; p.ident++ {
 		baseType = append(baseType, p.ns[p.ident])
 	}
 	p.expect(token.IDENT)
 
 	var name string
-	var additionType []node
+	var additionType []ele
 	for ; p.ns[p.ident].tok != NEW_LINE &&
 		p.ns[p.ident].tok != token.EOF; p.ident++ {
 		// parse name
 		p.expect(token.IDENT)
-		name = p.ns[p.ident].lit
+		name = string(p.ns[p.ident].b)
 
 		// parse addition type
-		additionType = make([]node, 0, 0)
+		additionType = make([]ele, 0, 0)
 		p.ident++
 		for ; p.ns[p.ident].tok != NEW_LINE &&
 			p.ns[p.ident].tok != token.EOF &&
@@ -924,8 +926,13 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 		p.ident--
 		return p.parseDoWhile()
 	}
+	// for case with comma "DO 40, J = 1, N"
+	if p.ns[p.ident].tok == token.COMMA {
+		p.ident++
+	}
+
 	p.expect(token.IDENT)
-	name := p.ns[p.ident].lit
+	name := string(p.ns[p.ident].b)
 
 	p.ident++
 	p.expect(token.ASSIGN)
@@ -1094,13 +1101,13 @@ func (p *parser) parseExternal() {
 		}
 		switch p.ns[p.ident].tok {
 		case token.IDENT:
-			name := p.ns[p.ident].lit
+			name := string(p.ns[p.ident].b)
 			p.functionExternalName = append(p.functionExternalName, name)
 			// fmt.Println("Function external: ", name)
 		case token.COMMA:
 			// ingore
 		default:
-			p.addError("Cannot parse External " + p.ns[p.ident].lit)
+			p.addError("Cannot parse External " + string(p.ns[p.ident].b))
 		}
 	}
 }
@@ -1161,14 +1168,14 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 			switch p.ns[p.ident].tok {
 			case token.IDENT:
 				p.functionExternalName = append(p.functionExternalName,
-					p.ns[p.ident].lit)
+					string(p.ns[p.ident].b))
 			case token.COMMA:
 				// ignore
 			case INTEGER, CHARACTER, COMPLEX, LOGICAL, REAL:
 				// type convertion - ignore
 			default:
 				p.addError("Cannot parse function name in INTRINSIC:" +
-					p.ns[p.ident].lit)
+					string(p.ns[p.ident].b))
 			}
 		}
 		p.expect(NEW_LINE)
@@ -1181,7 +1188,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	case WRITE:
 		// TODO: add support WRITE
-		var nodes []node
+		var nodes []ele
 		for ; p.ident < len(p.ns); p.ident++ {
 			if p.ns[p.ident].tok == NEW_LINE || p.ns[p.ident].tok == token.EOF {
 				break
@@ -1200,7 +1207,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		p.ident++
 		stmts = append(stmts, &goast.BranchStmt{
 			Tok:   token.GOTO,
-			Label: goast.NewIdent(p.ns[p.ident].lit),
+			Label: goast.NewIdent(string(p.ns[p.ident].b)),
 		})
 		p.ident++
 		p.expect(NEW_LINE)
@@ -1208,18 +1215,18 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	case token.INT:
 		if p.ns[p.ident+1].tok == token.CONTINUE {
 			stmts = append(stmts, &goast.LabeledStmt{
-				Label: goast.NewIdent("Label" + p.ns[p.ident].lit),
+				Label: goast.NewIdent("Label" + string(p.ns[p.ident].b)),
 				Colon: 1,
 				Stmt:  &goast.EmptyStmt{},
 			})
 			p.ident++
-			p.ns[p.ident].tok, p.ns[p.ident].lit = NEW_LINE, "\n"
+			p.ns[p.ident].tok, p.ns[p.ident].b = NEW_LINE, []byte("\n")
 
 			return
 		}
 
 		// TODO: add support INT
-		var nodes []node
+		var nodes []ele
 		for ; p.ident < len(p.ns); p.ident++ {
 			if p.ns[p.ident].tok == NEW_LINE || p.ns[p.ident].tok == token.EOF {
 				break
@@ -1294,7 +1301,7 @@ func (p *parser) parseParamDecl() (fields []*goast.Field) {
 		case token.COMMA:
 			// ignore
 		case token.IDENT:
-			id := p.ns[p.ident].lit
+			id := string(p.ns[p.ident].b)
 			field := &goast.Field{
 				Names: []*goast.Ident{goast.NewIdent(id)},
 				Type:  goast.NewIdent("int"),
@@ -1304,7 +1311,7 @@ func (p *parser) parseParamDecl() (fields []*goast.Field) {
 			p.ident--
 			exit = true
 		default:
-			p.addError("Cannot parse parameter decl " + p.ns[p.ident].lit)
+			p.addError("Cannot parse parameter decl " + string(p.ns[p.ident].b))
 			return
 		}
 		if exit {
@@ -1339,13 +1346,13 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 		var exit bool
 		switch p.ns[p.ident].tok {
 		case token.IDENT:
-			names = append(names, p.ns[p.ident].lit)
+			names = append(names, string(p.ns[p.ident].b))
 		case token.COMMA:
 			// ignore
 		case token.QUO: // /
 			exit = true
 		default:
-			p.addError("Cannot parse name in Data :" + p.ns[p.ident].lit)
+			p.addError("Cannot parse name in Data :" + string(p.ns[p.ident].b))
 		}
 		if exit {
 			break
@@ -1368,7 +1375,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 		case token.QUO: // /
 			exit = true
 		default:
-			p.addError("Cannot parse value in Data :" + p.ns[p.ident].lit)
+			p.addError("Cannot parse value in Data :" + string(p.ns[p.ident].b))
 		}
 		if exit {
 			break
