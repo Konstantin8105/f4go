@@ -514,6 +514,33 @@ multi:
 			}
 		}
 	}
+	gotoLabels := map[string]int{}
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == token.GOTO {
+			n := e.Next()
+			if n == nil {
+				continue
+			}
+			if n.Value.(*ele).tok == token.INT {
+				gotoLabels[string(n.Value.(*ele).b)]++
+			}
+		}
+	}
+	continueLabels := map[string]int{}
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == token.INT {
+			n := e.Next()
+			if n == nil {
+				continue
+			}
+			if n.Value.(*ele).tok == token.CONTINUE {
+				continueLabels[string(n.Value.(*ele).b)]++
+			}
+		}
+	}
+	fmt.Println("DO       labels: ", doLabels)
+	fmt.Println("GOTO     labels: ", gotoLabels)
+	fmt.Println("CONTINUE labels: ", gotoLabels)
 	for e := s.eles.Front(); e != nil; e = e.Next() {
 		if e.Value.(*ele).tok == token.INT {
 			n := e.Next()
