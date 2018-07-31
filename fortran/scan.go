@@ -373,24 +373,6 @@ func (s *elScan) postprocessor() {
 		}
 	}
 
-	// Multiline function arguments
-	// From:
-	//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' ,
-	//  'an illegal value' )
-	// To:
-	//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' , 'an illegal value' )
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok == token.COMMA {
-			n := e.Next()
-			if n == nil {
-				continue
-			}
-			if n.Value.(*ele).tok == NEW_LINE {
-				s.eles.Remove(n)
-			}
-		}
-	}
-
 	// Simplification DO
 	//-------------
 	// From:
@@ -484,6 +466,24 @@ multi:
 				s.eles.Remove(e)
 				s.eles.Remove(n)
 				goto multi
+			}
+		}
+	}
+
+	// Multiline function arguments
+	// From:
+	//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' ,
+	//  'an illegal value' )
+	// To:
+	//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' , 'an illegal value' )
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == token.COMMA {
+			n := e.Next()
+			if n == nil {
+				continue
+			}
+			if n.Value.(*ele).tok == NEW_LINE {
+				s.eles.Remove(n)
 			}
 		}
 	}

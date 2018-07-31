@@ -361,7 +361,7 @@ func parse(b []byte) (ast goast.File, err []error) {
 
 	p.ast.Decls = append(p.ast.Decls, decls...)
 
-	return
+	return p.ast, p.errs
 }
 
 func (p *parser) parseNodes() (decls []goast.Decl) {

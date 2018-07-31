@@ -131,7 +131,7 @@ func TestScanner(t *testing.T) {
 			}
 
 			var buf bytes.Buffer
-			if err = format.Node(&buf, token.NewFileSet(), ast); err != nil {
+			if err = format.Node(&buf, token.NewFileSet(), &ast); err != nil {
 				t.Fatal(err)
 			}
 
