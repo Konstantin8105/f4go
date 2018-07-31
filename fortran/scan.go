@@ -89,7 +89,7 @@ func scanT(b []byte) *list.List {
 	s.scanStrings()
 
 	// preprocessor: add specific spaces
-	s.preprocessor()
+	s.scanTokenWithPoint()
 	defer func() {
 		// postprocessor
 		s.postprocessor()
@@ -293,63 +293,49 @@ func (s *elScan) scanStrings() {
 	}
 }
 
-// preprocessor for identification
-func (s *elScan) preprocessor() {
+// scanTokenWithPoint for identification
+func (s *elScan) scanTokenWithPoint() {
 	// Example of possible error:
 	// IF ( 2.LE.1) ...
 	//       |
 	//       +- error here, because it is not value "2."
 	//          it is value "2"
 
-	ops := []string{
-		".LT.",
-		".GT.",
-		".LE.",
-		".GE.",
-		".NOT.",
-		".NE.",
-		".EQ.",
-		".AND.",
-		".OR.",
-		".TRUE.",
-		".FALSE.",
+	entities := []struct {
+		tok     token.Token
+		pattern string
+	}{
+		{tok: token.LSS, pattern: ".LT."},
+		{tok: token.GTR, pattern: ".GT."},
+		{tok: token.LEQ, pattern: ".LE."},
+		{tok: token.GEQ, pattern: ".GE."},
+		{tok: token.NOT, pattern: ".NOT."},
+		{tok: token.NEQ, pattern: ".NE."},
+		{tok: token.EQL, pattern: ".EQ."},
+		{tok: token.LAND, pattern: ".AND."},
+		{tok: token.LOR, pattern: ".OR."},
+		{tok: token.IDENT, pattern: ".TRUE."},
+		{tok: token.IDENT, pattern: ".FALSE."},
 	}
 
+A:
+	var changed bool
 	for e := s.eles.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*ele).tok {
-		case undefine:
-			for _, op := range ops {
-				e.Value.(*ele).b = bytes.Replace(
-					[]byte(string(e.Value.(*ele).b)),
-					[]byte(op),
-					[]byte(" "+op+" "),
-					-1)
+		for _, ent := range entities {
+			ind := bytes.Index(e.Value.(*ele).b, []byte(ent.pattern))
+			if ind < 0 {
+				continue
 			}
+			if len(e.Value.(*ele).b) == len(ent.pattern) {
+				continue
+			}
+			s.extract(ind, ind+len(ent.pattern), e, ent.tok)
+			changed = true
+			break
 		}
 	}
-
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*ele).tok {
-		case undefine:
-			// Replase ELSEIF to ELSE IF
-			e.Value.(*ele).b = bytes.Replace(
-				[]byte(string(e.Value.(*ele).b)),
-				[]byte("ELSEIF"),
-				[]byte("ELSE IF"),
-				-1)
-			// Replace ENDDO to END
-			e.Value.(*ele).b = bytes.Replace(
-				[]byte(string(e.Value.(*ele).b)),
-				[]byte("ENDDO"),
-				[]byte("END"),
-				-1)
-			// Replace ENDIF to END
-			e.Value.(*ele).b = bytes.Replace(
-				[]byte(string(e.Value.(*ele).b)),
-				[]byte("ENDIF"),
-				[]byte("END"),
-				-1)
-		}
+	if changed {
+		goto A
 	}
 }
 
@@ -565,16 +551,6 @@ func (s *elScan) scanTokens() {
 		{tok: token.LSS, pattern: []string{"<"}},
 		{tok: DOLLAR, pattern: []string{"$"}},
 		// Logicals
-		{tok: token.LSS, pattern: []string{".LT."}},
-		{tok: token.GTR, pattern: []string{".GT."}},
-		{tok: token.LEQ, pattern: []string{".LE."}},
-		{tok: token.GEQ, pattern: []string{".GE."}},
-		{tok: token.NOT, pattern: []string{".NOT."}},
-		{tok: token.NEQ, pattern: []string{".NE."}},
-		{tok: token.EQL, pattern: []string{".EQ."}},
-		{tok: token.LAND, pattern: []string{".AND."}},
-		{tok: token.LOR, pattern: []string{".OR."}},
-		{tok: token.IDENT, pattern: []string{".TRUE.", ".FALSE."}},
 		// Other
 		{tok: SUBROUTINE, pattern: []string{"SUBROUTINE"}},
 		{tok: IMPLICIT, pattern: []string{"IMPLICIT"}},
