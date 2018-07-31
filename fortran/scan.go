@@ -730,10 +730,6 @@ numb:
 			//  6. Digits     // maybe
 			for st := 0; st < len(e.Value.(*ele).b); st++ {
 				if isDigit(rune(e.Value.(*ele).b[st])) {
-					if !(st == 0 || !isLetter(rune(e.Value.(*ele).b[st-1]))) {
-						// TODO: not correct
-						continue
-					}
 					var en int
 					for en = st; en < len(e.Value.(*ele).b); en++ {
 						if !isDigit(rune(e.Value.(*ele).b[en])) {
@@ -772,6 +768,16 @@ numb:
 						// INT
 						s.extract(st, en, e, token.INT)
 						goto numb
+					}
+				} else {
+					for ; st < len(e.Value.(*ele).b); st++ {
+						if !isDigit(rune(e.Value.(*ele).b[st])) &&
+							!isLetter(rune(e.Value.(*ele).b[st])) {
+							break
+						}
+					}
+					if st >= len(e.Value.(*ele).b) {
+						break
 					}
 				}
 			}
