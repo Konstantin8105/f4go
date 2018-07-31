@@ -321,12 +321,12 @@ func (s *elScan) scanTokenWithPoint() {
 A:
 	var changed bool
 	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok != undefine {
+			continue
+		}
 		for _, ent := range entities {
 			ind := bytes.Index(e.Value.(*ele).b, []byte(ent.pattern))
 			if ind < 0 {
-				continue
-			}
-			if len(e.Value.(*ele).b) == len(ent.pattern) {
 				continue
 			}
 			s.extract(ind, ind+len(ent.pattern), e, ent.tok)
