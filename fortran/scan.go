@@ -320,6 +320,7 @@ func (s *elScan) scanTokenWithPoint() {
 
 		// other
 		{tok: DOUBLE_COLON, pattern: "::"},
+		{tok: token.COLON, pattern: ":"},
 		{tok: token.COMMA, pattern: ","},
 		{tok: token.LPAREN, pattern: "("},
 		{tok: token.RPAREN, pattern: ")"},
@@ -327,6 +328,12 @@ func (s *elScan) scanTokenWithPoint() {
 		{tok: token.GTR, pattern: ">"},
 		{tok: token.LSS, pattern: "<"},
 		{tok: DOLLAR, pattern: "$"},
+		// stars
+		{tok: DOUBLE_STAR, pattern: "**"},
+		{tok: token.MUL, pattern: "*"},
+		// devs
+		{tok: STRING_CONCAT, pattern: "//"},
+		{tok: token.QUO, pattern: "/"},
 	}
 
 A:
@@ -547,12 +554,7 @@ func (s *elScan) scanTokens() {
 		tok     token.Token
 		pattern []string
 	}{
-		{tok: token.COLON, pattern: []string{":"}},
-		{tok: DOUBLE_STAR, pattern: []string{"**"}},
-		{tok: token.MUL, pattern: []string{"*"}},
-		{tok: STRING_CONCAT, pattern: []string{"//"}},
 		// Operations
-		{tok: token.QUO, pattern: []string{"/"}},
 		// Logicals
 		// Other
 		{tok: SUBROUTINE, pattern: []string{"SUBROUTINE"}},
@@ -729,6 +731,7 @@ numb:
 			for st := 0; st < len(e.Value.(*ele).b); st++ {
 				if isDigit(rune(e.Value.(*ele).b[st])) {
 					if !(st == 0 || !isLetter(rune(e.Value.(*ele).b[st-1]))) {
+						// TODO: not correct
 						continue
 					}
 					var en int
