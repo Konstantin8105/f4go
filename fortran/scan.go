@@ -520,7 +520,7 @@ multi:
 		counter := 1
 		for ; e != nil; e = e.Next() {
 			if e.Value.(*ele).tok == NEW_LINE {
-				panic("NEW_LINE is not accepted")
+				// panic(fmt.Errorf("NEW_LINE is not accepted"))
 				break
 			}
 			if e.Value.(*ele).tok == token.LPAREN {
@@ -615,9 +615,34 @@ A:
 					if index < 0 {
 						continue
 					}
-					s.extract(index, index+len(pat), e, ent.tok)
-					changed = true
-					goto en
+
+					isWord := true
+					for _, p := range pat {
+						if !isLetter(p) {
+							isWord = false
+							break
+						}
+					}
+
+					var found bool
+					if index == 0 &&
+						(len(e.Value.(*ele).b) == len(pat) || !isWord ||
+							(isWord && !isLetter(rune(e.Value.(*ele).b[index+len(pat)])))) {
+						found = true
+					} else {
+						// fmt.Printf(" `%s` i=%d  `%s`\n", string(e.Value.(*ele).b), index, pat)
+						if e.Value.(*ele).b[index-1] == ' ' &&
+							(len(e.Value.(*ele).b) == index+len(pat) || !isWord ||
+								(isWord && !isLetter(rune(e.Value.(*ele).b[index+len(pat)])))) {
+							found = true
+						}
+					}
+
+					if found {
+						s.extract(index, index+len(pat), e, ent.tok)
+						changed = true
+						goto en
+					}
 				}
 			}
 		}
@@ -743,10 +768,12 @@ numb:
 								}
 							}
 						}
-						if e.Value.(*ele).b[en] == 'E' || e.Value.(*ele).b[en] == 'e' ||
-							e.Value.(*ele).b[en] == 'D' || e.Value.(*ele).b[en] == 'd' ||
-							e.Value.(*ele).b[en] == 'Q' || e.Value.(*ele).b[en] == 'q' {
-							if e.Value.(*ele).b[en+1] == '+' || e.Value.(*ele).b[en+1] == '-' {
+						if en < len(e.Value.(*ele).b) &&
+							(e.Value.(*ele).b[en] == 'E' || e.Value.(*ele).b[en] == 'e' ||
+								e.Value.(*ele).b[en] == 'D' || e.Value.(*ele).b[en] == 'd' ||
+								e.Value.(*ele).b[en] == 'Q' || e.Value.(*ele).b[en] == 'q') {
+							if en+1 < len(e.Value.(*ele).b) &&
+								(e.Value.(*ele).b[en+1] == '+' || e.Value.(*ele).b[en+1] == '-') {
 								en++
 							}
 							for en = en + 1; en < len(e.Value.(*ele).b); en++ {
