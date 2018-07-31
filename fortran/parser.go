@@ -1216,7 +1216,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		p.ident++
 		stmts = append(stmts, &goast.BranchStmt{
 			Tok:   token.GOTO,
-			Label: goast.NewIdent(string(p.ns[p.ident].b)),
+			Label: goast.NewIdent("Label" + string(p.ns[p.ident].b)),
 		})
 		p.ident++
 		p.expect(NEW_LINE)
