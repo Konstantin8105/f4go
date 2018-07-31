@@ -70,6 +70,10 @@ func TestScanIn(t *testing.T) {
 			in:  "         SH11 = ZERO",
 			out: []string{"SH11", "=", "ZERO"},
 		},
+		{
+			in:  "         GO TO 12",
+			out: []string{"GOTO", "12"},
+		},
 	}
 	for i, tc := range tcs {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {

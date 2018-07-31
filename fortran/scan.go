@@ -120,6 +120,9 @@ func scanT(b []byte) *list.List {
 		}
 	}
 
+	// token GO TO
+	s.scanGoto()
+
 	return s.eles
 }
 
@@ -377,79 +380,6 @@ func (s *elScan) postprocessor() {
 		}
 	}
 
-	// Simplification DO
-	//-------------
-	// From:
-	//  DO 40 J = 1 , N
-	//  DO 30 I = 1 , M
-	//  C ( I , J ) = BETA * C ( I , J )
-	//  30 CONTINUE
-	//  40 CONTINUE
-	//
-	// Or from:
-	//  DO 30 J = 1 , N
-	//  DO 30 I = 1 , M
-	//  C ( I , J ) = BETA * C ( I , J )
-	//  30 CONTINUE
-	//
-	//-------------
-	// To:
-	//  DO J = 1 , N
-	//  DO I = 1 , M
-	//  C ( I , J ) = BETA * C ( I , J )
-	//  END
-	//  END
-	//-------------
-	doLabels := map[string]int{}
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok == DO {
-			n := e.Next()
-			if n == nil {
-				continue
-			}
-			if n.Value.(*ele).tok == token.INT {
-				doLabels[string(n.Value.(*ele).b)]++
-				s.eles.Remove(n)
-			}
-		}
-	}
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok == token.INT {
-			n := e.Next()
-			if n == nil {
-				continue
-			}
-			if n.Value.(*ele).tok != token.CONTINUE {
-				continue
-			}
-			// Example : 30 CONTINUE
-			if v, ok := doLabels[string(e.Value.(*ele).b)]; ok {
-				if v <= 0 {
-					panic("Not acceptable")
-				}
-				e.Value.(*ele).tok, e.Value.(*ele).b = END, []byte("END")
-				n.Value.(*ele).tok, n.Value.(*ele).b = NEW_LINE, []byte("\n")
-
-				for j := 1; j < v; j++ {
-					s.eles.InsertAfter(&ele{
-						tok: NEW_LINE,
-						b:   []byte("\n"),
-						pos: n.Value.(*ele).pos,
-					}, n)
-					s.eles.InsertAfter(&ele{
-						tok: END,
-						b:   []byte("END"),
-						pos: n.Value.(*ele).pos,
-					}, n)
-				}
-			} else {
-				panic(fmt.Errorf("Cannot found label number: %v",
-					string(e.Value.(*ele).b)))
-			}
-
-		}
-	}
-
 	// replace string concatenation
 	for e := s.eles.Front(); e != nil; e = e.Next() {
 		if e.Value.(*ele).tok == STRING_CONCAT {
@@ -547,6 +477,79 @@ multi:
 			}
 		}
 	}
+
+	// Simplification DO
+	//-------------
+	// From:
+	//  DO 40 J = 1 , N
+	//  DO 30 I = 1 , M
+	//  C ( I , J ) = BETA * C ( I , J )
+	//  30 CONTINUE
+	//  40 CONTINUE
+	//
+	// Or from:
+	//  DO 30 J = 1 , N
+	//  DO 30 I = 1 , M
+	//  C ( I , J ) = BETA * C ( I , J )
+	//  30 CONTINUE
+	//
+	//-------------
+	// To:
+	//  DO J = 1 , N
+	//  DO I = 1 , M
+	//  C ( I , J ) = BETA * C ( I , J )
+	//  END
+	//  END
+	//-------------
+	doLabels := map[string]int{}
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == DO {
+			n := e.Next()
+			if n == nil {
+				continue
+			}
+			if n.Value.(*ele).tok == token.INT {
+				doLabels[string(n.Value.(*ele).b)]++
+				s.eles.Remove(n)
+			}
+		}
+	}
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == token.INT {
+			n := e.Next()
+			if n == nil {
+				continue
+			}
+			if n.Value.(*ele).tok != token.CONTINUE {
+				continue
+			}
+			// Example : 30 CONTINUE
+			if v, ok := doLabels[string(e.Value.(*ele).b)]; ok {
+				if v <= 0 {
+					panic("Not acceptable")
+				}
+				e.Value.(*ele).tok, e.Value.(*ele).b = END, []byte("END")
+				n.Value.(*ele).tok, n.Value.(*ele).b = NEW_LINE, []byte("\n")
+
+				for j := 1; j < v; j++ {
+					s.eles.InsertAfter(&ele{
+						tok: NEW_LINE,
+						b:   []byte("\n"),
+						pos: n.Value.(*ele).pos,
+					}, n)
+					s.eles.InsertAfter(&ele{
+						tok: END,
+						b:   []byte("END"),
+						pos: n.Value.(*ele).pos,
+					}, n)
+				}
+			} else {
+				fmt.Printf("Cannot found label number: %v. doLabels = %v",
+					string(e.Value.(*ele).b), doLabels)
+			}
+		}
+	}
+
 }
 
 func (s *elScan) scanTokens() {
@@ -584,6 +587,7 @@ func (s *elScan) scanTokens() {
 		{tok: INTRINSIC, pattern: []string{"INTRINSIC"}},
 		{tok: FORMAT, pattern: []string{"FORMAT"}},
 		{tok: STOP, pattern: []string{"STOP"}},
+		{tok: token.GOTO, pattern: []string{"GOTO"}},
 	}
 A:
 	var changed bool
@@ -782,5 +786,25 @@ numb:
 				}
 			}
 		}
+	}
+}
+
+func (s *elScan) scanGoto() {
+G:
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if !(e.Value.(*ele).tok == token.IDENT && string(e.Value.(*ele).b) == "GO") {
+			continue
+		}
+		n := e.Next()
+		if n == nil {
+			continue
+		}
+		if !(n.Value.(*ele).tok == token.IDENT && string(n.Value.(*ele).b) == "TO") {
+			continue
+		}
+		e.Value.(*ele).tok = token.GOTO
+		e.Value.(*ele).b = []byte("goto")
+		s.eles.Remove(n)
+		goto G
 	}
 }
