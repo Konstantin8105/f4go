@@ -736,11 +736,23 @@ numb:
 						e.Value.(*ele).b[en] == 'D' || e.Value.(*ele).b[en] == 'd' ||
 						e.Value.(*ele).b[en] == 'Q' || e.Value.(*ele).b[en] == 'q') {
 						// FLOAT
-						isPoint := e.Value.(*ele).b[en] == '.'
-						fmt.Println(">", isPoint)
-						for en = en + 1; en < len(e.Value.(*ele).b); en++ {
-							if !isDigit(rune(e.Value.(*ele).b[en])) {
-								break
+						if e.Value.(*ele).b[en] == '.' {
+							for en = en + 1; en < len(e.Value.(*ele).b); en++ {
+								if !isDigit(rune(e.Value.(*ele).b[en])) {
+									break
+								}
+							}
+						}
+						if e.Value.(*ele).b[en] == 'E' || e.Value.(*ele).b[en] == 'e' ||
+							e.Value.(*ele).b[en] == 'D' || e.Value.(*ele).b[en] == 'd' ||
+							e.Value.(*ele).b[en] == 'Q' || e.Value.(*ele).b[en] == 'q' {
+							if e.Value.(*ele).b[en+1] == '+' || e.Value.(*ele).b[en+1] == '-' {
+								en++
+							}
+							for en = en + 1; en < len(e.Value.(*ele).b); en++ {
+								if !isDigit(rune(e.Value.(*ele).b[en])) {
+									break
+								}
 							}
 						}
 						s.extract(st, en, e, token.FLOAT)
