@@ -6,6 +6,7 @@ import (
 	goast "go/ast"
 	"go/token"
 	"log"
+	"strconv"
 )
 
 type parser struct {
@@ -1213,12 +1214,11 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		stmts = append(stmts, &goast.ReturnStmt{})
 
 	case token.GOTO:
-		p.ident++
-		stmts = append(stmts, &goast.BranchStmt{
-			Tok:   token.GOTO,
-			Label: goast.NewIdent("Label" + string(p.ns[p.ident].b)),
-		})
-		p.ident++
+		// Examples:
+		//  GO TO 30
+		//  GO TO ( 40, 80 )IEXC
+		sGoto := p.parseGoto()
+		stmts = append(stmts, sGoto...)
 		p.expect(NEW_LINE)
 
 	case token.INT:
@@ -1428,5 +1428,103 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			Rhs: []goast.Expr{p.parseExpr(values[i].start, values[i].end)},
 		})
 	}
+	return
+}
+
+// Examples:
+//  GO TO 30
+//  GO TO ( 40, 80 )IEXC
+func (p *parser) parseGoto() (stmts []goast.Stmt) {
+	p.expect(token.GOTO)
+
+	p.ident++
+	if p.ns[p.ident].tok != token.LPAREN {
+		//  GO TO 30
+		stmts = append(stmts, &goast.BranchStmt{
+			Tok:   token.GOTO,
+			Label: goast.NewIdent("Label" + string(p.ns[p.ident].b)),
+		})
+		p.ident++
+		return
+	}
+	// From:
+	//  GO TO ( 40, 80, 100 )IEXC
+	// To:
+	// if IEXC == 2 {
+	// 	goto Label80
+	// } else if IEXC == 3 {
+	// 	goto Label100
+	// } else {
+	// 	goto Label40
+	// }
+	//
+	// From:
+	//  GO TO ( 40 )IEXC
+	// To:
+	//  goto Label40
+
+	// parse labels
+	p.expect(token.LPAREN)
+	var labelNames []string
+	for ; p.ident < len(p.ns); p.ident++ {
+		var out bool
+		switch p.ns[p.ident].tok {
+		case token.LPAREN:
+			// do nothing
+		case token.RPAREN:
+			out = true
+		case token.COMMA:
+			// do nothing
+		default:
+			labelNames = append(labelNames, string(p.ns[p.ident].b))
+		}
+		if out {
+			break
+		}
+	}
+
+	if len(labelNames) == 0 {
+		panic("Not acceptable amount of labels in GOTO")
+	}
+
+	// if only one label
+	if len(labelNames) == 1 {
+		stmts = append(stmts, &goast.BranchStmt{
+			Tok:   token.GOTO,
+			Label: goast.NewIdent("Label" + string(p.ns[p.ident].b)),
+		})
+		p.gotoEndLine()
+		return
+	}
+
+	// if many labels
+
+	// get expr
+	p.ident++
+	st := p.ident
+	for ; p.ident < len(p.ns) && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+	}
+	// generate Go code
+	var sw goast.SwitchStmt
+	sw.Tag = p.parseExpr(st, p.ident)
+	sw.Body = &goast.BlockStmt{}
+	for i := 1; i < len(labelNames); i++ {
+		sw.Body.List = append(sw.Body.List, &goast.CaseClause{
+			List: []goast.Expr{goast.NewIdent(strconv.Itoa(i + 1))},
+			Body: []goast.Stmt{&goast.BranchStmt{
+				Tok:   token.GOTO,
+				Label: goast.NewIdent("Label" + labelNames[i]),
+			}},
+		})
+	}
+	sw.Body.List = append(sw.Body.List, &goast.CaseClause{
+		Body: []goast.Stmt{&goast.BranchStmt{
+			Tok:   token.GOTO,
+			Label: goast.NewIdent("Label" + labelNames[0]),
+		}},
+	})
+
+	stmts = append(stmts, &sw)
+
 	return
 }
