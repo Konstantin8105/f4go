@@ -149,3 +149,17 @@ func TestScanner(t *testing.T) {
 
 	t.Logf("Amount fail tests = %v", amountFailTests)
 }
+
+func BenchmarkCgemm(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		// read body of file
+		d, err := ioutil.ReadFile("../testdata/blas/cgemm.f")
+		if err != nil {
+			b.Fatal(err)
+		}
+
+		b.StartTimer()
+		_, _ = parse(d)
+	}
+}
