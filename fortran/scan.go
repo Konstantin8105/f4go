@@ -164,38 +164,48 @@ B:
 
 // separate comments
 func (s *elScan) scanComments() {
+	// comments single line started from letters:
+	// 'C', 'c', '*', 'd', 'D'
 	for e := s.eles.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*ele).tok {
 		case undefine:
-			for j, ch := range e.Value.(*ele).b {
-				var p bool
+			if len(e.Value.(*ele).b) == 0 {
+				continue
+			}
+			ch := e.Value.(*ele).b[0]
+			if ch == 'C' || ch == 'c' ||
+				ch == '*' ||
+				ch == 'D' || ch == 'd' {
+				e.Value.(*ele).tok = token.COMMENT
+			}
+		}
+	}
 
-				// comments single line started from letters:
-				// 'C', 'c', '*', 'd', 'D'
-				if (ch == 'C' || ch == 'c' ||
-					ch == '*' ||
-					ch == 'D' || ch == 'd') &&
-					(j == 0 || e.Value.(*ele).b[j-1] == '\n') {
-					p = true
-				}
-
-				// comments inside line : '!'
-				if ch == '!' {
-					p = true
-				}
-
-				if p {
-					b := e.Value.(*ele).b
-
-					// find end of line include line break
-					var end int
-					for end = j; end < len(b) && b[end] != '\n'; end++ {
-					}
-					s.extract(j, end, e, token.COMMENT)
+	// comments inside line : '!'
+Op:
+	var again bool
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		switch e.Value.(*ele).tok {
+		case undefine:
+			if len(e.Value.(*ele).b) == 0 {
+				continue
+			}
+			var st int
+			var found bool
+			for st = 0; st < len(e.Value.(*ele).b); st++ {
+				if e.Value.(*ele).b[st] == '!' {
+					found = true
 					break
 				}
 			}
+			if found {
+				s.extract(st, len(e.Value.(*ele).b), e, token.COMMENT)
+				again = true
+			}
 		}
+	}
+	if again {
+		goto Op
 	}
 }
 
