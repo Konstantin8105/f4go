@@ -33,27 +33,27 @@ func (e *ele) Split() (eles []ele) {
 			break
 		}
 
-		var ind int
-		for ind = 0; ind < len(b); ind++ {
-			if b[ind] != ' ' {
+		var st int
+		for st = 0; st < len(b); st++ {
+			if b[st] != ' ' {
 				break
 			}
 		}
 
 		var end int
-		for end = ind; end < len(b) && b[end] != ' '; end++ {
+		for end = st; end < len(b) && b[end] != ' '; end++ {
 		}
 
-		if end-ind == 0 {
+		if end-st == 0 {
 			break
 		} else {
 			eles = append(eles, ele{
 				tok: e.tok,
 				pos: position{
 					line: e.pos.line,
-					col:  e.pos.col + ind + offset,
+					col:  e.pos.col + st + offset,
 				},
-				b: b[ind:end],
+				b: b[st:end],
 			})
 		}
 		if end >= len(b) {
@@ -639,12 +639,16 @@ empty:
 				s.eles.InsertAfter(&es[i], e)
 			}
 			if len(es) == 0 {
+				n := e.Next()
 				s.eles.Remove(e)
-				goto empty
+				e = n
+				again = true
+				continue
 			}
 			e.Value.(*ele).b = es[0].b
 			e.Value.(*ele).pos = es[0].pos
-			goto empty
+			again = true
+			continue
 		}
 	}
 	if again {
