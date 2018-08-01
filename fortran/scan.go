@@ -134,19 +134,23 @@ func scanT(b []byte) *list.List {
 // separate break lines
 func (s *elScan) scanBreakLines() {
 B:
+	var again bool
 	for e := s.eles.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*ele).tok {
 		case NEW_LINE:
 			// ignore
 		default:
-			for j, ch := range e.Value.(*ele).b {
-				if ch != '\n' {
+			for j := len(e.Value.(*ele).b) - 1; j >= 0; j-- {
+				if e.Value.(*ele).b[j] != '\n' {
 					continue
 				}
 				s.extract(j, j+1, e, NEW_LINE)
-				goto B
+				again = true
 			}
 		}
+	}
+	if again {
+		goto B
 	}
 	line := 1
 	for e := s.eles.Front(); e != nil; e = e.Next() {
