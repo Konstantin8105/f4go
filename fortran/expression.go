@@ -136,8 +136,15 @@ func (p *parser) fixArrayVariables(nodes *[]ele) {
 
 		// insert comma
 		// if comma is exist, then between nodes pos+1 and end
+		counter = 1
 		for i := pos + 1; i < end; i++ {
-			if (*nodes)[i].tok == token.COMMA {
+			if (*nodes)[i].tok == token.LPAREN {
+				counter++
+			}
+			if (*nodes)[i].tok == token.RPAREN {
+				counter--
+			}
+			if counter == 1 && (*nodes)[i].tok == token.COMMA {
 				*nodes = append((*nodes)[:i], append([]ele{
 					ele{
 						tok: token.RBRACK,
