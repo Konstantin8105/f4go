@@ -344,6 +344,8 @@ func (s *elScan) scanTokenWithPoint() {
 		{tok: token.IDENT, pattern: ".FALSE."},
 		{tok: token.IDENT, pattern: ".false."},
 
+		// !=
+		{tok: token.NEQ, pattern: "/="},
 		// other
 		{tok: DOUBLE_COLON, pattern: "::"},
 		{tok: token.COLON, pattern: ":"},
@@ -414,6 +416,16 @@ func (s *elScan) postprocessor() {
 				tok: token.IF,
 				b:   []byte("IF"),
 			}, e)
+		}
+	}
+
+	// From:
+	//   /= token.NEQ
+	// To:
+	//   != token.NEQ
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == token.NEQ {
+			e.Value.(*ele).tok, e.Value.(*ele).b = token.NEQ, []byte("!=")
 		}
 	}
 
