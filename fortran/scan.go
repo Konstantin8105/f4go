@@ -505,9 +505,6 @@ func (s *elScan) scanTokens() {
 		tok     token.Token
 		pattern []string
 	}{
-		// Operations
-		// Logicals
-		// Other
 		{tok: SUBROUTINE, pattern: []string{"SUBROUTINE"}},
 		{tok: IMPLICIT, pattern: []string{"IMPLICIT"}},
 		{tok: INTEGER, pattern: []string{"INTEGER"}},
@@ -549,24 +546,18 @@ A:
 						continue
 					}
 
-					isWord := true
-					for _, p := range pat {
-						if !isLetter(p) {
-							isWord = false
-							break
+					var found bool
+					if index == 0 {
+						if len(e.Value.(*ele).b) == len(pat) ||
+							!(isLetter(rune(e.Value.(*ele).b[len(pat)])) ||
+								isDigit(rune(e.Value.(*ele).b[len(pat)]))) {
+							found = true
 						}
 					}
-
-					var found bool
-					if index == 0 &&
-						(len(e.Value.(*ele).b) == len(pat) || !isWord ||
-							(isWord && !isLetter(rune(e.Value.(*ele).b[index+len(pat)])))) {
-						found = true
-					} else {
-						// fmt.Printf(" `%s` i=%d  `%s`\n", string(e.Value.(*ele).b), index, pat)
+					if index > 0 {
 						if e.Value.(*ele).b[index-1] == ' ' &&
-							(len(e.Value.(*ele).b) == index+len(pat) || !isWord ||
-								(isWord && !isLetter(rune(e.Value.(*ele).b[index+len(pat)])))) {
+							(len(e.Value.(*ele).b) == index+len(pat) ||
+								!isLetter(rune(e.Value.(*ele).b[index+len(pat)]))) {
 							found = true
 						}
 					}
