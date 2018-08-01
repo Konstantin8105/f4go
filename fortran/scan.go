@@ -749,7 +749,8 @@ numb:
 					}
 				} else {
 					for ; st < len(e.Value.(*ele).b); st++ {
-						if !isDigit(rune(e.Value.(*ele).b[st])) &&
+						if e.Value.(*ele).b[st] != '_' &&
+							!isDigit(rune(e.Value.(*ele).b[st])) &&
 							!isLetter(rune(e.Value.(*ele).b[st])) {
 							break
 						}
