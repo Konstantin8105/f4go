@@ -19,6 +19,10 @@ type ele struct {
 	pos position
 }
 
+func (e ele) String() string {
+	return fmt.Sprintf("[%v, `%s`, %v]", view(e.tok), string(e.b), e.pos)
+}
+
 func (e *ele) Split() (eles []ele) {
 	var b []byte
 	b = append(b, e.b...)

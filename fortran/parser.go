@@ -7,6 +7,7 @@ import (
 	"go/token"
 	"log"
 	"strconv"
+	"strings"
 )
 
 type parser struct {
@@ -118,17 +119,29 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 	var internalFunction []string
 	for ; p.ident < len(p.ns); p.ident++ {
 		switch p.ns[p.ident].tok {
-		case SUBROUTINE: // SUBROUTINE
+		case SUBROUTINE:
 			p.expect(SUBROUTINE)
 			p.ident++
 			p.expect(token.IDENT)
 			internalFunction = append(internalFunction, string(p.ns[p.ident].b))
+			continue
 		case PROGRAM:
 			p.expect(PROGRAM)
 			p.ident++
 			p.expect(token.IDENT)
 			internalFunction = append(internalFunction, string(p.ns[p.ident].b))
+			continue
 		}
+
+		// Example:
+		//   RECURSIVE SUBROUTINE CGELQT3( M, N, A, LDA, T, LDT, INFO )
+		if strings.ToUpper(string(p.ns[p.ident].b)) == "RECURSIVE" {
+			fmt.Println(">>>>>>>>>>> FOUND")
+			p.ns[p.ident].tok, p.ns[p.ident].b = NEW_LINE, []byte("\n")
+			continue
+		}
+
+		// FUNCTION
 		for i := p.ident; i < len(p.ns) && p.ns[i].tok != NEW_LINE; i++ {
 			if p.ns[p.ident].tok == FUNCTION {
 				p.expect(FUNCTION)
@@ -142,29 +155,28 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 
 	for ; p.ident < len(p.ns); p.ident++ {
 
-		p.logger.Printf("parseNodes: pos = %d\t%v", p.ident, p.ns[p.ident])
+		p.logger.Printf("parseNodes: pos = %d\t%s", p.ident, p.ns[p.ident])
 
 		p.init()
 		p.functionExternalName = append(p.functionExternalName,
 			internalFunction...)
 
+		var next bool
 		switch p.ns[p.ident].tok {
 		case NEW_LINE:
-			p.ident++ // TODO
-			continue
+			next = true // TODO
 		case token.COMMENT:
-			p.ident++ // TODO
-			continue
+			next = true // TODO
 		case SUBROUTINE: // SUBROUTINE
 			var decl goast.Decl
 			decl = p.parseSubroutine()
 			decls = append(decls, decl)
-			continue
+			next = true
 		case PROGRAM: // PROGRAM
 			var decl goast.Decl
 			decl = p.parseProgram()
 			decls = append(decls, decl)
-			continue
+			next = true
 		default:
 			// Example :
 			//  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
@@ -173,9 +185,12 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 					var decl goast.Decl
 					decl = p.parseFunction()
 					decls = append(decls, decl)
-					continue
+					next = true
 				}
 			}
+		}
+		if next {
+			continue
 		}
 
 		if p.ident >= len(p.ns) {
