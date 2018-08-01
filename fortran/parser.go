@@ -1132,6 +1132,16 @@ func (p *parser) parseParamDecl() (fields []*goast.Field) {
 
 // Example:
 // DATA GAM , GAMSQ , RGAMSQ / 4096.D0 , 16777216.D0 , 5.9604645D-8 /
+//
+// TODO :
+//
+// LOGICAL            ZSWAP( 4 )
+// DATA               ZSWAP / .FALSE., .FALSE., .TRUE., .TRUE. /
+//
+// INTEGER            IPIVOT( 4, 4 )
+// DATA               IPIVOT / 1, 2, 3, 4, 2, 1, 4, 3, 3, 4, 1, 2, 4,
+//      $                   3, 2, 1 /
+//
 func (p *parser) parseData() (stmts []goast.Stmt) {
 	p.expect(DATA)
 	p.ident++

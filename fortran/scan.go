@@ -338,11 +338,10 @@ func (s *elScan) scanTokenWithPoint() {
 		{tok: token.NEQ, pattern: ".NE."},
 		{tok: token.EQL, pattern: ".EQ."},
 		{tok: token.LAND, pattern: ".AND."},
+		{tok: token.LAND, pattern: ".AND ."}, //add for test other/sgelq.f
 		{tok: token.LOR, pattern: ".OR."},
 		{tok: token.IDENT, pattern: ".TRUE."},
-		{tok: token.IDENT, pattern: ".true."},
 		{tok: token.IDENT, pattern: ".FALSE."},
-		{tok: token.IDENT, pattern: ".false."},
 
 		// !=
 		{tok: token.NEQ, pattern: "/="},
@@ -371,7 +370,9 @@ A:
 			continue
 		}
 		for _, ent := range entities {
-			ind := bytes.Index(e.Value.(*ele).b, []byte(ent.pattern))
+			ind := bytes.Index(
+				bytes.ToUpper(e.Value.(*ele).b),
+				bytes.ToUpper([]byte(ent.pattern)))
 			if ind < 0 {
 				continue
 			}
