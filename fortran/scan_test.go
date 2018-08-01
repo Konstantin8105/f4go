@@ -3,9 +3,7 @@ package fortran
 import (
 	"container/list"
 	"fmt"
-	"io/ioutil"
 	"strconv"
-	"strings"
 	"testing"
 )
 
@@ -117,30 +115,5 @@ func lv(l *list.List) {
 			fmt.Printf("%20s\n",
 				view(e.Value.(*ele).tok))
 		}
-	}
-}
-
-func TestScanR(t *testing.T) {
-
-	files, err := getFortranTestFiles("../testdata")
-	if err != nil {
-		fmt.Println("err = ", err)
-		return
-	}
-
-	for _, filename := range files {
-		index := strings.LastIndex(filename, "/")
-		index = strings.LastIndex(filename[:index], "/")
-		testName := filename[index+1:]
-		t.Run(fmt.Sprintf("scan/%v", testName), func(t *testing.T) {
-
-			// read body of file
-			b, err := ioutil.ReadFile(filename)
-			if err != nil {
-				t.Fatal(err)
-			}
-			l := scanT(b)
-			lv(l)
-		})
 	}
 }
