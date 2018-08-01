@@ -340,7 +340,9 @@ func (s *elScan) scanTokenWithPoint() {
 		{tok: token.LAND, pattern: ".AND."},
 		{tok: token.LOR, pattern: ".OR."},
 		{tok: token.IDENT, pattern: ".TRUE."},
+		{tok: token.IDENT, pattern: ".true."},
 		{tok: token.IDENT, pattern: ".FALSE."},
+		{tok: token.IDENT, pattern: ".false."},
 
 		// other
 		{tok: DOUBLE_COLON, pattern: "::"},
@@ -398,6 +400,20 @@ func (s *elScan) postprocessor() {
 					break
 				}
 			}
+		}
+	}
+
+	// From:
+	//   ELSEIF
+	// To:
+	//   ELSE IF
+	for e := s.eles.Front(); e != nil; e = e.Next() {
+		if e.Value.(*ele).tok == ELSEIF {
+			e.Value.(*ele).tok, e.Value.(*ele).b = token.ELSE, []byte("ELSE")
+			s.eles.InsertAfter(&ele{
+				tok: token.IF,
+				b:   []byte("IF"),
+			}, e)
 		}
 	}
 
@@ -547,6 +563,7 @@ func (s *elScan) scanTokens() {
 		{tok: FORMAT, pattern: []string{"FORMAT"}},
 		{tok: STOP, pattern: []string{"STOP"}},
 		{tok: token.GOTO, pattern: []string{"GOTO"}},
+		{tok: ELSEIF, pattern: []string{"ELSEIF"}},
 	}
 A:
 	var changed bool

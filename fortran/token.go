@@ -21,6 +21,7 @@ const (
 	IMPLICIT
 	FUNCTION
 	END
+	ELSEIF
 	DO
 	DOUBLE
 	CALL
@@ -66,6 +67,7 @@ var o = [...]string{
 	IMPLICIT:     "IMPLICIT",
 	FUNCTION:     "FUNCTION",
 	END:          "END",
+	ELSEIF:       "ELSEIF",
 	DO:           "DO",
 	DOUBLE:       "DOUBLE",
 	CALL:         "CALL",
