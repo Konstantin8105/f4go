@@ -1,5 +1,13 @@
 # f4go
 
+
+[![Build Status](https://travis-ci.org/Konstantin8105/f4go.svg?branch=master)](https://travis-ci.org/Konstantin8105/f4go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Konstantin8105/f4go)](https://goreportcard.com/report/github.com/Konstantin8105/f4go)
+[![codecov](https://codecov.io/gh/Konstantin8105/f4go/branch/master/graph/badge.svg)](https://codecov.io/gh/Konstantin8105/f4go)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Konstantin8105/f4go/master/LICENSE)
+[![GoDoc](https://godoc.org/github.com/Konstantin8105/f4go?status.svg)](https://godoc.org/github.com/Konstantin8105/f4go)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b8d0bb5533207cce5ed3/maintainability)](https://codeclimate.com/github/Konstantin8105/f4go/maintainability)
+
 Transpiling fortran code to golang code
 
 Present result:

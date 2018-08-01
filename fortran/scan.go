@@ -798,3 +798,9 @@ G:
 		goto G
 	}
 }
+
+// isLetter returns true if the rune is a letter.
+func isLetter(ch rune) bool { return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') }
+
+// isDigit returns true if the rune is a digit.
+func isDigit(ch rune) bool { return (ch >= '0' && ch <= '9') }

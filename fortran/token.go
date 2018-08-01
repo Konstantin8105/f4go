@@ -1,7 +1,6 @@
 package fortran
 
 import (
-	"fmt"
 	"go/token"
 )
 
@@ -47,7 +46,7 @@ const (
 
 func view(t token.Token) string {
 	if int(t) < int(token.VAR)+1 {
-		return fmt.Sprintf("%s", t)
+		return t.String()
 	}
 	return o[t]
 }
