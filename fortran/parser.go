@@ -516,6 +516,26 @@ func (p *parser) parseType(nodes []ele) (typ string) {
 		typ = "bool"
 	case CHARACTER:
 		typ = "byte"
+		// From:
+		//  CHARACTER * 16
+		// To:
+		//  CHARACTER (16)
+		if nodes[1].tok == token.MUL {
+			if nodes[2].tok == token.INT {
+				nodes = []ele{
+					nodes[0],
+					ele{
+						tok: token.LPAREN,
+						b:   []byte("("),
+					},
+					nodes[2],
+					ele{
+						tok: token.RPAREN,
+						b:   []byte(")"),
+					},
+				}
+			}
+		}
 	case COMPLEX:
 		typ = "complex128"
 	case REAL:
@@ -573,6 +593,13 @@ func (p *parser) parseType(nodes []ele) (typ string) {
 
 	for i := 0; i < arraySize; i++ {
 		typ = "[]" + typ
+	}
+
+	// CHARACTER(1) SRNAME_ARRAY(SRNAME_LEN)
+	//                          ============
+	// parse
+	if len(nodes) == 3 {
+		nodes = []ele{}
 	}
 
 	if len(nodes) != 0 {
