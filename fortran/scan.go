@@ -572,7 +572,9 @@ A:
 			for _, pat := range ent.pattern {
 				switch e.Value.(*ele).tok {
 				case undefine:
-					index := bytes.Index([]byte(string(e.Value.(*ele).b)), []byte(pat))
+					index := bytes.Index(
+						bytes.ToUpper([]byte(string(e.Value.(*ele).b))),
+						bytes.ToUpper([]byte(pat)))
 					if index < 0 {
 						continue
 					}
