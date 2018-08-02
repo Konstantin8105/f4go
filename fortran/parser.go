@@ -991,7 +991,9 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 			}
 			nodes = append(nodes, p.ns[p.ident])
 		}
-		p.addError("IMPLICIT is not support.\n" + nodesToString(nodes))
+		// p.addError("IMPLICIT is not support.\n" + nodesToString(nodes))
+		// ignore
+		_ = nodes
 
 	case token.INT:
 		if p.ns[p.ident+1].tok == token.CONTINUE {
