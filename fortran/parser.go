@@ -136,7 +136,6 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 		// Example:
 		//   RECURSIVE SUBROUTINE CGELQT3( M, N, A, LDA, T, LDT, INFO )
 		if strings.ToUpper(string(p.ns[p.ident].b)) == "RECURSIVE" {
-			fmt.Println(">>>>>>>>>>> FOUND")
 			p.ns[p.ident].tok, p.ns[p.ident].b = NEW_LINE, []byte("\n")
 			continue
 		}
@@ -520,7 +519,8 @@ func (p *parser) parseType(nodes []ele) (typ string) {
 		//  CHARACTER * 16
 		// To:
 		//  CHARACTER (16)
-		if nodes[1].tok == token.MUL {
+
+		if len(nodes) > 2 && nodes[1].tok == token.MUL {
 			if nodes[2].tok == token.INT {
 				nodes = []ele{
 					nodes[0],
