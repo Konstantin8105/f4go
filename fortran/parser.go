@@ -982,6 +982,17 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		stmts = append(stmts, sGoto...)
 		p.expect(NEW_LINE)
 
+	case IMPLICIT:
+		// TODO: add support IMPLICIT
+		var nodes []ele
+		for ; p.ident < len(p.ns); p.ident++ {
+			if p.ns[p.ident].tok == NEW_LINE || p.ns[p.ident].tok == token.EOF {
+				break
+			}
+			nodes = append(nodes, p.ns[p.ident])
+		}
+		p.addError("IMPLICIT is not support.\n" + nodesToString(nodes))
+
 	case token.INT:
 		if p.ns[p.ident+1].tok == token.CONTINUE {
 			label := string(p.ns[p.ident].b)
