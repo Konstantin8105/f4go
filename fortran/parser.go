@@ -938,15 +938,8 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		stmts = append(stmts, sData...)
 
 	case WRITE:
-		// TODO: add support WRITE
-		var nodes []ele
-		for ; p.ident < len(p.ns); p.ident++ {
-			if p.ns[p.ident].tok == NEW_LINE || p.ns[p.ident].tok == token.EOF {
-				break
-			}
-			nodes = append(nodes, p.ns[p.ident])
-		}
-		p.addError("WRITE is not support.\n" + nodesToString(nodes))
+		sWrite := p.parseWrite()
+		stmts = append(stmts, sWrite...)
 
 	case STOP:
 		p.expect(STOP)
@@ -1268,4 +1261,100 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 	stmts = append(stmts, &sw)
 
 	return
+}
+
+// Example:
+//  WRITE ( * , FMT = 9999 ) SRNAME ( 1 : LEN_TRIM ( SRNAME ) ) , INFO
+//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' , 'an illegal value' )
+func (p *parser) parseWrite() (stmts []goast.Stmt) {
+	p.expect(WRITE)
+	p.ident++
+	p.expect(token.LPAREN)
+	p.ident++
+	p.expect(token.MUL)
+	p.ident++
+	p.expect(token.COMMA)
+	p.ident++
+
+	if p.ns[p.ident].tok == token.IDENT && bytes.Equal(p.ns[p.ident].b, []byte("FMT")) {
+		p.ident++
+		p.expect(token.ASSIGN)
+		p.ident++
+		p.expect(token.INT)
+		fs := p.parseFormat(p.getLineByLabel(p.ns[p.ident].b)[2:])
+		p.addImport("fmt")
+		p.ident++
+		p.expect(token.RPAREN)
+		p.ident++
+		// separate to expression by comma
+		var exprs []goast.Expr
+		st := p.ident
+		for ; p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+			for ; p.ns[p.ident].tok != token.COMMA && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+			}
+			// parse expr
+			exprs = append(exprs, p.parseExpr(st, p.ident))
+			st = p.ident + 1
+			if p.ns[p.ident].tok == NEW_LINE {
+				p.ident--
+			}
+		}
+		p.expect(NEW_LINE)
+		var args []goast.Expr
+		args = append(args, goast.NewIdent(fs))
+		args = append(args, exprs...)
+		stmts = append(stmts, &goast.ExprStmt{
+			X: &goast.CallExpr{
+				Fun: &goast.SelectorExpr{
+					X:   goast.NewIdent("fmt"),
+					Sel: goast.NewIdent("Printf"),
+				},
+				Lparen: 1,
+				Args:   args,
+			},
+		})
+	} else {
+		panic(fmt.Errorf("Not support in WRITE : %v", string(p.ns[p.ident].b)))
+	}
+
+	return
+}
+
+func (p *parser) getLineByLabel(label []byte) (fs []ele) {
+	var found bool
+	var st int
+	for st = p.ident; st < len(p.ns); st++ {
+		if p.ns[st-1].tok == NEW_LINE && bytes.Equal(p.ns[st].b, label) {
+			found = true
+			break
+		}
+	}
+	if !found {
+		p.addError("Cannot found label :" + string(label))
+		return
+	}
+
+	for i := st; i < len(p.ns) && p.ns[i].tok != NEW_LINE; i++ {
+		fs = append(fs, p.ns[i])
+		// remove line
+		p.ns[i].tok, p.ns[i].b = NEW_LINE, []byte("\n")
+	}
+
+	return
+}
+
+func (p *parser) parseFormat(fs []ele) (s string) {
+	for _, f := range fs {
+		switch f.tok {
+		case token.STRING:
+			str := string(f.b)
+			str = strings.Replace(str, "'", "", -1)
+			s += str
+		case token.COMMA, token.LPAREN, token.RPAREN:
+			// ignore
+		default:
+			s += "%v"
+		}
+	}
+	return "\"" + s + "\""
 }
