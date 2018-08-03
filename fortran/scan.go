@@ -361,6 +361,11 @@ func (s *scanner) scanTokenWithPoint() {
 		{tok: STRING_CONCAT, pattern: "//"},
 		{tok: token.QUO, pattern: "/"},
 	}
+	for _, ent := range entities {
+		if !bytes.Equal([]byte(ent.pattern), bytes.ToUpper([]byte(ent.pattern))) {
+			panic(fmt.Errorf("Not valid pattern: %s", ent.pattern))
+		}
+	}
 
 A:
 	var changed bool
@@ -368,10 +373,11 @@ A:
 		if e.Value.(*node).tok != undefine {
 			continue
 		}
+		up := bytes.ToUpper(e.Value.(*node).b)
 		for _, ent := range entities {
 			ind := bytes.Index(
-				bytes.ToUpper(e.Value.(*node).b),
-				bytes.ToUpper([]byte(ent.pattern)))
+				up,
+				[]byte(ent.pattern))
 			if ind < 0 {
 				continue
 			}
@@ -577,41 +583,49 @@ func (s *scanner) scanTokens() {
 		{tok: token.GOTO, pattern: []string{"GOTO"}},
 		{tok: ELSEIF, pattern: []string{"ELSEIF"}},
 	}
+	for _, ent := range entities {
+		for _, pat := range ent.pattern {
+			if !bytes.Equal([]byte(pat), bytes.ToUpper([]byte(pat))) {
+				panic(fmt.Errorf("Not valid pattern: %s", pat))
+			}
+		}
+	}
 A:
 	var changed bool
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		for _, ent := range entities {
+			if e.Value.(*node).tok != undefine {
+				continue
+			}
+			up := bytes.ToUpper(e.Value.(*node).b)
 			for _, pat := range ent.pattern {
-				switch e.Value.(*node).tok {
-				case undefine:
-					index := bytes.Index(
-						bytes.ToUpper([]byte(string(e.Value.(*node).b))),
-						bytes.ToUpper([]byte(pat)))
-					if index < 0 {
-						continue
-					}
+				index := bytes.Index(
+					up,
+					[]byte(pat))
+				if index < 0 {
+					continue
+				}
 
-					var found bool
-					if index == 0 {
-						if len(e.Value.(*node).b) == len(pat) ||
-							!(isLetter(rune(e.Value.(*node).b[len(pat)])) ||
-								isDigit(rune(e.Value.(*node).b[len(pat)]))) {
-							found = true
-						}
+				var found bool
+				if index == 0 {
+					if len(e.Value.(*node).b) == len(pat) ||
+						!(isLetter(rune(e.Value.(*node).b[len(pat)])) ||
+							isDigit(rune(e.Value.(*node).b[len(pat)]))) {
+						found = true
 					}
-					if index > 0 {
-						if e.Value.(*node).b[index-1] == ' ' &&
-							(len(e.Value.(*node).b) == index+len(pat) ||
-								!isLetter(rune(e.Value.(*node).b[index+len(pat)]))) {
-							found = true
-						}
+				}
+				if index > 0 {
+					if e.Value.(*node).b[index-1] == ' ' &&
+						(len(e.Value.(*node).b) == index+len(pat) ||
+							!isLetter(rune(e.Value.(*node).b[index+len(pat)]))) {
+						found = true
 					}
+				}
 
-					if found {
-						s.extract(index, index+len(pat), e, ent.tok)
-						changed = true
-						goto en
-					}
+				if found {
+					s.extract(index, index+len(pat), e, ent.tok)
+					changed = true
+					goto en
 				}
 			}
 		}
