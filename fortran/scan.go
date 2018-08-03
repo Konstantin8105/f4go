@@ -13,17 +13,17 @@ type position struct {
 	col  int // column
 }
 
-type ele struct {
+type node struct {
 	tok token.Token
 	b   []byte
 	pos position
 }
 
-func (e ele) String() string {
+func (e node) String() string {
 	return fmt.Sprintf("[%v, `%s`, %v]", view(e.tok), string(e.b), e.pos)
 }
 
-func (e *ele) Split() (eles []ele) {
+func (e *node) Split() (nodes []node) {
 	var b []byte
 	b = append(b, e.b...)
 
@@ -47,7 +47,7 @@ func (e *ele) Split() (eles []ele) {
 		if end-st == 0 {
 			break
 		} else {
-			eles = append(eles, ele{
+			nodes = append(nodes, node{
 				tok: e.tok,
 				pos: position{
 					line: e.pos.line,
@@ -67,15 +67,14 @@ func (e *ele) Split() (eles []ele) {
 }
 
 // scanner represents a lexical scanner.
-type elScan struct {
-	eles *list.List
+type scanner struct {
+	nodes *list.List
 }
 
-// newScanner returns a new instance of Scanner.
-func scanT(b []byte) *list.List {
-	var s elScan
-	s.eles = list.New()
-	s.eles.PushFront(&ele{
+func scan(b []byte) *list.List {
+	var s scanner
+	s.nodes = list.New()
+	s.nodes.PushFront(&node{
 		tok: undefine,
 		b:   b,
 		pos: position{
@@ -118,30 +117,30 @@ func scanT(b []byte) *list.List {
 	s.scanEmpty()
 
 	// IDENT for undefine
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*ele).tok {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		switch e.Value.(*node).tok {
 		case undefine:
-			e.Value.(*ele).tok = token.IDENT
+			e.Value.(*node).tok = token.IDENT
 		}
 	}
 
 	// token GO TO
 	s.scanGoto()
 
-	return s.eles
+	return s.nodes
 }
 
 // separate break lines
-func (s *elScan) scanBreakLines() {
+func (s *scanner) scanBreakLines() {
 B:
 	var again bool
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*ele).tok {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		switch e.Value.(*node).tok {
 		case NEW_LINE:
 			// ignore
 		default:
-			for j := len(e.Value.(*ele).b) - 1; j >= 0; j-- {
-				if e.Value.(*ele).b[j] != '\n' {
+			for j := len(e.Value.(*node).b) - 1; j >= 0; j-- {
+				if e.Value.(*node).b[j] != '\n' {
 					continue
 				}
 				s.extract(j, j+1, e, NEW_LINE)
@@ -153,30 +152,30 @@ B:
 		goto B
 	}
 	line := 1
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		e.Value.(*ele).pos.line = line
-		e.Value.(*ele).pos.col = 1
-		if e.Value.(*ele).tok == NEW_LINE {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		e.Value.(*node).pos.line = line
+		e.Value.(*node).pos.col = 1
+		if e.Value.(*node).tok == NEW_LINE {
 			line++
 		}
 	}
 }
 
 // separate comments
-func (s *elScan) scanComments() {
+func (s *scanner) scanComments() {
 	// comments single line started from letters:
 	// 'C', 'c', '*', 'd', 'D'
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*ele).tok {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		switch e.Value.(*node).tok {
 		case undefine:
-			if len(e.Value.(*ele).b) == 0 {
+			if len(e.Value.(*node).b) == 0 {
 				continue
 			}
-			ch := e.Value.(*ele).b[0]
+			ch := e.Value.(*node).b[0]
 			if ch == 'C' || ch == 'c' ||
 				ch == '*' ||
 				ch == 'D' || ch == 'd' {
-				e.Value.(*ele).tok = token.COMMENT
+				e.Value.(*node).tok = token.COMMENT
 			}
 		}
 	}
@@ -184,22 +183,22 @@ func (s *elScan) scanComments() {
 	// comments inside line : '!'
 Op:
 	var again bool
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*ele).tok {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		switch e.Value.(*node).tok {
 		case undefine:
-			if len(e.Value.(*ele).b) == 0 {
+			if len(e.Value.(*node).b) == 0 {
 				continue
 			}
 			var st int
 			var found bool
-			for st = 0; st < len(e.Value.(*ele).b); st++ {
-				if e.Value.(*ele).b[st] == '!' {
+			for st = 0; st < len(e.Value.(*node).b); st++ {
+				if e.Value.(*node).b[st] == '!' {
 					found = true
 					break
 				}
 			}
 			if found {
-				s.extract(st, len(e.Value.(*ele).b), e, token.COMMENT)
+				s.extract(st, len(e.Value.(*node).b), e, token.COMMENT)
 				again = true
 			}
 		}
@@ -212,8 +211,8 @@ Op:
 // extract
 // start - column started  (included)
 // end   - column finished (not included)
-func (s *elScan) extract(start, end int, e *list.Element, tok token.Token) {
-	b := e.Value.(*ele).b
+func (s *scanner) extract(start, end int, e *list.Element, tok token.Token) {
+	b := e.Value.(*node).b
 
 	if start == end {
 		panic(fmt.Errorf("undefine symbol {%v,%v}", start, end))
@@ -224,23 +223,23 @@ func (s *elScan) extract(start, end int, e *list.Element, tok token.Token) {
 	}
 
 	if start == 0 && end == len(b) {
-		e.Value.(*ele).tok = tok
+		e.Value.(*node).tok = tok
 		return
 	}
 
 	if start == 0 { // comment at the first line
 		present, aft := b[:end], b[end:]
 
-		e.Value.(*ele).b = present
-		e.Value.(*ele).tok = tok
+		e.Value.(*node).b = present
+		e.Value.(*node).tok = tok
 
 		if len(aft) > 0 {
-			s.eles.InsertAfter(&ele{
+			s.nodes.InsertAfter(&node{
 				tok: undefine,
 				b:   aft,
 				pos: position{
-					line: e.Value.(*ele).pos.line,
-					col:  e.Value.(*ele).pos.col + start,
+					line: e.Value.(*node).pos.line,
+					col:  e.Value.(*node).pos.col + start,
 				},
 			}, e)
 		}
@@ -251,16 +250,16 @@ func (s *elScan) extract(start, end int, e *list.Element, tok token.Token) {
 		// start is not 0
 		// end is end of slice
 		bef, present := b[:start], b[start:]
-		s.eles.InsertAfter(&ele{
+		s.nodes.InsertAfter(&node{
 			tok: tok,
 			b:   present,
 			pos: position{
-				line: e.Value.(*ele).pos.line,
-				col:  e.Value.(*ele).pos.col + start,
+				line: e.Value.(*node).pos.line,
+				col:  e.Value.(*node).pos.col + start,
 			},
 		}, e)
-		e.Value.(*ele).tok = undefine
-		e.Value.(*ele).b = bef
+		e.Value.(*node).tok = undefine
+		e.Value.(*node).b = bef
 		return
 	}
 
@@ -269,43 +268,43 @@ func (s *elScan) extract(start, end int, e *list.Element, tok token.Token) {
 
 	bef, present, aft := b[:start], b[start:end], b[end:]
 
-	e.Value.(*ele).tok = undefine
-	e.Value.(*ele).b = bef
+	e.Value.(*node).tok = undefine
+	e.Value.(*node).b = bef
 
-	s.eles.InsertAfter(&ele{
+	s.nodes.InsertAfter(&node{
 		tok: undefine,
 		b:   aft,
 		pos: position{
-			line: e.Value.(*ele).pos.line,
-			col:  e.Value.(*ele).pos.col + end,
+			line: e.Value.(*node).pos.line,
+			col:  e.Value.(*node).pos.col + end,
 		},
 	}, e)
 
-	s.eles.InsertAfter(&ele{
+	s.nodes.InsertAfter(&node{
 		tok: tok,
 		b:   present,
 		pos: position{
-			line: e.Value.(*ele).pos.line,
-			col:  e.Value.(*ele).pos.col + start,
+			line: e.Value.(*node).pos.line,
+			col:  e.Value.(*node).pos.col + start,
 		},
 	}, e)
 }
 
 // separate strings
-func (s *elScan) scanStrings() {
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*ele).tok {
+func (s *scanner) scanStrings() {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		switch e.Value.(*node).tok {
 		case undefine:
-			for j, ch := range e.Value.(*ele).b {
+			for j, ch := range e.Value.(*node).b {
 				if ch == '"' {
-					b := e.Value.(*ele).b
+					b := e.Value.(*node).b
 					var end int
 					for end = j + 1; end < len(b) && b[end] != '"'; end++ {
 					}
 					s.extract(j, end+1, e, token.STRING)
 					break
 				} else if ch == '\'' {
-					b := e.Value.(*ele).b
+					b := e.Value.(*node).b
 					var end int
 					for end = j + 1; end < len(b) && b[end] != '\''; end++ {
 					}
@@ -318,7 +317,7 @@ func (s *elScan) scanStrings() {
 }
 
 // scanTokenWithPoint for identification
-func (s *elScan) scanTokenWithPoint() {
+func (s *scanner) scanTokenWithPoint() {
 	// Example of possible error:
 	// IF ( 2.LE.1) ...
 	//       |
@@ -365,13 +364,13 @@ func (s *elScan) scanTokenWithPoint() {
 
 A:
 	var changed bool
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok != undefine {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok != undefine {
 			continue
 		}
 		for _, ent := range entities {
 			ind := bytes.Index(
-				bytes.ToUpper(e.Value.(*ele).b),
+				bytes.ToUpper(e.Value.(*node).b),
 				bytes.ToUpper([]byte(ent.pattern)))
 			if ind < 0 {
 				continue
@@ -387,18 +386,18 @@ A:
 }
 
 // postprocessor
-func (s *elScan) postprocessor() {
+func (s *scanner) postprocessor() {
 
 	// From:
 	//  END SUBROUTINE
 	//  END IF
 	// To:
 	//  END
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok == END {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok == END {
 			for n := e.Next(); n != nil; n = e.Next() {
-				if n.Value.(*ele).tok != NEW_LINE {
-					s.eles.Remove(n)
+				if n.Value.(*node).tok != NEW_LINE {
+					s.nodes.Remove(n)
 				} else {
 					break
 				}
@@ -410,10 +409,10 @@ func (s *elScan) postprocessor() {
 	//   ELSEIF
 	// To:
 	//   ELSE IF
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok == ELSEIF {
-			e.Value.(*ele).tok, e.Value.(*ele).b = token.ELSE, []byte("ELSE")
-			s.eles.InsertAfter(&ele{
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok == ELSEIF {
+			e.Value.(*node).tok, e.Value.(*node).b = token.ELSE, []byte("ELSE")
+			s.nodes.InsertAfter(&node{
 				tok: token.IF,
 				b:   []byte("IF"),
 			}, e)
@@ -424,31 +423,31 @@ func (s *elScan) postprocessor() {
 	//   /= token.NEQ
 	// To:
 	//   != token.NEQ
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok == token.NEQ {
-			e.Value.(*ele).tok, e.Value.(*ele).b = token.NEQ, []byte("!=")
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok == token.NEQ {
+			e.Value.(*node).tok, e.Value.(*node).b = token.NEQ, []byte("!=")
 		}
 	}
 
 	// replace string concatenation
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok == STRING_CONCAT {
-			e.Value.(*ele).tok, e.Value.(*ele).b = token.ADD, []byte("+")
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok == STRING_CONCAT {
+			e.Value.(*node).tok, e.Value.(*node).b = token.ADD, []byte("+")
 		}
 	}
 
 	// Multiline expression
 	// if any in column 6, then merge lines
 multi:
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok == NEW_LINE {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok == NEW_LINE {
 			n := e.Next()
 			if n == nil {
 				continue
 			}
-			if n.Value.(*ele).pos.col == 6 {
-				s.eles.Remove(e)
-				s.eles.Remove(n)
+			if n.Value.(*node).pos.col == 6 {
+				s.nodes.Remove(e)
+				s.nodes.Remove(n)
 				goto multi
 			}
 		}
@@ -460,14 +459,14 @@ multi:
 	//  'an illegal value' )
 	// To:
 	//  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' , 'an illegal value' )
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok == token.COMMA {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok == token.COMMA {
 			n := e.Next()
 			if n == nil {
 				continue
 			}
-			if n.Value.(*ele).tok == NEW_LINE {
-				s.eles.Remove(n)
+			if n.Value.(*node).tok == NEW_LINE {
+				s.nodes.Remove(n)
 			}
 		}
 	}
@@ -479,50 +478,50 @@ multi:
 	//  ONE = ( 1.0E+0 , 0.0E+0 )
 	//  ZERO = 0.0E+0
 	//
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok != NEW_LINE {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok != NEW_LINE {
 			continue
 		}
 		e = e.Next()
 		if e == nil {
 			break
 		}
-		if e.Value.(*ele).tok != PARAMETER {
+		if e.Value.(*node).tok != PARAMETER {
 			continue
 		}
 		// replace PARAMETER to NEW_LINE
 		n := e.Next()
-		e.Value.(*ele).b, e.Value.(*ele).tok = []byte{'\n'}, NEW_LINE
+		e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, NEW_LINE
 		e = n
 		// replace ( to NEW_LINE
-		if e.Value.(*ele).tok != token.LPAREN {
+		if e.Value.(*node).tok != token.LPAREN {
 			panic("is not LPAREN")
 		}
-		e.Value.(*ele).b, e.Value.(*ele).tok = []byte{'\n'}, NEW_LINE
+		e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, NEW_LINE
 		e = e.Next()
 		// find end )
 		counter := 1
 		for ; e != nil; e = e.Next() {
-			if e.Value.(*ele).tok == NEW_LINE {
+			if e.Value.(*node).tok == NEW_LINE {
 				// panic(fmt.Errorf("NEW_LINE is not accepted"))
 				break
 			}
-			if e.Value.(*ele).tok == token.LPAREN {
+			if e.Value.(*node).tok == token.LPAREN {
 				counter++
 			}
-			if e.Value.(*ele).tok == token.RPAREN {
+			if e.Value.(*node).tok == token.RPAREN {
 				counter--
 			}
-			if counter == 1 && e.Value.(*ele).tok == token.COMMA {
+			if counter == 1 && e.Value.(*node).tok == token.COMMA {
 				// replace , to NEW_LINE
-				e.Value.(*ele).b, e.Value.(*ele).tok = []byte{'\n'}, NEW_LINE
+				e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, NEW_LINE
 			}
 			if counter == 0 {
-				if e.Value.(*ele).tok != token.RPAREN {
+				if e.Value.(*node).tok != token.RPAREN {
 					panic("Must RPAREN")
 				}
 				// replace ) to NEW_LINE
-				e.Value.(*ele).b, e.Value.(*ele).tok = []byte{'\n'}, NEW_LINE
+				e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, NEW_LINE
 				break
 			}
 		}
@@ -530,20 +529,20 @@ multi:
 
 	// .TRUE. to true
 	// .FALSE. to false
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if e.Value.(*ele).tok != token.IDENT {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok != token.IDENT {
 			continue
 		}
-		switch strings.ToUpper(string(e.Value.(*ele).b)) {
+		switch strings.ToUpper(string(e.Value.(*node).b)) {
 		case ".TRUE.":
-			e.Value.(*ele).b = []byte("true")
+			e.Value.(*node).b = []byte("true")
 		case ".FALSE.":
-			e.Value.(*ele).b = []byte("false")
+			e.Value.(*node).b = []byte("false")
 		}
 	}
 }
 
-func (s *elScan) scanTokens() {
+func (s *scanner) scanTokens() {
 	entities := []struct {
 		tok     token.Token
 		pattern []string
@@ -580,13 +579,13 @@ func (s *elScan) scanTokens() {
 	}
 A:
 	var changed bool
-	for e := s.eles.Front(); e != nil; e = e.Next() {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		for _, ent := range entities {
 			for _, pat := range ent.pattern {
-				switch e.Value.(*ele).tok {
+				switch e.Value.(*node).tok {
 				case undefine:
 					index := bytes.Index(
-						bytes.ToUpper([]byte(string(e.Value.(*ele).b))),
+						bytes.ToUpper([]byte(string(e.Value.(*node).b))),
 						bytes.ToUpper([]byte(pat)))
 					if index < 0 {
 						continue
@@ -594,16 +593,16 @@ A:
 
 					var found bool
 					if index == 0 {
-						if len(e.Value.(*ele).b) == len(pat) ||
-							!(isLetter(rune(e.Value.(*ele).b[len(pat)])) ||
-								isDigit(rune(e.Value.(*ele).b[len(pat)]))) {
+						if len(e.Value.(*node).b) == len(pat) ||
+							!(isLetter(rune(e.Value.(*node).b[len(pat)])) ||
+								isDigit(rune(e.Value.(*node).b[len(pat)]))) {
 							found = true
 						}
 					}
 					if index > 0 {
-						if e.Value.(*ele).b[index-1] == ' ' &&
-							(len(e.Value.(*ele).b) == index+len(pat) ||
-								!isLetter(rune(e.Value.(*ele).b[index+len(pat)]))) {
+						if e.Value.(*node).b[index-1] == ' ' &&
+							(len(e.Value.(*node).b) == index+len(pat) ||
+								!isLetter(rune(e.Value.(*node).b[index+len(pat)]))) {
 							found = true
 						}
 					}
@@ -623,7 +622,7 @@ A:
 	}
 }
 
-func (s *elScan) scanTokensAfter() {
+func (s *scanner) scanTokensAfter() {
 	entities := []struct {
 		tok     token.Token
 		pattern []string
@@ -634,12 +633,12 @@ func (s *elScan) scanTokensAfter() {
 	}
 A:
 	var changed bool
-	for e := s.eles.Front(); e != nil; e = e.Next() {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		for _, ent := range entities {
 			for _, pat := range ent.pattern {
-				switch e.Value.(*ele).tok {
+				switch e.Value.(*node).tok {
 				case undefine:
-					index := bytes.Index([]byte(string(e.Value.(*ele).b)), []byte(pat))
+					index := bytes.Index([]byte(string(e.Value.(*node).b)), []byte(pat))
 					if index < 0 {
 						continue
 					}
@@ -657,42 +656,42 @@ A:
 }
 
 // remove empty undefine tokens
-func (s *elScan) scanEmpty() {
+func (s *scanner) scanEmpty() {
 empty:
 	var again bool
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*ele).tok {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		switch e.Value.(*node).tok {
 		case undefine:
-			if len(e.Value.(*ele).b) == 0 {
+			if len(e.Value.(*node).b) == 0 {
 				n := e.Next()
-				s.eles.Remove(e)
+				s.nodes.Remove(e)
 				e = n
 				again = true
 				continue
 			}
-			if len(bytes.TrimSpace([]byte(string(e.Value.(*ele).b)))) == 0 {
+			if len(bytes.TrimSpace([]byte(string(e.Value.(*node).b)))) == 0 {
 				n := e.Next()
-				s.eles.Remove(e)
+				s.nodes.Remove(e)
 				e = n
 				again = true
 				continue
 			}
-			es := e.Value.(*ele).Split()
-			if len(es) == 1 && bytes.Equal(e.Value.(*ele).b, es[0].b) {
+			es := e.Value.(*node).Split()
+			if len(es) == 1 && bytes.Equal(e.Value.(*node).b, es[0].b) {
 				continue
 			}
 			for i := len(es) - 1; i >= 1; i-- {
-				s.eles.InsertAfter(&es[i], e)
+				s.nodes.InsertAfter(&es[i], e)
 			}
 			if len(es) == 0 {
 				n := e.Next()
-				s.eles.Remove(e)
+				s.nodes.Remove(e)
 				e = n
 				again = true
 				continue
 			}
-			e.Value.(*ele).b = es[0].b
-			e.Value.(*ele).pos = es[0].pos
+			e.Value.(*node).b = es[0].b
+			e.Value.(*node).pos = es[0].pos
 			again = true
 			continue
 		}
@@ -702,10 +701,10 @@ empty:
 	}
 }
 
-func (s *elScan) scanNumbers() {
+func (s *scanner) scanNumbers() {
 numb:
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*ele).tok {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		switch e.Value.(*node).tok {
 		case undefine:
 			// Examples:
 			// +0.000E4
@@ -721,36 +720,36 @@ numb:
 			//  4. Exponenta  // maybe
 			//  5. Sign       // maybe
 			//  6. Digits     // maybe
-			for st := 0; st < len(e.Value.(*ele).b); st++ {
-				if isDigit(rune(e.Value.(*ele).b[st])) {
+			for st := 0; st < len(e.Value.(*node).b); st++ {
+				if isDigit(rune(e.Value.(*node).b[st])) {
 					var en int
-					for en = st; en < len(e.Value.(*ele).b); en++ {
-						if !isDigit(rune(e.Value.(*ele).b[en])) {
+					for en = st; en < len(e.Value.(*node).b); en++ {
+						if !isDigit(rune(e.Value.(*node).b[en])) {
 							break
 						}
 					}
-					if en < len(e.Value.(*ele).b) && (e.Value.(*ele).b[en] == '.' ||
-						e.Value.(*ele).b[en] == 'E' || e.Value.(*ele).b[en] == 'e' ||
-						e.Value.(*ele).b[en] == 'D' || e.Value.(*ele).b[en] == 'd' ||
-						e.Value.(*ele).b[en] == 'Q' || e.Value.(*ele).b[en] == 'q') {
+					if en < len(e.Value.(*node).b) && (e.Value.(*node).b[en] == '.' ||
+						e.Value.(*node).b[en] == 'E' || e.Value.(*node).b[en] == 'e' ||
+						e.Value.(*node).b[en] == 'D' || e.Value.(*node).b[en] == 'd' ||
+						e.Value.(*node).b[en] == 'Q' || e.Value.(*node).b[en] == 'q') {
 						// FLOAT
-						if e.Value.(*ele).b[en] == '.' {
-							for en = en + 1; en < len(e.Value.(*ele).b); en++ {
-								if !isDigit(rune(e.Value.(*ele).b[en])) {
+						if e.Value.(*node).b[en] == '.' {
+							for en = en + 1; en < len(e.Value.(*node).b); en++ {
+								if !isDigit(rune(e.Value.(*node).b[en])) {
 									break
 								}
 							}
 						}
-						if en < len(e.Value.(*ele).b) &&
-							(e.Value.(*ele).b[en] == 'E' || e.Value.(*ele).b[en] == 'e' ||
-								e.Value.(*ele).b[en] == 'D' || e.Value.(*ele).b[en] == 'd' ||
-								e.Value.(*ele).b[en] == 'Q' || e.Value.(*ele).b[en] == 'q') {
-							if en+1 < len(e.Value.(*ele).b) &&
-								(e.Value.(*ele).b[en+1] == '+' || e.Value.(*ele).b[en+1] == '-') {
+						if en < len(e.Value.(*node).b) &&
+							(e.Value.(*node).b[en] == 'E' || e.Value.(*node).b[en] == 'e' ||
+								e.Value.(*node).b[en] == 'D' || e.Value.(*node).b[en] == 'd' ||
+								e.Value.(*node).b[en] == 'Q' || e.Value.(*node).b[en] == 'q') {
+							if en+1 < len(e.Value.(*node).b) &&
+								(e.Value.(*node).b[en+1] == '+' || e.Value.(*node).b[en+1] == '-') {
 								en++
 							}
-							for en = en + 1; en < len(e.Value.(*ele).b); en++ {
-								if !isDigit(rune(e.Value.(*ele).b[en])) {
+							for en = en + 1; en < len(e.Value.(*node).b); en++ {
+								if !isDigit(rune(e.Value.(*node).b[en])) {
 									break
 								}
 							}
@@ -763,14 +762,14 @@ numb:
 						goto numb
 					}
 				} else {
-					for ; st < len(e.Value.(*ele).b); st++ {
-						if e.Value.(*ele).b[st] != '_' &&
-							!isDigit(rune(e.Value.(*ele).b[st])) &&
-							!isLetter(rune(e.Value.(*ele).b[st])) {
+					for ; st < len(e.Value.(*node).b); st++ {
+						if e.Value.(*node).b[st] != '_' &&
+							!isDigit(rune(e.Value.(*node).b[st])) &&
+							!isLetter(rune(e.Value.(*node).b[st])) {
 							break
 						}
 					}
-					if st >= len(e.Value.(*ele).b) {
+					if st >= len(e.Value.(*node).b) {
 						break
 					}
 				}
@@ -779,22 +778,22 @@ numb:
 	}
 }
 
-func (s *elScan) scanGoto() {
+func (s *scanner) scanGoto() {
 G:
-	for e := s.eles.Front(); e != nil; e = e.Next() {
-		if !(e.Value.(*ele).tok == token.IDENT && string(e.Value.(*ele).b) == "GO") {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if !(e.Value.(*node).tok == token.IDENT && string(e.Value.(*node).b) == "GO") {
 			continue
 		}
 		n := e.Next()
 		if n == nil {
 			continue
 		}
-		if !(n.Value.(*ele).tok == token.IDENT && string(n.Value.(*ele).b) == "TO") {
+		if !(n.Value.(*node).tok == token.IDENT && string(n.Value.(*node).b) == "TO") {
 			continue
 		}
-		e.Value.(*ele).tok = token.GOTO
-		e.Value.(*ele).b = []byte("goto")
-		s.eles.Remove(n)
+		e.Value.(*node).tok = token.GOTO
+		e.Value.(*node).b = []byte("goto")
+		s.nodes.Remove(n)
 		goto G
 	}
 }

@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func nodesToString(nodes []ele) (str string) {
+func nodesToString(nodes []node) (str string) {
 	for _, n := range nodes {
 		switch n.tok {
 		case
@@ -48,10 +48,10 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 		}
 	}()
 
-	base := make([]ele, len(in))
+	base := make([]node, len(in))
 	copy(base, in)
 
-	nodes := make([]ele, len(in))
+	nodes := make([]node, len(in))
 	copy(nodes, in)
 
 	p.fixArrayVariables(&nodes)
@@ -93,7 +93,7 @@ func (p *parser) isArrayVariable(name string) bool {
 // fixArrayVariables - change tokens of array
 // From : ... | NAME | ( | I |   ,   | J | ) | ...
 // To   : ... | NAME | [ | I | ] | [ | J | ] | ...
-func (p *parser) fixArrayVariables(nodes *[]ele) {
+func (p *parser) fixArrayVariables(nodes *[]node) {
 	var positions []int
 	// find all arrays
 	for i, n := range *nodes {
@@ -117,7 +117,7 @@ func (p *parser) fixArrayVariables(nodes *[]ele) {
 			continue
 		}
 		(*nodes)[pos+1].tok, (*nodes)[pos+1].b = token.LBRACK, []byte("[")
-		var counter int = 1
+		counter := 1
 		var end int
 		for i := pos + 1; i < len(*nodes); i++ {
 			if (*nodes)[i].tok == token.LPAREN {
@@ -145,12 +145,12 @@ func (p *parser) fixArrayVariables(nodes *[]ele) {
 				counter--
 			}
 			if counter == 1 && (*nodes)[i].tok == token.COMMA {
-				*nodes = append((*nodes)[:i], append([]ele{
-					ele{
+				*nodes = append((*nodes)[:i], append([]node{
+					node{
 						tok: token.RBRACK,
 						b:   []byte("]"),
 					},
-					ele{
+					node{
 						tok: token.LBRACK,
 						b:   []byte("["),
 					},
@@ -167,7 +167,7 @@ func (p *parser) fixArrayVariables(nodes *[]ele) {
 // Examples:
 //   SD2 / GAM ** 2
 //   DSQRT ( ( DA / SCALE ) ** 2 + ( DB / SCALE ) ** 2 )
-func (p *parser) fixDoubleStar(nodes *[]ele) {
+func (p *parser) fixDoubleStar(nodes *[]node) {
 	var haveDoubleStar bool
 	var pos int // saving last position of DOUBLE_STAR
 	for i, n := range *nodes {
@@ -333,16 +333,16 @@ func (p *parser) fixDoubleStar(nodes *[]ele) {
 
 	// combine expression by next formula:
 	// leftOther math.Pow(leftVariable , rightVariable) rightOther
-	var comb []ele
+	var comb []node
 	comb = append(comb, leftPart[:leftSeparator]...)
-	comb = append(comb, []ele{
-		ele{tok: token.IDENT, b: []byte("math.Pow")},
-		ele{tok: token.LPAREN, b: []byte("(")},
+	comb = append(comb, []node{
+		node{tok: token.IDENT, b: []byte("math.Pow")},
+		node{tok: token.LPAREN, b: []byte("(")},
 	}...)
 	comb = append(comb, leftPart[leftSeparator:]...)
-	comb = append(comb, ele{tok: token.COMMA, b: []byte(",")})
+	comb = append(comb, node{tok: token.COMMA, b: []byte(",")})
 	comb = append(comb, rightPart[:rightSeparator+1]...)
-	comb = append(comb, ele{tok: token.RPAREN, b: []byte(")")})
+	comb = append(comb, node{tok: token.RPAREN, b: []byte(")")})
 	comb = append(comb, rightPart[rightSeparator+1:]...)
 
 	*nodes = comb
@@ -351,7 +351,7 @@ func (p *parser) fixDoubleStar(nodes *[]ele) {
 	p.fixDoubleStar(nodes)
 }
 
-func (p *parser) fixString(nodes *[]ele) {
+func (p *parser) fixString(nodes *[]node) {
 	for i := range *nodes {
 		if (*nodes)[i].tok == token.STRING {
 			(*nodes)[i].b = []byte(strings.Replace(string((*nodes)[i].b), "'", "\"", -1))
@@ -375,7 +375,7 @@ func (p *parser) fixString(nodes *[]ele) {
 //  ( EXPRESSION )
 //  EXPRESSION
 //  FUNCTION (...)
-func (p *parser) fixComplexValue(nodes *[]ele) {
+func (p *parser) fixComplexValue(nodes *[]node) {
 	var start, comma, end int
 	var find bool
 	for i := range *nodes {
@@ -451,18 +451,18 @@ func (p *parser) fixComplexValue(nodes *[]ele) {
 		return
 	}
 	// combine new complex value interpretation
-	var comb []ele
+	var comb []node
 	comb = append(comb, (*nodes)[:start]...)
 
-	comb = append(comb, ele{tok: token.LPAREN, b: []byte("(")})
+	comb = append(comb, node{tok: token.LPAREN, b: []byte("(")})
 	comb = append(comb, (*nodes)[start:comma]...)
-	comb = append(comb, ele{tok: token.ADD, b: []byte("+")})
-	comb = append(comb, ele{tok: token.LPAREN, b: []byte("(")})
+	comb = append(comb, node{tok: token.ADD, b: []byte("+")})
+	comb = append(comb, node{tok: token.LPAREN, b: []byte("(")})
 	comb = append(comb, (*nodes)[comma+1:end]...)
-	comb = append(comb, ele{tok: token.RPAREN, b: []byte(")")})
-	comb = append(comb, ele{tok: token.MUL, b: []byte("*")})
-	comb = append(comb, ele{tok: token.FLOAT, b: []byte("1i")})
-	comb = append(comb, ele{tok: token.RPAREN, b: []byte(")")})
+	comb = append(comb, node{tok: token.RPAREN, b: []byte(")")})
+	comb = append(comb, node{tok: token.MUL, b: []byte("*")})
+	comb = append(comb, node{tok: token.FLOAT, b: []byte("1i")})
+	comb = append(comb, node{tok: token.RPAREN, b: []byte(")")})
 	comb = append(comb, (*nodes)[end:]...)
 
 	*nodes = comb
@@ -470,7 +470,7 @@ func (p *parser) fixComplexValue(nodes *[]ele) {
 	p.fixComplexValue(nodes)
 }
 
-func (p *parser) fixFloats(nodes *[]ele) {
+func (p *parser) fixFloats(nodes *[]node) {
 	for i := range *nodes {
 		if (*nodes)[i].tok == token.FLOAT {
 			(*nodes)[i].b = []byte(strings.ToLower(string((*nodes)[i].b)))

@@ -8,7 +8,7 @@ import (
 )
 
 func TestEle(t *testing.T) {
-	e := &ele{
+	e := &node{
 		b: []byte(string("1  4  7 9 1")),
 	}
 	e.Split()
@@ -85,14 +85,14 @@ func TestScanIn(t *testing.T) {
 	}
 	for i, tc := range tcs {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
-			l := scanT([]byte(tc.in))
+			l := scan([]byte(tc.in))
 			lv(l)
 			var le int
 			for e, j := l.Front(), 0; e != nil; e, j = e.Next(), j+1 {
-				if j < len(tc.out) && tc.out[j] != string(e.Value.(*ele).b) {
+				if j < len(tc.out) && tc.out[j] != string(e.Value.(*node).b) {
 					t.Fatalf("Not same: `%s` != `%s`",
 						tc.out[j],
-						string(e.Value.(*ele).b))
+						string(e.Value.(*node).b))
 				}
 				le++
 			}
@@ -105,15 +105,15 @@ func TestScanIn(t *testing.T) {
 
 func lv(l *list.List) {
 	for e := l.Front(); e != nil; e = e.Next() {
-		b := string(e.Value.(*ele).b)
-		if e.Value.(*ele).tok != NEW_LINE {
+		b := string(e.Value.(*node).b)
+		if e.Value.(*node).tok != NEW_LINE {
 			fmt.Printf("%10s\t%10s\t|`%s`\n",
-				view(e.Value.(*ele).tok),
-				fmt.Sprintf("%v", e.Value.(*ele).pos),
+				view(e.Value.(*node).tok),
+				fmt.Sprintf("%v", e.Value.(*node).pos),
 				b)
 		} else {
 			fmt.Printf("%20s\n",
-				view(e.Value.(*ele).tok))
+				view(e.Value.(*node).tok))
 		}
 	}
 }

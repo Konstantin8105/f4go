@@ -13,7 +13,7 @@ type parser struct {
 	// sc    *scanner
 	ast   goast.File
 	ident int
-	ns    []ele
+	ns    []node
 
 	functionExternalName []string
 	initVars             []initialVar
@@ -42,12 +42,13 @@ func (p *parser) init() {
 	p.endLabelDo = map[string]int{}
 }
 
-func parse(b []byte) (ast goast.File, err []error) {
+// Parse is convert fortran source to go ast tree
+func Parse(b []byte) (ast goast.File, err []error) {
 	var p parser
 
-	l := scanT(b)
+	l := scan(b)
 	for e := l.Front(); e != nil; e = e.Next() {
-		p.ns = append(p.ns, *e.Value.(*ele))
+		p.ns = append(p.ns, *e.Value.(*node))
 	}
 
 	p.ast.Name = goast.NewIdent("main")
@@ -173,13 +174,13 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 
 		// if at the begin we haven't SUBROUTINE , FUNCTION,...
 		// then add fake Program
-		var comb []ele
+		var comb []node
 		comb = append(comb, p.ns[:p.ident]...)
-		comb = append(comb, []ele{
-			ele{tok: NEW_LINE, b: []byte("\n")},
-			ele{tok: PROGRAM, b: []byte("PROGRAM")},
-			ele{tok: token.IDENT, b: []byte("MAIN")},
-			ele{tok: NEW_LINE, b: []byte("\n")},
+		comb = append(comb, []node{
+			node{tok: NEW_LINE, b: []byte("\n")},
+			node{tok: PROGRAM, b: []byte("PROGRAM")},
+			node{tok: token.IDENT, b: []byte("MAIN")},
+			node{tok: NEW_LINE, b: []byte("\n")},
 		}...)
 		comb = append(comb, p.ns[p.ident:]...)
 		p.ns = comb
@@ -240,7 +241,7 @@ func (p *parser) parseFunction() (decl goast.Decl) {
 		Params: &goast.FieldList{},
 	}
 
-	var returnType []ele
+	var returnType []node
 	for ; p.ns[p.ident].tok != FUNCTION && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
 		returnType = append(returnType, p.ns[p.ident])
 	}
@@ -456,7 +457,7 @@ func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 //  DOUBLE PRECISION (*)
 //  LOGICAL
 //  CHARACTER*32
-func (p *parser) parseType(nodes []ele) (typ string) {
+func (p *parser) parseType(nodes []node) (typ string) {
 
 	typ = "int"
 	switch nodes[0].tok {
@@ -473,14 +474,14 @@ func (p *parser) parseType(nodes []ele) (typ string) {
 
 		if len(nodes) > 2 && nodes[1].tok == token.MUL {
 			if nodes[2].tok == token.INT {
-				nodes = []ele{
+				nodes = []node{
 					nodes[0],
-					ele{
+					node{
 						tok: token.LPAREN,
 						b:   []byte("("),
 					},
 					nodes[2],
-					ele{
+					node{
 						tok: token.RPAREN,
 						b:   []byte(")"),
 					},
@@ -550,7 +551,7 @@ func (p *parser) parseType(nodes []ele) (typ string) {
 	//                          ============
 	// parse
 	if len(nodes) == 3 {
-		nodes = []ele{}
+		nodes = []node{}
 	}
 
 	if len(nodes) != 0 {
@@ -572,14 +573,14 @@ func (p *parser) parseType(nodes []ele) (typ string) {
 func (p *parser) parseInit() (stmts []goast.Stmt) {
 
 	// parse base type
-	var baseType []ele
+	var baseType []node
 	for ; p.ns[p.ident].tok != token.IDENT; p.ident++ {
 		baseType = append(baseType, p.ns[p.ident])
 	}
 	p.expect(token.IDENT)
 
 	var name string
-	var additionType []ele
+	var additionType []node
 	for ; p.ns[p.ident].tok != NEW_LINE &&
 		p.ns[p.ident].tok != token.EOF; p.ident++ {
 		// parse name
@@ -587,7 +588,7 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 		name = string(p.ns[p.ident].b)
 
 		// parse addition type
-		additionType = []ele{}
+		additionType = []node{}
 		p.ident++
 		for ; p.ns[p.ident].tok != NEW_LINE &&
 			p.ns[p.ident].tok != token.EOF &&
@@ -928,7 +929,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	case IMPLICIT:
 		// TODO: add support IMPLICIT
-		var nodes []ele
+		var nodes []node
 		for ; p.ident < len(p.ns); p.ident++ {
 			if p.ns[p.ident].tok == NEW_LINE || p.ns[p.ident].tok == token.EOF {
 				break
@@ -953,15 +954,15 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 			// if label have END DO, then add them
 			if v, ok := p.endLabelDo[label]; ok && v > 0 {
-				var add []ele
+				var add []node
 				for j := 0; j < v; j++ {
-					add = append(add, []ele{
-						ele{tok: NEW_LINE, b: []byte("\n")},
-						ele{tok: END, b: []byte("END")},
-						ele{tok: NEW_LINE, b: []byte("\n")},
+					add = append(add, []node{
+						node{tok: NEW_LINE, b: []byte("\n")},
+						node{tok: END, b: []byte("END")},
+						node{tok: NEW_LINE, b: []byte("\n")},
 					}...)
 				}
-				var comb []ele
+				var comb []node
 				comb = append(comb, p.ns[:p.ident]...)
 				comb = append(comb, add...)
 				comb = append(comb, p.ns[p.ident:]...)
@@ -972,7 +973,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		}
 
 		// TODO: add support INT
-		var nodes []ele
+		var nodes []node
 		for ; p.ident < len(p.ns); p.ident++ {
 			if p.ns[p.ident].tok == NEW_LINE || p.ns[p.ident].tok == token.EOF {
 				break
@@ -1314,7 +1315,7 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 	return
 }
 
-func (p *parser) getLineByLabel(label []byte) (fs []ele) {
+func (p *parser) getLineByLabel(label []byte) (fs []node) {
 	var found bool
 	var st int
 	for st = p.ident; st < len(p.ns); st++ {
@@ -1337,7 +1338,7 @@ func (p *parser) getLineByLabel(label []byte) (fs []ele) {
 	return
 }
 
-func (p *parser) parseFormat(fs []ele) (s string) {
+func (p *parser) parseFormat(fs []node) (s string) {
 	for _, f := range fs {
 		switch f.tok {
 		case token.STRING:

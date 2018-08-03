@@ -121,7 +121,7 @@ func TestScanner(t *testing.T) {
 			// 	sc: newScanner(b),
 			// }
 
-			ast, errs := parse(b)
+			ast, errs := Parse(b)
 			if len(errs) > 0 {
 				amountFailTests += len(errs)
 				for _, err := range errs {
@@ -161,6 +161,6 @@ func BenchmarkCgemm(b *testing.B) {
 		}
 
 		b.StartTimer()
-		_, _ = parse(d)
+		_, _ = Parse(d)
 	}
 }
