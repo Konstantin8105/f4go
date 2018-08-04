@@ -1351,5 +1351,5 @@ func (p *parser) parseFormat(fs []node) (s string) {
 			s += "%v"
 		}
 	}
-	return "\"" + s + "\""
+	return "\"" + s + "\\n\""
 }

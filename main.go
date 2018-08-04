@@ -1,7 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"flag"
+	"fmt"
+)
 
 func main() {
-	fmt.Println("f4go")
+	inputFilename := flag.String("i", "", "input fortran source")
+
+	flag.Parse()
+
+	if *inputFilename == "" {
+		flag.PrintDefaults()
+		return
+	}
+
+	fmt.Println("Input file:", *inputFilename)
 }

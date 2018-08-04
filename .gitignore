@@ -14,3 +14,4 @@ testdata/*.out
 # testdata/*.go
 *.o
 testdata/other/*
+testdata/g.go
