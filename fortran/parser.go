@@ -39,7 +39,6 @@ type initialVar struct {
 
 func (p *parser) init() {
 	p.functionExternalName = make([]string, 0)
-	p.pkgs = map[string]bool{}
 	p.endLabelDo = map[string]int{}
 	p.initVars = []initialVar{}
 }
@@ -63,6 +62,10 @@ func lv(l *list.List) {
 // Parse is convert fortran source to go ast tree
 func Parse(b []byte) (ast goast.File, err []error) {
 	var p parser
+
+	if p.pkgs == nil {
+		p.pkgs = map[string]bool{}
+	}
 
 	l := scan(b)
 	for e := l.Front(); e != nil; e = e.Next() {
@@ -1301,18 +1304,7 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 		p.expect(token.RPAREN)
 		p.ident++
 		// separate to expression by comma
-		var exprs []goast.Expr
-		st := p.ident
-		for ; p.ns[p.ident].tok != NEW_LINE; p.ident++ {
-			for ; p.ns[p.ident].tok != token.COMMA && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
-			}
-			// parse expr
-			exprs = append(exprs, p.parseExpr(st, p.ident))
-			st = p.ident + 1
-			if p.ns[p.ident].tok == NEW_LINE {
-				p.ident--
-			}
-		}
+		exprs := p.scanWriteExprs()
 		p.expect(NEW_LINE)
 		var args []goast.Expr
 		args = append(args, goast.NewIdent(fs))
@@ -1327,10 +1319,42 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 				Args:   args,
 			},
 		})
+	} else if p.ns[p.ident].tok == token.MUL {
+		p.expect(token.MUL)
+		p.ident++
+		p.expect(token.RPAREN)
+		p.ident++
+		exprs := p.scanWriteExprs()
+		p.expect(NEW_LINE)
+		stmts = append(stmts, &goast.ExprStmt{
+			X: &goast.CallExpr{
+				Fun: &goast.SelectorExpr{
+					X:   goast.NewIdent("fmt"),
+					Sel: goast.NewIdent("Println"),
+				},
+				Lparen: 1,
+				Args:   exprs,
+			},
+		})
 	} else {
 		panic(fmt.Errorf("Not support in WRITE : %v", string(p.ns[p.ident].b)))
 	}
 
+	return
+}
+
+func (p *parser) scanWriteExprs() (exprs []goast.Expr) {
+	st := p.ident
+	for ; p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+		for ; p.ns[p.ident].tok != token.COMMA && p.ns[p.ident].tok != NEW_LINE; p.ident++ {
+		}
+		// parse expr
+		exprs = append(exprs, p.parseExpr(st, p.ident))
+		st = p.ident + 1
+		if p.ns[p.ident].tok == NEW_LINE {
+			p.ident--
+		}
+	}
 	return
 }
 

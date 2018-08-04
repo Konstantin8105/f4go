@@ -27,9 +27,9 @@ func TestIntegration(t *testing.T) {
 	// ./testdata/a.out
 	fortranOutput, err := exec.Command(
 		"./testdata/a.out",
-	).Output()
+	).CombinedOutput()
 	if err != nil {
-		t.Fatalf("Cannot fortran executable file : %v", err)
+		t.Fatalf("Cannot fortran executable file : %v\n%s", err, fortranOutput)
 	}
 
 	t.Logf("fortran source is ok")
@@ -60,9 +60,9 @@ func TestIntegration(t *testing.T) {
 	// run Go code
 	goOutput, err := exec.Command(
 		"go", "run", "./testdata/g.go",
-	).Output()
+	).CombinedOutput()
 	if err != nil {
-		t.Fatalf("Cannot go executable file : %v", err)
+		t.Fatalf("Cannot go executable file : %v\n%s", err, goOutput)
 	}
 
 	if !bytes.Equal(fortranOutput, goOutput) {
