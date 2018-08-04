@@ -145,11 +145,11 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 			}
 			if counter == 1 && (*nodes)[i].tok == token.COMMA {
 				*nodes = append((*nodes)[:i], append([]node{
-					node{
+					{
 						tok: token.RBRACK,
 						b:   []byte("]"),
 					},
-					node{
+					{
 						tok: token.LBRACK,
 						b:   []byte("["),
 					},
@@ -335,8 +335,8 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 	var comb []node
 	comb = append(comb, leftPart[:leftSeparator]...)
 	comb = append(comb, []node{
-		node{tok: token.IDENT, b: []byte("math.Pow")},
-		node{tok: token.LPAREN, b: []byte("(")},
+		{tok: token.IDENT, b: []byte("math.Pow")},
+		{tok: token.LPAREN, b: []byte("(")},
 	}...)
 	comb = append(comb, leftPart[leftSeparator:]...)
 	comb = append(comb, node{tok: token.COMMA, b: []byte(",")})
