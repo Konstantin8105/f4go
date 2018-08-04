@@ -8,11 +8,7 @@ sudo: true
 # updates. Any older versions be considered deprecated. Don't bother testing
 # with them.
 go:
-  - 1.9.x
-
-# Only clone the most recent commit.
-git:
-  depth: 1
+  - "1.10.x"
 
 before_script:
  - sudo apt-get install gfortran
@@ -22,9 +18,6 @@ before_script:
 
 script:
   - . ./travis.sh
-  - echo "" > coverage.txt
-  - go test -v -race ./...  # Run all the tests with the race detector enabled
-
 
 after_success:
   - include_cov=coverage.txt bash <(curl -s https://codecov.io/bash)
