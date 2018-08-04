@@ -26,3 +26,4 @@ script:
 
 after_success:
   - include_cov=coverage.txt bash <(curl -s https://codecov.io/bash)
+  - rm coverage.txt
