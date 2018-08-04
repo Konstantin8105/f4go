@@ -15,6 +15,10 @@ C -----------------------------------------------------
 
             write(*,*) "test_subroutine"
             call test_subroutine()
+
+            write(*,*) "test_if"
+            call test_if()
+
             ! end of tests
         END
 
@@ -24,7 +28,7 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
         subroutine real_test_name()
-        end
+        end subroutine ! this is also test
 
 C -----------------------------------------------------
 
@@ -47,9 +51,9 @@ C -----------------------------------------------------
             r = -9.Q+4
             p = 1.45
             r = r / 5
-            r = r + 45**2
-            r = r + p**p
-            r = (r + p)**(p+1)
+            r = r + 1.4**2.1
+            r = -(r + p**p)
+            r = (r + p)**(p-0.6)
             real_1 = r/5
             write (*, FMT = 125) r, real_1
             return
@@ -79,6 +83,26 @@ C -----------------------------------------------------
             a = a + 5.12
             b = b + 8.4
             return
+        end
+
+C -----------------------------------------------------
+
+        subroutine test_if()
+            integer i
+            i = 5
+            IF ( i .EQ. 5) write(*,*) "Operation .EQ. is Ok"
+            IF ( i .GE. 5) write(*,*) "Operation .GE. is Ok"
+            IF ( i .LE. 5) write(*,*) "Operation .LE. is Ok"
+            IF ( i .GE. 4) write(*,*) "Operation .GE. is Ok"
+            IF ( i .LE. 3) write(*,*) "Operation .GE. is Ok"
+            IF ( i .NE. 3) write(*,*) "Operation .NE. is Ok"
+
+            IF (i .GE. 100) THEN
+                STOP 
+                ! stop the program
+            ELSEIF (i .EQ. 5) THEN
+                WRITE(*,*) "ELSEIF is Ok"
+            END IF
         end
 
 C -----------------------------------------------------

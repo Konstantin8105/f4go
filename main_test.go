@@ -15,13 +15,13 @@ import (
 
 func TestIntegration(t *testing.T) {
 	// gfortran ./testdata/main.f -o ./testdata/a.out
-	_, err := exec.Command(
+	out, err := exec.Command(
 		"gfortran",
 		"./testdata/main.f",
 		"-o", "./testdata/a.out",
-	).Output()
+	).CombinedOutput()
 	if err != nil {
-		t.Fatalf("Cannot compile by gfortran: %v", err)
+		t.Fatalf("Cannot compile by gfortran: %v\n%s", err, out)
 	}
 
 	// ./testdata/a.out
@@ -32,6 +32,7 @@ func TestIntegration(t *testing.T) {
 		t.Fatalf("Cannot fortran executable file : %v\n%s", err, fortranOutput)
 	}
 
+	t.Logf("Fortran output:\n%s\n", fortranOutput)
 	t.Logf("fortran source is ok")
 
 	// parsing to Go code
