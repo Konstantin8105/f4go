@@ -1,8 +1,8 @@
+language: go
+
 # This is a weird way of telling Travis to use the fast container-based test
 # runner instead of the slow VM-based runner.
 sudo: false
-
-language: go
 
 # Only the last two Go releases are supported by the Go team with security
 # updates. Any older versions be considered deprecated. Don't bother testing
@@ -14,16 +14,8 @@ go:
 git:
   depth: 1
 
-# Skip the install step. Don't `go get` dependencies. Only build with the code
-# in vendor/
-install: true
-
-# Don't email me the results of the test runs.
-notifications:
-  email: false
-
 before_script:
-- sudo apt-get install gfortran
+ - sudo apt-get install gfortran
   # gocovmerge is used to merge all the separate unit/integration test coverage
   # profiles.
   - go get -u -v github.com/wadey/gocovmerge
