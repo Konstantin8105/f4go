@@ -333,7 +333,7 @@ checkExternalFunction:
 }
 
 // add correct type of subroutine arguments
-func (p *parser) argumentCorrection(fd goast.FuncDecl) {
+func (p *parser) argumentCorrection(fd goast.FuncDecl) (removedVars []string) {
 checkArguments:
 	for i := range fd.Type.Params.List {
 		fieldName := fd.Type.Params.List[i].Names[0].Name
@@ -342,11 +342,13 @@ checkArguments:
 				fd.Type.Params.List[i].Type = goast.NewIdent(p.initVars[j].typ)
 
 				// fmt.Println("Remove to arg : ", fieldName)
+				removedVars = append(removedVars, fieldName)
 				p.initVars = append(p.initVars[:j], p.initVars[j+1:]...)
 				goto checkArguments
 			}
 		}
 	}
+	return
 }
 
 // init vars
@@ -404,7 +406,31 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	p.removeExternalFunction()
 
 	// add correct type of subroutine arguments
-	p.argumentCorrection(fd)
+	arguments := p.argumentCorrection(fd)
+
+	// change arguments
+	// From:
+	//  a
+	// To:
+	//  *a
+	for _, arg := range arguments {
+		v := vis{
+			from: arg,
+			to:   "*" + arg,
+		}
+		goast.Walk(v, fd.Body)
+	}
+	// changes arguments in func
+	for i := range fd.Type.Params.List {
+		switch fd.Type.Params.List[i].Type.(type) {
+		case *goast.Ident:
+			fd.Type.Params.List[i].Type.(*goast.Ident).Name =
+				"*" + fd.Type.Params.List[i].Type.(*goast.Ident).Name
+		default:
+			panic(fmt.Errorf("Cannot parse type in fields: %T",
+				fd.Type.Params.List[i].Type))
+		}
+	}
 
 	// init vars
 	fd.Body.List = append(p.initializeVars(), fd.Body.List...)
@@ -899,8 +925,24 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		start := p.ident
 		for ; p.ns[p.ident].tok != NEW_LINE; p.ident++ {
 		}
+		f := p.parseExpr(start, p.ident)
+		switch f.(type) {
+		case *goast.CallExpr:
+			call := f.(*goast.CallExpr)
+			for i := range call.Args {
+				switch call.Args[i].(type) {
+				case *goast.Ident:
+					id := call.Args[i].(*goast.Ident)
+					id.Name = "&(" + id.Name + ")"
+				default:
+					panic(fmt.Errorf("Cannot support argument of CALL for type : %T", f))
+				}
+			}
+		default:
+			panic(fmt.Errorf("Cannot support CALL for type : %T", f))
+		}
 		stmts = append(stmts, &goast.ExprStmt{
-			X: p.parseExpr(start, p.ident),
+			X: f,
 		})
 		p.expect(NEW_LINE)
 
@@ -1330,10 +1372,10 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 			X: &goast.CallExpr{
 				Fun: &goast.SelectorExpr{
 					X:   goast.NewIdent("fmt"),
-					Sel: goast.NewIdent("Println"),
+					Sel: goast.NewIdent("Printf"),
 				},
 				Lparen: 1,
-				Args:   exprs,
+				Args:   append([]goast.Expr{goast.NewIdent("\" %v\\n\"")}, exprs...),
 			},
 		})
 	} else {
