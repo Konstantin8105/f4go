@@ -20,5 +20,3 @@ if [ $COVERAGE_FILES != 0 ]; then
 		rm *.coverprofile
 	fi
 fi
-
-rm *.coverprofile
