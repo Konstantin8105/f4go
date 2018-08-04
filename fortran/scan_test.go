@@ -70,23 +70,13 @@ func TestScanIn(t *testing.T) {
 		},
 		{
 			in:  "         GO TO 12",
-			out: []string{"GOTO", "12"},
-		},
-		{
-			in: `      SMAX = ZERO
-      DO 20 I = 1, N
-         SMAX = I
-   20 CONTINUE`,
-			out: []string{"SMAX", "=", "ZERO", "\n",
-				"DO", "I", "=", "1", ",", "N", "\n",
-				"SMAX", "=", "I", "\n",
-				"END", "\n"},
+			out: []string{"goto", "12"},
 		},
 	}
 	for i, tc := range tcs {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			l := scan([]byte(tc.in))
-			lv(l)
+			// lv(l)// Only for debuging
 			var le int
 			for e, j := l.Front(), 0; e != nil; e, j = e.Next(), j+1 {
 				if j < len(tc.out) && tc.out[j] != string(e.Value.(*node).b) {
