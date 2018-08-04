@@ -58,7 +58,6 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 	p.fixDoubleStar(&nodes)
 	p.fixString(&nodes)
 	p.fixComplexValue(&nodes)
-	p.fixFloats(&nodes)
 
 	str := nodesToString(nodes)
 
@@ -468,13 +467,4 @@ func (p *parser) fixComplexValue(nodes *[]node) {
 	*nodes = comb
 
 	p.fixComplexValue(nodes)
-}
-
-func (p *parser) fixFloats(nodes *[]node) {
-	for i := range *nodes {
-		if (*nodes)[i].tok == token.FLOAT {
-			(*nodes)[i].b = []byte(strings.ToLower(string((*nodes)[i].b)))
-			(*nodes)[i].b = []byte(strings.Replace(string((*nodes)[i].b), "d", "e", -1))
-		}
-	}
 }

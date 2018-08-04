@@ -2,6 +2,7 @@ package fortran
 
 import (
 	"bytes"
+	"container/list"
 	"fmt"
 	goast "go/ast"
 	"go/token"
@@ -40,6 +41,23 @@ func (p *parser) init() {
 	p.functionExternalName = make([]string, 0)
 	p.pkgs = map[string]bool{}
 	p.endLabelDo = map[string]int{}
+	p.initVars = []initialVar{}
+}
+
+// list view - only for debugging
+func lv(l *list.List) {
+	for e := l.Front(); e != nil; e = e.Next() {
+		b := string(e.Value.(*node).b)
+		if e.Value.(*node).tok != NEW_LINE {
+			fmt.Printf("%10s\t%10s\t|`%s`\n",
+				view(e.Value.(*node).tok),
+				fmt.Sprintf("%v", e.Value.(*node).pos),
+				b)
+		} else {
+			fmt.Printf("%20s\n",
+				view(e.Value.(*node).tok))
+		}
+	}
 }
 
 // Parse is convert fortran source to go ast tree
@@ -50,6 +68,7 @@ func Parse(b []byte) (ast goast.File, err []error) {
 	for e := l.Front(); e != nil; e = e.Next() {
 		p.ns = append(p.ns, *e.Value.(*node))
 	}
+	// lv(l) // only for debugging
 
 	p.ast.Name = goast.NewIdent("main")
 
@@ -1339,8 +1358,27 @@ func (p *parser) getLineByLabel(label []byte) (fs []node) {
 }
 
 func (p *parser) parseFormat(fs []node) (s string) {
-	for _, f := range fs {
+	for i := 0; i < len(fs); i++ {
+		f := fs[i]
 		switch f.tok {
+		case token.IDENT:
+			switch f.b[0] {
+			case 'I':
+				s += "%" + string(f.b[1:]) + "d"
+			case 'F':
+				s += "%" + string(f.b[1:])
+				if i+1 < len(fs) && fs[i+1].tok == token.PERIOD {
+					i += 1
+					s += "."
+					if i+1 < len(fs) && fs[i+1].tok == token.INT {
+						s += string(fs[i+1].b)
+						i += 1
+					}
+				}
+				s += "f"
+			default:
+				p.addError("Not support format : " + string(f.b))
+			}
 		case token.STRING:
 			str := string(f.b)
 			str = strings.Replace(str, "'", "", -1)

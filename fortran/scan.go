@@ -546,6 +546,16 @@ multi:
 			e.Value.(*node).b = []byte("false")
 		}
 	}
+
+	// FLOAT correction
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok != token.FLOAT {
+			continue
+		}
+		e.Value.(*node).b = []byte(strings.ToLower(string(e.Value.(*node).b)))
+		e.Value.(*node).b = []byte(strings.Replace(string(e.Value.(*node).b), "d", "e", -1))
+		e.Value.(*node).b = []byte(strings.Replace(string(e.Value.(*node).b), "q", "e", -1))
+	}
 }
 
 func (s *scanner) scanTokens() {
@@ -610,14 +620,17 @@ A:
 				if index == 0 {
 					if len(e.Value.(*node).b) == len(pat) ||
 						!(isLetter(rune(e.Value.(*node).b[len(pat)])) ||
-							isDigit(rune(e.Value.(*node).b[len(pat)]))) {
+							isDigit(rune(e.Value.(*node).b[len(pat)])) ||
+							e.Value.(*node).b[len(pat)] == '_') {
 						found = true
 					}
 				}
 				if index > 0 {
 					if e.Value.(*node).b[index-1] == ' ' &&
 						(len(e.Value.(*node).b) == index+len(pat) ||
-							!isLetter(rune(e.Value.(*node).b[index+len(pat)]))) {
+							!(isLetter(rune(e.Value.(*node).b[index+len(pat)])) ||
+								isDigit(rune(e.Value.(*node).b[index+len(pat)])) ||
+								e.Value.(*node).b[index+len(pat)] == '_')) {
 						found = true
 					}
 				}

@@ -1,8 +1,6 @@
 package fortran
 
 import (
-	"container/list"
-	"fmt"
 	"strconv"
 	"testing"
 )
@@ -72,11 +70,16 @@ func TestScanIn(t *testing.T) {
 			in:  "         GO TO 12",
 			out: []string{"goto", "12"},
 		},
+		{
+			in: ` 	          SUBROUTINE real_test()
+               END`,
+			out: []string{"SUBROUTINE", "real_test", "(", ")", "\n", "END"},
+		},
 	}
 	for i, tc := range tcs {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			l := scan([]byte(tc.in))
-			// lv(l)// Only for debuging
+			// lv(l) // Only for debuging
 			var le int
 			for e, j := l.Front(), 0; e != nil; e, j = e.Next(), j+1 {
 				if j < len(tc.out) && tc.out[j] != string(e.Value.(*node).b) {
@@ -90,20 +93,5 @@ func TestScanIn(t *testing.T) {
 				t.Fatalf("Not same : %v != %v", le, len(tc.out))
 			}
 		})
-	}
-}
-
-func lv(l *list.List) {
-	for e := l.Front(); e != nil; e = e.Next() {
-		b := string(e.Value.(*node).b)
-		if e.Value.(*node).tok != NEW_LINE {
-			fmt.Printf("%10s\t%10s\t|`%s`\n",
-				view(e.Value.(*node).tok),
-				fmt.Sprintf("%v", e.Value.(*node).pos),
-				b)
-		} else {
-			fmt.Printf("%20s\n",
-				view(e.Value.(*node).tok))
-		}
 	}
 }
