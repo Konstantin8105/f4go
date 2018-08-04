@@ -1,17 +1,22 @@
 language: go
 
-# This is a weird way of telling Travis to use the fast container-based test
-# runner instead of the slow VM-based runner.
-sudo: true
-
-# Only the last two Go releases are supported by the Go team with security
-# updates. Any older versions be considered deprecated. Don't bother testing
-# with them.
 go:
-  - "1.10.x"
+  - "1.8"
+
+os:
+  - linux
 
 before_script:
- - sudo apt-get install gfortran
+  - |
+      if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+        wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+        sudo apt-add-repository "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-$CLANG main"
+        sudo apt-get update
+        sudo apt-cache search clang
+        sudo apt-get install -f -y --force-yes gfortran
+      fi
+
   # gocovmerge is used to merge all the separate unit/integration test coverage
   # profiles.
   - go get -u -v github.com/wadey/gocovmerge
