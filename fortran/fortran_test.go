@@ -1,15 +1,6 @@
 package fortran
 
-import (
-	"bytes"
-	"fmt"
-	"go/format"
-	"go/token"
-	"io/ioutil"
-	"strings"
-	"testing"
-)
-
+/*
 func getFortranTestFiles(dir string) (files []string, err error) {
 	ents, err := ioutil.ReadDir(dir)
 	if err != nil {
@@ -164,3 +155,4 @@ func BenchmarkCgemm(b *testing.B) {
 		_, _ = Parse(d)
 	}
 }
+*/

@@ -15,3 +15,5 @@ testdata/*.out
 *.o
 testdata/other/*
 testdata/g.go
+coverage.txt
+*.coverprofile
