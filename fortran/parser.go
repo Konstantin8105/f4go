@@ -199,10 +199,10 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 		var comb []node
 		comb = append(comb, p.ns[:p.ident]...)
 		comb = append(comb, []node{
-			node{tok: NEW_LINE, b: []byte("\n")},
-			node{tok: PROGRAM, b: []byte("PROGRAM")},
-			node{tok: token.IDENT, b: []byte("MAIN")},
-			node{tok: NEW_LINE, b: []byte("\n")},
+			{tok: NEW_LINE, b: []byte("\n")},
+			{tok: PROGRAM, b: []byte("PROGRAM")},
+			{tok: token.IDENT, b: []byte("MAIN")},
+			{tok: NEW_LINE, b: []byte("\n")},
 		}...)
 		comb = append(comb, p.ns[p.ident:]...)
 		p.ns = comb
@@ -276,7 +276,7 @@ func (p *parser) parseFunction() (decl goast.Decl) {
 	returnName := name + "_RES"
 	fd.Type.Results = &goast.FieldList{
 		List: []*goast.Field{
-			&goast.Field{
+			{
 				Names: []*goast.Ident{goast.NewIdent(returnName)},
 				Type:  goast.NewIdent(p.parseType(returnType)),
 			},
@@ -524,12 +524,12 @@ func (p *parser) parseType(nodes []node) (typ string) {
 			if nodes[2].tok == token.INT {
 				nodes = []node{
 					nodes[0],
-					node{
+					{
 						tok: token.LPAREN,
 						b:   []byte("("),
 					},
 					nodes[2],
-					node{
+					{
 						tok: token.RPAREN,
 						b:   []byte(")"),
 					},
@@ -1021,9 +1021,9 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 				var add []node
 				for j := 0; j < v; j++ {
 					add = append(add, []node{
-						node{tok: NEW_LINE, b: []byte("\n")},
-						node{tok: END, b: []byte("END")},
-						node{tok: NEW_LINE, b: []byte("\n")},
+						{tok: NEW_LINE, b: []byte("\n")},
+						{tok: END, b: []byte("END")},
+						{tok: NEW_LINE, b: []byte("\n")},
 					}...)
 				}
 				var comb []node
