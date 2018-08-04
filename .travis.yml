@@ -2,7 +2,7 @@ language: go
 
 # This is a weird way of telling Travis to use the fast container-based test
 # runner instead of the slow VM-based runner.
-sudo: required
+sudo: false
 
 # Only the last two Go releases are supported by the Go team with security
 # updates. Any older versions be considered deprecated. Don't bother testing
