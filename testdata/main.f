@@ -3,6 +3,7 @@ C Tests
 C -----------------------------------------------------
 
         program main
+            ! begin of tests
             write(*,*) "test_operations"
             call test_operations()
 
@@ -14,7 +15,7 @@ C -----------------------------------------------------
 
             write(*,*) "test_subroutine"
             call test_subroutine()
-
+            ! end of tests
         END
 
 C -----------------------------------------------------
