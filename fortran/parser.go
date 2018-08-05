@@ -31,7 +31,15 @@ func (p *parser) addImport(pkg string) {
 
 type initialVar struct {
 	name string
-	typ  string
+	typ  []node
+}
+
+func (in initialVar) String() string {
+	return fmt.Sprintf("{%s,%s}", in.name, nodesToString(in.typ))
+}
+
+func (in initialVar) isArray() bool {
+	return strings.Contains(parseType(in.typ), "[")
 }
 
 func (p *parser) init() {
@@ -296,7 +304,8 @@ func (p *parser) parseFunction() (decl goast.Decl) {
 		List: []*goast.Field{
 			{
 				Names: []*goast.Ident{goast.NewIdent(returnName)},
-				Type:  goast.NewIdent(p.parseType(returnType)),
+				Type: goast.NewIdent(
+					parseType(returnType)),
 			},
 		},
 	}
@@ -357,7 +366,8 @@ checkArguments:
 		fieldName := fd.Type.Params.List[i].Names[0].Name
 		for j := range p.initVars {
 			if fieldName == p.initVars[j].name {
-				fd.Type.Params.List[i].Type = goast.NewIdent(p.initVars[j].typ)
+				fd.Type.Params.List[i].Type = goast.NewIdent(
+					parseType(p.initVars[j].typ))
 
 				// fmt.Println("Remove to arg : ", fieldName)
 				removedVars = append(removedVars, fieldName)
@@ -378,7 +388,8 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 				Specs: []goast.Spec{
 					&goast.ValueSpec{
 						Names: []*goast.Ident{goast.NewIdent(p.initVars[i].name)},
-						Type:  goast.NewIdent(p.initVars[i].typ),
+						Type: goast.NewIdent(
+							parseType(p.initVars[i].typ)),
 					},
 				},
 			},
@@ -523,7 +534,7 @@ func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 //  DOUBLE PRECISION (*)
 //  LOGICAL
 //  CHARACTER*32
-func (p *parser) parseType(nodes []node) (typ string) {
+func parseType(nodes []node) (typ string) {
 
 	typ = "int"
 	switch nodes[0].tok {
@@ -566,8 +577,7 @@ func (p *parser) parseType(nodes []node) (typ string) {
 			nodes = nodes[1:]
 		}
 	default:
-		p.addError("Cannot parse type format: " + string(nodes[0].b))
-		return
+		panic(fmt.Errorf("Cannot parse type format: " + string(nodes[0].b)))
 	}
 
 	nodes = nodes[1:]
@@ -588,8 +598,7 @@ func (p *parser) parseType(nodes []node) (typ string) {
 
 	arraySize := 1
 	if nodes[0].tok != token.LPAREN {
-		p.addError("Cannot parse part of type " + nodesToString(nodes))
-		return
+		panic(fmt.Errorf("Cannot parse part of type " + nodesToString(nodes)))
 	}
 
 	for nodes[0].tok != token.RPAREN {
@@ -598,14 +607,12 @@ func (p *parser) parseType(nodes []node) (typ string) {
 		}
 		nodes = nodes[1:]
 		if len(nodes) == 0 {
-			p.addError("Cannot parse type : not expected end of nodes")
-			return
+			panic(fmt.Errorf("Cannot parse type : not expected end of nodes"))
 		}
 	}
 
 	if nodes[0].tok != token.RPAREN {
-		p.addError("Cannot parse part of type " + nodesToString(nodes))
-		return
+		panic(fmt.Errorf("Cannot parse part of type " + nodesToString(nodes)))
 	}
 	nodes = nodes[1:]
 
@@ -621,8 +628,7 @@ func (p *parser) parseType(nodes []node) (typ string) {
 	}
 
 	if len(nodes) != 0 {
-		p.addError("Cannot parse type at the end : " + nodesToString(nodes))
-		return
+		panic(fmt.Errorf("Cannot parse type at the end : " + nodesToString(nodes)))
 	}
 
 	return
@@ -683,7 +689,7 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 		// parse type = base type + addition type
 		p.initVars = append(p.initVars, initialVar{
 			name: name,
-			typ:  p.parseType(append(baseType, additionType...)),
+			typ:  append(baseType, additionType...),
 		})
 		if p.ns[p.ident].tok != token.COMMA {
 			p.ident--

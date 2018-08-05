@@ -82,7 +82,7 @@ func (p *parser) isVariable(name string) bool {
 
 func (p *parser) isArrayVariable(name string) bool {
 	for _, v := range p.initVars {
-		if v.name == name && strings.Contains(v.typ, "[") {
+		if v.name == name && v.isArray() {
 			return true
 		}
 	}

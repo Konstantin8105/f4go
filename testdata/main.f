@@ -25,6 +25,9 @@ C -----------------------------------------------------
             write(*,*) "test_do_while"
             call test_do_while()
 
+            write(*,*) "test_array"
+            call test_array()
+
             ! write(*,*) "test_complex"
             ! call test_complex()
 
@@ -196,6 +199,20 @@ C -----------------------------------------------------
             end do
             return
   180 FORMAT ('Do while ', I2)
+        end 
+
+C -----------------------------------------------------
+
+        subroutine test_array()
+            integer iterator(3),ir
+            do ir = 1,3
+                iterator(ir) = ir
+            end do
+            do ir = 1,3
+                write(*,fmt = 210) iterator(ir)
+            end do
+            return
+  210 FORMAT ('vector ', I2)
         end 
 
 C -----------------------------------------------------
