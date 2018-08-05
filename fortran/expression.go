@@ -126,7 +126,20 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 			if (*nodes)[i].tok == token.RPAREN {
 				counter--
 				if counter == 0 {
-					(*nodes)[i].tok, (*nodes)[i].b = token.RBRACK, []byte("]")
+					(*nodes) = append((*nodes)[:i], append([]node{
+						{
+							tok: token.SUB,
+							b:   []byte("-"),
+						},
+						{
+							tok: token.INT,
+							b:   []byte("1"),
+						},
+						{
+							tok: token.RBRACK,
+							b:   []byte("]"),
+						},
+					}, (*nodes)[i+1:]...)...)
 					end = i
 					break
 				}
@@ -145,6 +158,14 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 			}
 			if counter == 1 && (*nodes)[i].tok == token.COMMA {
 				*nodes = append((*nodes)[:i], append([]node{
+					{
+						tok: token.SUB,
+						b:   []byte("-"),
+					},
+					{
+						tok: token.INT,
+						b:   []byte("1"),
+					},
 					{
 						tok: token.RBRACK,
 						b:   []byte("]"),

@@ -29,19 +29,6 @@ func (p *parser) addImport(pkg string) {
 	p.pkgs[pkg] = true
 }
 
-type initialVar struct {
-	name string
-	typ  []node
-}
-
-func (in initialVar) String() string {
-	return fmt.Sprintf("{%s,%s}", in.name, nodesToString(in.typ))
-}
-
-func (in initialVar) isArray() bool {
-	return strings.Contains(parseType(in.typ), "[")
-}
-
 func (p *parser) init() {
 	p.functionExternalName = make([]string, 0)
 	p.endLabelDo = map[string]int{}
@@ -304,8 +291,7 @@ func (p *parser) parseFunction() (decl goast.Decl) {
 		List: []*goast.Field{
 			{
 				Names: []*goast.Ident{goast.NewIdent(returnName)},
-				Type: goast.NewIdent(
-					parseType(returnType)),
+				Type:  goast.NewIdent(parseType(returnType).String()),
 			},
 		},
 	}
@@ -367,7 +353,7 @@ checkArguments:
 		for j := range p.initVars {
 			if fieldName == p.initVars[j].name {
 				fd.Type.Params.List[i].Type = goast.NewIdent(
-					parseType(p.initVars[j].typ))
+					p.initVars[j].typ.String())
 
 				// fmt.Println("Remove to arg : ", fieldName)
 				removedVars = append(removedVars, fieldName)
@@ -389,7 +375,7 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 					&goast.ValueSpec{
 						Names: []*goast.Ident{goast.NewIdent(p.initVars[i].name)},
 						Type: goast.NewIdent(
-							parseType(p.initVars[i].typ)),
+							p.initVars[i].typ.String()),
 					},
 				},
 			},
@@ -527,114 +513,6 @@ func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 }
 
 // Examples:
-//  INTEGER
-//  COMPLEX
-//  COMPLEX*16
-//  REAL (LDA,*)
-//  DOUBLE PRECISION (*)
-//  LOGICAL
-//  CHARACTER*32
-func parseType(nodes []node) (typ string) {
-
-	typ = "int"
-	switch nodes[0].tok {
-	case INTEGER:
-		typ = "int"
-	case LOGICAL:
-		typ = "bool"
-	case CHARACTER:
-		typ = "byte"
-		// From:
-		//  CHARACTER * 16
-		// To:
-		//  CHARACTER (16)
-
-		if len(nodes) > 2 && nodes[1].tok == token.MUL {
-			if nodes[2].tok == token.INT {
-				nodes = []node{
-					nodes[0],
-					{
-						tok: token.LPAREN,
-						b:   []byte("("),
-					},
-					nodes[2],
-					{
-						tok: token.RPAREN,
-						b:   []byte(")"),
-					},
-				}
-			}
-		}
-	case COMPLEX:
-		typ = "complex128"
-	case REAL:
-		typ = "float64"
-	case DOUBLE:
-		typ = "float64"
-		// next may be PRECISION
-		if nodes[1].tok == PRECISION {
-			// ignore
-			nodes = nodes[1:]
-		}
-	default:
-		panic(fmt.Errorf("Cannot parse type format: " + string(nodes[0].b)))
-	}
-
-	nodes = nodes[1:]
-	if len(nodes) == 0 {
-		return
-	}
-
-	// * 16
-	if nodes[0].tok == token.MUL {
-		nodes = nodes[1:]
-		if nodes[0].tok == token.INT {
-			nodes = nodes[1:]
-		}
-	}
-	if len(nodes) == 0 {
-		return
-	}
-
-	arraySize := 1
-	if nodes[0].tok != token.LPAREN {
-		panic(fmt.Errorf("Cannot parse part of type " + nodesToString(nodes)))
-	}
-
-	for nodes[0].tok != token.RPAREN {
-		if nodes[0].tok == token.COMMA {
-			arraySize++
-		}
-		nodes = nodes[1:]
-		if len(nodes) == 0 {
-			panic(fmt.Errorf("Cannot parse type : not expected end of nodes"))
-		}
-	}
-
-	if nodes[0].tok != token.RPAREN {
-		panic(fmt.Errorf("Cannot parse part of type " + nodesToString(nodes)))
-	}
-	nodes = nodes[1:]
-
-	for i := 0; i < arraySize; i++ {
-		typ = "[]" + typ
-	}
-
-	// CHARACTER(1) SRNAME_ARRAY(SRNAME_LEN)
-	//                          ============
-	// parse
-	if len(nodes) == 3 {
-		nodes = []node{}
-	}
-
-	if len(nodes) != 0 {
-		panic(fmt.Errorf("Cannot parse type at the end : " + nodesToString(nodes)))
-	}
-
-	return
-}
-
-// Examples:
 //  INTEGER INCX , INCY , N
 //  COMPLEX CX ( * ) , CY ( * )
 //  COMPLEX*16 A(LDA,*),X(*)
@@ -689,7 +567,7 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 		// parse type = base type + addition type
 		p.initVars = append(p.initVars, initialVar{
 			name: name,
-			typ:  append(baseType, additionType...),
+			typ:  parseType(append(baseType, additionType...)),
 		})
 		if p.ns[p.ident].tok != token.COMMA {
 			p.ident--
