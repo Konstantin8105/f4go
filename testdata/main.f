@@ -19,6 +19,9 @@ C -----------------------------------------------------
             write(*,*) "test_if"
             call test_if()
 
+            write(*,*) "test_do"
+            call test_do()
+
             ! write(*,*) "test_complex"
             ! call test_complex()
 
@@ -119,5 +122,43 @@ C -----------------------------------------------------
   !           return
   ! 300 Format (F15.4)
   !       end
+
+C -----------------------------------------------------
+
+        subroutine test_do()
+            integer IR, JR, HR, iterator
+            JR = 1
+            iterator = 1
+            Do IR = 1,3
+                write (*,FMT=146) IR
+            end do
+            DO 143 IR = 1,3
+                write (*,FMT=147) IR
+  143 Continue
+  144 Continue
+            Do IR = 1,3
+                write (*,FMT=148) IR
+            end do
+            Do IR = 1,3
+                write (*,FMT=149) IR
+            enddo
+            DO 145, HR = 1,2
+                DO 145 JR = 1,2
+                    write(*,FMT=150) HR, JR
+  145 Continue
+            write (*,fmt=151)iterator
+            iterator = iterator + 1
+            IF ( iterator .LE. 3) THEN
+                write(*,*) "iterator is less or equal 3"
+                GO TO 144
+            END IF
+            return
+  146 FORMAT ('Do ', I2)
+  147 FORMAT ('Do with continue ', I2)
+  148 FORMAT ('Do with end do ', I2)
+  149 FORMAT ('Do with enddo ', I2)
+  150 FORMAT ('Double DO ', I2, I2)
+  151 FORMAT (' iterator = ', I2)
+        end
 
 C -----------------------------------------------------

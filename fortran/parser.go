@@ -11,7 +11,6 @@ import (
 )
 
 type parser struct {
-	// sc    *scanner
 	ast   goast.File
 	ident int
 	ns    []node
@@ -19,11 +18,9 @@ type parser struct {
 	functionExternalName []string
 	initVars             []initialVar
 
-	// import packeges
-	pkgs map[string]bool
-
-	// label of DO
-	endLabelDo map[string]int
+	pkgs       map[string]bool // import packeges
+	endLabelDo map[string]int  // label of DO
+	labelNames map[string]bool // list of all labels
 
 	errs []error
 }
@@ -66,6 +63,9 @@ func Parse(b []byte) (ast goast.File, err []error) {
 	if p.pkgs == nil {
 		p.pkgs = map[string]bool{}
 	}
+	if p.labelNames == nil {
+		p.labelNames = map[string]bool{}
+	}
 
 	l := scan(b)
 	for e := l.Front(); e != nil; e = e.Next() {
@@ -101,7 +101,25 @@ func Parse(b []byte) (ast goast.File, err []error) {
 
 	p.ast.Decls = append(p.ast.Decls, decls...)
 
+	// remove unused labels
+	c := commentLabel{labels: p.labelNames}
+	goast.Walk(c, &p.ast)
+
 	return p.ast, p.errs
+}
+
+// go/ast Visitor for comment label
+type commentLabel struct {
+	labels map[string]bool
+}
+
+func (c commentLabel) Visit(node goast.Node) (w goast.Visitor) {
+	if ident, ok := node.(*goast.Ident); ok && ident != nil {
+		if _, ok := c.labels[ident.Name]; ok {
+			ident.Name = "//" + ident.Name
+		}
+	}
+	return c
 }
 
 func (p *parser) parseNodes() (decls []goast.Decl) {
@@ -771,7 +789,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 	}
 	sDo.Cond = &goast.BinaryExpr{
 		X:  goast.NewIdent(name),
-		Op: token.LSS,
+		Op: token.LEQ,
 		Y:  p.parseExpr(start, p.ident),
 	}
 
@@ -1005,34 +1023,39 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		_ = nodes
 
 	case token.INT:
+		labelName := string(p.ns[p.ident].b)
+		if v, ok := p.endLabelDo[labelName]; ok && v > 0 {
+			// add END DO before that label
+			var add []node
+			for j := 0; j < v; j++ {
+				add = append(add, []node{
+					{tok: NEW_LINE, b: []byte("\n")},
+					{tok: END, b: []byte("END")},
+					{tok: NEW_LINE, b: []byte("\n")},
+				}...)
+			}
+			var comb []node
+			comb = append(comb, p.ns[:p.ident-1]...)
+			comb = append(comb, []node{
+				{tok: NEW_LINE, b: []byte("\n")},
+				{tok: NEW_LINE, b: []byte("\n")},
+			}...)
+			comb = append(comb, add...)
+			comb = append(comb, []node{
+				{tok: NEW_LINE, b: []byte("\n")},
+			}...)
+			comb = append(comb, p.ns[p.ident-1:]...)
+			p.ns = comb
+			// remove do labels from map
+			p.endLabelDo[labelName] = 0
+			return
+		}
+
 		if p.ns[p.ident+1].tok == token.CONTINUE {
-			label := string(p.ns[p.ident].b)
-			stmts = append(stmts, &goast.LabeledStmt{
-				Label: goast.NewIdent("Label" + label),
-				Colon: 1,
-				Stmt:  &goast.EmptyStmt{},
-			})
+			stmts = append(stmts, p.addLabel(p.ns[p.ident].b))
 			// replace CONTINUE to NEW_LINE
 			p.ident++
 			p.ns[p.ident].tok, p.ns[p.ident].b = NEW_LINE, []byte("\n")
-
-			// if label have END DO, then add them
-			if v, ok := p.endLabelDo[label]; ok && v > 0 {
-				var add []node
-				for j := 0; j < v; j++ {
-					add = append(add, []node{
-						{tok: NEW_LINE, b: []byte("\n")},
-						{tok: END, b: []byte("END")},
-						{tok: NEW_LINE, b: []byte("\n")},
-					}...)
-				}
-				var comb []node
-				comb = append(comb, p.ns[:p.ident]...)
-				comb = append(comb, add...)
-				comb = append(comb, p.ns[p.ident:]...)
-				p.ns = comb
-			}
-
 			return
 		}
 
@@ -1093,6 +1116,21 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	}
 
 	return
+}
+
+func (p *parser) addLabel(label []byte) (stmt goast.Stmt) {
+	labelName := "Label" + string(label)
+	p.labelNames[labelName] = true
+	return &goast.LabeledStmt{
+		Label: goast.NewIdent(labelName),
+		Colon: 1,
+		Stmt:  &goast.EmptyStmt{},
+	}
+}
+
+func (p *parser) removeLabel(label []byte) {
+	labelName := "Label" + string(label)
+	delete(p.labelNames, labelName)
 }
 
 func (p *parser) parseParamDecl() (fields []*goast.Field) {
@@ -1233,6 +1271,7 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 	p.ident++
 	if p.ns[p.ident].tok != token.LPAREN {
 		//  GO TO 30
+		p.removeLabel(p.ns[p.ident].b)
 		stmts = append(stmts, &goast.BranchStmt{
 			Tok:   token.GOTO,
 			Label: goast.NewIdent("Label" + string(p.ns[p.ident].b)),
@@ -1270,6 +1309,7 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 			// do nothing
 		default:
 			labelNames = append(labelNames, string(p.ns[p.ident].b))
+			p.removeLabel(p.ns[p.ident].b)
 		}
 		if out {
 			break
@@ -1370,6 +1410,12 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 		p.ident++
 		exprs := p.scanWriteExprs()
 		p.expect(NEW_LINE)
+		var format string
+		format = "\""
+		for i := 0; i < len(exprs); i++ {
+			format += " %v"
+		}
+		format += "\\n\""
 		stmts = append(stmts, &goast.ExprStmt{
 			X: &goast.CallExpr{
 				Fun: &goast.SelectorExpr{
@@ -1377,7 +1423,7 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 					Sel: goast.NewIdent("Printf"),
 				},
 				Lparen: 1,
-				Args:   append([]goast.Expr{goast.NewIdent("\" %v\\n\"")}, exprs...),
+				Args:   append([]goast.Expr{goast.NewIdent(format)}, exprs...),
 			},
 		})
 	} else {
