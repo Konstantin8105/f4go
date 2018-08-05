@@ -28,6 +28,9 @@ C -----------------------------------------------------
             write(*,*) "test_array"
             call test_array()
 
+            write(*,*) "test_goto"
+            call test_goto()
+
             ! write(*,*) "test_complex"
             ! call test_complex()
 
@@ -228,4 +231,22 @@ C -----------------------------------------------------
             return
         end function
 
+C -----------------------------------------------------
+        subroutine test_goto()
+            integer t,m
+            t = 0
+            m = 0
+  230       t = t + 1
+  240       t = t + 5
+            m = m + 1
+            write(*, FMT = 251) t
+            if ( m .GE. 5) THEN
+                goto 250
+            end if
+            write(*, FMT = 252) m
+            goto (230,240) m
+  250       return
+  251 FORMAT ('goto check t = ', I2)
+  252 FORMAT ('goto check m = ', I2)
+        end
 C -----------------------------------------------------

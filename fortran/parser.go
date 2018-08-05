@@ -18,9 +18,10 @@ type parser struct {
 	functionExternalName []string
 	initVars             []initialVar
 
-	pkgs       map[string]bool // import packeges
-	endLabelDo map[string]int  // label of DO
-	labelNames map[string]bool // list of all labels
+	pkgs        map[string]bool // import packeges
+	endLabelDo  map[string]int  // label of DO
+	allLabels   map[string]bool // list of all labels
+	foundLables map[string]bool // list labels found in source
 
 	errs []error
 }
@@ -58,8 +59,11 @@ func Parse(b []byte) (ast goast.File, err []error) {
 	if p.pkgs == nil {
 		p.pkgs = map[string]bool{}
 	}
-	if p.labelNames == nil {
-		p.labelNames = map[string]bool{}
+	if p.allLabels == nil {
+		p.allLabels = map[string]bool{}
+	}
+	if p.foundLables == nil {
+		p.foundLables = map[string]bool{}
 	}
 
 	l := scan(b)
@@ -97,7 +101,13 @@ func Parse(b []byte) (ast goast.File, err []error) {
 	p.ast.Decls = append(p.ast.Decls, decls...)
 
 	// remove unused labels
-	c := commentLabel{labels: p.labelNames}
+	removedLabels := map[string]bool{}
+	for k := range p.allLabels {
+		if _, ok := p.foundLables[k]; !ok {
+			removedLabels[k] = true
+		}
+	}
+	c := commentLabel{labels: removedLabels}
 	goast.Walk(c, &p.ast)
 
 	return p.ast, p.errs
@@ -963,6 +973,10 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 			return
 		}
 
+		stmts = append(stmts, p.addLabel(p.ns[p.ident].b))
+		p.ident++
+		return
+
 		// TODO: add support INT
 		var nodes []node
 		for ; p.ident < len(p.ns); p.ident++ {
@@ -1024,17 +1038,12 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 func (p *parser) addLabel(label []byte) (stmt goast.Stmt) {
 	labelName := "Label" + string(label)
-	p.labelNames[labelName] = true
+	p.allLabels[labelName] = true
 	return &goast.LabeledStmt{
 		Label: goast.NewIdent(labelName),
 		Colon: 1,
 		Stmt:  &goast.EmptyStmt{},
 	}
-}
-
-func (p *parser) removeLabel(label []byte) {
-	labelName := "Label" + string(label)
-	delete(p.labelNames, labelName)
 }
 
 func (p *parser) parseParamDecl() (fields []*goast.Field) {
@@ -1175,7 +1184,7 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 	p.ident++
 	if p.ns[p.ident].tok != token.LPAREN {
 		//  GO TO 30
-		p.removeLabel(p.ns[p.ident].b)
+		p.foundLables["Label"+string(p.ns[p.ident].b)] = true
 		stmts = append(stmts, &goast.BranchStmt{
 			Tok:   token.GOTO,
 			Label: goast.NewIdent("Label" + string(p.ns[p.ident].b)),
@@ -1213,7 +1222,7 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 			// do nothing
 		default:
 			labelNames = append(labelNames, string(p.ns[p.ident].b))
-			p.removeLabel(p.ns[p.ident].b)
+			p.foundLables["Label"+string(p.ns[p.ident].b)] = true
 		}
 		if out {
 			break
@@ -1245,7 +1254,7 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 	var sw goast.SwitchStmt
 	sw.Tag = p.parseExpr(st, p.ident)
 	sw.Body = &goast.BlockStmt{}
-	for i := 1; i < len(labelNames); i++ {
+	for i := 0; i < len(labelNames); i++ {
 		sw.Body.List = append(sw.Body.List, &goast.CaseClause{
 			List: []goast.Expr{goast.NewIdent(strconv.Itoa(i + 1))},
 			Body: []goast.Stmt{&goast.BranchStmt{
@@ -1254,12 +1263,6 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 			}},
 		})
 	}
-	sw.Body.List = append(sw.Body.List, &goast.CaseClause{
-		Body: []goast.Stmt{&goast.BranchStmt{
-			Tok:   token.GOTO,
-			Label: goast.NewIdent("Label" + labelNames[0]),
-		}},
-	})
 
 	stmts = append(stmts, &sw)
 
