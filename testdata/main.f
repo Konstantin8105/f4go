@@ -22,6 +22,9 @@ C -----------------------------------------------------
             write(*,*) "test_do"
             call test_do()
 
+            write(*,*) "test_do_while"
+            call test_do_while()
+
             ! write(*,*) "test_complex"
             ! call test_complex()
 
@@ -164,5 +167,18 @@ C -----------------------------------------------------
   150 FORMAT ('Double DO ', I2, I2)
   151 FORMAT (' iterator = ', I2)
         end
+
+C -----------------------------------------------------
+
+        subroutine test_do_while()
+            integer iterator
+            iterator = 1
+            Do while (iterator .Le. 3)
+                write (*,FMT=180) iterator
+                iterator = iterator + 1
+            end do
+            return
+  180 FORMAT ('Do while ', I2)
+        end 
 
 C -----------------------------------------------------
