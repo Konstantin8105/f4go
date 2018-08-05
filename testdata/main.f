@@ -129,6 +129,9 @@ C -----------------------------------------------------
             integer IR, JR, HR, iterator
             JR = 1
             iterator = 1
+            Do IR = 1,10,3
+                write (*,FMT=142) IR
+            end do
             Do IR = 1,3
                 write (*,FMT=146) IR
             end do
@@ -153,6 +156,7 @@ C -----------------------------------------------------
                 GO TO 144
             END IF
             return
+  142 FORMAT ('Do with inc ', I2)
   146 FORMAT ('Do ', I2)
   147 FORMAT ('Do with continue ', I2)
   148 FORMAT ('Do with end do ', I2)
