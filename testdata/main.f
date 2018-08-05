@@ -130,6 +130,7 @@ C -----------------------------------------------------
 
         subroutine test_do()
             integer IR, JR, HR, iterator
+            integer ab_min
             JR = 1
             iterator = 1
             Do IR = 1,10,3
@@ -145,7 +146,12 @@ C -----------------------------------------------------
             Do IR = 1,3
                 write (*,FMT=148) IR
             end do
-            Do IR = 1,3
+
+            if (ab_min(3,14) .EQ. 14) THEN
+                write(*,*)"========= FAIL ============"
+            end if
+
+            Do IR = 1,ab_min(3,13)
                 write (*,FMT=149) IR
             enddo
             DO 145, HR = 1,2
@@ -166,7 +172,18 @@ C -----------------------------------------------------
   149 FORMAT ('Do with enddo ', I2)
   150 FORMAT ('Double DO ', I2, I2)
   151 FORMAT (' iterator = ', I2)
-        end
+         end
+
+         integer function ab_min(a,b)
+             integer a,b
+             if (a .LE. b) then
+                 ab_min = a
+             else 
+                 ab_min = b
+             end if 
+             return
+         end function
+
 
 C -----------------------------------------------------
 
