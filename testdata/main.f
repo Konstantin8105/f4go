@@ -208,6 +208,7 @@ C -----------------------------------------------------
 
         subroutine test_array()
             integer iterator(3),ir, summator
+            external summator
             do ir = 1,3
                 iterator(ir) = ir
             end do
