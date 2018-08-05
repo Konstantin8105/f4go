@@ -204,15 +204,28 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
         subroutine test_array()
-            integer iterator(3),ir
+            integer iterator(3),ir, summator
             do ir = 1,3
                 iterator(ir) = ir
             end do
             do ir = 1,3
                 write(*,fmt = 210) iterator(ir)
             end do
+            if (summator(iterator) .NE. 6) THEN
+                write(*,*) " ====== FAIL ====="
+            end if
             return
   210 FORMAT ('vector ', I2)
         end 
+
+        integer function summator(s)
+            integer s(*), ir, sum
+            sum = 0 
+            do ir = 1,3
+                sum = sum + s(ir)
+            end do
+            summator = sum
+            return
+        end function
 
 C -----------------------------------------------------

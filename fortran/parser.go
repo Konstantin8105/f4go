@@ -368,6 +368,26 @@ checkArguments:
 // init vars
 func (p *parser) initializeVars() (vars []goast.Stmt) {
 	for i := range p.initVars {
+		if p.initVars[i].isArray() {
+			arrayType := p.initVars[i].typ.baseType
+			for _ = range p.initVars[i].typ.arrayType {
+				arrayType = "[]" + arrayType
+			}
+			vars = append(vars, &goast.AssignStmt{
+				Lhs: []goast.Expr{goast.NewIdent(p.initVars[i].name)},
+				Tok: token.DEFINE,
+				Rhs: []goast.Expr{
+					&goast.CallExpr{
+						Fun:    goast.NewIdent("make"),
+						Lparen: 1,
+						Args: []goast.Expr{
+							goast.NewIdent(arrayType),
+							goast.NewIdent(strconv.Itoa(p.initVars[i].typ.arrayType[0])),
+						},
+					}},
+			})
+			continue
+		}
 		vars = append(vars, &goast.DeclStmt{
 			Decl: &goast.GenDecl{
 				Tok: token.VAR,

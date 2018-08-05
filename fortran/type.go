@@ -23,7 +23,11 @@ type goType struct {
 func (g goType) String() (s string) {
 	s = g.baseType
 	for _, size := range g.arrayType {
-		s = fmt.Sprintf("[%d]%s", size, s)
+		if size == -1 {
+			s = fmt.Sprintf("[]%s", s)
+		} else {
+			s = fmt.Sprintf("[%d]%s", size, s)
+		}
 	}
 	return
 }
@@ -157,6 +161,8 @@ func parseType(nodes []node) (typ goType) {
 				"Cannot parse array size on `%s` : %v ", string(nodes[0].b), err))
 		}
 		typ.arrayType = append(typ.arrayType, val)
+	} else {
+		typ.arrayType = append(typ.arrayType, -1)
 	}
 
 	return
