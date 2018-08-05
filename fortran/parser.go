@@ -1233,18 +1233,6 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 		panic("Not acceptable amount of labels in GOTO")
 	}
 
-	// if only one label
-	if len(labelNames) == 1 {
-		stmts = append(stmts, &goast.BranchStmt{
-			Tok:   token.GOTO,
-			Label: goast.NewIdent("Label" + string(p.ns[p.ident].b)),
-		})
-		p.gotoEndLine()
-		return
-	}
-
-	// if many labels
-
 	// get expr
 	p.ident++
 	st := p.ident
