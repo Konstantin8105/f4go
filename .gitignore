@@ -17,3 +17,6 @@ testdata/other/*
 testdata/g.go
 coverage.txt
 *.coverprofile
+
+# application
+f4go
