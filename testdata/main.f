@@ -31,6 +31,9 @@ C -----------------------------------------------------
             call testName("test_goto")
             call test_goto()
 
+            ! call testName("test_function")
+            ! call test_function()
+
             ! call testName("test_complex")
             ! call test_complex()
 
@@ -48,7 +51,6 @@ C -----------------------------------------------------
             character(*) name
             write (*,FMT=46) name
             STOP
-            return
   46        FORMAT ('***** FAIL : ',A)
         end
 
@@ -265,4 +267,36 @@ C -----------------------------------------------------
   251 FORMAT ('goto check t = ', I2)
   252 FORMAT ('goto check m = ', I2)
         end
+
 C -----------------------------------------------------
+
+  !       subroutine test_function()
+  !           integer a
+  !           character b*32
+  !           logical l, function_changer
+  !           external function_changer
+  !           a = 12
+  !           b = "rrr"
+  !           write(*,fmt = 270) a,b
+  !           l = function_changer(a,b)
+  !           if ( l .NEQV. .TRUE.) THEN 
+  !               call fail("test function in logical")
+  !           end if
+  !           write(*,fmt = 271) a,b
+  !           return
+  ! 270 FORMAT('test function integer = ', I3, ' array = ' , A)
+  ! 271 FORMAT('test function integer = ', I3, ' array = ' , A)
+  !       end subroutine
+  !
+  !       logical function function_changer(a,b)
+  !           integer a
+  !           character b*32
+  !           a = 34
+  !           b = "www"
+  !           function_changer = .TRUE.
+  !           return
+  !       end
+
+
+C -----------------------------------------------------
+
