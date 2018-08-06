@@ -75,7 +75,7 @@ func scan(b []byte) *list.List {
 	var s scanner
 	s.nodes = list.New()
 	s.nodes.PushFront(&node{
-		tok: undefine,
+		tok: ftUndefine,
 		b:   b,
 		pos: position{
 			line: 1,
@@ -119,7 +119,7 @@ func scan(b []byte) *list.List {
 	// IDENT for undefine
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*node).tok {
-		case undefine:
+		case ftUndefine:
 			e.Value.(*node).tok = token.IDENT
 		}
 	}
@@ -136,14 +136,14 @@ B:
 	var again bool
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*node).tok {
-		case NEW_LINE:
+		case ftNewLine:
 			// ignore
 		default:
 			for j := len(e.Value.(*node).b) - 1; j >= 0; j-- {
 				if e.Value.(*node).b[j] != '\n' {
 					continue
 				}
-				s.extract(j, j+1, e, NEW_LINE)
+				s.extract(j, j+1, e, ftNewLine)
 				again = true
 			}
 		}
@@ -155,7 +155,7 @@ B:
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		e.Value.(*node).pos.line = line
 		e.Value.(*node).pos.col = 1
-		if e.Value.(*node).tok == NEW_LINE {
+		if e.Value.(*node).tok == ftNewLine {
 			line++
 		}
 	}
@@ -167,7 +167,7 @@ func (s *scanner) scanComments() {
 	// 'C', 'c', '*', 'd', 'D'
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*node).tok {
-		case undefine:
+		case ftUndefine:
 			if len(e.Value.(*node).b) == 0 {
 				continue
 			}
@@ -185,7 +185,7 @@ Op:
 	var again bool
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*node).tok {
-		case undefine:
+		case ftUndefine:
 			if len(e.Value.(*node).b) == 0 {
 				continue
 			}
@@ -235,7 +235,7 @@ func (s *scanner) extract(start, end int, e *list.Element, tok token.Token) {
 
 		if len(aft) > 0 {
 			s.nodes.InsertAfter(&node{
-				tok: undefine,
+				tok: ftUndefine,
 				b:   aft,
 				pos: position{
 					line: e.Value.(*node).pos.line,
@@ -258,7 +258,7 @@ func (s *scanner) extract(start, end int, e *list.Element, tok token.Token) {
 				col:  e.Value.(*node).pos.col + start,
 			},
 		}, e)
-		e.Value.(*node).tok = undefine
+		e.Value.(*node).tok = ftUndefine
 		e.Value.(*node).b = bef
 		return
 	}
@@ -268,11 +268,11 @@ func (s *scanner) extract(start, end int, e *list.Element, tok token.Token) {
 
 	bef, present, aft := b[:start], b[start:end], b[end:]
 
-	e.Value.(*node).tok = undefine
+	e.Value.(*node).tok = ftUndefine
 	e.Value.(*node).b = bef
 
 	s.nodes.InsertAfter(&node{
-		tok: undefine,
+		tok: ftUndefine,
 		b:   aft,
 		pos: position{
 			line: e.Value.(*node).pos.line,
@@ -294,7 +294,7 @@ func (s *scanner) extract(start, end int, e *list.Element, tok token.Token) {
 func (s *scanner) scanStrings() {
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*node).tok {
-		case undefine:
+		case ftUndefine:
 			for j, ch := range e.Value.(*node).b {
 				if ch == '"' {
 					b := e.Value.(*node).b
@@ -345,7 +345,7 @@ func (s *scanner) scanTokenWithPoint() {
 		// !=
 		{tok: token.NEQ, pattern: "/="},
 		// other
-		{tok: DOUBLE_COLON, pattern: "::"},
+		{tok: ftDoubleColon, pattern: "::"},
 		{tok: token.COLON, pattern: ":"},
 		{tok: token.COMMA, pattern: ","},
 		{tok: token.LPAREN, pattern: "("},
@@ -353,12 +353,12 @@ func (s *scanner) scanTokenWithPoint() {
 		{tok: token.ASSIGN, pattern: "="},
 		{tok: token.GTR, pattern: ">"},
 		{tok: token.LSS, pattern: "<"},
-		{tok: DOLLAR, pattern: "$"},
+		{tok: ftDollar, pattern: "$"},
 		// stars
-		{tok: DOUBLE_STAR, pattern: "**"},
+		{tok: ftDoubleStar, pattern: "**"},
 		{tok: token.MUL, pattern: "*"},
 		// devs
-		{tok: STRING_CONCAT, pattern: "//"},
+		{tok: ftStringConcat, pattern: "//"},
 		{tok: token.QUO, pattern: "/"},
 	}
 	for _, ent := range entities {
@@ -370,7 +370,7 @@ func (s *scanner) scanTokenWithPoint() {
 A:
 	var changed bool
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		if e.Value.(*node).tok != undefine {
+		if e.Value.(*node).tok != ftUndefine {
 			continue
 		}
 		up := bytes.ToUpper(e.Value.(*node).b)
@@ -400,9 +400,9 @@ func (s *scanner) postprocessor() {
 	// To:
 	//  END
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		if e.Value.(*node).tok == END {
+		if e.Value.(*node).tok == ftEnd {
 			for n := e.Next(); n != nil; n = e.Next() {
-				if n.Value.(*node).tok != NEW_LINE {
+				if n.Value.(*node).tok != ftNewLine {
 					s.nodes.Remove(n)
 				} else {
 					break
@@ -416,7 +416,7 @@ func (s *scanner) postprocessor() {
 	// To:
 	//   ELSE IF
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		if e.Value.(*node).tok == ELSEIF {
+		if e.Value.(*node).tok == ftElseif {
 			e.Value.(*node).tok, e.Value.(*node).b = token.ELSE, []byte("ELSE")
 			s.nodes.InsertAfter(&node{
 				tok: token.IF,
@@ -437,7 +437,7 @@ func (s *scanner) postprocessor() {
 
 	// replace string concatenation
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		if e.Value.(*node).tok == STRING_CONCAT {
+		if e.Value.(*node).tok == ftStringConcat {
 			e.Value.(*node).tok, e.Value.(*node).b = token.ADD, []byte("+")
 		}
 	}
@@ -446,7 +446,7 @@ func (s *scanner) postprocessor() {
 	// if any in column 6, then merge lines
 multi:
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		if e.Value.(*node).tok == NEW_LINE {
+		if e.Value.(*node).tok == ftNewLine {
 			n := e.Next()
 			if n == nil {
 				continue
@@ -471,7 +471,7 @@ multi:
 			if n == nil {
 				continue
 			}
-			if n.Value.(*node).tok == NEW_LINE {
+			if n.Value.(*node).tok == ftNewLine {
 				s.nodes.Remove(n)
 			}
 		}
@@ -485,30 +485,30 @@ multi:
 	//  ZERO = 0.0E+0
 	//
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		if e.Value.(*node).tok != NEW_LINE {
+		if e.Value.(*node).tok != ftNewLine {
 			continue
 		}
 		e = e.Next()
 		if e == nil {
 			break
 		}
-		if e.Value.(*node).tok != PARAMETER {
+		if e.Value.(*node).tok != ftParameter {
 			continue
 		}
 		// replace PARAMETER to NEW_LINE
 		n := e.Next()
-		e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, NEW_LINE
+		e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, ftNewLine
 		e = n
 		// replace ( to NEW_LINE
 		if e.Value.(*node).tok != token.LPAREN {
 			panic("is not LPAREN")
 		}
-		e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, NEW_LINE
+		e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, ftNewLine
 		e = e.Next()
 		// find end )
 		counter := 1
 		for ; e != nil; e = e.Next() {
-			if e.Value.(*node).tok == NEW_LINE {
+			if e.Value.(*node).tok == ftNewLine {
 				// panic(fmt.Errorf("NEW_LINE is not accepted"))
 				break
 			}
@@ -520,14 +520,14 @@ multi:
 			}
 			if counter == 1 && e.Value.(*node).tok == token.COMMA {
 				// replace , to NEW_LINE
-				e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, NEW_LINE
+				e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, ftNewLine
 			}
 			if counter == 0 {
 				if e.Value.(*node).tok != token.RPAREN {
 					panic("Must RPAREN")
 				}
 				// replace ) to NEW_LINE
-				e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, NEW_LINE
+				e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, ftNewLine
 				break
 			}
 		}
@@ -563,35 +563,35 @@ func (s *scanner) scanTokens() {
 		tok     token.Token
 		pattern []string
 	}{
-		{tok: SUBROUTINE, pattern: []string{"SUBROUTINE"}},
-		{tok: IMPLICIT, pattern: []string{"IMPLICIT"}},
-		{tok: INTEGER, pattern: []string{"INTEGER"}},
-		{tok: CHARACTER, pattern: []string{"CHARACTER"}},
-		{tok: LOGICAL, pattern: []string{"LOGICAL"}},
-		{tok: COMPLEX, pattern: []string{"COMPLEX"}},
-		{tok: REAL, pattern: []string{"REAL"}},
-		{tok: DATA, pattern: []string{"DATA"}},
-		{tok: EXTERNAL, pattern: []string{"EXTERNAL"}},
-		{tok: END, pattern: []string{"END", "ENDDO"}},
-		{tok: DO, pattern: []string{"DO"}},
-		{tok: DOUBLE, pattern: []string{"DOUBLE"}},
-		{tok: FUNCTION, pattern: []string{"FUNCTION"}},
+		{tok: ftSubroutine, pattern: []string{"SUBROUTINE"}},
+		{tok: ftImplicit, pattern: []string{"IMPLICIT"}},
+		{tok: ftInteger, pattern: []string{"INTEGER"}},
+		{tok: ftCharacter, pattern: []string{"CHARACTER"}},
+		{tok: ftLogical, pattern: []string{"LOGICAL"}},
+		{tok: ftComplex, pattern: []string{"COMPLEX"}},
+		{tok: ftReal, pattern: []string{"REAL"}},
+		{tok: ftData, pattern: []string{"DATA"}},
+		{tok: ftExternal, pattern: []string{"EXTERNAL"}},
+		{tok: ftEnd, pattern: []string{"END", "ENDDO"}},
+		{tok: ftDo, pattern: []string{"DO"}},
+		{tok: ftDouble, pattern: []string{"DOUBLE"}},
+		{tok: ftFunction, pattern: []string{"FUNCTION"}},
 		{tok: token.IF, pattern: []string{"IF"}},
 		{tok: token.ELSE, pattern: []string{"ELSE"}},
 		{tok: token.CONTINUE, pattern: []string{"CONTINUE"}},
-		{tok: CALL, pattern: []string{"CALL"}},
-		{tok: THEN, pattern: []string{"THEN"}},
+		{tok: ftCall, pattern: []string{"CALL"}},
+		{tok: ftThen, pattern: []string{"THEN"}},
 		{tok: token.RETURN, pattern: []string{"RETURN"}},
-		{tok: WRITE, pattern: []string{"WRITE"}},
-		{tok: WHILE, pattern: []string{"WHILE"}},
-		{tok: PARAMETER, pattern: []string{"PARAMETER"}},
-		{tok: PROGRAM, pattern: []string{"PROGRAM"}},
-		{tok: PRECISION, pattern: []string{"PRECISION"}},
-		{tok: INTRINSIC, pattern: []string{"INTRINSIC"}},
-		{tok: FORMAT, pattern: []string{"FORMAT"}},
-		{tok: STOP, pattern: []string{"STOP"}},
+		{tok: ftWrite, pattern: []string{"WRITE"}},
+		{tok: ftWhile, pattern: []string{"WHILE"}},
+		{tok: ftParameter, pattern: []string{"PARAMETER"}},
+		{tok: ftProgram, pattern: []string{"PROGRAM"}},
+		{tok: ftPrecision, pattern: []string{"PRECISION"}},
+		{tok: ftIntrinsic, pattern: []string{"INTRINSIC"}},
+		{tok: ftFormat, pattern: []string{"FORMAT"}},
+		{tok: ftStop, pattern: []string{"STOP"}},
 		{tok: token.GOTO, pattern: []string{"GOTO"}},
-		{tok: ELSEIF, pattern: []string{"ELSEIF"}},
+		{tok: ftElseif, pattern: []string{"ELSEIF"}},
 	}
 	for _, ent := range entities {
 		for _, pat := range ent.pattern {
@@ -604,7 +604,7 @@ A:
 	var changed bool
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		for _, ent := range entities {
-			if e.Value.(*node).tok != undefine {
+			if e.Value.(*node).tok != ftUndefine {
 				continue
 			}
 			up := bytes.ToUpper(e.Value.(*node).b)
@@ -664,7 +664,7 @@ A:
 		for _, ent := range entities {
 			for _, pat := range ent.pattern {
 				switch e.Value.(*node).tok {
-				case undefine:
+				case ftUndefine:
 					index := bytes.Index([]byte(string(e.Value.(*node).b)), []byte(pat))
 					if index < 0 {
 						continue
@@ -688,7 +688,7 @@ empty:
 	var again bool
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*node).tok {
-		case undefine:
+		case ftUndefine:
 			if len(e.Value.(*node).b) == 0 {
 				n := e.Next()
 				s.nodes.Remove(e)
@@ -732,7 +732,7 @@ func (s *scanner) scanNumbers() {
 numb:
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*node).tok {
-		case undefine:
+		case ftUndefine:
 			// Examples:
 			// +0.000E4
 			// -44

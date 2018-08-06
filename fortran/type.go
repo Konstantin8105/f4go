@@ -41,7 +41,7 @@ func parseType(nodes []node) (typ goType) {
 	}
 
 	switch nodes[0].tok {
-	case CHARACTER:
+	case ftCharacter:
 		// CHARACTER
 		typ.baseType = "byte"
 		nodes = nodes[1:]
@@ -53,7 +53,7 @@ func parseType(nodes []node) (typ goType) {
 			typ.baseType = "string"
 			nodes = nodes[2:]
 		}
-	case COMPLEX:
+	case ftComplex:
 		// COMPLEX or COMPLEX * 8
 		typ.baseType = "complex64"
 		nodes = nodes[1:]
@@ -73,11 +73,11 @@ func parseType(nodes []node) (typ goType) {
 			nodes = nodes[2:]
 		}
 
-	case DOUBLE:
+	case ftDouble:
 		switch nodes[1].tok {
-		case COMPLEX: // COMPLEX * 16 or DOUBLE COMPLEX
+		case ftComplex: // COMPLEX * 16 or DOUBLE COMPLEX
 			typ.baseType = "complex128"
-		case PRECISION: // REAL    * 16 or DOUBLE PRECISION
+		case ftPrecision: // REAL    * 16 or DOUBLE PRECISION
 			panic("Not support DOUBLE PRECISION")
 		default:
 			panic(fmt.Errorf(
@@ -85,7 +85,7 @@ func parseType(nodes []node) (typ goType) {
 		}
 		nodes = nodes[1:]
 
-	case REAL:
+	case ftReal:
 		// REAL or REAL * 4
 		typ.baseType = "float64" // TODO : correct type "float32"
 		nodes = nodes[1:]
@@ -105,7 +105,7 @@ func parseType(nodes []node) (typ goType) {
 			nodes = nodes[2:]
 		}
 
-	case INTEGER:
+	case ftInteger:
 		// INTEGER or INTEGER * 4
 		typ.baseType = "int"
 		nodes = nodes[1:]
@@ -126,7 +126,7 @@ func parseType(nodes []node) (typ goType) {
 			nodes = nodes[2:]
 		}
 
-	case LOGICAL:
+	case ftLogical:
 		// LOGICAL or LOGICAL * 1
 		typ.baseType = "bool"
 		if len(nodes) > 1 &&
