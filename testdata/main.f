@@ -28,7 +28,7 @@ C -----------------------------------------------------
             write(*,*) "test_array"
             call test_array()
 
-            write(*,*) "test_goto"
+            call testName("test_goto")
             call test_goto()
 
             ! write(*,*) "test_complex"
@@ -36,6 +36,13 @@ C -----------------------------------------------------
 
             ! end of tests
         END
+
+        subroutine testName(name)
+            character(*) name
+            write (*,FMT=45) name
+            return
+  45        FORMAT ('========== Test : ',A,' ==========')
+        end
 
 C -----------------------------------------------------
 C -----------------------------------------------------

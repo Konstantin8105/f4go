@@ -450,6 +450,17 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	// delete external function type definition
 	p.removeExternalFunction()
 
+	// remove from arguments arg with type string
+	stringArguments := map[string]bool{}
+	for i := range fd.Type.Params.List {
+		fieldName := fd.Type.Params.List[i].Names[0].Name
+		for j := range p.initVars {
+			if fieldName == p.initVars[j].name && p.initVars[j].typ.baseType == "string" {
+				stringArguments[p.initVars[j].name] = true
+			}
+		}
+	}
+
 	// add correct type of subroutine arguments
 	arguments := p.argumentCorrection(fd)
 
@@ -459,6 +470,9 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	// To:
 	//  *a
 	for _, arg := range arguments {
+		if _, ok := stringArguments[arg]; ok {
+			continue
+		}
 		v := vis{
 			from: arg,
 			to:   "*" + arg,
@@ -469,8 +483,10 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	for i := range fd.Type.Params.List {
 		switch fd.Type.Params.List[i].Type.(type) {
 		case *goast.Ident:
-			fd.Type.Params.List[i].Type.(*goast.Ident).Name =
-				"*" + fd.Type.Params.List[i].Type.(*goast.Ident).Name
+			id := fd.Type.Params.List[i].Type.(*goast.Ident)
+			if id.Name != "string" { // only for string
+				id.Name = "*" + id.Name
+			}
 		default:
 			panic(fmt.Errorf("Cannot parse type in fields: %T",
 				fd.Type.Params.List[i].Type))
@@ -866,8 +882,16 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 				case *goast.Ident:
 					id := call.Args[i].(*goast.Ident)
 					id.Name = "&(" + id.Name + ")"
+				case *goast.BasicLit:
+					id := call.Args[i].(*goast.BasicLit)
+					if id.Kind != token.STRING {
+						panic(fmt.Errorf("Not support BasicLit : %s", id.Kind))
+					}
+
 				default:
-					panic(fmt.Errorf("Cannot support argument of CALL for type : %T", f))
+					panic(fmt.Errorf(
+						"Cannot support argument of CALL for type : %T %#v",
+						call.Args[i], call.Args[i]))
 				}
 			}
 		default:
