@@ -381,7 +381,7 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 	for i := range p.initVars {
 		if p.initVars[i].isArray() {
 			arrayType := p.initVars[i].typ.baseType
-			for _ = range p.initVars[i].typ.arrayType {
+			for range p.initVars[i].typ.arrayType {
 				arrayType = "[]" + arrayType
 			}
 			vars = append(vars, &goast.AssignStmt{
