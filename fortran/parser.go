@@ -1005,16 +1005,6 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		p.ident++
 		return
 
-		// TODO: add support INT
-		var nodes []node
-		for ; p.ident < len(p.ns); p.ident++ {
-			if p.ns[p.ident].tok == ftNewLine || p.ns[p.ident].tok == token.EOF {
-				break
-			}
-			nodes = append(nodes, p.ns[p.ident])
-		}
-		p.addError("INT is not support.\n" + nodesToString(nodes))
-
 	default:
 		start := p.ident
 		for ; p.ident < len(p.ns); p.ident++ {

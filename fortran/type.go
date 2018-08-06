@@ -138,7 +138,7 @@ func parseType(nodes []node) (typ goType) {
 			// LOGICAL * 8
 			panic(fmt.Errorf(
 				"Not support LOGICAL type : %s", string(nodes[1].b)))
-			nodes = nodes[2:]
+			// nodes = nodes[2:]
 		}
 	}
 
