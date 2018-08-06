@@ -335,7 +335,9 @@ func (s *scanner) scanTokenWithPoint() {
 		{tok: token.GEQ, pattern: ".GE."},
 		{tok: token.NOT, pattern: ".NOT."},
 		{tok: token.NEQ, pattern: ".NE."},
+		{tok: token.NEQ, pattern: ".NEQV."},
 		{tok: token.EQL, pattern: ".EQ."},
+		{tok: token.EQL, pattern: ".EQV."},
 		{tok: token.LAND, pattern: ".AND."},
 		{tok: token.LAND, pattern: ".AND ."}, //add for test other/sgelq.f
 		{tok: token.LOR, pattern: ".OR."},
