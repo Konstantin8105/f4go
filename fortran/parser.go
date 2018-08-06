@@ -1385,6 +1385,8 @@ func (p *parser) parseFormat(fs []node) (s string) {
 					}
 				}
 				s += "f"
+			case 'A':
+				s += "%s"
 			default:
 				p.addError("Not support format : " + string(f.b))
 			}
