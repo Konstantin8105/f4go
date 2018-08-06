@@ -4,34 +4,34 @@ C -----------------------------------------------------
 
         program main
             ! begin of tests
-            write(*,*) "test_operations"
+            call testName("test_operations")
             call test_operations()
 
-            write(*,*) "test_pow"
+            call testName("test_pow")
             call test_pow()
 
-            write(*,*) "real_test_name"
+            call testName("real_test_name")
             call real_test_name()
 
-            write(*,*) "test_subroutine"
+            call testName("test_subroutine")
             call test_subroutine()
 
-            write(*,*) "test_if"
+            call testName("test_if")
             call test_if()
 
-            write(*,*) "test_do"
+            call testName("test_do")
             call test_do()
 
-            write(*,*) "test_do_while"
+            call testName("test_do_while")
             call test_do_while()
 
-            write(*,*) "test_array"
+            call testName("test_array")
             call test_array()
 
             call testName("test_goto")
             call test_goto()
 
-            ! write(*,*) "test_complex"
+            ! call testName("test_complex")
             ! call test_complex()
 
             ! end of tests
@@ -41,7 +41,15 @@ C -----------------------------------------------------
             character(*) name
             write (*,FMT=45) name
             return
-  45        FORMAT ('========== Test : ',A,' ==========')
+  45        FORMAT ('========== Test : ',A20,' ==========')
+        end
+
+        subroutine fail(name)
+            character(*) name
+            write (*,FMT=46) name
+            STOP
+            return
+  46        FORMAT ('***** FAIL : ',A)
         end
 
 C -----------------------------------------------------
@@ -161,7 +169,7 @@ C -----------------------------------------------------
             end do
 
             if (ab_min(3,14) .EQ. 14) THEN
-                write(*,*)"========= FAIL ============"
+                call fail("test_do 1")
             end if
 
             Do IR = 1,ab_min(3,13)
@@ -223,7 +231,7 @@ C -----------------------------------------------------
                 write(*,fmt = 210) iterator(ir)
             end do
             if (summator(iterator) .NE. 6) THEN
-                write(*,*) " ====== FAIL ====="
+                call fail("test_array 1")
             end if
             return
   210 FORMAT ('vector ', I2)

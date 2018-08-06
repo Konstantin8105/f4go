@@ -165,11 +165,5 @@ func parseType(nodes []node) (typ goType) {
 		typ.arrayType = append(typ.arrayType, -1)
 	}
 
-	// only for string
-	if typ.baseType == "byte" && len(typ.arrayType) > 0 {
-		typ.baseType = "string"
-		typ.arrayType = []int{}
-	}
-
 	return
 }

@@ -451,12 +451,12 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	p.removeExternalFunction()
 
 	// remove from arguments arg with type string
-	stringArguments := map[string]bool{}
+	arrayArguments := map[string]bool{}
 	for i := range fd.Type.Params.List {
 		fieldName := fd.Type.Params.List[i].Names[0].Name
 		for j := range p.initVars {
-			if fieldName == p.initVars[j].name && p.initVars[j].typ.baseType == "string" {
-				stringArguments[p.initVars[j].name] = true
+			if fieldName == p.initVars[j].name && p.initVars[j].isArray() {
+				arrayArguments[p.initVars[j].name] = true
 			}
 		}
 	}
@@ -470,7 +470,7 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	// To:
 	//  *a
 	for _, arg := range arguments {
-		if _, ok := stringArguments[arg]; ok {
+		if _, ok := arrayArguments[arg]; ok {
 			continue
 		}
 		v := vis{
@@ -479,14 +479,16 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 		}
 		goast.Walk(v, fd.Body)
 	}
+
 	// changes arguments in func
 	for i := range fd.Type.Params.List {
 		switch fd.Type.Params.List[i].Type.(type) {
 		case *goast.Ident:
 			id := fd.Type.Params.List[i].Type.(*goast.Ident)
-			if id.Name != "string" { // only for string
-				id.Name = "*" + id.Name
+			if strings.Contains(id.Name, "[") { // for array no need pointer
+				continue
 			}
+			id.Name = "*" + id.Name
 		default:
 			panic(fmt.Errorf("Cannot parse type in fields: %T",
 				fd.Type.Params.List[i].Type))
@@ -887,6 +889,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 					if id.Kind != token.STRING {
 						panic(fmt.Errorf("Not support BasicLit : %s", id.Kind))
 					}
+					id.Value = "[]byte(" + id.Value + ")"
 
 				default:
 					panic(fmt.Errorf(
@@ -1410,7 +1413,11 @@ func (p *parser) parseFormat(fs []node) (s string) {
 				}
 				s += "f"
 			case 'A':
-				s += "%s"
+				if len(f.b) > 1 {
+					s += "%" + string(f.b[1:]) + "s"
+				} else {
+					s += "%s"
+				}
 			default:
 				p.addError("Not support format : " + string(f.b))
 			}
