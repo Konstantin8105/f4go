@@ -53,7 +53,7 @@ func lv(l *list.List) {
 }
 
 // Parse is convert fortran source to go ast tree
-func Parse(b []byte) (ast goast.File, err []error) {
+func Parse(b []byte) (goast.File, []error) {
 	var p parser
 
 	if p.pkgs == nil {
