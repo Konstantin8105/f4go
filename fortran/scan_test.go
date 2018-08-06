@@ -3,6 +3,8 @@ package fortran
 import (
 	"strconv"
 	"testing"
+
+	"github.com/bradleyjkemp/cupaloy"
 )
 
 func TestEle(t *testing.T) {
@@ -79,7 +81,6 @@ func TestScanIn(t *testing.T) {
 	for i, tc := range tcs {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			l := scan([]byte(tc.in))
-			// lv(l) // Only for debuging
 			var le int
 			for e, j := l.Front(), 0; e != nil; e, j = e.Next(), j+1 {
 				if j < len(tc.out) && tc.out[j] != string(e.Value.(*node).b) {
@@ -91,6 +92,13 @@ func TestScanIn(t *testing.T) {
 			}
 			if le != len(tc.out) {
 				t.Fatalf("Not same : %v != %v", le, len(tc.out))
+			}
+
+			testName := "Scan" + strconv.Itoa(i)
+			output := lv(l)
+
+			if err := cupaloy.SnapshotMulti(testName, output); err != nil {
+				t.Fatalf("error: %s", err)
 			}
 		})
 	}

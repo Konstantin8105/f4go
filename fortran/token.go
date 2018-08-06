@@ -5,43 +5,43 @@ import (
 )
 
 const (
-	DOUBLE_STAR token.Token = iota + token.VAR + 10 // **
-	SUBROUTINE
+	ftDoubleStar token.Token = iota + token.VAR + 10 // **
+	ftSubroutine
 
-	INTEGER
-	CHARACTER
-	COMPLEX
-	LOGICAL
-	REAL
-	DATA
+	ftInteger
+	ftCharacter
+	ftComplex
+	ftLogical
+	ftReal
+	ftData
 
-	EXTERNAL
-	DOUBLE_COLON
-	IMPLICIT
-	FUNCTION
-	END
-	ELSEIF
-	DO
-	DOUBLE
-	CALL
-	THEN
-	NEW_LINE
+	ftExternal
+	ftDoubleColon
+	ftImplicit
+	ftFunction
+	ftEnd
+	ftElseif
+	ftDo
+	ftDouble
+	ftCall
+	ftThen
+	ftNewLine
 
-	WRITE
-	WHILE
+	ftWrite
+	ftWhile
 
-	PARAMETER
-	PRECISION
-	PROGRAM
-	INTRINSIC
-	FORMAT
-	STOP
-	DOLLAR
+	ftParameter
+	ftPrecision
+	ftProgram
+	ftIntrinsic
+	ftFormat
+	ftStop
+	ftDollar
 
-	STRING_CONCAT
+	ftStringConcat
 
 	// undefine tokens
-	undefine
+	ftUndefine
 )
 
 func view(t token.Token) string {
@@ -52,40 +52,40 @@ func view(t token.Token) string {
 }
 
 var o = [...]string{
-	SUBROUTINE: "SUBROUTINE",
+	ftSubroutine: "SUBROUTINE",
 
-	INTEGER:   "INTEGER",
-	CHARACTER: "CHARACTER",
-	COMPLEX:   "COMPLEX",
-	LOGICAL:   "LOGICAL",
-	REAL:      "REAL",
-	DATA:      "DATA",
+	ftInteger:   "INTEGER",
+	ftCharacter: "CHARACTER",
+	ftComplex:   "COMPLEX",
+	ftLogical:   "LOGICAL",
+	ftReal:      "REAL",
+	ftData:      "DATA",
 
-	EXTERNAL:     "EXTERNAL",
-	DOUBLE_COLON: "DOUBLE_COLON",
-	IMPLICIT:     "IMPLICIT",
-	FUNCTION:     "FUNCTION",
-	END:          "END",
-	ELSEIF:       "ELSEIF",
-	DO:           "DO",
-	DOUBLE:       "DOUBLE",
-	CALL:         "CALL",
-	THEN:         "THEN",
-	NEW_LINE:     "NEW_LINE",
+	ftExternal:    "EXTERNAL",
+	ftDoubleColon: "DOUBLE_COLON",
+	ftImplicit:    "IMPLICIT",
+	ftFunction:    "FUNCTION",
+	ftEnd:         "END",
+	ftElseif:      "ELSEIF",
+	ftDo:          "DO",
+	ftDouble:      "DOUBLE",
+	ftCall:        "CALL",
+	ftThen:        "THEN",
+	ftNewLine:     "NEW_LINE",
 
-	WRITE: "WRITE",
-	WHILE: "WHILE",
+	ftWrite: "WRITE",
+	ftWhile: "WHILE",
 
-	PARAMETER: "PARAMETER",
-	PRECISION: "PRECISION",
-	PROGRAM:   "PROGRAM",
-	INTRINSIC: "INTRINSIC",
-	FORMAT:    "FORMAT",
-	STOP:      "STOP",
+	ftParameter: "PARAMETER",
+	ftPrecision: "PRECISION",
+	ftProgram:   "PROGRAM",
+	ftIntrinsic: "INTRINSIC",
+	ftFormat:    "FORMAT",
+	ftStop:      "STOP",
 
-	STRING_CONCAT: "STRING_CONCAT",
+	ftStringConcat: "STRING_CONCAT",
 
-	DOLLAR: "$",
+	ftDollar: "$",
 
-	undefine: "UNDEFINE",
+	ftUndefine: "UNDEFINE",
 }

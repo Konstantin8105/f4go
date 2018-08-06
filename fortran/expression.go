@@ -33,7 +33,7 @@ func nodesToString(nodes []node) (str string) {
 func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 
 	for i := start; i < end; i++ {
-		if p.ns[i].tok == NEW_LINE {
+		if p.ns[i].tok == ftNewLine {
 			p.addError("NEW_LINE is not acceptable inside expression : " +
 				nodesToString(p.ns[start:end]))
 		}
@@ -192,7 +192,7 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 	var pos int // saving last position of DOUBLE_STAR
 	for i, n := range *nodes {
 		switch n.tok {
-		case DOUBLE_STAR: // **
+		case ftDoubleStar: // **
 			haveDoubleStar = true
 			pos = i
 		}
@@ -430,7 +430,7 @@ func (p *parser) fixComplexValue(nodes *[]node) {
 							break
 						}
 					}
-				case NEW_LINE, token.EOF:
+				case ftNewLine, token.EOF:
 					return false
 				case token.COMMA, token.RPAREN:
 					exit = true
