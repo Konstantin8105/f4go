@@ -37,19 +37,20 @@ func (p *parser) init() {
 }
 
 // list view - only for debugging
-func lv(l *list.List) {
+func lv(l *list.List) (output string) {
 	for e := l.Front(); e != nil; e = e.Next() {
 		b := string(e.Value.(*node).b)
 		if e.Value.(*node).tok != ftNewLine {
-			fmt.Printf("%10s\t%10s\t|`%s`\n",
+			output += fmt.Sprintf("%10s\t%10s\t|`%s`\n",
 				view(e.Value.(*node).tok),
 				fmt.Sprintf("%v", e.Value.(*node).pos),
 				b)
 		} else {
-			fmt.Printf("%20s\n",
+			output += fmt.Sprintf("%20s\n",
 				view(e.Value.(*node).tok))
 		}
 	}
+	return
 }
 
 // Parse is convert fortran source to go ast tree
