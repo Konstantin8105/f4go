@@ -37,6 +37,9 @@ C -----------------------------------------------------
             call testName("test_data")
             call test_data()
 
+            call testName("test_matrix")
+            call test_matrix()
+
             ! call testName("test_complex")
             ! call test_complex()
 
@@ -300,7 +303,6 @@ C -----------------------------------------------------
             return
         end
 
-
 C -----------------------------------------------------
 
         subroutine test_data
@@ -315,4 +317,22 @@ C -----------------------------------------------------
             end if 
         end subroutine
 
+C -----------------------------------------------------
 
+        subroutine test_matrix
+            integer M(3,4),I,J
+            do I = 1,3
+                do J = 1,4
+                    M(I,J) = I*8+J
+                end do
+            end do
+            do I = 1,3
+                do J = 1,4
+                    write(*,fmt=330) I, J, M(I,J)
+                end do
+            end do
+            return
+  330 format('Matrix (',I1,',',I1,') = ', I2 )
+        end
+
+C -----------------------------------------------------

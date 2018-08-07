@@ -1372,7 +1372,26 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 func (p *parser) scanWriteExprs() (exprs []goast.Expr) {
 	st := p.ident
 	for ; p.ns[p.ident].tok != ftNewLine; p.ident++ {
-		for ; p.ns[p.ident].tok != token.COMMA && p.ns[p.ident].tok != ftNewLine; p.ident++ {
+		for ; ; p.ident++ {
+			if p.ns[p.ident].tok == token.COMMA || p.ns[p.ident].tok == ftNewLine {
+				break
+			}
+			if p.ns[p.ident].tok != token.LPAREN {
+				continue
+			}
+			counter := 0
+			for ; ; p.ident++ {
+				if p.ns[p.ident].tok == token.RPAREN {
+					counter--
+				}
+				if p.ns[p.ident].tok == token.LPAREN {
+					counter++
+				}
+				if counter != 0 {
+					continue
+				}
+				break
+			}
 		}
 		// parse expr
 		exprs = append(exprs, p.parseExpr(st, p.ident))

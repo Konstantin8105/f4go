@@ -164,6 +164,26 @@ func parseType(nodes []node) (typ goType) {
 	} else {
 		typ.arrayType = append(typ.arrayType, -1)
 	}
+	nodes = nodes[1:]
+
+	if nodes[0].tok == token.COMMA {
+		nodes = nodes[1:]
+		if nodes[0].tok == token.INT {
+			val, err := strconv.Atoi(string(nodes[0].b))
+			if err != nil {
+				panic(fmt.Errorf(
+					"Cannot parse array size on `%s` : %v ", string(nodes[0].b), err))
+			}
+			typ.arrayType = append(typ.arrayType, val)
+		} else {
+			typ.arrayType = append(typ.arrayType, -1)
+		}
+		nodes = nodes[1:]
+	}
+
+	if nodes[0].tok != token.RPAREN {
+		panic("Unsupport type " + nodesToString(nodes))
+	}
 
 	return
 }
