@@ -361,6 +361,7 @@ C -----------------------------------------------------
             REAL    R1
             REAL *4 R4
             REAL *8 R8
+            DOUBLE precision DP
             INTEGER    I1
             INTEGER *2 I2
             INTEGER *4 I4
@@ -368,6 +369,7 @@ C -----------------------------------------------------
             R1 = 45.1
             R4 = 45.1
             R8 = 45.1
+            DP = 45.1
             I1 = 12
             I2 = 12
             I4 = 12
@@ -380,6 +382,9 @@ C -----------------------------------------------------
             end if
             if ( 45.0 .LE. R8 .AND. R8 .LE. 45.2) THEN
                 write(*,*)'R8 ... ok'
+            end if
+            if ( 45.0 .LE. DP .AND. DP .LE. 45.2) THEN
+                write(*,*)'DP ... ok'
             end if
             if ( I1 .Eq. 12) write(*,*)'I1 ... ok'
             if ( I2 .Eq. 12) write(*,*)'I2 ... ok'
