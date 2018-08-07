@@ -87,9 +87,11 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
         subroutine test_pow()
+            ! initialization
             REAL r,p
             Real real_1
             REAL*8 H(1)
+C calculation
             H(1) = 3
             H(1) = H(1) ** H(1)
             r = -9.Q+4

@@ -19,6 +19,8 @@ type parser struct {
 	functionExternalName []string
 	initVars             []initialVar
 
+	comments []string
+
 	pkgs        map[string]bool // import packeges
 	endLabelDo  map[string]int  // label of DO
 	allLabels   map[string]bool // list of all labels
@@ -184,6 +186,8 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 		case ftNewLine:
 			next = true // TODO
 		case token.COMMENT:
+			p.comments = append(p.comments,
+				"//"+string(p.ns[p.ident].b))
 			next = true // TODO
 		case ftSubroutine: // SUBROUTINE
 			var decl goast.Decl
@@ -472,6 +476,16 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 		Params: &goast.FieldList{},
 	}
 
+	defer func() {
+		fd.Doc = &goast.CommentGroup{}
+		for _, c := range p.comments {
+			fd.Doc.List = append(fd.Doc.List, &goast.Comment{
+				Text: c,
+			})
+		}
+		p.comments = []string{}
+	}()
+
 	// check return type
 	var returnType []node
 	for ; p.ns[p.ident].tok != ftSubroutine && p.ns[p.ident].tok != ftNewLine; p.ident++ {
@@ -603,7 +617,9 @@ func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 	for p.ident < len(p.ns) {
 
 		if p.ns[p.ident].tok == token.COMMENT {
-			// TODO : stmts = append(stmts, &goast.ExprStmt{X: goast.NewIdent(p.ns[p.ident].lit)})
+			stmts = append(stmts, &goast.ExprStmt{
+				X: goast.NewIdent("//" + string(p.ns[p.ident].b)),
+			})
 			p.ident++
 			continue
 		}
