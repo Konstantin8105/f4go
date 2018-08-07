@@ -107,13 +107,22 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 	}
 
 	// modify tokens
-	var step int
-	for _, pos := range positions {
-		pos += step
+	var pos int = 0
+	for {
+		for ; pos < len(*nodes); pos++ {
+			if (*nodes)[pos].tok == token.IDENT &&
+				p.isArrayVariable(string((*nodes)[pos].b)) {
+				break
+			}
+		}
+		if pos >= len(*nodes) {
+			break
+		}
 		if pos+1 >= len(*nodes) || (*nodes)[pos+1].tok != token.LPAREN {
 			// Example:
 			//  ingeter c(10)
 			//  call func(c) ! in function no LPAREN
+			pos += 1
 			continue
 		}
 		(*nodes)[pos+1].tok, (*nodes)[pos+1].b = token.LBRACK, []byte("[")
@@ -176,7 +185,6 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 						b:   []byte("["),
 					},
 				}, (*nodes)[i+1:]...)...)
-				step++
 			}
 		}
 	}
@@ -324,6 +332,30 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 						break
 					}
 					rightSeparator++
+				}
+			} else {
+				isArray := false
+				for _, w := range p.initVars {
+					if w.name == string(rightPart[rightSeparator].b) {
+						isArray = w.isArray()
+					}
+				}
+				if isArray {
+					// it is array
+					counter := 0
+					rightSeparator++
+					for {
+						if rightPart[rightSeparator].tok == token.LBRACK {
+							counter++
+						}
+						if rightPart[rightSeparator].tok == token.RBRACK {
+							counter--
+						}
+						if counter == 0 {
+							break
+						}
+						rightSeparator++
+					}
 				}
 			}
 			br = true

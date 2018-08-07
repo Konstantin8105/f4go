@@ -78,7 +78,8 @@ func parseType(nodes []node) (typ goType) {
 		case ftComplex: // COMPLEX * 16 or DOUBLE COMPLEX
 			typ.baseType = "complex128"
 		case ftPrecision: // REAL    * 16 or DOUBLE PRECISION
-			panic("Not support DOUBLE PRECISION")
+			typ.baseType = "float64"
+		// TODO : panic("Not support DOUBLE PRECISION")
 		default:
 			panic(fmt.Errorf(
 				"Not support DOUBLE type : %s", string(nodes[1].b)))
