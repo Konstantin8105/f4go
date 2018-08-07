@@ -68,6 +68,7 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 			fmt.Sprintf("`%s`\t`%s`\t`%s`", nodesToString(base), str, err))
 		return goast.NewIdent(str)
 	}
+
 	return ast
 }
 

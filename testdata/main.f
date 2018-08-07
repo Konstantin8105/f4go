@@ -31,8 +31,8 @@ C -----------------------------------------------------
             call testName("test_goto")
             call test_goto()
 
-            ! call testName("test_function")
-            ! call test_function()
+            call testName("test_function")
+            call test_function()
 
             ! call testName("test_complex")
             ! call test_complex()
@@ -270,32 +270,32 @@ C -----------------------------------------------------
 
 C -----------------------------------------------------
 
-  !       subroutine test_function()
-  !           integer a
-  !           character b*32
-  !           logical l, function_changer
-  !           external function_changer
-  !           a = 12
-  !           b = "rrr"
-  !           write(*,fmt = 270) a,b
-  !           l = function_changer(a,b)
-  !           if ( l .NEQV. .TRUE.) THEN 
-  !               call fail("test function in logical")
-  !           end if
-  !           write(*,fmt = 271) a,b
-  !           return
-  ! 270 FORMAT('test function integer = ', I3, ' array = ' , A)
-  ! 271 FORMAT('test function integer = ', I3, ' array = ' , A)
-  !       end subroutine
-  !
-  !       logical function function_changer(a,b)
-  !           integer a
-  !           character b*32
-  !           a = 34
-  !           b = "www"
-  !           function_changer = .TRUE.
-  !           return
-  !       end
+        subroutine test_function()
+            integer ai
+            character bi*32
+            logical l, function_changer
+            external function_changer
+            ai = 12
+            bi = "rrr"
+            write(*,fmt = 270) ai,bi
+            l = function_changer(ai,bi)
+            if ( l .NEQV. .TRUE.) THEN 
+                call fail("test function in logical")
+            end if
+            write(*,fmt = 271) ai,bi
+            return
+  270 FORMAT('test function integer = ', I9, ' array = ' , A3)
+  271 FORMAT('test function integer = ', I9, ' array = ' , A3)
+        end subroutine
+
+        logical function function_changer(a,b)
+            integer a
+            character b*32
+            a = 34
+            b = "www"
+            function_changer = .TRUE.
+            return
+        end
 
 
 C -----------------------------------------------------

@@ -277,66 +277,6 @@ func (v vis) Visit(node goast.Node) (w goast.Visitor) {
 	return v
 }
 
-// Example :
-//  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
-//  DOUBLE PRECISION FUNCTION DNRM2 ( N , X , INCX )
-//  COMPLEX * 16 FUNCTION ZDOTC ( N , ZX , INCX , ZY , INCY )
-func (p *parser) parseFunction() (decl goast.Decl) {
-	var fd goast.FuncDecl
-	fd.Type = &goast.FuncType{
-		Params: &goast.FieldList{},
-	}
-
-	var returnType []node
-	for ; p.ns[p.ident].tok != ftFunction && p.ns[p.ident].tok != ftNewLine; p.ident++ {
-		returnType = append(returnType, p.ns[p.ident])
-	}
-	p.expect(ftFunction)
-
-	p.ident++
-	p.expect(token.IDENT)
-	name := string(p.ns[p.ident].b)
-	fd.Name = goast.NewIdent(name)
-	returnName := name + "_RES"
-	fd.Type.Results = &goast.FieldList{
-		List: []*goast.Field{
-			{
-				Names: []*goast.Ident{goast.NewIdent(returnName)},
-				Type:  goast.NewIdent(parseType(returnType).String()),
-			},
-		},
-	}
-
-	// Parameters
-	p.ident++
-	fd.Type.Params.List = p.parseParamDecl()
-
-	p.ident++
-	fd.Body = &goast.BlockStmt{
-		Lbrace: 1,
-		List:   p.parseListStmt(),
-	}
-
-	// delete external function type definition
-	p.removeExternalFunction()
-
-	// add correct type of subroutine arguments
-	p.argumentCorrection(fd)
-
-	// init vars
-	fd.Body.List = append(p.initializeVars(), fd.Body.List...)
-
-	// change function name variable to returnName
-	v := vis{
-		from: name,
-		to:   returnName,
-	}
-	goast.Walk(v, fd.Body)
-
-	decl = &fd
-	return
-}
-
 // delete external function type definition
 func (p *parser) removeExternalFunction() {
 checkExternalFunction:
@@ -415,20 +355,100 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 	return
 }
 
-func (p *parser) parseProgram() (decl goast.Decl) {
-	p.expect(ftProgram)
+// go/ast Visitor for comment label
+type callArg struct {
+	p *parser
+}
 
-	p.ns[p.ident].tok = ftSubroutine
+// Example
+//  From :
+// ab_min(3, 14)
+//  To:
+// ab_min(func() *int { y := 3; return &y }(), func() *int { y := 14; return &y }())
+func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
+	if call, ok := node.(*goast.CallExpr); ok && call != nil {
 
-	return p.parseSubroutine()
+		if sel, ok := call.Fun.(*goast.SelectorExpr); ok {
+			if name, ok := sel.X.(*goast.Ident); ok {
+				if name.Name == "math" || name.Name == "fmt" {
+					goto end
+				}
+			}
+		}
+
+		for i := range call.Args {
+			switch a := call.Args[i].(type) {
+			case *goast.BasicLit:
+				switch a.Kind {
+				case token.STRING:
+					call.Args[i] = goast.NewIdent(
+						fmt.Sprintf("[]byte(%s)", a.Value))
+				case token.INT:
+					call.Args[i] = goast.NewIdent(
+						fmt.Sprintf("func()*int{y:=%s;return &y}()", a.Value))
+				case token.FLOAT:
+					call.Args[i] = goast.NewIdent(
+						fmt.Sprintf("func()*float64{y:=%s;return &y}()", a.Value))
+				default:
+					panic(fmt.Errorf(
+						"Not support basiclit token: %T ", a.Kind))
+				}
+
+			case *goast.Ident: // TODO : not correct for array
+				id := call.Args[i].(*goast.Ident)
+				found := false
+				for j := range c.p.initVars {
+					if id.Name == c.p.initVars[j].name && c.p.initVars[j].isArray() {
+						found = true
+					}
+				}
+				if found {
+					continue
+				}
+				id.Name = "&(" + id.Name + ")"
+			}
+		}
+	}
+end:
+	return c
 }
 
 // Example :
+//  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
+//  DOUBLE PRECISION FUNCTION DNRM2 ( N , X , INCX )
+//  COMPLEX * 16 FUNCTION ZDOTC ( N , ZX , INCX , ZY , INCY )
+func (p *parser) parseFunction() (decl goast.Decl) {
+	for i := p.ident; i < len(p.ns) && p.ns[i].tok != ftNewLine; i++ {
+		if p.ns[i].tok == ftFunction {
+			p.ns[i].tok = ftSubroutine
+		}
+	}
+	return p.parseSubroutine()
+}
+
+// Example:
+//   PROGRAM MAIN
+func (p *parser) parseProgram() (decl goast.Decl) {
+	p.expect(ftProgram)
+	p.ns[p.ident].tok = ftSubroutine
+	return p.parseSubroutine()
+}
+
+// parseSubroutine  is parsed SUBROUTINE, FUNCTION, PROGRAM
+// Example :
 //  SUBROUTINE CHBMV ( UPLO , N , K , ALPHA , A , LDA , X , INCX , BETA , Y , INCY )
+//  PROGRAM MAIN
+//  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
 func (p *parser) parseSubroutine() (decl goast.Decl) {
 	var fd goast.FuncDecl
 	fd.Type = &goast.FuncType{
 		Params: &goast.FieldList{},
+	}
+
+	// check return type
+	var returnType []node
+	for ; p.ns[p.ident].tok != ftSubroutine && p.ns[p.ident].tok != ftNewLine; p.ident++ {
+		returnType = append(returnType, p.ns[p.ident])
 	}
 
 	p.expect(ftSubroutine)
@@ -437,6 +457,29 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	p.expect(token.IDENT)
 	name := string(p.ns[p.ident].b)
 	fd.Name = goast.NewIdent(name)
+
+	// Add return type is exist
+	returnName := name + "_RES"
+	if len(returnType) > 0 {
+		fd.Type.Results = &goast.FieldList{
+			List: []*goast.Field{
+				{
+					Names: []*goast.Ident{goast.NewIdent(returnName)},
+					Type:  goast.NewIdent(parseType(returnType).String()),
+				},
+			},
+		}
+	}
+	defer func() {
+		// change function name variable to returnName
+		if len(returnType) > 0 {
+			v := vis{
+				from: name,
+				to:   returnName,
+			}
+			goast.Walk(v, fd.Body)
+		}
+	}()
 
 	// Parameters
 	p.ident++
@@ -495,6 +538,10 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 				fd.Type.Params.List[i].Type))
 		}
 	}
+
+	// replace call argument constants
+	c := callArg{p: p}
+	goast.Walk(c, fd.Body)
 
 	// init vars
 	fd.Body.List = append(p.initializeVars(), fd.Body.List...)
@@ -877,30 +924,6 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		for ; p.ns[p.ident].tok != ftNewLine; p.ident++ {
 		}
 		f := p.parseExpr(start, p.ident)
-		switch f.(type) {
-		case *goast.CallExpr:
-			call := f.(*goast.CallExpr)
-			for i := range call.Args {
-				switch call.Args[i].(type) {
-				case *goast.Ident:
-					id := call.Args[i].(*goast.Ident)
-					id.Name = "&(" + id.Name + ")"
-				case *goast.BasicLit:
-					id := call.Args[i].(*goast.BasicLit)
-					if id.Kind != token.STRING {
-						panic(fmt.Errorf("Not support BasicLit : %s", id.Kind))
-					}
-					id.Value = "[]byte(" + id.Value + ")"
-
-				default:
-					panic(fmt.Errorf(
-						"Cannot support argument of CALL for type : %T %#v",
-						call.Args[i], call.Args[i]))
-				}
-			}
-		default:
-			panic(fmt.Errorf("Cannot support CALL for type : %T", f))
-		}
 		stmts = append(stmts, &goast.ExprStmt{
 			X: f,
 		})
