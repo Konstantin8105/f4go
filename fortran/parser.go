@@ -5,6 +5,7 @@ import (
 	"container/list"
 	"fmt"
 	goast "go/ast"
+	goparser "go/parser"
 	"go/token"
 	"strconv"
 	"strings"
@@ -320,23 +321,49 @@ checkArguments:
 func (p *parser) initializeVars() (vars []goast.Stmt) {
 	for i := range p.initVars {
 		if p.initVars[i].isArray() {
-			arrayType := p.initVars[i].typ.baseType
-			for range p.initVars[i].typ.arrayType {
-				arrayType = "[]" + arrayType
+			if len(p.initVars[i].typ.arrayType) == 1 { // vector
+				arrayType := p.initVars[i].typ.baseType
+				for range p.initVars[i].typ.arrayType {
+					arrayType = "[]" + arrayType
+				}
+				vars = append(vars, &goast.AssignStmt{
+					Lhs: []goast.Expr{goast.NewIdent(p.initVars[i].name)},
+					Tok: token.DEFINE,
+					Rhs: []goast.Expr{
+						&goast.CallExpr{
+							Fun:    goast.NewIdent("make"),
+							Lparen: 1,
+							Args: []goast.Expr{
+								goast.NewIdent(arrayType),
+								goast.NewIdent(strconv.Itoa(p.initVars[i].typ.arrayType[0])),
+							},
+						}},
+				})
+			} else if len(p.initVars[i].typ.arrayType) == 2 {
+
+				fset := token.NewFileSet() // positions are relative to fset
+				src := `package main
+func main() {
+	%s := make([][]%s, %d)
+	for u := 0; u < %d; u++ {
+		%s[u] = make([]%s, %d)
+	}
+}
+`
+				f, err := goparser.ParseFile(fset, "", fmt.Sprintf(src,
+					p.initVars[i].name,
+					p.initVars[i].typ.baseType,
+					p.initVars[i].typ.arrayType[0],
+					p.initVars[i].typ.arrayType[0],
+					p.initVars[i].name,
+					p.initVars[i].typ.baseType,
+					p.initVars[i].typ.arrayType[1],
+				), 0)
+				if err != nil {
+					panic(err)
+				}
+				vars = append(vars, f.Decls[0].(*goast.FuncDecl).Body.List...)
 			}
-			vars = append(vars, &goast.AssignStmt{
-				Lhs: []goast.Expr{goast.NewIdent(p.initVars[i].name)},
-				Tok: token.DEFINE,
-				Rhs: []goast.Expr{
-					&goast.CallExpr{
-						Fun:    goast.NewIdent("make"),
-						Lparen: 1,
-						Args: []goast.Expr{
-							goast.NewIdent(arrayType),
-							goast.NewIdent(strconv.Itoa(p.initVars[i].typ.arrayType[0])),
-						},
-					}},
-			})
 			continue
 		}
 		vars = append(vars, &goast.DeclStmt{
