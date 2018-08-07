@@ -40,6 +40,9 @@ C -----------------------------------------------------
             call testName("test_matrix")
             call test_matrix()
 
+            call testName("test_types")
+            call test_types()
+
             ! call testName("test_complex")
             ! call test_complex()
 
@@ -336,3 +339,37 @@ C -----------------------------------------------------
         end
 
 C -----------------------------------------------------
+
+        subroutine test_types
+            REAL    R1
+            REAL *4 R4
+            REAL *8 R8
+            INTEGER    I1
+            INTEGER *2 I2
+            INTEGER *4 I4
+            INTEGER *8 I8
+            R1 = 45.1
+            R4 = 45.1
+            R8 = 45.1
+            I1 = 12
+            I2 = 12
+            I4 = 12
+            I8 = 12
+            if ( 45.0 .LE. R1 .AND. R1 .LE. 45.2) THEN
+                write(*,*)'R1 ... ok'
+            end if
+            if ( 45.0 .LE. R4 .AND. R4 .LE. 45.2) THEN
+                write(*,*)'R4 ... ok'
+            end if
+            if ( 45.0 .LE. R8 .AND. R8 .LE. 45.2) THEN
+                write(*,*)'R8 ... ok'
+            end if
+            if ( I1 .Eq. 12) write(*,*)'I1 ... ok'
+            if ( I2 .Eq. 12) write(*,*)'I2 ... ok'
+            if ( I4 .Eq. 12) write(*,*)'I4 ... ok'
+            if ( I8 .Eq. 12) write(*,*)'I8 ... ok'
+            return
+        end subroutine
+
+C -----------------------------------------------------
+
