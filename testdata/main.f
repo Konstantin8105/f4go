@@ -34,6 +34,9 @@ C -----------------------------------------------------
             call testName("test_function")
             call test_function()
 
+            call testName("test_data")
+            call test_data()
+
             ! call testName("test_complex")
             ! call test_complex()
 
@@ -299,4 +302,17 @@ C -----------------------------------------------------
 
 
 C -----------------------------------------------------
+
+        subroutine test_data
+            real*4  v
+            integer r
+            data v , r / 23.23 , 25 /
+            if ( r .NE. 25) then 
+                call fail("test_data 1")
+            end if
+            if(.NOT. ( 23.0 .LE. v .AND. v .LE. 23.5 )) then
+                call fail("test_data 2")
+            end if 
+        end subroutine
+
 
