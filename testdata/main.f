@@ -323,20 +323,37 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
         subroutine test_matrix
-            integer M(3,4),I,J
+            integer M(3,2),I,J
             do I = 1,3
-                do J = 1,4
+                do J = 1,2
                     M(I,J) = I*8+J+(I-J)*5
                 end do
             end do
             do I = 1,3
-                do J = 1,4
+                do J = 1,2
                     write(*,fmt=330) I, J, M(I,J)
+                end do
+            end do
+            call matrix_changer(M,3,2)
+            do I = 1,3
+                do J = 1,2
+                    write(*,fmt=331) I, J, M(I,J)
                 end do
             end do
             return
   330 format('Matrix (',I1,',',I1,') = ', I2 )
+  331 format('Matrix*(',I1,',',I1,') = ', I2 )
         end
+
+        subroutine matrix_changer(M,IN,JN)
+            integer M(IN,JN), IN, JN, I, J
+            do I = 1,IN
+                do J = 1,JN
+                    M(I,J) = M(I,J) + 2*(I+J)
+                end do
+            end do
+            return
+        end subroutine
 
 C -----------------------------------------------------
 
