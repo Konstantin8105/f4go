@@ -52,7 +52,7 @@ func parse(filename, packageName string) []errorRow {
 	}
 
 	// parse fortran to go/ast
-	ast, errs := fortran.Parse(dat)
+	ast, errs := fortran.Parse(dat, packageName)
 	if len(errs) > 0 {
 		var e []errorRow
 		for _, err := range errs {

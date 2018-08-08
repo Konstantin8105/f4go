@@ -5,8 +5,6 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"go/format"
-	"go/token"
 	"io/ioutil"
 	"os/exec"
 	"strings"
@@ -38,11 +36,7 @@ func TestIntegration(t *testing.T) {
 	t.Logf("fortran source is ok")
 
 	// parsing to Go code
-	dat, err := ioutil.ReadFile("./testdata/main.f")
-	if err != nil {
-		t.Fatalf("Cannot fortran source: %v", err)
-	}
-	ast, errs := fortran.Parse(dat)
+	errs := parse("./testdata/main.f", "")
 	if len(errs) > 0 {
 		for _, err := range errs {
 			t.Logf("Error: %v", err)
@@ -50,19 +44,9 @@ func TestIntegration(t *testing.T) {
 		t.Fatal("Errors is more zero")
 	}
 
-	var buf bytes.Buffer
-	if err = format.Node(&buf, token.NewFileSet(), &ast); err != nil {
-		t.Fatal(err)
-	}
-
-	err = ioutil.WriteFile("./testdata/main.go", buf.Bytes(), 0644)
-	if err != nil {
-		t.Fatalf("Cannot write Go source: %v", err)
-	}
-
 	// run Go code
 	goOutput, err := exec.Command(
-		"go", "run", "./testdata/g.go",
+		"go", "run", "./testdata/main.go",
 	).CombinedOutput()
 	if err != nil {
 		t.Fatalf("Cannot go executable file : %v\n%s", err, goOutput)
@@ -130,6 +114,6 @@ func BenchmarkCgemm(b *testing.B) {
 		}
 
 		b.StartTimer()
-		_, _ = fortran.Parse(d)
+		_, _ = fortran.Parse(d, "")
 	}
 }

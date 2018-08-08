@@ -57,7 +57,12 @@ func lv(l *list.List) (output string) {
 }
 
 // Parse is convert fortran source to go ast tree
-func Parse(b []byte) (goast.File, []error) {
+func Parse(b []byte, packageName string) (goast.File, []error) {
+
+	if packageName == "" {
+		packageName = "main"
+	}
+
 	var p parser
 
 	if p.pkgs == nil {
@@ -76,7 +81,7 @@ func Parse(b []byte) (goast.File, []error) {
 	}
 	// lv(l) // only for debugging
 
-	p.ast.Name = goast.NewIdent("main")
+	p.ast.Name = goast.NewIdent(packageName)
 
 	var decls []goast.Decl
 	p.ident = 0
