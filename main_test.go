@@ -94,13 +94,16 @@ func TestData(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-
-	es := parseParallel(files, "")
-	for _, e := range es {
-		fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
-	}
-	if len(es) > 0 {
-		t.Fatal("Error is not empty")
+	for _, file := range files {
+		t.Run(file, func(t *testing.T) {
+			es := parse(file, "")
+			for _, e := range es {
+				fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
+			}
+			if len(es) > 0 {
+				t.Fatal("Error is not empty")
+			}
+		})
 	}
 }
 
