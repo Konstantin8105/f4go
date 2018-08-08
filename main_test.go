@@ -86,9 +86,9 @@ func getFortranTestFiles(dir string) (files []string, err error) {
 }
 
 func TestData(t *testing.T) {
-	if !testing.Short() { //TODO
-		return
-	}
+	// if !testing.Short() { //TODO
+	// 	return
+	// }
 	// TODO: change to folder "./testdata"
 	files, err := getFortranTestFiles("./testdata/blas")
 	if err != nil {
