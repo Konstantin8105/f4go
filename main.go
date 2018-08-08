@@ -7,6 +7,7 @@ import (
 	"go/format"
 	"go/token"
 	"io/ioutil"
+	"runtime"
 	"strings"
 
 	"github.com/Konstantin8105/f4go/fortran"
@@ -24,11 +25,9 @@ func main() {
 
 	fmt.Println("Input file:", *packageFlag, flag.Args())
 
-	for _, inp := range flag.Args() {
-		es := parse(inp, *packageFlag)
-		for _, e := range es {
-			fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
-		}
+	es := parseParallel(flag.Args(), *packageFlag)
+	for _, e := range es {
+		fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
 	}
 }
 
@@ -93,4 +92,29 @@ func parse(filename, packageName string) []errorRow {
 	}
 
 	return nil
+}
+
+func parseParallel(filenames []string, packageName string) (ess []errorRow) {
+	var (
+		jobs    = make(chan string, len(filenames))
+		results = make(chan []errorRow, len(filenames))
+	)
+
+	for w := 1; w <= 2*runtime.NumCPU(); w++ {
+		go func(jobs <-chan string, results chan<- []errorRow) {
+			for job := range jobs {
+				results <- parse(job, packageName)
+			}
+		}(jobs, results)
+	}
+
+	for _, f := range filenames {
+		jobs <- f
+	}
+	close(jobs)
+
+	for range filenames {
+		ess = append(ess, <-results...)
+	}
+	return
 }

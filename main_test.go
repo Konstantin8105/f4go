@@ -91,16 +91,12 @@ func TestData(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	for _, filename := range files {
-		t.Run(fmt.Sprintf("%s", filename), func(t *testing.T) {
-			errs := parse(filename, "")
-			if len(errs) > 0 {
-				for _, e := range errs {
-					t.Error(e)
-				}
-				t.Fatal("Error is not empty")
-			}
-		})
+	es := parseParallel(files, "")
+	for _, e := range es {
+		fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
+	}
+	if len(es) > 0 {
+		t.Fatal("Error is not empty")
 	}
 }
 
