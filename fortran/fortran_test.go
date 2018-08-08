@@ -1,31 +1,6 @@
 package fortran
 
 /*
-func getFortranTestFiles(dir string) (files []string, err error) {
-	ents, err := ioutil.ReadDir(dir)
-	if err != nil {
-		return
-	}
-
-	for _, ent := range ents {
-		if ent.IsDir() {
-			var fs []string
-			fs, err = getFortranTestFiles(dir + "/" + ent.Name())
-			if err != nil {
-				return
-			}
-			files = append(files, fs...)
-			continue
-		}
-		if !strings.HasSuffix(ent.Name(), ".f") &&
-			!strings.HasSuffix(ent.Name(), ".f90") {
-			continue
-		}
-		files = append(files, dir+"/"+ent.Name())
-	}
-
-	return
-}
 
 func TestScanner(t *testing.T) {
 
@@ -140,19 +115,5 @@ func TestScanner(t *testing.T) {
 	}
 
 	t.Logf("Amount fail tests = %v", amountFailTests)
-}
-
-func BenchmarkCgemm(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		b.StopTimer()
-		// read body of file
-		d, err := ioutil.ReadFile("../testdata/blas/cgemm.f")
-		if err != nil {
-			b.Fatal(err)
-		}
-
-		b.StartTimer()
-		_, _ = Parse(d)
-	}
 }
 */

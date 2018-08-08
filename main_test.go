@@ -4,10 +4,12 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"go/format"
 	"go/token"
 	"io/ioutil"
 	"os/exec"
+	"strings"
 	"testing"
 
 	"github.com/Konstantin8105/f4go/fortran"
@@ -53,7 +55,7 @@ func TestIntegration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	err = ioutil.WriteFile("./testdata/g.go", buf.Bytes(), 0644)
+	err = ioutil.WriteFile("./testdata/main.go", buf.Bytes(), 0644)
 	if err != nil {
 		t.Fatalf("Cannot write Go source: %v", err)
 	}
@@ -70,5 +72,64 @@ func TestIntegration(t *testing.T) {
 		t.Errorf("Results is not same: `%v` != `%v`",
 			string(fortranOutput),
 			string(goOutput))
+	}
+}
+
+func getFortranTestFiles(dir string) (files []string, err error) {
+	ents, err := ioutil.ReadDir(dir)
+	if err != nil {
+		return
+	}
+
+	for _, ent := range ents {
+		if ent.IsDir() {
+			var fs []string
+			fs, err = getFortranTestFiles(dir + "/" + ent.Name())
+			if err != nil {
+				return
+			}
+			files = append(files, fs...)
+			continue
+		}
+		if !strings.HasSuffix(ent.Name(), ".f") &&
+			!strings.HasSuffix(ent.Name(), ".f90") {
+			continue
+		}
+		files = append(files, dir+"/"+ent.Name())
+	}
+
+	return
+}
+
+func TestData(t *testing.T) {
+	files, err := getFortranTestFiles("./testdata")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, filename := range files {
+		t.Run(fmt.Sprintf("%s", filename), func(t *testing.T) {
+			errs := parse(filename, "")
+			if len(errs) > 0 {
+				for _, e := range errs {
+					t.Error(e)
+				}
+				t.Fatal("Error is not empty")
+			}
+		})
+	}
+}
+
+func BenchmarkCgemm(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		// read body of file
+		d, err := ioutil.ReadFile("./testdata/blas/cgemm.f")
+		if err != nil {
+			b.Fatal(err)
+		}
+
+		b.StartTimer()
+		_, _ = fortran.Parse(d)
 	}
 }
