@@ -94,9 +94,10 @@ func TestData(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, file := range files {
-		t.Run(file, func(t *testing.T) {
-			es := parse(file, "")
+	for i := range files {
+		t.Run(files[i], func(t *testing.T) {
+			t.Parallel()
+			es := parse(files[i], "")
 			for _, e := range es {
 				fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
 			}
