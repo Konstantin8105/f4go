@@ -86,21 +86,21 @@ func TestParseType(t *testing.T) {
 			},
 		},
 		// CHARACTER(1) SRNAME_ARRAY(32)
-		// {
-		// 	nodes: []node{
-		// 		{tok: ftCharacter, b: []byte("CHARACTER")},
-		// 		{tok: token.LPAREN, b: []byte("(")},
-		// 		{tok: token.INT, b: []byte("1")},
-		// 		{tok: token.RPAREN, b: []byte(")")},
-		// 		{tok: token.COMMA, b: []byte(",")},
-		// 		{tok: token.INT, b: []byte("32")},
-		// 		{tok: token.RPAREN, b: []byte(")")},
-		// 	},
-		// 	typ: goType{
-		// 		baseType:  "string",
-		// 		arrayType: []int{32},
-		// 	},
-		// },
+		{
+			nodes: []node{
+				{tok: ftCharacter, b: []byte("CHARACTER")},
+				{tok: token.LPAREN, b: []byte("(")},
+				{tok: token.INT, b: []byte("1")},
+				{tok: token.RPAREN, b: []byte(")")},
+				{tok: token.LPAREN, b: []byte("(")},
+				{tok: token.INT, b: []byte("32")},
+				{tok: token.RPAREN, b: []byte(")")},
+			},
+			typ: goType{
+				baseType:  "string",
+				arrayType: []int{32},
+			},
+		},
 	}
 
 	for _, tc := range tcs {

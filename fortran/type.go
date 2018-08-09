@@ -37,7 +37,45 @@ func (g goType) String() (s string) {
 // To :
 // CHARACTER *1 (32)
 func fixType(nodes *[]node) {
-	// TODO
+	var counter int
+	var end int
+	for end = 1; end < len(*nodes); end++ {
+		if (*nodes)[end].tok == ftNewLine {
+			return
+		}
+		if (*nodes)[end].tok == token.LPAREN {
+			break
+		}
+	}
+	if end >= len(*nodes) {
+		// for: "INTEGER"
+		return
+	}
+	start := end
+	for ; end < len(*nodes); end++ {
+		if (*nodes)[end].tok == token.LPAREN {
+			counter++
+			continue
+		}
+		if (*nodes)[end].tok == token.RPAREN {
+			counter--
+		}
+		if counter == 0 {
+			break
+		}
+	}
+	if (*nodes)[end].tok != token.RPAREN {
+		panic("Not acceptable end : " + string((*nodes)[end].b))
+	}
+
+	if len(*nodes)-end-1 <= 0 {
+		return
+	}
+	if (*nodes)[end+1].tok != token.LPAREN {
+		return
+	}
+	(*nodes)[start].tok, (*nodes)[start].b = token.MUL, []byte("*")
+	(*nodes) = append((*nodes)[:end], (*nodes)[end+1:]...)
 }
 
 func parseType(nodes []node) (typ goType) {
