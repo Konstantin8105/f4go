@@ -310,8 +310,18 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 			br = true
 
 		default:
+			var isExternalFunction bool
+			for _, f := range p.functionExternalName {
+				if strings.ToUpper(f) == strings.ToUpper(string(leftPart[leftSeparator].b)) {
+					isExternalFunction = true
+					br = true
+				}
+			}
+			if isExternalFunction {
+				break
+			}
 			p.addError("Cannot identify token in left part separation :" +
-				view(leftPart[leftSeparator].tok))
+				view(leftPart[leftSeparator].tok) + " in " + nodesToString(*nodes))
 			br = true
 		}
 		if br {

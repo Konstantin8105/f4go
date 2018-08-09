@@ -926,7 +926,7 @@ func (p *parser) parseExternal() {
 			break
 		}
 		switch p.ns[p.ident].tok {
-		case token.IDENT:
+		case token.IDENT, ftInteger, ftReal, ftComplex:
 			name := string(p.ns[p.ident].b)
 			p.functionExternalName = append(p.functionExternalName, name)
 			// fmt.Println("Function external: ", name)
@@ -981,22 +981,8 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		// Example:
 		//  INTRINSIC CONJG , MAX
 		p.expect(ftIntrinsic)
-		p.ident++
-		for ; p.ident < len(p.ns) && p.ns[p.ident].tok != ftNewLine; p.ident++ {
-			switch p.ns[p.ident].tok {
-			case token.IDENT:
-				p.functionExternalName = append(p.functionExternalName,
-					string(p.ns[p.ident].b))
-			case token.COMMA:
-				// ignore
-			case ftInteger, ftCharacter, ftComplex, ftLogical, ftReal:
-				// type conversion - ignore
-			default:
-				p.addError("Cannot parse function name in INTRINSIC:" +
-					string(p.ns[p.ident].b))
-			}
-		}
-		p.expect(ftNewLine)
+		p.ns[p.ident].tok = ftExternal
+		p.parseExternal()
 
 	case ftData:
 		// Example:
