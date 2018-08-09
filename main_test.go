@@ -38,10 +38,10 @@ func TestIntegration(t *testing.T) {
 	// parsing to Go code
 	errs := parse("./testdata/main.f", "")
 	if len(errs) > 0 {
-		for _, err := range errs {
-			t.Logf("Error: %v", err)
+		for _, er := range errs {
+			t.Logf("Error: %20s %v", er.filename, er.err.Error())
 		}
-		t.Fatal("Errors is more zero")
+		t.Fatal("Errors inparsing Go code is more zero")
 	}
 
 	// run Go code

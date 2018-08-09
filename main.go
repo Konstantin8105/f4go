@@ -54,9 +54,9 @@ func parse(filename, packageName string) []errorRow {
 	ast, errs := fortran.Parse(dat, packageName)
 	if len(errs) > 0 {
 		var e []errorRow
-		for _, err := range errs {
+		for _, er := range errs {
 			e = append(e, errorRow{
-				err:      fmt.Errorf("Error: %v", err),
+				err:      fmt.Errorf("Parsing error : %v", er.Error()),
 				filename: filename,
 			})
 		}

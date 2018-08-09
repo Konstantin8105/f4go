@@ -1163,6 +1163,8 @@ func (p *parser) parseParamDecl() (fields []*goast.Field) {
 // DATA               IPIVOT / 1, 2, 3, 4, 2, 1, 4, 3, 3, 4, 1, 2, 4,
 //      $                   3, 2, 1 /
 //
+// INTEGER            LOCL12( 4 ), LOCU21( 4 ),
+// DATA               LOCU12 / 3, 4, 1, 2 / , LOCL21 / 2, 1, 4, 3 /
 func (p *parser) parseData() (stmts []goast.Stmt) {
 	p.expect(ftData)
 	p.ident++

@@ -314,6 +314,8 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
         subroutine test_data
+            INTEGER LOC12( 4 ), LOC21( 4 )
+            DATA    LOC12 / 3, 4, 1, 2 / , LOC21 / 2, 1, 4, 3 /
             real*4  v
             integer r
             data v , r / 23.23 , 25 /
@@ -323,6 +325,15 @@ C -----------------------------------------------------
             if(.NOT. ( 23.0 .LE. v .AND. v .LE. 23.5 )) then
                 call fail("test_data 2")
             end if 
+            if ( LOC12(1) .NE. 3) call fail("test_data 3")
+            if ( LOC12(2) .NE. 4) call fail("test_data 4")
+            if ( LOC12(3) .NE. 1) call fail("test_data 5")
+            if ( LOC12(4) .NE. 2) call fail("test_data 6")
+
+            if ( LOC21(1) .NE. 2) call fail("test_data 7")
+            if ( LOC21(2) .NE. 1) call fail("test_data 8")
+            if ( LOC21(3) .NE. 4) call fail("test_data 9")
+            if ( LOC21(4) .NE. 3) call fail("test_data 10")
         end subroutine
 
 C -----------------------------------------------------
