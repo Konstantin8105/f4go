@@ -1166,72 +1166,65 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 	p.expect(ftData)
 	p.ident++
 
-	type dis struct {
-		start, end int
-	}
 	var (
-		names  []string
-		values []dis
+		names  []node
+		values []node
 	)
-	// find names
+	var isData bool
 	for ; p.ident < len(p.ns); p.ident++ {
-		var exit bool
+		if p.ns[p.ident].tok == ftNewLine {
+			break
+		}
 		switch p.ns[p.ident].tok {
-		case token.IDENT:
-			names = append(names, string(p.ns[p.ident].b))
 		case token.COMMA:
 			// ignore
 		case token.QUO: // /
-			exit = true
+			isData = !isData
 		default:
-			p.addError("Cannot parse name in Data :" + string(p.ns[p.ident].b))
+			if isData {
+				values = append(values, p.ns[p.ident])
+				continue
+			}
+			names = append(names, p.ns[p.ident])
 		}
-		if exit {
-			break
-		}
-	}
-	// find values
-	p.expect(token.QUO)
-	p.ident++
-	valPos := 0
-	for ; p.ident < len(p.ns); p.ident++ {
-		var exit bool
-		switch p.ns[p.ident].tok {
-		case token.INT, token.FLOAT, token.STRING:
-			values = append(values, dis{
-				start: p.ident,
-				end:   p.ident + 1,
-			})
-		case token.COMMA:
-			// ignore
-		case token.QUO: // /
-			exit = true
-		default:
-			p.addError("Cannot parse value in Data :" + string(p.ns[p.ident].b))
-		}
-		if exit {
-			break
-		}
-		valPos++
-	}
-	p.expect(token.QUO)
-	p.ident++
-
-	// create stmts
-	if len(names) != len(values) {
-		p.addError("Cannot create stmts in DATA: " +
-			" names " + fmt.Sprintf("%d", len(names)) +
-			" values " + fmt.Sprintf("%d", len(values)))
-		return
 	}
 
-	for i := range names {
-		stmts = append(stmts, &goast.AssignStmt{
-			Lhs: []goast.Expr{goast.NewIdent(names[i])},
-			Tok: token.ASSIGN,
-			Rhs: []goast.Expr{p.parseExpr(values[i].start, values[i].end)},
-		})
+	for _, n := range names {
+		if v, ok := p.initVars[string(n.b)]; ok {
+			switch len(v.arrayType) {
+			case 0:
+				stmts = append(stmts, &goast.AssignStmt{
+					Lhs: []goast.Expr{goast.NewIdent(string(n.b))},
+					Tok: token.ASSIGN,
+					Rhs: []goast.Expr{goast.NewIdent(string(values[0].b))},
+				})
+				values = values[1:]
+			case 1: // vector
+				for i := 0; i < v.arrayType[0]; i++ {
+					stmts = append(stmts, &goast.AssignStmt{
+						Lhs: []goast.Expr{
+							&goast.IndexExpr{
+								X:      goast.NewIdent(string(n.b)),
+								Lbrack: 1,
+								Index: &goast.BasicLit{
+									Kind:  token.INT,
+									Value: strconv.Itoa(i),
+								},
+							},
+						},
+						Tok: token.ASSIGN,
+						Rhs: []goast.Expr{goast.NewIdent(string(values[0].b))},
+					})
+					values = values[1:]
+				}
+			case 2: // matrix
+				// TODO
+			}
+		} else {
+			p.addError("Cannot found Data : " + v.String())
+		}
 	}
+
 	return
 }
 

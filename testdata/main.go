@@ -65,10 +65,10 @@ func test_operations() {
 }
 //C -----------------------------------------------------
 func test_pow() {
+	var r float64
 	var p float64
 	var real_1 float64
 	H := make([]float64, 1)
-	var r float64
 	//! initialization
 	//C calculation
 	H[1-1] = 3
@@ -233,8 +233,8 @@ func summator(s []int) (summator_RES int) {
 }
 //C -----------------------------------------------------
 func test_goto() {
-	var m int
 	var t int
+	var m int
 	t = 0
 	m = 0
 Label230:
@@ -285,6 +285,16 @@ func function_changer(a *int, b *string) (function_changer_RES bool) {
 func test_data() {
 	var v float32
 	var r int
+	LOC12 := make([]int, 4)
+	LOC21 := make([]int, 4)
+	LOC12[0] = 3
+	LOC12[1] = 4
+	LOC12[2] = 1
+	LOC12[3] = 2
+	LOC21[0] = 2
+	LOC21[1] = 1
+	LOC21[2] = 4
+	LOC21[3] = 3
 	v = 23.23
 	r = 25
 	if r != 25 {
@@ -292,6 +302,30 @@ func test_data() {
 	}
 	if !(23.0 <= v && v <= 23.5) {
 		fail([]byte("test_data 2"))
+	}
+	if LOC12[1-1] != 3 {
+		fail([]byte("test_data 3"))
+	}
+	if LOC12[2-1] != 4 {
+		fail([]byte("test_data 4"))
+	}
+	if LOC12[3-1] != 1 {
+		fail([]byte("test_data 5"))
+	}
+	if LOC12[4-1] != 2 {
+		fail([]byte("test_data 6"))
+	}
+	if LOC21[1-1] != 2 {
+		fail([]byte("test_data 7"))
+	}
+	if LOC21[2-1] != 1 {
+		fail([]byte("test_data 8"))
+	}
+	if LOC21[3-1] != 4 {
+		fail([]byte("test_data 9"))
+	}
+	if LOC21[4-1] != 3 {
+		fail([]byte("test_data 10"))
 	}
 }
 //C -----------------------------------------------------
@@ -333,7 +367,6 @@ func matrix_changer(M [][]int, IN *int, JN *int) {
 }
 //C -----------------------------------------------------
 func test_types() {
-	var I4 int32
 	var I8 int64
 	var R1 float64
 	var R4 float32
@@ -341,6 +374,7 @@ func test_types() {
 	var DP float64
 	var I1 int
 	var I2 int16
+	var I4 int32
 	R1 = 45.1
 	R4 = 45.1
 	R8 = 45.1
