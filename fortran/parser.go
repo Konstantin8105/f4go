@@ -1108,11 +1108,12 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		}
 
 		if isAssignStmt {
-			stmts = append(stmts, &goast.AssignStmt{
+			assign := goast.AssignStmt{
 				Lhs: []goast.Expr{p.parseExpr(start, pos)},
 				Tok: token.ASSIGN,
 				Rhs: []goast.Expr{p.parseExpr(pos+1, p.ident)},
-			})
+			}
+			stmts = append(stmts, &assign)
 		} else {
 			stmts = append(stmts, &goast.ExprStmt{
 				X: p.parseExpr(start, p.ident),

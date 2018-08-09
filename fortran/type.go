@@ -52,6 +52,8 @@ func parseType(nodes []node) (typ goType) {
 			nodes[0].tok == token.MUL && nodes[1].tok == token.INT {
 			typ.baseType = "string"
 			nodes = nodes[2:]
+		} else if len(nodes) > 0 && nodes[0].tok == token.MUL {
+			nodes = nodes[1:]
 		}
 	case ftComplex:
 		// COMPLEX or COMPLEX * 8

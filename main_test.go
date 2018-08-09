@@ -86,9 +86,6 @@ func getFortranTestFiles(dir string) (files []string, err error) {
 }
 
 func TestData(t *testing.T) {
-	// if !testing.Short() { //TODO
-	// 	return
-	// }
 	// TODO: change to folder "./testdata"
 	files, err := getFortranTestFiles("./testdata/blas")
 	if err != nil {
@@ -96,7 +93,6 @@ func TestData(t *testing.T) {
 	}
 	for i := range files {
 		t.Run(files[i], func(t *testing.T) {
-			t.Parallel()
 			es := parse(files[i], "")
 			for _, e := range es {
 				fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
