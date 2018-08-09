@@ -134,7 +134,7 @@ func parseType(nodes []node) (typ goType) {
 			panic(fmt.Errorf(
 				"Not support DOUBLE type : %s", string(nodes[1].b)))
 		}
-		nodes = nodes[1:]
+		nodes = nodes[2:]
 
 	case ftReal:
 		// REAL or REAL * 4

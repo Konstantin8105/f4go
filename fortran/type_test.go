@@ -57,6 +57,19 @@ func TestParseType(t *testing.T) {
 		},
 		{
 			nodes: []node{
+				{tok: ftDouble, b: []byte("DOUBLE")},
+				{tok: ftPrecision, b: []byte("PRECISION")},
+				{tok: token.LPAREN, b: []byte("(")},
+				{tok: token.MUL, b: []byte("*")},
+				{tok: token.RPAREN, b: []byte(")")},
+			},
+			typ: goType{
+				baseType:  "float64",
+				arrayType: []int{-1},
+			},
+		},
+		{
+			nodes: []node{
 				{tok: ftInteger, b: []byte("INTEGER")},
 				{tok: token.LPAREN, b: []byte("(")},
 				{tok: token.IDENT, b: []byte("N")},
