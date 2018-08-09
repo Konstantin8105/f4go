@@ -439,13 +439,6 @@ func (s *scanner) postprocessor() {
 		}
 	}
 
-	// replace string concatenation
-	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		if e.Value.(*node).tok == ftStringConcat {
-			e.Value.(*node).tok, e.Value.(*node).b = token.ADD, []byte("+")
-		}
-	}
-
 	// Multiline expression
 	// if any in column 6, then merge lines
 multi:

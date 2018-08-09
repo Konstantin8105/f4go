@@ -59,6 +59,7 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 	p.fixDoubleStar(&nodes)
 	p.fixString(&nodes)
 	p.fixComplexValue(&nodes)
+	p.fixConcatString(&nodes)
 
 	str := nodesToString(nodes)
 
@@ -546,4 +547,26 @@ func (p *parser) fixComplexValue(nodes *[]node) {
 	*nodes = comb
 
 	p.fixComplexValue(nodes)
+}
+
+func (p *parser) fixConcatString(nodes *[]node) {
+	for {
+		var pos int
+		var found bool
+		for i, n := range *nodes {
+			if n.tok == ftStringConcat {
+				pos = i
+				found = true
+			}
+		}
+
+		if !found {
+			return
+		}
+
+		fmt.Println("pos = ", pos)
+
+		panic("Found concat : " + nodesToString(*nodes))
+	}
+
 }
