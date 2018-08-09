@@ -6,13 +6,8 @@ import (
 	"strconv"
 )
 
-type initialVar struct {
-	name string
-	typ  goType
-}
-
-func (in initialVar) isArray() bool {
-	return len(in.typ.arrayType) > 0
+func (g goType) isArray() bool {
+	return len(g.arrayType) > 0
 }
 
 type goType struct {

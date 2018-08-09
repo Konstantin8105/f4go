@@ -175,9 +175,9 @@ func (p *parser) split(nodes *[]node, pos int) (
 				}
 			} else {
 				isArray := false
-				for _, w := range p.initVars {
-					if w.name == string(rightPart[rightSeparator].b) {
-						isArray = w.isArray()
+				for name, goT := range p.initVars {
+					if name == string(rightPart[rightSeparator].b) {
+						isArray = goT.isArray()
 					}
 				}
 				if isArray {

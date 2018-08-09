@@ -75,17 +75,15 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 }
 
 func (p *parser) isVariable(name string) bool {
-	for _, v := range p.initVars {
-		if v.name == name {
-			return true
-		}
+	if _, ok := p.initVars[name]; ok {
+		return true
 	}
 	return false
 }
 
 func (p *parser) isArrayVariable(name string) bool {
-	for _, v := range p.initVars {
-		if v.name == name && (v.isArray() || v.typ.baseType == "string") {
+	for n, goT := range p.initVars {
+		if n == name && (goT.isArray() || goT.baseType == "string") {
 			return true
 		}
 	}
@@ -385,9 +383,7 @@ func (p *parser) fixConcatString(nodes *[]node) {
 		if !found {
 			return
 		}
-
-		fmt.Println("pos = ", pos)
-
+		_ = pos
 		panic("Found concat : " + nodesToString(*nodes))
 	}
 

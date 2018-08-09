@@ -2,7 +2,6 @@ package fortran
 
 import (
 	"bytes"
-	"container/list"
 	"fmt"
 	goast "go/ast"
 	goparser "go/parser"
@@ -17,7 +16,8 @@ type parser struct {
 	ns    []node
 
 	functionExternalName []string
-	initVars             []initialVar
+
+	initVars map[string]goType // map of name to type
 
 	comments []string
 
@@ -36,21 +36,21 @@ func (p *parser) addImport(pkg string) {
 func (p *parser) init() {
 	p.functionExternalName = make([]string, 0)
 	p.endLabelDo = map[string]int{}
-	p.initVars = []initialVar{}
+	p.initVars = map[string]goType{}
 }
 
 // list view - only for debugging
-func lv(l *list.List) (output string) {
-	for e := l.Front(); e != nil; e = e.Next() {
-		b := string(e.Value.(*node).b)
-		if e.Value.(*node).tok != ftNewLine {
+func lv(ns []node) (output string) {
+	for _, n := range ns {
+		b := string(n.b)
+		if n.tok != ftNewLine {
 			output += fmt.Sprintf("%10s\t%10s\t|`%s`\n",
-				view(e.Value.(*node).tok),
-				fmt.Sprintf("%v", e.Value.(*node).pos),
+				view(n.tok),
+				fmt.Sprintf("%v", n.pos),
 				b)
 		} else {
 			output += fmt.Sprintf("%20s\n",
-				view(e.Value.(*node).tok))
+				view(n.tok))
 		}
 	}
 	return
@@ -75,11 +75,7 @@ func Parse(b []byte, packageName string) (goast.File, []error) {
 		p.foundLables = map[string]bool{}
 	}
 
-	l := scan(b)
-	for e := l.Front(); e != nil; e = e.Next() {
-		p.ns = append(p.ns, *e.Value.(*node))
-	}
-	// lv(l) // only for debugging
+	p.ns = scan(b)
 
 	p.ast.Name = goast.NewIdent(packageName)
 
@@ -289,19 +285,9 @@ func (v vis) Visit(node goast.Node) (w goast.Visitor) {
 
 // delete external function type definition
 func (p *parser) removeExternalFunction() {
-checkExternalFunction:
-	for i := range p.initVars {
-		var remove bool
-		for _, f := range p.functionExternalName {
-			if p.initVars[i].name == f {
-				remove = true
-				break
-			}
-		}
-		if remove {
-			// fmt.Println("Remove external function definition: ", name)
-			p.initVars = append(p.initVars[:i], p.initVars[i+1:]...)
-			goto checkExternalFunction
+	for _, f := range p.functionExternalName {
+		if _, ok := p.initVars[f]; ok {
+			delete(p.initVars, f)
 		}
 	}
 }
@@ -311,16 +297,13 @@ func (p *parser) argumentCorrection(fd goast.FuncDecl) (removedVars []string) {
 checkArguments:
 	for i := range fd.Type.Params.List {
 		fieldName := fd.Type.Params.List[i].Names[0].Name
-		for j := range p.initVars {
-			if fieldName == p.initVars[j].name {
-				fd.Type.Params.List[i].Type = goast.NewIdent(
-					p.initVars[j].typ.String())
+		if v, ok := p.initVars[fieldName]; ok {
+			fd.Type.Params.List[i].Type = goast.NewIdent(v.String())
 
-				// fmt.Println("Remove to arg : ", fieldName)
-				removedVars = append(removedVars, fieldName)
-				p.initVars = append(p.initVars[:j], p.initVars[j+1:]...)
-				goto checkArguments
-			}
+			// Remove to arg
+			removedVars = append(removedVars, fieldName)
+			delete(p.initVars, fieldName)
+			goto checkArguments
 		}
 	}
 	return
@@ -328,30 +311,46 @@ checkArguments:
 
 // init vars
 func (p *parser) initializeVars() (vars []goast.Stmt) {
-	for i := range p.initVars {
-		if p.initVars[i].isArray() {
-			if len(p.initVars[i].typ.arrayType) == 1 { // vector
-				arrayType := p.initVars[i].typ.baseType
-				for range p.initVars[i].typ.arrayType {
-					arrayType = "[]" + arrayType
-				}
-				vars = append(vars, &goast.AssignStmt{
-					Lhs: []goast.Expr{goast.NewIdent(p.initVars[i].name)},
-					Tok: token.DEFINE,
-					Rhs: []goast.Expr{
-						&goast.CallExpr{
-							Fun:    goast.NewIdent("make"),
-							Lparen: 1,
-							Args: []goast.Expr{
-								goast.NewIdent(arrayType),
-								goast.NewIdent(strconv.Itoa(p.initVars[i].typ.arrayType[0])),
+	for name, goT := range p.initVars {
+		switch len(goT.arrayType) {
+		case 0:
+			vars = append(vars, &goast.DeclStmt{
+				Decl: &goast.GenDecl{
+					Tok: token.VAR,
+					Specs: []goast.Spec{
+						&goast.ValueSpec{
+							Names: []*goast.Ident{
+								goast.NewIdent(name),
 							},
-						}},
-				})
-			} else if len(p.initVars[i].typ.arrayType) == 2 {
+							Type: goast.NewIdent(
+								goT.String()),
+						},
+					},
+				},
+			})
 
-				fset := token.NewFileSet() // positions are relative to fset
-				src := `package main
+		case 1: // vector
+			arrayType := goT.baseType
+			for range goT.arrayType {
+				arrayType = "[]" + arrayType
+			}
+			vars = append(vars, &goast.AssignStmt{
+				Lhs: []goast.Expr{goast.NewIdent(name)},
+				Tok: token.DEFINE,
+				Rhs: []goast.Expr{
+					&goast.CallExpr{
+						Fun:    goast.NewIdent("make"),
+						Lparen: 1,
+						Args: []goast.Expr{
+							goast.NewIdent(arrayType),
+							goast.NewIdent(strconv.Itoa(goT.arrayType[0])),
+						},
+					}},
+			})
+
+		case 2: // matrix
+			fset := token.NewFileSet() // positions are relative to fset
+			src := `package main
 func main() {
 	%s := make([][]%s, %d)
 	for u := 0; u < %d; u++ {
@@ -359,35 +358,24 @@ func main() {
 	}
 }
 `
-				f, err := goparser.ParseFile(fset, "", fmt.Sprintf(src,
-					p.initVars[i].name,
-					p.initVars[i].typ.baseType,
-					p.initVars[i].typ.arrayType[0],
-					p.initVars[i].typ.arrayType[0],
-					p.initVars[i].name,
-					p.initVars[i].typ.baseType,
-					p.initVars[i].typ.arrayType[1],
-				), 0)
-				if err != nil {
-					panic(err)
-				}
-				vars = append(vars, f.Decls[0].(*goast.FuncDecl).Body.List...)
+			f, err := goparser.ParseFile(fset, "", fmt.Sprintf(src,
+				name,
+				goT.baseType,
+				goT.arrayType[0],
+				goT.arrayType[0],
+				name,
+				goT.baseType,
+				goT.arrayType[1],
+			), 0)
+			if err != nil {
+				panic(err)
 			}
-			continue
+			vars = append(vars, f.Decls[0].(*goast.FuncDecl).Body.List...)
+		default:
+			panic("not correct amount of array")
 		}
-		vars = append(vars, &goast.DeclStmt{
-			Decl: &goast.GenDecl{
-				Tok: token.VAR,
-				Specs: []goast.Spec{
-					&goast.ValueSpec{
-						Names: []*goast.Ident{goast.NewIdent(p.initVars[i].name)},
-						Type: goast.NewIdent(
-							p.initVars[i].typ.String()),
-					},
-				},
-			},
-		})
 	}
+
 	return
 }
 
@@ -433,8 +421,8 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 			case *goast.Ident: // TODO : not correct for array
 				id := call.Args[i].(*goast.Ident)
 				found := false
-				for j := range c.p.initVars {
-					if id.Name == c.p.initVars[j].name && c.p.initVars[j].isArray() {
+				for name, goT := range c.p.initVars {
+					if id.Name == name && goT.isArray() {
 						found = true
 					}
 				}
@@ -544,9 +532,9 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	arrayArguments := map[string]bool{}
 	for i := range fd.Type.Params.List {
 		fieldName := fd.Type.Params.List[i].Names[0].Name
-		for j := range p.initVars {
-			if fieldName == p.initVars[j].name && p.initVars[j].isArray() {
-				arrayArguments[p.initVars[j].name] = true
+		for name, goT := range p.initVars {
+			if fieldName == name && goT.isArray() {
+				arrayArguments[name] = true
 			}
 		}
 	}
@@ -709,10 +697,7 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 		}
 
 		// parse type = base type + addition type
-		p.initVars = append(p.initVars, initialVar{
-			name: name,
-			typ:  parseType(append(baseType, additionType...)),
-		})
+		p.initVars[name] = parseType(append(baseType, additionType...))
 		if p.ns[p.ident].tok != token.COMMA {
 			p.ident--
 		}

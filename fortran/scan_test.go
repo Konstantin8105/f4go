@@ -80,22 +80,20 @@ func TestScanIn(t *testing.T) {
 	}
 	for i, tc := range tcs {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
-			l := scan([]byte(tc.in))
-			var le int
-			for e, j := l.Front(), 0; e != nil; e, j = e.Next(), j+1 {
-				if j < len(tc.out) && tc.out[j] != string(e.Value.(*node).b) {
+			ns := scan([]byte(tc.in))
+			if len(ns) != len(tc.out) {
+				t.Fatalf("Not same : %v != %v", len(ns), len(tc.out))
+			}
+			for j := 0; j < len(ns); j++ {
+				if tc.out[j] != string(ns[j].b) {
 					t.Fatalf("Not same: `%s` != `%s`",
 						tc.out[j],
-						string(e.Value.(*node).b))
+						string(ns[j].b))
 				}
-				le++
-			}
-			if le != len(tc.out) {
-				t.Fatalf("Not same : %v != %v", le, len(tc.out))
 			}
 
 			testName := "Scan" + strconv.Itoa(i)
-			output := lv(l)
+			output := lv(ns)
 
 			if err := cupaloy.SnapshotMulti(testName, output); err != nil {
 				t.Fatalf("error: %s", err)

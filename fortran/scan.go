@@ -71,7 +71,7 @@ type scanner struct {
 	nodes *list.List
 }
 
-func scan(b []byte) *list.List {
+func scan(b []byte) (ns []node) {
 	var s scanner
 	s.nodes = list.New()
 	s.nodes.PushFront(&node{
@@ -82,6 +82,11 @@ func scan(b []byte) *list.List {
 			col:  1,
 		},
 	})
+	defer func() {
+		for e := s.nodes.Front(); e != nil; e = e.Next() {
+			ns = append(ns, *e.Value.(*node))
+		}
+	}()
 
 	// separate lines
 	s.scanBreakLines()
@@ -127,7 +132,7 @@ func scan(b []byte) *list.List {
 	// token GO TO
 	s.scanGoto()
 
-	return s.nodes
+	return
 }
 
 // separate break lines
