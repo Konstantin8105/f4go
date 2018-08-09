@@ -54,6 +54,7 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 	nodes := make([]node, len(in))
 	copy(nodes, in)
 
+	p.fixFakeParen(&nodes)
 	p.fixArrayVariables(&nodes)
 	p.fixDoubleStar(&nodes)
 	p.fixString(&nodes)
@@ -88,6 +89,20 @@ func (p *parser) isArrayVariable(name string) bool {
 		}
 	}
 	return false
+}
+
+// change  `(/` and `/)` to `((` and `))`
+func (p *parser) fixFakeParen(nodes *[]node) {
+	for i := 1; i < len(*nodes); i++ {
+		if (*nodes)[i-1].tok == token.LPAREN && (*nodes)[i].tok == token.QUO {
+			(*nodes)[i].tok, (*nodes)[i].b = (*nodes)[i-1].tok, (*nodes)[i-1].b
+			continue
+		}
+		if (*nodes)[i-1].tok == token.QUO && (*nodes)[i].tok == token.RPAREN {
+			(*nodes)[i-1].tok, (*nodes)[i-1].b = (*nodes)[i].tok, (*nodes)[i].b
+			continue
+		}
+	}
 }
 
 // fixArrayVariables - change tokens of array
