@@ -1,7 +1,7 @@
 package main
 
-import "math"
 import "fmt"
+import "math"
 //C -----------------------------------------------------
 //C Tests
 //C -----------------------------------------------------
@@ -65,10 +65,10 @@ func test_operations() {
 }
 //C -----------------------------------------------------
 func test_pow() {
-	var r float64
 	var p float64
 	var real_1 float64
 	H := make([]float64, 1)
+	var r float64
 	//! initialization
 	//C calculation
 	H[1-1] = 3
@@ -233,8 +233,8 @@ func summator(s []int) (summator_RES int) {
 }
 //C -----------------------------------------------------
 func test_goto() {
-	var t int
 	var m int
+	var t int
 	t = 0
 	m = 0
 Label230:
@@ -333,14 +333,14 @@ func matrix_changer(M [][]int, IN *int, JN *int) {
 }
 //C -----------------------------------------------------
 func test_types() {
+	var I4 int32
+	var I8 int64
 	var R1 float64
 	var R4 float32
 	var R8 float64
 	var DP float64
 	var I1 int
 	var I2 int16
-	var I4 int32
-	var I8 int64
 	R1 = 45.1
 	R4 = 45.1
 	R8 = 45.1

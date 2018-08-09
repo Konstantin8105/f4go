@@ -383,8 +383,40 @@ func (p *parser) fixConcatString(nodes *[]node) {
 		if !found {
 			return
 		}
-		_ = pos
-		panic("Found concat : " + nodesToString(*nodes))
+
+		leftOther, leftVariable, rightVariable, rightOther := p.split(nodes, pos)
+
+		// combine expression by next formula:
+		// leftOther []byte{leftVariable , rightVariable} rightOther
+		var comb []node
+		comb = append(comb, leftOther...)
+		comb = append(comb, []node{
+			{tok: token.IDENT, b: []byte("[")},
+			{tok: token.RBRACK, b: []byte("]")},
+			{tok: token.IDENT, b: []byte("byte")},
+			{tok: token.LBRACE, b: []byte("{")},
+		}...)
+		if leftVariable[0].tok == token.IDENT {
+			if v, ok := p.initVars[string(leftVariable[0].b)]; ok {
+				if v.baseType == "byte" && len(v.arrayType) == 0 {
+					leftVariable = leftVariable[:1]
+				}
+			}
+		}
+		comb = append(comb, leftVariable...)
+		comb = append(comb, node{tok: token.COMMA, b: []byte(",")})
+		if rightVariable[0].tok == token.IDENT {
+			if v, ok := p.initVars[string(rightVariable[0].b)]; ok {
+				if v.baseType == "byte" && len(v.arrayType) == 0 {
+					rightVariable = rightVariable[:1]
+				}
+			}
+		}
+		comb = append(comb, rightVariable...)
+		comb = append(comb, node{tok: token.RBRACE, b: []byte("}")})
+		comb = append(comb, rightOther...)
+
+		*nodes = comb
 	}
 
 }

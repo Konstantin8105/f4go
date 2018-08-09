@@ -158,6 +158,34 @@ func (p *parser) split(nodes *[]node, pos int) (
 		case token.INT, token.FLOAT:
 			br = true
 		case token.IDENT: // find IDENT, so it can be func or not
+			// byte (...)
+			isByte := false
+			if v, ok := p.initVars[string(rightPart[rightSeparator].b)]; ok {
+				if v.baseType == "byte" && len(v.arrayType) == 0 {
+					if rightPart[rightSeparator+1].tok == token.LPAREN {
+						rightSeparator++
+						counter := 0
+						for {
+							if rightPart[rightSeparator].tok == token.LPAREN {
+								counter++
+							}
+							if rightPart[rightSeparator].tok == token.RPAREN {
+								counter--
+							}
+							if counter == 0 {
+								break
+							}
+							rightSeparator++
+						}
+						isByte = true
+						br = true
+					}
+				}
+			}
+			if isByte {
+				break
+			}
+
 			if !p.isVariable(string(rightPart[rightSeparator].b)) {
 				// function
 				counter := 0
@@ -175,10 +203,8 @@ func (p *parser) split(nodes *[]node, pos int) (
 				}
 			} else {
 				isArray := false
-				for name, goT := range p.initVars {
-					if name == string(rightPart[rightSeparator].b) {
-						isArray = goT.isArray()
-					}
+				if v, ok := p.initVars[string(rightPart[rightSeparator].b)]; ok {
+					isArray = v.isArray()
 				}
 				if isArray {
 					// it is array
