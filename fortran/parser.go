@@ -1218,7 +1218,32 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 					values = values[1:]
 				}
 			case 2: // matrix
-				// TODO
+				for i := 0; i < v.arrayType[0]; i++ {
+					for j := 0; j < v.arrayType[1]; j++ {
+						stmts = append(stmts, &goast.AssignStmt{
+							Lhs: []goast.Expr{
+								&goast.IndexExpr{
+									X: &goast.IndexExpr{
+										X:      goast.NewIdent(string(n.b)),
+										Lbrack: 1,
+										Index: &goast.BasicLit{
+											Kind:  token.INT,
+											Value: strconv.Itoa(j),
+										},
+									},
+									Lbrack: 1,
+									Index: &goast.BasicLit{
+										Kind:  token.INT,
+										Value: strconv.Itoa(i),
+									},
+								},
+							},
+							Tok: token.ASSIGN,
+							Rhs: []goast.Expr{goast.NewIdent(string(values[0].b))},
+						})
+						values = values[1:]
+					}
+				}
 			}
 		} else {
 			p.addError("Cannot found Data : " + v.String())

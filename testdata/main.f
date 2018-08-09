@@ -315,10 +315,14 @@ C -----------------------------------------------------
 
         subroutine test_data
             INTEGER LOC12( 4 ), LOC21( 4 )
-            DATA    LOC12 / 3, 4, 1, 2 / , LOC21 / 2, 1, 4, 3 /
+            INTEGER IPIVOT( 2, 2 )
             real*4  v
             integer r
+
             data v , r / 23.23 , 25 /
+            DATA    LOC12 / 3, 4, 1, 2 / , LOC21 / 2, 1, 4, 3 /
+            DATA    IPIVOT / 1, 2, 3, 4 /
+
             if ( r .NE. 25) then 
                 call fail("test_data 1")
             end if
@@ -334,6 +338,11 @@ C -----------------------------------------------------
             if ( LOC21(2) .NE. 1) call fail("test_data 8")
             if ( LOC21(3) .NE. 4) call fail("test_data 9")
             if ( LOC21(4) .NE. 3) call fail("test_data 10")
+
+            if (IPIVOT(1,1) .NE. 1) call fail("test_data matrix 1")
+            if (IPIVOT(2,1) .NE. 2) call fail("test_data matrix 2")
+            if (IPIVOT(1,2) .NE. 3) call fail("test_data matrix 3")
+            if (IPIVOT(2,2) .NE. 4) call fail("test_data matrix 4")
         end subroutine
 
 C -----------------------------------------------------

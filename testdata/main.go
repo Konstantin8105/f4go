@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
 import "math"
+import "fmt"
 //C -----------------------------------------------------
 //C Tests
 //C -----------------------------------------------------
@@ -65,10 +65,10 @@ func test_operations() {
 }
 //C -----------------------------------------------------
 func test_pow() {
-	var r float64
-	var p float64
 	var real_1 float64
 	H := make([]float64, 1)
+	var r float64
+	var p float64
 	//! initialization
 	//C calculation
 	H[1-1] = 3
@@ -207,8 +207,8 @@ func test_do_while() {
 }
 //C -----------------------------------------------------
 func test_array() {
-	iterator := make([]int, 3)
 	var ir int
+	iterator := make([]int, 3)
 	for ir = 1; ir <= 3; ir++ {
 		iterator[ir-1] = ir
 	}
@@ -222,8 +222,8 @@ func test_array() {
 }
 
 func summator(s []int) (summator_RES int) {
-	var ir int
 	var sum int
+	var ir int
 	sum = 0
 	for ir = 1; ir <= 3; ir++ {
 		sum = sum + s[ir-1]
@@ -283,10 +283,16 @@ func function_changer(a *int, b *string) (function_changer_RES bool) {
 }
 //C -----------------------------------------------------
 func test_data() {
-	var v float32
-	var r int
 	LOC12 := make([]int, 4)
 	LOC21 := make([]int, 4)
+	IPIVOT := make([][]int, 2)
+	for u := 0; u < 2; u++ {
+		IPIVOT[u] = make([]int, 2)
+	}
+	var v float32
+	var r int
+	v = 23.23
+	r = 25
 	LOC12[0] = 3
 	LOC12[1] = 4
 	LOC12[2] = 1
@@ -295,8 +301,10 @@ func test_data() {
 	LOC21[1] = 1
 	LOC21[2] = 4
 	LOC21[3] = 3
-	v = 23.23
-	r = 25
+	IPIVOT[0][0] = 1
+	IPIVOT[1][0] = 2
+	IPIVOT[0][1] = 3
+	IPIVOT[1][1] = 4
 	if r != 25 {
 		fail([]byte("test_data 1"))
 	}
@@ -327,15 +335,27 @@ func test_data() {
 	if LOC21[4-1] != 3 {
 		fail([]byte("test_data 10"))
 	}
+	if IPIVOT[1-1][1-1] != 1 {
+		fail([]byte("test_data matrix 1"))
+	}
+	if IPIVOT[2-1][1-1] != 2 {
+		fail([]byte("test_data matrix 2"))
+	}
+	if IPIVOT[1-1][2-1] != 3 {
+		fail([]byte("test_data matrix 3"))
+	}
+	if IPIVOT[2-1][2-1] != 4 {
+		fail([]byte("test_data matrix 4"))
+	}
 }
 //C -----------------------------------------------------
 func test_matrix() {
+	var I int
+	var J int
 	M := make([][]int, 3)
 	for u := 0; u < 3; u++ {
 		M[u] = make([]int, 2)
 	}
-	var I int
-	var J int
 	for I = 1; I <= 3; I++ {
 		for J = 1; J <= 2; J++ {
 			M[I-1][J-1] = I*8 + J + (I-J)*5
@@ -367,14 +387,14 @@ func matrix_changer(M [][]int, IN *int, JN *int) {
 }
 //C -----------------------------------------------------
 func test_types() {
+	var I2 int16
+	var I4 int32
 	var I8 int64
 	var R1 float64
 	var R4 float32
 	var R8 float64
 	var DP float64
 	var I1 int
-	var I2 int16
-	var I4 int32
 	R1 = 45.1
 	R4 = 45.1
 	R8 = 45.1
