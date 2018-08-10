@@ -21,15 +21,3 @@ if [ $COVERAGE_FILES != 0 ]; then
 fi
 		
 rm *.coverprofile
-
-
-go list -f 'go test -v -covermode=atomic -coverprofile={{.Name}}.coverprofile -coverpkg=$PKGS_DELIM {{.ImportPath}} ./fortran/*.go' $PKGS | xargs -I{} bash -c "{}"
-
-# Merge coverage profiles.
-COVERAGE_FILES=`ls -1 *.coverprofile 2>/dev/null | wc -l`
-if [ $COVERAGE_FILES != 0 ]; then
-	# check program `gocovmerge` is exist
-	if which gocovmerge >/dev/null 2>&1; then
-		gocovmerge `ls *.coverprofile` >> coverage.txt
-	fi
-fi
