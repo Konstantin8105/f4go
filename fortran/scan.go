@@ -621,8 +621,8 @@ A:
 				var found bool
 				if index == 0 {
 					if len(e.Value.(*node).b) == len(pat) ||
-						!(isLetter(rune(e.Value.(*node).b[len(pat)])) ||
-							isDigit(rune(e.Value.(*node).b[len(pat)])) ||
+						!(isLetter(e.Value.(*node).b[len(pat)]) ||
+							isDigit(e.Value.(*node).b[len(pat)]) ||
 							e.Value.(*node).b[len(pat)] == '_') {
 						found = true
 					}
@@ -630,8 +630,8 @@ A:
 				if index > 0 {
 					if e.Value.(*node).b[index-1] == ' ' &&
 						(len(e.Value.(*node).b) == index+len(pat) ||
-							!(isLetter(rune(e.Value.(*node).b[index+len(pat)])) ||
-								isDigit(rune(e.Value.(*node).b[index+len(pat)])) ||
+							!(isLetter(e.Value.(*node).b[index+len(pat)]) ||
+								isDigit(e.Value.(*node).b[index+len(pat)]) ||
 								e.Value.(*node).b[index+len(pat)] == '_')) {
 						found = true
 					}
@@ -750,35 +750,31 @@ numb:
 			//  5. Sign       // maybe
 			//  6. Digits     // maybe
 			for st := 0; st < len(e.Value.(*node).b); st++ {
-				if isDigit(rune(e.Value.(*node).b[st])) {
+				if isDigit(e.Value.(*node).b[st]) {
 					var en int
 					for en = st; en < len(e.Value.(*node).b); en++ {
-						if !isDigit(rune(e.Value.(*node).b[en])) {
+						if !isDigit(e.Value.(*node).b[en]) {
 							break
 						}
 					}
 					if en < len(e.Value.(*node).b) && (e.Value.(*node).b[en] == '.' ||
-						e.Value.(*node).b[en] == 'E' || e.Value.(*node).b[en] == 'e' ||
-						e.Value.(*node).b[en] == 'D' || e.Value.(*node).b[en] == 'd' ||
-						e.Value.(*node).b[en] == 'Q' || e.Value.(*node).b[en] == 'q') {
+						isFloatLetter(e.Value.(*node).b[en])) {
 						// FLOAT
 						if e.Value.(*node).b[en] == '.' {
 							for en = en + 1; en < len(e.Value.(*node).b); en++ {
-								if !isDigit(rune(e.Value.(*node).b[en])) {
+								if !isDigit(e.Value.(*node).b[en]) {
 									break
 								}
 							}
 						}
 						if en < len(e.Value.(*node).b) &&
-							(e.Value.(*node).b[en] == 'E' || e.Value.(*node).b[en] == 'e' ||
-								e.Value.(*node).b[en] == 'D' || e.Value.(*node).b[en] == 'd' ||
-								e.Value.(*node).b[en] == 'Q' || e.Value.(*node).b[en] == 'q') {
+							(isFloatLetter(e.Value.(*node).b[en])) {
 							if en+1 < len(e.Value.(*node).b) &&
 								(e.Value.(*node).b[en+1] == '+' || e.Value.(*node).b[en+1] == '-') {
 								en++
 							}
 							for en = en + 1; en < len(e.Value.(*node).b); en++ {
-								if !isDigit(rune(e.Value.(*node).b[en])) {
+								if !isDigit(e.Value.(*node).b[en]) {
 									break
 								}
 							}
@@ -793,8 +789,8 @@ numb:
 				} else {
 					for ; st < len(e.Value.(*node).b); st++ {
 						if e.Value.(*node).b[st] != '_' &&
-							!isDigit(rune(e.Value.(*node).b[st])) &&
-							!isLetter(rune(e.Value.(*node).b[st])) {
+							!isDigit(e.Value.(*node).b[st]) &&
+							!isLetter(e.Value.(*node).b[st]) {
 							break
 						}
 					}
@@ -828,7 +824,14 @@ G:
 }
 
 // isLetter returns true if the rune is a letter.
-func isLetter(ch rune) bool { return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') }
+func isLetter(ch byte) bool { return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') }
 
 // isDigit returns true if the rune is a digit.
-func isDigit(ch rune) bool { return (ch >= '0' && ch <= '9') }
+func isDigit(ch byte) bool { return (ch >= '0' && ch <= '9') }
+
+// isFloatLetter return true if letter used in floats
+func isFloatLetter(ch byte) bool {
+	return ch == 'E' || ch == 'e' ||
+		ch == 'D' || ch == 'd' ||
+		ch == 'Q' || ch == 'q'
+}

@@ -114,7 +114,7 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 	}
 
 	// modify tokens
-	var pos int = 0
+	pos := 0
 	for {
 		for ; pos < len(*nodes); pos++ {
 			if (*nodes)[pos].tok == token.IDENT &&

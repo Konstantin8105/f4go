@@ -43,7 +43,7 @@ func parse(filename, packageName string) []errorRow {
 	dat, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return []errorRow{
-			errorRow{
+			{
 				err:      fmt.Errorf("Cannot fortran source: %v", err),
 				filename: filename,
 			},
@@ -67,7 +67,7 @@ func parse(filename, packageName string) []errorRow {
 	var buf bytes.Buffer
 	if err = format.Node(&buf, token.NewFileSet(), &ast); err != nil {
 		return []errorRow{
-			errorRow{
+			{
 				err:      fmt.Errorf("Error go/format : %v", err),
 				filename: filename,
 			},
@@ -84,7 +84,7 @@ func parse(filename, packageName string) []errorRow {
 	// save go source
 	if err = ioutil.WriteFile(goFilename, buf.Bytes(), 0644); err != nil {
 		return []errorRow{
-			errorRow{
+			{
 				err:      fmt.Errorf("Cannot write Go source: %v", err),
 				filename: filename,
 			},

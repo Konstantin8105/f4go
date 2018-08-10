@@ -71,35 +71,60 @@ Go code:
 ```golang
 package main
 
-func CAXPY(N int, CA complex128, CX []complex128, INCX int, CY []complex128, INCY int) {
-	var I int
+func CAXPY(N *int, CA *complex64, CX *[]complex64, INCX *int, CY *[]complex64, INCY *int) {
 	var IX int
 	var IY int
-	if N <= 0 {
+	var I int
+	//*
+	//*  -- Reference BLAS level1 routine (version 3.8.0) --
+	//*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+	//*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+	//*     November 2017
+	//*
+	//*     .. Scalar Arguments ..
+	//*     ..
+	//*     .. Array Arguments ..
+	//*     ..
+	//*
+	//*  =====================================================================
+	//*
+	//*     .. Local Scalars ..
+	//*     ..
+	//*     .. External Functions ..
+	//*     ..
+	if (*N) <= 0 {
 		return
 	}
-	if SCABS1(CA) == 0.0E+0 {
+	if SCABS1(&((*CA))) == 0.0e+0 {
 		return
 	}
-	if INCX == 1 && INCY == 1 {
-		for I = 1; I < N; I++ {
-			CY[I] = CY[I] + CA*CX[I]
+	if (*INCX) == 1 && (*INCY) == 1 {
+		//*
+		//*        code for both increments equal to 1
+		//*
+		for I = 1; I <= (*N); I++ {
+			(*CY)[I-1] = (*CY)[I-1] + (*CA)*(*CX)[I-1]
 		}
 	} else {
+		//*
+		//*        code for unequal increments or equal increments
+		//*          not equal to 1
+		//*
 		IX = 1
 		IY = 1
-		if INCX < 0 {
-			IX = (-N+1)*INCX + 1
+		if (*INCX) < 0 {
+			IX = (-(*N)+1)*(*INCX) + 1
 		}
-		if INCY < 0 {
-			IY = (-N+1)*INCY + 1
+		if (*INCY) < 0 {
+			IY = (-(*N)+1)*(*INCY) + 1
 		}
-		for I = 1; I < N; I++ {
-			CY[IY] = CY[IY] + CA*CX[IX]
-			IX = IX + INCX
-			IY = IY + INCY
+		for I = 1; I <= (*N); I++ {
+			(*CY)[IY-1] = (*CY)[IY-1] + (*CA)*(*CX)[IX-1]
+			IX = IX + (*INCX)
+			IY = IY + (*INCY)
 		}
 	}
+	//*
 	return
 }
 ```
@@ -107,5 +132,4 @@ func CAXPY(N int, CA complex128, CX []complex128, INCX int, CY []complex128, INC
 
 ### Fortran test sources
 
-* [**ftnchek.tgz**](http://netlib.org/fortran/index.html)
 * [**blas from lapack3.8.0**](http://netlib.org/lapack/index.html)
