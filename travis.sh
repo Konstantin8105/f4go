@@ -5,20 +5,27 @@ set -e
 echo "" > coverage.txt
 
 # export PKGS=$(go list ./...)
-
-# Make comma-separated.
+#
+# # Make comma-separated.
 # export PKGS_DELIM=$(echo "$PKGS" | paste -sd "," -)
-
+#
 # go list -f 'go test -v -covermode atomic -coverprofile {{.Name}}.coverprofile -coverpkg $PKGS_DELIM {{.ImportPath}}' $PKGS | xargs -I{} bash -c "{}"
+#
+# # Merge coverage profiles.
+# COVERAGE_FILES=`ls -1 *.coverprofile 2>/dev/null | wc -l`
+# if [ $COVERAGE_FILES != 0 ]; then
+# 	# check program `gocovmerge` is exist
+# 	if which gocovmerge >/dev/null 2>&1; then
+# 		gocovmerge `ls *.coverprofile` > coverage.txt
+# 		rm *.coverprofile
+# 	fi
+# fi
 
-go list -f '{{if len .TestGoFiles}}"go test -coverprofile={{.Dir}}/.coverprofile {{.ImportPath}}"{{end}}' ./... | xargs -L 1 sh -c
 
-# Merge coverage profiles.
-COVERAGE_FILES=`ls -1 *.coverprofile 2>/dev/null | wc -l`
-if [ $COVERAGE_FILES != 0 ]; then
-	# check program `gocovmerge` is exist
-	if which gocovmerge >/dev/null 2>&1; then
-		gocovmerge `ls *.coverprofile` > coverage.txt
-		rm *.coverprofile
-	fi
-fi
+for d in $(go list ./... | grep -v vendor); do
+    go test -coverprofile=profile.out -covermode=atomic "$d"
+    if [ -f profile.out ]; then
+        cat profile.out >> coverage.txt
+        rm profile.out
+    fi
+done
