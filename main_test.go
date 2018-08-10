@@ -88,6 +88,7 @@ func TestData(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	for i := range files {
 		t.Run(files[i], func(t *testing.T) {
 			es := parse(files[i], "")
