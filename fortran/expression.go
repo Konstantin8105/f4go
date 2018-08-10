@@ -41,13 +41,6 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 
 	in := p.ns[start:end]
 
-	defer func() {
-		if r := recover(); r != nil {
-			p.addError(fmt.Sprintf("%v", r))
-			expr = goast.NewIdent(nodesToString(in))
-		}
-	}()
-
 	base := make([]node, len(in))
 	copy(base, in)
 
@@ -391,10 +384,8 @@ func (p *parser) fixConcatString(nodes *[]node) {
 		var comb []node
 		comb = append(comb, leftOther...)
 		comb = append(comb, []node{
-			{tok: token.IDENT, b: []byte("[")},
-			{tok: token.RBRACK, b: []byte("]")},
-			{tok: token.IDENT, b: []byte("byte")},
-			{tok: token.LBRACE, b: []byte("{")},
+			{tok: token.IDENT, b: []byte("append")},
+			{tok: token.LPAREN, b: []byte("(")},
 		}...)
 		if leftVariable[0].tok == token.IDENT {
 			if v, ok := p.initVars[string(leftVariable[0].b)]; ok {
@@ -413,7 +404,8 @@ func (p *parser) fixConcatString(nodes *[]node) {
 			}
 		}
 		comb = append(comb, rightVariable...)
-		comb = append(comb, node{tok: token.RBRACE, b: []byte("}")})
+		comb = append(comb, node{tok: token.IDENT, b: []byte("...")})
+		comb = append(comb, node{tok: token.RPAREN, b: []byte(")")})
 		comb = append(comb, rightOther...)
 
 		*nodes = comb

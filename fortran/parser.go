@@ -115,6 +115,9 @@ func Parse(b []byte, packageName string) (goast.File, []error) {
 	c := commentLabel{labels: removedLabels}
 	goast.Walk(c, &p.ast)
 
+	strC := strChanger{}
+	goast.Walk(strC, &p.ast)
+
 	return p.ast, p.errs
 }
 
@@ -132,6 +135,31 @@ func (c commentLabel) Visit(node goast.Node) (w goast.Visitor) {
 	return c
 }
 
+// go/ast Visitor for change "strings" to "[]byte"
+type strChanger struct {
+}
+
+func (s strChanger) Visit(node goast.Node) (w goast.Visitor) {
+	if call, ok := node.(*goast.CallExpr); ok {
+		if sel, ok := call.Fun.(*goast.SelectorExpr); ok {
+			if id, ok := sel.X.(*goast.Ident); ok {
+				if id.Name == "fmt" || id.Name == "math" {
+					return nil
+				}
+			}
+		}
+	}
+	if _, ok := node.(*goast.ImportSpec); ok {
+		return nil
+	}
+	if st, ok := node.(*goast.BasicLit); ok && st.Kind == token.STRING {
+		st.Value = fmt.Sprintf("*func()*[]byte{y:=[]byte(%s);return &y}()",
+			st.Value)
+	}
+	return s
+}
+
+// parseNodes
 func (p *parser) parseNodes() (decls []goast.Decl) {
 
 	if p.ident < 0 || p.ident >= len(p.ns) {
@@ -277,7 +305,7 @@ type vis struct {
 func (v vis) Visit(node goast.Node) (w goast.Visitor) {
 	if ident, ok := node.(*goast.Ident); ok {
 		if ident.Name == v.from {
-			ident.Name = v.to
+			ident.Name = "(" + v.to + ")"
 		}
 	}
 	return v
@@ -333,6 +361,23 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 			arrayType := goT.baseType
 			for range goT.arrayType {
 				arrayType = "[]" + arrayType
+			}
+			if goT.arrayType[0] <= 0 {
+				vars = append(vars, &goast.DeclStmt{
+					Decl: &goast.GenDecl{
+						Tok: token.VAR,
+						Specs: []goast.Spec{
+							&goast.ValueSpec{
+								Names: []*goast.Ident{
+									goast.NewIdent(name),
+								},
+								Type: goast.NewIdent(
+									goT.String()),
+							},
+						},
+					},
+				})
+				continue
 			}
 			vars = append(vars, &goast.AssignStmt{
 				Lhs: []goast.Expr{goast.NewIdent(name)},
@@ -399,6 +444,13 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 				}
 			}
 		}
+		if call, ok := node.(*goast.CallExpr); ok {
+			if id, ok := call.Fun.(*goast.Ident); ok {
+				if id.Name == "append" {
+					return nil
+				}
+			}
+		}
 
 		for i := range call.Args {
 			switch a := call.Args[i].(type) {
@@ -406,7 +458,7 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 				switch a.Kind {
 				case token.STRING:
 					call.Args[i] = goast.NewIdent(
-						fmt.Sprintf("[]byte(%s)", a.Value))
+						fmt.Sprintf(" func()*[]byte{y:=[]byte(%s);return &y}()", a.Value))
 				case token.INT:
 					call.Args[i] = goast.NewIdent(
 						fmt.Sprintf("func()*int{y:=%s;return &y}()", a.Value))
@@ -420,15 +472,16 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 
 			case *goast.Ident: // TODO : not correct for array
 				id := call.Args[i].(*goast.Ident)
-				found := false
-				for name, goT := range c.p.initVars {
-					if id.Name == name && goT.isArray() {
-						found = true
-					}
-				}
-				if found {
-					continue
-				}
+				// found := false
+				// for name, goT := range c.p.initVars {
+				// 	if id.Name == name && goT.isArray() &&
+				// 		goT.baseType != "byte" {
+				// 		found = true
+				// 	}
+				// }
+				// if found {
+				// 	continue
+				// }
 				id.Name = "&(" + id.Name + ")"
 			}
 		}
@@ -548,9 +601,9 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	// To:
 	//  *a
 	for _, arg := range arguments {
-		if _, ok := arrayArguments[arg]; ok {
-			continue
-		}
+		// if _, ok := arrayArguments[arg]; ok {
+		// 	continue
+		// }
 		v := vis{
 			from: arg,
 			to:   "*" + arg,
@@ -563,9 +616,9 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 		switch fd.Type.Params.List[i].Type.(type) {
 		case *goast.Ident:
 			id := fd.Type.Params.List[i].Type.(*goast.Ident)
-			if strings.Contains(id.Name, "[") { // for array no need pointer
-				continue
-			}
+			// if strings.Contains(id.Name, "[") { // for array no need pointer
+			// 	continue
+			// }
 			id.Name = "*" + id.Name
 		default:
 			panic(fmt.Errorf("Cannot parse type in fields: %T",
@@ -1395,7 +1448,7 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 		var format string
 		format = "\""
 		for i := 0; i < len(exprs); i++ {
-			format += " %v"
+			format += " %s"
 		}
 		format += "\\n\""
 		stmts = append(stmts, &goast.ExprStmt{

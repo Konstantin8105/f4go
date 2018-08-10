@@ -43,6 +43,9 @@ C -----------------------------------------------------
             call testName("test_types")
             call test_types()
 
+            call testName("test_concat")
+            call test_concat()
+
             ! call testName("test_complex")
             ! call test_complex()
 
@@ -419,4 +422,18 @@ C -----------------------------------------------------
         end subroutine
 
 C -----------------------------------------------------
+
+        subroutine test_concat
+            CHARACTER*1 a,b
+            CHARACTER*2 c
+            a = 'a'
+            b = 'b'
+            c = a // b
+            write(*,*)a
+            write(*,*)b
+            write(*,*)c
+        end
+
+C -----------------------------------------------------
+
 

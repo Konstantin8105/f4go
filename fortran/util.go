@@ -162,7 +162,8 @@ func (p *parser) split(nodes *[]node, pos int) (
 			isByte := false
 			if v, ok := p.initVars[string(rightPart[rightSeparator].b)]; ok {
 				if v.baseType == "byte" && len(v.arrayType) == 0 {
-					if rightPart[rightSeparator+1].tok == token.LPAREN {
+					if rightSeparator+1 < len(rightPart) &&
+						rightPart[rightSeparator+1].tok == token.LPAREN {
 						rightSeparator++
 						counter := 0
 						for {
@@ -210,17 +211,19 @@ func (p *parser) split(nodes *[]node, pos int) (
 					// it is array
 					counter := 0
 					rightSeparator++
-					for {
-						if rightPart[rightSeparator].tok == token.LBRACK {
-							counter++
+					if rightSeparator+1 <= len(rightPart) {
+						for {
+							if rightPart[rightSeparator].tok == token.LBRACK {
+								counter++
+							}
+							if rightPart[rightSeparator].tok == token.RBRACK {
+								counter--
+							}
+							if counter == 0 {
+								break
+							}
+							rightSeparator++
 						}
-						if rightPart[rightSeparator].tok == token.RBRACK {
-							counter--
-						}
-						if counter == 0 {
-							break
-						}
-						rightSeparator++
 					}
 				}
 			}
@@ -251,6 +254,10 @@ func (p *parser) split(nodes *[]node, pos int) (
 	}
 
 	rightSeparator++
+	if rightSeparator >= len(rightPart) {
+		return leftPart[:leftSeparator], leftPart[leftSeparator:],
+			rightPart[:], []node{}
+	}
 
 	return leftPart[:leftSeparator], leftPart[leftSeparator:],
 		rightPart[:rightSeparator], rightPart[rightSeparator:]
