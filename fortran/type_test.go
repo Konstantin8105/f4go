@@ -38,7 +38,8 @@ func TestParseType(t *testing.T) {
 				{tok: token.INT, b: []byte("32")},
 			},
 			typ: goType{
-				baseType: "string",
+				baseType:  "byte",
+				arrayType: []int{-1},
 			},
 		},
 		{
@@ -110,8 +111,8 @@ func TestParseType(t *testing.T) {
 				{tok: token.RPAREN, b: []byte(")")},
 			},
 			typ: goType{
-				baseType:  "string",
-				arrayType: []int{32},
+				baseType:  "byte",
+				arrayType: []int{-1, 32},
 			},
 		},
 	}
