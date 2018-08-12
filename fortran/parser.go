@@ -1416,6 +1416,8 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 // Example:
 //  WRITE ( * , FMT = 9999 ) SRNAME ( 1 : LEN_TRIM ( SRNAME ) ) , INFO
 //  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' , 'an illegal value' )
+//
+// write (*, '(I1,A2,I1)') i,'YY',i
 func (p *parser) parseWrite() (stmts []goast.Stmt) {
 
 	defer func() {
@@ -1430,6 +1432,7 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 	p.ident++
 	if !(p.ns[p.ident].tok == token.MUL ||
 		(p.ns[p.ident].tok == token.INT && string(p.ns[p.ident].b) == "6")) {
+		// allowable letters: `*` or `6`
 		panic("Not expected WRITE: " + string(p.ns[p.ident].b))
 	}
 	p.ident++
@@ -1485,6 +1488,31 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 				},
 				Lparen: 1,
 				Args:   append([]goast.Expr{goast.NewIdent(format)}, exprs...),
+			},
+		})
+	} else if p.ns[p.ident].tok == token.STRING {
+		// write (*, '(I1,A2,I1)') i,'YY',i
+		format := p.ns[p.ident].b
+		toks := scan(format[2 : len(format)-2])
+		fs := p.parseFormat(toks)
+		p.ident++
+		p.addImport("fmt")
+		p.expect(token.RPAREN)
+		p.ident++
+		// separate to expression by comma
+		exprs := p.scanWriteExprs()
+		p.expect(ftNewLine)
+		var args []goast.Expr
+		args = append(args, goast.NewIdent(fs))
+		args = append(args, exprs...)
+		stmts = append(stmts, &goast.ExprStmt{
+			X: &goast.CallExpr{
+				Fun: &goast.SelectorExpr{
+					X:   goast.NewIdent("fmt"),
+					Sel: goast.NewIdent("Printf"),
+				},
+				Lparen: 1,
+				Args:   args,
 			},
 		})
 	} else {
