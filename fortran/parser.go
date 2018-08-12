@@ -1426,7 +1426,10 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 	p.ident++
 	p.expect(token.LPAREN)
 	p.ident++
-	p.expect(token.MUL)
+	if !(p.ns[p.ident].tok == token.MUL ||
+		(p.ns[p.ident].tok == token.INT && string(p.ns[p.ident].b) == "6")) {
+		panic("Not expected WRITE: " + string(p.ns[p.ident].b))
+	}
 	p.ident++
 	p.expect(token.COMMA)
 	p.ident++
