@@ -276,10 +276,10 @@ C -----------------------------------------------------
             m = m + 1
             write(*, FMT = 251) t
             if ( m .GE. 5) THEN
-                goto 250
+                go to 250
             end if
             write(*, FMT = 252) m
-            goto (230,240) m
+            goto (230,240), m
   250       return
   251 FORMAT ('goto check t = ', I2)
   252 FORMAT ('goto check m = ', I2)
