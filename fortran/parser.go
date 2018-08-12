@@ -977,6 +977,14 @@ func (p *parser) parseExternal() {
 }
 
 func (p *parser) parseStmt() (stmts []goast.Stmt) {
+
+	defer func() {
+		if r := recover(); r != nil {
+			p.addError(fmt.Sprintf("Recover: %v", r))
+			p.gotoEndLine()
+		}
+	}()
+
 	switch p.ns[p.ident].tok {
 	case ftInteger, ftCharacter, ftComplex, ftLogical, ftReal, ftDouble:
 		stmts = append(stmts, p.parseInit()...)
