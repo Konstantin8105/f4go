@@ -1376,13 +1376,19 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 			break
 		}
 	}
+	p.expect(token.RPAREN)
+	p.ident++
+
+	// ignore COMMA
+	if p.ns[p.ident].tok == token.COMMA {
+		p.ident++
+	}
 
 	if len(labelNames) == 0 {
 		panic("Not acceptable amount of labels in GOTO")
 	}
 
 	// get expr
-	p.ident++
 	st := p.ident
 	for ; p.ident < len(p.ns) && p.ns[p.ident].tok != ftNewLine; p.ident++ {
 	}
