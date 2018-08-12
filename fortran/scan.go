@@ -594,6 +594,7 @@ func (s *scanner) scanTokens() {
 		{tok: ftStop, pattern: []string{"STOP"}},
 		{tok: token.GOTO, pattern: []string{"GOTO"}},
 		{tok: ftElseif, pattern: []string{"ELSEIF"}},
+		{tok: ftSave, pattern: []string{"SAVE"}},
 	}
 	for _, ent := range entities {
 		for _, pat := range ent.pattern {

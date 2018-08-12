@@ -24,7 +24,7 @@ type parser struct {
 	pkgs        map[string]bool // import packages
 	endLabelDo  map[string]int  // label of DO
 	allLabels   map[string]bool // list of all labels
-	foundLables map[string]bool // list labels found in source
+	foundLabels map[string]bool // list labels found in source
 
 	errs []error
 }
@@ -37,7 +37,7 @@ func (p *parser) init() {
 	p.functionExternalName = make([]string, 0)
 	p.endLabelDo = map[string]int{}
 	p.allLabels = map[string]bool{}
-	p.foundLables = map[string]bool{}
+	p.foundLabels = map[string]bool{}
 	p.initVars = map[string]goType{}
 }
 
@@ -70,12 +70,6 @@ func Parse(b []byte, packageName string) (goast.File, []error) {
 	if p.pkgs == nil {
 		p.pkgs = map[string]bool{}
 	}
-	if p.allLabels == nil {
-		p.allLabels = map[string]bool{}
-	}
-	if p.foundLables == nil {
-		p.foundLables = map[string]bool{}
-	}
 
 	p.ns = scan(b)
 
@@ -106,16 +100,6 @@ func Parse(b []byte, packageName string) (goast.File, []error) {
 	// TODO : add INTRINSIC fortran functions
 
 	p.ast.Decls = append(p.ast.Decls, decls...)
-
-	// remove unused labels
-	removedLabels := map[string]bool{}
-	for k := range p.allLabels {
-		if _, ok := p.foundLables[k]; !ok {
-			removedLabels[k] = true
-		}
-	}
-	c := commentLabel{labels: removedLabels}
-	goast.Walk(c, &p.ast)
 
 	strC := strChanger{}
 	goast.Walk(strC, &p.ast)
@@ -275,7 +259,8 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 }
 
 func (p *parser) gotoEndLine() {
-	_ = p.getLine()
+	for ; p.ident < len(p.ns) && p.ns[p.ident].tok != ftNewLine; p.ident++ {
+	}
 }
 
 func (p *parser) getLine() (line string) {
@@ -634,6 +619,16 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 
 	// init vars
 	fd.Body.List = append(p.initializeVars(), fd.Body.List...)
+
+	// remove unused labels
+	removedLabels := map[string]bool{}
+	for k := range p.allLabels {
+		if _, ok := p.foundLabels[k]; !ok {
+			removedLabels[k] = true
+		}
+	}
+	cl := commentLabel{labels: removedLabels}
+	goast.Walk(cl, fd.Body)
 
 	decl = &fd
 	return
@@ -996,6 +991,11 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		p.ident++
 		p.expect(ftNewLine)
 
+	case ftSave:
+		p.expect(ftSave)
+		p.addError("Save is not support : " + p.getLine())
+		p.gotoEndLine()
+
 	case ftExternal:
 		p.parseExternal()
 
@@ -1334,7 +1334,7 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 	p.ident++
 	if p.ns[p.ident].tok != token.LPAREN {
 		//  GO TO 30
-		p.foundLables["Label"+string(p.ns[p.ident].b)] = true
+		p.foundLabels["Label"+string(p.ns[p.ident].b)] = true
 		stmts = append(stmts, &goast.BranchStmt{
 			Tok:   token.GOTO,
 			Label: goast.NewIdent("Label" + string(p.ns[p.ident].b)),
@@ -1372,7 +1372,7 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 			// do nothing
 		default:
 			labelNames = append(labelNames, string(p.ns[p.ident].b))
-			p.foundLables["Label"+string(p.ns[p.ident].b)] = true
+			p.foundLabels["Label"+string(p.ns[p.ident].b)] = true
 		}
 		if out {
 			break

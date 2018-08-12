@@ -39,6 +39,7 @@ const (
 	ftDollar
 
 	ftStringConcat
+	ftSave
 
 	// undefine tokens
 	ftUndefine
@@ -84,6 +85,7 @@ var o = [...]string{
 	ftStop:      "STOP",
 
 	ftStringConcat: "STRING_CONCAT",
+	ftSave:         "SAVE",
 
 	ftDollar: "$",
 
