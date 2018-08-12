@@ -21,7 +21,7 @@ type parser struct {
 
 	comments []string
 
-	pkgs        map[string]bool // import packeges
+	pkgs        map[string]bool // import packages
 	endLabelDo  map[string]int  // label of DO
 	allLabels   map[string]bool // list of all labels
 	foundLables map[string]bool // list labels found in source
@@ -36,6 +36,8 @@ func (p *parser) addImport(pkg string) {
 func (p *parser) init() {
 	p.functionExternalName = make([]string, 0)
 	p.endLabelDo = map[string]int{}
+	p.allLabels = map[string]bool{}
+	p.foundLables = map[string]bool{}
 	p.initVars = map[string]goType{}
 }
 
@@ -1316,7 +1318,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 				}
 			}
 		} else {
-			p.addError("Cannot found Data : " + v.String())
+			p.addError("Cannot found Data : " + string(n.b))
 		}
 	}
 
