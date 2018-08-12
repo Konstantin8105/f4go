@@ -299,7 +299,7 @@ C -----------------------------------------------------
             if ( l .NEQV. .TRUE.) THEN 
                 call fail("test function in logical")
             end if
-            write(*,fmt = 271) ai,bi
+            write(6,fmt = 271) ai,bi
             return
   270 FORMAT('test function integer = ', I9, ' array = ' , A3)
   271 FORMAT('test function integer = ', I9, ' array = ' , A3)
