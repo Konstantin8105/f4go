@@ -598,6 +598,7 @@ func (s *scanner) scanTokens() {
 		{tok: ftOpen, pattern: []string{"OPEN"}},
 		{tok: ftRead, pattern: []string{"READ"}},
 		{tok: ftAssign, pattern: []string{"ASSIGN"}},
+		{tok: ftDefine, pattern: []string{"#DEFINE"}},
 	}
 	for _, ent := range entities {
 		for _, pat := range ent.pattern {

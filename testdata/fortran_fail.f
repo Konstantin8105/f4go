@@ -93,6 +93,10 @@ C -----------------------------------------------------
 
 C -----------------------------------------------------
 
+#define _Y_ VECS(1,6)
+#define _D_ VECS(1,7)
+
+
         subroutine test_pow()
             ! initialization
             REAL r,p
@@ -103,6 +107,9 @@ C calculation
             H(1) = H(1) ** H(1)
             r = -9.Q+4
             p = 1.45
+
+            #define _Y_ VECS(1,6)
+
             r = r / 5
             r = r + 1.4**2.1
             r = -(r + p**p)

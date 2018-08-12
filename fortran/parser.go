@@ -198,6 +198,11 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 
 		var next bool
 		switch p.ns[p.ident].tok {
+		case ftDefine:
+			p.addError("Cannot parse #DEFINE: " + p.getLine())
+			p.gotoEndLine()
+			continue
+
 		case ftNewLine:
 			next = true // TODO
 		case token.COMMENT:
@@ -1003,6 +1008,10 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	case ftAssign:
 		p.addError("ASSIGN is not support :" + p.getLine())
+		p.gotoEndLine()
+
+	case ftDefine:
+		p.addError("#DEFINE is not support :" + p.getLine())
 		p.gotoEndLine()
 
 	case ftSave:

@@ -94,7 +94,8 @@ func getFortranTestFiles(dir string) (files []string, err error) {
 			continue
 		}
 		if !strings.HasSuffix(ent.Name(), ".f") &&
-			!strings.HasSuffix(ent.Name(), ".f90") {
+			!strings.HasSuffix(ent.Name(), ".f90") &&
+			!strings.HasSuffix(ent.Name(), ".src") {
 			continue
 		}
 		// ignore fail files
