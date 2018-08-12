@@ -806,14 +806,16 @@ numb:
 func (s *scanner) scanGoto() {
 G:
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		if !(e.Value.(*node).tok == token.IDENT && string(e.Value.(*node).b) == "GO") {
+		if !(e.Value.(*node).tok == token.IDENT &&
+			strings.ToUpper(string(e.Value.(*node).b)) == "GO") {
 			continue
 		}
 		n := e.Next()
 		if n == nil {
 			continue
 		}
-		if !(n.Value.(*node).tok == token.IDENT && string(n.Value.(*node).b) == "TO") {
+		if !(n.Value.(*node).tok == token.IDENT &&
+			strings.ToUpper(string(n.Value.(*node).b)) == "TO") {
 			continue
 		}
 		e.Value.(*node).tok = token.GOTO
