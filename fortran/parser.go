@@ -975,9 +975,11 @@ func (p *parser) parseExternal() {
 
 func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
+	pos := p.ns[p.ident].pos
+
 	defer func() {
 		if r := recover(); r != nil {
-			p.addError(fmt.Sprintf("Recover: %v", r))
+			p.addError(fmt.Sprintf("Recover parseStmt pos{%v}: %v", pos, r))
 			p.gotoEndLine()
 		}
 	}()
@@ -990,6 +992,14 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		stmts = append(stmts, &goast.ReturnStmt{})
 		p.ident++
 		p.expect(ftNewLine)
+
+	case ftOpen:
+		p.addError("OPEN is not support :" + p.getLine())
+		p.gotoEndLine()
+
+	case ftRead:
+		p.addError("READ is not support :" + p.getLine())
+		p.gotoEndLine()
 
 	case ftSave:
 		p.expect(ftSave)
@@ -1422,7 +1432,8 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 
 	defer func() {
 		if r := recover(); r != nil {
-			p.addError(fmt.Sprintf("%#v", r))
+			p.addError(fmt.Sprintf(
+				"Cannot parseWrite : %#v", r))
 		}
 	}()
 
@@ -1580,6 +1591,10 @@ func (p *parser) getLineByLabel(label []byte) (fs []node) {
 }
 
 func (p *parser) parseFormat(fs []node) (s string) {
+	if len(fs) == 0 {
+		s = "\"\\n\""
+		return
+	}
 	for i := 0; i < len(fs); i++ {
 		f := fs[i]
 		switch f.tok {

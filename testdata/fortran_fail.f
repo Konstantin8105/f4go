@@ -106,6 +106,8 @@ C calculation
             real_1 = r/5
             write (*, FMT = 125) r, real_1, H(1)
             write (*, '(RERWERWERWe,ewrerwe3)') r, real_1, H(1)
+            OPEN (10,FILE=FNAME,STATUS='old',ERR=100)
+            READ (10,'(A80)',END=110,ERR=110) TITLE
             return
   125 Format ('POW: ', F15.2 ,' , ', F14.2, ' , ' ,  F14.2)
         end

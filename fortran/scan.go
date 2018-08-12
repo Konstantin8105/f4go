@@ -595,6 +595,8 @@ func (s *scanner) scanTokens() {
 		{tok: token.GOTO, pattern: []string{"GOTO"}},
 		{tok: ftElseif, pattern: []string{"ELSEIF"}},
 		{tok: ftSave, pattern: []string{"SAVE"}},
+		{tok: ftOpen, pattern: []string{"OPEN"}},
+		{tok: ftRead, pattern: []string{"READ"}},
 	}
 	for _, ent := range entities {
 		for _, pat := range ent.pattern {
@@ -690,41 +692,44 @@ func (s *scanner) scanEmpty() {
 empty:
 	var again bool
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*node).tok {
-		case ftUndefine:
-			if len(e.Value.(*node).b) == 0 {
-				n := e.Next()
-				s.nodes.Remove(e)
-				e = n
-				again = true
-				continue
+		if e.Value.(*node).tok != ftUndefine {
+			continue
+		}
+		if len(e.Value.(*node).b) == 0 {
+			n := e.Next()
+			s.nodes.Remove(e)
+			e = n
+			again = true
+			if n == nil {
+				goto empty
 			}
-			if len(bytes.TrimSpace([]byte(string(e.Value.(*node).b)))) == 0 {
-				n := e.Next()
-				s.nodes.Remove(e)
-				e = n
-				again = true
-				continue
-			}
-			es := e.Value.(*node).Split()
-			if len(es) == 1 && bytes.Equal(e.Value.(*node).b, es[0].b) {
-				continue
-			}
-			for i := len(es) - 1; i >= 1; i-- {
-				s.nodes.InsertAfter(&es[i], e)
-			}
-			if len(es) == 0 {
-				n := e.Next()
-				s.nodes.Remove(e)
-				e = n
-				again = true
-				continue
-			}
-			e.Value.(*node).b = es[0].b
-			e.Value.(*node).pos = es[0].pos
+			continue
+		}
+		if len(bytes.TrimSpace([]byte(string(e.Value.(*node).b)))) == 0 {
+			n := e.Next()
+			s.nodes.Remove(e)
+			e = n
 			again = true
 			continue
 		}
+		es := e.Value.(*node).Split()
+		if len(es) == 1 && bytes.Equal(e.Value.(*node).b, es[0].b) {
+			continue
+		}
+		for i := len(es) - 1; i >= 1; i-- {
+			s.nodes.InsertAfter(&es[i], e)
+		}
+		if len(es) == 0 {
+			n := e.Next()
+			s.nodes.Remove(e)
+			e = n
+			again = true
+			continue
+		}
+		e.Value.(*node).b = es[0].b
+		e.Value.(*node).pos = es[0].pos
+		again = true
+		continue
 	}
 	if again {
 		goto empty

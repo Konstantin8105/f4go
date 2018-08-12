@@ -84,6 +84,7 @@ C -----------------------------------------------------
             i = i *2
             write (*, FMT = 120) i
             write (*, '(I1,A2,I1)') i,'YY',i
+            write (*, '()')
             return
   120 Format (' output ', I1 , ' integer')
         end

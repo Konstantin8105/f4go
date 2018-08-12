@@ -40,6 +40,8 @@ const (
 
 	ftStringConcat
 	ftSave
+	ftOpen
+	ftRead
 
 	// undefine tokens
 	ftUndefine
@@ -86,6 +88,8 @@ var o = [...]string{
 
 	ftStringConcat: "STRING_CONCAT",
 	ftSave:         "SAVE",
+	ftOpen:         "OPEN",
+	ftRead:         "READ",
 
 	ftDollar: "$",
 
