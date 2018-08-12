@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"os/exec"
 	"strings"
 	"testing"
@@ -57,7 +58,26 @@ func TestIntegration(t *testing.T) {
 	}
 }
 
+func TestFail(t *testing.T) {
+	// wrong source
+	errs := parse("./testdata/fortran_fail.f", "")
+	if len(errs) == 0 {
+		t.Error("Error is empty")
+	}
+	// wrong input data
+	errs = parse("./testdata/sdfelmsdsdfsdfsdf.f", "")
+	if len(errs) == 0 {
+		t.Error("Error is empty")
+	}
+}
+
 func getFortranTestFiles(dir string) (files []string, err error) {
+	isFull := os.Getenv("FULL") == ""
+
+	if isFull && strings.Contains(dir, "other") {
+		return
+	}
+
 	ents, err := ioutil.ReadDir(dir)
 	if err != nil {
 		return
@@ -77,6 +97,11 @@ func getFortranTestFiles(dir string) (files []string, err error) {
 			!strings.HasSuffix(ent.Name(), ".f90") {
 			continue
 		}
+		// ignore fail files
+		if strings.Contains(ent.Name(), "_fail") {
+			continue
+		}
+
 		files = append(files, dir+"/"+ent.Name())
 	}
 
@@ -99,6 +124,28 @@ func TestData(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestParallel(t *testing.T) {
+	files, err := getFortranTestFiles("./testdata")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	es := parseParallel(files[:len(files)/2], "")
+	if len(es) > 0 {
+		t.Errorf("Error is not empty: %v", es)
+	}
+}
+
+func TestRun(t *testing.T) {
+	files, err := getFortranTestFiles("./testdata")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	os.Args = append([]string{}, files[:len(files)/3]...)
+	run()
 }
 
 func BenchmarkCgemm(b *testing.B) {

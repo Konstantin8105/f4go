@@ -14,16 +14,18 @@ import (
 )
 
 func main() {
-	packageFlag := flag.String(
-		"p", "main", "set the name of the generated package")
+	run()
+}
+
+func run() {
+	packageFlag := flag.String("p",
+		"main", "set the name of the generated package")
 
 	flag.Parse()
 
 	if flag.NFlag() == 0 {
 		flag.PrintDefaults()
 	}
-
-	fmt.Println("Input file:", *packageFlag, flag.Args())
 
 	es := parseParallel(flag.Args(), *packageFlag)
 	for _, e := range es {
@@ -66,12 +68,7 @@ func parse(filename, packageName string) []errorRow {
 	// convert ast tree to string
 	var buf bytes.Buffer
 	if err = format.Node(&buf, token.NewFileSet(), &ast); err != nil {
-		return []errorRow{
-			{
-				err:      fmt.Errorf("Error go/format : %v", err),
-				filename: filename,
-			},
-		}
+		return []errorRow{{err: fmt.Errorf("Error go/format : %v", err), filename: filename}}
 	}
 
 	// generate filename of result
@@ -83,12 +80,7 @@ func parse(filename, packageName string) []errorRow {
 
 	// save go source
 	if err = ioutil.WriteFile(goFilename, buf.Bytes(), 0644); err != nil {
-		return []errorRow{
-			{
-				err:      fmt.Errorf("Cannot write Go source: %v", err),
-				filename: filename,
-			},
-		}
+		return []errorRow{{err: fmt.Errorf("Cannot write Go source: %v", err), filename: filename}}
 	}
 
 	return nil

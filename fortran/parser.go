@@ -1401,6 +1401,13 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 //  WRITE ( * , FMT = 9999 ) SRNAME ( 1 : LEN_TRIM ( SRNAME ) ) , INFO
 //  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' , 'an illegal value' )
 func (p *parser) parseWrite() (stmts []goast.Stmt) {
+
+	defer func() {
+		if r := recover(); r != nil {
+			p.addError(fmt.Sprintf("%#v", r))
+		}
+	}()
+
 	p.expect(ftWrite)
 	p.ident++
 	p.expect(token.LPAREN)
