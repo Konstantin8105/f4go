@@ -82,6 +82,8 @@ C -----------------------------------------------------
             i = i + 12
             i = i - 20
             i = i *2
+            ASSIGN 120 TO i
+            ASSIGN 120 rw TO i
             write (*, FMT = 120) i
             return
   120 Format (' output ', I1 , ' integer')
