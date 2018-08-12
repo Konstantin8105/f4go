@@ -1066,6 +1066,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		// Examples:
 		//  GO TO 30
 		//  GO TO ( 40, 80 )IEXC
+		// TODO: go to next,(30, 50, 70, 90, 110)
 		sGoto := p.parseGoto()
 		stmts = append(stmts, sGoto...)
 		p.expect(ftNewLine)
@@ -1342,6 +1343,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 // Examples:
 //  GO TO 30
 //  GO TO ( 40, 80 )IEXC
+//  GO TO next,(30, 50, 70, 90, 110)
 func (p *parser) parseGoto() (stmts []goast.Stmt) {
 	p.expect(token.GOTO)
 
@@ -1356,21 +1358,8 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 		p.ident++
 		return
 	}
-	// From:
 	//  GO TO ( 40, 80, 100 )IEXC
-	// To:
-	// if IEXC == 2 {
-	// 	goto Label80
-	// } else if IEXC == 3 {
-	// 	goto Label100
-	// } else {
-	// 	goto Label40
-	// }
-	//
-	// From:
 	//  GO TO ( 40 )IEXC
-	// To:
-	//  goto Label40
 
 	// parse labels
 	p.expect(token.LPAREN)

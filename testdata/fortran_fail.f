@@ -84,6 +84,8 @@ C -----------------------------------------------------
             i = i *2
             ASSIGN 120 TO i
             ASSIGN 120 rw TO i
+		  go to next,(30, 50, 70, 90, 110)
+		  go to next,(30,ffff 50, 70, 90, 110)
             write (*, FMT = 120) i
             return
   120 Format (' output ', I1 , ' integer')
