@@ -60,7 +60,8 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 	ast, err := goparser.ParseExpr(str)
 	if err != nil {
 		p.addError("Cannot parse Expression : " +
-			fmt.Sprintf("`%s`\t`%s`\t`%s`", nodesToString(base), str, err))
+			fmt.Sprintf("pos: {%v} `%s`\t`%s`\t`%s`",
+				base[0].pos, nodesToString(base), str, err))
 		return goast.NewIdent(str)
 	}
 
