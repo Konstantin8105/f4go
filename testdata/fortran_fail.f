@@ -116,13 +116,13 @@ C -----------------------------------------------------
             a = 5
             b = 6
             SAVE a
-            write (*, FMT = 131) a
+            write (*, FMT = 131FAIL) a
             write (*, FMT = 132) b
             CALL ab(a,b)
             write (*, FAIL = 133) a
             write (*, FMT = 134) b
             return
-  131 Format (' outpu1 ', F12.5 , ' real ')
+  131FAIL Format (' outpu1 ', F12.5 , ' real ')
   132 Format (' outpu2 ', F12.5 , ' real ')
   133 Format (' outpu3 ', F12.5 , ' real ')
   134 Format (' outpu4 ', F12.5 , ' real ')
@@ -273,7 +273,7 @@ C -----------------------------------------------------
             integer t,m
             t = 0
             m = 0
-  230       t = t + 1
+  230FAIL       t = t + 1
   240       t = t + 5
             m = m + 1
             write(*, FMT = 251) t
@@ -281,7 +281,7 @@ C -----------------------------------------------------
                 goto 250
             end if
             write(*, FMT = 252) m
-            goto (230,240) m
+            goto (230FAIL,240) m
   250       return
   251 FORMAT ('goto check t = ', I2)
   252 FORMAT ('goto check m = ', I2)
