@@ -1427,6 +1427,7 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 		if r := recover(); r != nil {
 			p.addError(fmt.Sprintf(
 				"Cannot parseWrite : %#v", r))
+			p.gotoEndLine()
 		}
 	}()
 
@@ -1520,7 +1521,7 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 			},
 		})
 	} else {
-		panic(fmt.Errorf("Not support in WRITE : %v", string(p.ns[p.ident].b)))
+		panic(fmt.Errorf("Not support in WRITE : %v", p.getLine()))
 	}
 
 	return
