@@ -429,7 +429,7 @@ C -----------------------------------------------------
             if ( 45.0 .LE. R8 .AND. R8 .LE. 45.2) THEN
                 write(*,*)'R8 ... ok'
             end if
-            if ( 45.0 .LE. DP .AND. DP .LE. 45.2) THEN
+            if ( 45.0 .LE. DP .AND. (/DP .LE. 45.2 /)) THEN
                 write(*,*)'DP ... ok'
             end if
             if ( I1 .Eq. 12) write(*,*)'I1 ... ok'
