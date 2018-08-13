@@ -342,13 +342,20 @@ func (p *parser) getLine() (line string) {
 
 // go/ast Visitor for parse FUNCTION
 type vis struct {
-	from, to string
+	// map [from] to
+	c map[string]string
+}
+
+func initVis() *vis {
+	var v vis
+	v.c = map[string]string{}
+	return &v
 }
 
 func (v vis) Visit(node goast.Node) (w goast.Visitor) {
 	if ident, ok := node.(*goast.Ident); ok {
-		if ident.Name == v.from {
-			ident.Name = "(" + v.to + ")"
+		if to, ok := v.c[ident.Name]; ok {
+			ident.Name = "(" + to + ")"
 		}
 	}
 	return v
@@ -608,10 +615,8 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	defer func() {
 		// change function name variable to returnName
 		if len(returnType) > 0 {
-			v := vis{
-				from: name,
-				to:   returnName,
-			}
+			v := initVis()
+			v.c[name] = returnName
 			goast.Walk(v, fd.Body)
 		}
 	}()
@@ -648,16 +653,11 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	//  a
 	// To:
 	//  *a
+	v := initVis()
 	for _, arg := range arguments {
-		// if _, ok := arrayArguments[arg]; ok {
-		// 	continue
-		// }
-		v := vis{
-			from: arg,
-			to:   "*" + arg,
-		}
-		goast.Walk(v, fd.Body)
+		v.c[arg] = "*" + arg
 	}
+	goast.Walk(v, fd.Body)
 
 	// changes arguments in func
 	for i := range fd.Type.Params.List {
