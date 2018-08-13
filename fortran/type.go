@@ -13,6 +13,7 @@ func (g goType) isArray() bool {
 type goType struct {
 	baseType  string
 	arrayType []int
+	arrayNode [][]node
 }
 
 func (g goType) String() (s string) {
@@ -96,6 +97,7 @@ func parseType(nodes []node) (typ goType) {
 			// typ.baseType = "string"
 			// typ.baseType = "[]byte"
 			typ.arrayType = append(typ.arrayType, -1)
+			typ.arrayNode = append(typ.arrayNode, []node{node{tok: token.IDENT, b: []byte(" ")}})
 			nodes = nodes[2:]
 		} else if len(nodes) > 0 && nodes[0].tok == token.MUL {
 			nodes = nodes[1:]
@@ -205,6 +207,7 @@ func parseType(nodes []node) (typ goType) {
 	args, end := separateArgsParen(nodes)
 
 	for _, a := range args {
+		typ.arrayNode = append(typ.arrayNode, a)
 		if len(a) == 1 {
 			switch a[0].tok {
 			case token.INT:

@@ -160,8 +160,8 @@ func (p *parser) split(nodes *[]node, pos int) (
 		case token.IDENT: // find IDENT, so it can be func or not
 			// byte (...)
 			isByte := false
-			if v, ok := p.initVars[string(rightPart[rightSeparator].b)]; ok {
-				if v.baseType == "byte" && len(v.arrayType) == 0 {
+			if v, ok := p.initVars.get(string(rightPart[rightSeparator].b)); ok {
+				if v.typ.baseType == "byte" && len(v.typ.arrayType) == 0 {
 					if rightSeparator+1 < len(rightPart) &&
 						rightPart[rightSeparator+1].tok == token.LPAREN {
 						rightSeparator++
@@ -204,8 +204,8 @@ func (p *parser) split(nodes *[]node, pos int) (
 				}
 			} else {
 				isArray := false
-				if v, ok := p.initVars[string(rightPart[rightSeparator].b)]; ok {
-					isArray = v.isArray()
+				if v, ok := p.initVars.get(string(rightPart[rightSeparator].b)); ok {
+					isArray = v.typ.isArray()
 				}
 				if isArray {
 					// it is array

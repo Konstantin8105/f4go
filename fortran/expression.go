@@ -69,13 +69,13 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 }
 
 func (p *parser) isVariable(name string) bool {
-	_, ok := p.initVars[name]
+	_, ok := p.initVars.get(name)
 	return ok
 }
 
 func (p *parser) isArrayVariable(name string) bool {
-	for n, goT := range p.initVars {
-		if n == name && (goT.isArray() || goT.baseType == "string") {
+	if v, ok := p.initVars.get(name); ok {
+		if v.typ.isArray() || v.typ.baseType == "string" {
 			return true
 		}
 	}
@@ -387,8 +387,8 @@ func (p *parser) fixConcatString(nodes *[]node) {
 			{tok: token.LPAREN, b: []byte("(")},
 		}...)
 		if leftVariable[0].tok == token.IDENT {
-			if v, ok := p.initVars[string(leftVariable[0].b)]; ok {
-				if v.baseType == "byte" && len(v.arrayType) == 0 {
+			if v, ok := p.initVars.get(string(leftVariable[0].b)); ok {
+				if v.typ.baseType == "byte" && len(v.typ.arrayType) == 0 {
 					leftVariable = leftVariable[:1]
 				}
 			}
@@ -396,8 +396,8 @@ func (p *parser) fixConcatString(nodes *[]node) {
 		comb = append(comb, leftVariable...)
 		comb = append(comb, node{tok: token.COMMA, b: []byte(",")})
 		if rightVariable[0].tok == token.IDENT {
-			if v, ok := p.initVars[string(rightVariable[0].b)]; ok {
-				if v.baseType == "byte" && len(v.arrayType) == 0 {
+			if v, ok := p.initVars.get(string(rightVariable[0].b)); ok {
+				if v.typ.baseType == "byte" && len(v.typ.arrayType) == 0 {
 					rightVariable = rightVariable[:1]
 				}
 			}

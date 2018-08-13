@@ -10,6 +10,39 @@ import (
 	"strings"
 )
 
+type varInitialization struct {
+	name string
+	typ  goType
+}
+
+type varInits []varInitialization
+
+func (v varInits) get(n string) (varInitialization, bool) {
+	for _, val := range []varInitialization(v) {
+		if val.name == n {
+			return val, true
+		}
+	}
+	return varInitialization{}, false
+}
+
+func (v *varInits) del(n string) {
+	vs := []varInitialization(*v)
+	for i, val := range vs {
+		if val.name == n {
+			vs = append(vs[:i], vs[i+1:]...)
+			*v = varInits(vs)
+			return
+		}
+	}
+}
+
+func (v *varInits) add(name string, typ goType) {
+	vs := []varInitialization(*v)
+	vs = append(vs, varInitialization{name: name, typ: typ})
+	*v = varInits(vs)
+}
+
 type parser struct {
 	ast   goast.File
 	ident int
@@ -17,7 +50,7 @@ type parser struct {
 
 	functionExternalName []string
 
-	initVars map[string]goType // map of name to type
+	initVars varInits // map of name to type
 
 	comments []string
 
@@ -25,6 +58,8 @@ type parser struct {
 	endLabelDo  map[string]int  // label of DO
 	allLabels   map[string]bool // list of all labels
 	foundLabels map[string]bool // list labels found in source
+
+	parameters map[string]string // constants
 
 	errs []error
 }
@@ -38,7 +73,8 @@ func (p *parser) init() {
 	p.endLabelDo = map[string]int{}
 	p.allLabels = map[string]bool{}
 	p.foundLabels = map[string]bool{}
-	p.initVars = map[string]goType{}
+	p.initVars = varInits{}
+	p.parameters = map[string]string{}
 }
 
 // list view - only for debugging
@@ -306,9 +342,7 @@ func (v vis) Visit(node goast.Node) (w goast.Visitor) {
 // delete external function type definition
 func (p *parser) removeExternalFunction() {
 	for _, f := range p.functionExternalName {
-		if _, ok := p.initVars[f]; ok {
-			delete(p.initVars, f)
-		}
+		p.initVars.del(f)
 	}
 }
 
@@ -317,12 +351,12 @@ func (p *parser) argumentCorrection(fd goast.FuncDecl) (removedVars []string) {
 checkArguments:
 	for i := range fd.Type.Params.List {
 		fieldName := fd.Type.Params.List[i].Names[0].Name
-		if v, ok := p.initVars[fieldName]; ok {
-			fd.Type.Params.List[i].Type = goast.NewIdent(v.String())
+		if v, ok := p.initVars.get(fieldName); ok {
+			fd.Type.Params.List[i].Type = goast.NewIdent(v.typ.String())
 
 			// Remove to arg
 			removedVars = append(removedVars, fieldName)
-			delete(p.initVars, fieldName)
+			p.initVars.del(fieldName)
 			goto checkArguments
 		}
 	}
@@ -331,7 +365,9 @@ checkArguments:
 
 // init vars
 func (p *parser) initializeVars() (vars []goast.Stmt) {
-	for name, goT := range p.initVars {
+	for i := range []varInitialization(p.initVars) {
+		name := ([]varInitialization(p.initVars)[i]).name
+		goT := ([]varInitialization(p.initVars)[i]).typ
 		switch len(goT.arrayType) {
 		case 0:
 			vars = append(vars, &goast.DeclStmt{
@@ -389,20 +425,20 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 			fset := token.NewFileSet() // positions are relative to fset
 			src := `package main
 func main() {
-	%s := make([][]%s, %d)
-	for u := 0; u < %d; u++ {
-		%s[u] = make([]%s, %d)
+	%s := make([][]%s, %s)
+	for u := 0; u < %s; u++ {
+		%s[u] = make([]%s, %s)
 	}
 }
 `
 			f, err := goparser.ParseFile(fset, "", fmt.Sprintf(src,
 				name,
 				goT.baseType,
-				goT.arrayType[0],
-				goT.arrayType[0],
+				nodesToString(goT.arrayNode[0]),
+				nodesToString(goT.arrayNode[0]),
 				name,
 				goT.baseType,
-				goT.arrayType[1],
+				nodesToString(goT.arrayNode[1]),
 			), 0)
 			if err != nil {
 				panic(err)
@@ -577,9 +613,9 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	arrayArguments := map[string]bool{}
 	for i := range fd.Type.Params.List {
 		fieldName := fd.Type.Params.List[i].Names[0].Name
-		for name, goT := range p.initVars {
-			if fieldName == name && goT.isArray() {
-				arrayArguments[name] = true
+		if v, ok := p.initVars.get(fieldName); ok {
+			if v.typ.isArray() {
+				arrayArguments[fieldName] = true
 			}
 		}
 	}
@@ -752,7 +788,7 @@ func (p *parser) parseInit() (stmts []goast.Stmt) {
 		}
 
 		// parse type = base type + addition type
-		p.initVars[name] = parseType(append(baseType, additionType...))
+		p.initVars.add(name, parseType(append(baseType, additionType...)))
 		if p.ns[p.ident].tok != token.COMMA {
 			p.ident--
 		}
@@ -997,6 +1033,10 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		stmts = append(stmts, &goast.ReturnStmt{})
 		p.ident++
 		p.expect(ftNewLine)
+
+	case ftParameter:
+		//  PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 )  , ZERO = 0.0E+0 )
+		p.parseParameter()
 
 	case ftOpen:
 		p.addError("OPEN is not support :" + p.getLine())
@@ -1263,71 +1303,76 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 	p.expect(ftData)
 	p.ident++
 
-	var (
-		names  []node
-		values []node
-	)
-	var isData bool
+	var names [][]node
+	counter := 0
+	// parse names
 	for ; p.ident < len(p.ns); p.ident++ {
-		if p.ns[p.ident].tok == ftNewLine {
+		if p.ns[p.ident].tok == token.QUO {
+			break
+		}
+		if p.ns[p.ident].tok == token.LPAREN {
+			counter++
+		}
+		if p.ns[p.ident].tok == token.RPAREN {
+			counter--
+		}
+		if p.ns[p.ident].tok == token.COMMA && counter == 0 {
+			names = append(names, []node{})
+			continue
+		}
+		if len(names) == 0 {
+			names = append(names, []node{})
+		}
+		names[len(names)-1] = append(names[len(names)-1], p.ns[p.ident])
+	}
+
+	// fmt.Println("-----")
+	// for _, n := range names {
+	// 	fmt.Println("NAMES: ", nodesToString(n))
+	// }
+
+	p.expect(token.QUO)
+	p.ident++
+
+	var values []node
+	// parse values
+	for ; p.ident < len(p.ns); p.ident++ {
+		if p.ns[p.ident].tok == token.QUO {
 			break
 		}
 		switch p.ns[p.ident].tok {
 		case token.COMMA:
 			// ignore
-		case token.QUO: // /
-			isData = !isData
 		default:
-			if isData {
-				values = append(values, p.ns[p.ident])
-				continue
-			}
-			names = append(names, p.ns[p.ident])
+			values = append(values, p.ns[p.ident])
 		}
 	}
 
-	for _, n := range names {
-		if v, ok := p.initVars[string(n.b)]; ok {
-			switch len(v.arrayType) {
-			case 0:
-				stmts = append(stmts, &goast.AssignStmt{
-					Lhs: []goast.Expr{goast.NewIdent(string(n.b))},
-					Tok: token.ASSIGN,
-					Rhs: []goast.Expr{goast.NewIdent(string(values[0].b))},
-				})
-				values = values[1:]
-			case 1: // vector
-				for i := 0; i < v.arrayType[0]; i++ {
+	// fmt.Println("++++")
+	// for _, v := range values {
+	// 	fmt.Println("VAL : ", v)
+	// }
+
+	p.gotoEndLine()
+
+	/*
+
+		for _, n := range names {
+			if v, ok := p.initVars[string(n.b)]; ok {
+				switch len(v.arrayType) {
+				case 0:
 					stmts = append(stmts, &goast.AssignStmt{
-						Lhs: []goast.Expr{
-							&goast.IndexExpr{
-								X:      goast.NewIdent(string(n.b)),
-								Lbrack: 1,
-								Index: &goast.BasicLit{
-									Kind:  token.INT,
-									Value: strconv.Itoa(i),
-								},
-							},
-						},
+						Lhs: []goast.Expr{goast.NewIdent(string(n.b))},
 						Tok: token.ASSIGN,
 						Rhs: []goast.Expr{goast.NewIdent(string(values[0].b))},
 					})
 					values = values[1:]
-				}
-			case 2: // matrix
-				for i := 0; i < v.arrayType[0]; i++ {
-					for j := 0; j < v.arrayType[1]; j++ {
+				case 1: // vector
+					for i := 0; i < v.arrayType[0]; i++ {
 						stmts = append(stmts, &goast.AssignStmt{
 							Lhs: []goast.Expr{
 								&goast.IndexExpr{
-									X: &goast.IndexExpr{
-										X:      goast.NewIdent(string(n.b)),
-										Lbrack: 1,
-										Index: &goast.BasicLit{
-											Kind:  token.INT,
-											Value: strconv.Itoa(j),
-										},
-									},
+									X:      goast.NewIdent(string(n.b)),
 									Lbrack: 1,
 									Index: &goast.BasicLit{
 										Kind:  token.INT,
@@ -1340,13 +1385,39 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 						})
 						values = values[1:]
 					}
+				case 2: // matrix
+					for i := 0; i < v.arrayType[0]; i++ {
+						for j := 0; j < v.arrayType[1]; j++ {
+							stmts = append(stmts, &goast.AssignStmt{
+								Lhs: []goast.Expr{
+									&goast.IndexExpr{
+										X: &goast.IndexExpr{
+											X:      goast.NewIdent(string(n.b)),
+											Lbrack: 1,
+											Index: &goast.BasicLit{
+												Kind:  token.INT,
+												Value: strconv.Itoa(j),
+											},
+										},
+										Lbrack: 1,
+										Index: &goast.BasicLit{
+											Kind:  token.INT,
+											Value: strconv.Itoa(i),
+										},
+									},
+								},
+								Tok: token.ASSIGN,
+								Rhs: []goast.Expr{goast.NewIdent(string(values[0].b))},
+							})
+							values = values[1:]
+						}
+					}
 				}
+			} else {
+				p.addError("Cannot found Data : " + string(n.b))
 			}
-		} else {
-			p.addError("Cannot found Data : " + string(n.b))
 		}
-	}
-
+	*/
 	return
 }
 
@@ -1637,4 +1708,52 @@ func (p *parser) parseFormat(fs []node) (s string) {
 		}
 	}
 	return "\"" + s + "\\n\""
+}
+
+//  PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 )  , ZERO = 0.0E+0 )
+//  PARAMETER ( LV = 2 )
+func (p *parser) parseParameter() {
+	p.expect(ftParameter)
+	p.ident++
+	p.expect(token.LPAREN)
+	// parse values
+	var names [][]node
+	counter := 1
+	p.ident++
+	for ; p.ident < len(p.ns); p.ident++ {
+		if p.ns[p.ident].tok == token.LPAREN {
+			counter++
+		}
+		if p.ns[p.ident].tok == token.RPAREN {
+			counter--
+		}
+		if p.ns[p.ident].tok == token.RPAREN && counter == 0 {
+			break
+		}
+		if p.ns[p.ident].tok == token.COMMA && counter == 0 {
+			names = append(names, []node{})
+			continue
+		}
+		if len(names) == 0 {
+			names = append(names, []node{})
+		}
+		names[len(names)-1] = append(names[len(names)-1], p.ns[p.ident])
+	}
+
+	// split to name and value
+	for _, val := range names {
+		for i := 0; i < len(val); i++ {
+			if val[i].tok == token.ASSIGN {
+				// add parameters in parser
+				name := nodesToString(val[:i])
+				p.parameters[name] = nodesToString(val[i+1:])
+				// remove from initialization var
+				p.initVars.del(name)
+			}
+		}
+	}
+
+	p.expect(token.RPAREN)
+	p.ident++
+	return
 }

@@ -479,62 +479,6 @@ multi:
 		}
 	}
 
-	// Simplification of PARAMETER:
-	// From:
-	//  PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 )  , ZERO = 0.0E+0 )
-	// To:
-	//  ONE = ( 1.0E+0 , 0.0E+0 )
-	//  ZERO = 0.0E+0
-	//
-	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		if e.Value.(*node).tok != ftNewLine {
-			continue
-		}
-		e = e.Next()
-		if e == nil {
-			break
-		}
-		if e.Value.(*node).tok != ftParameter {
-			continue
-		}
-		// replace PARAMETER to NEW_LINE
-		n := e.Next()
-		e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, ftNewLine
-		e = n
-		// replace ( to NEW_LINE
-		if e.Value.(*node).tok != token.LPAREN {
-			panic("is not LPAREN")
-		}
-		e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, ftNewLine
-		e = e.Next()
-		// find end )
-		counter := 1
-		for ; e != nil; e = e.Next() {
-			if e.Value.(*node).tok == ftNewLine {
-				// panic(fmt.Errorf("NEW_LINE is not accepted"))
-				break
-			}
-			if e.Value.(*node).tok == token.LPAREN {
-				counter++
-			}
-			if e.Value.(*node).tok == token.RPAREN {
-				counter--
-			}
-			if counter == 1 && e.Value.(*node).tok == token.COMMA {
-				// replace , to NEW_LINE
-				e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, ftNewLine
-			}
-			if counter == 0 {
-				if e.Value.(*node).tok != token.RPAREN {
-					panic("Must RPAREN")
-				}
-				// replace ) to NEW_LINE
-				e.Value.(*node).b, e.Value.(*node).tok = []byte{'\n'}, ftNewLine
-				break
-			}
-		}
-	}
-
 	// .TRUE. to true
 	// .FALSE. to false
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
