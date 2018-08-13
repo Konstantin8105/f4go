@@ -279,6 +279,7 @@ C -----------------------------------------------------
         end function
 
 C -----------------------------------------------------
+
         subroutine test_goto()
             integer t,m
             t = 0
@@ -338,6 +339,11 @@ C -----------------------------------------------------
             DATA    LOC12 / 3, 4, 1, 2 / , LOC21 / 2, 1, 4, 3 /
             DATA    IPIVOT / 1, 2, 3, 4 /
 
+            INTEGER     LV
+            PARAMETER ( LV = 2 )
+            INTEGER MM( LV, 4 ), J
+            DATA    ( MM( 1, J ), J = 1, 4 ) / 494, 322, 2508, 2549 /
+
             if ( r .NE. 25) then 
                 call fail("test_data 1")
             end if
@@ -358,6 +364,14 @@ C -----------------------------------------------------
             if (IPIVOT(2,1) .NE. 2) call fail("test_data matrix 2")
             if (IPIVOT(1,2) .NE. 3) call fail("test_data matrix 3")
             if (IPIVOT(2,2) .NE. 4) call fail("test_data matrix 4")
+
+            if (MM(1,1) .NE. 494 ) call fail("test_data MM 1 1")
+            if (MM(1,2) .NE. 322 ) call fail("test_data MM 1 2")
+            if (MM(1,3) .NE. 2508) call fail("test_data MM 1 3")
+            if (MM(1,4) .NE. 2549) call fail("test_data MM 1 4")
+
+            write(*,'(A2)') "ok"
+
         end subroutine
 
 C -----------------------------------------------------
