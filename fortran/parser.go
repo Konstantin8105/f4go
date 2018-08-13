@@ -1639,6 +1639,17 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 	p.expect(token.COMMA)
 	p.ident++
 
+	// From:
+	//  WRITE(6,10) A
+	// To:
+	//  WRITE(6,FMT=10) A
+	if p.ns[p.ident].tok == token.INT {
+		p.ns = append(p.ns[:p.ident], append([]node{
+			{tok: token.IDENT, b: []byte("FMT")},
+			{tok: token.ASSIGN, b: []byte("=")},
+		}, p.ns[p.ident:]...)...)
+	}
+
 	if p.ns[p.ident].tok == token.IDENT &&
 		bytes.Equal(bytes.ToUpper(p.ns[p.ident].b), []byte("FMT")) {
 

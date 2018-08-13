@@ -228,7 +228,7 @@ C -----------------------------------------------------
             integer iterator
             iterator = 1
             Do while (iterator .Le. 3)
-                write (*,FMT=180) iterator
+                write (*,180) iterator
                 iterator = iterator + 1
             end do
             return
