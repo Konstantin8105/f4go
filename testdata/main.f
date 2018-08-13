@@ -140,13 +140,20 @@ C -----------------------------------------------------
 
         subroutine test_if()
             integer i
+            logical l
+            l = .false.
             i = 5
-            IF ( i .EQ. 5) write(*,*) "Operation .EQ. is Ok"
-            IF ( i .GE. 5) write(*,*) "Operation .GE. is Ok"
-            IF ( i .LE. 5) write(*,*) "Operation .LE. is Ok"
-            IF ( i .GE. 4) write(*,*) "Operation .GE. is Ok"
-            IF ( i .LE. 3) write(*,*) "Operation .GE. is Ok"
-            IF ( i .NE. 3) write(*,*) "Operation .NE. is Ok"
+            IF ( i .EQ. 5) write(*,*) "Operation  .EQ.    is Ok"
+            IF ( i .GE. 5) write(*,*) "Operation  .GE.    is Ok"
+            IF ( i .LE. 5) write(*,*) "Operation  .LE.    is Ok"
+            IF ( i .GE. 4) write(*,*) "Operation  .GE.    is Ok"
+            IF ( i .LE. 3) write(*,*) "Operation  .GE.    is Ok"
+            IF ( i .NE. 3) write(*,*) "Operation  .NE.    is Ok"
+            IF ( .true.  ) write(*,*) "Operation  .TRUE.  is Ok"
+            IF (.NOT. l  ) write(*,*) "Operation .NOT. .false. is Ok"
+            IF (.NOT. l  ) write(*,*) "Operation .NOT. .FALSE. is Ok"
+            l = .TRUE.
+            IF ( l       ) write(*,*) "Operation  .TRUE.  is Ok"
 
             IF (i .GE. 100) THEN
                 STOP 
