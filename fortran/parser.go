@@ -73,6 +73,8 @@ type parser struct {
 
 	parameters map[string]string // constants
 
+	formats map[string][]node // source line with command FORMAT
+
 	errs []error
 }
 
@@ -87,6 +89,7 @@ func (p *parser) init() {
 	p.foundLabels = map[string]bool{}
 	p.initVars = varInits{}
 	p.parameters = map[string]string{}
+	p.formats = map[string][]node{}
 }
 
 // list view - only for debugging
@@ -1754,6 +1757,12 @@ func (p *parser) scanWriteExprs() (exprs []goast.Expr) {
 }
 
 func (p *parser) getLineByLabel(label []byte) (fs []node) {
+
+	// memorization of FORMAT lines
+	if v, ok := p.formats[string(label)]; ok {
+		return v
+	}
+
 	var found bool
 	var st int
 	for st = p.ident; st < len(p.ns); st++ {
@@ -1772,6 +1781,8 @@ func (p *parser) getLineByLabel(label []byte) (fs []node) {
 		// remove line
 		p.ns[i].tok, p.ns[i].b = ftNewLine, []byte("\n")
 	}
+
+	p.formats[string(label)] = fs
 
 	return
 }

@@ -120,16 +120,13 @@ C -----------------------------------------------------
             REAL a,b
             a = 5
             b = 6
-            write (*, FMT = 131) a
-            write (*, FMT = 132) b
+            write (*, FMT = 131) 1,a
+            write (*, FMT = 131) 2,b
             CALL ab(a,b)
-            write (*, FMT = 133) a
-            write (*, FMT = 134) b
+            write (*, FMT = 131) 3,a
+            write (*, FMT = 131) 4,b
             return
-  131 Format (' outpu1 ', F12.5 , ' real ')
-  132 Format (' outpu2 ', F12.5 , ' real ')
-  133 Format (' outpu3 ', F12.5 , ' real ')
-  134 Format (' outpu4 ', F12.5 , ' real ')
+  131 Format (' output ', I2, ' ', F12.5 , ' real ')
         end
 
         subroutine ab(a,b)
