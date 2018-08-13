@@ -61,9 +61,12 @@ func (p *parser) parseExprNodes(in []node) (expr goast.Expr) {
 	//use std package go/parser for change to parse expression
 	ast, err := goparser.ParseExpr(str)
 	if err != nil {
-		p.addError("Cannot parse Expression : " +
-			fmt.Sprintf("pos: {%v} `%s`\t`%s`\t`%s`",
-				base[0].pos, nodesToString(base), str, err))
+		out := "Cannot parse Expression : "
+		if len(base) > 0 {
+			out += fmt.Sprintf("pos {%v} ", base[0].pos)
+		}
+		out += fmt.Sprintf("`%s`\t`%s`\t`%s`",
+			nodesToString(base), str, err)
 		return goast.NewIdent(str)
 	}
 

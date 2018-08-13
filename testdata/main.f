@@ -332,6 +332,7 @@ C -----------------------------------------------------
         subroutine test_data
             INTEGER LOC12( 4 ), LOC21( 4 )
             INTEGER IPIVOT( 2, 2 )
+            INTEGER IP( 5 )
             real*4  v
             integer r
 
@@ -343,7 +344,9 @@ C -----------------------------------------------------
             PARAMETER ( LV = 2 )
             INTEGER MM( LV, 4 ), J, NN
             DATA    ( MM( 1, J ), J = 1, 4 ), NN  /494,322,2508,2549,42/
-            DATA    MM(2,2) / 56/
+            DATA    ( IP(    J ), J = 1, 4 ) / 12,14,16,18/
+            DATA    IP(5) / 123 /
+            DATA    MM(2,3) / 56/
 
             if ( r .NE. 25) then 
                 call fail("test_data 1")
@@ -365,12 +368,18 @@ C -----------------------------------------------------
             if (IPIVOT(2,1) .NE. 2) call fail("test_data matrix 2")
             if (IPIVOT(1,2) .NE. 3) call fail("test_data matrix 3")
             if (IPIVOT(2,2) .NE. 4) call fail("test_data matrix 4")
+            
+            if (IP(1) .NE. 12 ) call fail("test_data IP 1")
+            if (IP(2) .NE. 14 ) call fail("test_data IP 2")
+            if (IP(3) .NE. 16 ) call fail("test_data IP 3")
+            if (IP(4) .NE. 18 ) call fail("test_data IP 4")
+            if (IP(5) .NE.123 ) call fail("test_data IP 5")
 
             if (MM(1,1) .NE. 494 ) call fail("test_data MM 1 1")
             if (MM(1,2) .NE. 322 ) call fail("test_data MM 1 2")
             if (MM(1,3) .NE. 2508) call fail("test_data MM 1 3")
             if (MM(1,4) .NE. 2549) call fail("test_data MM 1 4")
-            if (MM(2,2) .NE. 56  ) call fail("test_data MM 2 2")
+            if (MM(2,3) .NE. 56  ) call fail("test_data MM 2 3")
 
             if (NN      .NE. 42  ) call fail("test_data NN")
 
