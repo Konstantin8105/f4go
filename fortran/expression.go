@@ -69,10 +69,8 @@ func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
 }
 
 func (p *parser) isVariable(name string) bool {
-	if _, ok := p.initVars[name]; ok {
-		return true
-	}
-	return false
+	_, ok := p.initVars[name]
+	return ok
 }
 
 func (p *parser) isArrayVariable(name string) bool {
