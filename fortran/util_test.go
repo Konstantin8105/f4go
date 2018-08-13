@@ -48,9 +48,8 @@ func TestSplit(t *testing.T) {
 	for _, tc := range tcs {
 		t.Run(tc.in, func(t *testing.T) {
 			var p parser
-			p.initVars = map[string]goType{}
-			p.initVars["a"] = goType{baseType: "byte"}
-			p.initVars["b"] = goType{baseType: "byte"}
+			p.initVars.add("a", goType{baseType: "byte"})
+			p.initVars.add("b", goType{baseType: "byte"})
 
 			nodes := scan([]byte(tc.in))
 			leftOther, leftVariable, rightVariable, rightOther :=
