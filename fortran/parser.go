@@ -13,7 +13,7 @@ import (
 type varInitialization struct {
 	name     string
 	typ      goType
-	constant string
+	constant []node
 }
 
 type varInits []varInitialization
@@ -38,11 +38,11 @@ func (v *varInits) del(n string) {
 	}
 }
 
-func (v *varInits) addValue(name, value string) {
+func (v *varInits) addValue(name string, constant []node) {
 	vs := []varInitialization(*v)
 	for i := range vs {
 		if vs[i].name == name {
-			vs[i].constant = value
+			vs[i].constant = constant
 			*v = varInits(vs)
 			return
 		}
@@ -395,9 +395,9 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 					},
 				},
 			}
-			if val != "" {
+			if len(val) > 0 {
 				decl.Specs[0].(*goast.ValueSpec).Values = []goast.Expr{
-					goast.NewIdent(val),
+					p.parseExprNodes(val),
 				}
 			}
 			vars = append(vars, &goast.DeclStmt{Decl: &decl})
@@ -1856,7 +1856,7 @@ func (p *parser) parseParameter() (stmts []goast.Stmt) {
 		for i := 0; i < len(val); i++ {
 			if val[i].tok == token.ASSIGN {
 				// add parameters in parser
-				p.initVars.addValue(nodesToString(val[:i]), nodesToString(val[i+1:]))
+				p.initVars.addValue(nodesToString(val[:i]), val[i+1:])
 			}
 		}
 	}

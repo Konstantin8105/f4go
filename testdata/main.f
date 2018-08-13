@@ -168,18 +168,6 @@ C -----------------------------------------------------
 
 C -----------------------------------------------------
 
-  !       subroutine test_complex()
-  !           complex c1,c2
-  !           c1 = (1.1221,2.2)
-  !           c2 = (3.23,5.666)
-  !           c1 = c1 + c2
-  !           write(*, fmt = 300) c1
-  !           return
-  ! 300 Format (F15.4)
-  !       end
-
-C -----------------------------------------------------
-
         subroutine test_do()
             integer IR, JR, HR, iterator
             integer ab_min
@@ -500,4 +488,21 @@ C -----------------------------------------------------
 
 C -----------------------------------------------------
 
+  !       subroutine test_complex
+  !           complex ONE
+  !           complex c1,c2
+  !           PARAMETER (ONE= (1.0E+0,0.0E+0))
+  !           Intrinsic real , aimag
+  !
+  !           c1 = (1.1221,2.2)
+  !           c2 = (3.23,5.666)
+  !           c1 = c1 + c2
+  !           write(*,fmt = 500) real(ONE), aimag(ONE)
+  !           write(*,fmt = 505) real(c1),  aimag(c1)
+  !
+  !           return
+  ! 500  FORMAT('>',F3.1,' + ',F3.1,'<')
+  ! 505  FORMAT('>',F3.1,' + ',F3.1,'<')
+  !      end
 
+C -----------------------------------------------------
