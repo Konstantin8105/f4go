@@ -8,7 +8,20 @@
 [![GoDoc](https://godoc.org/github.com/Konstantin8105/f4go/fortran?status.svg)](https://godoc.org/github.com/Konstantin8105/f4go/fortran)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b8d0bb5533207cce5ed3/maintainability)](https://codeclimate.com/github/Konstantin8105/f4go/maintainability)
 
-Transpiling fortran code to golang code
+# Example of use
+
+```cmd
+> # Install golang
+> # Compile f4go
+> go get -u github.com/Konstantin8105/f4go
+> cd $GOPATH/src/github.com/Konstantin8105/f4go
+> go build
+> ./f4go ./testdata/blas/caxpy.f
+> # Look on Go result source
+> less ./testdata/blas/caxpy.go
+```
+
+# Transpiling fortran code to golang code
 
 Present result:
 ```fortran
