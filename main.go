@@ -13,18 +13,25 @@ import (
 	"github.com/Konstantin8105/f4go/fortran"
 )
 
+var packageFlag *string
+
 func main() {
+	packageFlag = flag.String("p",
+		"main", "set the name of the generated package")
+
 	run()
 }
 
 func run() {
-	packageFlag := flag.String("p",
-		"main", "set the name of the generated package")
-
 	flag.Parse()
 
 	if flag.NFlag() == 0 {
 		flag.PrintDefaults()
+	}
+
+	if packageFlag == nil {
+		var s string
+		packageFlag = &s
 	}
 
 	es := parseParallel(flag.Args(), *packageFlag)

@@ -64,11 +64,19 @@ func TestFail(t *testing.T) {
 	if len(errs) == 0 {
 		t.Error("Error is empty")
 	}
+	// run fail
+	os.Args = []string{"", "./testdata/fortran_fail.f"}
+	run()
 	// wrong input data
 	errs = parse("./testdata/sdfelmsdsdfsdfsdf.f", "")
 	if len(errs) == 0 {
 		t.Error("Error is empty")
 	}
+	// run fail
+	os.Args = []string{"", "./testdata/sdfelmsdsdfsdfsdf.f"}
+	run()
+	os.Args = []string{""}
+	run()
 }
 
 func getFortranTestFiles(dir string) (files []string, err error) {
