@@ -347,6 +347,9 @@ C -----------------------------------------------------
             DATA    ( IP(    J ), J = 1, 4 ) / 12,14,16,18/
             DATA    IP(5) / 123 /
             DATA    MM(2,3) / 56/
+            
+            logical XSWPIV(4)
+            DATA    XSWPIV / .FALSE., .FALSE., .TRUE., .TRUE. /
 
             if ( r .NE. 25) then 
                 call fail("test_data 1")
@@ -382,6 +385,11 @@ C -----------------------------------------------------
             if (MM(2,3) .NE. 56  ) call fail("test_data MM 2 3")
 
             if (NN      .NE. 42  ) call fail("test_data NN")
+
+            if (XSWPIV(1)) call fail("test_data 1")
+            if (XSWPIV(2)) call fail("test_data 2")
+            if (.NOT.XSWPIV(3)) call fail("test_data 3")
+            if (.NOT.XSWPIV(4)) call fail("test_data 4")
 
             write(*,'(A2)') "ok"
 

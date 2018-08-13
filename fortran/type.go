@@ -179,6 +179,7 @@ func parseType(nodes []node) (typ goType) {
 	case ftLogical:
 		// LOGICAL or LOGICAL * 1
 		typ.baseType = "bool"
+		nodes = nodes[1:]
 		if len(nodes) > 1 &&
 			nodes[0].tok == token.MUL &&
 			nodes[1].tok == token.INT {
