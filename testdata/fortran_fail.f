@@ -46,6 +46,8 @@ C -----------------------------------------------------
             call testName("test_concat")
             call test_concat()
 
+            go to 123123123
+
             ! call testName("test_complex")
             ! call test_complex()
 
