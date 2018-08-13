@@ -1821,6 +1821,17 @@ func (p *parser) parseFormat(fs []node) (s string) {
 					}
 				}
 				s += "f"
+			case 'E', 'D':
+				s += "%" + string(f.b[1:])
+				if i+1 < len(fs) && fs[i+1].tok == token.PERIOD {
+					i += 1
+					s += "."
+					if i+1 < len(fs) && fs[i+1].tok == token.INT {
+						s += string(fs[i+1].b)
+						i += 1
+					}
+				}
+				s += "E"
 			case 'A':
 				if len(f.b) > 1 {
 					s += "%" + string(f.b[1:]) + "s"
