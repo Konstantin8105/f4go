@@ -11,8 +11,9 @@ import (
 )
 
 type varInitialization struct {
-	name string
-	typ  goType
+	name     string
+	typ      goType
+	constant string
 }
 
 type varInits []varInitialization
@@ -31,6 +32,17 @@ func (v *varInits) del(n string) {
 	for i, val := range vs {
 		if val.name == n {
 			vs = append(vs[:i], vs[i+1:]...)
+			*v = varInits(vs)
+			return
+		}
+	}
+}
+
+func (v *varInits) addValue(name, value string) {
+	vs := []varInitialization(*v)
+	for i := range vs {
+		if vs[i].name == name {
+			vs[i].constant = value
 			*v = varInits(vs)
 			return
 		}
@@ -368,22 +380,27 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 	for i := range []varInitialization(p.initVars) {
 		name := ([]varInitialization(p.initVars)[i]).name
 		goT := ([]varInitialization(p.initVars)[i]).typ
+		val := ([]varInitialization(p.initVars)[i]).constant
 		switch len(goT.arrayType) {
 		case 0:
-			vars = append(vars, &goast.DeclStmt{
-				Decl: &goast.GenDecl{
-					Tok: token.VAR,
-					Specs: []goast.Spec{
-						&goast.ValueSpec{
-							Names: []*goast.Ident{
-								goast.NewIdent(name),
-							},
-							Type: goast.NewIdent(
-								goT.String()),
+			decl := goast.GenDecl{
+				Tok: token.VAR,
+				Specs: []goast.Spec{
+					&goast.ValueSpec{
+						Names: []*goast.Ident{
+							goast.NewIdent(name),
 						},
+						Type: goast.NewIdent(
+							goT.String()),
 					},
 				},
-			})
+			}
+			if val != "" {
+				decl.Specs[0].(*goast.ValueSpec).Values = []goast.Expr{
+					goast.NewIdent(val),
+				}
+			}
+			vars = append(vars, &goast.DeclStmt{Decl: &decl})
 
 		case 1: // vector
 			arrayType := goT.baseType
@@ -1036,7 +1053,8 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	case ftParameter:
 		//  PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 )  , ZERO = 0.0E+0 )
-		p.parseParameter()
+		s := p.parseParameter()
+		stmts = append(stmts, s...)
 
 	case ftOpen:
 		p.addError("OPEN is not support :" + p.getLine())
@@ -1712,7 +1730,7 @@ func (p *parser) parseFormat(fs []node) (s string) {
 
 //  PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 )  , ZERO = 0.0E+0 )
 //  PARAMETER ( LV = 2 )
-func (p *parser) parseParameter() {
+func (p *parser) parseParameter() (stmts []goast.Stmt) {
 	p.expect(ftParameter)
 	p.ident++
 	p.expect(token.LPAREN)
@@ -1745,10 +1763,7 @@ func (p *parser) parseParameter() {
 		for i := 0; i < len(val); i++ {
 			if val[i].tok == token.ASSIGN {
 				// add parameters in parser
-				name := nodesToString(val[:i])
-				p.parameters[name] = nodesToString(val[i+1:])
-				// remove from initialization var
-				p.initVars.del(name)
+				p.initVars.addValue(nodesToString(val[:i]), nodesToString(val[i+1:]))
 			}
 		}
 	}

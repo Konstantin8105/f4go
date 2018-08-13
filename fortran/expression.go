@@ -27,19 +27,21 @@ func nodesToString(nodes []node) (str string) {
 			str += " " + string(n.b)
 		}
 	}
-	return str
+	return strings.TrimSpace(str)
 }
 
 func (p *parser) parseExpr(start, end int) (expr goast.Expr) {
+	return p.parseExprNodes(p.ns[start:end])
+}
 
-	for i := start; i < end; i++ {
-		if p.ns[i].tok == ftNewLine {
+func (p *parser) parseExprNodes(in []node) (expr goast.Expr) {
+
+	for i := 0; i < len(in); i++ {
+		if in[i].tok == ftNewLine {
 			p.addError("NEW_LINE is not acceptable inside expression : " +
-				nodesToString(p.ns[start:end]))
+				nodesToString(in))
 		}
 	}
-
-	in := p.ns[start:end]
 
 	base := make([]node, len(in))
 	copy(base, in)
@@ -409,5 +411,4 @@ func (p *parser) fixConcatString(nodes *[]node) {
 
 		*nodes = comb
 	}
-
 }
