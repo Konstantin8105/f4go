@@ -40,7 +40,7 @@ func TestIntegration(t *testing.T) {
 		for _, er := range errs {
 			t.Logf("Error: %20s %v", er.filename, er.err.Error())
 		}
-		t.Fatal("Errors inparsing Go code is more zero")
+		t.Fatal("Errors in parsing Go code is more zero")
 	}
 
 	// run Go code
