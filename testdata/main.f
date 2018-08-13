@@ -46,6 +46,9 @@ C -----------------------------------------------------
             call testName("test_concat")
             call test_concat()
 
+            call testName("test_save")
+            call test_save()
+
             ! call testName("test_complex")
             ! call test_complex()
 
@@ -441,6 +444,23 @@ C -----------------------------------------------------
             write(*,*)a
             write(*,*)b
             write(*,*)c
+        end
+
+C -----------------------------------------------------
+
+        subroutine test_save
+            integer iter 
+            iter = 1
+            call save_sub(iter)
+            call save_sub(iter)
+        end
+
+        subroutine save_sub(iter)
+            integer r,iter
+            Save r
+            DATA r /0/
+            iter = iter + 1
+            write(*,'(I2,I2)') iter , r
         end
 
 C -----------------------------------------------------

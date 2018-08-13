@@ -1016,7 +1016,8 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	case ftSave:
 		p.expect(ftSave)
-		p.addError("Save is not support : " + p.getLine())
+		// ignore command SAVE
+		// that command only for optimization
 		p.gotoEndLine()
 
 	case ftExternal:
