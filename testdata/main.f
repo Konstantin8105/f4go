@@ -138,7 +138,7 @@ C -----------------------------------------------------
 
 C -----------------------------------------------------
 
-        subroutine test_if()
+        recursive subroutine test_if()
             integer i
             logical l
             l = .false.
