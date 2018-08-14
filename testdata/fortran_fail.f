@@ -477,6 +477,7 @@ C -----------------------------------------------------
             logical *2 l2
             logical *4 l4
             logical *8 l8
+            DOUBLE some ds
 
             INTEGER     LV
             PARAMETER ( LV = 2 )
