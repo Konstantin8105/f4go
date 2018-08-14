@@ -1,6 +1,7 @@
 package fortran
 
 import (
+	"go/token"
 	"strings"
 	"testing"
 )
@@ -92,4 +93,13 @@ func TestSplit(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestSeparateArgsParen(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatal("test is not fail")
+		}
+	}()
+	separateArgsParen([]node{{tok: token.INT, b: []byte("42")}})
 }
