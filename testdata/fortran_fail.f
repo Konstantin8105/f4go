@@ -444,9 +444,11 @@ C -----------------------------------------------------
         subroutine test_concat
             CHARACTER*1 a,b
             CHARACTER*2 c
+            complex cx
             a = 'a'
             b = 'b'
             c = a // b
+            write(*,*) image(cx) ! some empty function
             write(*,*)a
             write(*,*)b
             write(*,*)c
