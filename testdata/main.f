@@ -489,6 +489,7 @@ C -----------------------------------------------------
             complex ONE
             complex c1
             complex*8 c2,c3
+            double complex db1, db2
             PARAMETER (ONE= (1.9E+0,2.3E+0))
             Intrinsic real , aimag
 
@@ -500,6 +501,13 @@ C -----------------------------------------------------
 
             c3 = c1 - ONE
             call comp_par(c3)
+
+            db1 = (2.333,3.444)
+            db2 = (1.222,0.111)
+            write(*,fmt = 500) real(db1), aimag(db1)
+            db1 = db2 * db1
+            write(*,fmt = 500) real(db1), aimag(db1)
+            write(*,fmt = 500) real(db2), aimag(db2)
 
             return
   500  FORMAT('>',F4.2,' + ',F4.2,'<')
