@@ -471,6 +471,10 @@ C -----------------------------------------------------
             COMPLEX * 32 C
             REAL *16 r16
             integer * 16 i16
+            logical *1 l1
+            logical *2 l2
+            logical *4 l4
+            logical *8 l8
 
             INTEGER     LV
             PARAMETER ( LV = 2 )
