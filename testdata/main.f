@@ -49,8 +49,8 @@ C -----------------------------------------------------
             call testName("test_save")
             call test_save()
 
-            ! call testName("test_complex")
-            ! call test_complex()
+            call testName("test_complex")
+            call test_complex()
 
             ! end of tests
         END
@@ -485,31 +485,31 @@ C -----------------------------------------------------
 
 C -----------------------------------------------------
 
-  !       subroutine test_complex
-  !           complex ONE
-  !           complex c1,c2,c3
-  !           PARAMETER (ONE= (1.9E+0,2.3E+0))
-  !           Intrinsic real , aimag
-  !
-  !           c1 = (1.1221,2.2)
-  !           c2 = (3.23,5.666)
-  !           c1 = c1 + c2
-  !           write(*,fmt = 500) real(ONE), aimag(ONE)
-  !           write(*,fmt = 500) real(c1),  aimag(c1)
-  !
-  !           c3 = c1 - ONE
-  !           call comp_par(c3)
-  !
-  !           return
-  ! 500  FORMAT('>',F4.2,' + ',F4.2,'<')
-  !      end
-  !
-  !       subroutine comp_par(c)
-  !           complex c
-  !           write(*,fmt = 500) real(c), aimag(c)
-  !           return
-  ! 500  FORMAT('>',F4.2,' + ',F4.2,'<')
-  !      end
+        subroutine test_complex
+            complex ONE
+            complex c1,c2,c3
+            PARAMETER (ONE= (1.9E+0,2.3E+0))
+            Intrinsic real , aimag
+
+            c1 = (1.1221,2.2)
+            c2 = (3.23,5.666)
+            c1 = c1 + c2
+            write(*,fmt = 500) real(ONE), aimag(ONE)
+            write(*,fmt = 500) real(c1),  aimag(c1)
+
+            c3 = c1 - ONE
+            call comp_par(c3)
+
+            return
+  500  FORMAT('>',F4.2,' + ',F4.2,'<')
+       end
+
+        subroutine comp_par(c)
+            complex c
+            write(*,fmt = 500) real(c), aimag(c)
+            return
+  500  FORMAT('>',F4.2,' + ',F4.2,'<')
+       end
 
 
 C -----------------------------------------------------

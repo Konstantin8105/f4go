@@ -691,6 +691,12 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	cl := commentLabel{labels: removedLabels}
 	goast.Walk(cl, fd.Body)
 
+	var in intrinsic
+	goast.Walk(in, fd.Body)
+
+	var cas callArgumentSimplification
+	goast.Walk(cas, fd.Body)
+
 	decl = &fd
 	return
 }
