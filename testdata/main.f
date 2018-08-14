@@ -487,7 +487,8 @@ C -----------------------------------------------------
 
         subroutine test_complex
             complex ONE
-            complex c1,c2,c3
+            complex c1
+            complex*8 c2,c3
             PARAMETER (ONE= (1.9E+0,2.3E+0))
             Intrinsic real , aimag
 

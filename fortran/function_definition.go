@@ -2,7 +2,6 @@ package fortran
 
 import (
 	goast "go/ast"
-	"go/token"
 )
 
 type callArgumentSimplification struct {
@@ -14,15 +13,6 @@ func (c callArgumentSimplification) Visit(node goast.Node) (w goast.Visitor) {
 	if id, ok := node.(*goast.Ident); ok {
 		if len(id.Name) > 6 && id.Name[:4] == "&((*" {
 			id.Name = id.Name[4 : len(id.Name)-2]
-		}
-	}
-	if un, ok := node.(*goast.UnaryExpr); ok && un.Op == token.AND {
-		if par1, ok := un.X.(*goast.ParenExpr); ok {
-			if par2, ok := par1.X.(*goast.ParenExpr); ok {
-				if st, ok := par2.X.(*goast.StarExpr); ok {
-					node = st.X
-				}
-			}
 		}
 	}
 	return c
@@ -54,10 +44,7 @@ var intrinsicFunction = map[string]func(*goast.CallExpr){
 }
 
 func intrinsicArgumentCorrection(f *goast.CallExpr, name string, typeNames []string) {
-	if len(f.Args) != len(typeNames) {
-		return
-	}
-	if _, ok := f.Fun.(*goast.Ident); !ok {
+	if _, ok := f.Fun.(*goast.Ident); !ok || len(f.Args) != len(typeNames) {
 		return
 	}
 	f.Fun.(*goast.Ident).Name = name

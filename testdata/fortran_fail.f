@@ -468,6 +468,7 @@ C -----------------------------------------------------
             data v , r / 23.23 , 25 /
             DATA    LOC12 / 3, 4, 1, 2 / , LOC21 / 2, 1, 4, 3 /
             DATA    IPIVOT / 1, 2, 3, 4 /
+            COMPLEX * 32 C
 
             INTEGER     LV
             PARAMETER ( LV = 2 )
