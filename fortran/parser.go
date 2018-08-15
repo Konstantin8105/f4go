@@ -474,7 +474,8 @@ func main() {
 			}
 			vars = append(vars, f.Decls[0].(*goast.FuncDecl).Body.List...)
 		default:
-			panic("not correct amount of array")
+			panic(fmt.Errorf(
+				"not correct amount of array : %v", goT))
 		}
 	}
 
