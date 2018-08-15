@@ -1374,7 +1374,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 	// parse names and values
 	var names [][]node
 	names = append(names, []node{})
-	var values []node
+	var values [][]node
 	counter := 0
 	isNames := true
 	for ; p.ident < len(p.ns); p.ident++ {
@@ -1382,6 +1382,9 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			break
 		}
 		if p.ns[p.ident].tok == token.QUO {
+			if isNames {
+				values = append(values, []node{})
+			}
 			isNames = !isNames
 			continue
 		}
@@ -1391,18 +1394,19 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 		if p.ns[p.ident].tok == token.RPAREN {
 			counter--
 		}
-		if isNames && p.ns[p.ident].tok == token.COMMA && counter == 0 {
-			names = append(names, []node{})
-			continue
-		}
-		if !isNames && p.ns[p.ident].tok == token.COMMA {
+		if p.ns[p.ident].tok == token.COMMA && counter == 0 {
+			if isNames {
+				names = append(names, []node{})
+			} else {
+				values = append(values, []node{})
+			}
 			continue
 		}
 		if isNames {
 			names[len(names)-1] = append(names[len(names)-1], p.ns[p.ident])
-			continue
+		} else {
+			values[len(values)-1] = append(values[len(values)-1], p.ns[p.ident])
 		}
-		values = append(values, p.ns[p.ident])
 	}
 
 	// Example of names:
@@ -1536,6 +1540,10 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 
 			case 2: // matrix
 				// (LL( 1, J ), J = 1, 4 )  - one row of matrix
+				if bytes.Equal(name[3].b, name[8].b) {
+					// (LL( J, 1 ), J = 1, 4 )  - one row of matrix
+					panic("TODO: Not support")
+				}
 				c, _ := strconv.Atoi(string(name[3].b))
 				start, _ := strconv.Atoi(string(name[10].b))
 				end, _ := strconv.Atoi(string(name[12].b))
@@ -1567,27 +1575,77 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			}
 			continue
 		}
-		// if v, ok := p.initVars.get(string(name[2].b)); ok {
-		// switch len(v.typ.arrayType) {
-		// case 3: // ()()()
-		// 	// ((CV(I,J,1),I=1,2),J=1,2)
-		// _ = v
-		// panic("TODO")
-		// }
-		// }
+		if v, ok := p.initVars.get(string(name[2].b)); ok {
+			switch len(v.typ.arrayType) {
+			case 3: // ()()()
+				// ((CV(I,J,1),I=1,2),J=1,2)
+				startI, _ := strconv.Atoi(string(name[13].b))
+				endI, _ := strconv.Atoi(string(name[15].b))
+				startJ, _ := strconv.Atoi(string(name[20].b))
+				endJ, _ := strconv.Atoi(string(name[22].b))
+				valueK, _ := strconv.Atoi(string(name[8].b))
+
+				for j := startJ - 1; j < endJ; j++ {
+					for i := startI - 1; i < endI; i++ {
+						nameExpr = append(nameExpr, &goast.IndexExpr{
+							X: &goast.IndexExpr{
+								X: &goast.IndexExpr{
+									X:      goast.NewIdent(string(name[2].b)),
+									Lbrack: 1,
+									Index: &goast.BasicLit{
+										Kind:  token.INT,
+										Value: strconv.Itoa(i),
+									},
+								},
+								Lbrack: 1,
+								Index: &goast.BasicLit{
+									Kind:  token.INT,
+									Value: strconv.Itoa(j),
+								},
+							},
+							Lbrack: 1,
+							Index: &goast.BasicLit{
+								Kind:  token.INT,
+								Value: strconv.Itoa(valueK - 1),
+							},
+						})
+					}
+				}
+
+				stmts = append(stmts, &goast.AssignStmt{
+					Lhs: []goast.Expr{goast.NewIdent("_")},
+					Tok: token.ASSIGN,
+					Rhs: []goast.Expr{goast.NewIdent(string(name[4].b))},
+				})
+				stmts = append(stmts, &goast.AssignStmt{
+					Lhs: []goast.Expr{goast.NewIdent("_")},
+					Tok: token.ASSIGN,
+					Rhs: []goast.Expr{goast.NewIdent(string(name[6].b))},
+				})
+			}
+			continue
+		}
 
 		panic("Not acceptable type : " + nodesToString(name))
 	}
 
 	if len(nameExpr) != len(values) {
-		panic(fmt.Errorf("Size is not same %d!=%d", len(nameExpr), len(values)))
+		var str string
+		for i := range names {
+			str += fmt.Sprintln(">>", nodesToString(names[i]))
+		}
+		for i := range values {
+			str += fmt.Sprintln("<<", nodesToString(values[i]))
+		}
+		panic(fmt.Errorf("Size is not same %d!=%d\n%v",
+			len(nameExpr), len(values), str))
 	}
 
 	for i := range nameExpr {
 		stmts = append(stmts, &goast.AssignStmt{
 			Lhs: []goast.Expr{nameExpr[i]},
 			Tok: token.ASSIGN,
-			Rhs: []goast.Expr{p.parseExprNodes([]node{values[i]})},
+			Rhs: []goast.Expr{p.parseExprNodes(values[i])},
 		})
 	}
 

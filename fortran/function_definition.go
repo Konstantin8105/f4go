@@ -2,6 +2,7 @@ package fortran
 
 import (
 	goast "go/ast"
+	"strings"
 )
 
 type callArgumentSimplification struct {
@@ -24,7 +25,7 @@ type intrinsic struct {
 func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 	if call, ok := node.(*goast.CallExpr); ok {
 		if n, ok := call.Fun.(*goast.Ident); ok {
-			if f, ok := intrinsicFunction[n.Name]; ok {
+			if f, ok := intrinsicFunction[strings.ToUpper(n.Name)]; ok {
 				f(call)
 			}
 		}
@@ -33,11 +34,11 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 }
 
 var intrinsicFunction = map[string]func(*goast.CallExpr){
-	"real": func(f *goast.CallExpr) {
+	"REAL": func(f *goast.CallExpr) {
 		typeNames := []string{"complex128"}
 		intrinsicArgumentCorrection(f, "real", typeNames)
 	},
-	"aimag": func(f *goast.CallExpr) {
+	"AIMAG": func(f *goast.CallExpr) {
 		typeNames := []string{"complex128"}
 		intrinsicArgumentCorrection(f, "imag", typeNames)
 	},

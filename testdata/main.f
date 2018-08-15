@@ -556,9 +556,10 @@ C -----------------------------------------------------
            INTEGER V
            PARAMETER(V = 3)
            INTEGER IR(2,V,4), I,J,K
-c          COMPLEX  CV(2,2,1)
-c          DATA   ((CV(I,J,1),I=1,2),J=1,2)/(0.1E0,0.1E0),
-c    +            (1.0E0,2.0E0), (2.0E0,3.0E0), (3.0E0,4.0E0)/
+           COMPLEX  CV(3,2,1)
+           DATA   ((CV(I,J,1),I=1,3),J=1,2)/(0.1E0,0.1E0),
+     +            (1.0E0,2.0E0), (2.0E0,3.0E0), (3.0E0,4.0E0),
+     +            (5.0E0,6.0E0), (6.0E0,7.0E0)/
            DO I = 1, 2
                 DO J = 1, 3
                     DO K = 1, 4
@@ -573,17 +574,17 @@ c    +            (1.0E0,2.0E0), (2.0E0,3.0E0), (3.0E0,4.0E0)/
                     END DO
                 END DO
            END DO
-c          DO I = 1, 2
-c               DO J = 1, 2
-c                   DO K = 1, 1
-c                       WRITE(*,FMT=566)I,J,K, REAL(CV(I,J,K)),
-c    +                     AIMAG(CV(I,J,K))
-c                   END DO
-c               END DO
-c          END DO
+           DO I = 1, 3
+                DO J = 1, 2
+                    DO K = 1, 1
+                        WRITE(*,FMT=566)I,J,K, REAL(CV(I,J,K)),
+     +                     AIMAG(CV(I,J,K))
+                    END DO
+                END DO
+           END DO
            RETURN
   565      FORMAT('IR(',I1,',',I1,',',I1,')=',I3)
-c 566      FORMAT('CV(',I1,',',I1,',',I1,')=',F5.2,'::',F5.2)
+  566      FORMAT('CV(',I1,',',I1,',',I1,')=',F5.2,'::',F5.2)
        END SUBROUTINE
 
 C -----------------------------------------------------
