@@ -1424,11 +1424,21 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			// LL                       - vector fully
 			// LL                       - matrix fully
 			if v, ok := p.initVars.get(nodesToString(name)); ok {
-				switch len(v.typ.arrayType) {
+				lenArray := len(v.typ.arrayNode)
+				if v.typ.baseType == "byte" {
+					lenArray--
+				}
+				switch lenArray {
 				case 0:
 					nameExpr = append(nameExpr, p.parseExprNodes(name))
 				case 1: // vector
-					for i := 0; i < v.typ.arrayType[0]; i++ {
+					size := v.typ.arrayType[0]
+					if size < 0 {
+						if vv, ok := p.initVars.get(nodesToString(v.typ.arrayNode[1])); ok {
+							size, _ = strconv.Atoi(nodesToString(vv.constant))
+						}
+					}
+					for i := 0; i < size; i++ {
 						nameExpr = append(nameExpr, &goast.IndexExpr{
 							X:      goast.NewIdent(nodesToString(name)),
 							Lbrack: 1,

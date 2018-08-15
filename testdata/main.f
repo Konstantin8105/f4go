@@ -535,16 +535,21 @@ C -----------------------------------------------------
        SUBROUTINE test_character
            CHARACTER*5 CH(2)
            CHARACTER*6 CT(2)
-           INTEGER NW
+           INTEGER NW, NS
            PARAMETER (NW = 6)
+           PARAMETER (NS = 2)
            DATA CT(1) /'123456'/
            DATA CT(2) /'ABCDFE'/
+           CHARACTER*6 CS(NS)
+           DATA CS /'123456', 'ABCDEF' /
            WRITE(*, FMT=531 ) CT(1)
            WRITE(NW, FMT=531 ) CT(2)
            CH(1) = 'qwe'
            CH(2) = 'asd'
            WRITE(*, FMT=530 ) CH(1)
            WRITE(6, FMT=530 ) CH(2)
+           WRITE(*, FMT=531 ) CS(1)
+           WRITE(*, FMT=531 ) CS(2)
            RETURN
   530      FORMAT('-->',A3)
   531      FORMAT('++>',A6)
