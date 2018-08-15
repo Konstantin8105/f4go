@@ -531,12 +531,18 @@ C -----------------------------------------------------
 
        SUBROUTINE test_character
            CHARACTER*5 CH(2)
+           ! CHARACTER*6 CT(2)
+           ! DATA CT(1) /'123456'/
+           ! DATA CT(2) /'ABCDFE'/
+           ! WRITE(*, FMT=531 ) CT(1)
+           ! WRITE(*, FMT=531 ) CT(2)
            CH(1) = 'qwe'
            CH(2) = 'asd'
            WRITE(*, FMT=530 ) CH(1)
            WRITE(*, FMT=530 ) CH(2)
            RETURN
   530      FORMAT('-->',A3)
+  ! 531      FORMAT('++>',A6)
        END SUBROUTINE
 
 C -----------------------------------------------------
