@@ -52,6 +52,9 @@ C -----------------------------------------------------
             call testName("test_complex")
             call test_complex()
 
+            call testName("test_character")
+            call test_character()
+
             ! end of tests
         END
 
@@ -522,3 +525,13 @@ C -----------------------------------------------------
 
 
 C -----------------------------------------------------
+
+       SUBROUTINE test_character
+           CHARACTER*5 CH(2)
+           CH(1) = 'qwe'
+           CH(2) = 'asd'
+           WRITE(*, FMT=530 ) CH(1)
+           WRITE(*, FMT=530 ) CH(2)
+           RETURN
+  530      FORMAT('-->',A3)
+       END SUBROUTINE

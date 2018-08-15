@@ -458,7 +458,7 @@ func main() {
 	}
 }
 `
-			f, err := goparser.ParseFile(fset, "", fmt.Sprintf(src,
+			s := fmt.Sprintf(src,
 				name,
 				goT.baseType,
 				nodesToString(goT.arrayNode[0]),
@@ -466,9 +466,11 @@ func main() {
 				name,
 				goT.baseType,
 				nodesToString(goT.arrayNode[1]),
-			), 0)
+			)
+			f, err := goparser.ParseFile(fset, "", s, 0)
 			if err != nil {
-				panic(err)
+				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
+					err, s, goT.arrayNode))
 			}
 			vars = append(vars, f.Decls[0].(*goast.FuncDecl).Body.List...)
 		default:
