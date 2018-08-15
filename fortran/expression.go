@@ -196,6 +196,7 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 						b:   []byte("["),
 					},
 				}, (*nodes)[i+1:]...)...)
+				end += 4
 			}
 		}
 	}

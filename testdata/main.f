@@ -55,8 +55,8 @@ C -----------------------------------------------------
             call testName("test_character")
             call test_character()
 
-            ! call testName("test_matrix3")
-            ! call test_matrix3()
+            call testName("test_matrix3")
+            call test_matrix3()
 
             ! end of tests
         END
@@ -541,25 +541,25 @@ C -----------------------------------------------------
 
 C -----------------------------------------------------
 
-  !      SUBROUTINE test_matrix3
-  !          INTEGER IR(2,3,4), I,J,K
-  !          DO I = 1, 2
-  !               DO J = 1, 3
-  !                   DO K = 1, 4
-  !                       IR(I,J,K) = I*27+J*13+K
-  !                   END DO
-  !               END DO
-  !          END DO
-  !          DO I = 1, 2
-  !               DO J = 1, 3
-  !                   DO K = 1, 4
-  !                       WRITE(*,FMT=565)I,J,K, IR(I,J,K)
-  !                   END DO
-  !               END DO
-  !          END DO
-  !          RETURN
-  ! 565      FORMAT('IR(',I1,',',I1,',',I1,')=',I3)
-  !      END SUBROUTINE
+       SUBROUTINE test_matrix3
+           INTEGER IR(2,3,4), I,J,K
+           DO I = 1, 2
+                DO J = 1, 3
+                    DO K = 1, 4
+                        IR(I,J,K) = I*27+J*13+K
+                    END DO
+                END DO
+           END DO
+           DO I = 1, 2
+                DO J = 1, 3
+                    DO K = 1, 4
+                        WRITE(*,FMT=565)I,J,K, IR(I,J,K)
+                    END DO
+                END DO
+           END DO
+           RETURN
+  565      FORMAT('IR(',I1,',',I1,',',I1,')=',I3)
+       END SUBROUTINE
 
 C -----------------------------------------------------
 
