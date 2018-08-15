@@ -1940,7 +1940,7 @@ func (p *parser) parseParameter() (stmts []goast.Stmt) {
 		if p.ns[p.ident].tok == token.RPAREN && counter == 0 {
 			break
 		}
-		if p.ns[p.ident].tok == token.COMMA && counter == 0 {
+		if p.ns[p.ident].tok == token.COMMA && counter == 1 {
 			names = append(names, []node{})
 			continue
 		}

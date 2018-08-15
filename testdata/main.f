@@ -58,6 +58,9 @@ C -----------------------------------------------------
             call testName("test_matrix3")
             call test_matrix3()
 
+            call testName("test_parameter")
+            call test_parameter()
+
             ! end of tests
         END
 
@@ -572,4 +575,17 @@ C -----------------------------------------------------
        END SUBROUTINE
 
 C -----------------------------------------------------
+
+        SUBROUTINE test_parameter
+            REAL      ZERO, ONE
+            PARAMETER ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+            WRITE(*,FMT=570) ZERO
+            WRITE(*,FMT=570) ONE
+            RETURN
+  570       FORMAT('PARAMETER : ', F10.4)
+        END SUBROUTINE
+
+C -----------------------------------------------------
+
+
 
