@@ -1684,7 +1684,22 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 	if !(p.ns[p.ident].tok == token.MUL ||
 		(p.ns[p.ident].tok == token.INT && string(p.ns[p.ident].b) == "6")) {
 		// allowable letters: `*` or `6`
-		panic("Not expected WRITE: " + string(p.ns[p.ident].b))
+		// value with const 6, so ok
+		var isOk bool
+		if vv, ok := p.initVars.get(string(p.ns[p.ident].b)); ok {
+			if nodesToString(vv.constant) == "6" {
+				isOk = true
+				stmts = append(stmts, &goast.AssignStmt{
+					Lhs: []goast.Expr{goast.NewIdent("_")},
+					Tok: token.ASSIGN,
+					Rhs: []goast.Expr{goast.NewIdent(vv.name)},
+				})
+			}
+		}
+		if !isOk {
+			panic(fmt.Errorf("Not expected WRITE. pos{%v}: %v",
+				p.ns[p.ident].pos, string(p.ns[p.ident].b)))
+		}
 	}
 	p.ident++
 	p.expect(token.COMMA)
