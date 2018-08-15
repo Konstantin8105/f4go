@@ -1461,7 +1461,11 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			continue
 		}
 		if v, ok := p.initVars.get(string(name[0].b)); ok {
-			switch len(v.typ.arrayType) {
+			lenArray := len(v.typ.arrayType)
+			if v.typ.baseType == "byte" {
+				lenArray--
+			}
+			switch lenArray {
 			case 1: // vector
 				// LL (1)                   - one value of vector
 				nameExpr = append(nameExpr, &goast.IndexExpr{
@@ -1575,7 +1579,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 		stmts = append(stmts, &goast.AssignStmt{
 			Lhs: []goast.Expr{nameExpr[i]},
 			Tok: token.ASSIGN,
-			Rhs: []goast.Expr{goast.NewIdent(string(values[i].b))},
+			Rhs: []goast.Expr{p.parseExprNodes([]node{values[i]})},
 		})
 	}
 
