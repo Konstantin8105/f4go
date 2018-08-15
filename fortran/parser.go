@@ -473,6 +473,44 @@ func main() {
 					err, s, goT.arrayNode))
 			}
 			vars = append(vars, f.Decls[0].(*goast.FuncDecl).Body.List...)
+
+		case 3: // ()()()
+			fset := token.NewFileSet() // positions are relative to fset
+			src := `package main
+func main() {
+	%s := make([][][]%s, %s)
+	for u := 0; u < %s; u++ {
+		%s[u] = make([][]%s, %s)
+		for w := 0; w < %s; w++ {
+			%s[u][w] = make([]%s, %s)
+		}
+	}
+}
+`
+			s := fmt.Sprintf(src,
+				// line 1
+				name,
+				goT.baseType,
+				nodesToString(goT.arrayNode[0]),
+				// line 2
+				nodesToString(goT.arrayNode[0]),
+				// line 3
+				name,
+				goT.baseType,
+				nodesToString(goT.arrayNode[1]),
+				// line 4
+				nodesToString(goT.arrayNode[1]),
+				// line 5
+				name,
+				goT.baseType,
+				nodesToString(goT.arrayNode[2]),
+			)
+			f, err := goparser.ParseFile(fset, "", s, 0)
+			if err != nil {
+				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
+					err, s, goT.arrayNode))
+			}
+			vars = append(vars, f.Decls[0].(*goast.FuncDecl).Body.List...)
 		default:
 			panic(fmt.Errorf(
 				"not correct amount of array : %v", goT))
