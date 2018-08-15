@@ -542,7 +542,9 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
        SUBROUTINE test_matrix3
-           INTEGER IR(2,3,4), I,J,K
+           INTEGER V
+           PARAMETER(V = 3)
+           INTEGER IR(2,V,4), I,J,K
            DO I = 1, 2
                 DO J = 1, 3
                     DO K = 1, 4
