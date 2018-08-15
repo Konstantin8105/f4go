@@ -1567,6 +1567,14 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			}
 			continue
 		}
+		// if v, ok := p.initVars.get(string(name[2].b)); ok {
+		// switch len(v.typ.arrayType) {
+		// case 3: // ()()()
+		// 	// ((CV(I,J,1),I=1,2),J=1,2)
+		// _ = v
+		// panic("TODO")
+		// }
+		// }
 
 		panic("Not acceptable type : " + nodesToString(name))
 	}
