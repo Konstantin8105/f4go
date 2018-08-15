@@ -1930,11 +1930,28 @@ func (p *parser) getLineByLabel(label []byte) (fs []node) {
 	return
 }
 
-func (p *parser) parseFormat(fs []node) (s string) {
+func (p *parser) parseFormat(in []node) (s string) {
+	var fs []node
+	fs = append(fs, in...)
 	if len(fs) == 0 {
 		s = "\"\\n\""
 		return
 	}
+	// From:
+	//  ... / ...
+	// To:
+	//  ... , "\\n" , ...
+	for i := 0; i < len(fs); i++ {
+		if fs[i].tok != token.QUO { // not /
+			continue
+		}
+		fs = append(fs[:i], append([]node{
+			{tok: token.COMMA, b: []byte(",")},
+			{tok: token.STRING, b: []byte("\\n")},
+			{tok: token.COMMA, b: []byte(",")},
+		}, fs[i+1:]...)...)
+	}
+
 	for i := 0; i < len(fs); i++ {
 		f := fs[i]
 		switch f.tok {
@@ -1973,10 +1990,25 @@ func (p *parser) parseFormat(fs []node) (s string) {
 			default:
 				p.addError("Not support format : " + string(f.b))
 			}
+		case token.INT:
+			// 1X
+			// 5X
+			v, _ := strconv.Atoi(string(f.b))
+			if fs[i+1].b[0] == 'X' {
+				for i := 0; i < v-1; i++ {
+					s += " "
+				}
+				i++
+			}
+
 		case token.STRING:
 			str := string(f.b)
 			str = strings.Replace(str, "'", "", -1)
-			s += str
+			if str[0] == '"' {
+				s += str[1 : len(str)-1]
+			} else {
+				s += str
+			}
 		case token.COMMA, token.LPAREN, token.RPAREN:
 			// ignore
 		default:

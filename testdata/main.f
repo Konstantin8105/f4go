@@ -135,7 +135,7 @@ C -----------------------------------------------------
             write (*, FMT = 131) 3,a
             write (*, FMT = 131) 4,b
             return
-  131 Format (' output ', I2, ' ', F12.5 , ' real ')
+  131 Format (' output ', I2, ' ', F12.5 , ' real '/1X)
         end
 
         subroutine ab(a,b)
