@@ -30,6 +30,22 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 			}
 		}
 	}
+	if call, ok := node.(*goast.CallExpr); ok {
+		if sel, ok := call.Fun.(*goast.SelectorExpr); ok {
+			if x, ok := sel.X.(*goast.Ident); ok && x.Name == "intrinsic" {
+
+				for i := range call.Args {
+					arg := call.Args[i].(*goast.Ident)
+					if len(arg.Name) > 3 && arg.Name[:2] == "&(" {
+						arg.Name = arg.Name[2 : len(arg.Name)-1]
+					}
+					if len(arg.Name) > 15 && arg.Name[:14] == " func()*[]byte" {
+						arg.Name = "*" + arg.Name
+					}
+				}
+			}
+		}
+	}
 	return in
 }
 

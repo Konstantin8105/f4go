@@ -1893,7 +1893,7 @@ externalFunc:
 	p.ident++
 	// TRANSA , TRANSB , SAME , ERR
 
-	s := fmt.Sprintf("intrinsic.WRITE(int(%s),%s,%s)", unit, fs,
+	s := fmt.Sprintf("intrinsic.WRITE(%s,%s,%s)", unit, fs,
 		nodesToString(p.ns[p.ident:i]))
 
 	p.addImport("github.com/Konstantin8105/f4go/intrinsic")

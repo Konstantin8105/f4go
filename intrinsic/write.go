@@ -1,6 +1,9 @@
 package intrinsic
 
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
 var units map[int]*os.File
 
@@ -9,6 +12,6 @@ func init() {
 	units[6] = os.Stdout
 }
 
-func WRITE(unit int, fmt string, a ...interface{}) {
-	fmt.Fprintf(units[unit], fmt, a)
+func WRITE(unit int, format []byte, a ...interface{}) {
+	fmt.Fprintf(units[unit], string(format), a...)
 }
