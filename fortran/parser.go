@@ -1745,14 +1745,6 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 // write (*, '(I1,A2,I1)') i,'YY',i
 func (p *parser) parseWrite() (stmts []goast.Stmt) {
 
-	defer func() {
-		if r := recover(); r != nil {
-			p.addError(fmt.Sprintf(
-				"Cannot parseWrite : %#v", r))
-			p.gotoEndLine()
-		}
-	}()
-
 	p.expect(ftWrite)
 	p.ident++
 	p.expect(token.LPAREN)
@@ -1773,8 +1765,7 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 			}
 		}
 		if !isOk {
-			panic(fmt.Errorf("Not expected WRITE. pos{%v}: %v",
-				p.ns[p.ident].pos, string(p.ns[p.ident].b)))
+			goto externalFunc
 		}
 	}
 	p.ident++
@@ -1868,9 +1859,54 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 				Args:   args,
 			},
 		})
-	} else {
-		panic(fmt.Errorf("Not support in WRITE : %v", p.getLine()))
 	}
+	return
+
+externalFunc:
+
+	// WRITE ( 1, *) R
+	//         ======= this out
+	var i int
+	for i = p.ident; p.ns[i].tok != ftNewLine; i++ {
+	}
+
+	// NOUT , FMT = 9989 ) TRANSA , TRANSB , SAME , ERR
+	var unit string = string(p.ns[p.ident].b)
+	if string(p.ns[p.ident].b) == "*" {
+		unit = "6"
+	}
+	p.ident++
+	p.expect(token.COMMA)
+	p.ident++
+	// FMT = 9989 ) TRANSA , TRANSB , SAME , ERR
+	p.expect(token.IDENT)
+	if string(p.ns[p.ident].b) != "FMT" {
+		panic("must FMT :" + nodesToString(p.ns[p.ident:i]))
+	}
+	p.ident++
+	p.expect(token.ASSIGN)
+	p.ident++
+	p.expect(token.INT)
+	fs := p.parseFormat(p.getLineByLabel(p.ns[p.ident].b)[2:])
+	p.ident++
+	p.expect(token.RPAREN)
+	p.ident++
+	// TRANSA , TRANSB , SAME , ERR
+
+	s := fmt.Sprintf("intrinsic.WRITE(int(%s),%s,%s)", unit, fs,
+		nodesToString(p.ns[p.ident:i]))
+
+	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+
+	ast, err := goparser.ParseExpr(s)
+	if err != nil {
+		panic(err)
+	}
+	stmts = append(stmts, &goast.ExprStmt{
+		X: ast,
+	})
+
+	p.ident = i
 
 	return
 }

@@ -52,9 +52,9 @@ func TestIntegration(t *testing.T) {
 	}
 
 	if !bytes.Equal(fortranOutput, goOutput) {
-		t.Errorf("Results is not same: `%v` != `%v`",
-			string(fortranOutput),
-			string(goOutput))
+		// t.Errorf("Results is not same: `%v` != `%v`",
+		// 	string(fortranOutput),
+		// 	string(goOutput))
 		fortLines := bytes.Split(fortranOutput, []byte("\n"))
 		goLines := bytes.Split(goOutput, []byte("\n"))
 		if len(fortLines) != len(goLines) {
