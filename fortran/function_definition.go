@@ -35,6 +35,9 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 			if x, ok := sel.X.(*goast.Ident); ok && x.Name == "intrinsic" {
 
 				for i := range call.Args {
+					if _, ok := call.Args[i].(*goast.Ident); !ok {
+						continue
+					}
 					arg := call.Args[i].(*goast.Ident)
 					if len(arg.Name) > 3 && arg.Name[:2] == "&(" {
 						arg.Name = arg.Name[2 : len(arg.Name)-1]

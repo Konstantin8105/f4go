@@ -561,6 +561,9 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 				case token.FLOAT:
 					call.Args[i] = goast.NewIdent(
 						fmt.Sprintf("func()*float64{y:=%s;return &y}()", a.Value))
+				case token.CHAR:
+					call.Args[i] = goast.NewIdent(
+						fmt.Sprintf("func()*byte{y:=%s;return &y}()", a.Value))
 				default:
 					panic(fmt.Errorf(
 						"Not support basiclit token: %T ", a.Kind))
