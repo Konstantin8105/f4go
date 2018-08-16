@@ -61,6 +61,9 @@ C -----------------------------------------------------
             call testName("test_parameter")
             call test_parameter()
 
+            ! call testName("test_write")
+            ! call test_write()
+
             ! end of tests
         END
 
@@ -602,6 +605,28 @@ C -----------------------------------------------------
             RETURN
   570       FORMAT('PARAMETER : ', F10.4)
         END SUBROUTINE
+
+C -----------------------------------------------------
+
+  !       SUBROUTINE test_write
+  !           INTEGER OUT
+  !           REAL VALUE
+  !           CHARACTER*512 CH
+  !           OUT   = 6
+  !           VALUE = 12.34
+  !           WRITE(OUT,FMT=615) VALUE
+  !           OPEN(UNIT=2,FILE = "./testdata/main.f")
+  !           OUT = 2
+  !           READ (OUT,'(A80)') CH
+  !           WRITE(*  ,'(A80)') CH
+  !           READ (OUT,'(A80)') CH
+  !           WRITE(*  ,'(A80)') CH
+  !           READ (OUT,'(A80)') CH
+  !           WRITE(*  ,'(A80)') CH
+  !           CLOSE(2)
+  !           RETURN
+  ! 615       FORMAT ('TEST_WRITE :',F6.3)
+  !       END SUBROUTINE
 
 C -----------------------------------------------------
 
