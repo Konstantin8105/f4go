@@ -25,7 +25,6 @@
 
 Present result:
 ```fortran
-*  =====================================================================
       SUBROUTINE CAXPY(N,CA,CX,INCX,CY,INCY)
 *
 *  -- Reference BLAS level1 routine (version 3.8.0) --
@@ -85,9 +84,9 @@ Go code:
 package main
 
 func CAXPY(N *int, CA *complex64, CX *[]complex64, INCX *int, CY *[]complex64, INCY *int) {
+	var I int
 	var IX int
 	var IY int
-	var I int
 	//*
 	//*  -- Reference BLAS level1 routine (version 3.8.0) --
 	//*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -108,7 +107,7 @@ func CAXPY(N *int, CA *complex64, CX *[]complex64, INCX *int, CY *[]complex64, I
 	if (*N) <= 0 {
 		return
 	}
-	if SCABS1(&((*CA))) == 0.0e+0 {
+	if SCABS1(CA) == 0.0e+0 {
 		return
 	}
 	if (*INCX) == 1 && (*INCY) == 1 {
