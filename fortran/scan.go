@@ -224,7 +224,7 @@ func (s *scanner) extract(start, end int, e *list.Element, tok token.Token) {
 	}
 
 	if end > len(b) {
-		panic(fmt.Errorf("outside of slice {%v,%v}", end, len(b)))
+		panic(fmt.Errorf("outside of slice {%v,%v} : %v", end, len(b), e.Value.(*node), tok))
 	}
 
 	if start == 0 && end == len(b) {
@@ -298,24 +298,44 @@ func (s *scanner) extract(start, end int, e *list.Element, tok token.Token) {
 // separate strings
 func (s *scanner) scanStrings() {
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*node).tok {
-		case ftUndefine:
-			for j, ch := range e.Value.(*node).b {
-				if ch == '"' {
-					b := e.Value.(*node).b
-					var end int
-					for end = j + 1; end < len(b) && b[end] != '"'; end++ {
-					}
-					s.extract(j, end+1, e, token.STRING)
-					break
-				} else if ch == '\'' {
-					b := e.Value.(*node).b
-					var end int
-					for end = j + 1; end < len(b) && b[end] != '\''; end++ {
-					}
-					s.extract(j, end+1, e, token.STRING)
-					break
+		if e.Value.(*node).tok != ftUndefine {
+			continue
+		}
+		for j, ch := range e.Value.(*node).b {
+			if ch == '"' {
+				b := e.Value.(*node).b
+				var end int
+				for end = j + 1; end < len(b) && b[end] != '"'; end++ {
 				}
+				s.extract(j, end+1, e, token.STRING)
+				break
+			} else if ch == '\'' {
+				b := e.Value.(*node).b
+				var end int
+				for end = j + 1; end < len(b) && b[end] != '\''; end++ {
+				}
+				if end >= len(b) {
+					s.extract(j, end, e, token.STRING)
+				} else {
+					s.extract(j, end+1, e, token.STRING)
+				}
+				break
+			}
+		}
+	}
+	// merge strings. Example:
+	// 9949 FORMAT( 3X, I2, ': norm( L - A * Q'' ) / ( N * norm(A) * EPS )' )
+	//                                        == here
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok == token.STRING {
+			n := e.Next()
+			if n == nil {
+				continue
+			}
+			if n.Value.(*node).tok == token.STRING {
+				e.Value.(*node).b = append(e.Value.(*node).b[:len(e.Value.(*node).b)-1],
+					append([]byte("'"), n.Value.(*node).b[1:]...)...)
+				s.nodes.Remove(n)
 			}
 		}
 	}

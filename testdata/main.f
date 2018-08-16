@@ -98,7 +98,7 @@ C -----------------------------------------------------
             write (*, '(I1,A2,I1)') i,'YY',i
             write (*, '()')
             return
-  120 Format (' output ', I1 , ' integer')
+  120 Format (' output ', I1 , ' integer I''C values ')
         end
 
 C -----------------------------------------------------

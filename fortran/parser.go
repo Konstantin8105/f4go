@@ -2013,8 +2013,7 @@ func (p *parser) parseFormat(in []node) (s string) {
 
 		case token.STRING:
 			str := string(f.b)
-			str = strings.Replace(str, "'", "", -1)
-			if str[0] == '"' {
+			if str[0] == '"' || str[0] == '\'' {
 				s += str[1 : len(str)-1]
 			} else {
 				s += str
