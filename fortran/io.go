@@ -137,37 +137,46 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 
 externalFunc:
 
+	p.ident--
+	p.expect(token.LPAREN)
 	// WRITE ( 1, *) R
-	//         ======= this out
-	var i int
-	for i = p.ident; p.ns[i].tok != ftNewLine; i++ {
+	//       ========= this out
+	args, end := separateArgsParen(p.ns[p.ident:])
+	p.ident += end
+
+	// Pattern:
+	//  WRITE( UNIT = ..., FMT = ...)
+	// Other parameters are ignored
+
+	// Part : UNIT
+	unit := string(args[0][0].b)
+	if len(args[0]) == 3 {
+		unit = string(args[0][2].b)
 	}
 
-	// NOUT , FMT = 9989 ) TRANSA , TRANSB , SAME , ERR
-	var unit string = string(p.ns[p.ident].b)
-	if string(p.ns[p.ident].b) == "*" {
-		unit = "6"
+	// Part: FMT
+	fmts := args[1][0]
+	if len(args[1]) == 3 {
+		fmts = args[1][2]
 	}
-	p.ident++
-	p.expect(token.COMMA)
-	p.ident++
-	// FMT = 9989 ) TRANSA , TRANSB , SAME , ERR
-	p.expect(token.IDENT)
-	if string(p.ns[p.ident].b) != "FMT" {
-		panic("must FMT :" + nodesToString(p.ns[p.ident:i]))
+
+	var fs string
+	if fmts.tok == token.INT {
+		line := p.getLineByLabel(fmts.b)
+		fs = p.parseFormat(line[2:])
+	} else {
+		// Example :
+		// '(A80)'
+		ns := scan(fmts.b[2 : len(fmts.b)-2])
+		fs = p.parseFormat(ns)
 	}
-	p.ident++
-	p.expect(token.ASSIGN)
-	p.ident++
-	p.expect(token.INT)
-	fs := p.parseFormat(p.getLineByLabel(p.ns[p.ident].b)[2:])
-	p.ident++
-	p.expect(token.RPAREN)
-	p.ident++
+
 	// TRANSA , TRANSB , SAME , ERR
+	for end = p.ident; p.ns[end].tok != ftNewLine; end++ {
+	}
 
 	s := fmt.Sprintf("intrinsic.WRITE(%s,%s,%s)", unit, fs,
-		nodesToString(p.ns[p.ident:i]))
+		nodesToString(p.ns[p.ident:end]))
 
 	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 
@@ -179,7 +188,7 @@ externalFunc:
 		X: ast,
 	})
 
-	p.ident = i
+	p.ident = end
 
 	return
 }
@@ -341,7 +350,59 @@ func (p *parser) parseFormat(in []node) (s string) {
 //  READ ( NIN , FMT = * ) THRESH
 //  READ ( NIN , FMT = * ) ( IDIM ( I ) , I = 1 , NIDIM )
 func (p *parser) parseRead() (stmts []goast.Stmt) {
-	p.gotoEndLine()
+	p.expect(ftRead)
+	p.ident++
+	p.expect(token.LPAREN)
+
+	args, end := separateArgsParen(p.ns[p.ident:])
+	p.ident += end
+
+	// Pattern:
+	//  READ ( NIN , FMT = * ) TS
+	// Other parameters are ignored
+
+	// Part : UNIT
+	unit := string(args[0][0].b)
+	if len(args[0]) == 3 {
+		unit = string(args[0][2].b)
+	}
+
+	// Part: FMT
+	fmts := args[1][0]
+	if len(args[1]) == 3 {
+		fmts = args[1][2]
+	}
+
+	var fs string
+	if fmts.tok == token.INT {
+		line := p.getLineByLabel(fmts.b)
+		fs = p.parseFormat(line[2:])
+	} else {
+		// Example :
+		// '(A80)'
+		ns := scan(fmts.b[2 : len(fmts.b)-2])
+		fs = p.parseFormat(ns)
+	}
+
+	// TRANSA , TRANSB , SAME , ERR
+	for end = p.ident; p.ns[end].tok != ftNewLine; end++ {
+	}
+
+	s := fmt.Sprintf("intrinsic.READ(%s,%s,%s)", unit, fs,
+		nodesToString(p.ns[p.ident:end]))
+
+	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+
+	ast, err := goparser.ParseExpr(s)
+	if err != nil {
+		panic(err)
+	}
+	stmts = append(stmts, &goast.ExprStmt{
+		X: ast,
+	})
+
+	p.ident = end
+
 	return
 }
 

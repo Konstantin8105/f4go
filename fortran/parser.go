@@ -571,16 +571,6 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 
 			case *goast.Ident: // TODO : not correct for array
 				id := call.Args[i].(*goast.Ident)
-				// found := false
-				// for name, goT := range c.p.initVars {
-				// 	if id.Name == name && goT.isArray() &&
-				// 		goT.baseType != "byte" {
-				// 		found = true
-				// 	}
-				// }
-				// if found {
-				// 	continue
-				// }
 				id.Name = "&(" + id.Name + ")"
 			}
 		}
