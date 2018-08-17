@@ -1117,6 +1117,10 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		p.addError("READ is not support :" + p.getLine())
 		p.gotoEndLine()
 
+	case ftClose:
+		p.addError("CLOSE is not support :" + p.getLine())
+		p.gotoEndLine()
+
 	case ftAssign:
 		p.addError("ASSIGN is not support :" + p.getLine())
 		p.gotoEndLine()

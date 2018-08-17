@@ -44,6 +44,7 @@ const (
 	ftRead
 	ftAssign
 	ftDefine
+	ftClose
 
 	// undefine tokens
 	ftUndefine
@@ -94,6 +95,7 @@ var o = [...]string{
 	ftRead:         "READ",
 	ftAssign:       "ASSIGN",
 	ftDefine:       "DEFINE",
+	ftClose:        "CLOSE",
 
 	ftDollar: "$",
 

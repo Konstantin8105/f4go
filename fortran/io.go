@@ -342,3 +342,8 @@ func (p *parser) parseFormat(in []node) (s string) {
 // Example:
 //  OPEN ( NTRA , FILE = SNAPS )
 //  OPEN ( NOUT , FILE = SUMMRY , STATUS = 'UNKNOWN' )
+//  OPEN ( UNIT = 2 , FILE = "./testdata/main.f" )
+
+// Example:
+//  CLOSE ( 2 )
+//  CLOSE ( NIN )
