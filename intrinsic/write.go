@@ -1,6 +1,7 @@
 package intrinsic
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"reflect"
@@ -30,16 +31,27 @@ func CLOSE(unit int) {
 }
 
 func READ(unit int, format []byte, a ...interface{}) {
-	if format[len(format)-1] == '\n' {
-		format = format[:len(format)-1]
+
+	format = bytes.ToLower(format)
+
+	// Change from %15.4f to %15f
+	for i := 1; i < 20; i++ {
+		for j := 1; j <= i; j++ {
+			format = bytes.Replace(format,
+				[]byte(fmt.Sprintf("%c%d.%df", '%', i, j)),
+				[]byte(fmt.Sprintf("%cf", '%')),
+				-1)
+		}
 	}
-	_, err := fmt.Fscanf(units[unit], string(format), a...)
+
+	ft := string(format)
+	_, err := fmt.Fscanf(units[unit], ft, a...)
 	if err != nil {
 		var types string
 		for i := range a {
 			types += fmt.Sprintf("|%s|", reflect.TypeOf(a[i]))
 		}
 		panic(fmt.Errorf("READ error for format `%s` : %v\nValues = %v",
-			string(format), err, types))
+			ft, err, types))
 	}
 }

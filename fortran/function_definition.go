@@ -34,8 +34,14 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 		if sel, ok := call.Fun.(*goast.SelectorExpr); ok {
 			if x, ok := sel.X.(*goast.Ident); ok && x.Name == "intrinsic" {
 
+				var isRead bool = sel.Sel.Name == "READ"
+
 				for i := range call.Args {
 					if _, ok := call.Args[i].(*goast.Ident); !ok {
+						continue
+					}
+					if isRead && i > 1 {
+						// for READ command other arguments is pointer always
 						continue
 					}
 					arg := call.Args[i].(*goast.Ident)

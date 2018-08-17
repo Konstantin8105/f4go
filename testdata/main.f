@@ -611,19 +611,40 @@ C -----------------------------------------------------
         SUBROUTINE test_write
             INTEGER OUT
             REAL VALUE
-            ! CHARACTER*512 CH
+            ! CHARACTER*512 IN_CH
+            INTEGER       IN_I
+            REAL          IN_R1
             OUT   = 6
             VALUE = 12.34
             WRITE(OUT,FMT=615) VALUE
-            ! OPEN(UNIT=2,FILE = "./testdata/main.f")
-            ! OUT = 2
-            ! READ (OUT,'(A80)') CH
-            ! WRITE(*  ,'(A80)') CH
-            ! READ (OUT,'(A80)') CH
-            ! WRITE(*  ,'(A80)') CH
-            ! READ (OUT,'(A80)') CH
-            ! WRITE(*  ,'(A80)') CH
-            ! CLOSE(2)
+            OPEN(UNIT=2,FILE = "./testdata/text")
+            OUT = 2
+C
+C           INTEGER
+C
+            READ (OUT,'(I7)' ) IN_I
+            WRITE(*  ,'(I7)' ) IN_I
+            READ (OUT,'(I7)' ) IN_I
+            WRITE(*  ,'(I7)' ) IN_I
+            READ (OUT,'(I7)' ) IN_I
+            WRITE(*  ,'(I7)' ) IN_I
+            READ (OUT,'(I7)' ) IN_I
+            WRITE(*  ,'(I7)' ) IN_I
+            READ (OUT,'(I7)' ) IN_I
+            WRITE(*  ,'(I7)' ) IN_I
+            READ (OUT,'(I7)' ) IN_I
+            WRITE(*  ,'(I7)' ) IN_I
+C
+C           REAL
+C
+            READ (OUT,'(F6.2)') IN_R1
+            WRITE(*  ,'(F8.2)') IN_R1
+C
+C           CHARACTER
+C
+            ! READ (OUT,'(A80)') IN_CH
+            ! WRITE(*  ,'(A80)') IN_CH
+            CLOSE(2)
             RETURN
   615       FORMAT ('TEST_WRITE :',F6.3)
         END SUBROUTINE
