@@ -632,7 +632,7 @@ C
             WRITE(*  ,'(I7)' ) IN_I
             READ (OUT,'(I7)' ) IN_I
             WRITE(*  ,'(I7)' ) IN_I
-            READ (OUT,'(I7)' ) IN_I
+            READ (OUT, FMT=* ) IN_I
             WRITE(*  ,'(I7)' ) IN_I
 C
 C           REAL

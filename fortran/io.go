@@ -377,6 +377,9 @@ func (p *parser) parseRead() (stmts []goast.Stmt) {
 	if fmts.tok == token.INT {
 		line := p.getLineByLabel(fmts.b)
 		fs = p.parseFormat(line[2:])
+	} else if fmts.tok == token.MUL {
+		// Example: *
+		fs = "\"%v\""
 	} else {
 		// Example :
 		// '(A80)'
@@ -395,7 +398,7 @@ func (p *parser) parseRead() (stmts []goast.Stmt) {
 
 	ast, err := goparser.ParseExpr(s)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("%s:%v", s, err))
 	}
 	stmts = append(stmts, &goast.ExprStmt{
 		X: ast,
