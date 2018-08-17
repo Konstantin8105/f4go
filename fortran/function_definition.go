@@ -42,7 +42,7 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 					if len(arg.Name) > 3 && arg.Name[:2] == "&(" {
 						arg.Name = arg.Name[2 : len(arg.Name)-1]
 					}
-					if len(arg.Name) > 15 && arg.Name[:14] == " func()*[]byte" {
+					if len(arg.Name) > 10 && arg.Name[:7] == "func()*" {
 						arg.Name = "*" + arg.Name
 					}
 				}

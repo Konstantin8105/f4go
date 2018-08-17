@@ -39,6 +39,7 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 			goto externalFunc
 		}
 	}
+
 	p.ident++
 	p.expect(token.COMMA)
 	p.ident++
@@ -61,7 +62,8 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 		p.expect(token.ASSIGN)
 		p.ident++
 		p.expect(token.INT)
-		fs := p.parseFormat(p.getLineByLabel(p.ns[p.ident].b)[2:])
+		line := p.getLineByLabel(p.ns[p.ident].b)
+		fs := p.parseFormat(line[2:])
 		p.addImport("fmt")
 		p.ident++
 		p.expect(token.RPAREN)
@@ -338,12 +340,70 @@ func (p *parser) parseFormat(in []node) (s string) {
 //  READ ( NIN , FMT = * ) TSTERR
 //  READ ( NIN , FMT = * ) THRESH
 //  READ ( NIN , FMT = * ) ( IDIM ( I ) , I = 1 , NIDIM )
+func (p *parser) parseRead() (stmts []goast.Stmt) {
+	p.gotoEndLine()
+	return
+}
 
 // Example:
 //  OPEN ( NTRA , FILE = SNAPS )
 //  OPEN ( NOUT , FILE = SUMMRY , STATUS = 'UNKNOWN' )
 //  OPEN ( UNIT = 2 , FILE = "./testdata/main.f" )
+func (p *parser) parseOpen() (stmts []goast.Stmt) {
+	p.expect(ftOpen)
+	p.ident++
+	p.expect(token.LPAREN)
+	args, end := separateArgsParen(p.ns[p.ident:])
+	p.ident += end
+
+	// Pattern:
+	//  OPEN( UNIT = ..., FILE = ...)
+	// Other parameters are ignored
+
+	// Part : UNIT
+	unit := string(args[0][0].b)
+	if len(args[0]) == 3 {
+		unit = string(args[0][2].b)
+	}
+
+	// Part : FILE
+	file := string(args[1][0].b)
+	if len(args[1]) == 3 {
+		file = string(args[1][2].b)
+	}
+
+	s := fmt.Sprintf("intrinsic.OPEN(%s,%s)", unit, file)
+	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+	ast, err := goparser.ParseExpr(s)
+	if err != nil {
+		panic(err)
+	}
+	stmts = append(stmts, &goast.ExprStmt{
+		X: ast,
+	})
+
+	return
+}
 
 // Example:
 //  CLOSE ( 2 )
 //  CLOSE ( NIN )
+func (p *parser) parseClose() (stmts []goast.Stmt) {
+	p.expect(ftClose)
+	p.ident++
+	p.expect(token.LPAREN)
+	args, end := separateArgsParen(p.ns[p.ident:])
+	p.ident += end
+
+	s := fmt.Sprintf("intrinsic.CLOSE(%s)", string(args[0][0].b))
+	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+	ast, err := goparser.ParseExpr(s)
+	if err != nil {
+		panic(err)
+	}
+	stmts = append(stmts, &goast.ExprStmt{
+		X: ast,
+	})
+
+	return
+}

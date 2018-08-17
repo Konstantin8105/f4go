@@ -554,7 +554,7 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 				switch a.Kind {
 				case token.STRING:
 					call.Args[i] = goast.NewIdent(
-						fmt.Sprintf(" func()*[]byte{y:=[]byte(%s);return &y}()", a.Value))
+						fmt.Sprintf("func()*[]byte{y:=[]byte(%s);return &y}()", a.Value))
 				case token.INT:
 					call.Args[i] = goast.NewIdent(
 						fmt.Sprintf("func()*int{y:=%s;return &y}()", a.Value))
@@ -1110,16 +1110,16 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		stmts = append(stmts, s...)
 
 	case ftOpen:
-		p.addError("OPEN is not support :" + p.getLine())
-		p.gotoEndLine()
+		s := p.parseOpen()
+		stmts = append(stmts, s...)
 
 	case ftRead:
-		p.addError("READ is not support :" + p.getLine())
-		p.gotoEndLine()
+		s := p.parseRead()
+		stmts = append(stmts, s...)
 
 	case ftClose:
-		p.addError("CLOSE is not support :" + p.getLine())
-		p.gotoEndLine()
+		s := p.parseClose()
+		stmts = append(stmts, s...)
 
 	case ftAssign:
 		p.addError("ASSIGN is not support :" + p.getLine())

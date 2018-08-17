@@ -15,3 +15,15 @@ func init() {
 func WRITE(unit int, format []byte, a ...interface{}) {
 	fmt.Fprintf(units[unit], string(format), a...)
 }
+
+func OPEN(unit int, file []byte) {
+	f, err := os.Open(string(file))
+	if err != nil {
+		panic(err)
+	}
+	units[unit] = f
+}
+
+func CLOSE(unit int) {
+	delete(units, unit)
+}
