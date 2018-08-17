@@ -30,11 +30,16 @@ func CLOSE(unit int) {
 }
 
 func READ(unit int, format []byte, a ...interface{}) {
+	if format[len(format)-1] == '\n' {
+		format = format[:len(format)-1]
+	}
 	_, err := fmt.Fscanf(units[unit], string(format), a...)
 	if err != nil {
+		var types string
 		for i := range a {
-			fmt.Println(">", i, "\t", reflect.TypeOf(a[i]))
+			types += fmt.Sprintf("|%s|", reflect.TypeOf(a[i]))
 		}
-		panic(err)
+		panic(fmt.Errorf("READ error for format `%s` : %v\nValues = %v",
+			string(format), err, types))
 	}
 }
