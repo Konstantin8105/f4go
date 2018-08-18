@@ -616,6 +616,9 @@ C -----------------------------------------------------
             REAL          IN_R1
             REAL          IN_A(3)
             INTEGER       A,I
+            LOGICAL       L1, L2
+            L1 = .TRUE.
+            L2 = .FALSE.
             A = 3
             OUT   = 6
             VALUE = 12.34
@@ -654,6 +657,13 @@ C
             ! READ (OUT,'(A80)') IN_CH
             ! WRITE(*  ,'(A80)') IN_CH
             CLOSE(2)
+C
+C           LOGICAL
+C
+            WRITE(*,'(L1)') L1
+            WRITE(*,'(L1)') L2
+            WRITE(*,'(L2)') L1
+            WRITE(*,'(L2)') L2
             RETURN
   615       FORMAT ('TEST_WRITE :',F6.3)
         END SUBROUTINE

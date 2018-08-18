@@ -194,6 +194,14 @@ func (p *parser) parseFormat(in []node) (s string) {
 				} else {
 					s += "%s"
 				}
+
+			case 'L':
+				v, _ := strconv.Atoi(string(f.b[1:]))
+				for i := 0; i < v-1; i++ {
+					s += " "
+				}
+				s += "%t"
+
 			default:
 				p.addError(fmt.Sprintf(
 					"Not support format pos = %v: %s", in[0].pos, string(f.b)))
