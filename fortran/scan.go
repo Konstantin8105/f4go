@@ -429,13 +429,17 @@ func (s *scanner) postprocessor() {
 	// To:
 	//  END
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		if e.Value.(*node).tok == ftEnd {
-			for n := e.Next(); n != nil; n = e.Next() {
-				if n.Value.(*node).tok != ftNewLine {
-					s.nodes.Remove(n)
-				} else {
-					break
-				}
+		if e.Value.(*node).tok != ftEnd {
+			continue
+		}
+		if n := e.Next(); n != nil && n.Value.(*node).tok == token.ASSIGN {
+			continue
+		}
+		for n := e.Next(); n != nil; n = e.Next() {
+			if n.Value.(*node).tok != ftNewLine {
+				s.nodes.Remove(n)
+			} else {
+				break
 			}
 		}
 	}
