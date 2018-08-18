@@ -37,19 +37,19 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 				var isRead bool = sel.Sel.Name == "READ"
 
 				for i := range call.Args {
-					if _, ok := call.Args[i].(*goast.Ident); !ok {
-						continue
-					}
 					if isRead && i > 1 {
 						// for READ command other arguments is pointer always
 						continue
 					}
-					arg := call.Args[i].(*goast.Ident)
-					if len(arg.Name) > 3 && arg.Name[:2] == "&(" {
-						arg.Name = arg.Name[2 : len(arg.Name)-1]
-					}
-					if len(arg.Name) > 10 && arg.Name[:7] == "func()*" {
-						arg.Name = "*" + arg.Name
+					if arg, ok := call.Args[i].(*goast.Ident); ok {
+						if len(arg.Name) > 3 && arg.Name[:2] == "&(" {
+							arg.Name = arg.Name[2 : len(arg.Name)-1]
+							continue
+						}
+						if len(arg.Name) > 10 && arg.Name[:7] == "func()*" {
+							arg.Name = "*" + arg.Name
+							continue
+						}
 					}
 				}
 			}
@@ -79,6 +79,15 @@ func intrinsicArgumentCorrection(f *goast.CallExpr, name string, typeNames []str
 		if id, ok := f.Args[i].(*goast.Ident); ok {
 			if len(id.Name) > 3 && id.Name[:2] == "&(" {
 				id.Name = id.Name[2 : len(id.Name)-1]
+				continue
+			}
+		}
+		if un, ok := f.Args[i].(*goast.UnaryExpr); ok {
+			if par, ok := un.X.(*goast.ParenExpr); ok {
+				if id, ok := par.X.(*goast.IndexExpr); ok {
+					f.Args[i] = id
+					continue
+				}
 			}
 		}
 	}

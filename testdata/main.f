@@ -614,6 +614,9 @@ C -----------------------------------------------------
             ! CHARACTER*512 IN_CH
             INTEGER       IN_I
             REAL          IN_R1
+            REAL          IN_A(3)
+            INTEGER       A,I
+            A = 3
             OUT   = 6
             VALUE = 12.34
             WRITE(OUT,FMT=615) VALUE
@@ -639,6 +642,12 @@ C           REAL
 C
             READ (OUT,'(F6.2)') IN_R1
             WRITE(*  ,'(F8.2)') IN_R1
+C
+C           REAL ARRAY
+C
+            READ (OUT, FMT = * ) (IN_A(I), I=1,A)
+            WRITE( * , '(F8.2)' )  IN_A(1)
+            ! WRITE( * , FMT = * ) (IN_A(I), I=1,A)
 C
 C           CHARACTER
 C

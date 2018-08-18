@@ -572,6 +572,21 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 			case *goast.Ident: // TODO : not correct for array
 				id := call.Args[i].(*goast.Ident)
 				id.Name = "&(" + id.Name + ")"
+
+			case *goast.IndexExpr:
+				call.Args[i] = &goast.UnaryExpr{
+					Op: token.AND,
+					X: &goast.ParenExpr{
+						Lparen: 1,
+						X:      call.Args[i],
+					},
+				}
+
+				// TODO:
+				// default:
+				// 	goast.Print(token.NewFileSet(), a)
+				// 	panic(fmt.Errorf(
+				// 		"Not support arg call token: %T ", a))
 			}
 		}
 	}
@@ -698,9 +713,6 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 		switch fd.Type.Params.List[i].Type.(type) {
 		case *goast.Ident:
 			id := fd.Type.Params.List[i].Type.(*goast.Ident)
-			// if strings.Contains(id.Name, "[") { // for array no need pointer
-			// 	continue
-			// }
 			id.Name = "*" + id.Name
 		default:
 			panic(fmt.Errorf("Cannot parse type in fields: %T",

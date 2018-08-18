@@ -391,10 +391,54 @@ func (p *parser) parseRead() (stmts []goast.Stmt) {
 	for end = p.ident; p.ns[end].tok != ftNewLine; end++ {
 	}
 
+	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+
+	if p.ns[p.ident].tok == token.LPAREN {
+		if v, ok := p.initVars.get(string(p.ns[p.ident+1].b)); ok && v.typ.isArray() {
+			// ( IDIM ( I ) , I = 1 , NIDIM )
+			_, end := separateArgsParen(p.ns[p.ident:])
+
+			s := fmt.Sprintf("intrinsic.READ(%s,%s,%s)", unit, fs,
+				nodesToString(p.ns[p.ident+1:p.ident+5]))
+
+			ast := p.parseExprNodes(scan([]byte(s)))
+
+			f := goast.ForStmt{
+				Init: &goast.AssignStmt{
+					Lhs: []goast.Expr{goast.NewIdent(string(p.ns[p.ident+6].b))},
+					Tok: token.ASSIGN,
+					Rhs: []goast.Expr{p.parseExprNodes([]node{
+						p.ns[p.ident+8],
+						// {tok: token.SUB, b: []byte("-")},
+						// {tok: token.INT, b: []byte("1")},
+					})},
+				},
+				Cond: p.parseExprNodes(append(
+					p.ns[p.ident+6:p.ident+7],
+					[]node{
+						{tok: token.LEQ, b: []byte("<=")},
+						p.ns[p.ident+10],
+						// {tok: token.SUB, b: []byte("-")},
+						// {tok: token.INT, b: []byte("1")},
+					}...)),
+				Post: &goast.IncDecStmt{
+					X:   goast.NewIdent(string(p.ns[p.ident+6].b)),
+					Tok: token.INC,
+				},
+				Body: &goast.BlockStmt{
+					List: []goast.Stmt{
+						&goast.ExprStmt{X: ast},
+					},
+				},
+			}
+			p.ident += end
+			stmts = append(stmts, &f)
+			return
+		}
+	}
+
 	s := fmt.Sprintf("intrinsic.READ(%s,%s,%s)", unit, fs,
 		nodesToString(p.ns[p.ident:end]))
-
-	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 
 	ast, err := goparser.ParseExpr(s)
 	if err != nil {
