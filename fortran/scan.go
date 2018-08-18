@@ -224,7 +224,7 @@ func (s *scanner) extract(start, end int, e *list.Element, tok token.Token) {
 	}
 
 	if end > len(b) {
-		panic(fmt.Errorf("outside of slice {%v,%v} : %v", end, len(b), e.Value.(*node), tok))
+		panic(fmt.Errorf("outside of slice {%v,%v} : %v , %v", end, len(b), e.Value.(*node), tok))
 	}
 
 	if start == 0 && end == len(b) {

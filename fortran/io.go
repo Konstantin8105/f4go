@@ -19,126 +19,147 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 	p.expect(ftWrite)
 	p.ident++
 	p.expect(token.LPAREN)
-	p.ident++
-	if !(p.ns[p.ident].tok == token.MUL ||
-		(p.ns[p.ident].tok == token.INT && string(p.ns[p.ident].b) == "6")) {
-		// allowable letters: `*` or `6`
-		// value with const 6, so ok
-		var isOk bool
-		if vv, ok := p.initVars.get(string(p.ns[p.ident].b)); ok {
-			if nodesToString(vv.constant) == "6" {
-				isOk = true
-				stmts = append(stmts, &goast.AssignStmt{
-					Lhs: []goast.Expr{goast.NewIdent("_")},
-					Tok: token.ASSIGN,
-					Rhs: []goast.Expr{goast.NewIdent(vv.name)},
-				})
-			}
-		}
-		if !isOk {
-			goto externalFunc
-		}
-	}
+	// p.ident++
+	//
+	// if p.ns[p.ident].tok == token.MUL {
+	// 	p.ns[p.ident] = node{tok: token.INT, b: []byte("6")}
+	// }
+	//
+	// if !(p.ns[p.ident].tok == token.INT && string(p.ns[p.ident].b) == "6") {
+	// 	// allowable letters: `*` or `6`
+	// 	// value with const 6, so ok
+	// 	var isOk bool
+	// 	if vv, ok := p.initVars.get(string(p.ns[p.ident].b)); ok {
+	// 		if nodesToString(vv.constant) == "6" {
+	// 			isOk = true
+	// 			stmts = append(stmts, &goast.AssignStmt{
+	// 				Lhs: []goast.Expr{goast.NewIdent("_")},
+	// 				Tok: token.ASSIGN,
+	// 				Rhs: []goast.Expr{goast.NewIdent(vv.name)},
+	// 			})
+	// 		}
+	// 	}
+	// 	if !isOk {
+	// 		goto externalFunc
+	// 	}
+	// }
+	//
+	// p.ident++
+	// p.expect(token.COMMA)
+	// p.ident++
+	//
+	// // From:
+	// //  WRITE(6,10) A
+	// // To:
+	// //  WRITE(6,FMT=10) A
+	// if p.ns[p.ident].tok == token.INT {
+	// 	p.ns = append(p.ns[:p.ident], append([]node{
+	// 		{tok: token.IDENT, b: []byte("FMT")},
+	// 		{tok: token.ASSIGN, b: []byte("=")},
+	// 	}, p.ns[p.ident:]...)...)
+	// }
 
-	p.ident++
-	p.expect(token.COMMA)
-	p.ident++
+	// if p.ns[p.ident].tok == token.IDENT &&
+	// 	bytes.Equal(bytes.ToUpper(p.ns[p.ident].b), []byte("FMT")) {
+	//
+	// 	p.ident++
+	// 	p.expect(token.ASSIGN)
+	// 	p.ident++
+	// 	p.expect(token.INT)
+	// 	line := p.getLineByLabel(p.ns[p.ident].b)
+	// 	fs := p.parseFormat(line[2:])
+	// 	p.addImport("fmt")
+	// 	p.ident++
+	// 	p.expect(token.RPAREN)
+	// 	p.ident++
+	// 	if p.ns[p.ident+1].tok == token.LPAREN {
+	// 		fmt.Println("CCCCCCCCC")
+	// 		fmt.Println(">>>>> ", nodesToString(p.ns[p.ident-10:p.ident]))
+	// 		p.ident -= 6
+	// 		goto externalFunc
+	// 	}
+	// 	// separate to expression by comma
+	// 	exprs := p.scanWriteExprs()
+	// 	p.expect(ftNewLine)
+	// 	var args []goast.Expr
+	// 	args = append(args, goast.NewIdent(fs))
+	// 	args = append(args, exprs...)
+	// 	stmts = append(stmts, &goast.ExprStmt{
+	// 		X: &goast.CallExpr{
+	// 			Fun: &goast.SelectorExpr{
+	// 				X:   goast.NewIdent("fmt"),
+	// 				Sel: goast.NewIdent("Printf"),
+	// 			},
+	// 			Lparen: 1,
+	// 			Args:   args,
+	// 		},
+	// 	})
+	// } else if p.ns[p.ident].tok == token.MUL {
+	// 	p.expect(token.MUL)
+	// 	p.ident++
+	// 	p.expect(token.RPAREN)
+	// 	p.ident++
+	// 	if p.ns[p.ident+1].tok == token.LPAREN {
+	// 		fmt.Println("BBBBBBBBBB")
+	// 		p.ident -= 4
+	// 		goto externalFunc
+	// 	}
+	// 	exprs := p.scanWriteExprs()
+	// 	p.expect(ftNewLine)
+	// 	var format string
+	// 	format = "\""
+	// 	for i := 0; i < len(exprs); i++ {
+	// 		format += " %s"
+	// 	}
+	// 	format += "\\n\""
+	// 	stmts = append(stmts, &goast.ExprStmt{
+	// 		X: &goast.CallExpr{
+	// 			Fun: &goast.SelectorExpr{
+	// 				X:   goast.NewIdent("fmt"),
+	// 				Sel: goast.NewIdent("Printf"),
+	// 			},
+	// 			Lparen: 1,
+	// 			Args:   append([]goast.Expr{goast.NewIdent(format)}, exprs...),
+	// 		},
+	// 	})
+	// } else if p.ns[p.ident].tok == token.STRING {
+	// 	// write (*, '(I1,A2,I1)') i,'YY',i
+	// 	format := p.ns[p.ident].b
+	// 	toks := scan(format[2 : len(format)-2])
+	// 	fs := p.parseFormat(toks)
+	// 	p.ident++
+	// 	p.addImport("fmt")
+	// 	p.expect(token.RPAREN)
+	// 	p.ident++
+	// 	if p.ns[p.ident+1].tok == token.LPAREN {
+	// 		fmt.Println("AAAAAAAAAAA")
+	// 		p.ident -= 4
+	// 		goto externalFunc
+	// 	}
+	// 	// separate to expression by comma
+	// 	exprs := p.scanWriteExprs()
+	// 	p.expect(ftNewLine)
+	// 	var args []goast.Expr
+	// 	args = append(args, goast.NewIdent(fs))
+	// 	args = append(args, exprs...)
+	// 	stmts = append(stmts, &goast.ExprStmt{
+	// 		X: &goast.CallExpr{
+	// 			Fun: &goast.SelectorExpr{
+	// 				X:   goast.NewIdent("fmt"),
+	// 				Sel: goast.NewIdent("Printf"),
+	// 			},
+	// 			Lparen: 1,
+	// 			Args:   args,
+	// 		},
+	// 	})
+	// }
+	// return
 
-	// From:
-	//  WRITE(6,10) A
-	// To:
-	//  WRITE(6,FMT=10) A
-	if p.ns[p.ident].tok == token.INT {
-		p.ns = append(p.ns[:p.ident], append([]node{
-			{tok: token.IDENT, b: []byte("FMT")},
-			{tok: token.ASSIGN, b: []byte("=")},
-		}, p.ns[p.ident:]...)...)
-	}
+	// externalFunc:
+	//
+	// 	p.ident--
+	// 	p.expect(token.LPAREN)
 
-	if p.ns[p.ident].tok == token.IDENT &&
-		bytes.Equal(bytes.ToUpper(p.ns[p.ident].b), []byte("FMT")) {
-
-		p.ident++
-		p.expect(token.ASSIGN)
-		p.ident++
-		p.expect(token.INT)
-		line := p.getLineByLabel(p.ns[p.ident].b)
-		fs := p.parseFormat(line[2:])
-		p.addImport("fmt")
-		p.ident++
-		p.expect(token.RPAREN)
-		p.ident++
-		// separate to expression by comma
-		exprs := p.scanWriteExprs()
-		p.expect(ftNewLine)
-		var args []goast.Expr
-		args = append(args, goast.NewIdent(fs))
-		args = append(args, exprs...)
-		stmts = append(stmts, &goast.ExprStmt{
-			X: &goast.CallExpr{
-				Fun: &goast.SelectorExpr{
-					X:   goast.NewIdent("fmt"),
-					Sel: goast.NewIdent("Printf"),
-				},
-				Lparen: 1,
-				Args:   args,
-			},
-		})
-	} else if p.ns[p.ident].tok == token.MUL {
-		p.expect(token.MUL)
-		p.ident++
-		p.expect(token.RPAREN)
-		p.ident++
-		exprs := p.scanWriteExprs()
-		p.expect(ftNewLine)
-		var format string
-		format = "\""
-		for i := 0; i < len(exprs); i++ {
-			format += " %s"
-		}
-		format += "\\n\""
-		stmts = append(stmts, &goast.ExprStmt{
-			X: &goast.CallExpr{
-				Fun: &goast.SelectorExpr{
-					X:   goast.NewIdent("fmt"),
-					Sel: goast.NewIdent("Printf"),
-				},
-				Lparen: 1,
-				Args:   append([]goast.Expr{goast.NewIdent(format)}, exprs...),
-			},
-		})
-	} else if p.ns[p.ident].tok == token.STRING {
-		// write (*, '(I1,A2,I1)') i,'YY',i
-		format := p.ns[p.ident].b
-		toks := scan(format[2 : len(format)-2])
-		fs := p.parseFormat(toks)
-		p.ident++
-		p.addImport("fmt")
-		p.expect(token.RPAREN)
-		p.ident++
-		// separate to expression by comma
-		exprs := p.scanWriteExprs()
-		p.expect(ftNewLine)
-		var args []goast.Expr
-		args = append(args, goast.NewIdent(fs))
-		args = append(args, exprs...)
-		stmts = append(stmts, &goast.ExprStmt{
-			X: &goast.CallExpr{
-				Fun: &goast.SelectorExpr{
-					X:   goast.NewIdent("fmt"),
-					Sel: goast.NewIdent("Printf"),
-				},
-				Lparen: 1,
-				Args:   args,
-			},
-		})
-	}
-	return
-
-externalFunc:
-
-	p.ident--
-	p.expect(token.LPAREN)
 	// WRITE ( 1, *) R
 	//       ========= this out
 	args, end := separateArgsParen(p.ns[p.ident:])
@@ -153,6 +174,9 @@ externalFunc:
 	if len(args[0]) == 3 {
 		unit = string(args[0][2].b)
 	}
+	if unit == "*" {
+		unit = "6"
+	}
 
 	// Part: FMT
 	fmts := args[1][0]
@@ -164,6 +188,9 @@ externalFunc:
 	if fmts.tok == token.INT {
 		line := p.getLineByLabel(fmts.b)
 		fs = p.parseFormat(line[2:])
+	} else if fmts.tok == token.MUL {
+		// Example: *
+		fs = "\" %s\\n\""
 	} else {
 		// Example :
 		// '(A80)'
@@ -175,14 +202,40 @@ externalFunc:
 	for end = p.ident; p.ns[end].tok != ftNewLine; end++ {
 	}
 
-	s := fmt.Sprintf("intrinsic.WRITE(%s,%s,%s)", unit, fs,
-		nodesToString(p.ns[p.ident:end]))
-
 	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+
+	if p.ns[p.ident].tok == token.LPAREN {
+		if v, ok := p.initVars.get(string(p.ns[p.ident+1].b)); ok && v.typ.isArray() {
+			// ( IDIM ( I ) , I = 1 , NIDIM )
+			_, end := separateArgsParen(p.ns[p.ident:])
+
+			s := fmt.Sprintf("intrinsic.WRITE(%s,%s,%s)", unit, fs,
+				nodesToString(p.ns[p.ident+1:p.ident+5]))
+
+			ast := p.parseExprNodes(scan([]byte(s)))
+
+			f := p.createForArguments(ast)
+
+			p.ident += end
+			stmts = append(stmts, &f)
+			return
+		}
+	}
+
+	s := fmt.Sprintf("intrinsic.WRITE(%s,%s)", unit, fs)
 
 	ast, err := goparser.ParseExpr(s)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("pos:%v\nSource : %v\n Error: %v", p.ns[p.ident].pos, s, err))
+	}
+	if p.ident != end {
+		tempArgs, _ := separateArgsParen(append(append([]node{
+			{tok: token.LPAREN, b: []byte("(")},
+		}, p.ns[p.ident:end]...), node{tok: token.RPAREN, b: []byte(")")}))
+		for _, ta := range tempArgs {
+			ast.(*goast.CallExpr).Args = append(ast.(*goast.CallExpr).Args,
+				p.parseExprNodes(ta))
+		}
 	}
 	stmts = append(stmts, &goast.ExprStmt{
 		X: ast,
@@ -193,39 +246,39 @@ externalFunc:
 	return
 }
 
-func (p *parser) scanWriteExprs() (exprs []goast.Expr) {
-	st := p.ident
-	for ; p.ns[p.ident].tok != ftNewLine; p.ident++ {
-		for ; ; p.ident++ {
-			if p.ns[p.ident].tok == token.COMMA || p.ns[p.ident].tok == ftNewLine {
-				break
-			}
-			if p.ns[p.ident].tok != token.LPAREN {
-				continue
-			}
-			counter := 0
-			for ; ; p.ident++ {
-				if p.ns[p.ident].tok == token.RPAREN {
-					counter--
-				}
-				if p.ns[p.ident].tok == token.LPAREN {
-					counter++
-				}
-				if counter != 0 {
-					continue
-				}
-				break
-			}
-		}
-		// parse expr
-		exprs = append(exprs, p.parseExpr(st, p.ident))
-		st = p.ident + 1
-		if p.ns[p.ident].tok == ftNewLine {
-			p.ident--
-		}
-	}
-	return
-}
+// func (p *parser) scanWriteExprs() (exprs []goast.Expr) {
+// 	st := p.ident
+// 	for ; p.ns[p.ident].tok != ftNewLine; p.ident++ {
+// 		for ; ; p.ident++ {
+// 			if p.ns[p.ident].tok == token.COMMA || p.ns[p.ident].tok == ftNewLine {
+// 				break
+// 			}
+// 			if p.ns[p.ident].tok != token.LPAREN {
+// 				continue
+// 			}
+// 			counter := 0
+// 			for ; ; p.ident++ {
+// 				if p.ns[p.ident].tok == token.RPAREN {
+// 					counter--
+// 				}
+// 				if p.ns[p.ident].tok == token.LPAREN {
+// 					counter++
+// 				}
+// 				if counter != 0 {
+// 					continue
+// 				}
+// 				break
+// 			}
+// 		}
+// 		// parse expr
+// 		exprs = append(exprs, p.parseExpr(st, p.ident))
+// 		st = p.ident + 1
+// 		if p.ns[p.ident].tok == ftNewLine {
+// 			p.ident--
+// 		}
+// 	}
+// 	return
+// }
 
 func (p *parser) getLineByLabel(label []byte) (fs []node) {
 
@@ -403,34 +456,8 @@ func (p *parser) parseRead() (stmts []goast.Stmt) {
 
 			ast := p.parseExprNodes(scan([]byte(s)))
 
-			f := goast.ForStmt{
-				Init: &goast.AssignStmt{
-					Lhs: []goast.Expr{goast.NewIdent(string(p.ns[p.ident+6].b))},
-					Tok: token.ASSIGN,
-					Rhs: []goast.Expr{p.parseExprNodes([]node{
-						p.ns[p.ident+8],
-						// {tok: token.SUB, b: []byte("-")},
-						// {tok: token.INT, b: []byte("1")},
-					})},
-				},
-				Cond: p.parseExprNodes(append(
-					p.ns[p.ident+6:p.ident+7],
-					[]node{
-						{tok: token.LEQ, b: []byte("<=")},
-						p.ns[p.ident+10],
-						// {tok: token.SUB, b: []byte("-")},
-						// {tok: token.INT, b: []byte("1")},
-					}...)),
-				Post: &goast.IncDecStmt{
-					X:   goast.NewIdent(string(p.ns[p.ident+6].b)),
-					Tok: token.INC,
-				},
-				Body: &goast.BlockStmt{
-					List: []goast.Stmt{
-						&goast.ExprStmt{X: ast},
-					},
-				},
-			}
+			f := p.createForArguments(ast)
+
 			p.ident += end
 			stmts = append(stmts, &f)
 			return
@@ -514,4 +541,40 @@ func (p *parser) parseClose() (stmts []goast.Stmt) {
 	})
 
 	return
+}
+
+//  READ  ( NIN , FMT = * ) ( IDIM ( I ) , I = 1 , NIDIM )
+//  WRITE ( NIN , FMT = * ) ( IDIM ( I ) , I = 1 , NIDIM )
+//  ======================= this is ast
+//                          ==============================
+//                           this is return ForStmt
+func (p parser) createForArguments(ast goast.Expr) (f goast.ForStmt) {
+	return goast.ForStmt{
+		Init: &goast.AssignStmt{
+			Lhs: []goast.Expr{goast.NewIdent(string(p.ns[p.ident+6].b))},
+			Tok: token.ASSIGN,
+			Rhs: []goast.Expr{p.parseExprNodes([]node{
+				p.ns[p.ident+8],
+				// {tok: token.SUB, b: []byte("-")},
+				// {tok: token.INT, b: []byte("1")},
+			})},
+		},
+		Cond: p.parseExprNodes(append(
+			p.ns[p.ident+6:p.ident+7],
+			[]node{
+				{tok: token.LEQ, b: []byte("<=")},
+				p.ns[p.ident+10],
+				// {tok: token.SUB, b: []byte("-")},
+				// {tok: token.INT, b: []byte("1")},
+			}...)),
+		Post: &goast.IncDecStmt{
+			X:   goast.NewIdent(string(p.ns[p.ident+6].b)),
+			Tok: token.INC,
+		},
+		Body: &goast.BlockStmt{
+			List: []goast.Stmt{
+				&goast.ExprStmt{X: ast},
+			},
+		},
+	}
 }

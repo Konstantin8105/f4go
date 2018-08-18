@@ -645,9 +645,9 @@ C
 C
 C           REAL ARRAY
 C
-            READ (OUT, FMT = * ) (IN_A(I), I=1,A)
+            READ (OUT, FMT = *  ) (IN_A(I), I=1,A)
             WRITE( * , '(F8.2)' )  IN_A(1)
-            ! WRITE( * , FMT = * ) (IN_A(I), I=1,A)
+            WRITE( * , '(F8.2)' ) (IN_A(I), I=1,A)
 C
 C           CHARACTER
 C

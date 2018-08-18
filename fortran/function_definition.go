@@ -46,9 +46,26 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 							arg.Name = arg.Name[2 : len(arg.Name)-1]
 							continue
 						}
+						if strings.Contains(arg.Name, "func()*[]byte{y:=[]byte(") {
+							arg.Name = arg.Name[17:]
+							index := strings.LastIndex(arg.Name, "\")")
+							arg.Name = arg.Name[:index+2]
+							if i > 1 {
+								arg.Name = arg.Name[7 : len(arg.Name)-1]
+							}
+							continue
+						}
 						if len(arg.Name) > 10 && arg.Name[:7] == "func()*" {
 							arg.Name = "*" + arg.Name
 							continue
+						}
+					}
+					if un, ok := call.Args[i].(*goast.UnaryExpr); ok {
+						if par, ok := un.X.(*goast.ParenExpr); ok {
+							if id, ok := par.X.(*goast.IndexExpr); ok {
+								call.Args[i] = id
+								continue
+							}
 						}
 					}
 				}

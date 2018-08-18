@@ -95,11 +95,22 @@ func TestSplit(t *testing.T) {
 	}
 }
 
-func TestSeparateArgsParen(t *testing.T) {
+func TestSeparateArgsParenFail(t *testing.T) {
 	defer func() {
 		if r := recover(); r == nil {
 			t.Fatal("test is not fail")
 		}
 	}()
 	separateArgsParen([]node{{tok: token.INT, b: []byte("42")}})
+}
+
+func TestSeparateArgsParen(t *testing.T) {
+	n := scan([]byte("(real(I),imag(I))"))
+	args, _ := separateArgsParen(n)
+	if len(args) != 2 {
+		t.Fatalf("Not correct arg : %v", args)
+	}
+	if nodesToString(args[0]) != "real ( I )" {
+		t.Fatalf("Not correct arg2 : %v\n%v", args[0], nodesToString(args[0]))
+	}
 }

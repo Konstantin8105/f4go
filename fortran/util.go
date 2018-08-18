@@ -17,8 +17,11 @@ func separateArgsParen(nodes []node) (args [][]node, end int) {
 	args = append(args, []node{})
 	for end = 0; end < len(nodes); end++ {
 		if nodes[end].tok == token.LPAREN {
+			if counter == 0 {
+				counter++
+				continue
+			}
 			counter++
-			continue
 		}
 		if nodes[end].tok == token.COMMA && counter == 1 {
 			args = append(args, []node{})
@@ -29,9 +32,12 @@ func separateArgsParen(nodes []node) (args [][]node, end int) {
 			if counter == 0 {
 				break
 			}
-			continue
 		}
 		args[len(args)-1] = append(args[len(args)-1], nodes[end])
+	}
+
+	if end >= len(nodes) {
+		end = len(nodes) - 1
 	}
 	if nodes[end].tok != token.RPAREN {
 		panic("Last symbol is not ')' : " + nodesToString(nodes))
