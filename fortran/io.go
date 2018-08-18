@@ -195,7 +195,8 @@ func (p *parser) parseFormat(in []node) (s string) {
 					s += "%s"
 				}
 			default:
-				p.addError("Not support format : " + string(f.b))
+				p.addError(fmt.Sprintf(
+					"Not support format pos = %v: %s", in[0].pos, string(f.b)))
 			}
 		case token.INT:
 			// 1X
