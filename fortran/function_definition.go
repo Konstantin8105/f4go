@@ -15,6 +15,16 @@ func (c callArgumentSimplification) Visit(node goast.Node) (w goast.Visitor) {
 		if len(id.Name) > 6 && id.Name[:4] == "&((*" {
 			id.Name = id.Name[4 : len(id.Name)-2]
 		}
+
+		if len(id.Name) > 11 && id.Name[:11] == "*func()*int" {
+			// *func()*int{y:=6;return &y}()
+			id.Name = id.Name[15:]
+			id.Name = id.Name[:len(id.Name)-13]
+		}
+		if len(id.Name) > 8 && id.Name[:8] == "*func()*" {
+			// TODO : for other types
+			// fmt.Println("Simply : ", id.Name)
+		}
 	}
 	return c
 }
