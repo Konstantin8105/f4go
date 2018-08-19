@@ -166,7 +166,7 @@ func (p *parser) parseFormat(in []node) (s string) {
 			switch f.b[0] {
 			case 'I':
 				s += "%" + string(f.b[1:]) + "d"
-			case 'F':
+			case 'F', 'G', 'P':
 				s += "%" + string(f.b[1:])
 				if i+1 < len(fs) && fs[i+1].tok == token.PERIOD {
 					i += 1
