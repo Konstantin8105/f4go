@@ -385,12 +385,21 @@ func (p *parser) fixConcatString(nodes *[]node) {
 		leftOther, leftVariable, rightVariable, rightOther := p.split(nodes, pos)
 
 		// combine expression by next formula:
-		// leftOther []byte{leftVariable , rightVariable} rightOther
+		// leftOther append(append([]byte,leftVariable),rightVariable) rightOther
+		//           ---------------------            --             -
 		var comb []node
 		comb = append(comb, leftOther...)
 		comb = append(comb, []node{
 			{tok: token.IDENT, b: []byte("append")},
 			{tok: token.LPAREN, b: []byte("(")},
+			{tok: token.IDENT, b: []byte("append")},
+			{tok: token.LPAREN, b: []byte("(")},
+			{tok: token.LBRACK, b: []byte("[")},
+			{tok: token.RBRACK, b: []byte("]")},
+			{tok: token.IDENT, b: []byte("byte")},
+			{tok: token.LBRACE, b: []byte("{")},
+			{tok: token.RBRACE, b: []byte("}")},
+			{tok: token.COMMA, b: []byte(",")},
 		}...)
 		if leftVariable[0].tok == token.IDENT {
 			if v, ok := p.initVars.get(string(leftVariable[0].b)); ok {
@@ -400,6 +409,7 @@ func (p *parser) fixConcatString(nodes *[]node) {
 			}
 		}
 		comb = append(comb, leftVariable...)
+		comb = append(comb, node{tok: token.RPAREN, b: []byte(")")})
 		comb = append(comb, node{tok: token.COMMA, b: []byte(",")})
 		if rightVariable[0].tok == token.IDENT {
 			if v, ok := p.initVars.get(string(rightVariable[0].b)); ok {
@@ -409,7 +419,6 @@ func (p *parser) fixConcatString(nodes *[]node) {
 			}
 		}
 		comb = append(comb, rightVariable...)
-		comb = append(comb, node{tok: token.IDENT, b: []byte("...")})
 		comb = append(comb, node{tok: token.RPAREN, b: []byte(")")})
 		comb = append(comb, rightOther...)
 

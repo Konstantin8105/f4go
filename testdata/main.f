@@ -347,6 +347,9 @@ C -----------------------------------------------------
 
             INTEGER KTYPE(21)
             DATA    KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /
+
+            CHARACTER CA(4)
+            DATA    CA / 'A', 'B', 'C', 'D'/
             
             logical XSWPIV(4)
             DATA    XSWPIV / .FALSE., .FALSE., .TRUE., .TRUE. /
@@ -393,6 +396,9 @@ C -----------------------------------------------------
 
             DO J = 1,21
                 Write(*,'(I5)') KTYPE(J)
+            END DO
+            DO J = 1,4
+                Write(*,'(A1)') CA(J)
             END DO
 
             write(*,'(A2)') "ok"
@@ -480,8 +486,8 @@ C -----------------------------------------------------
             a = 'a'
             b = 'b'
             c = a // b
-            write(*,*)a
-            write(*,*)b
+            write(*,'(A1)')a
+            write(*,'(A1)')b
             write(*,*)c
         end
 

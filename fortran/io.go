@@ -189,10 +189,14 @@ func (p *parser) parseFormat(in []node) (s string) {
 				}
 				s += "E"
 			case 'A':
-				if len(f.b) > 1 {
-					s += "%" + string(f.b[1:]) + "s"
+				if string(f.b) == "A1" {
+					s += "%c"
 				} else {
-					s += "%s"
+					if len(f.b) > 1 {
+						s += "%" + string(f.b[1:]) + "s"
+					} else {
+						s += "%s"
+					}
 				}
 
 			case 'L':
