@@ -344,6 +344,9 @@ C -----------------------------------------------------
             DATA    ( IP(    J ), J = 1, 4 ) / 12,14,16,18/
             DATA    IP(5) / 123 /
             DATA    MM(2,3) / 56/
+
+            INTEGER KTYPE(21)
+            DATA    KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /
             
             logical XSWPIV(4)
             DATA    XSWPIV / .FALSE., .FALSE., .TRUE., .TRUE. /
@@ -387,6 +390,10 @@ C -----------------------------------------------------
             if (XSWPIV(2)) call fail("test_data 2")
             if (.NOT.XSWPIV(3)) call fail("test_data 3")
             if (.NOT.XSWPIV(4)) call fail("test_data 4")
+
+            DO J = 1,21
+                Write(*,'(I5)') KTYPE(J)
+            END DO
 
             write(*,'(A2)') "ok"
 

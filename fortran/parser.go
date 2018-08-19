@@ -1677,6 +1677,35 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 		panic("Not acceptable type : " + nodesToString(name))
 	}
 
+mul:
+	for k := range values {
+		// Example :
+		// DATA R / 5*6 /
+		// Equal:
+		// DATA R / 6,6,6,6,6 /
+		var haveStar bool
+		var starPos int
+		for i, vi := range values[k] {
+			if vi.tok == token.MUL {
+				haveStar = true
+				starPos = i
+				break
+			}
+		}
+
+		if !haveStar {
+			continue
+		}
+
+		amount, _ := strconv.Atoi(string(values[k][starPos-1].b))
+		var inject [][]node
+		for i := 0; i < amount; i++ {
+			inject = append(inject, values[k][starPos+1:])
+		}
+		values = append(values[:k], append(inject, values[k+1:]...)...)
+		goto mul
+	}
+
 	if len(nameExpr) != len(values) {
 		var str string
 		for i := range names {
