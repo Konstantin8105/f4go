@@ -112,7 +112,7 @@ func TestParseType(t *testing.T) {
 			},
 			typ: goType{
 				baseType:  "byte",
-				arrayType: []int{-1, 32},
+				arrayType: []int{32},
 			},
 		},
 	}
