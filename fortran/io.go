@@ -162,7 +162,7 @@ func (p *parser) parseFormat(in []node) (s string) {
 	for i := 0; i < len(fs); i++ {
 		f := fs[i]
 		switch f.tok {
-		case token.IDENT:
+		case token.IDENT, token.COMMENT:
 			switch f.b[0] {
 			case 'I':
 				s += "%" + string(f.b[1:]) + "d"

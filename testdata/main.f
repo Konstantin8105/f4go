@@ -639,7 +639,7 @@ C -----------------------------------------------------
 C
 C           INTEGER
 C
-            READ (OUT,'(I7)' ) IN_I
+            READ (UNIT = OUT, FMT = 617 ) IN_I
             WRITE(*  ,'(I7)' ) IN_I
             READ (OUT,'(I7)' ) IN_I
             WRITE(*  ,'(I7)' ) IN_I
@@ -656,6 +656,8 @@ C           REAL
 C
             READ (OUT,'(F6.2)') IN_R1
             WRITE(UNIT= 6 ,FMT = '(F8.2)') IN_R1
+            ! WRITE(UNIT= * ,FMT = '(D8.2)') IN_R1
+            ! WRITE(UNIT= 6 ,FMT = '(E8.2)') IN_R1
 C
 C           REAL ARRAY
 C
@@ -677,6 +679,7 @@ C
             ! WRITE(*,'(L2)') L2
             RETURN
   615       FORMAT ('TEST_WRITE :',F6.3)
+  617       FORMAT (I7)
         END SUBROUTINE
 
 C -----------------------------------------------------
