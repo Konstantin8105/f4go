@@ -71,7 +71,7 @@ func (p *parser) split(nodes *[]node, pos int) (
 	for leftSeparator = len(leftPart) - 1; leftSeparator >= 0; leftSeparator-- {
 		var br bool
 		switch leftPart[leftSeparator].tok {
-		case token.INT, token.FLOAT: // find Numbers
+		case token.INT, token.FLOAT, token.STRING, token.CHAR: // find Numbers
 			br = true
 		case token.IDENT: // find array name or function name
 			br = true
@@ -161,7 +161,7 @@ func (p *parser) split(nodes *[]node, pos int) (
 	for rightSeparator = 0; rightSeparator < len(rightPart); rightSeparator++ {
 		var br bool
 		switch rightPart[rightSeparator].tok {
-		case token.INT, token.FLOAT:
+		case token.INT, token.FLOAT, token.STRING, token.CHAR:
 			br = true
 		case token.IDENT: // find IDENT, so it can be func or not
 			// byte (...)
