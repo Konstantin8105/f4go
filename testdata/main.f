@@ -655,7 +655,7 @@ C
 C           REAL
 C
             READ (OUT,'(F6.2)') IN_R1
-            WRITE(*  ,'(F8.2)') IN_R1
+            WRITE(UNIT= 6 ,FMT = '(F8.2)') IN_R1
 C
 C           REAL ARRAY
 C
