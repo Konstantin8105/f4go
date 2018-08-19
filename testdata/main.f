@@ -588,7 +588,7 @@ C -----------------------------------------------------
            DO I = 1, 2
                 DO J = 1, 3
                     DO K = 1, 4
-                        WRITE(*,FMT=565)I,J,K, IM3(I,J,K)
+                        WRITE(*,FMT=567)I,J,K, IM3(I,J,K)
                     END DO
                 END DO
            END DO

@@ -1477,6 +1477,35 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 							})
 						}
 					}
+				case 3: //matrix ()()()
+					for k := 0; k < v.typ.arrayType[2]; k++ {
+						for j := 0; j < v.typ.arrayType[1]; j++ {
+							for i := 0; i < v.typ.arrayType[0]; i++ {
+								nameExpr = append(nameExpr, &goast.IndexExpr{
+									X: &goast.IndexExpr{
+										X: &goast.IndexExpr{
+											X:      goast.NewIdent(nodesToString(name)),
+											Lbrack: 1,
+											Index: &goast.BasicLit{
+												Kind:  token.INT,
+												Value: strconv.Itoa(i),
+											},
+										},
+										Lbrack: 1,
+										Index: &goast.BasicLit{
+											Kind:  token.INT,
+											Value: strconv.Itoa(j),
+										},
+									},
+									Lbrack: 1,
+									Index: &goast.BasicLit{
+										Kind:  token.INT,
+										Value: strconv.Itoa(k),
+									},
+								})
+							}
+						}
+					}
 				default:
 					panic("Not acceptable type : " + nodesToString(name))
 				}
