@@ -8,15 +8,13 @@ import (
 func TestParseType(t *testing.T) {
 	tcs := []struct {
 		nodes []node
-		typ   goType
+		typ   string
 	}{
 		{
 			nodes: []node{
 				{tok: ftInteger, b: []byte("INTEGER")},
 			},
-			typ: goType{
-				baseType: "int",
-			},
+			typ: "int",
 		},
 		{
 			nodes: []node{
@@ -26,10 +24,7 @@ func TestParseType(t *testing.T) {
 				{tok: token.MUL, b: []byte("*")},
 				{tok: token.RPAREN, b: []byte(")")},
 			},
-			typ: goType{
-				baseType:  "byte",
-				arrayType: []int{-1},
-			},
+			typ: "[]byte",
 		},
 		{
 			nodes: []node{
@@ -37,9 +32,7 @@ func TestParseType(t *testing.T) {
 				{tok: token.MUL, b: []byte("*")},
 				{tok: token.INT, b: []byte("32")},
 			},
-			typ: goType{
-				baseType: "[]byte",
-			},
+			typ: "[]byte",
 		},
 		{
 			nodes: []node{
@@ -50,10 +43,7 @@ func TestParseType(t *testing.T) {
 				{tok: token.INT, b: []byte("32")},
 				{tok: token.RPAREN, b: []byte(")")},
 			},
-			typ: goType{
-				baseType:  "int",
-				arrayType: []int{-1, 32},
-			},
+			typ: "[32][]int",
 		},
 		{
 			nodes: []node{
@@ -63,40 +53,7 @@ func TestParseType(t *testing.T) {
 				{tok: token.MUL, b: []byte("*")},
 				{tok: token.RPAREN, b: []byte(")")},
 			},
-			typ: goType{
-				baseType:  "float64",
-				arrayType: []int{-1},
-			},
-		},
-		{
-			nodes: []node{
-				{tok: ftInteger, b: []byte("INTEGER")},
-				{tok: token.LPAREN, b: []byte("(")},
-				{tok: token.IDENT, b: []byte("N")},
-				{tok: token.COMMA, b: []byte(",")},
-				{tok: token.INT, b: []byte("32")},
-				{tok: token.RPAREN, b: []byte(")")},
-			},
-			typ: goType{
-				baseType:  "int",
-				arrayType: []int{-1, 32},
-			},
-		},
-		{
-			nodes: []node{
-				{tok: ftInteger, b: []byte("INTEGER")},
-				{tok: token.LPAREN, b: []byte("(")},
-				{tok: token.IDENT, b: []byte("N")},
-				{tok: token.ADD, b: []byte("+")},
-				{tok: token.INT, b: []byte("2")},
-				{tok: token.COMMA, b: []byte(",")},
-				{tok: token.INT, b: []byte("32")},
-				{tok: token.RPAREN, b: []byte(")")},
-			},
-			typ: goType{
-				baseType:  "int",
-				arrayType: []int{-1, 32},
-			},
+			typ: "[]float64",
 		},
 		// CHARACTER(1) SRNAME_ARRAY(32)
 		{
@@ -109,10 +66,7 @@ func TestParseType(t *testing.T) {
 				{tok: token.INT, b: []byte("32")},
 				{tok: token.RPAREN, b: []byte(")")},
 			},
-			typ: goType{
-				baseType:  "byte",
-				arrayType: []int{32},
-			},
+			typ: "[32]byte",
 		},
 	}
 
@@ -120,21 +74,11 @@ func TestParseType(t *testing.T) {
 		t.Run(nodesToString(tc.nodes), func(t *testing.T) {
 			act := parseType(tc.nodes)
 			isSame := true
-			if act.getBaseType() == tc.typ.getBaseType() {
-				if len(act.arrayType) == len(tc.typ.arrayType) {
-					for i := range act.arrayType {
-						if act.arrayType[i] != tc.typ.arrayType[i] {
-							isSame = false
-						}
-					}
-				} else {
-					isSame = false
-				}
-			} else {
+			if act.String() != tc.typ {
 				isSame = false
 			}
 			if !isSame {
-				t.Fatalf("types is not same: `%#v` != `%#v`", act, tc.typ)
+				t.Fatalf("types is not same: `%s` != `%s`", act, tc.typ)
 			}
 		})
 	}
