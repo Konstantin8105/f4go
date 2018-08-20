@@ -24,6 +24,14 @@ func (g goType) getSize(col int) (size int, ok bool) {
 	return -1, false
 }
 
+func (g goType) gerArrayLen() int {
+	lenArray := len(g.arrayNode)
+	if g.baseType == "byte" && lenArray > 0 && g.arrayType[0] < 0 {
+		lenArray--
+	}
+	return lenArray
+}
+
 func (g goType) String() (s string) {
 	s = g.baseType
 	for _, size := range g.arrayType {

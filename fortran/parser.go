@@ -1443,11 +1443,8 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			// LL                       - vector fully
 			// LL                       - matrix fully
 			if v, ok := p.initVars.get(nodesToString(name)); ok {
-				lenArray := len(v.typ.arrayNode)
+				lenArray := v.typ.gerArrayLen()
 				isByte := v.typ.baseType == "byte" && lenArray > 0 && v.typ.arrayType[0] > 0
-				if v.typ.baseType == "byte" && lenArray > 0 && v.typ.arrayType[0] < 0 {
-					lenArray--
-				}
 				switch lenArray {
 				case 0:
 					nameExpr = append(nameExpr, tExpr{
@@ -1539,11 +1536,8 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			continue
 		}
 		if v, ok := p.initVars.get(string(name[0].b)); ok {
-			lenArray := len(v.typ.arrayType)
+			lenArray := v.typ.gerArrayLen()
 			isByte := v.typ.baseType == "byte" && lenArray > 0 && v.typ.arrayType[0] > 0
-			if v.typ.baseType == "byte" && lenArray > 0 && v.typ.arrayType[0] < 0 {
-				lenArray--
-			}
 			switch lenArray {
 			case 1: // vector
 				// LL (1)                   - one value of vector
