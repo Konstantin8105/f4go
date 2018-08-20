@@ -184,6 +184,16 @@ C -----------------------------------------------------
             integer ab_min
             JR = 1
             iterator = 1
+            DO 130 IR = 1,2
+                DO 131 HR = 1,2
+                    ! IF ( HR .GT. 0) 
+                    !     GO TO 131
+                    IF ( HR .GT. 0) THEN
+                        GO TO 131
+                    END IF
+                    WRITE (*,'(A8)') 'GOTO131'
+  131           CONTINUE
+  130       CONTINUE
             Do IR = 1,10,3
                 write (*,FMT=142) IR
             end do

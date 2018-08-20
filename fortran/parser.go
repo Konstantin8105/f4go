@@ -382,7 +382,7 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 		p.ns = comb
 		p.ident--
 
-		p.addError("Add fake PROGRAM MAIN")
+		p.addError(fmt.Sprintf("Add fake PROGRAM MAIN in pos : %v", p.ns[p.ident].pos))
 	}
 
 	return
