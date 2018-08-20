@@ -352,10 +352,10 @@ C -----------------------------------------------------
             logical XSWPIV(4)
             DATA    XSWPIV / .FALSE., .FALSE., .TRUE., .TRUE. /
 
-            ! Logical L0(-1:1)
-            ! DATA    L0 / .FALSE.,.FALSE., .FALSE./
-            ! Logical L1(0:1, 0:1)
-            ! DATA    L1 / .FALSE.,.FALSE.,.FALSE.,.FALSE. /
+            Logical L0(-1:1)
+            DATA    L0 / .FALSE.,.FALSE., .FALSE./
+            Logical L1(0:1, 0:1)
+            DATA    L1 / .FALSE.,.FALSE.,.FALSE.,.FALSE. /
 
             if ( r .NE. 25) then 
                 call fail("test_data 1")
@@ -397,14 +397,14 @@ C -----------------------------------------------------
             if (.NOT.XSWPIV(3)) call fail("test_data 3")
             if (.NOT.XSWPIV(4)) call fail("test_data 4")
 
-            ! IF (L0(-1)) call fail("test_data L0 -1")
-            ! IF (L0(0)) call fail("test_data L0 0")
-            ! IF (L0(1)) call fail("test_data L0 1")
-            !
-            ! IF (L1(0,0)) call fail("test_data L1(0,0)")
-            ! IF (L1(1,0)) call fail("test_data L1(1,0)")
-            ! IF (L1(0,1)) call fail("test_data L1(0,1)")
-            ! IF (L1(1,1)) call fail("test_data L1(1,1)")
+            IF (L0(-1)) call fail("test_data L0 -1")
+            IF (L0(0)) call fail("test_data L0 0")
+            IF (L0(1)) call fail("test_data L0 1")
+
+            IF (L1(0,0)) call fail("test_data L1(0,0)")
+            IF (L1(1,0)) call fail("test_data L1(1,0)")
+            IF (L1(0,1)) call fail("test_data L1(0,1)")
+            IF (L1(1,1)) call fail("test_data L1(1,1)")
 
             DO J = 1,21
                 Write(*,'(I5)') KTYPE(J)
@@ -414,6 +414,7 @@ C -----------------------------------------------------
             END DO
 
             write(*,'(A2)') "ok"
+            write(*,'(I2)') LV
 
         end subroutine
 
@@ -577,7 +578,8 @@ C -----------------------------------------------------
            WRITE(*, FMT=530 ) CH(1)
            WRITE(6, FMT=530 ) CH(2)
            WRITE(*, FMT=531 ) CS(1)
-           WRITE(*, FMT=531 ) CS(NS)
+           WRITE(*, FMT=531 ) CS(2)
+           WRITE(*, '(I2,I2)') NW, NS
            RETURN
   530      FORMAT('-->',A3)
   531      FORMAT('++>',A6)
@@ -625,6 +627,7 @@ C -----------------------------------------------------
                     END DO
                 END DO
            END DO
+           WRITE(*, '(I2)') V
            RETURN
   565      FORMAT('IR(',I1,',',I1,',',I1,')=',I3)
   566      FORMAT('CV(',I1,',',I1,',',I1,')=',F5.2,'::',F5.2)

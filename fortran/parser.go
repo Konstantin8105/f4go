@@ -58,7 +58,57 @@ func (p parser) getSize(name string, col int) (size int, ok bool) {
 			return size, true
 		}
 	}
+	for i, n := range v.typ.arrayNode[col] {
+		// Example:
+		// -1 : 1
+		// Nodes:
+		// [[-, `-`] [INT, `1`] [:, `:`] [INT, `1`]]
+		// 99 : 101
+		// Nodes:
+		// [[INT, `99`] [:, `:`] [INT, `101`]]
+		if n.tok == token.COLON {
+			begin, err := strconv.Atoi(strings.Replace(nodesToString(v.typ.arrayNode[col][:i]), " ", "", -1))
+			if err != nil {
+				p.addError("Cannot parse begin value : " + nodesToString(v.typ.arrayNode[col][:i]))
+				break
+			}
+			end, err := strconv.Atoi(strings.Replace(nodesToString(v.typ.arrayNode[col][i+1:]), " ", "", -1))
+			if err != nil {
+				p.addError("Cannot parse end value : " + nodesToString(v.typ.arrayNode[col][i+1:]))
+				break
+			}
+			return end - begin + 1, true
+		}
+	}
 	return -1, false
+}
+
+func (p parser) getArrayBegin(name string, col int) int {
+	v, ok := p.initVars.get(name)
+	if !ok {
+		panic("Cannot find variable : " + name)
+	}
+	if col >= len(v.typ.arrayNode) {
+		return 1
+	}
+	for i, n := range v.typ.arrayNode[col] {
+		// Example:
+		// -1 : 1
+		// Nodes:
+		// [[-, `-`] [INT, `1`] [:, `:`] [INT, `1`]]
+		// 99 : 101
+		// Nodes:
+		// [[INT, `99`] [:, `:`] [INT, `101`]]
+		if n.tok == token.COLON {
+			strBegin := strings.Replace(nodesToString(v.typ.arrayNode[col][:i]), " ", "", -1)
+			b, err := strconv.Atoi(strBegin)
+			if err != nil {
+				p.addError("Cannot parse begin value: " + strBegin)
+			}
+			return b
+		}
+	}
+	return 1
 }
 
 func (p parser) getArrayLen(name string) int {
@@ -476,20 +526,22 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 			fset := token.NewFileSet() // positions are relative to fset
 			src := `package main
 func main() {
-	%s := make([][]%s, %s)
-	for u := 0; u < %s; u++ {
-		%s[u] = make([]%s, %s)
+	%s := make([][]%s, %d)
+	for u := 0; u < %d; u++ {
+		%s[u] = make([]%s, %d)
 	}
 }
 `
+			size0, _ := p.getSize(name, 0)
+			size1, _ := p.getSize(name, 1)
 			s := fmt.Sprintf(src,
 				name,
 				goT.getBaseType(),
-				nodesToString(goT.arrayNode[0]),
-				nodesToString(goT.arrayNode[0]),
+				size0,
+				size0,
 				name,
 				goT.getBaseType(),
-				nodesToString(goT.arrayNode[1]),
+				size1,
 			)
 			f, err := goparser.ParseFile(fset, "", s, 0)
 			if err != nil {
@@ -502,32 +554,35 @@ func main() {
 			fset := token.NewFileSet() // positions are relative to fset
 			src := `package main
 func main() {
-	%s := make([][][]%s, %s)
-	for u := 0; u < %s; u++ {
-		%s[u] = make([][]%s, %s)
-		for w := 0; w < %s; w++ {
-			%s[u][w] = make([]%s, %s)
+	%s := make([][][]%s, %d)
+	for u := 0; u < %d; u++ {
+		%s[u] = make([][]%s, %d)
+		for w := 0; w < %d; w++ {
+			%s[u][w] = make([]%s, %d)
 		}
 	}
 }
 `
+			size0, _ := p.getSize(name, 0)
+			size1, _ := p.getSize(name, 1)
+			size2, _ := p.getSize(name, 2)
 			s := fmt.Sprintf(src,
 				// line 1
 				name,
 				goT.getBaseType(),
-				nodesToString(goT.arrayNode[0]),
+				size0,
 				// line 2
-				nodesToString(goT.arrayNode[0]),
+				size0,
 				// line 3
 				name,
 				goT.getBaseType(),
-				nodesToString(goT.arrayNode[1]),
+				size1,
 				// line 4
-				nodesToString(goT.arrayNode[1]),
+				size1,
 				// line 5
 				name,
 				goT.getBaseType(),
-				nodesToString(goT.arrayNode[2]),
+				size2,
 			)
 			f, err := goparser.ParseFile(fset, "", s, 0)
 			if err != nil {

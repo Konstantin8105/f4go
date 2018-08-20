@@ -5,6 +5,7 @@ import (
 	goast "go/ast"
 	goparser "go/parser"
 	"go/token"
+	"strconv"
 	"strings"
 )
 
@@ -120,10 +121,14 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 	// modify tokens
 	pos := 0
 	for {
+		var v varInitialization
 		for ; pos < len(*nodes); pos++ {
-			if (*nodes)[pos].tok == token.IDENT &&
-				p.isArrayVariable(string((*nodes)[pos].b)) {
-				break
+			if (*nodes)[pos].tok == token.IDENT {
+				var ok bool
+				if v, ok = p.initVars.get(string((*nodes)[pos].b)); ok &&
+					p.getArrayLen(v.name) > 0 {
+					break
+				}
 			}
 		}
 		if pos >= len(*nodes) {
@@ -136,69 +141,29 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 			pos += 1
 			continue
 		}
-		(*nodes)[pos+1].tok, (*nodes)[pos+1].b = token.LBRACK, []byte("[")
-		counter := 1
-		var end int
-		for i := pos + 1; i < len(*nodes); i++ {
-			if (*nodes)[i].tok == token.LPAREN {
-				counter++
-				continue
-			}
-			if (*nodes)[i].tok == token.RPAREN {
-				counter--
-				if counter == 0 {
-					(*nodes) = append((*nodes)[:i], append([]node{
-						{
-							tok: token.SUB,
-							b:   []byte("-"),
-						},
-						{
-							tok: token.INT,
-							b:   []byte("1"),
-						},
-						{
-							tok: token.RBRACK,
-							b:   []byte("]"),
-						},
-					}, (*nodes)[i+1:]...)...)
-					end = i
-					break
-				}
-			}
+		pos += 1
+		args, end := separateArgsParen((*nodes)[pos:])
+
+		// inject nodes
+		var inject []node
+		for i, a := range args {
+			begin := p.getArrayBegin(v.name, i)
+			inject = append(inject, node{tok: token.LBRACK, b: []byte("[")})
+			inject = append(inject, a...)
+			inject = append(inject, []node{
+				{tok: token.SUB, b: []byte("-")},
+				{tok: token.LPAREN, b: []byte("(")},
+				{
+					tok: token.INT,
+					b:   []byte(strconv.Itoa(begin)),
+				},
+				{tok: token.RPAREN, b: []byte(")")},
+			}...)
+			inject = append(inject, node{tok: token.RBRACK, b: []byte("]")})
 		}
 
-		// insert comma
-		// if comma is exist, then between nodes pos+1 and end
-		counter = 1
-		for i := pos + 1; i < end; i++ {
-			if (*nodes)[i].tok == token.LPAREN {
-				counter++
-			}
-			if (*nodes)[i].tok == token.RPAREN {
-				counter--
-			}
-			if counter == 1 && (*nodes)[i].tok == token.COMMA {
-				*nodes = append((*nodes)[:i], append([]node{
-					{
-						tok: token.SUB,
-						b:   []byte("-"),
-					},
-					{
-						tok: token.INT,
-						b:   []byte("1"),
-					},
-					{
-						tok: token.RBRACK,
-						b:   []byte("]"),
-					},
-					{
-						tok: token.LBRACK,
-						b:   []byte("["),
-					},
-				}, (*nodes)[i+1:]...)...)
-				end += 4
-			}
-		}
+		(*nodes) = append((*nodes)[:pos], append(inject, (*nodes)[pos+end:]...)...)
+		pos += end
 	}
 }
 
