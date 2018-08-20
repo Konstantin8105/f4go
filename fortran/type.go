@@ -215,11 +215,7 @@ func parseType(nodes []node) (typ goType) {
 	for _, a := range args {
 		typ.arrayNode = append(typ.arrayNode, a)
 		if len(a) == 1 && a[0].tok == token.INT {
-			val, err := strconv.Atoi(string(a[0].b))
-			if err != nil {
-				panic(fmt.Errorf(
-					"Cannot parse array size on `%s` : %v ", string(nodes[0].b), err))
-			}
+			val, _ := strconv.Atoi(string(a[0].b))
 			typ.arrayType = append(typ.arrayType, val)
 			continue
 		}
