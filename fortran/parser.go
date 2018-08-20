@@ -1458,10 +1458,6 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 							if vv, ok := p.initVars.get(nodesToString(v.typ.arrayNode[1])); ok {
 								size, _ = strconv.Atoi(nodesToString(vv.constant))
 							}
-						} else {
-							if vv, ok := p.initVars.get(nodesToString(v.typ.arrayNode[0])); ok {
-								size, _ = strconv.Atoi(nodesToString(vv.constant))
-							}
 						}
 					}
 					for i := 0; i < size; i++ {
