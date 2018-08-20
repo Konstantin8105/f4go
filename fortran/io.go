@@ -7,6 +7,7 @@ import (
 	goparser "go/parser"
 	"go/token"
 	"strconv"
+	"unicode"
 )
 
 // Example:
@@ -163,7 +164,7 @@ func (p *parser) parseFormat(in []node) (s string) {
 		f := fs[i]
 		switch f.tok {
 		case token.IDENT, token.COMMENT:
-			switch f.b[0] {
+			switch byte(unicode.ToUpper(rune(f.b[0]))) {
 			case 'I':
 				s += "%" + string(f.b[1:]) + "d"
 			case 'F', 'G', 'P':
@@ -201,7 +202,7 @@ func (p *parser) parseFormat(in []node) (s string) {
 
 			case 'L':
 				v, _ := strconv.Atoi(string(f.b[1:]))
-				for i := 0; i < v-1; i++ {
+				for i := 0; i < v; i++ {
 					s += " "
 				}
 				s += "%t"
@@ -214,8 +215,8 @@ func (p *parser) parseFormat(in []node) (s string) {
 			// 1X
 			// 5X
 			v, _ := strconv.Atoi(string(f.b))
-			if fs[i+1].b[0] == 'X' {
-				for i := 0; i < v-1; i++ {
+			if byte(unicode.ToUpper(rune(fs[i+1].b[0]))) == 'X' {
+				for i := 0; i < v; i++ {
 					s += " "
 				}
 				i++

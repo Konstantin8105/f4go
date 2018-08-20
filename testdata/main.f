@@ -138,7 +138,7 @@ C -----------------------------------------------------
             write (*, FMT = 131) 3,a
             write (*, FMT = 131) 4,b
             return
-  131 Format (' output ', I2, ' ', F12.5 , ' real '/1X)
+  131 Format (' output ', I2, ' ', F12.5 , ' real ')
         end
 
         subroutine ab(a,b)
@@ -627,7 +627,7 @@ C -----------------------------------------------------
             WRITE(*,FMT=570) ZERO
             WRITE(*,FMT=570) ONE
             RETURN
-  570       FORMAT('PARAMETER : ', F10.4)
+  570       FORMAT('PARAMETER : ', F10.4, /10x, 'values')
         END SUBROUTINE
 
 C -----------------------------------------------------

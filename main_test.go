@@ -66,7 +66,8 @@ func TestIntegration(t *testing.T) {
 		}
 		for i := 0; i < length; i++ {
 			if !bytes.Equal(fortLines[i], goLines[i]) {
-				t.Errorf("Results is not same: `%v` != `%v`",
+				t.Errorf("Results is not same in line %d: `%v` != `%v`",
+					i,
 					string(fortLines[i]),
 					string(goLines[i]))
 				break
