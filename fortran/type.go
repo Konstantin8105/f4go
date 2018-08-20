@@ -113,10 +113,8 @@ func parseType(nodes []node) (typ goType) {
 			if string(nodes[1].b) != "1" {
 				typ.arrayType = append(typ.arrayType, -1)
 				typ.arrayNode = append(typ.arrayNode, []node{nodes[1]})
-				nodes = nodes[2:]
-			} else {
-				nodes = nodes[2:]
 			}
+			nodes = nodes[2:]
 		} else if len(nodes) > 0 && nodes[0].tok == token.MUL {
 			nodes = nodes[1:]
 		}
