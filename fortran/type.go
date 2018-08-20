@@ -207,6 +207,9 @@ func parseType(nodes []node) (typ goType) {
 	//  INTEGER (3)
 	//  INTEGER (N+1,*)
 	//  INTEGER (N+(1),*)
+	//  LOGICAL ( - 1 : 1 )
+	//  LOGICAL ( 0 : 1 , 0 : 1 )
+
 	args, end := separateArgsParen(nodes)
 
 	for _, a := range args {
