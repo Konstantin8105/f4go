@@ -167,7 +167,7 @@ func (p *parser) split(nodes *[]node, pos int) (
 			// byte (...)
 			isByte := false
 			if v, ok := p.initVars.get(string(rightPart[rightSeparator].b)); ok {
-				if v.typ.baseType == "byte" && len(v.typ.arrayType) == 0 {
+				if v.typ.baseType == "byte" && !v.typ.isArray() {
 					if rightSeparator+1 < len(rightPart) &&
 						rightPart[rightSeparator+1].tok == token.LPAREN {
 						rightSeparator++

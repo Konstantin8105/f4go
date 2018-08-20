@@ -1487,8 +1487,10 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 							isByte: isByte})
 					}
 				case 2: // matrix
-					for i := 0; i < v.typ.arrayType[0]; i++ {
-						for j := 0; j < v.typ.arrayType[1]; j++ {
+					size0, _ := p.getSize(v.name, 0)
+					size1, _ := p.getSize(v.name, 1)
+					for i := 0; i < size0; i++ {
+						for j := 0; j < size1; j++ {
 							nameExpr = append(nameExpr, tExpr{
 								expr: &goast.IndexExpr{
 									X: &goast.IndexExpr{
@@ -1509,9 +1511,12 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 						}
 					}
 				case 3: //matrix ()()()
-					for k := 0; k < v.typ.arrayType[2]; k++ {
-						for j := 0; j < v.typ.arrayType[1]; j++ {
-							for i := 0; i < v.typ.arrayType[0]; i++ {
+					size0, _ := p.getSize(v.name, 0)
+					size1, _ := p.getSize(v.name, 1)
+					size2, _ := p.getSize(v.name, 2)
+					for k := 0; k < size2; k++ {
+						for j := 0; j < size1; j++ {
+							for i := 0; i < size0; i++ {
 								nameExpr = append(nameExpr, tExpr{
 									expr: &goast.IndexExpr{
 										X: &goast.IndexExpr{
@@ -1601,7 +1606,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 
 		if v, ok := p.initVars.get(string(name[1].b)); ok {
 			isByte := v.typ.getBaseType() == "byte"
-			switch len(v.typ.arrayType) {
+			switch p.getArrayLen(v.name) {
 			case 1: // vector
 				// (LL( J ), J = 1, 4 )     - one row of vector
 				start, _ := strconv.Atoi(string(name[8].b))
@@ -1665,7 +1670,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 		}
 		if v, ok := p.initVars.get(string(name[2].b)); ok {
 			isByte := v.typ.getBaseType() == "byte"
-			switch len(v.typ.arrayType) {
+			switch p.getArrayLen(v.name) {
 			case 3: // ()()()
 				// ((CV(I,J,1),I=1,2),J=1,2)
 				startI, _ := strconv.Atoi(string(name[13].b))
