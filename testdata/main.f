@@ -577,7 +577,7 @@ C -----------------------------------------------------
            WRITE(*, FMT=530 ) CH(1)
            WRITE(6, FMT=530 ) CH(2)
            WRITE(*, FMT=531 ) CS(1)
-           WRITE(*, FMT=531 ) CS(2)
+           WRITE(*, FMT=531 ) CS(NS)
            RETURN
   530      FORMAT('-->',A3)
   531      FORMAT('++>',A6)

@@ -52,6 +52,12 @@ func (p parser) getSize(name string, col int) (size int, ok bool) {
 		val, _ := strconv.Atoi(string(v.typ.arrayNode[col][0].b))
 		return val, true
 	}
+	if vv, ok := p.initVars.get(nodesToString(v.typ.arrayNode[col])); ok {
+		if n, ok := p.constants[vv.name]; ok {
+			size, _ = strconv.Atoi(nodesToString(n))
+			return size, true
+		}
+	}
 	return -1, false
 }
 
@@ -61,9 +67,6 @@ func (p parser) getArrayLen(name string) int {
 		panic("Cannot find variable : " + name)
 	}
 	lenArray := len(v.typ.arrayNode)
-	if v.typ.baseType == "byte" && lenArray > 0 && v.typ.arrayType[0] < 0 {
-		lenArray--
-	}
 	return lenArray
 }
 
@@ -433,7 +436,7 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 			vars = append(vars, &goast.DeclStmt{Decl: &decl})
 
 		case 1: // vector
-			arrayType := goT.baseType
+			arrayType := goT.getBaseType()
 			for range goT.arrayNode {
 				arrayType = "[]" + arrayType
 			}
@@ -481,11 +484,11 @@ func main() {
 `
 			s := fmt.Sprintf(src,
 				name,
-				goT.baseType,
+				goT.getBaseType(),
 				nodesToString(goT.arrayNode[0]),
 				nodesToString(goT.arrayNode[0]),
 				name,
-				goT.baseType,
+				goT.getBaseType(),
 				nodesToString(goT.arrayNode[1]),
 			)
 			f, err := goparser.ParseFile(fset, "", s, 0)
@@ -511,19 +514,19 @@ func main() {
 			s := fmt.Sprintf(src,
 				// line 1
 				name,
-				goT.baseType,
+				goT.getBaseType(),
 				nodesToString(goT.arrayNode[0]),
 				// line 2
 				nodesToString(goT.arrayNode[0]),
 				// line 3
 				name,
-				goT.baseType,
+				goT.getBaseType(),
 				nodesToString(goT.arrayNode[1]),
 				// line 4
 				nodesToString(goT.arrayNode[1]),
 				// line 5
 				name,
-				goT.baseType,
+				goT.getBaseType(),
 				nodesToString(goT.arrayNode[2]),
 			)
 			f, err := goparser.ParseFile(fset, "", s, 0)
@@ -1459,7 +1462,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			// LL                       - matrix fully
 			if v, ok := p.initVars.get(nodesToString(name)); ok {
 				lenArray := p.getArrayLen(v.name)
-				isByte := v.typ.baseType == "byte" && lenArray > 0 && v.typ.arrayType[0] > 0
+				isByte := v.typ.getBaseType() == "byte"
 				switch lenArray {
 				case 0:
 					nameExpr = append(nameExpr, tExpr{
@@ -1467,15 +1470,9 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 						isByte: isByte,
 					})
 				case 1: // vector
-					size := v.typ.arrayType[0]
-					if size < 0 {
-						if v.typ.baseType == "byte" {
-							if vv, ok := p.initVars.get(nodesToString(v.typ.arrayNode[1])); ok {
-								if n, ok := p.constants[vv.name]; ok {
-									size, _ = strconv.Atoi(nodesToString(n))
-								}
-							}
-						}
+					size, ok := p.getSize(v.name, 0)
+					if !ok {
+						panic("Not ok : " + v.name)
 					}
 					for i := 0; i < size; i++ {
 						nameExpr = append(nameExpr, tExpr{
@@ -1550,7 +1547,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 		}
 		if v, ok := p.initVars.get(string(name[0].b)); ok {
 			lenArray := p.getArrayLen(v.name)
-			isByte := v.typ.baseType == "byte" && lenArray > 0 && v.typ.arrayType[0] > 0
+			isByte := v.typ.getBaseType() == "byte"
 			switch lenArray {
 			case 1: // vector
 				// LL (1)                   - one value of vector
@@ -1603,7 +1600,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 		}
 
 		if v, ok := p.initVars.get(string(name[1].b)); ok {
-			isByte := v.typ.baseType == "byte" && len(v.typ.arrayNode) > 0 && v.typ.arrayType[0] > 0
+			isByte := v.typ.getBaseType() == "byte"
 			switch len(v.typ.arrayType) {
 			case 1: // vector
 				// (LL( J ), J = 1, 4 )     - one row of vector
@@ -1667,7 +1664,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			continue
 		}
 		if v, ok := p.initVars.get(string(name[2].b)); ok {
-			isByte := v.typ.baseType == "byte" && len(v.typ.arrayNode) > 0 && v.typ.arrayType[0] > 0
+			isByte := v.typ.getBaseType() == "byte"
 			switch len(v.typ.arrayType) {
 			case 3: // ()()()
 				// ((CV(I,J,1),I=1,2),J=1,2)

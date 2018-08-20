@@ -17,7 +17,7 @@ type goType struct {
 }
 
 func (g goType) String() (s string) {
-	s = g.baseType
+	s = g.getBaseType()
 	for _, size := range g.arrayType {
 		if size == -1 {
 			s = fmt.Sprintf("[]%s", s)
@@ -26,6 +26,13 @@ func (g goType) String() (s string) {
 		}
 	}
 	return
+}
+
+func (g goType) getBaseType() string {
+	if g.baseType == "string" {
+		return "[]byte"
+	}
+	return g.baseType
 }
 
 // From :
@@ -95,8 +102,7 @@ func parseType(nodes []node) (typ goType) {
 		if len(nodes) > 1 &&
 			nodes[0].tok == token.MUL && nodes[1].tok == token.INT {
 			if string(nodes[1].b) != "1" {
-				typ.arrayType = append(typ.arrayType, -1)
-				typ.arrayNode = append(typ.arrayNode, []node{nodes[1]})
+				typ.baseType = "string"
 			}
 			nodes = nodes[2:]
 		} else if len(nodes) > 0 && nodes[0].tok == token.MUL {

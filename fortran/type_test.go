@@ -38,8 +38,7 @@ func TestParseType(t *testing.T) {
 				{tok: token.INT, b: []byte("32")},
 			},
 			typ: goType{
-				baseType:  "byte",
-				arrayType: []int{-1},
+				baseType: "[]byte",
 			},
 		},
 		{
@@ -121,7 +120,7 @@ func TestParseType(t *testing.T) {
 		t.Run(nodesToString(tc.nodes), func(t *testing.T) {
 			act := parseType(tc.nodes)
 			isSame := true
-			if act.baseType == tc.typ.baseType {
+			if act.getBaseType() == tc.typ.getBaseType() {
 				if len(act.arrayType) == len(tc.typ.arrayType) {
 					for i := range act.arrayType {
 						if act.arrayType[i] != tc.typ.arrayType[i] {
@@ -135,7 +134,7 @@ func TestParseType(t *testing.T) {
 				isSame = false
 			}
 			if !isSame {
-				t.Fatalf("Basetype is not same: `%s` != `%s`", act, tc.typ)
+				t.Fatalf("types is not same: `%#v` != `%#v`", act, tc.typ)
 			}
 		})
 	}
