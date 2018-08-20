@@ -1,6 +1,7 @@
 package fortran
 
 import (
+	"fmt"
 	"go/token"
 	"strings"
 )
@@ -163,6 +164,8 @@ func (p *parser) split(nodes *[]node, pos int) (
 		switch rightPart[rightSeparator].tok {
 		case token.INT, token.FLOAT, token.STRING, token.CHAR:
 			br = true
+		case ftReal: // function real
+			continue
 		case token.IDENT: // find IDENT, so it can be func or not
 			// byte (...)
 			isByte := false
@@ -250,8 +253,9 @@ func (p *parser) split(nodes *[]node, pos int) (
 			}
 			br = true
 		default:
-			p.addError("Cannot identify token in right part separation :" +
-				view(rightPart[rightSeparator].tok))
+			p.addError(fmt.Sprintf(
+				"Cannot identify token in right part separation pos(%v): %v",
+				rightPart[rightSeparator].pos, view(rightPart[rightSeparator].tok)))
 			br = true
 		}
 		if br {

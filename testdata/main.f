@@ -110,6 +110,9 @@ C -----------------------------------------------------
             REAL r,p
             Real real_1
             REAL*8 H(1)
+            COMPLEX *16 C
+            Intrinsic REAL
+            C = (2.0,2.0)
 C calculation
             H(1) = 3
             H(1) = H(1) ** H(1)
@@ -120,6 +123,7 @@ C calculation
             r = -(r + p**p)
             r = (r + p)**(p-0.6)
             real_1 = r/5
+            real_1 = real_1 + 1.222**REAL(C)
             write (*, FMT = 125) r, real_1, H(1)
             return
   125 Format ('POW: ', F15.2 ,' , ', F14.2, ' , ' ,  F14.2)
