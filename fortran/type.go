@@ -11,8 +11,9 @@ func (g goType) isArray() bool {
 }
 
 type goType struct {
-	baseType     string
-	fortranNodes [][]node
+	baseType  string
+	arrayNode [][]node
+	arrayType []int
 }
 
 func (g goType) String() (s string) {
