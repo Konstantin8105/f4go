@@ -11,9 +11,8 @@ import (
 )
 
 type varInitialization struct {
-	name     string
-	typ      goType
-	constant []node
+	name string
+	typ  goType
 }
 
 type varInits []varInitialization
@@ -32,17 +31,6 @@ func (v *varInits) del(n string) {
 	for i, val := range vs {
 		if val.name == n {
 			vs = append(vs[:i], vs[i+1:]...)
-			*v = varInits(vs)
-			return
-		}
-	}
-}
-
-func (v *varInits) addValue(name string, constant []node) {
-	vs := []varInitialization(*v)
-	for i := range vs {
-		if vs[i].name == name {
-			vs[i].constant = constant
 			*v = varInits(vs)
 			return
 		}
@@ -75,6 +63,8 @@ type parser struct {
 
 	formats map[string][]node // source line with command FORMAT
 
+	constants map[string][]node
+
 	errs []error
 }
 
@@ -90,6 +80,8 @@ func (p *parser) init() {
 	p.initVars = varInits{}
 	p.parameters = map[string]string{}
 	p.formats = map[string][]node{}
+
+	p.constants = map[string][]node{}
 }
 
 // list view - only for debugging
@@ -395,7 +387,6 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 	for i := range []varInitialization(p.initVars) {
 		name := ([]varInitialization(p.initVars)[i]).name
 		goT := ([]varInitialization(p.initVars)[i]).typ
-		val := ([]varInitialization(p.initVars)[i]).constant
 		switch len(goT.arrayNode) {
 		case 0:
 			decl := goast.GenDecl{
@@ -410,7 +401,7 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 					},
 				},
 			}
-			if len(val) > 0 {
+			if val, ok := p.constants[name]; ok {
 				decl.Specs[0].(*goast.ValueSpec).Values = []goast.Expr{
 					p.parseExprNodes(val),
 				}
@@ -1456,7 +1447,9 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 					if size < 0 {
 						if v.typ.baseType == "byte" {
 							if vv, ok := p.initVars.get(nodesToString(v.typ.arrayNode[1])); ok {
-								size, _ = strconv.Atoi(nodesToString(vv.constant))
+								if n, ok := p.constants[vv.name]; ok {
+									size, _ = strconv.Atoi(nodesToString(n))
+								}
 							}
 						}
 					}
@@ -1880,7 +1873,7 @@ func (p *parser) parseParameter() (stmts []goast.Stmt) {
 		for i := 0; i < len(val); i++ {
 			if val[i].tok == token.ASSIGN {
 				// add parameters in parser
-				p.initVars.addValue(nodesToString(val[:i]), val[i+1:])
+				p.constants[nodesToString(val[:i])] = val[i+1:]
 			}
 		}
 	}
