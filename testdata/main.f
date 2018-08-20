@@ -107,7 +107,6 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
         subroutine test_pow()
-            ! initialization
             REAL r,p
             Real real_1
             REAL*8 H(1)
@@ -169,7 +168,6 @@ C -----------------------------------------------------
 
             IF (i .GE. 100) THEN
                 STOP 
-                ! stop the program
             ELSEIF (i .EQ. 5) THEN
                 WRITE(*,*) "ELSEIF is Ok"
             END IF
@@ -354,10 +352,10 @@ C -----------------------------------------------------
             logical XSWPIV(4)
             DATA    XSWPIV / .FALSE., .FALSE., .TRUE., .TRUE. /
 
-            ! Logical L0(-1:1)
-            ! DATA    L0 / .FALSE.,.FALSE., .FALSE./
-            ! Logical L1(0:1, 0:1)
-            ! DATA    L1 / .FALSE.,.FALSE.,.FALSE.,.FALSE. /
+            Logical L0(-1:1)
+            DATA    L0 / .FALSE.,.FALSE., .FALSE./
+            Logical L1(0:1, 0:1)
+            DATA    L1 / .FALSE.,.FALSE.,.FALSE.,.FALSE. /
 
             if ( r .NE. 25) then 
                 call fail("test_data 1")
@@ -399,14 +397,14 @@ C -----------------------------------------------------
             if (.NOT.XSWPIV(3)) call fail("test_data 3")
             if (.NOT.XSWPIV(4)) call fail("test_data 4")
 
-            ! IF (L0(-1)) call fail("test_data L0 -1")
-            ! IF (L0(0)) call fail("test_data L0 0")
-            ! IF (L0(1)) call fail("test_data L0 1")
-            !
-            ! IF (L1(0,0)) call fail("test_data L1(0,0)")
-            ! IF (L1(1,0)) call fail("test_data L1(1,0)")
-            ! IF (L1(0,1)) call fail("test_data L1(0,1)")
-            ! IF (L1(1,1)) call fail("test_data L1(1,1)")
+            IF (L0(-1)) call fail("test_data L0 -1")
+            IF (L0(0)) call fail("test_data L0 0")
+            IF (L0(1)) call fail("test_data L0 1")
+
+            IF (L1(0,0)) call fail("test_data L1(0,0)")
+            IF (L1(1,0)) call fail("test_data L1(1,0)")
+            IF (L1(0,1)) call fail("test_data L1(0,1)")
+            IF (L1(1,1)) call fail("test_data L1(1,1)")
 
             DO J = 1,21
                 Write(*,'(I5)') KTYPE(J)
