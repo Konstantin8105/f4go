@@ -396,7 +396,7 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 		name := ([]varInitialization(p.initVars)[i]).name
 		goT := ([]varInitialization(p.initVars)[i]).typ
 		val := ([]varInitialization(p.initVars)[i]).constant
-		switch len(goT.arrayType) {
+		switch len(goT.arrayNode) {
 		case 0:
 			decl := goast.GenDecl{
 				Tok: token.VAR,
@@ -419,10 +419,11 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 
 		case 1: // vector
 			arrayType := goT.baseType
-			for range goT.arrayType {
+			for range goT.arrayNode {
 				arrayType = "[]" + arrayType
 			}
-			if goT.arrayType[0] <= 0 {
+			size, ok := goT.getSize(0)
+			if !ok {
 				vars = append(vars, &goast.DeclStmt{
 					Decl: &goast.GenDecl{
 						Tok: token.VAR,
@@ -448,7 +449,7 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 						Lparen: 1,
 						Args: []goast.Expr{
 							goast.NewIdent(arrayType),
-							goast.NewIdent(strconv.Itoa(goT.arrayType[0])),
+							goast.NewIdent(strconv.Itoa(size)),
 						},
 					}},
 			})

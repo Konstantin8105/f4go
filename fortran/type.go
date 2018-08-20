@@ -16,6 +16,14 @@ type goType struct {
 	arrayType []int
 }
 
+func (g goType) getSize(col int) (size int, ok bool) {
+	if len(g.arrayNode[col]) == 1 && g.arrayNode[col][0].tok == token.INT {
+		val, _ := strconv.Atoi(string(g.arrayNode[col][0].b))
+		return val, true
+	}
+	return -1, false
+}
+
 func (g goType) String() (s string) {
 	s = g.baseType
 	for _, size := range g.arrayType {
