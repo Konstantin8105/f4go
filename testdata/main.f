@@ -354,6 +354,11 @@ C -----------------------------------------------------
             logical XSWPIV(4)
             DATA    XSWPIV / .FALSE., .FALSE., .TRUE., .TRUE. /
 
+            ! Logical L0(-1:1)
+            ! DATA    L0 / .FALSE.,.FALSE., .FALSE./
+            ! Logical L1(0:1, 0:1)
+            ! DATA    L1 / .FALSE.,.FALSE.,.FALSE.,.FALSE. /
+
             if ( r .NE. 25) then 
                 call fail("test_data 1")
             end if
@@ -393,6 +398,15 @@ C -----------------------------------------------------
             if (XSWPIV(2)) call fail("test_data 2")
             if (.NOT.XSWPIV(3)) call fail("test_data 3")
             if (.NOT.XSWPIV(4)) call fail("test_data 4")
+
+            ! IF (L0(-1)) call fail("test_data L0 -1")
+            ! IF (L0(0)) call fail("test_data L0 0")
+            ! IF (L0(1)) call fail("test_data L0 1")
+            !
+            ! IF (L1(0,0)) call fail("test_data L1(0,0)")
+            ! IF (L1(1,0)) call fail("test_data L1(1,0)")
+            ! IF (L1(0,1)) call fail("test_data L1(0,1)")
+            ! IF (L1(1,1)) call fail("test_data L1(1,1)")
 
             DO J = 1,21
                 Write(*,'(I5)') KTYPE(J)
