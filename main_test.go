@@ -31,8 +31,8 @@ func TestIntegration(t *testing.T) {
 		t.Fatalf("Cannot fortran executable file : %v\n%s", err, fortranOutput)
 	}
 
-	t.Logf("Fortran output:\n%s\n", fortranOutput)
-	t.Logf("fortran source is ok")
+	// t.Logf("Fortran output:\n%s\n", fortranOutput)
+	// t.Logf("fortran source is ok")
 
 	// parsing to Go code
 	errs := parse("./testdata/main.f", "")
