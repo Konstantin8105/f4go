@@ -43,6 +43,30 @@ func (v *varInits) add(name string, typ goType) {
 	*v = varInits(vs)
 }
 
+func (p parser) getSize(name string, col int) (size int, ok bool) {
+	v, ok := p.initVars.get(name)
+	if !ok {
+		panic("Cannot find variable : " + name)
+	}
+	if len(v.typ.arrayNode[col]) == 1 && v.typ.arrayNode[col][0].tok == token.INT {
+		val, _ := strconv.Atoi(string(v.typ.arrayNode[col][0].b))
+		return val, true
+	}
+	return -1, false
+}
+
+func (p parser) getArrayLen(name string) int {
+	v, ok := p.initVars.get(name)
+	if !ok {
+		panic("Cannot find variable : " + name)
+	}
+	lenArray := len(v.typ.arrayNode)
+	if v.typ.baseType == "byte" && lenArray > 0 && v.typ.arrayType[0] < 0 {
+		lenArray--
+	}
+	return lenArray
+}
+
 type parser struct {
 	ast   goast.File
 	ident int
@@ -413,7 +437,7 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 			for range goT.arrayNode {
 				arrayType = "[]" + arrayType
 			}
-			size, ok := goT.getSize(0)
+			size, ok := p.getSize(name, 0)
 			if !ok {
 				vars = append(vars, &goast.DeclStmt{
 					Decl: &goast.GenDecl{
@@ -1434,7 +1458,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			// LL                       - vector fully
 			// LL                       - matrix fully
 			if v, ok := p.initVars.get(nodesToString(name)); ok {
-				lenArray := v.typ.gerArrayLen()
+				lenArray := p.getArrayLen(v.name)
 				isByte := v.typ.baseType == "byte" && lenArray > 0 && v.typ.arrayType[0] > 0
 				switch lenArray {
 				case 0:
@@ -1525,7 +1549,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			continue
 		}
 		if v, ok := p.initVars.get(string(name[0].b)); ok {
-			lenArray := v.typ.gerArrayLen()
+			lenArray := p.getArrayLen(v.name)
 			isByte := v.typ.baseType == "byte" && lenArray > 0 && v.typ.arrayType[0] > 0
 			switch lenArray {
 			case 1: // vector
