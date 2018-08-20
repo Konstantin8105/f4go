@@ -401,23 +401,9 @@ func (p *parser) fixConcatString(nodes *[]node) {
 			{tok: token.RBRACE, b: []byte("}")},
 			{tok: token.COMMA, b: []byte(",")},
 		}...)
-		if leftVariable[0].tok == token.IDENT {
-			if v, ok := p.initVars.get(string(leftVariable[0].b)); ok {
-				if v.typ.baseType == "byte" && len(v.typ.arrayType) == 0 {
-					leftVariable = leftVariable[:1]
-				}
-			}
-		}
 		comb = append(comb, leftVariable...)
 		comb = append(comb, node{tok: token.RPAREN, b: []byte(")")})
 		comb = append(comb, node{tok: token.COMMA, b: []byte(",")})
-		if rightVariable[0].tok == token.IDENT {
-			if v, ok := p.initVars.get(string(rightVariable[0].b)); ok {
-				if v.typ.baseType == "byte" && len(v.typ.arrayType) == 0 {
-					rightVariable = rightVariable[:1]
-				}
-			}
-		}
 		comb = append(comb, rightVariable...)
 		comb = append(comb, node{tok: token.RPAREN, b: []byte(")")})
 		comb = append(comb, rightOther...)
