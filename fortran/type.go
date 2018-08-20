@@ -223,10 +223,5 @@ func parseType(nodes []node) (typ goType) {
 	}
 
 	nodes = nodes[end:]
-
-	if len(nodes) > 0 {
-		panic("Unsupport type " + nodesToString(nodes))
-	}
-
 	return
 }
