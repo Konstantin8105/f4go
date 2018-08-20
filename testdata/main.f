@@ -186,8 +186,8 @@ C -----------------------------------------------------
             iterator = 1
             DO 130 IR = 1,2
                 DO 131 HR = 1,2
-                    ! IF ( HR .GT. 0) 
-                    !     GO TO 131
+                    IF ( HR .GT. 0) 
+     +                  GO TO 131
                     IF ( HR .GT. 0) THEN
                         GO TO 131
                     END IF
