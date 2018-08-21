@@ -30,13 +30,14 @@ func (c callArgumentSimplification) Visit(node goast.Node) (w goast.Visitor) {
 }
 
 type intrinsic struct {
+	p *parser
 }
 
 func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 	if call, ok := node.(*goast.CallExpr); ok {
 		if n, ok := call.Fun.(*goast.Ident); ok {
 			if f, ok := intrinsicFunction[strings.ToUpper(n.Name)]; ok {
-				f(call)
+				f(in.p, call)
 			}
 		}
 	}
@@ -85,22 +86,27 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 	return in
 }
 
-var intrinsicFunction = map[string]func(*goast.CallExpr){
-	"REAL": func(f *goast.CallExpr) {
+var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
+	"REAL": func(p *parser, f *goast.CallExpr) {
 		typeNames := []string{"complex128"}
-		intrinsicArgumentCorrection(f, "real", typeNames)
+		intrinsicArgumentCorrection(p, f, "real", typeNames)
 	},
-	"AIMAG": func(f *goast.CallExpr) {
+	"AIMAG": func(p *parser, f *goast.CallExpr) {
 		typeNames := []string{"complex128"}
-		intrinsicArgumentCorrection(f, "imag", typeNames)
+		intrinsicArgumentCorrection(p, f, "imag", typeNames)
 	},
-	"LEN": func(f *goast.CallExpr) {
+	"LEN": func(p *parser, f *goast.CallExpr) {
 		typeNames := []string{"[]byte"}
-		intrinsicArgumentCorrection(f, "len", typeNames)
+		intrinsicArgumentCorrection(p, f, "len", typeNames)
+	},
+	"MIN": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"int", "int"}
+		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+		intrinsicArgumentCorrection(p, f, "intrinsic.MIN", typeNames)
 	},
 }
 
-func intrinsicArgumentCorrection(f *goast.CallExpr, name string, typeNames []string) {
+func intrinsicArgumentCorrection(p *parser, f *goast.CallExpr, name string, typeNames []string) {
 	if _, ok := f.Fun.(*goast.Ident); !ok || len(f.Args) != len(typeNames) {
 		return
 	}

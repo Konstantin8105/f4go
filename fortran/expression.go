@@ -150,16 +150,20 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 			begin := p.getArrayBegin(v.name, i)
 			for j := range a {
 				if a[j].tok == token.COLON {
+					// from : S[ I:I ]
+					// to   : S[ I ]
 					if j == 1 && len(a) == 3 {
-						a = append(a[:j], append([]node{
-							{tok: token.SUB, b: []byte("-")},
-							{tok: token.LPAREN, b: []byte("(")},
-							{
-								tok: token.INT,
-								b:   []byte(strconv.Itoa(begin)),
-							},
-							{tok: token.RPAREN, b: []byte(")")},
-						}, a[j:]...)...)
+						a[j].tok, a[j].b = token.STRING, []byte(" ")
+						a[j+1].tok, a[j+1].b = token.STRING, []byte(" ")
+						// a = append(a[:j], append([]node{
+						// 	{tok: token.SUB, b: []byte("-")},
+						// 	{tok: token.LPAREN, b: []byte("(")},
+						// 	{
+						// 		tok: token.INT,
+						// 		b:   []byte(strconv.Itoa(begin)),
+						// 	},
+						// 	{tok: token.RPAREN, b: []byte(")")},
+						// }, a[j:]...)...)
 					}
 				}
 			}
