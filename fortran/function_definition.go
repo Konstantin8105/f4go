@@ -94,6 +94,10 @@ var intrinsicFunction = map[string]func(*goast.CallExpr){
 		typeNames := []string{"complex128"}
 		intrinsicArgumentCorrection(f, "imag", typeNames)
 	},
+	"LEN": func(f *goast.CallExpr) {
+		typeNames := []string{"[]byte"}
+		intrinsicArgumentCorrection(f, "len", typeNames)
+	},
 }
 
 func intrinsicArgumentCorrection(f *goast.CallExpr, name string, typeNames []string) {

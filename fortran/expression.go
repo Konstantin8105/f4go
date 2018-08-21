@@ -126,7 +126,7 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 			if (*nodes)[pos].tok == token.IDENT {
 				var ok bool
 				if v, ok = p.initVars.get(string((*nodes)[pos].b)); ok &&
-					p.getArrayLen(v.name) > 0 {
+					(p.getArrayLen(v.name) > 0 || v.typ.baseType == "string") {
 					break
 				}
 			}
@@ -148,6 +148,21 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 		var inject []node
 		for i, a := range args {
 			begin := p.getArrayBegin(v.name, i)
+			for j := range a {
+				if a[j].tok == token.COLON {
+					if j == 1 && len(a) == 3 {
+						a = append(a[:j], append([]node{
+							{tok: token.SUB, b: []byte("-")},
+							{tok: token.LPAREN, b: []byte("(")},
+							{
+								tok: token.INT,
+								b:   []byte(strconv.Itoa(begin)),
+							},
+							{tok: token.RPAREN, b: []byte(")")},
+						}, a[j:]...)...)
+					}
+				}
+			}
 			inject = append(inject, node{tok: token.LBRACK, b: []byte("[")})
 			inject = append(inject, a...)
 			inject = append(inject, []node{
