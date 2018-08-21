@@ -48,6 +48,9 @@ func (p parser) getSize(name string, col int) (size int, ok bool) {
 	if !ok {
 		panic("Cannot find variable : " + name)
 	}
+	if v.typ.baseType == "string" {
+		col++
+	}
 	if len(v.typ.arrayNode[col]) == 1 && v.typ.arrayNode[col][0].tok == token.INT {
 		val, _ := strconv.Atoi(string(v.typ.arrayNode[col][0].b))
 		return val, true
@@ -88,6 +91,9 @@ func (p parser) getArrayBegin(name string, col int) int {
 	if !ok {
 		panic("Cannot find variable : " + name)
 	}
+	if v.typ.baseType == "string" {
+		col++
+	}
 	if col >= len(v.typ.arrayNode) {
 		return 1
 	}
@@ -117,6 +123,9 @@ func (p parser) getArrayLen(name string) int {
 		panic("Cannot find variable : " + name)
 	}
 	lenArray := len(v.typ.arrayNode)
+	if v.typ.baseType == "string" {
+		lenArray--
+	}
 	return lenArray
 }
 
@@ -464,7 +473,7 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 	for i := range []varInitialization(p.initVars) {
 		name := ([]varInitialization(p.initVars)[i]).name
 		goT := ([]varInitialization(p.initVars)[i]).typ
-		switch len(goT.arrayNode) {
+		switch p.getArrayLen(name) {
 		case 0:
 			decl := goast.GenDecl{
 				Tok: token.VAR,
@@ -482,12 +491,23 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 				decl.Specs[0].(*goast.ValueSpec).Values = []goast.Expr{
 					p.parseExprNodes(val),
 				}
+			} else if v, ok := p.initVars.get(name); ok && v.typ.baseType == "string" {
+				decl.Specs[0].(*goast.ValueSpec).Values = []goast.Expr{
+					&goast.CallExpr{
+						Fun: goast.NewIdent("make"),
+						Args: []goast.Expr{
+							&goast.ArrayType{Elt: goast.NewIdent("byte")},
+							goast.NewIdent(nodesToString(v.typ.arrayNode[0])),
+						},
+					},
+				}
+
 			}
 			vars = append(vars, &goast.DeclStmt{Decl: &decl})
 
 		case 1: // vector
 			arrayType := goT.getBaseType()
-			for range goT.arrayNode {
+			for i := 0; i < p.getArrayLen(name); i++ {
 				arrayType = "[]" + arrayType
 			}
 			size, ok := p.getSize(name, 0)
@@ -1818,6 +1838,14 @@ mul:
 		var str string
 		for i := range names {
 			str += fmt.Sprintln(">>", nodesToString(names[i]))
+			v, ok := p.initVars.get(nodesToString(names[i]))
+			if ok {
+				fmt.Println("1) ", v.name)
+				fmt.Println("2) ", v.typ)
+				fmt.Println("3) ", v.typ.baseType)
+				fmt.Println("4) ", v.typ.getBaseType())
+				fmt.Println("5) ", v.typ.arrayNode)
+			}
 		}
 		for i := range values {
 			str += fmt.Sprintln("<<", nodesToString(values[i]))

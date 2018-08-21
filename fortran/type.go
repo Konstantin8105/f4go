@@ -7,6 +7,9 @@ import (
 )
 
 func (g goType) isArray() bool {
+	if g.baseType == "string" {
+		return len(g.arrayNode)-1 > 0
+	}
 	return len(g.arrayNode) > 0
 }
 
@@ -17,8 +20,11 @@ type goType struct {
 
 func (g goType) String() (s string) {
 	s = g.getBaseType()
-	for _, ss := range g.arrayNode {
-		size, err := strconv.Atoi(nodesToString(ss))
+	for i := 0; i < len(g.arrayNode); i++ {
+		if g.baseType == "string" && i == 0 {
+			continue
+		}
+		size, err := strconv.Atoi(nodesToString(g.arrayNode[i]))
 		if err != nil {
 			s = fmt.Sprintf("[]%s", s)
 		} else {
@@ -103,6 +109,7 @@ func parseType(nodes []node) (typ goType) {
 			nodes[0].tok == token.MUL && nodes[1].tok == token.INT {
 			if string(nodes[1].b) != "1" {
 				typ.baseType = "string"
+				typ.arrayNode = append(typ.arrayNode, []node{nodes[1]})
 			}
 			nodes = nodes[2:]
 		} else if len(nodes) > 0 && nodes[0].tok == token.MUL {
