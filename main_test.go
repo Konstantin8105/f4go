@@ -3,6 +3,9 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"go/parser"
+	"go/scanner"
+	"go/token"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -148,6 +151,23 @@ func TestData(t *testing.T) {
 			if len(es) > 0 {
 				t.Fatal("Error is not empty")
 			}
+			// generate filename of result
+			index := strings.LastIndex(files[i], ".")
+			goFilename := files[i] + ".go"
+			if index > 0 {
+				goFilename = files[i][:index] + ".go"
+			}
+			// parse for errors
+			_, err := parser.ParseFile(token.NewFileSet(), goFilename, nil, parser.AllErrors)
+			if err != nil {
+				if e, ok := err.(scanner.ErrorList); ok {
+					for i := range e {
+						t.Log(e[i])
+					}
+				}
+				t.Fatal(fmt.Errorf("%v", err))
+			}
+
 		})
 	}
 }

@@ -64,6 +64,9 @@ C -----------------------------------------------------
             call testName("test_write")
             call test_write()
 
+            call testName("test_byte")
+            call test_byte()
+
             ! end of tests
         END
 
@@ -734,5 +737,23 @@ C
 
 C -----------------------------------------------------
 
+        SUBROUTINE test_byte
+            CHARACTER(1) SRNAME_ARRAY(3)
+            DATA SRNAME_ARRAY / 'q' , 'w' , 'e' /
+            call test_byte_func(SRNAME_ARRAY,3)
+        END SUBROUTINE
 
+        SUBROUTINE test_byte_func(SRN,L)
+            INTEGER L,I
+            CHARACTER(1) SRN(L)
+            INTRINSIC MIN, LEN
+            CHARACTER*32 S
+            DO I = 1, MIN(L, LEN(S))
+                S(I:I) = SRN(I)
+                WRITE(*,'(A1,A1)') SRN(I), S(I:I)
+                END DO
+            RETURN
+        END SUBROUTINE
+
+C -----------------------------------------------------
 
