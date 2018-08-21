@@ -184,16 +184,11 @@ C -----------------------------------------------------
             integer ab_min
             JR = 1
             iterator = 1
-            DO 130 IR = 1,2
-                DO 131 HR = 1,2
-                    IF ( HR .GT. 0) 
-     +                  GO TO 131
-                    IF ( HR .GT. 0) THEN
-                        GO TO 131
-                    END IF
-                    WRITE (*,'(A8)') 'GOTO131'
-  131           CONTINUE
-  130       CONTINUE
+            DO 140 IR = 1,2
+                DO 130 HR = 1,2
+                        WRITE (*,'(A8)') 'GOTO131'
+  130           END DO
+  140       END DO
             Do IR = 1,10,3
                 write (*,FMT=142) IR
             end do
@@ -225,6 +220,7 @@ C -----------------------------------------------------
                 write(*,*) "iterator is less or equal 3"
                 GO TO 144
             END IF
+            call test_do2()
             return
   142 FORMAT ('Do with inc ', I2)
   146 FORMAT ('Do ', I2)
@@ -245,6 +241,18 @@ C -----------------------------------------------------
              return
          end function
 
+        SUBROUTINE test_do2( )
+            INTEGER I,J,N, VTSAV(2,2), A(2,2)
+            N = 2
+            DO 140 J=1,N
+               DO 130 I=1,N
+                  A(I,J) = I+J*N
+                  VTSAV(J,I) = A(I,J)
+                  WRITE(*,'(I5)') VTSAV(J,I)
+  130          END DO
+  140       END DO
+            RETURN
+        END
 
 C -----------------------------------------------------
 

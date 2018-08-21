@@ -1293,6 +1293,11 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	case token.INT:
 		labelName := string(p.ns[p.ident].b)
 		if v, ok := p.endLabelDo[labelName]; ok && v > 0 {
+			// if after END DO, then remove
+			for ; p.ns[p.ident].tok != ftNewLine; p.ident++ {
+				p.ns[p.ident].tok, p.ns[p.ident].b = ftNewLine, []byte("\n")
+			}
+
 			// add END DO before that label
 			var add []node
 			for j := 0; j < v; j++ {
