@@ -297,6 +297,7 @@ func (s *scanner) extract(start, end int, e *list.Element, tok token.Token) {
 
 // separate strings
 func (s *scanner) scanStrings() {
+again:
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		if e.Value.(*node).tok != ftUndefine {
 			continue
@@ -336,7 +337,20 @@ func (s *scanner) scanStrings() {
 				e.Value.(*node).b = append(e.Value.(*node).b[:len(e.Value.(*node).b)-1],
 					append([]byte("'"), n.Value.(*node).b[1:]...)...)
 				s.nodes.Remove(n)
+				goto again
 			}
+		}
+	}
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok != token.STRING {
+			continue
+		}
+		e.Value.(*node).b = bytes.Replace(e.Value.(*node).b, []byte("\""), []byte("'"), -1)
+		if e.Value.(*node).b[0] == '\'' {
+			e.Value.(*node).b[0] = '"'
+		}
+		if e.Value.(*node).b[len(e.Value.(*node).b)-1] == '\'' {
+			e.Value.(*node).b[len(e.Value.(*node).b)-1] = '"'
 		}
 	}
 }
@@ -680,6 +694,9 @@ empty:
 			n := e.Next()
 			s.nodes.Remove(e)
 			e = n
+			if n == nil {
+				goto empty
+			}
 			again = true
 			continue
 		}

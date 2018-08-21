@@ -90,13 +90,19 @@ func (p *parser) isArrayVariable(name string) bool {
 
 // change  `(/` and `/)` to `((` and `))`
 func (p *parser) fixFakeParen(nodes *[]node) {
+	var foundBegin bool
+	var begin int
 	for i := 1; i < len(*nodes); i++ {
-		if (*nodes)[i-1].tok == token.LPAREN && (*nodes)[i].tok == token.QUO {
-			(*nodes)[i].tok, (*nodes)[i].b = (*nodes)[i-1].tok, (*nodes)[i-1].b
+		if !foundBegin {
+			if (*nodes)[i-1].tok == token.LPAREN && (*nodes)[i].tok == token.QUO {
+				begin = i
+			}
 			continue
 		}
 		if (*nodes)[i-1].tok == token.QUO && (*nodes)[i].tok == token.RPAREN {
-			(*nodes)[i-1].tok, (*nodes)[i-1].b = (*nodes)[i].tok, (*nodes)[i].b
+			foundBegin = false
+			(*nodes)[begin].tok, (*nodes)[begin].b = token.LPAREN, []byte("(")
+			(*nodes)[i-1].tok, (*nodes)[i-1].b = token.RPAREN, []byte(")")
 			continue
 		}
 	}
@@ -235,7 +241,12 @@ func (p *parser) fixDoubleStar(nodes *[]node) {
 func (p *parser) fixString(nodes *[]node) {
 	for i := range *nodes {
 		if (*nodes)[i].tok == token.STRING {
-			(*nodes)[i].b = []byte(strings.Replace(string((*nodes)[i].b), "'", "\"", -1))
+			if (*nodes)[i].b[0] == '\'' {
+				(*nodes)[i].b[0] = '"'
+			}
+			if (*nodes)[i].b[len((*nodes)[i].b)-1] == '\'' {
+				(*nodes)[i].b[len((*nodes)[i].b)-1] = '"'
+			}
 		}
 	}
 }

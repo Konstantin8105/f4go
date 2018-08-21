@@ -351,7 +351,7 @@ func (p *parser) parseOpen() (stmts []goast.Stmt) {
 	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 	ast, err := goparser.ParseExpr(s)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("%s:%s", s, err))
 	}
 	stmts = append(stmts, &goast.ExprStmt{
 		X: ast,
