@@ -732,10 +732,13 @@ C
             ! WRITE(*,'(L2)') L2
 
             WRITE(*,FMT=618)
+            WRITE(*,FMT=619)
             RETURN
   615       FORMAT ('TEST_WRITE :',F6.3)
   617       FORMAT (I7)
   618       FORMAT ( ' !! Invalid input value: ', '=', '; must be <=' )
+  619       FORMAT ( ' UPLO=''', ''', DIAG=''', ''', N=', ', NB=' , ',
+     $      test(', ')= ')
         END SUBROUTINE
 
 C -----------------------------------------------------

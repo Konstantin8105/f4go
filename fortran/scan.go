@@ -259,7 +259,7 @@ merge:
 				continue
 			}
 			isEmpty := true
-			for i := 0; i < 6; i++ {
+			for i := 0; i < 5; i++ {
 				if e.Value.(*node).b[i] != ' ' {
 					isEmpty = false
 				}
@@ -274,7 +274,8 @@ merge:
 			if p == nil {
 				continue
 			}
-			p.Value.(*node).b = append(p.Value.(*node).b, e.Value.(*node).b...)
+			p.Value.(*node).b = append(p.Value.(*node).b,
+				append([]byte("  "), e.Value.(*node).b...)...)
 			s.nodes.Remove(e)
 			goto merge
 		}
