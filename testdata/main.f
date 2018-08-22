@@ -730,9 +730,12 @@ C
             ! WRITE(*,'(L1)') L2
             ! WRITE(*,'(L2)') L1
             ! WRITE(*,'(L2)') L2
+
+            WRITE(*,FMT=618)
             RETURN
   615       FORMAT ('TEST_WRITE :',F6.3)
   617       FORMAT (I7)
+  618       FORMAT ( ' !! Invalid input value: ', '=', '; must be <=' )
         END SUBROUTINE
 
 C -----------------------------------------------------

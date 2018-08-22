@@ -15,6 +15,7 @@ testdata/*.go
 *.o
 testdata/other/*
 testdata/blas/*.go
+*.txt
 
 coverage.txt
 *.coverprofile

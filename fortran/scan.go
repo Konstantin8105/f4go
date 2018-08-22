@@ -94,8 +94,14 @@ func scan(b []byte) (ns []node) {
 	// separate comments
 	s.scanComments()
 
+	// merge lines
+	s.mergeLines()
+
 	// separate strings
 	s.scanStrings()
+
+	// comments !
+	s.scanNextComments()
 
 	// preprocessor: add specific spaces
 	s.scanTokenWithPoint()
@@ -140,17 +146,16 @@ func (s *scanner) scanBreakLines() {
 B:
 	var again bool
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*node).tok {
-		case ftNewLine:
+		if e.Value.(*node).tok != ftUndefine {
 			// ignore
-		default:
-			for j := len(e.Value.(*node).b) - 1; j >= 0; j-- {
-				if e.Value.(*node).b[j] != '\n' {
-					continue
-				}
-				s.extract(j, j+1, e, ftNewLine)
-				again = true
+			continue
+		}
+		for j := len(e.Value.(*node).b) - 1; j >= 0; j-- {
+			if e.Value.(*node).b[j] != '\n' {
+				continue
 			}
+			s.extract(j, j+1, e, ftNewLine)
+			again = true
 		}
 	}
 	if again {
@@ -184,32 +189,95 @@ func (s *scanner) scanComments() {
 			}
 		}
 	}
+}
 
-	// comments inside line : '!'
+// comments inside line : '!'
+func (s *scanner) scanNextComments() {
 Op:
 	var again bool
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*node).tok {
-		case ftUndefine:
-			if len(e.Value.(*node).b) == 0 {
-				continue
+		if e.Value.(*node).tok != ftUndefine {
+			continue
+		}
+		if len(e.Value.(*node).b) == 0 {
+			continue
+		}
+		var st int
+		var found bool
+		for st = 0; st < len(e.Value.(*node).b); st++ {
+			if e.Value.(*node).b[st] == '!' {
+				found = true
+				break
 			}
-			var st int
-			var found bool
-			for st = 0; st < len(e.Value.(*node).b); st++ {
-				if e.Value.(*node).b[st] == '!' {
-					found = true
-					break
-				}
-			}
-			if found {
-				s.extract(st, len(e.Value.(*node).b), e, token.COMMENT)
-				again = true
-			}
+		}
+		if found {
+			s.extract(st, len(e.Value.(*node).b), e, token.COMMENT)
+			again = true
 		}
 	}
 	if again {
 		goto Op
+	}
+
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok != token.COMMENT {
+			continue
+		}
+		if e.Value.(*node).b[0] != '!' {
+			continue
+		}
+		n := e.Next()
+	next:
+		if n == nil {
+			continue
+		}
+		if n.Value.(*node).pos.line != e.Value.(*node).pos.line {
+			continue
+		}
+		e.Value.(*node).b = append(e.Value.(*node).b, n.Value.(*node).b...)
+		s.nodes.Remove(n)
+		n = e.Next()
+		goto next
+	}
+}
+
+func (s *scanner) mergeLines() {
+	if s.nodes.Len() < 2 {
+		return
+	}
+merge:
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok != ftUndefine {
+			continue
+		}
+		if len(e.Value.(*node).b) > 6 && e.Value.(*node).b[5] != ' ' {
+			p := e.Prev()
+			if p == nil {
+				continue
+			}
+			if p.Value.(*node).tok != ftNewLine {
+				continue
+			}
+			isEmpty := true
+			for i := 0; i < 6; i++ {
+				if e.Value.(*node).b[i] != ' ' {
+					isEmpty = false
+				}
+			}
+			if !isEmpty {
+				continue
+			}
+			s.nodes.Remove(p)
+			e.Value.(*node).pos.col += 6
+			e.Value.(*node).b = e.Value.(*node).b[6:]
+			p = e.Prev()
+			if p == nil {
+				continue
+			}
+			p.Value.(*node).b = append(p.Value.(*node).b, e.Value.(*node).b...)
+			s.nodes.Remove(e)
+			goto merge
+		}
 	}
 }
 
@@ -302,44 +370,41 @@ again:
 		if e.Value.(*node).tok != ftUndefine {
 			continue
 		}
-		for j, ch := range e.Value.(*node).b {
-			if ch == '"' {
-				b := e.Value.(*node).b
-				var end int
-				for end = j + 1; end < len(b) && b[end] != '"'; end++ {
-				}
-				s.extract(j, end+1, e, token.STRING)
-				break
-			} else if ch == '\'' {
-				b := e.Value.(*node).b
-				var end int
-				for end = j + 1; end < len(b) && b[end] != '\''; end++ {
-				}
-				if end >= len(b) {
-					s.extract(j, end, e, token.STRING)
-				} else {
-					s.extract(j, end+1, e, token.STRING)
-				}
-				break
+		for j := 0; j < len(e.Value.(*node).b); j++ {
+			ch := e.Value.(*node).b[j]
+			if ch != '"' && ch != '\'' {
+				continue
 			}
+			b := e.Value.(*node).b
+			var end int
+			for end = j + 1; end < len(b) && b[end] != ch; end++ {
+			}
+			if end >= len(b) {
+				s.extract(j, len(b), e, token.STRING)
+			} else {
+				s.extract(j, end+1, e, token.STRING)
+			}
+			j = end + 1
 		}
 	}
 	// merge strings. Example:
 	// 9949 FORMAT( 3X, I2, ': norm( L - A * Q'' ) / ( N * norm(A) * EPS )' )
 	//                                        == here
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		if e.Value.(*node).tok == token.STRING {
-			n := e.Next()
-			if n == nil {
-				continue
-			}
-			if n.Value.(*node).tok == token.STRING {
-				e.Value.(*node).b = append(e.Value.(*node).b[:len(e.Value.(*node).b)-1],
-					append([]byte("'"), n.Value.(*node).b[1:]...)...)
-				s.nodes.Remove(n)
-				goto again
-			}
+		if e.Value.(*node).tok != token.STRING {
+			continue
 		}
+		n := e.Next()
+		if n == nil {
+			continue
+		}
+		if n.Value.(*node).tok != token.STRING {
+			continue
+		}
+		e.Value.(*node).b = append(e.Value.(*node).b[:len(e.Value.(*node).b)-1],
+			append([]byte("'"), n.Value.(*node).b[1:]...)...)
+		s.nodes.Remove(n)
+		goto again
 	}
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		if e.Value.(*node).tok != token.STRING {
