@@ -35,13 +35,13 @@ func (e *node) Split() (nodes []node) {
 
 		var st int
 		for st = 0; st < len(b); st++ {
-			if b[st] != ' ' {
+			if !isSpace(b[st]) {
 				break
 			}
 		}
 
 		var end int
-		for end = st; end < len(b) && b[end] != ' '; end++ {
+		for end = st; end < len(b) && !isSpace(b[end]); end++ {
 		}
 
 		if end-st == 0 {
@@ -105,10 +105,6 @@ func scan(b []byte) (ns []node) {
 
 	// preprocessor: add specific spaces
 	s.scanTokenWithPoint()
-	defer func() {
-		// postprocessor
-		s.postprocessor()
-	}()
 
 	// separate on other token
 	s.scanTokens()
@@ -137,6 +133,9 @@ func scan(b []byte) (ns []node) {
 
 	// token GO TO
 	s.scanGoto()
+
+	// postprocessor
+	s.postprocessor()
 
 	return
 }
@@ -250,7 +249,7 @@ merge:
 		if e.Value.(*node).tok != ftUndefine {
 			continue
 		}
-		if len(e.Value.(*node).b) > 6 && e.Value.(*node).b[5] != ' ' {
+		if len(e.Value.(*node).b) > 6 && !isSpace(e.Value.(*node).b[5]) {
 			p := e.Prev()
 			if p == nil {
 				continue
@@ -260,7 +259,7 @@ merge:
 			}
 			isEmpty := true
 			for i := 0; i < 5; i++ {
-				if e.Value.(*node).b[i] != ' ' {
+				if !isSpace(e.Value.(*node).b[i]) {
 					isEmpty = false
 				}
 			}
@@ -682,7 +681,7 @@ A:
 					}
 				}
 				if index > 0 {
-					if e.Value.(*node).b[index-1] == ' ' &&
+					if isSpace(e.Value.(*node).b[index-1]) &&
 						(len(e.Value.(*node).b) == index+len(pat) ||
 							!(isLetter(e.Value.(*node).b[index+len(pat)]) ||
 								isDigit(e.Value.(*node).b[index+len(pat)]) ||
@@ -884,6 +883,8 @@ G:
 		goto G
 	}
 }
+
+func isSpace(ch byte) bool { return ch == ' ' || ch == '\t' || ch == '\r' }
 
 // isLetter returns true if the rune is a letter.
 func isLetter(ch byte) bool { return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') }

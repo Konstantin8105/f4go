@@ -870,6 +870,15 @@ func (p *parser) expect(t token.Token) {
 
 func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 	for p.ident < len(p.ns) {
+		// Only for debugging
+		// fmt.Println("---------------")
+		// for i := 0; i < len(p.ns); i++ {
+		// 	if p.ns[i].tok != ftNewLine {
+		// 		fmt.Printf("%8v %3d %v %v\n", p.ident == i, i, p.ns[i].tok, string(p.ns[i].b))
+		// 		continue
+		// 	}
+		// 	fmt.Printf("%8v %3d %v\n", p.ident == i, i, p.ns[i].tok)
+		// }
 
 		if p.ns[p.ident].tok == token.COMMENT {
 			stmts = append(stmts, &goast.ExprStmt{
@@ -1314,8 +1323,8 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		labelName := string(p.ns[p.ident].b)
 		if v, ok := p.endLabelDo[labelName]; ok && v > 0 {
 			// if after END DO, then remove
-			for ; p.ns[p.ident].tok != ftNewLine; p.ident++ {
-				p.ns[p.ident].tok, p.ns[p.ident].b = ftNewLine, []byte("\n")
+			for i := p.ident; p.ns[i].tok != ftNewLine; i++ {
+				p.ns[i].tok, p.ns[i].b = ftNewLine, []byte("\n")
 			}
 
 			// add END DO before that label

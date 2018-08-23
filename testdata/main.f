@@ -157,7 +157,7 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
         recursive subroutine test_if()
-            integer i
+            integer i, J
             logical l
             l = .false.
             i = 5
@@ -178,8 +178,30 @@ C -----------------------------------------------------
             ELSEIF (i .EQ. 5) THEN
                 WRITE(*,*) "ELSEIF is Ok"
             END IF
+
+            DO 100 J = 1,2
+                IF (.NOT.l) THEN
+                ELSE
+                    IF (J.GE.0) THEN 
+                        WRITE(*,*) "Ok"
+                    END IF
+                END IF
+  100       CONTINUE
+
+            CALL ZD()
+
+            RETURN
         end
 
+        SUBROUTINE ZD()
+			INTEGER IFORM
+            DO 100 IFORM = 1, 2
+      			IF ( IFORM .NE. 0 ) THEN
+                    WRITE(*,'(I1)')IFORM
+                END IF
+  100       CONTINUE
+        RETURN
+        END
 C -----------------------------------------------------
 
         subroutine test_do()
