@@ -33,14 +33,14 @@ func TestScanIn(t *testing.T) {
 		},
 		{
 			in:  "C ttt\n  ddd",
-			out: []string{"C ttt", "\n", "ddd"},
+			out: []string{"C ttt", "\n", "DDD"},
 		},
 		{
 			in: "C ttt\n  ddd\nC ttt\n  ddd\nC ttt\n  ddd\nC ttt\n  ddd\n",
-			out: []string{"C ttt", "\n", "ddd", "\n",
-				"C ttt", "\n", "ddd", "\n",
-				"C ttt", "\n", "ddd", "\n",
-				"C ttt", "\n", "ddd", "\n",
+			out: []string{"C ttt", "\n", "DDD", "\n",
+				"C ttt", "\n", "DDD", "\n",
+				"C ttt", "\n", "DDD", "\n",
+				"C ttt", "\n", "DDD", "\n",
 			},
 		},
 		{
@@ -49,11 +49,11 @@ func TestScanIn(t *testing.T) {
 		},
 		{
 			in:  "       sdfse   S  rw   ",
-			out: []string{"sdfse", "S", "rw"},
+			out: []string{"SDFSE", "S", "RW"},
 		},
 		{
 			in:  "RRR\n       sdfse   S  rw   \n E      \nRRR",
-			out: []string{"RRR", "\n", "sdfse", "S", "rw", "\n", "E", "\n", "RRR"},
+			out: []string{"RRR", "\n", "SDFSE", "S", "RW", "\n", "E", "\n", "RRR"},
 		},
 		{
 			in: "          -0.004-S-123-12.34Q-5+3E5-9E-5+2.q22",
@@ -75,7 +75,7 @@ func TestScanIn(t *testing.T) {
 		{
 			in: ` 	          SUBROUTINE real_test()
                END`,
-			out: []string{"SUBROUTINE", "real_test", "(", ")", "\n", "END"},
+			out: []string{"SUBROUTINE", "REAL_TEST", "(", ")", "\n", "END"},
 		},
 	}
 	for i, tc := range tcs {

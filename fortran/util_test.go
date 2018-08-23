@@ -15,7 +15,7 @@ func TestSplit(t *testing.T) {
 		{
 			in:            "t(2**3)",
 			pos:           3,
-			leftOther:     "t(",
+			leftOther:     "T(",
 			leftVariable:  "2",
 			rightVariable: "3",
 			rightOther:    ")",
@@ -23,7 +23,7 @@ func TestSplit(t *testing.T) {
 		{
 			in:            "t(replace,2**3)",
 			pos:           5,
-			leftOther:     "t(replace,",
+			leftOther:     "T(REPLACE,",
 			leftVariable:  "2",
 			rightVariable: "3",
 			rightOther:    ")",
@@ -31,17 +31,17 @@ func TestSplit(t *testing.T) {
 		{
 			in:            "t(2**3,replace)",
 			pos:           3,
-			leftOther:     "t(",
+			leftOther:     "T(",
 			leftVariable:  "2",
 			rightVariable: "3",
-			rightOther:    ",replace)",
+			rightOther:    ",REPLACE)",
 		},
 		{
 			in:            "t(a(:1) // b(:1))",
 			pos:           7,
-			leftOther:     "t(",
-			leftVariable:  "a(:1)",
-			rightVariable: "b(:1)",
+			leftOther:     "T(",
+			leftVariable:  "A(:1)",
+			rightVariable: "B(:1)",
 			rightOther:    ")",
 		},
 	}
