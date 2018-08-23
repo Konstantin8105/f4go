@@ -128,6 +128,7 @@ func scan(b []byte) (ns []node) {
 		switch e.Value.(*node).tok {
 		case ftUndefine:
 			e.Value.(*node).tok = token.IDENT
+			e.Value.(*node).b = bytes.ToUpper(e.Value.(*node).b)
 		}
 	}
 

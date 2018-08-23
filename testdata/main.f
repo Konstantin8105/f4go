@@ -2,7 +2,7 @@ C -----------------------------------------------------
 C Tests 
 C -----------------------------------------------------
 
-        program main
+        program MAIN
             ! begin of tests
             call testName("test_operations")
             call test_operations()
@@ -66,6 +66,9 @@ C -----------------------------------------------------
 
             call testName("test_byte")
             call test_byte()
+
+            call testName("test_vars")
+            call test_vars()
 
             ! end of tests
         END
@@ -773,15 +776,20 @@ C -----------------------------------------------------
 
         SUBROUTINE test_byte_func(SRN,L)
             INTEGER L,I
-            CHARACTER(1) SRN(L)
+            CHARACTER(1) SrN(L)
             INTRINSIC MIN, LEN
             CHARACTER*32 S
             DO I = 1, MIN(L, LEN(S))
-                S(I:I) = SRN(I)
-                WRITE(*,'(A1,A1)') SRN(I), S(I:I)
+                S(I:I) = SRn(I)
+                WRITE(*,'(A1,A1)') sRN(I), S(I:I)
                 END DO
             RETURN
         END SUBROUTINE
 
 C -----------------------------------------------------
 
+        SUBROUTINE test_vars
+            INTEGER TTT
+            TtT = 1
+            WRITE(*,'(I2)') tTT
+        END

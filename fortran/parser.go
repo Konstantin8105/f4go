@@ -18,6 +18,7 @@ type varInitialization struct {
 type varInits []varInitialization
 
 func (v varInits) get(n string) (varInitialization, bool) {
+	n = strings.ToUpper(n)
 	for _, val := range []varInitialization(v) {
 		if val.name == n {
 			return val, true
@@ -28,6 +29,7 @@ func (v varInits) get(n string) (varInitialization, bool) {
 
 func (v *varInits) del(n string) {
 	vs := []varInitialization(*v)
+	n = strings.ToUpper(n)
 	for i, val := range vs {
 		if val.name == n {
 			vs = append(vs[:i], vs[i+1:]...)
@@ -39,7 +41,7 @@ func (v *varInits) del(n string) {
 
 func (v *varInits) add(name string, typ goType) {
 	vs := []varInitialization(*v)
-	vs = append(vs, varInitialization{name: name, typ: typ})
+	vs = append(vs, varInitialization{name: strings.ToUpper(name), typ: typ})
 	*v = varInits(vs)
 }
 
@@ -437,7 +439,7 @@ func initVis() *vis {
 
 func (v vis) Visit(node goast.Node) (w goast.Visitor) {
 	if ident, ok := node.(*goast.Ident); ok {
-		if to, ok := v.c[ident.Name]; ok {
+		if to, ok := v.c[strings.ToUpper(ident.Name)]; ok {
 			ident.Name = "(" + to + ")"
 		}
 	}
@@ -711,7 +713,13 @@ func (p *parser) parseFunction() (decl goast.Decl) {
 func (p *parser) parseProgram() (decl goast.Decl) {
 	p.expect(ftProgram)
 	p.ns[p.ident].tok = ftSubroutine
-	return p.parseSubroutine()
+	decl = p.parseSubroutine()
+	if fd, ok := decl.(*goast.FuncDecl); ok {
+		if strings.ToUpper(fd.Name.Name) == "MAIN" {
+			fd.Name.Name = "main"
+		}
+	}
+	return
 }
 
 // parseSubroutine  is parsed SUBROUTINE, FUNCTION, PROGRAM
@@ -745,7 +753,7 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 
 	p.ident++
 	p.expect(token.IDENT)
-	name := string(p.ns[p.ident].b)
+	name := strings.ToUpper(string(p.ns[p.ident].b))
 	fd.Name = goast.NewIdent(name)
 
 	// Add return type is exist
@@ -1442,7 +1450,7 @@ func (p *parser) parseParamDecl() (fields []*goast.Field) {
 		case token.COMMA:
 			// ignore
 		case token.IDENT:
-			id := string(p.ns[p.ident].b)
+			id := strings.ToUpper(string(p.ns[p.ident].b))
 			field := &goast.Field{
 				Names: []*goast.Ident{goast.NewIdent(id)},
 				Type:  goast.NewIdent("int"),

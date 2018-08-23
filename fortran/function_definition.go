@@ -26,6 +26,7 @@ func (c callArgumentSimplification) Visit(node goast.Node) (w goast.Visitor) {
 			// fmt.Println("Simply : ", id.Name)
 		}
 	}
+
 	return c
 }
 
@@ -34,10 +35,13 @@ type intrinsic struct {
 }
 
 func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
+
 	if call, ok := node.(*goast.CallExpr); ok {
 		if n, ok := call.Fun.(*goast.Ident); ok {
 			if f, ok := intrinsicFunction[strings.ToUpper(n.Name)]; ok {
 				f(in.p, call)
+			} else if n.Name != "make" && n.Name != "append" {
+				n.Name = strings.ToUpper(n.Name)
 			}
 		}
 	}
