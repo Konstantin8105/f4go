@@ -822,7 +822,8 @@ numb:
 			//  5. Sign       // maybe
 			//  6. Digits     // maybe
 			for st := 0; st < len(e.Value.(*node).b); st++ {
-				if isDigit(e.Value.(*node).b[st]) {
+				if isDigit(e.Value.(*node).b[st]) ||
+					e.Value.(*node).b[st] == '.' {
 					var en int
 					for en = st; en < len(e.Value.(*node).b); en++ {
 						if !isDigit(e.Value.(*node).b[en]) {

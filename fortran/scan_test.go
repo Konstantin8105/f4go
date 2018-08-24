@@ -77,11 +77,16 @@ func TestScanIn(t *testing.T) {
                END`,
 			out: []string{"SUBROUTINE", "REAL_TEST", "(", ")", "\n", "END"},
 		},
+		{
+			in:  "(.5,.6)",
+			out: []string{"(", ".5", ",", ".6", ")"},
+		},
 	}
 	for i, tc := range tcs {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			ns := scan([]byte(tc.in))
 			if len(ns) != len(tc.out) {
+				t.Logf("%v", ns)
 				t.Fatalf("Not same : %v != %v", len(ns), len(tc.out))
 			}
 			for j := 0; j < len(ns); j++ {
