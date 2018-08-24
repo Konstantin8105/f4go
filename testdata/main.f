@@ -704,10 +704,20 @@ C -----------------------------------------------------
             INTEGER       IN_I
             REAL          IN_R1
             REAL          IN_A(3)
+            ! INTEGER       NN
+            ! INTEGER       NVAL(60)
             INTEGER       A,I
             ! LOGICAL       L1, L2
             ! L1 = .TRUE.
             ! L2 = .FALSE.
+
+            ! NN = 20
+            ! DO I = 1,60
+            !     NVAL(I) = I*5
+            ! END DO
+            ! WRITE( *, FMT = 620 )'N   ', ( NVAL( I ), I = 1, NN )
+            ! WRITE( *, '(I5)'    ) NN 
+C -----------------
             A = 3
             OUT   = 6
             VALUE = 12.34
@@ -729,6 +739,8 @@ C
             WRITE(*  ,'(I7)' ) IN_I
             READ (OUT, FMT=* ) IN_I
             WRITE(*  ,'(I7)' ) IN_I
+
+            ! TODO : READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
 C
 C           REAL
 C
@@ -764,6 +776,7 @@ C
   618       FORMAT ( ' !! Invalid input value: ', '=', '; must be <=' )
   619       FORMAT ( ' UPLO=''', ''', DIAG=''', ''', N=', ', NB=' , ',
      $      test(', ')= ')
+  ! 620       FORMAT( 4X, A4, ':  ', 10I6, / 11X, 10I6 )
         END SUBROUTINE
 
 C -----------------------------------------------------

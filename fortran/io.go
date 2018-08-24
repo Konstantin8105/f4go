@@ -94,6 +94,15 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 			{tok: token.LPAREN, b: []byte("(")},
 		}, p.ns[p.ident:end]...), node{tok: token.RPAREN, b: []byte(")")}))
 		for _, ta := range tempArgs {
+			if ta[0].tok == token.LPAREN && len(ta) > 11 {
+				// From :
+				//  ( NVAL ( I ) , I = 1 , NN )
+				// To:
+				//    NVAL ( 1 : NN )
+				ta = []node{ta[1], ta[2], ta[8],
+					node{tok: token.COLON, b: []byte(":")},
+					ta[10], ta[11]}
+			}
 			ast.(*goast.CallExpr).Args = append(ast.(*goast.CallExpr).Args,
 				p.parseExprNodes(ta))
 		}
