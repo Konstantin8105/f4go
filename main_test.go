@@ -162,6 +162,9 @@ func TestData(t *testing.T) {
 			if err != nil {
 				if e, ok := err.(scanner.ErrorList); ok {
 					for i := range e {
+						if i > 20 {
+							continue
+						}
 						t.Log(e[i])
 					}
 				}
