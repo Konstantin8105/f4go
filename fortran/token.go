@@ -45,6 +45,7 @@ const (
 	ftAssign
 	ftDefine
 	ftClose
+	ftEquivalence
 
 	// undefine tokens
 	ftUndefine
@@ -98,6 +99,8 @@ var o = [...]string{
 	ftClose:        "CLOSE",
 
 	ftDollar: "$",
+
+	ftEquivalence: "EQUIVALENCE",
 
 	ftUndefine: "UNDEFINE",
 }

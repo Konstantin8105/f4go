@@ -1219,6 +1219,10 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	case ftInteger, ftCharacter, ftComplex, ftLogical, ftReal, ftDouble:
 		stmts = append(stmts, p.parseInit()...)
 
+	case ftEquivalence:
+		p.addError(p.getLine())
+		p.gotoEndLine()
+
 	case token.RETURN:
 		stmts = append(stmts, &goast.ReturnStmt{})
 		p.gotoEndLine()
