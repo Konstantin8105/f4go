@@ -1224,7 +1224,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		p.gotoEndLine()
 
 	case ftCommon:
-		p.addError(p.getLine())
+		// TODO: Add support COMMON, use memory pool
 		p.gotoEndLine()
 
 	case token.RETURN:
