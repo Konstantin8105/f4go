@@ -1223,6 +1223,10 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		p.addError(p.getLine())
 		p.gotoEndLine()
 
+	case ftCommon:
+		p.addError(p.getLine())
+		p.gotoEndLine()
+
 	case token.RETURN:
 		stmts = append(stmts, &goast.ReturnStmt{})
 		p.gotoEndLine()

@@ -46,6 +46,7 @@ const (
 	ftDefine
 	ftClose
 	ftEquivalence
+	ftCommon
 
 	// undefine tokens
 	ftUndefine
@@ -101,6 +102,7 @@ var o = [...]string{
 	ftDollar: "$",
 
 	ftEquivalence: "EQUIVALENCE",
+	ftCommon:      "COMMON",
 
 	ftUndefine: "UNDEFINE",
 }
