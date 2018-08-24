@@ -96,6 +96,7 @@ func (p *parser) fixFakeParen(nodes *[]node) {
 		if !foundBegin {
 			if (*nodes)[i-1].tok == token.LPAREN && (*nodes)[i].tok == token.QUO {
 				begin = i
+				foundBegin = !foundBegin
 			}
 			continue
 		}
