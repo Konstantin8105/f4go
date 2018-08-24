@@ -193,9 +193,6 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 	}
 }
 
-// TODO : add test for avoid comments /*...*/ in Go code
-// TODO : add test for calc amount of TODO
-
 // Examples:
 //   SD2 / GAM ** 2
 //   DSQRT ( ( DA / SCALE ) ** 2 + ( DB / SCALE ) ** 2 )

@@ -1,14 +1,17 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"fmt"
 	"go/parser"
 	"go/scanner"
 	"go/token"
 	"io/ioutil"
+	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 	"testing"
 
@@ -209,4 +212,97 @@ func BenchmarkCgemm(b *testing.B) {
 		b.StartTimer()
 		_, _ = fortran.Parse(d, "")
 	}
+}
+
+func TestTodo(t *testing.T) {
+	// Show all todos in code
+	s1, err := filepath.Glob(fmt.Sprintf("./%s", "*.go"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	s2, err := filepath.Glob(fmt.Sprintf("./fortran/%s", "*.go"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	source := []string{}
+	source = append(source, s1...)
+	source = append(source, s2...)
+
+	var amount int
+
+	for i := range source {
+		t.Run(source[i], func(t *testing.T) {
+			file, err := os.Open(source[i])
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer file.Close()
+
+			pos := 1
+			scanner := bufio.NewScanner(file)
+			for scanner.Scan() {
+				line := scanner.Text()
+				pos++
+				if !strings.Contains(line, "//") {
+					continue
+				}
+				if !strings.Contains(line, "TODO") {
+					continue
+				}
+				index := strings.Index(line, "//")
+				t.Logf("%d %s", pos, line[index:])
+				amount++
+			}
+
+			if err := scanner.Err(); err != nil {
+				log.Fatal(err)
+			}
+		})
+	}
+	t.Logf("Amount TODO: %d", amount)
+}
+
+func TestComments(t *testing.T) {
+	// Show all todos in code
+	s1, err := filepath.Glob(fmt.Sprintf("./%s", "*.go"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	s2, err := filepath.Glob(fmt.Sprintf("./fortran/%s", "*.go"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	source := []string{}
+	source = append(source, s1...)
+	source = append(source, s2...)
+
+	var amount int
+
+	for i := range source {
+		t.Run(source[i], func(t *testing.T) {
+			file, err := os.Open(source[i])
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer file.Close()
+
+			pos := 1
+			scanner := bufio.NewScanner(file)
+			for scanner.Scan() {
+				line := scanner.Text()
+				pos++
+				if !strings.Contains(line, "/"+"*") {
+					continue
+				}
+				index := strings.Index(line, "/"+"*")
+				t.Logf("%d %s", pos, line[index:])
+				amount++
+			}
+
+			if err := scanner.Err(); err != nil {
+				log.Fatal(err)
+			}
+		})
+	}
+	t.Logf("Amount comments: %d", amount)
 }
