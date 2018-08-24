@@ -239,6 +239,16 @@ Op:
 		n = e.Next()
 		goto next
 	}
+
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok != token.COMMENT {
+			continue
+		}
+		if e.Value.(*node).b[0] != '!' {
+			continue
+		}
+		s.nodes.InsertBefore(&node{tok: ftNewLine, b: []byte("\n")}, e)
+	}
 }
 
 func (s *scanner) mergeLines() {
@@ -512,6 +522,7 @@ func (s *scanner) postprocessor() {
 		if e.Value.(*node).tok != ftEnd {
 			continue
 		}
+		// for: END =
 		if n := e.Next(); n != nil && n.Value.(*node).tok == token.ASSIGN {
 			continue
 		}

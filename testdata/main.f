@@ -103,9 +103,9 @@ C -----------------------------------------------------
             i = i + 12
             i = i - 20
             i = i *2
-            write (*, FMT = 120) i
+            write (*, FMT = 120) i ! TEST COMMENT
             write (*, '(I1,A2,I1)') i,'YY',i
-            write (*, '()')
+            write (*, '()') ! TEST COMMENT
             return
   120 Format (' output ', I1 , ' integer I''C values ')
         end
@@ -178,13 +178,13 @@ C -----------------------------------------------------
 
             IF (i .GE. 100) THEN
                 STOP 
-            ELSEIF (i .EQ. 5) THEN
+            ELSEIF (i .EQ. 5) THEN ! TEST COMMENT
                 WRITE(*,*) "ELSEIF is Ok"
-            END IF
+            END IF ! TEST COMMENT
 
             DO 100 J = 1,2
-                IF (.NOT.l) THEN
-                ELSE
+                IF (.NOT.l) THEN ! TEST COMMENT
+                ELSE 
                     IF (J.GE.0) THEN 
                         WRITE(*,*) "Ok"
                     END IF
@@ -261,33 +261,33 @@ C -----------------------------------------------------
 
          integer function ab_min(a,b)
              integer a,b
-             if (a .LE. b) then
+             if (a .LE. b) then ! TEST COMMENT
                  ab_min = a
-             else 
+             else ! TEST COMMENT
                  ab_min = b
-             end if 
+             end if ! TEST COMMENT
              return
          end function
 
         SUBROUTINE test_do2( )
-            INTEGER I,J,N, VTSAV(2,2), A(2,2)
-            N = 2
-            DO 140 J=1,N
-               DO 130 I=1,N
-                  A(I,J) = I+J*N
-                  VTSAV(J,I) = A(I,J)
-                  WRITE(*,'(I5)') VTSAV(J,I)
-  130          END DO
-  140       END DO
-            RETURN
-        END
+            INTEGER I,J,N, VTSAV(2,2), A(2,2) ! TEST COMMENT
+            N = 2 
+            DO 140 J=1,N, 1 ! TEST COMMENT
+               DO 130 I=1,N ! TEST COMMENT
+                  A(I,J) = I+J*N ! TEST COMMENT
+                  VTSAV(J,I) = A(I,J) ! TEST COMMENT
+                  WRITE(*,'(I5)') VTSAV(J,I) ! TEST COMMENT
+  130          END DO ! TEST COMMENT
+  140       END DO ! TEST COMMENT
+            RETURN ! TEST COMMENT
+        END ! TEST COMMENT
 
 C -----------------------------------------------------
 
         subroutine test_do_while()
             integer iterator
             iterator = 1
-            Do while (iterator .Le. 3)
+            Do while (iterator .Le. 3) ! TEST COMMENT
                 write (*,180) iterator
                 iterator = iterator + 1
             end do

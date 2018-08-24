@@ -882,10 +882,12 @@ func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 		// fmt.Println("---------------")
 		// for i := 0; i < len(p.ns); i++ {
 		// 	if p.ns[i].tok != ftNewLine {
-		// 		fmt.Printf("%8v %3d %v %v\n", p.ident == i, i, p.ns[i].tok, string(p.ns[i].b))
+		// 		fmt.Printf("%8v %4d %3d %v %v\n", p.ident == i,
+		// 			i, p.ns[i].pos.line, p.ns[i].tok, string(p.ns[i].b))
 		// 		continue
 		// 	}
-		// 	fmt.Printf("%8v %3d %v\n", p.ident == i, i, p.ns[i].tok)
+		// 	fmt.Printf("%8v %4d %3d %v\n", p.ident == i,
+		// 		i, p.ns[i].pos.line, p.ns[i].tok)
 		// }
 
 		if p.ns[p.ident].tok == token.COMMENT {
@@ -1219,7 +1221,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	case token.RETURN:
 		stmts = append(stmts, &goast.ReturnStmt{})
-		p.ident++
+		p.gotoEndLine()
 		p.expect(ftNewLine)
 
 	case ftParameter:
