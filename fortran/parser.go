@@ -1228,7 +1228,9 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		stmts = append(stmts, s...)
 
 	case ftFormat:
-		p.addError(p.getLine())
+		stmts = append(stmts, &goast.ExprStmt{
+			X: goast.NewIdent("// Unused by f4go : " + p.getLine()),
+		})
 		p.gotoEndLine()
 
 	case ftCommon:
