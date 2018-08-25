@@ -1224,6 +1224,10 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		p.gotoEndLine()
 
 	case ftRewind:
+		s := p.parseRewind()
+		stmts = append(stmts, s...)
+
+	case ftFormat:
 		p.addError(p.getLine())
 		p.gotoEndLine()
 

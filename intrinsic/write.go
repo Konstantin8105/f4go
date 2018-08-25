@@ -14,6 +14,10 @@ func init() {
 	units[6] = os.Stdout
 }
 
+func REWIND(unit int) {
+	units[unit].Seek(0, 0)
+}
+
 func WRITE(unit int, format []byte, a ...interface{}) {
 	fmt.Fprintf(units[unit], string(format), a...)
 }

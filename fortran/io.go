@@ -11,6 +11,30 @@ import (
 )
 
 // Example:
+//  REWIND NTRA
+func (p *parser) parseRewind() (stmts []goast.Stmt) {
+	p.expect(ftRewind)
+	p.ident++
+
+	name := string(p.ns[p.ident].b)
+	p.ident++
+	p.expect(ftNewLine)
+
+	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+
+	s := fmt.Sprintf("intrinsic.REWIND(%s)", name)
+
+	ast, err := goparser.ParseExpr(s)
+	if err != nil {
+		panic(fmt.Errorf("pos:%v\nSource : %v\n Error: %v", p.ns[p.ident].pos, s, err))
+	}
+
+	return append(stmts, &goast.ExprStmt{
+		X: ast,
+	})
+}
+
+// Example:
 //  WRITE ( * , FMT = 9999 ) SRNAME ( 1 : LEN_TRIM ( SRNAME ) ) , INFO
 //  9999 FORMAT ( ' ** On entry to ' , A , ' parameter number ' , I2 , ' had ' , 'an illegal value' )
 //
