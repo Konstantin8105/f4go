@@ -1223,6 +1223,10 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		p.addError(p.getLine())
 		p.gotoEndLine()
 
+	case ftRewind:
+		p.addError(p.getLine())
+		p.gotoEndLine()
+
 	case ftCommon:
 		// TODO: Add support COMMON, use memory pool
 		p.gotoEndLine()

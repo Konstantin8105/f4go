@@ -47,6 +47,7 @@ const (
 	ftClose
 	ftEquivalence
 	ftCommon
+	ftRewind
 
 	// undefine tokens
 	ftUndefine
@@ -103,6 +104,7 @@ var o = [...]string{
 
 	ftEquivalence: "EQUIVALENCE",
 	ftCommon:      "COMMON",
+	ftRewind:      "REWIND",
 
 	ftUndefine: "UNDEFINE",
 }
