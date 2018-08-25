@@ -67,15 +67,19 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 
 	if p.ns[p.ident].tok == token.LPAREN {
 		if v, ok := p.initVars.get(string(p.ns[p.ident+1].b)); ok && v.typ.isArray() {
-			// ( IDIM ( I ) , I = 1 , NIDIM )
-			_, end := separateArgsParen(p.ns[p.ident:])
+			// ( IDIM ( I )  , I = 1  ,  NIDIM )
+			// ( A ( I , J ) , J = 1  ,  NIDIM )
+			//               ^
+			//               |
+			//               find this
+			args, end := separateArgsParen(p.ns[p.ident:])
 
 			s := fmt.Sprintf("intrinsic.WRITE(%s,%s,%s)", unit, fs,
-				nodesToString(p.ns[p.ident+1:p.ident+5]))
+				nodesToString(args[0]))
 
 			ast := p.parseExprNodes(scan([]byte(s)))
 
-			f := p.createForArguments(ast)
+			f := p.createForArguments(append(args[1], args[2]...), ast)
 
 			p.ident += end
 			stmts = append(stmts, &f)
@@ -97,11 +101,32 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 			if ta[0].tok == token.LPAREN && len(ta) > 11 {
 				// From :
 				//  ( NVAL ( I ) , I = 1 , NN )
+				//  (  A( I, J ) , J = 1 , N  )
 				// To:
-				//    NVAL ( 1 : NN )
-				ta = []node{ta[1], ta[2], ta[8],
-					node{tok: token.COLON, b: []byte(":")},
-					ta[10], ta[11]}
+				//    NVAL (     1 : NN )
+				//      A  ( I , 1 : N  )
+				args, _ := separateArgsParen(ta[2:])
+				if len(args) == 1 {
+					ta = []node{ta[1], ta[2], ta[8],
+						node{tok: token.COLON, b: []byte(":")},
+						ta[10], ta[11]}
+				} else {
+					if nodesToString(args[0]) == nodesToString([]node{ta[8]}) {
+						//  ( A ( I , J ) , I =  1   ,   N   )
+						//  0 1 2 3 4 5 6 7 8 9  10  11  12  13
+						//    A ( 1 : N , J )
+						ta = []node{ta[1], ta[2],
+							ta[10], node{tok: token.COLON, b: []byte(":")}, ta[12],
+							ta[4], ta[5], ta[6]}
+					} else {
+						//  ( A ( I , J ) , J = 1  ,  N  )
+						//  0 1 2 3 4 5 6 7 8 9 10 11 12 13
+						//    A ( I , 1 : N )
+						ta = []node{ta[1], ta[2], ta[3],
+							ta[10], node{tok: token.COLON, b: []byte(":")}, ta[12],
+							ta[6]}
+					}
+				}
 			}
 			ast.(*goast.CallExpr).Args = append(ast.(*goast.CallExpr).Args,
 				p.parseExprNodes(ta))
@@ -297,15 +322,19 @@ func (p *parser) parseRead() (stmts []goast.Stmt) {
 
 	if p.ns[p.ident].tok == token.LPAREN {
 		if v, ok := p.initVars.get(string(p.ns[p.ident+1].b)); ok && v.typ.isArray() {
-			// ( IDIM ( I ) , I = 1 , NIDIM )
-			_, end := separateArgsParen(p.ns[p.ident:])
+			// ( IDIM ( I )  , I = 1  ,  NIDIM )
+			// ( A ( I , J ) , J = 1  ,  NIDIM )
+			//               ^
+			//               |
+			//               find this
+			args, end := separateArgsParen(p.ns[p.ident:])
 
 			s := fmt.Sprintf("intrinsic.READ(%s,%s,%s)", unit, fs,
-				nodesToString(p.ns[p.ident+1:p.ident+5]))
+				nodesToString(args[0]))
 
 			ast := p.parseExprNodes(scan([]byte(s)))
 
-			f := p.createForArguments(ast)
+			f := p.createForArguments(append(args[1], args[2]...), ast)
 
 			p.ident += end
 			stmts = append(stmts, &f)
@@ -394,30 +423,29 @@ func (p *parser) parseClose() (stmts []goast.Stmt) {
 
 //  READ  ( NIN , FMT = * ) ( IDIM ( I ) , I = 1 , NIDIM )
 //  WRITE ( NIN , FMT = * ) ( IDIM ( I ) , I = 1 , NIDIM )
+//  WRITE ( NIN , FMT = * ) ( A ( I , J ) , J = 1  ,  NIDIM )
 //  ======================= this is ast
 //                          ==============================
 //                           this is return ForStmt
-func (p parser) createForArguments(ast goast.Expr) (f goast.ForStmt) {
+//
+//                I = 1  NIDIM
+//                I = 1  NIDIM
+//                =============== loop
+//                0 1 2  3
+func (p parser) createForArguments(loop []node, ast goast.Expr) (f goast.ForStmt) {
 	return goast.ForStmt{
 		Init: &goast.AssignStmt{
-			Lhs: []goast.Expr{goast.NewIdent(string(p.ns[p.ident+6].b))},
+			Lhs: []goast.Expr{goast.NewIdent(string(loop[0].b))},
 			Tok: token.ASSIGN,
-			Rhs: []goast.Expr{p.parseExprNodes([]node{
-				p.ns[p.ident+8],
-				// {tok: token.SUB, b: []byte("-")},
-				// {tok: token.INT, b: []byte("1")},
-			})},
+			Rhs: []goast.Expr{p.parseExprNodes([]node{loop[2]})},
 		},
-		Cond: p.parseExprNodes(append(
-			p.ns[p.ident+6:p.ident+7],
-			[]node{
-				{tok: token.LEQ, b: []byte("<=")},
-				p.ns[p.ident+10],
-				// {tok: token.SUB, b: []byte("-")},
-				// {tok: token.INT, b: []byte("1")},
-			}...)),
+		Cond: p.parseExprNodes([]node{
+			loop[0],
+			{tok: token.LEQ, b: []byte("<=")},
+			loop[3],
+		}),
 		Post: &goast.IncDecStmt{
-			X:   goast.NewIdent(string(p.ns[p.ident+6].b)),
+			X:   goast.NewIdent(string(loop[0].b)),
 			Tok: token.INC,
 		},
 		Body: &goast.BlockStmt{

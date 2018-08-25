@@ -707,6 +707,9 @@ C -----------------------------------------------------
             ! INTEGER       NN
             ! INTEGER       NVAL(60)
             INTEGER       A,I
+            INTEGER       NAI
+            PARAMETER     (NAI = 5)
+            INTEGER       AI(NAI)
             ! LOGICAL       L1, L2
             ! L1 = .TRUE.
             ! L2 = .FALSE.
@@ -740,7 +743,15 @@ C
             READ (OUT, FMT=* ) IN_I
             WRITE(*  ,'(I7)' ) IN_I
 
-            ! TODO : READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
+            ! TODO 
+  !     DO 100 I = 1, N
+  !        READ( NIN, FMT = * )( A( I, J ), J = 1, N )
+  ! 100 CONTINUE
+
+            READ( OUT, FMT = * )( AI ( I ), I = 1, NAI )
+            DO I = 1, NAI
+                WRITE(*,'(I2)') AI(I)
+            END DO
 C
 C           REAL
 C
