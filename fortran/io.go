@@ -132,7 +132,7 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 				args, _ := separateArgsParen(ta[2:])
 				if len(args) == 1 {
 					ta = []node{ta[1], ta[2], ta[8],
-						node{tok: token.COLON, b: []byte(":")},
+						{tok: token.COLON, b: []byte(":")},
 						ta[10], ta[11]}
 				} else {
 					if nodesToString(args[0]) == nodesToString([]node{ta[8]}) {
@@ -140,14 +140,14 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 						//  0 1 2 3 4 5 6 7 8 9  10  11  12  13
 						//    A ( 1 : N , J )
 						ta = []node{ta[1], ta[2],
-							ta[10], node{tok: token.COLON, b: []byte(":")}, ta[12],
+							ta[10], {tok: token.COLON, b: []byte(":")}, ta[12],
 							ta[4], ta[5], ta[6]}
 					} else {
 						//  ( A ( I , J ) , J = 1  ,  N  )
 						//  0 1 2 3 4 5 6 7 8 9 10 11 12 13
 						//    A ( I , 1 : N )
 						ta = []node{ta[1], ta[2], ta[3],
-							ta[10], node{tok: token.COLON, b: []byte(":")}, ta[12],
+							ta[10], {tok: token.COLON, b: []byte(":")}, ta[12],
 							ta[6]}
 					}
 				}
