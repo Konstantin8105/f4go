@@ -233,7 +233,7 @@ func CGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *complex64, A *[
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("C");return &y}()) {
+	if !LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('T');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('C');return &y}()) {
 		INFO = 1
 	} else if (*M) < 0 {
 		INFO = 2
@@ -261,12 +261,12 @@ func CGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *complex64, A *[
 		return
 	}
 	//*
-	NOCONJ = LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}())
+	NOCONJ = LSAME(TRANS, func()*byte{y:=byte('T');return &y}())
 	//*
 	//*     Set  LENX  and  LENY, the lengths of the vectors x and y, and set
 	//*     up the start points in  X  and  Y.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		LENX = (*N)
 		LENY = (*M)
 	} else {
@@ -319,7 +319,7 @@ func CGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *complex64, A *[
 		return
 	}
 	KUP1 = (*KU) + 1
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		//*
 		//*        Form  y := alpha*A*x + y.
 		//*
@@ -363,7 +363,7 @@ func CGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *complex64, A *[
 					}
 				} else {
 					for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
-						TEMP = TEMP + CONJG(&((*A)[K+I-(1)][J-(1)]))*(*X)[I-(1)]
+						TEMP = TEMP + intrinsic.CONJG((*A)[K+I-(1)][J-(1)])*(*X)[I-(1)]
 					}
 				}
 				(*Y)[JY-(1)] = (*Y)[JY-(1)] + (*ALPHA)*TEMP
@@ -381,7 +381,7 @@ func CGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *complex64, A *[
 					}
 				} else {
 					for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
-						TEMP = TEMP + CONJG(&((*A)[K+I-(1)][J-(1)]))*(*X)[IX-(1)]
+						TEMP = TEMP + intrinsic.CONJG((*A)[K+I-(1)][J-(1)])*(*X)[IX-(1)]
 						IX = IX + (*INCX)
 					}
 				}

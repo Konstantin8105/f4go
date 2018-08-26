@@ -220,23 +220,23 @@ func DTRSM(SIDE *byte, UPLO *byte, TRANSA *byte, DIAG *byte, M *int, N *int, ALP
 	//*
 	//*     Test the input parameters.
 	//*
-	LSIDE = LSAME(SIDE, func()*[]byte{y:=[]byte("L");return &y}())
+	LSIDE = LSAME(SIDE, func()*byte{y:=byte('L');return &y}())
 	if LSIDE {
 		NROWA = (*M)
 	} else {
 		NROWA = (*N)
 	}
-	NOUNIT = LSAME(DIAG, func()*[]byte{y:=[]byte("N");return &y}())
-	UPPER = LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}())
+	NOUNIT = LSAME(DIAG, func()*byte{y:=byte('N');return &y}())
+	UPPER = LSAME(UPLO, func()*byte{y:=byte('U');return &y}())
 	//*
 	INFO = 0
-	if (!LSIDE) && (!LSAME(SIDE, func()*[]byte{y:=[]byte("R");return &y}())) {
+	if (!LSIDE) && (!LSAME(SIDE, func()*byte{y:=byte('R');return &y}())) {
 		INFO = 1
-	} else if (!UPPER) && (!LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}())) {
+	} else if (!UPPER) && (!LSAME(UPLO, func()*byte{y:=byte('L');return &y}())) {
 		INFO = 2
-	} else if (!LSAME(TRANSA, func()*[]byte{y:=[]byte("N");return &y}())) && (!LSAME(TRANSA, func()*[]byte{y:=[]byte("T");return &y}())) && (!LSAME(TRANSA, func()*[]byte{y:=[]byte("C");return &y}())) {
+	} else if (!LSAME(TRANSA, func()*byte{y:=byte('N');return &y}())) && (!LSAME(TRANSA, func()*byte{y:=byte('T');return &y}())) && (!LSAME(TRANSA, func()*byte{y:=byte('C');return &y}())) {
 		INFO = 3
-	} else if (!LSAME(DIAG, func()*[]byte{y:=[]byte("U");return &y}())) && (!LSAME(DIAG, func()*[]byte{y:=[]byte("N");return &y}())) {
+	} else if (!LSAME(DIAG, func()*byte{y:=byte('U');return &y}())) && (!LSAME(DIAG, func()*byte{y:=byte('N');return &y}())) {
 		INFO = 4
 	} else if (*M) < 0 {
 		INFO = 5
@@ -272,7 +272,7 @@ func DTRSM(SIDE *byte, UPLO *byte, TRANSA *byte, DIAG *byte, M *int, N *int, ALP
 	//*     Start the operations.
 	//*
 	if LSIDE {
-		if LSAME(TRANSA, func()*[]byte{y:=[]byte("N");return &y}()) {
+		if LSAME(TRANSA, func()*byte{y:=byte('N');return &y}()) {
 			//*
 			//*           Form  B := alpha*inv( A )*B.
 			//*
@@ -346,7 +346,7 @@ func DTRSM(SIDE *byte, UPLO *byte, TRANSA *byte, DIAG *byte, M *int, N *int, ALP
 			}
 		}
 	} else {
-		if LSAME(TRANSA, func()*[]byte{y:=[]byte("N");return &y}()) {
+		if LSAME(TRANSA, func()*byte{y:=byte('N');return &y}()) {
 			//*
 			//*           Form  B := alpha*B*inv( A ).
 			//*

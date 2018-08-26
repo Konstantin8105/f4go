@@ -1,6 +1,7 @@
 package main
 
 import "math"
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b ZROTG
 //*
 //*  =========== DOCUMENTATION ===========
@@ -91,7 +92,7 @@ func ZROTG(CA *complex128, CB *complex128, C *float64, S *complex128) {
 		NORM = SCALE * DSQRT(math.Pow((CDABS((*CA)/DCMPLX(&(SCALE), func()*float64{y:=0.0e0;return &y}()))), 2)+math.Pow((CDABS((*CB)/DCMPLX(&(SCALE), func()*float64{y:=0.0e0;return &y}()))), 2))
 		ALPHA = (*CA) / CDABS(CA)
 		(*C) = CDABS(CA) / NORM
-		(*S) = ALPHA * DCONJG(CB) / NORM
+		(*S) = ALPHA * intrinsic.DCONJG((*CB)) / NORM
 		(*CA) = ALPHA * NORM
 	}
 	return

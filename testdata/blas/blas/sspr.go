@@ -162,7 +162,7 @@ func SSPR(UPLO *byte, N *int, ALPHA *float64, X *[]float64, INCX *int, AP *[]flo
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -192,7 +192,7 @@ func SSPR(UPLO *byte, N *int, ALPHA *float64, X *[]float64, INCX *int, AP *[]flo
 	//*     are accessed sequentially with one pass through AP.
 	//*
 	KK = 1
-	if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 		//*
 		//*        Form  A  when upper triangle is stored in AP.
 		//*

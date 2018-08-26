@@ -81,7 +81,7 @@ func LSAME(CA *byte, CB *byte) (LSAME_RES bool) {
 	//*
 	//*     Now test for equivalence if both characters are alphabetic.
 	//*
-	ZCODE = ICHAR(func()*[]byte{y:=[]byte("Z");return &y}())
+	ZCODE = ICHAR(func()*byte{y:=byte('Z');return &y}())
 	//*
 	//*     Use 'Z' rather than 'A' so that ASCII can be detected on Prime
 	//*     machines, on which ICHAR returns a value with bit 8 set.

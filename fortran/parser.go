@@ -656,6 +656,11 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 				case token.STRING:
 					call.Args[i] = goast.NewIdent(
 						fmt.Sprintf("func()*[]byte{y:=[]byte(%s);return &y}()", a.Value))
+					if len(a.Value) == 3 {
+						a.Value = strings.Replace(a.Value, "\"", "'", -1)
+						call.Args[i] = goast.NewIdent(
+							fmt.Sprintf("func()*byte{y:=byte(%s);return &y}()", a.Value))
+					}
 				case token.INT:
 					call.Args[i] = goast.NewIdent(
 						fmt.Sprintf("func()*int{y:=%s;return &y}()", a.Value))

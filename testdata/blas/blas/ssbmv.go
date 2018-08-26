@@ -228,7 +228,7 @@ func SSBMV(UPLO *byte, N *int, K *int, ALPHA *float64, A *[][]float64, LDA *int,
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -299,7 +299,7 @@ func SSBMV(UPLO *byte, N *int, K *int, ALPHA *float64, A *[][]float64, LDA *int,
 	if (*ALPHA) == ZERO {
 		return
 	}
-	if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 		//*
 		//*        Form  y  when upper triangle of A is stored.
 		//*

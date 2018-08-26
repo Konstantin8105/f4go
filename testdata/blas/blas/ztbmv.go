@@ -227,11 +227,11 @@ func ZTBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex12
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
 		INFO = 1
-	} else if !LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("C");return &y}()) {
+	} else if !LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('T');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('C');return &y}()) {
 		INFO = 2
-	} else if !LSAME(DIAG, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(DIAG, func()*[]byte{y:=[]byte("N");return &y}()) {
+	} else if !LSAME(DIAG, func()*byte{y:=byte('U');return &y}()) && !LSAME(DIAG, func()*byte{y:=byte('N');return &y}()) {
 		INFO = 3
 	} else if (*N) < 0 {
 		INFO = 4
@@ -253,8 +253,8 @@ func ZTBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex12
 		return
 	}
 	//*
-	NOCONJ = LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}())
-	NOUNIT = LSAME(DIAG, func()*[]byte{y:=[]byte("N");return &y}())
+	NOCONJ = LSAME(TRANS, func()*byte{y:=byte('T');return &y}())
+	NOUNIT = LSAME(DIAG, func()*byte{y:=byte('N');return &y}())
 	//*
 	//*     Set up the start point in X if the increment is not unity. This
 	//*     will be  ( N - 1 )*INCX   too small for descending loops.
@@ -268,11 +268,11 @@ func ZTBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex12
 	//*     Start the operations. In this version the elements of A are
 	//*     accessed sequentially with one pass through A.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		//*
 		//*         Form  x := A*x.
 		//*
-		if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+		if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 			KPLUS1 = (*K) + 1
 			if (*INCX) == 1 {
 				for J = 1; J <= (*N); J++ {
@@ -349,7 +349,7 @@ func ZTBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex12
 		//*
 		//*        Form  x := A**T*x  or  x := A**H*x.
 		//*
-		if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+		if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 			KPLUS1 = (*K) + 1
 			if (*INCX) == 1 {
 				for J = (*N); J <= 1; J += -1 {
@@ -364,10 +364,10 @@ func ZTBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex12
 						}
 					} else {
 						if NOUNIT {
-							TEMP = TEMP * DCONJG(&((*A)[KPLUS1-(1)][J-(1)]))
+							TEMP = TEMP * intrinsic.DCONJG((*A)[KPLUS1-(1)][J-(1)])
 						}
 						for I = J - 1; I <= intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I += -1 {
-							TEMP = TEMP + DCONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[I-(1)]
+							TEMP = TEMP + intrinsic.DCONJG((*A)[L+I-(1)][J-(1)])*(*X)[I-(1)]
 						}
 					}
 					(*X)[J-(1)] = TEMP
@@ -390,10 +390,10 @@ func ZTBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex12
 						}
 					} else {
 						if NOUNIT {
-							TEMP = TEMP * DCONJG(&((*A)[KPLUS1-(1)][J-(1)]))
+							TEMP = TEMP * intrinsic.DCONJG((*A)[KPLUS1-(1)][J-(1)])
 						}
 						for I = J - 1; I <= intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I += -1 {
-							TEMP = TEMP + DCONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[IX-(1)]
+							TEMP = TEMP + intrinsic.DCONJG((*A)[L+I-(1)][J-(1)])*(*X)[IX-(1)]
 							IX = IX - (*INCX)
 						}
 					}
@@ -415,10 +415,10 @@ func ZTBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex12
 						}
 					} else {
 						if NOUNIT {
-							TEMP = TEMP * DCONJG(&((*A)[1-(1)][J-(1)]))
+							TEMP = TEMP * intrinsic.DCONJG((*A)[1-(1)][J-(1)])
 						}
 						for I = J + 1; I <= intrinsic.MIN((*N), J+(*K)); I++ {
-							TEMP = TEMP + DCONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[I-(1)]
+							TEMP = TEMP + intrinsic.DCONJG((*A)[L+I-(1)][J-(1)])*(*X)[I-(1)]
 						}
 					}
 					(*X)[J-(1)] = TEMP
@@ -440,10 +440,10 @@ func ZTBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex12
 						}
 					} else {
 						if NOUNIT {
-							TEMP = TEMP * DCONJG(&((*A)[1-(1)][J-(1)]))
+							TEMP = TEMP * intrinsic.DCONJG((*A)[1-(1)][J-(1)])
 						}
 						for I = J + 1; I <= intrinsic.MIN((*N), J+(*K)); I++ {
-							TEMP = TEMP + DCONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[IX-(1)]
+							TEMP = TEMP + intrinsic.DCONJG((*A)[L+I-(1)][J-(1)])*(*X)[IX-(1)]
 							IX = IX + (*INCX)
 						}
 					}

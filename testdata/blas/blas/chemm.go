@@ -229,19 +229,19 @@ func CHEMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex64, A *[][]comp
 	//*
 	//*     Set NROWA as the number of rows of A.
 	//*
-	if LSAME(SIDE, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if LSAME(SIDE, func()*byte{y:=byte('L');return &y}()) {
 		NROWA = (*M)
 	} else {
 		NROWA = (*N)
 	}
-	UPPER = LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}())
+	UPPER = LSAME(UPLO, func()*byte{y:=byte('U');return &y}())
 	//*
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if (!LSAME(SIDE, func()*[]byte{y:=[]byte("L");return &y}())) && (!LSAME(SIDE, func()*[]byte{y:=[]byte("R");return &y}())) {
+	if (!LSAME(SIDE, func()*byte{y:=byte('L');return &y}())) && (!LSAME(SIDE, func()*byte{y:=byte('R');return &y}())) {
 		INFO = 1
-	} else if (!UPPER) && (!LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}())) {
+	} else if (!UPPER) && (!LSAME(UPLO, func()*byte{y:=byte('L');return &y}())) {
 		INFO = 2
 	} else if (*M) < 0 {
 		INFO = 3
@@ -286,7 +286,7 @@ func CHEMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex64, A *[][]comp
 	//*
 	//*     Start the operations.
 	//*
-	if LSAME(SIDE, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if LSAME(SIDE, func()*byte{y:=byte('L');return &y}()) {
 		//*
 		//*        Form  C := alpha*A*B + beta*C.
 		//*
@@ -297,7 +297,7 @@ func CHEMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex64, A *[][]comp
 					TEMP2 = ZERO
 					for K = 1; K <= I-1; K++ {
 						(*C)[K-(1)][J-(1)] = (*C)[K-(1)][J-(1)] + TEMP1*(*A)[K-(1)][I-(1)]
-						TEMP2 = TEMP2 + (*B)[K-(1)][J-(1)]*CONJG(&((*A)[K-(1)][I-(1)]))
+						TEMP2 = TEMP2 + (*B)[K-(1)][J-(1)]*intrinsic.CONJG((*A)[K-(1)][I-(1)])
 					}
 					if (*BETA) == ZERO {
 						(*C)[I-(1)][J-(1)] = TEMP1*real((*A)[I-(1)][I-(1)]) + (*ALPHA)*TEMP2
@@ -313,7 +313,7 @@ func CHEMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex64, A *[][]comp
 					TEMP2 = ZERO
 					for K = I + 1; K <= (*M); K++ {
 						(*C)[K-(1)][J-(1)] = (*C)[K-(1)][J-(1)] + TEMP1*(*A)[K-(1)][I-(1)]
-						TEMP2 = TEMP2 + (*B)[K-(1)][J-(1)]*CONJG(&((*A)[K-(1)][I-(1)]))
+						TEMP2 = TEMP2 + (*B)[K-(1)][J-(1)]*intrinsic.CONJG((*A)[K-(1)][I-(1)])
 					}
 					if (*BETA) == ZERO {
 						(*C)[I-(1)][J-(1)] = TEMP1*real((*A)[I-(1)][I-(1)]) + (*ALPHA)*TEMP2
@@ -342,7 +342,7 @@ func CHEMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex64, A *[][]comp
 				if UPPER {
 					TEMP1 = (*ALPHA) * (*A)[K-(1)][J-(1)]
 				} else {
-					TEMP1 = (*ALPHA) * CONJG(&((*A)[J-(1)][K-(1)]))
+					TEMP1 = (*ALPHA) * intrinsic.CONJG((*A)[J-(1)][K-(1)])
 				}
 				for I = 1; I <= (*M); I++ {
 					(*C)[I-(1)][J-(1)] = (*C)[I-(1)][J-(1)] + TEMP1*(*B)[I-(1)][K-(1)]
@@ -350,7 +350,7 @@ func CHEMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex64, A *[][]comp
 			}
 			for K = J + 1; K <= (*N); K++ {
 				if UPPER {
-					TEMP1 = (*ALPHA) * CONJG(&((*A)[J-(1)][K-(1)]))
+					TEMP1 = (*ALPHA) * intrinsic.CONJG((*A)[J-(1)][K-(1)])
 				} else {
 					TEMP1 = (*ALPHA) * (*A)[K-(1)][J-(1)]
 				}

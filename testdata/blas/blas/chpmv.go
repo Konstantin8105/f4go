@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b CHPMV
 //*
 //*  =========== DOCUMENTATION ===========
@@ -191,7 +193,7 @@ func CHPMV(UPLO *byte, N *int, ALPHA *complex64, AP *[]complex64, X *[]complex64
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -259,7 +261,7 @@ func CHPMV(UPLO *byte, N *int, ALPHA *complex64, AP *[]complex64, X *[]complex64
 		return
 	}
 	KK = 1
-	if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 		//*
 		//*        Form  y  when AP contains the upper triangle.
 		//*
@@ -270,7 +272,7 @@ func CHPMV(UPLO *byte, N *int, ALPHA *complex64, AP *[]complex64, X *[]complex64
 				K = KK
 				for I = 1; I <= J-1; I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP1*(*AP)[K-(1)]
-					TEMP2 = TEMP2 + CONJG(&((*AP)[K-(1)]))*(*X)[I-(1)]
+					TEMP2 = TEMP2 + intrinsic.CONJG((*AP)[K-(1)])*(*X)[I-(1)]
 					K = K + 1
 				}
 				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*real((*AP)[KK+J-1-(1)]) + (*ALPHA)*TEMP2
@@ -286,7 +288,7 @@ func CHPMV(UPLO *byte, N *int, ALPHA *complex64, AP *[]complex64, X *[]complex64
 				IY = KY
 				for K = KK; K <= KK+J-2; K++ {
 					(*Y)[IY-(1)] = (*Y)[IY-(1)] + TEMP1*(*AP)[K-(1)]
-					TEMP2 = TEMP2 + CONJG(&((*AP)[K-(1)]))*(*X)[IX-(1)]
+					TEMP2 = TEMP2 + intrinsic.CONJG((*AP)[K-(1)])*(*X)[IX-(1)]
 					IX = IX + (*INCX)
 					IY = IY + (*INCY)
 				}
@@ -308,7 +310,7 @@ func CHPMV(UPLO *byte, N *int, ALPHA *complex64, AP *[]complex64, X *[]complex64
 				K = KK + 1
 				for I = J + 1; I <= (*N); I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP1*(*AP)[K-(1)]
-					TEMP2 = TEMP2 + CONJG(&((*AP)[K-(1)]))*(*X)[I-(1)]
+					TEMP2 = TEMP2 + intrinsic.CONJG((*AP)[K-(1)])*(*X)[I-(1)]
 					K = K + 1
 				}
 				(*Y)[J-(1)] = (*Y)[J-(1)] + (*ALPHA)*TEMP2
@@ -327,7 +329,7 @@ func CHPMV(UPLO *byte, N *int, ALPHA *complex64, AP *[]complex64, X *[]complex64
 					IX = IX + (*INCX)
 					IY = IY + (*INCY)
 					(*Y)[IY-(1)] = (*Y)[IY-(1)] + TEMP1*(*AP)[K-(1)]
-					TEMP2 = TEMP2 + CONJG(&((*AP)[K-(1)]))*(*X)[IX-(1)]
+					TEMP2 = TEMP2 + intrinsic.CONJG((*AP)[K-(1)])*(*X)[IX-(1)]
 				}
 				(*Y)[JY-(1)] = (*Y)[JY-(1)] + (*ALPHA)*TEMP2
 				JX = JX + (*INCX)

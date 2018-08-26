@@ -230,11 +230,11 @@ func CTBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex64
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
 		INFO = 1
-	} else if !LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("C");return &y}()) {
+	} else if !LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('T');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('C');return &y}()) {
 		INFO = 2
-	} else if !LSAME(DIAG, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(DIAG, func()*[]byte{y:=[]byte("N");return &y}()) {
+	} else if !LSAME(DIAG, func()*byte{y:=byte('U');return &y}()) && !LSAME(DIAG, func()*byte{y:=byte('N');return &y}()) {
 		INFO = 3
 	} else if (*N) < 0 {
 		INFO = 4
@@ -256,8 +256,8 @@ func CTBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex64
 		return
 	}
 	//*
-	NOCONJ = LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}())
-	NOUNIT = LSAME(DIAG, func()*[]byte{y:=[]byte("N");return &y}())
+	NOCONJ = LSAME(TRANS, func()*byte{y:=byte('T');return &y}())
+	NOUNIT = LSAME(DIAG, func()*byte{y:=byte('N');return &y}())
 	//*
 	//*     Set up the start point in X if the increment is not unity. This
 	//*     will be  ( N - 1 )*INCX  too small for descending loops.
@@ -271,11 +271,11 @@ func CTBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex64
 	//*     Start the operations. In this version the elements of A are
 	//*     accessed by sequentially with one pass through A.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		//*
 		//*        Form  x := inv( A )*x.
 		//*
-		if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+		if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 			KPLUS1 = (*K) + 1
 			if (*INCX) == 1 {
 				for J = (*N); J <= 1; J += -1 {
@@ -348,7 +348,7 @@ func CTBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex64
 		//*
 		//*        Form  x := inv( A**T )*x  or  x := inv( A**H )*x.
 		//*
-		if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+		if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 			KPLUS1 = (*K) + 1
 			if (*INCX) == 1 {
 				for J = 1; J <= (*N); J++ {
@@ -363,10 +363,10 @@ func CTBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex64
 						}
 					} else {
 						for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
-							TEMP = TEMP - CONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[I-(1)]
+							TEMP = TEMP - intrinsic.CONJG((*A)[L+I-(1)][J-(1)])*(*X)[I-(1)]
 						}
 						if NOUNIT {
-							TEMP = TEMP / CONJG(&((*A)[KPLUS1-(1)][J-(1)]))
+							TEMP = TEMP / intrinsic.CONJG((*A)[KPLUS1-(1)][J-(1)])
 						}
 					}
 					(*X)[J-(1)] = TEMP
@@ -387,11 +387,11 @@ func CTBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex64
 						}
 					} else {
 						for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
-							TEMP = TEMP - CONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[IX-(1)]
+							TEMP = TEMP - intrinsic.CONJG((*A)[L+I-(1)][J-(1)])*(*X)[IX-(1)]
 							IX = IX + (*INCX)
 						}
 						if NOUNIT {
-							TEMP = TEMP / CONJG(&((*A)[KPLUS1-(1)][J-(1)]))
+							TEMP = TEMP / intrinsic.CONJG((*A)[KPLUS1-(1)][J-(1)])
 						}
 					}
 					(*X)[JX-(1)] = TEMP
@@ -415,10 +415,10 @@ func CTBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex64
 						}
 					} else {
 						for I = intrinsic.MIN((*N), J+(*K)); I <= J+1; I += -1 {
-							TEMP = TEMP - CONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[I-(1)]
+							TEMP = TEMP - intrinsic.CONJG((*A)[L+I-(1)][J-(1)])*(*X)[I-(1)]
 						}
 						if NOUNIT {
-							TEMP = TEMP / CONJG(&((*A)[1-(1)][J-(1)]))
+							TEMP = TEMP / intrinsic.CONJG((*A)[1-(1)][J-(1)])
 						}
 					}
 					(*X)[J-(1)] = TEMP
@@ -440,11 +440,11 @@ func CTBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex64
 						}
 					} else {
 						for I = intrinsic.MIN((*N), J+(*K)); I <= J+1; I += -1 {
-							TEMP = TEMP - CONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[IX-(1)]
+							TEMP = TEMP - intrinsic.CONJG((*A)[L+I-(1)][J-(1)])*(*X)[IX-(1)]
 							IX = IX - (*INCX)
 						}
 						if NOUNIT {
-							TEMP = TEMP / CONJG(&((*A)[1-(1)][J-(1)]))
+							TEMP = TEMP / intrinsic.CONJG((*A)[1-(1)][J-(1)])
 						}
 					}
 					(*X)[JX-(1)] = TEMP

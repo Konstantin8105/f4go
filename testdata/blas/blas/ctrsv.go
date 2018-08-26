@@ -188,11 +188,11 @@ func CTRSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, A *[][]complex64, LDA *i
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
 		INFO = 1
-	} else if !LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("C");return &y}()) {
+	} else if !LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('T');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('C');return &y}()) {
 		INFO = 2
-	} else if !LSAME(DIAG, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(DIAG, func()*[]byte{y:=[]byte("N");return &y}()) {
+	} else if !LSAME(DIAG, func()*byte{y:=byte('U');return &y}()) && !LSAME(DIAG, func()*byte{y:=byte('N');return &y}()) {
 		INFO = 3
 	} else if (*N) < 0 {
 		INFO = 4
@@ -212,8 +212,8 @@ func CTRSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, A *[][]complex64, LDA *i
 		return
 	}
 	//*
-	NOCONJ = LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}())
-	NOUNIT = LSAME(DIAG, func()*[]byte{y:=[]byte("N");return &y}())
+	NOCONJ = LSAME(TRANS, func()*byte{y:=byte('T');return &y}())
+	NOUNIT = LSAME(DIAG, func()*byte{y:=byte('N');return &y}())
 	//*
 	//*     Set up the start point in X if the increment is not unity. This
 	//*     will be  ( N - 1 )*INCX  too small for descending loops.
@@ -227,11 +227,11 @@ func CTRSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, A *[][]complex64, LDA *i
 	//*     Start the operations. In this version the elements of A are
 	//*     accessed sequentially with one pass through A.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		//*
 		//*        Form  x := inv( A )*x.
 		//*
-		if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+		if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 			if (*INCX) == 1 {
 				for J = (*N); J <= 1; J += -1 {
 					if (*X)[J-(1)] != ZERO {
@@ -296,7 +296,7 @@ func CTRSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, A *[][]complex64, LDA *i
 		//*
 		//*        Form  x := inv( A**T )*x  or  x := inv( A**H )*x.
 		//*
-		if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+		if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 			if (*INCX) == 1 {
 				for J = 1; J <= (*N); J++ {
 					TEMP = (*X)[J-(1)]
@@ -309,10 +309,10 @@ func CTRSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, A *[][]complex64, LDA *i
 						}
 					} else {
 						for I = 1; I <= J-1; I++ {
-							TEMP = TEMP - CONJG(&((*A)[I-(1)][J-(1)]))*(*X)[I-(1)]
+							TEMP = TEMP - intrinsic.CONJG((*A)[I-(1)][J-(1)])*(*X)[I-(1)]
 						}
 						if NOUNIT {
-							TEMP = TEMP / CONJG(&((*A)[J-(1)][J-(1)]))
+							TEMP = TEMP / intrinsic.CONJG((*A)[J-(1)][J-(1)])
 						}
 					}
 					(*X)[J-(1)] = TEMP
@@ -332,11 +332,11 @@ func CTRSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, A *[][]complex64, LDA *i
 						}
 					} else {
 						for I = 1; I <= J-1; I++ {
-							TEMP = TEMP - CONJG(&((*A)[I-(1)][J-(1)]))*(*X)[IX-(1)]
+							TEMP = TEMP - intrinsic.CONJG((*A)[I-(1)][J-(1)])*(*X)[IX-(1)]
 							IX = IX + (*INCX)
 						}
 						if NOUNIT {
-							TEMP = TEMP / CONJG(&((*A)[J-(1)][J-(1)]))
+							TEMP = TEMP / intrinsic.CONJG((*A)[J-(1)][J-(1)])
 						}
 					}
 					(*X)[JX-(1)] = TEMP
@@ -356,10 +356,10 @@ func CTRSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, A *[][]complex64, LDA *i
 						}
 					} else {
 						for I = (*N); I <= J+1; I += -1 {
-							TEMP = TEMP - CONJG(&((*A)[I-(1)][J-(1)]))*(*X)[I-(1)]
+							TEMP = TEMP - intrinsic.CONJG((*A)[I-(1)][J-(1)])*(*X)[I-(1)]
 						}
 						if NOUNIT {
-							TEMP = TEMP / CONJG(&((*A)[J-(1)][J-(1)]))
+							TEMP = TEMP / intrinsic.CONJG((*A)[J-(1)][J-(1)])
 						}
 					}
 					(*X)[J-(1)] = TEMP
@@ -380,11 +380,11 @@ func CTRSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, A *[][]complex64, LDA *i
 						}
 					} else {
 						for I = (*N); I <= J+1; I += -1 {
-							TEMP = TEMP - CONJG(&((*A)[I-(1)][J-(1)]))*(*X)[IX-(1)]
+							TEMP = TEMP - intrinsic.CONJG((*A)[I-(1)][J-(1)])*(*X)[IX-(1)]
 							IX = IX - (*INCX)
 						}
 						if NOUNIT {
-							TEMP = TEMP / CONJG(&((*A)[J-(1)][J-(1)]))
+							TEMP = TEMP / intrinsic.CONJG((*A)[J-(1)][J-(1)])
 						}
 					}
 					(*X)[JX-(1)] = TEMP

@@ -196,7 +196,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -266,7 +266,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 	if (*ALPHA) == ZERO {
 		return
 	}
-	if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 		//*
 		//*        Form  y  when A is stored in upper triangle.
 		//*
@@ -276,7 +276,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 				TEMP2 = ZERO
 				for I = 1; I <= J-1; I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP1*(*A)[I-(1)][J-(1)]
-					TEMP2 = TEMP2 + DCONJG(&((*A)[I-(1)][J-(1)]))*(*X)[I-(1)]
+					TEMP2 = TEMP2 + intrinsic.DCONJG((*A)[I-(1)][J-(1)])*(*X)[I-(1)]
 				}
 				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*DBLE(&((*A)[J-(1)][J-(1)])) + (*ALPHA)*TEMP2
 			}
@@ -290,7 +290,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 				IY = KY
 				for I = 1; I <= J-1; I++ {
 					(*Y)[IY-(1)] = (*Y)[IY-(1)] + TEMP1*(*A)[I-(1)][J-(1)]
-					TEMP2 = TEMP2 + DCONJG(&((*A)[I-(1)][J-(1)]))*(*X)[IX-(1)]
+					TEMP2 = TEMP2 + intrinsic.DCONJG((*A)[I-(1)][J-(1)])*(*X)[IX-(1)]
 					IX = IX + (*INCX)
 					IY = IY + (*INCY)
 				}
@@ -310,7 +310,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*DBLE(&((*A)[J-(1)][J-(1)]))
 				for I = J + 1; I <= (*N); I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP1*(*A)[I-(1)][J-(1)]
-					TEMP2 = TEMP2 + DCONJG(&((*A)[I-(1)][J-(1)]))*(*X)[I-(1)]
+					TEMP2 = TEMP2 + intrinsic.DCONJG((*A)[I-(1)][J-(1)])*(*X)[I-(1)]
 				}
 				(*Y)[J-(1)] = (*Y)[J-(1)] + (*ALPHA)*TEMP2
 			}
@@ -327,7 +327,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 					IX = IX + (*INCX)
 					IY = IY + (*INCY)
 					(*Y)[IY-(1)] = (*Y)[IY-(1)] + TEMP1*(*A)[I-(1)][J-(1)]
-					TEMP2 = TEMP2 + DCONJG(&((*A)[I-(1)][J-(1)]))*(*X)[IX-(1)]
+					TEMP2 = TEMP2 + intrinsic.DCONJG((*A)[I-(1)][J-(1)])*(*X)[IX-(1)]
 				}
 				(*Y)[JY-(1)] = (*Y)[JY-(1)] + (*ALPHA)*TEMP2
 				JX = JX + (*INCX)

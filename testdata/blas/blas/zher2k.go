@@ -236,17 +236,17 @@ func ZHER2K(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *complex128, A *[][]c
 	//*
 	//*     Test the input parameters.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		NROWA = (*N)
 	} else {
 		NROWA = (*K)
 	}
-	UPPER = LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}())
+	UPPER = LSAME(UPLO, func()*byte{y:=byte('U');return &y}())
 	//*
 	INFO = 0
-	if (!UPPER) && (!LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}())) {
+	if (!UPPER) && (!LSAME(UPLO, func()*byte{y:=byte('L');return &y}())) {
 		INFO = 1
-	} else if (!LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}())) && (!LSAME(TRANS, func()*[]byte{y:=[]byte("C");return &y}())) {
+	} else if (!LSAME(TRANS, func()*byte{y:=byte('N');return &y}())) && (!LSAME(TRANS, func()*byte{y:=byte('C');return &y}())) {
 		INFO = 2
 	} else if (*N) < 0 {
 		INFO = 3
@@ -309,7 +309,7 @@ func ZHER2K(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *complex128, A *[][]c
 	//*
 	//*     Start the operations.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		//*
 		//*        Form  C := alpha*A*B**H + conjg( alpha )*B*A**H +
 		//*                   C.
@@ -330,8 +330,8 @@ func ZHER2K(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *complex128, A *[][]c
 				}
 				for L = 1; L <= (*K); L++ {
 					if ((*A)[J-(1)][L-(1)] != ZERO) || ((*B)[J-(1)][L-(1)] != ZERO) {
-						TEMP1 = (*ALPHA) * DCONJG(&((*B)[J-(1)][L-(1)]))
-						TEMP2 = DCONJG((*ALPHA) * (*A)[J-(1)][L-(1)])
+						TEMP1 = (*ALPHA) * intrinsic.DCONJG((*B)[J-(1)][L-(1)])
+						TEMP2 = intrinsic.DCONJG((*ALPHA) * (*A)[J-(1)][L-(1)])
 						for I = 1; I <= J-1; I++ {
 							(*C)[I-(1)][J-(1)] = (*C)[I-(1)][J-(1)] + (*A)[I-(1)][L-(1)]*TEMP1 + (*B)[I-(1)][L-(1)]*TEMP2
 						}
@@ -355,8 +355,8 @@ func ZHER2K(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *complex128, A *[][]c
 				}
 				for L = 1; L <= (*K); L++ {
 					if ((*A)[J-(1)][L-(1)] != ZERO) || ((*B)[J-(1)][L-(1)] != ZERO) {
-						TEMP1 = (*ALPHA) * DCONJG(&((*B)[J-(1)][L-(1)]))
-						TEMP2 = DCONJG((*ALPHA) * (*A)[J-(1)][L-(1)])
+						TEMP1 = (*ALPHA) * intrinsic.DCONJG((*B)[J-(1)][L-(1)])
+						TEMP2 = intrinsic.DCONJG((*ALPHA) * (*A)[J-(1)][L-(1)])
 						for I = J + 1; I <= (*N); I++ {
 							(*C)[I-(1)][J-(1)] = (*C)[I-(1)][J-(1)] + (*A)[I-(1)][L-(1)]*TEMP1 + (*B)[I-(1)][L-(1)]*TEMP2
 						}
@@ -376,20 +376,20 @@ func ZHER2K(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *complex128, A *[][]c
 					TEMP1 = ZERO
 					TEMP2 = ZERO
 					for L = 1; L <= (*K); L++ {
-						TEMP1 = TEMP1 + DCONJG(&((*A)[L-(1)][I-(1)]))*(*B)[L-(1)][J-(1)]
-						TEMP2 = TEMP2 + DCONJG(&((*B)[L-(1)][I-(1)]))*(*A)[L-(1)][J-(1)]
+						TEMP1 = TEMP1 + intrinsic.DCONJG((*A)[L-(1)][I-(1)])*(*B)[L-(1)][J-(1)]
+						TEMP2 = TEMP2 + intrinsic.DCONJG((*B)[L-(1)][I-(1)])*(*A)[L-(1)][J-(1)]
 					}
 					if I == J {
 						if (*BETA) == DBLE(&(ZERO)) {
-							(*C)[J-(1)][J-(1)] = DBLE((*ALPHA)*TEMP1 + DCONJG(ALPHA)*TEMP2)
+							(*C)[J-(1)][J-(1)] = DBLE((*ALPHA)*TEMP1 + intrinsic.DCONJG((*ALPHA))*TEMP2)
 						} else {
-							(*C)[J-(1)][J-(1)] = (*BETA)*DBLE(&((*C)[J-(1)][J-(1)])) + DBLE((*ALPHA)*TEMP1+DCONJG(ALPHA)*TEMP2)
+							(*C)[J-(1)][J-(1)] = (*BETA)*DBLE(&((*C)[J-(1)][J-(1)])) + DBLE((*ALPHA)*TEMP1+intrinsic.DCONJG((*ALPHA))*TEMP2)
 						}
 					} else {
 						if (*BETA) == DBLE(&(ZERO)) {
-							(*C)[I-(1)][J-(1)] = (*ALPHA)*TEMP1 + DCONJG(ALPHA)*TEMP2
+							(*C)[I-(1)][J-(1)] = (*ALPHA)*TEMP1 + intrinsic.DCONJG((*ALPHA))*TEMP2
 						} else {
-							(*C)[I-(1)][J-(1)] = (*BETA)*(*C)[I-(1)][J-(1)] + (*ALPHA)*TEMP1 + DCONJG(ALPHA)*TEMP2
+							(*C)[I-(1)][J-(1)] = (*BETA)*(*C)[I-(1)][J-(1)] + (*ALPHA)*TEMP1 + intrinsic.DCONJG((*ALPHA))*TEMP2
 						}
 					}
 				}
@@ -400,20 +400,20 @@ func ZHER2K(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *complex128, A *[][]c
 					TEMP1 = ZERO
 					TEMP2 = ZERO
 					for L = 1; L <= (*K); L++ {
-						TEMP1 = TEMP1 + DCONJG(&((*A)[L-(1)][I-(1)]))*(*B)[L-(1)][J-(1)]
-						TEMP2 = TEMP2 + DCONJG(&((*B)[L-(1)][I-(1)]))*(*A)[L-(1)][J-(1)]
+						TEMP1 = TEMP1 + intrinsic.DCONJG((*A)[L-(1)][I-(1)])*(*B)[L-(1)][J-(1)]
+						TEMP2 = TEMP2 + intrinsic.DCONJG((*B)[L-(1)][I-(1)])*(*A)[L-(1)][J-(1)]
 					}
 					if I == J {
 						if (*BETA) == DBLE(&(ZERO)) {
-							(*C)[J-(1)][J-(1)] = DBLE((*ALPHA)*TEMP1 + DCONJG(ALPHA)*TEMP2)
+							(*C)[J-(1)][J-(1)] = DBLE((*ALPHA)*TEMP1 + intrinsic.DCONJG((*ALPHA))*TEMP2)
 						} else {
-							(*C)[J-(1)][J-(1)] = (*BETA)*DBLE(&((*C)[J-(1)][J-(1)])) + DBLE((*ALPHA)*TEMP1+DCONJG(ALPHA)*TEMP2)
+							(*C)[J-(1)][J-(1)] = (*BETA)*DBLE(&((*C)[J-(1)][J-(1)])) + DBLE((*ALPHA)*TEMP1+intrinsic.DCONJG((*ALPHA))*TEMP2)
 						}
 					} else {
 						if (*BETA) == DBLE(&(ZERO)) {
-							(*C)[I-(1)][J-(1)] = (*ALPHA)*TEMP1 + DCONJG(ALPHA)*TEMP2
+							(*C)[I-(1)][J-(1)] = (*ALPHA)*TEMP1 + intrinsic.DCONJG((*ALPHA))*TEMP2
 						} else {
-							(*C)[I-(1)][J-(1)] = (*BETA)*(*C)[I-(1)][J-(1)] + (*ALPHA)*TEMP1 + DCONJG(ALPHA)*TEMP2
+							(*C)[I-(1)][J-(1)] = (*BETA)*(*C)[I-(1)][J-(1)] + (*ALPHA)*TEMP1 + intrinsic.DCONJG((*ALPHA))*TEMP2
 						}
 					}
 				}

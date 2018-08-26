@@ -191,7 +191,7 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -235,15 +235,15 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 	//*     accessed sequentially with one pass through the triangular part
 	//*     of A.
 	//*
-	if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 		//*
 		//*        Form  A  when A is stored in the upper triangle.
 		//*
 		if ((*INCX) == 1) && ((*INCY) == 1) {
 			for J = 1; J <= (*N); J++ {
 				if ((*X)[J-(1)] != ZERO) || ((*Y)[J-(1)] != ZERO) {
-					TEMP1 = (*ALPHA) * DCONJG(&((*Y)[J-(1)]))
-					TEMP2 = DCONJG((*ALPHA) * (*X)[J-(1)])
+					TEMP1 = (*ALPHA) * intrinsic.DCONJG((*Y)[J-(1)])
+					TEMP2 = intrinsic.DCONJG((*ALPHA) * (*X)[J-(1)])
 					for I = 1; I <= J-1; I++ {
 						(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[I-(1)]*TEMP1 + (*Y)[I-(1)]*TEMP2
 					}
@@ -255,8 +255,8 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 		} else {
 			for J = 1; J <= (*N); J++ {
 				if ((*X)[JX-(1)] != ZERO) || ((*Y)[JY-(1)] != ZERO) {
-					TEMP1 = (*ALPHA) * DCONJG(&((*Y)[JY-(1)]))
-					TEMP2 = DCONJG((*ALPHA) * (*X)[JX-(1)])
+					TEMP1 = (*ALPHA) * intrinsic.DCONJG((*Y)[JY-(1)])
+					TEMP2 = intrinsic.DCONJG((*ALPHA) * (*X)[JX-(1)])
 					IX = KX
 					IY = KY
 					for I = 1; I <= J-1; I++ {
@@ -279,8 +279,8 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 		if ((*INCX) == 1) && ((*INCY) == 1) {
 			for J = 1; J <= (*N); J++ {
 				if ((*X)[J-(1)] != ZERO) || ((*Y)[J-(1)] != ZERO) {
-					TEMP1 = (*ALPHA) * DCONJG(&((*Y)[J-(1)]))
-					TEMP2 = DCONJG((*ALPHA) * (*X)[J-(1)])
+					TEMP1 = (*ALPHA) * intrinsic.DCONJG((*Y)[J-(1)])
+					TEMP2 = intrinsic.DCONJG((*ALPHA) * (*X)[J-(1)])
 					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)])) + DBLE((*X)[J-(1)]*TEMP1+(*Y)[J-(1)]*TEMP2)
 					for I = J + 1; I <= (*N); I++ {
 						(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[I-(1)]*TEMP1 + (*Y)[I-(1)]*TEMP2
@@ -292,8 +292,8 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 		} else {
 			for J = 1; J <= (*N); J++ {
 				if ((*X)[JX-(1)] != ZERO) || ((*Y)[JY-(1)] != ZERO) {
-					TEMP1 = (*ALPHA) * DCONJG(&((*Y)[JY-(1)]))
-					TEMP2 = DCONJG((*ALPHA) * (*X)[JX-(1)])
+					TEMP1 = (*ALPHA) * intrinsic.DCONJG((*Y)[JY-(1)])
+					TEMP2 = intrinsic.DCONJG((*ALPHA) * (*X)[JX-(1)])
 					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)])) + DBLE((*X)[JX-(1)]*TEMP1+(*Y)[JY-(1)]*TEMP2)
 					IX = JX
 					IY = JY

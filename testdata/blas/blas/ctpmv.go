@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b CTPMV
 //*
 //*  =========== DOCUMENTATION ===========
@@ -181,11 +183,11 @@ func CTPMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, AP *[]complex64, X *[]co
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
 		INFO = 1
-	} else if !LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("C");return &y}()) {
+	} else if !LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('T');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('C');return &y}()) {
 		INFO = 2
-	} else if !LSAME(DIAG, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(DIAG, func()*[]byte{y:=[]byte("N");return &y}()) {
+	} else if !LSAME(DIAG, func()*byte{y:=byte('U');return &y}()) && !LSAME(DIAG, func()*byte{y:=byte('N');return &y}()) {
 		INFO = 3
 	} else if (*N) < 0 {
 		INFO = 4
@@ -203,8 +205,8 @@ func CTPMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, AP *[]complex64, X *[]co
 		return
 	}
 	//*
-	NOCONJ = LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}())
-	NOUNIT = LSAME(DIAG, func()*[]byte{y:=[]byte("N");return &y}())
+	NOCONJ = LSAME(TRANS, func()*byte{y:=byte('T');return &y}())
+	NOUNIT = LSAME(DIAG, func()*byte{y:=byte('N');return &y}())
 	//*
 	//*     Set up the start point in X if the increment is not unity. This
 	//*     will be  ( N - 1 )*INCX  too small for descending loops.
@@ -218,11 +220,11 @@ func CTPMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, AP *[]complex64, X *[]co
 	//*     Start the operations. In this version the elements of AP are
 	//*     accessed sequentially with one pass through AP.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		//*
 		//*        Form  x:= A*x.
 		//*
-		if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+		if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 			KK = 1
 			if (*INCX) == 1 {
 				for J = 1; J <= (*N); J++ {
@@ -298,7 +300,7 @@ func CTPMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, AP *[]complex64, X *[]co
 		//*
 		//*        Form  x := A**T*x  or  x := A**H*x.
 		//*
-		if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+		if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 			KK = ((*N) * ((*N) + 1)) / 2
 			if (*INCX) == 1 {
 				for J = (*N); J <= 1; J += -1 {
@@ -314,10 +316,10 @@ func CTPMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, AP *[]complex64, X *[]co
 						}
 					} else {
 						if NOUNIT {
-							TEMP = TEMP * CONJG(&((*AP)[KK-(1)]))
+							TEMP = TEMP * intrinsic.CONJG((*AP)[KK-(1)])
 						}
 						for I = J - 1; I <= 1; I += -1 {
-							TEMP = TEMP + CONJG(&((*AP)[K-(1)]))*(*X)[I-(1)]
+							TEMP = TEMP + intrinsic.CONJG((*AP)[K-(1)])*(*X)[I-(1)]
 							K = K - 1
 						}
 					}
@@ -339,11 +341,11 @@ func CTPMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, AP *[]complex64, X *[]co
 						}
 					} else {
 						if NOUNIT {
-							TEMP = TEMP * CONJG(&((*AP)[KK-(1)]))
+							TEMP = TEMP * intrinsic.CONJG((*AP)[KK-(1)])
 						}
 						for K = KK - 1; K <= KK-J+1; K += -1 {
 							IX = IX - (*INCX)
-							TEMP = TEMP + CONJG(&((*AP)[K-(1)]))*(*X)[IX-(1)]
+							TEMP = TEMP + intrinsic.CONJG((*AP)[K-(1)])*(*X)[IX-(1)]
 						}
 					}
 					(*X)[JX-(1)] = TEMP
@@ -367,10 +369,10 @@ func CTPMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, AP *[]complex64, X *[]co
 						}
 					} else {
 						if NOUNIT {
-							TEMP = TEMP * CONJG(&((*AP)[KK-(1)]))
+							TEMP = TEMP * intrinsic.CONJG((*AP)[KK-(1)])
 						}
 						for I = J + 1; I <= (*N); I++ {
-							TEMP = TEMP + CONJG(&((*AP)[K-(1)]))*(*X)[I-(1)]
+							TEMP = TEMP + intrinsic.CONJG((*AP)[K-(1)])*(*X)[I-(1)]
 							K = K + 1
 						}
 					}
@@ -392,11 +394,11 @@ func CTPMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, AP *[]complex64, X *[]co
 						}
 					} else {
 						if NOUNIT {
-							TEMP = TEMP * CONJG(&((*AP)[KK-(1)]))
+							TEMP = TEMP * intrinsic.CONJG((*AP)[KK-(1)])
 						}
 						for K = KK + 1; K <= KK+(*N)-J; K++ {
 							IX = IX + (*INCX)
-							TEMP = TEMP + CONJG(&((*AP)[K-(1)]))*(*X)[IX-(1)]
+							TEMP = TEMP + intrinsic.CONJG((*AP)[K-(1)])*(*X)[IX-(1)]
 						}
 					}
 					(*X)[JX-(1)] = TEMP

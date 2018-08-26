@@ -199,7 +199,7 @@ func SGEMV(TRANS *byte, M *int, N *int, ALPHA *float64, A *[][]float64, LDA *int
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("C");return &y}()) {
+	if !LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('T');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('C');return &y}()) {
 		INFO = 1
 	} else if (*M) < 0 {
 		INFO = 2
@@ -226,7 +226,7 @@ func SGEMV(TRANS *byte, M *int, N *int, ALPHA *float64, A *[][]float64, LDA *int
 	//*     Set  LENX  and  LENY, the lengths of the vectors x and y, and set
 	//*     up the start points in  X  and  Y.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		LENX = (*N)
 		LENY = (*M)
 	} else {
@@ -278,7 +278,7 @@ func SGEMV(TRANS *byte, M *int, N *int, ALPHA *float64, A *[][]float64, LDA *int
 	if (*ALPHA) == ZERO {
 		return
 	}
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		//*
 		//*        Form  y := alpha*A*x + y.
 		//*

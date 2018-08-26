@@ -172,7 +172,7 @@ func CHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex64, INCX *int, A *[][]
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -204,14 +204,14 @@ func CHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex64, INCX *int, A *[][]
 	//*     accessed sequentially with one pass through the triangular part
 	//*     of A.
 	//*
-	if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 		//*
 		//*        Form  A  when A is stored in upper triangle.
 		//*
 		if (*INCX) == 1 {
 			for J = 1; J <= (*N); J++ {
 				if (*X)[J-(1)] != ZERO {
-					TEMP = (*ALPHA) * CONJG(&((*X)[J-(1)]))
+					TEMP = (*ALPHA) * intrinsic.CONJG((*X)[J-(1)])
 					for I = 1; I <= J-1; I++ {
 						(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[I-(1)]*TEMP
 					}
@@ -224,7 +224,7 @@ func CHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex64, INCX *int, A *[][]
 			JX = KX
 			for J = 1; J <= (*N); J++ {
 				if (*X)[JX-(1)] != ZERO {
-					TEMP = (*ALPHA) * CONJG(&((*X)[JX-(1)]))
+					TEMP = (*ALPHA) * intrinsic.CONJG((*X)[JX-(1)])
 					IX = KX
 					for I = 1; I <= J-1; I++ {
 						(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[IX-(1)]*TEMP
@@ -244,7 +244,7 @@ func CHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex64, INCX *int, A *[][]
 		if (*INCX) == 1 {
 			for J = 1; J <= (*N); J++ {
 				if (*X)[J-(1)] != ZERO {
-					TEMP = (*ALPHA) * CONJG(&((*X)[J-(1)]))
+					TEMP = (*ALPHA) * intrinsic.CONJG((*X)[J-(1)])
 					(*A)[J-(1)][J-(1)] = real((*A)[J-(1)][J-(1)]) + real(TEMP*(*X)[J-(1)])
 					for I = J + 1; I <= (*N); I++ {
 						(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[I-(1)]*TEMP
@@ -257,7 +257,7 @@ func CHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex64, INCX *int, A *[][]
 			JX = KX
 			for J = 1; J <= (*N); J++ {
 				if (*X)[JX-(1)] != ZERO {
-					TEMP = (*ALPHA) * CONJG(&((*X)[JX-(1)]))
+					TEMP = (*ALPHA) * intrinsic.CONJG((*X)[JX-(1)])
 					(*A)[J-(1)][J-(1)] = real((*A)[J-(1)][J-(1)]) + real(TEMP*(*X)[JX-(1)])
 					IX = JX
 					for I = J + 1; I <= (*N); I++ {

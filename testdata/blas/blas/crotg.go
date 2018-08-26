@@ -1,6 +1,7 @@
 package main
 
 import "math"
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b CROTG
 //*
 //*  =========== DOCUMENTATION ===========
@@ -91,7 +92,7 @@ func CROTG(CA *complex64, CB *complex64, C *float64, S *complex64) {
 		NORM = SCALE * SQRT(math.Pow((CABS((*CA)/SCALE)), 2)+math.Pow((CABS((*CB)/SCALE)), 2))
 		ALPHA = (*CA) / CABS(CA)
 		(*C) = CABS(CA) / NORM
-		(*S) = ALPHA * CONJG(CB) / NORM
+		(*S) = ALPHA * intrinsic.CONJG((*CB)) / NORM
 		(*CA) = ALPHA * NORM
 	}
 	return

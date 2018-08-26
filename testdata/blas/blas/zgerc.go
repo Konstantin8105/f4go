@@ -198,7 +198,7 @@ func ZGERC(M *int, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y *[]c
 	if (*INCX) == 1 {
 		for J = 1; J <= (*N); J++ {
 			if (*Y)[JY-(1)] != ZERO {
-				TEMP = (*ALPHA) * DCONJG(&((*Y)[JY-(1)]))
+				TEMP = (*ALPHA) * intrinsic.DCONJG((*Y)[JY-(1)])
 				for I = 1; I <= (*M); I++ {
 					(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[I-(1)]*TEMP
 				}
@@ -213,7 +213,7 @@ func ZGERC(M *int, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y *[]c
 		}
 		for J = 1; J <= (*N); J++ {
 			if (*Y)[JY-(1)] != ZERO {
-				TEMP = (*ALPHA) * DCONJG(&((*Y)[JY-(1)]))
+				TEMP = (*ALPHA) * intrinsic.DCONJG((*Y)[JY-(1)])
 				IX = KX
 				for I = 1; I <= (*M); I++ {
 					(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[IX-(1)]*TEMP

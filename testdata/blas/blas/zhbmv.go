@@ -231,7 +231,7 @@ func ZHBMV(UPLO *byte, N *int, K *int, ALPHA *complex128, A *[][]complex128, LDA
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -302,7 +302,7 @@ func ZHBMV(UPLO *byte, N *int, K *int, ALPHA *complex128, A *[][]complex128, LDA
 	if (*ALPHA) == ZERO {
 		return
 	}
-	if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 		//*
 		//*        Form  y  when upper triangle of A is stored.
 		//*
@@ -314,7 +314,7 @@ func ZHBMV(UPLO *byte, N *int, K *int, ALPHA *complex128, A *[][]complex128, LDA
 				L = KPLUS1 - J
 				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP1*(*A)[L+I-(1)][J-(1)]
-					TEMP2 = TEMP2 + DCONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[I-(1)]
+					TEMP2 = TEMP2 + intrinsic.DCONJG((*A)[L+I-(1)][J-(1)])*(*X)[I-(1)]
 				}
 				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*DBLE(&((*A)[KPLUS1-(1)][J-(1)])) + (*ALPHA)*TEMP2
 			}
@@ -329,7 +329,7 @@ func ZHBMV(UPLO *byte, N *int, K *int, ALPHA *complex128, A *[][]complex128, LDA
 				L = KPLUS1 - J
 				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
 					(*Y)[IY-(1)] = (*Y)[IY-(1)] + TEMP1*(*A)[L+I-(1)][J-(1)]
-					TEMP2 = TEMP2 + DCONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[IX-(1)]
+					TEMP2 = TEMP2 + intrinsic.DCONJG((*A)[L+I-(1)][J-(1)])*(*X)[IX-(1)]
 					IX = IX + (*INCX)
 					IY = IY + (*INCY)
 				}
@@ -354,7 +354,7 @@ func ZHBMV(UPLO *byte, N *int, K *int, ALPHA *complex128, A *[][]complex128, LDA
 				L = 1 - J
 				for I = J + 1; I <= intrinsic.MIN((*N), J+(*K)); I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP1*(*A)[L+I-(1)][J-(1)]
-					TEMP2 = TEMP2 + DCONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[I-(1)]
+					TEMP2 = TEMP2 + intrinsic.DCONJG((*A)[L+I-(1)][J-(1)])*(*X)[I-(1)]
 				}
 				(*Y)[J-(1)] = (*Y)[J-(1)] + (*ALPHA)*TEMP2
 			}
@@ -372,7 +372,7 @@ func ZHBMV(UPLO *byte, N *int, K *int, ALPHA *complex128, A *[][]complex128, LDA
 					IX = IX + (*INCX)
 					IY = IY + (*INCY)
 					(*Y)[IY-(1)] = (*Y)[IY-(1)] + TEMP1*(*A)[L+I-(1)][J-(1)]
-					TEMP2 = TEMP2 + DCONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[IX-(1)]
+					TEMP2 = TEMP2 + intrinsic.DCONJG((*A)[L+I-(1)][J-(1)])*(*X)[IX-(1)]
 				}
 				(*Y)[JY-(1)] = (*Y)[JY-(1)] + (*ALPHA)*TEMP2
 				JX = JX + (*INCX)

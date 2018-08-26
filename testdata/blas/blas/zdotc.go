@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b ZDOTC
 //*
 //*  =========== DOCUMENTATION ===========
@@ -114,7 +116,7 @@ func ZDOTC(N *int, ZX *[]complex128, INCX *int, ZY *[]complex128, INCY *int) (ZD
 		//*        code for both increments equal to 1
 		//*
 		for I = 1; I <= (*N); I++ {
-			ZTEMP = ZTEMP + DCONJG(&((*ZX)[I-(1)]))*(*ZY)[I-(1)]
+			ZTEMP = ZTEMP + intrinsic.DCONJG((*ZX)[I-(1)])*(*ZY)[I-(1)]
 		}
 	} else {
 		//*
@@ -130,7 +132,7 @@ func ZDOTC(N *int, ZX *[]complex128, INCX *int, ZY *[]complex128, INCY *int) (ZD
 			IY = (-(*N)+1)*(*INCY) + 1
 		}
 		for I = 1; I <= (*N); I++ {
-			ZTEMP = ZTEMP + DCONJG(&((*ZX)[IX-(1)]))*(*ZY)[IY-(1)]
+			ZTEMP = ZTEMP + intrinsic.DCONJG((*ZX)[IX-(1)])*(*ZY)[IY-(1)]
 			IX = IX + (*INCX)
 			IY = IY + (*INCY)
 		}

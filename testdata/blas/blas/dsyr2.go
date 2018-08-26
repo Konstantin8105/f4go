@@ -188,7 +188,7 @@ func DSYR2(UPLO *byte, N *int, ALPHA *float64, X *[]float64, INCX *int, Y *[]flo
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -232,7 +232,7 @@ func DSYR2(UPLO *byte, N *int, ALPHA *float64, X *[]float64, INCX *int, Y *[]flo
 	//*     accessed sequentially with one pass through the triangular part
 	//*     of A.
 	//*
-	if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 		//*
 		//*        Form  A  when A is stored in the upper triangle.
 		//*

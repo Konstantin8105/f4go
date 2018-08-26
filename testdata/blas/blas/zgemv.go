@@ -202,7 +202,7 @@ func ZGEMV(TRANS *byte, M *int, N *int, ALPHA *complex128, A *[][]complex128, LD
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("C");return &y}()) {
+	if !LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('T');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('C');return &y}()) {
 		INFO = 1
 	} else if (*M) < 0 {
 		INFO = 2
@@ -226,12 +226,12 @@ func ZGEMV(TRANS *byte, M *int, N *int, ALPHA *complex128, A *[][]complex128, LD
 		return
 	}
 	//*
-	NOCONJ = LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}())
+	NOCONJ = LSAME(TRANS, func()*byte{y:=byte('T');return &y}())
 	//*
 	//*     Set  LENX  and  LENY, the lengths of the vectors x and y, and set
 	//*     up the start points in  X  and  Y.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		LENX = (*N)
 		LENY = (*M)
 	} else {
@@ -283,7 +283,7 @@ func ZGEMV(TRANS *byte, M *int, N *int, ALPHA *complex128, A *[][]complex128, LD
 	if (*ALPHA) == ZERO {
 		return
 	}
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		//*
 		//*        Form  y := alpha*A*x + y.
 		//*
@@ -321,7 +321,7 @@ func ZGEMV(TRANS *byte, M *int, N *int, ALPHA *complex128, A *[][]complex128, LD
 					}
 				} else {
 					for I = 1; I <= (*M); I++ {
-						TEMP = TEMP + DCONJG(&((*A)[I-(1)][J-(1)]))*(*X)[I-(1)]
+						TEMP = TEMP + intrinsic.DCONJG((*A)[I-(1)][J-(1)])*(*X)[I-(1)]
 					}
 				}
 				(*Y)[JY-(1)] = (*Y)[JY-(1)] + (*ALPHA)*TEMP
@@ -338,7 +338,7 @@ func ZGEMV(TRANS *byte, M *int, N *int, ALPHA *complex128, A *[][]complex128, LD
 					}
 				} else {
 					for I = 1; I <= (*M); I++ {
-						TEMP = TEMP + DCONJG(&((*A)[I-(1)][J-(1)]))*(*X)[IX-(1)]
+						TEMP = TEMP + intrinsic.DCONJG((*A)[I-(1)][J-(1)])*(*X)[IX-(1)]
 						IX = IX + (*INCX)
 					}
 				}

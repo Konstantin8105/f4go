@@ -211,17 +211,17 @@ func CHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 	//*
 	//*     Test the input parameters.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		NROWA = (*N)
 	} else {
 		NROWA = (*K)
 	}
-	UPPER = LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}())
+	UPPER = LSAME(UPLO, func()*byte{y:=byte('U');return &y}())
 	//*
 	INFO = 0
-	if (!UPPER) && (!LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}())) {
+	if (!UPPER) && (!LSAME(UPLO, func()*byte{y:=byte('L');return &y}())) {
 		INFO = 1
-	} else if (!LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}())) && (!LSAME(TRANS, func()*[]byte{y:=[]byte("C");return &y}())) {
+	} else if (!LSAME(TRANS, func()*byte{y:=byte('N');return &y}())) && (!LSAME(TRANS, func()*byte{y:=byte('C');return &y}())) {
 		INFO = 2
 	} else if (*N) < 0 {
 		INFO = 3
@@ -282,7 +282,7 @@ func CHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 	//*
 	//*     Start the operations.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		//*
 		//*        Form  C := alpha*A*A**H + beta*C.
 		//*
@@ -302,7 +302,7 @@ func CHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 				}
 				for L = 1; L <= (*K); L++ {
 					if (*A)[J-(1)][L-(1)] != CMPLX(&(ZERO)) {
-						TEMP = (*ALPHA) * CONJG(&((*A)[J-(1)][L-(1)]))
+						TEMP = (*ALPHA) * intrinsic.CONJG((*A)[J-(1)][L-(1)])
 						for I = 1; I <= J-1; I++ {
 							(*C)[I-(1)][J-(1)] = (*C)[I-(1)][J-(1)] + TEMP*(*A)[I-(1)][L-(1)]
 						}
@@ -326,7 +326,7 @@ func CHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 				}
 				for L = 1; L <= (*K); L++ {
 					if (*A)[J-(1)][L-(1)] != CMPLX(&(ZERO)) {
-						TEMP = (*ALPHA) * CONJG(&((*A)[J-(1)][L-(1)]))
+						TEMP = (*ALPHA) * intrinsic.CONJG((*A)[J-(1)][L-(1)])
 						(*C)[J-(1)][J-(1)] = real((*C)[J-(1)][J-(1)]) + real(TEMP*(*A)[J-(1)][L-(1)])
 						for I = J + 1; I <= (*N); I++ {
 							(*C)[I-(1)][J-(1)] = (*C)[I-(1)][J-(1)] + TEMP*(*A)[I-(1)][L-(1)]
@@ -344,7 +344,7 @@ func CHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 				for I = 1; I <= J-1; I++ {
 					TEMP = ZERO
 					for L = 1; L <= (*K); L++ {
-						TEMP = TEMP + CONJG(&((*A)[L-(1)][I-(1)]))*(*A)[L-(1)][J-(1)]
+						TEMP = TEMP + intrinsic.CONJG((*A)[L-(1)][I-(1)])*(*A)[L-(1)][J-(1)]
 					}
 					if (*BETA) == ZERO {
 						(*C)[I-(1)][J-(1)] = (*ALPHA) * TEMP
@@ -354,7 +354,7 @@ func CHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 				}
 				RTEMP = ZERO
 				for L = 1; L <= (*K); L++ {
-					RTEMP = RTEMP + CONJG(&((*A)[L-(1)][J-(1)]))*(*A)[L-(1)][J-(1)]
+					RTEMP = RTEMP + intrinsic.CONJG((*A)[L-(1)][J-(1)])*(*A)[L-(1)][J-(1)]
 				}
 				if (*BETA) == ZERO {
 					(*C)[J-(1)][J-(1)] = (*ALPHA) * RTEMP
@@ -366,7 +366,7 @@ func CHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 			for J = 1; J <= (*N); J++ {
 				RTEMP = ZERO
 				for L = 1; L <= (*K); L++ {
-					RTEMP = RTEMP + CONJG(&((*A)[L-(1)][J-(1)]))*(*A)[L-(1)][J-(1)]
+					RTEMP = RTEMP + intrinsic.CONJG((*A)[L-(1)][J-(1)])*(*A)[L-(1)][J-(1)]
 				}
 				if (*BETA) == ZERO {
 					(*C)[J-(1)][J-(1)] = (*ALPHA) * RTEMP
@@ -376,7 +376,7 @@ func CHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 				for I = J + 1; I <= (*N); I++ {
 					TEMP = ZERO
 					for L = 1; L <= (*K); L++ {
-						TEMP = TEMP + CONJG(&((*A)[L-(1)][I-(1)]))*(*A)[L-(1)][J-(1)]
+						TEMP = TEMP + intrinsic.CONJG((*A)[L-(1)][I-(1)])*(*A)[L-(1)][J-(1)]
 					}
 					if (*BETA) == ZERO {
 						(*C)[I-(1)][J-(1)] = (*ALPHA) * TEMP

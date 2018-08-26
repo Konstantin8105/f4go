@@ -577,15 +577,24 @@ C -----------------------------------------------------
             complex ONE
             complex c1
             complex*8 c2,c3
+            COMPLEX*16 zc
             double complex db1, db2
             PARAMETER (ONE= (1.9E+0,2.3E+0))
             Intrinsic real , aimag
 
             c1 = (1.1221,2.2)
-            c2 = (3.23,5.666)
+            c2 = (3.23,-5.666)
             c1 = c1 + c2
             write(*,fmt = 500) real(ONE), aimag(ONE)
+            WRITE(*,*)'CONJG'
             write(*,fmt = 500) real(c1),  aimag(c1)
+            c1 = conjg(c1)
+            write(*,fmt = 500) real(c1),  aimag(c1)
+            zc = (-2.333,5.666)
+            WRITE(*,*)'DCONJG'
+            write(*,fmt = 500) real(zc),  aimag(zc)
+            zc = dconjg(zc)
+            write(*,fmt = 500) real(zc),  aimag(zc)
 
             c3 = c1 - ONE
             call comp_par(c3)
@@ -598,7 +607,7 @@ C -----------------------------------------------------
             write(*,fmt = 500) real(db2), aimag(db2)
 
             return
-  500  FORMAT('>',F4.2,' + ',F4.2,'<')
+  500  FORMAT('>',F8.2,' + ',F8.2,'<')
        end
 
         subroutine comp_par(c)

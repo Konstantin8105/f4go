@@ -226,11 +226,11 @@ func STBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]float64, 
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}()) {
+	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
 		INFO = 1
-	} else if !LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}()) && !LSAME(TRANS, func()*[]byte{y:=[]byte("C");return &y}()) {
+	} else if !LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('T');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('C');return &y}()) {
 		INFO = 2
-	} else if !LSAME(DIAG, func()*[]byte{y:=[]byte("U");return &y}()) && !LSAME(DIAG, func()*[]byte{y:=[]byte("N");return &y}()) {
+	} else if !LSAME(DIAG, func()*byte{y:=byte('U');return &y}()) && !LSAME(DIAG, func()*byte{y:=byte('N');return &y}()) {
 		INFO = 3
 	} else if (*N) < 0 {
 		INFO = 4
@@ -252,7 +252,7 @@ func STBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]float64, 
 		return
 	}
 	//*
-	NOUNIT = LSAME(DIAG, func()*[]byte{y:=[]byte("N");return &y}())
+	NOUNIT = LSAME(DIAG, func()*byte{y:=byte('N');return &y}())
 	//*
 	//*     Set up the start point in X if the increment is not unity. This
 	//*     will be  ( N - 1 )*INCX   too small for descending loops.
@@ -266,11 +266,11 @@ func STBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]float64, 
 	//*     Start the operations. In this version the elements of A are
 	//*     accessed sequentially with one pass through A.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		//*
 		//*         Form  x := A*x.
 		//*
-		if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+		if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 			KPLUS1 = (*K) + 1
 			if (*INCX) == 1 {
 				for J = 1; J <= (*N); J++ {
@@ -347,7 +347,7 @@ func STBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]float64, 
 		//*
 		//*        Form  x := A**T*x.
 		//*
-		if LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}()) {
+		if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
 			KPLUS1 = (*K) + 1
 			if (*INCX) == 1 {
 				for J = (*N); J <= 1; J += -1 {

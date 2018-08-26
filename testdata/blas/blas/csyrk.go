@@ -204,17 +204,17 @@ func CSYRK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *complex64, A *[][]com
 	//*
 	//*     Test the input parameters.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		NROWA = (*N)
 	} else {
 		NROWA = (*K)
 	}
-	UPPER = LSAME(UPLO, func()*[]byte{y:=[]byte("U");return &y}())
+	UPPER = LSAME(UPLO, func()*byte{y:=byte('U');return &y}())
 	//*
 	INFO = 0
-	if (!UPPER) && (!LSAME(UPLO, func()*[]byte{y:=[]byte("L");return &y}())) {
+	if (!UPPER) && (!LSAME(UPLO, func()*byte{y:=byte('L');return &y}())) {
 		INFO = 1
-	} else if (!LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}())) && (!LSAME(TRANS, func()*[]byte{y:=[]byte("T");return &y}())) {
+	} else if (!LSAME(TRANS, func()*byte{y:=byte('N');return &y}())) && (!LSAME(TRANS, func()*byte{y:=byte('T');return &y}())) {
 		INFO = 2
 	} else if (*N) < 0 {
 		INFO = 3
@@ -273,7 +273,7 @@ func CSYRK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *complex64, A *[][]com
 	//*
 	//*     Start the operations.
 	//*
-	if LSAME(TRANS, func()*[]byte{y:=[]byte("N");return &y}()) {
+	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
 		//*
 		//*        Form  C := alpha*A*A**T + beta*C.
 		//*

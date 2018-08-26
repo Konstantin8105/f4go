@@ -233,10 +233,10 @@ func ZGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *complex128
 	//*     NROWA, NCOLA and  NROWB  as the number of rows and  columns  of  A
 	//*     and the number of rows of  B  respectively.
 	//*
-	NOTA = LSAME(TRANSA, func()*[]byte{y:=[]byte("N");return &y}())
-	NOTB = LSAME(TRANSB, func()*[]byte{y:=[]byte("N");return &y}())
-	CONJA = LSAME(TRANSA, func()*[]byte{y:=[]byte("C");return &y}())
-	CONJB = LSAME(TRANSB, func()*[]byte{y:=[]byte("C");return &y}())
+	NOTA = LSAME(TRANSA, func()*byte{y:=byte('N');return &y}())
+	NOTB = LSAME(TRANSB, func()*byte{y:=byte('N');return &y}())
+	CONJA = LSAME(TRANSA, func()*byte{y:=byte('C');return &y}())
+	CONJB = LSAME(TRANSB, func()*byte{y:=byte('C');return &y}())
 	if NOTA {
 		NROWA = (*M)
 		NCOLA = (*K)
@@ -253,9 +253,9 @@ func ZGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *complex128
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if (!NOTA) && (!CONJA) && (!LSAME(TRANSA, func()*[]byte{y:=[]byte("T");return &y}())) {
+	if (!NOTA) && (!CONJA) && (!LSAME(TRANSA, func()*byte{y:=byte('T');return &y}())) {
 		INFO = 1
-	} else if (!NOTB) && (!CONJB) && (!LSAME(TRANSB, func()*[]byte{y:=[]byte("T");return &y}())) {
+	} else if (!NOTB) && (!CONJB) && (!LSAME(TRANSB, func()*byte{y:=byte('T');return &y}())) {
 		INFO = 2
 	} else if (*M) < 0 {
 		INFO = 3
@@ -332,7 +332,7 @@ func ZGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *complex128
 				for I = 1; I <= (*M); I++ {
 					TEMP = ZERO
 					for L = 1; L <= (*K); L++ {
-						TEMP = TEMP + DCONJG(&((*A)[L-(1)][I-(1)]))*(*B)[L-(1)][J-(1)]
+						TEMP = TEMP + intrinsic.DCONJG((*A)[L-(1)][I-(1)])*(*B)[L-(1)][J-(1)]
 					}
 					if (*BETA) == ZERO {
 						(*C)[I-(1)][J-(1)] = (*ALPHA) * TEMP
@@ -375,7 +375,7 @@ func ZGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *complex128
 					}
 				}
 				for L = 1; L <= (*K); L++ {
-					TEMP = (*ALPHA) * DCONJG(&((*B)[J-(1)][L-(1)]))
+					TEMP = (*ALPHA) * intrinsic.DCONJG((*B)[J-(1)][L-(1)])
 					for I = 1; I <= (*M); I++ {
 						(*C)[I-(1)][J-(1)] = (*C)[I-(1)][J-(1)] + TEMP*(*A)[I-(1)][L-(1)]
 					}
@@ -412,7 +412,7 @@ func ZGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *complex128
 				for I = 1; I <= (*M); I++ {
 					TEMP = ZERO
 					for L = 1; L <= (*K); L++ {
-						TEMP = TEMP + DCONJG(&((*A)[L-(1)][I-(1)]))*DCONJG(&((*B)[J-(1)][L-(1)]))
+						TEMP = TEMP + intrinsic.DCONJG((*A)[L-(1)][I-(1)])*intrinsic.DCONJG((*B)[J-(1)][L-(1)])
 					}
 					if (*BETA) == ZERO {
 						(*C)[I-(1)][J-(1)] = (*ALPHA) * TEMP
@@ -429,7 +429,7 @@ func ZGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *complex128
 				for I = 1; I <= (*M); I++ {
 					TEMP = ZERO
 					for L = 1; L <= (*K); L++ {
-						TEMP = TEMP + DCONJG(&((*A)[L-(1)][I-(1)]))*(*B)[J-(1)][L-(1)]
+						TEMP = TEMP + intrinsic.DCONJG((*A)[L-(1)][I-(1)])*(*B)[J-(1)][L-(1)]
 					}
 					if (*BETA) == ZERO {
 						(*C)[I-(1)][J-(1)] = (*ALPHA) * TEMP
@@ -448,7 +448,7 @@ func ZGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *complex128
 				for I = 1; I <= (*M); I++ {
 					TEMP = ZERO
 					for L = 1; L <= (*K); L++ {
-						TEMP = TEMP + (*A)[L-(1)][I-(1)]*DCONJG(&((*B)[J-(1)][L-(1)]))
+						TEMP = TEMP + (*A)[L-(1)][I-(1)]*intrinsic.DCONJG((*B)[J-(1)][L-(1)])
 					}
 					if (*BETA) == ZERO {
 						(*C)[I-(1)][J-(1)] = (*ALPHA) * TEMP

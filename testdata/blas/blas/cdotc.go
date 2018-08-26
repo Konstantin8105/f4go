@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b CDOTC
 //*
 //*  =========== DOCUMENTATION ===========
@@ -114,7 +116,7 @@ func CDOTC(N *int, CX *[]complex64, INCX *int, CY *[]complex64, INCY *int) (CDOT
 		//*        code for both increments equal to 1
 		//*
 		for I = 1; I <= (*N); I++ {
-			CTEMP = CTEMP + CONJG(&((*CX)[I-(1)]))*(*CY)[I-(1)]
+			CTEMP = CTEMP + intrinsic.CONJG((*CX)[I-(1)])*(*CY)[I-(1)]
 		}
 	} else {
 		//*
@@ -130,7 +132,7 @@ func CDOTC(N *int, CX *[]complex64, INCX *int, CY *[]complex64, INCY *int) (CDOT
 			IY = (-(*N)+1)*(*INCY) + 1
 		}
 		for I = 1; I <= (*N); I++ {
-			CTEMP = CTEMP + CONJG(&((*CX)[IX-(1)]))*(*CY)[IY-(1)]
+			CTEMP = CTEMP + intrinsic.CONJG((*CX)[IX-(1)])*(*CY)[IY-(1)]
 			IX = IX + (*INCX)
 			IY = IY + (*INCY)
 		}
