@@ -46,7 +46,7 @@ type errorRow struct {
 }
 
 // parsing to Go code
-func parse(filename, packageName string) []errorRow {
+func parse(filename, packageName, goFilename string) []errorRow {
 
 	// read fortran source
 	dat, err := ioutil.ReadFile(filename)
@@ -79,10 +79,12 @@ func parse(filename, packageName string) []errorRow {
 	}
 
 	// generate filename of result
-	index := strings.LastIndex(filename, ".")
-	goFilename := filename + ".go"
-	if index > 0 {
-		goFilename = filename[:index] + ".go"
+	if goFilename == "" {
+		index := strings.LastIndex(filename, ".")
+		goFilename = filename + ".go"
+		if index > 0 {
+			goFilename = filename[:index] + ".go"
+		}
 	}
 
 	// save go source
@@ -102,7 +104,7 @@ func parseParallel(filenames []string, packageName string) (ess []errorRow) {
 	for w := 1; w <= 2*runtime.NumCPU(); w++ {
 		go func(jobs <-chan string, results chan<- []errorRow) {
 			for job := range jobs {
-				results <- parse(job, packageName)
+				results <- parse(job, packageName, "")
 			}
 		}(jobs, results)
 	}

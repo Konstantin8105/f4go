@@ -41,7 +41,7 @@ func TestIntegration(t *testing.T) {
 	// t.Logf("fortran source is ok")
 
 	// parsing to Go code
-	errs := parse("./testdata/main.f", "")
+	errs := parse("./testdata/main.f", "", "")
 	if len(errs) > 0 {
 		for _, er := range errs {
 			t.Logf("Error: %20s %v", er.filename, er.err.Error())
@@ -84,7 +84,7 @@ func TestIntegration(t *testing.T) {
 
 func TestFail(t *testing.T) {
 	// wrong source
-	errs := parse("./testdata/fortran_fail.f", "")
+	errs := parse("./testdata/fortran_fail.f", "", "")
 	if len(errs) == 0 {
 		t.Error("Error is empty")
 	}
@@ -92,7 +92,7 @@ func TestFail(t *testing.T) {
 	os.Args = []string{"", "./testdata/fortran_fail.f"}
 	run()
 	// wrong input data
-	errs = parse("./testdata/sdfelmsdsdfsdfsdf.f", "")
+	errs = parse("./testdata/sdfelmsdsdfsdfsdf.f", "", "")
 	if len(errs) == 0 {
 		t.Error("Error is empty")
 	}
@@ -140,6 +140,40 @@ func getFortranTestFiles(dir string) (files []string, err error) {
 	return
 }
 
+func TestBlas(t *testing.T) {
+	ss, err := filepath.Glob(fmt.Sprintf("./testdata/blas/%s", "*.f"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, s := range ss {
+		t.Run(s, func(t *testing.T) {
+			s = "./" + s
+			// generate filename of result
+			index := strings.LastIndex(s, "/")
+			indexPoint := strings.LastIndex(s[index:], ".")
+			goFilename := s[:index+1] + "blas/" + s[index+1:index+indexPoint] + ".go"
+			// parse
+			es := parse(s, "main", goFilename)
+			for _, e := range es {
+				fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
+			}
+			if len(es) > 0 {
+				t.Fatal("Error is not empty")
+			}
+		})
+	}
+	// run Go test
+	cmd := exec.Command(
+		"go", "test", "-v", "-run=main_test.go",
+	)
+	cmd.Dir = "./testdata/blas/blas/"
+	goOutput, err := cmd.CombinedOutput()
+	if err != nil {
+		t.Fatalf("Cannot go executable file : %v\n%s", err, goOutput)
+	}
+}
+
 func TestData(t *testing.T) {
 	files, err := getFortranTestFiles("./testdata")
 	if err != nil {
@@ -147,7 +181,7 @@ func TestData(t *testing.T) {
 	}
 	for i := range files {
 		t.Run(files[i], func(t *testing.T) {
-			es := parse(files[i], "")
+			es := parse(files[i], "", "")
 			for _, e := range es {
 				fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
 			}
