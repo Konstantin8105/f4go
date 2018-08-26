@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SSYMV
 //*
 //*  =========== DOCUMENTATION ===========
@@ -196,7 +198,7 @@ func SSYMV(UPLO *byte, N *int, ALPHA *float64, A *[][]float64, LDA *int, X *[]fl
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
-	} else if (*LDA) < MAX(func()*int{y:=1;return &y}(), N) {
+	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*N)) {
 		INFO = 5
 	} else if (*INCX) == 0 {
 		INFO = 7

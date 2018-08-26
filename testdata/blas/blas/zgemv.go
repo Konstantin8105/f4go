@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b ZGEMV
 //*
 //*  =========== DOCUMENTATION ===========
@@ -206,7 +208,7 @@ func ZGEMV(TRANS *byte, M *int, N *int, ALPHA *complex128, A *[][]complex128, LD
 		INFO = 2
 	} else if (*N) < 0 {
 		INFO = 3
-	} else if (*LDA) < MAX(func()*int{y:=1;return &y}(), M) {
+	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*M)) {
 		INFO = 6
 	} else if (*INCX) == 0 {
 		INFO = 8

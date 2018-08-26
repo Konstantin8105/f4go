@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b CTRSM
 //*
 //*  =========== DOCUMENTATION ===========
@@ -241,9 +243,9 @@ func CTRSM(SIDE *byte, UPLO *byte, TRANSA *byte, DIAG *byte, M *int, N *int, ALP
 		INFO = 5
 	} else if (*N) < 0 {
 		INFO = 6
-	} else if (*LDA) < MAX(func()*int{y:=1;return &y}(), &(NROWA)) {
+	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), NROWA) {
 		INFO = 9
-	} else if (*LDB) < MAX(func()*int{y:=1;return &y}(), M) {
+	} else if (*LDB) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*M)) {
 		INFO = 11
 	}
 	if INFO != 0 {

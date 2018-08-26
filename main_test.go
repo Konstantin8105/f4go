@@ -146,15 +146,18 @@ func TestBlas(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	for _, s := range ss {
-		t.Run(s, func(t *testing.T) {
-			s = "./" + s
+	for i := range ss {
+		t.Run(ss[i], func(t *testing.T) {
+			ss[i] = "./" + ss[i]
 			// generate filename of result
-			index := strings.LastIndex(s, "/")
-			indexPoint := strings.LastIndex(s[index:], ".")
-			goFilename := s[:index+1] + "blas/" + s[index+1:index+indexPoint] + ".go"
+			index := strings.LastIndex(ss[i], "/")
+			indexPoint := strings.LastIndex(ss[i][index:], ".")
+			goFilename := ss[i][:index+1] +
+				"blas/" +
+				ss[i][index+1:index+indexPoint] +
+				".go"
 			// parse
-			es := parse(s, "main", goFilename)
+			es := parse(ss[i], "main", goFilename)
 			for _, e := range es {
 				fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
 			}
@@ -165,7 +168,7 @@ func TestBlas(t *testing.T) {
 	}
 	// run Go test
 	cmd := exec.Command(
-		"go", "test", "-v", "-run=main_test.go",
+		"go", "test", "-v", "-gcflags=-e", "-run=main_test.go",
 	)
 	cmd.Dir = "./testdata/blas/blas/"
 	goOutput, err := cmd.CombinedOutput()

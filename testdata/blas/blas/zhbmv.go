@@ -312,7 +312,7 @@ func ZHBMV(UPLO *byte, N *int, K *int, ALPHA *complex128, A *[][]complex128, LDA
 				TEMP1 = (*ALPHA) * (*X)[J-(1)]
 				TEMP2 = ZERO
 				L = KPLUS1 - J
-				for I = MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP1*(*A)[L+I-(1)][J-(1)]
 					TEMP2 = TEMP2 + DCONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[I-(1)]
 				}
@@ -327,7 +327,7 @@ func ZHBMV(UPLO *byte, N *int, K *int, ALPHA *complex128, A *[][]complex128, LDA
 				IX = KX
 				IY = KY
 				L = KPLUS1 - J
-				for I = MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
 					(*Y)[IY-(1)] = (*Y)[IY-(1)] + TEMP1*(*A)[L+I-(1)][J-(1)]
 					TEMP2 = TEMP2 + DCONJG(&((*A)[L+I-(1)][J-(1)]))*(*X)[IX-(1)]
 					IX = IX + (*INCX)

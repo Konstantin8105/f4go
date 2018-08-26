@@ -283,7 +283,7 @@ func STBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]float64, 
 							(*X)[J-(1)] = (*X)[J-(1)] / (*A)[KPLUS1-(1)][J-(1)]
 						}
 						TEMP = (*X)[J-(1)]
-						for I = J - 1; I <= MAX(func()*int{y:=1;return &y}(), J-(*K)); I += -1 {
+						for I = J - 1; I <= intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I += -1 {
 							(*X)[I-(1)] = (*X)[I-(1)] - TEMP*(*A)[L+I-(1)][J-(1)]
 						}
 					}
@@ -300,7 +300,7 @@ func STBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]float64, 
 							(*X)[JX-(1)] = (*X)[JX-(1)] / (*A)[KPLUS1-(1)][J-(1)]
 						}
 						TEMP = (*X)[JX-(1)]
-						for I = J - 1; I <= MAX(func()*int{y:=1;return &y}(), J-(*K)); I += -1 {
+						for I = J - 1; I <= intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I += -1 {
 							(*X)[IX-(1)] = (*X)[IX-(1)] - TEMP*(*A)[L+I-(1)][J-(1)]
 							IX = IX - (*INCX)
 						}
@@ -352,7 +352,7 @@ func STBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]float64, 
 				for J = 1; J <= (*N); J++ {
 					TEMP = (*X)[J-(1)]
 					L = KPLUS1 - J
-					for I = MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+					for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
 						TEMP = TEMP - (*A)[L+I-(1)][J-(1)]*(*X)[I-(1)]
 					}
 					if NOUNIT {
@@ -366,7 +366,7 @@ func STBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]float64, 
 					TEMP = (*X)[JX-(1)]
 					IX = KX
 					L = KPLUS1 - J
-					for I = MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+					for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
 						TEMP = TEMP - (*A)[L+I-(1)][J-(1)]*(*X)[IX-(1)]
 						IX = IX + (*INCX)
 					}

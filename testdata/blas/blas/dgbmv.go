@@ -323,7 +323,7 @@ func DGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *float64, A *[][
 			for J = 1; J <= (*N); J++ {
 				TEMP = (*ALPHA) * (*X)[JX-(1)]
 				K = KUP1 - J
-				for I = MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
+				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP*(*A)[K+I-(1)][J-(1)]
 				}
 				JX = JX + (*INCX)
@@ -333,7 +333,7 @@ func DGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *float64, A *[][
 				TEMP = (*ALPHA) * (*X)[JX-(1)]
 				IY = KY
 				K = KUP1 - J
-				for I = MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
+				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
 					(*Y)[IY-(1)] = (*Y)[IY-(1)] + TEMP*(*A)[K+I-(1)][J-(1)]
 					IY = IY + (*INCY)
 				}
@@ -352,7 +352,7 @@ func DGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *float64, A *[][
 			for J = 1; J <= (*N); J++ {
 				TEMP = ZERO
 				K = KUP1 - J
-				for I = MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
+				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
 					TEMP = TEMP + (*A)[K+I-(1)][J-(1)]*(*X)[I-(1)]
 				}
 				(*Y)[JY-(1)] = (*Y)[JY-(1)] + (*ALPHA)*TEMP
@@ -363,7 +363,7 @@ func DGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *float64, A *[][
 				TEMP = ZERO
 				IX = KX
 				K = KUP1 - J
-				for I = MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
+				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
 					TEMP = TEMP + (*A)[K+I-(1)][J-(1)]*(*X)[IX-(1)]
 					IX = IX + (*INCX)
 				}

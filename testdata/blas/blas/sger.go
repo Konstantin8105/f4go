@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SGER
 //*
 //*  =========== DOCUMENTATION ===========
@@ -171,7 +173,7 @@ func SGER(M *int, N *int, ALPHA *float64, X *[]float64, INCX *int, Y *[]float64,
 		INFO = 5
 	} else if (*INCY) == 0 {
 		INFO = 7
-	} else if (*LDA) < MAX(func()*int{y:=1;return &y}(), M) {
+	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*M)) {
 		INFO = 9
 	}
 	if INFO != 0 {

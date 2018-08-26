@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b DSYRK
 //*
 //*  =========== DOCUMENTATION ===========
@@ -220,9 +222,9 @@ func DSYRK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]float
 		INFO = 3
 	} else if (*K) < 0 {
 		INFO = 4
-	} else if (*LDA) < MAX(func()*int{y:=1;return &y}(), &(NROWA)) {
+	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), NROWA) {
 		INFO = 7
-	} else if (*LDC) < MAX(func()*int{y:=1;return &y}(), N) {
+	} else if (*LDC) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*N)) {
 		INFO = 10
 	}
 	if INFO != 0 {

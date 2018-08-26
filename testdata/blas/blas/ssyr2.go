@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SSYR2
 //*
 //*  =========== DOCUMENTATION ===========
@@ -194,7 +196,7 @@ func SSYR2(UPLO *byte, N *int, ALPHA *float64, X *[]float64, INCX *int, Y *[]flo
 		INFO = 5
 	} else if (*INCY) == 0 {
 		INFO = 7
-	} else if (*LDA) < MAX(func()*int{y:=1;return &y}(), N) {
+	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*N)) {
 		INFO = 9
 	}
 	if INFO != 0 {

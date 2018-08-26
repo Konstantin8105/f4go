@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b ZSYMM
 //*
 //*  =========== DOCUMENTATION ===========
@@ -243,11 +245,11 @@ func ZSYMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex128, A *[][]com
 		INFO = 3
 	} else if (*N) < 0 {
 		INFO = 4
-	} else if (*LDA) < MAX(func()*int{y:=1;return &y}(), &(NROWA)) {
+	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), NROWA) {
 		INFO = 7
-	} else if (*LDB) < MAX(func()*int{y:=1;return &y}(), M) {
+	} else if (*LDB) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*M)) {
 		INFO = 9
-	} else if (*LDC) < MAX(func()*int{y:=1;return &y}(), M) {
+	} else if (*LDC) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*M)) {
 		INFO = 12
 	}
 	if INFO != 0 {

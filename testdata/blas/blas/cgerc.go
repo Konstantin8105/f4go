@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b CGERC
 //*
 //*  =========== DOCUMENTATION ===========
@@ -171,7 +173,7 @@ func CGERC(M *int, N *int, ALPHA *complex64, X *[]complex64, INCX *int, Y *[]com
 		INFO = 5
 	} else if (*INCY) == 0 {
 		INFO = 7
-	} else if (*LDA) < MAX(func()*int{y:=1;return &y}(), M) {
+	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*M)) {
 		INFO = 9
 	}
 	if INFO != 0 {
