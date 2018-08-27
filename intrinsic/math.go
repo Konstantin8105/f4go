@@ -58,3 +58,7 @@ func SIGN(a float64) float64 {
 	}
 	return 1
 }
+
+func MOD(a, b int) int {
+	return a % b
+}
