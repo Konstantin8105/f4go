@@ -347,7 +347,7 @@ func ZHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 						TEMP = TEMP + intrinsic.DCONJG((*A)[L-(1)][I-(1)])*(*A)[L-(1)][J-(1)]
 					}
 					if (*BETA) == ZERO {
-						(*C)[I-(1)][J-(1)] = (*ALPHA) * TEMP
+						(*C)[I-(1)][J-(1)] = complex((*ALPHA), 0) * TEMP
 					} else {
 						(*C)[I-(1)][J-(1)] = (*ALPHA)*TEMP + (*BETA)*(*C)[I-(1)][J-(1)]
 					}
@@ -379,7 +379,7 @@ func ZHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 						TEMP = TEMP + intrinsic.DCONJG((*A)[L-(1)][I-(1)])*(*A)[L-(1)][J-(1)]
 					}
 					if (*BETA) == ZERO {
-						(*C)[I-(1)][J-(1)] = (*ALPHA) * TEMP
+						(*C)[I-(1)][J-(1)] = complex((*ALPHA), 0) * TEMP
 					} else {
 						(*C)[I-(1)][J-(1)] = (*ALPHA)*TEMP + (*BETA)*(*C)[I-(1)][J-(1)]
 					}

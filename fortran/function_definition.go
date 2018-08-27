@@ -91,6 +91,10 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 }
 
 var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
+	"COMPLEX": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"float64", "float64"}
+		intrinsicArgumentCorrection(p, f, "complex", typeNames)
+	},
 	"REAL": func(p *parser, f *goast.CallExpr) {
 		typeNames := []string{"complex128"}
 		intrinsicArgumentCorrection(p, f, "real", typeNames)

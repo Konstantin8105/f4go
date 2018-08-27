@@ -93,7 +93,7 @@ func ZROTG(CA *complex128, CB *complex128, C *float64, S *complex128) {
 		ALPHA = (*CA) / CDABS(CA)
 		(*C) = CDABS(CA) / NORM
 		(*S) = ALPHA * intrinsic.DCONJG((*CB)) / NORM
-		(*CA) = ALPHA * NORM
+		(*CA) = ALPHA * complex(NORM, 0)
 	}
 	return
 }

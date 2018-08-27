@@ -71,6 +71,8 @@ func (p *parser) parseExprNodes(in []node) (expr goast.Expr) {
 		return goast.NewIdent(str)
 	}
 
+	p.fixComplexRealOperation(ast)
+
 	return ast
 }
 
@@ -403,4 +405,63 @@ func (p *parser) fixConcatString(nodes *[]node) {
 
 		*nodes = comb
 	}
+}
+
+// Example:
+//
+//  0  *ast.BinaryExpr {
+//  1  .  X: *ast.Ident {
+//  2  .  .  NamePos: -
+//  3  .  .  Name: "R"
+//  4  .  .  Obj: *ast.Object {
+//  5  .  .  .  Kind: bad
+//  6  .  .  .  Name: ""
+//  7  .  .  }
+//  8  .  }
+//  9  .  OpPos: -
+// 10  .  Op: *
+// 11  .  Y: *ast.Ident {
+// 12  .  .  NamePos: -
+// 13  .  .  Name: "CR"
+// 14  .  .  Obj: *(obj @ 4)
+// 15  .  }
+// 16  }
+func (p *parser) fixComplexRealOperation(ast goast.Expr) {
+	if be, ok := ast.(*goast.BinaryExpr); ok {
+		xIsComplex, xOk := p.isComplex(be.X)
+		yIsComplex, yOk := p.isComplex(be.Y)
+		if xOk && yOk {
+			if xIsComplex && !yIsComplex {
+				be.Y = &goast.CallExpr{
+					Fun: goast.NewIdent("complex"),
+					Args: []goast.Expr{
+						be.Y,
+						goast.NewIdent("0"),
+					},
+				}
+			}
+			if !xIsComplex && yIsComplex {
+				be.X = &goast.CallExpr{
+					Fun: goast.NewIdent("complex"),
+					Args: []goast.Expr{
+						be.X,
+						goast.NewIdent("0"),
+					},
+				}
+			}
+		}
+	}
+}
+
+func (p *parser) isComplex(e goast.Expr) (isComplex, ok bool) {
+	if id, ok := e.(*goast.Ident); ok {
+		if v, ok := p.initVars.get(id.Name); ok {
+			if strings.Contains(v.typ.getBaseType(), "complex") {
+				return true, true
+			} else {
+				return false, true
+			}
+		}
+	}
+	return false, false
 }

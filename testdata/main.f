@@ -70,6 +70,9 @@ C -----------------------------------------------------
             call testName("test_vars")
             call test_vars()
 
+            call testName("test_complex")
+            call test_complex()
+
             ! end of tests
         END
 
@@ -580,6 +583,8 @@ C -----------------------------------------------------
             COMPLEX*16 zc
             double complex db1, db2
             PARAMETER (ONE= (1.9E+0,2.3E+0))
+            REAL * 4   R
+            COMPLEX    CR
             Intrinsic real , aimag
 
             c1 = (1.1221,2.2)
@@ -605,6 +610,14 @@ C -----------------------------------------------------
             db1 = db2 * db1
             write(*,fmt = 500) real(db1), aimag(db1)
             write(*,fmt = 500) real(db2), aimag(db2)
+
+            write(*,*) "==== REAL * COMPLEX ===="
+            CR = (0.12,0.34)
+            R = 12.34
+            CR = R * CR
+            write(*,fmt = 500) real(cr), aimag(cr)
+            CR = CR * R
+            write(*,fmt = 500) real(CR), aimag(CR)
 
             return
   500  FORMAT('>',F8.2,' + ',F8.2,'<')
@@ -826,3 +839,5 @@ C -----------------------------------------------------
             TtT = 1
             WRITE(*,'(I2)') tTT
         END
+
+C -----------------------------------------------------
