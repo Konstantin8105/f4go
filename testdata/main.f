@@ -583,8 +583,9 @@ C -----------------------------------------------------
             COMPLEX*16 zc
             double complex db1, db2
             PARAMETER (ONE= (1.9E+0,2.3E+0))
-            REAL * 4   R
-            COMPLEX    CR
+            REAL    * 8   R
+            COMPLEX * 16  CR
+            COMPLEX * 16  CRA(1)
             Intrinsic real , aimag
 
             c1 = (1.1221,2.2)
@@ -618,9 +619,19 @@ C -----------------------------------------------------
             write(*,fmt = 500) real(cr), aimag(cr)
             CR = CR * R
             write(*,fmt = 500) real(CR), aimag(CR)
+            CR = (1.23,2.34)
+            CR = DBLE(CR) * CR
+            write(*,fmt = 500) real(CR), aimag(CR)
+            CR = CR * DBLE(CR)
+            write(*,fmt = 500) real(CR), aimag(CR)
+            CRA(1) = (3.45,4.56)
+            CR = CRA(1) * CR
+            write(*,fmt = 500) real(CR), aimag(CR)
+            CR = CR * CRA(1)
+            write(*,fmt = 500) real(CR), aimag(CR)
 
             return
-  500  FORMAT('>',F8.2,' + ',F8.2,'<')
+  500  FORMAT('>',F15.2,' + ',F15.2,'<')
        end
 
         subroutine comp_par(c)

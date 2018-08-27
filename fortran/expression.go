@@ -411,19 +411,12 @@ func (p *parser) fixConcatString(nodes *[]node) {
 //
 //  0  *ast.BinaryExpr {
 //  1  .  X: *ast.Ident {
-//  2  .  .  NamePos: -
 //  3  .  .  Name: "R"
-//  4  .  .  Obj: *ast.Object {
-//  5  .  .  .  Kind: bad
-//  6  .  .  .  Name: ""
-//  7  .  .  }
 //  8  .  }
 //  9  .  OpPos: -
 // 10  .  Op: *
 // 11  .  Y: *ast.Ident {
-// 12  .  .  NamePos: -
 // 13  .  .  Name: "CR"
-// 14  .  .  Obj: *(obj @ 4)
 // 15  .  }
 // 16  }
 func (p *parser) fixComplexRealOperation(ast goast.Expr) {
@@ -453,12 +446,35 @@ func (p *parser) fixComplexRealOperation(ast goast.Expr) {
 	}
 }
 
+// Example:
+//
+//  0  *ast.CallExpr {
+//  3  .  .  Name: "DBLE"
+//  8  .  }
+// 10  .  Args: []ast.Expr (len = 1) {
+// 11  .  .  0: *ast.Ident {
+// 13  .  .  .  Name: "CR"
+// 15  .  .  }
+// 16  .  }
+// 19  }
+//
+// 0  *ast.Ident {
+// 2  .  Name: "A"
+// 7  }
 func (p *parser) isComplex(e goast.Expr) (isComplex, ok bool) {
 	if id, ok := e.(*goast.Ident); ok {
 		if v, ok := p.initVars.get(id.Name); ok {
 			if strings.Contains(v.typ.getBaseType(), "complex") {
 				return true, true
 			} else {
+				return false, true
+			}
+		}
+	}
+	if ce, ok := e.(*goast.CallExpr); ok {
+		if id, ok := ce.Fun.(*goast.Ident); ok {
+			switch id.Name {
+			case "DBLE":
 				return false, true
 			}
 		}

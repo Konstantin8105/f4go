@@ -328,7 +328,7 @@ func ZHEMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex128, A *[][]com
 		//*        Form  C := alpha*B*A + beta*C.
 		//*
 		for J = 1; J <= (*N); J++ {
-			TEMP1 = (*ALPHA) * intrinsic.DBLE((*A)[J-(1)][J-(1)])
+			TEMP1 = (*ALPHA) * complex(intrinsic.DBLE((*A)[J-(1)][J-(1)]), 0)
 			if (*BETA) == ZERO {
 				for I = 1; I <= (*M); I++ {
 					(*C)[I-(1)][J-(1)] = TEMP1 * (*B)[I-(1)][J-(1)]
