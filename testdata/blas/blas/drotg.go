@@ -1,6 +1,7 @@
 package main
 
 import "math"
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b DROTG
 //*
 //*  =========== DOCUMENTATION ===========
@@ -91,10 +92,10 @@ func DROTG(DA *float64, DB *float64, C *float64, S *float64) {
 	//*     .. Intrinsic Functions ..
 	//*     ..
 	ROE = (*DB)
-	if DABS(DA) > DABS(DB) {
+	if intrinsic.ABS((*DA)) > intrinsic.ABS((*DB)) {
 		ROE = (*DA)
 	}
-	SCALE = DABS(DA) + DABS(DB)
+	SCALE = intrinsic.ABS((*DA)) + intrinsic.ABS((*DB))
 	if SCALE == 0.0e0 {
 		(*C) = 1.0e0
 		(*S) = 0.0e0
@@ -106,10 +107,10 @@ func DROTG(DA *float64, DB *float64, C *float64, S *float64) {
 		(*C) = (*DA) / R
 		(*S) = (*DB) / R
 		Z = 1.0e0
-		if DABS(DA) > DABS(DB) {
+		if intrinsic.ABS((*DA)) > intrinsic.ABS((*DB)) {
 			Z = (*S)
 		}
-		if DABS(DB) >= DABS(DA) && (*C) != 0.0e0 {
+		if intrinsic.ABS((*DB)) >= intrinsic.ABS((*DA)) && (*C) != 0.0e0 {
 			Z = 1.0e0 / (*C)
 		}
 	}

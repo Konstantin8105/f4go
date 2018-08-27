@@ -34,3 +34,10 @@ func DBLE(a int) float64 {
 func ABS(a float64) float64 {
 	return math.Abs(a)
 }
+
+func SIGN(a float64) float64 {
+	if a < 0.0 {
+		return -1
+	}
+	return 1
+}

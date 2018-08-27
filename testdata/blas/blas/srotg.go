@@ -1,7 +1,7 @@
 package main
 
-import "math"
 import "github.com/Konstantin8105/f4go/intrinsic"
+import "math"
 //*> \brief \b SROTG
 //*
 //*  =========== DOCUMENTATION ===========

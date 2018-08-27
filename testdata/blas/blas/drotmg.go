@@ -1,6 +1,7 @@
 package main
 
 import "math"
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b DROTMG
 //*
 //*  =========== DOCUMENTATION ===========
@@ -159,7 +160,7 @@ func DROTMG(DD1 *float64, DD2 *float64, DX1 *float64, DY1 *float64, DPARAM *[5]f
 		DQ2 = DP2 * (*DY1)
 		DQ1 = DP1 * (*DX1)
 		//*
-		if DABS(&(DQ1)) > DABS(&(DQ2)) {
+		if intrinsic.ABS(DQ1) > intrinsic.ABS(DQ2) {
 			DH21 = -(*DY1) / (*DX1)
 			DH12 = DP2 / DP1
 			//*
@@ -220,7 +221,7 @@ func DROTMG(DD1 *float64, DD2 *float64, DX1 *float64, DY1 *float64, DPARAM *[5]f
 			}
 		}
 		if (*DD2) != ZERO {
-			for (DABS(DD2) <= RGAMSQ) || (DABS(DD2) >= GAMSQ) {
+			for (intrinsic.ABS((*DD2)) <= RGAMSQ) || (intrinsic.ABS((*DD2)) >= GAMSQ) {
 				if DFLAG == ZERO {
 					DH11 = ONE
 					DH22 = ONE
@@ -230,7 +231,7 @@ func DROTMG(DD1 *float64, DD2 *float64, DX1 *float64, DY1 *float64, DPARAM *[5]f
 					DH12 = ONE
 					DFLAG = -ONE
 				}
-				if DABS(DD2) <= RGAMSQ {
+				if intrinsic.ABS((*DD2)) <= RGAMSQ {
 					(*DD2) = (*DD2) * math.Pow(GAM, 2)
 					DH21 = DH21 / GAM
 					DH22 = DH22 / GAM

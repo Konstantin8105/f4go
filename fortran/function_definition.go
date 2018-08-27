@@ -133,6 +133,21 @@ var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 		intrinsicArgumentCorrection(p, f, "intrinsic.ABS", typeNames)
 	},
+	"DABS": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"float64"}
+		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+		intrinsicArgumentCorrection(p, f, "intrinsic.ABS", typeNames)
+	},
+	"SIGN": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"float64"}
+		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+		intrinsicArgumentCorrection(p, f, "intrinsic.SIGN", typeNames)
+	},
+	"DSIGN": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"float64"}
+		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+		intrinsicArgumentCorrection(p, f, "intrinsic.DSIGN", typeNames)
+	},
 }
 
 func intrinsicArgumentCorrection(p *parser, f *goast.CallExpr, name string, typeNames []string) {

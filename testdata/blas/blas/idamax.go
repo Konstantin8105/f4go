@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b IDAMAX
 //*
 //*  =========== DOCUMENTATION ===========
@@ -103,11 +105,11 @@ func IDAMAX(N *int, DX *[]float64, INCX *int) (IDAMAX_RES int) {
 		//*
 		//*        code for increment equal to 1
 		//*
-		DMAX = DABS(&((*DX)[1-(1)]))
+		DMAX = intrinsic.ABS((*DX)[1-(1)])
 		for I = 2; I <= (*N); I++ {
-			if DABS(&((*DX)[I-(1)])) > DMAX {
+			if intrinsic.ABS((*DX)[I-(1)]) > DMAX {
 				(IDAMAX_RES) = I
-				DMAX = DABS(&((*DX)[I-(1)]))
+				DMAX = intrinsic.ABS((*DX)[I-(1)])
 			}
 		}
 	} else {
@@ -115,12 +117,12 @@ func IDAMAX(N *int, DX *[]float64, INCX *int) (IDAMAX_RES int) {
 		//*        code for increment not equal to 1
 		//*
 		IX = 1
-		DMAX = DABS(&((*DX)[1-(1)]))
+		DMAX = intrinsic.ABS((*DX)[1-(1)])
 		IX = IX + (*INCX)
 		for I = 2; I <= (*N); I++ {
-			if DABS(&((*DX)[IX-(1)])) > DMAX {
+			if intrinsic.ABS((*DX)[IX-(1)]) > DMAX {
 				(IDAMAX_RES) = I
-				DMAX = DABS(&((*DX)[IX-(1)]))
+				DMAX = intrinsic.ABS((*DX)[IX-(1)])
 			}
 			IX = IX + (*INCX)
 		}
