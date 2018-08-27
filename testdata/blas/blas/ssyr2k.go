@@ -246,11 +246,11 @@ func SSYR2K(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]floa
 		INFO = 3
 	} else if (*K) < 0 {
 		INFO = 4
-	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), NROWA) {
+	} else if (*LDA) < intrinsic.MAX(int(1), NROWA) {
 		INFO = 7
-	} else if (*LDB) < intrinsic.MAX(func()*int{y:=1;return &y}(), NROWA) {
+	} else if (*LDB) < intrinsic.MAX(int(1), NROWA) {
 		INFO = 9
-	} else if (*LDC) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*N)) {
+	} else if (*LDC) < intrinsic.MAX(int(1), (*N)) {
 		INFO = 12
 	}
 	if INFO != 0 {

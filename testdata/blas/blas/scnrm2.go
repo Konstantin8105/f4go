@@ -1,6 +1,7 @@
 package main
 
 import "math"
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SCNRM2
 //*
 //*  =========== DOCUMENTATION ===========
@@ -114,7 +115,7 @@ func SCNRM2(N *int, X *[]complex64, INCX *int) (SCNRM2_RES float64) {
 		//*
 		for IX = 1; IX <= 1+((*N)-1)*(*INCX); IX += (*INCX) {
 			if real((*X)[IX-(1)]) != ZERO {
-				TEMP = ABS(real((*X)[IX-(1)]))
+				TEMP = intrinsic.ABS(real((*X)[IX-(1)]))
 				if SCALE < TEMP {
 					SSQ = ONE + SSQ*math.Pow((SCALE/TEMP), 2)
 					SCALE = TEMP
@@ -123,7 +124,7 @@ func SCNRM2(N *int, X *[]complex64, INCX *int) (SCNRM2_RES float64) {
 				}
 			}
 			if imag((*X)[IX-(1)]) != ZERO {
-				TEMP = ABS(imag((*X)[IX-(1)]))
+				TEMP = intrinsic.ABS(imag((*X)[IX-(1)]))
 				if SCALE < TEMP {
 					SSQ = ONE + SSQ*math.Pow((SCALE/TEMP), 2)
 					SCALE = TEMP

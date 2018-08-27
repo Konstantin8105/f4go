@@ -312,7 +312,7 @@ func CHBMV(UPLO *byte, N *int, K *int, ALPHA *complex64, A *[][]complex64, LDA *
 				TEMP1 = (*ALPHA) * (*X)[J-(1)]
 				TEMP2 = ZERO
 				L = KPLUS1 - J
-				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+				for I = intrinsic.MAX(int(1), J-(*K)); I <= J-1; I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP1*(*A)[L+I-(1)][J-(1)]
 					TEMP2 = TEMP2 + intrinsic.CONJG((*A)[L+I-(1)][J-(1)])*(*X)[I-(1)]
 				}
@@ -327,7 +327,7 @@ func CHBMV(UPLO *byte, N *int, K *int, ALPHA *complex64, A *[][]complex64, LDA *
 				IX = KX
 				IY = KY
 				L = KPLUS1 - J
-				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+				for I = intrinsic.MAX(int(1), J-(*K)); I <= J-1; I++ {
 					(*Y)[IY-(1)] = (*Y)[IY-(1)] + TEMP1*(*A)[L+I-(1)][J-(1)]
 					TEMP2 = TEMP2 + intrinsic.CONJG((*A)[L+I-(1)][J-(1)])*(*X)[IX-(1)]
 					IX = IX + (*INCX)

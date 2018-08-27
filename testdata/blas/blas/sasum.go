@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SASUM
 //*
 //*  =========== DOCUMENTATION ===========
@@ -108,7 +110,7 @@ func SASUM(N *int, SX *[]float64, INCX *int) (SASUM_RES float64) {
 		M = MOD(N, func()*int{y:=6;return &y}())
 		if M != 0 {
 			for I = 1; I <= M; I++ {
-				STEMP = STEMP + ABS(&((*SX)[I-(1)]))
+				STEMP = STEMP + intrinsic.ABS((*SX)[I-(1)])
 			}
 			if (*N) < 6 {
 				(SASUM_RES) = STEMP
@@ -117,7 +119,7 @@ func SASUM(N *int, SX *[]float64, INCX *int) (SASUM_RES float64) {
 		}
 		MP1 = M + 1
 		for I = MP1; I <= (*N); I += 6 {
-			STEMP = STEMP + ABS(&((*SX)[I-(1)])) + ABS(&((*SX)[I+1-(1)])) + ABS(&((*SX)[I+2-(1)])) + ABS(&((*SX)[I+3-(1)])) + ABS(&((*SX)[I+4-(1)])) + ABS(&((*SX)[I+5-(1)]))
+			STEMP = STEMP + intrinsic.ABS((*SX)[I-(1)]) + intrinsic.ABS((*SX)[I+1-(1)]) + intrinsic.ABS((*SX)[I+2-(1)]) + intrinsic.ABS((*SX)[I+3-(1)]) + intrinsic.ABS((*SX)[I+4-(1)]) + intrinsic.ABS((*SX)[I+5-(1)])
 		}
 	} else {
 		//*
@@ -125,7 +127,7 @@ func SASUM(N *int, SX *[]float64, INCX *int) (SASUM_RES float64) {
 		//*
 		NINCX = (*N) * (*INCX)
 		for I = 1; I <= NINCX; I += (*INCX) {
-			STEMP = STEMP + ABS(&((*SX)[I-(1)]))
+			STEMP = STEMP + intrinsic.ABS((*SX)[I-(1)])
 		}
 	}
 	(SASUM_RES) = STEMP

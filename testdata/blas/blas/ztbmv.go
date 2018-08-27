@@ -279,7 +279,7 @@ func ZTBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex12
 					if (*X)[J-(1)] != ZERO {
 						TEMP = (*X)[J-(1)]
 						L = KPLUS1 - J
-						for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+						for I = intrinsic.MAX(int(1), J-(*K)); I <= J-1; I++ {
 							(*X)[I-(1)] = (*X)[I-(1)] + TEMP*(*A)[L+I-(1)][J-(1)]
 						}
 						if NOUNIT {
@@ -294,7 +294,7 @@ func ZTBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex12
 						TEMP = (*X)[JX-(1)]
 						IX = KX
 						L = KPLUS1 - J
-						for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+						for I = intrinsic.MAX(int(1), J-(*K)); I <= J-1; I++ {
 							(*X)[IX-(1)] = (*X)[IX-(1)] + TEMP*(*A)[L+I-(1)][J-(1)]
 							IX = IX + (*INCX)
 						}
@@ -359,14 +359,14 @@ func ZTBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex12
 						if NOUNIT {
 							TEMP = TEMP * (*A)[KPLUS1-(1)][J-(1)]
 						}
-						for I = J - 1; I <= intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I += -1 {
+						for I = J - 1; I <= intrinsic.MAX(int(1), J-(*K)); I += -1 {
 							TEMP = TEMP + (*A)[L+I-(1)][J-(1)]*(*X)[I-(1)]
 						}
 					} else {
 						if NOUNIT {
 							TEMP = TEMP * intrinsic.DCONJG((*A)[KPLUS1-(1)][J-(1)])
 						}
-						for I = J - 1; I <= intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I += -1 {
+						for I = J - 1; I <= intrinsic.MAX(int(1), J-(*K)); I += -1 {
 							TEMP = TEMP + intrinsic.DCONJG((*A)[L+I-(1)][J-(1)])*(*X)[I-(1)]
 						}
 					}
@@ -384,7 +384,7 @@ func ZTBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex12
 						if NOUNIT {
 							TEMP = TEMP * (*A)[KPLUS1-(1)][J-(1)]
 						}
-						for I = J - 1; I <= intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I += -1 {
+						for I = J - 1; I <= intrinsic.MAX(int(1), J-(*K)); I += -1 {
 							TEMP = TEMP + (*A)[L+I-(1)][J-(1)]*(*X)[IX-(1)]
 							IX = IX - (*INCX)
 						}
@@ -392,7 +392,7 @@ func ZTBMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex12
 						if NOUNIT {
 							TEMP = TEMP * intrinsic.DCONJG((*A)[KPLUS1-(1)][J-(1)])
 						}
-						for I = J - 1; I <= intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I += -1 {
+						for I = J - 1; I <= intrinsic.MAX(int(1), J-(*K)); I += -1 {
 							TEMP = TEMP + intrinsic.DCONJG((*A)[L+I-(1)][J-(1)])*(*X)[IX-(1)]
 							IX = IX - (*INCX)
 						}

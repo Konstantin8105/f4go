@@ -123,6 +123,16 @@ var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 		intrinsicArgumentCorrection(p, f, "intrinsic.DCONJG", typeNames)
 	},
+	"DBLE": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"int"}
+		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+		intrinsicArgumentCorrection(p, f, "intrinsic.DBLE", typeNames)
+	},
+	"ABS": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"float64"}
+		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+		intrinsicArgumentCorrection(p, f, "intrinsic.ABS", typeNames)
+	},
 }
 
 func intrinsicArgumentCorrection(p *parser, f *goast.CallExpr, name string, typeNames []string) {
@@ -136,6 +146,12 @@ func intrinsicArgumentCorrection(p *parser, f *goast.CallExpr, name string, type
 			if len(id.Name) > 3 && id.Name[:2] == "&(" {
 				id.Name = id.Name[2 : len(id.Name)-1]
 				continue
+			}
+			//func()*int{y:=1;return &y}()
+			if strings.Contains(id.Name, "func()*int{y:=") {
+				id.Name = id.Name[len("func()*int{y:="):]
+				id.Name = strings.TrimRight(id.Name, ";return &y}()")
+				id.Name = typeNames[i] + "(" + id.Name + ")"
 			}
 		}
 		if un, ok := f.Args[i].(*goast.UnaryExpr); ok {

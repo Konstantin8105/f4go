@@ -312,11 +312,11 @@ func ZHBMV(UPLO *byte, N *int, K *int, ALPHA *complex128, A *[][]complex128, LDA
 				TEMP1 = (*ALPHA) * (*X)[J-(1)]
 				TEMP2 = ZERO
 				L = KPLUS1 - J
-				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+				for I = intrinsic.MAX(int(1), J-(*K)); I <= J-1; I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP1*(*A)[L+I-(1)][J-(1)]
 					TEMP2 = TEMP2 + intrinsic.DCONJG((*A)[L+I-(1)][J-(1)])*(*X)[I-(1)]
 				}
-				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*DBLE(&((*A)[KPLUS1-(1)][J-(1)])) + (*ALPHA)*TEMP2
+				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*intrinsic.DBLE((*A)[KPLUS1-(1)][J-(1)]) + (*ALPHA)*TEMP2
 			}
 		} else {
 			JX = KX
@@ -327,13 +327,13 @@ func ZHBMV(UPLO *byte, N *int, K *int, ALPHA *complex128, A *[][]complex128, LDA
 				IX = KX
 				IY = KY
 				L = KPLUS1 - J
-				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+				for I = intrinsic.MAX(int(1), J-(*K)); I <= J-1; I++ {
 					(*Y)[IY-(1)] = (*Y)[IY-(1)] + TEMP1*(*A)[L+I-(1)][J-(1)]
 					TEMP2 = TEMP2 + intrinsic.DCONJG((*A)[L+I-(1)][J-(1)])*(*X)[IX-(1)]
 					IX = IX + (*INCX)
 					IY = IY + (*INCY)
 				}
-				(*Y)[JY-(1)] = (*Y)[JY-(1)] + TEMP1*DBLE(&((*A)[KPLUS1-(1)][J-(1)])) + (*ALPHA)*TEMP2
+				(*Y)[JY-(1)] = (*Y)[JY-(1)] + TEMP1*intrinsic.DBLE((*A)[KPLUS1-(1)][J-(1)]) + (*ALPHA)*TEMP2
 				JX = JX + (*INCX)
 				JY = JY + (*INCY)
 				if J > (*K) {
@@ -350,7 +350,7 @@ func ZHBMV(UPLO *byte, N *int, K *int, ALPHA *complex128, A *[][]complex128, LDA
 			for J = 1; J <= (*N); J++ {
 				TEMP1 = (*ALPHA) * (*X)[J-(1)]
 				TEMP2 = ZERO
-				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*DBLE(&((*A)[1-(1)][J-(1)]))
+				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*intrinsic.DBLE((*A)[1-(1)][J-(1)])
 				L = 1 - J
 				for I = J + 1; I <= intrinsic.MIN((*N), J+(*K)); I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP1*(*A)[L+I-(1)][J-(1)]
@@ -364,7 +364,7 @@ func ZHBMV(UPLO *byte, N *int, K *int, ALPHA *complex128, A *[][]complex128, LDA
 			for J = 1; J <= (*N); J++ {
 				TEMP1 = (*ALPHA) * (*X)[JX-(1)]
 				TEMP2 = ZERO
-				(*Y)[JY-(1)] = (*Y)[JY-(1)] + TEMP1*DBLE(&((*A)[1-(1)][J-(1)]))
+				(*Y)[JY-(1)] = (*Y)[JY-(1)] + TEMP1*intrinsic.DBLE((*A)[1-(1)][J-(1)])
 				L = 1 - J
 				IX = JX
 				IY = JY

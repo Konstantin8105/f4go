@@ -196,7 +196,7 @@ func DSYR2(UPLO *byte, N *int, ALPHA *float64, X *[]float64, INCX *int, Y *[]flo
 		INFO = 5
 	} else if (*INCY) == 0 {
 		INFO = 7
-	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*N)) {
+	} else if (*LDA) < intrinsic.MAX(int(1), (*N)) {
 		INFO = 9
 	}
 	if INFO != 0 {

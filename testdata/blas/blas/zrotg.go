@@ -1,7 +1,7 @@
 package main
 
-import "github.com/Konstantin8105/f4go/intrinsic"
 import "math"
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b ZROTG
 //*
 //*  =========== DOCUMENTATION ===========

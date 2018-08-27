@@ -205,7 +205,7 @@ func SGEMV(TRANS *byte, M *int, N *int, ALPHA *float64, A *[][]float64, LDA *int
 		INFO = 2
 	} else if (*N) < 0 {
 		INFO = 3
-	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*M)) {
+	} else if (*LDA) < intrinsic.MAX(int(1), (*M)) {
 		INFO = 6
 	} else if (*INCX) == 0 {
 		INFO = 8

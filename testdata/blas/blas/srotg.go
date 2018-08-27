@@ -1,6 +1,7 @@
 package main
 
 import "math"
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SROTG
 //*
 //*  =========== DOCUMENTATION ===========
@@ -91,10 +92,10 @@ func SROTG(SA *float64, SB *float64, C *float64, S *float64) {
 	//*     .. Intrinsic Functions ..
 	//*     ..
 	ROE = (*SB)
-	if ABS(SA) > ABS(SB) {
+	if intrinsic.ABS((*SA)) > intrinsic.ABS((*SB)) {
 		ROE = (*SA)
 	}
-	SCALE = ABS(SA) + ABS(SB)
+	SCALE = intrinsic.ABS((*SA)) + intrinsic.ABS((*SB))
 	if SCALE == 0.0 {
 		(*C) = 1.0
 		(*S) = 0.0
@@ -106,10 +107,10 @@ func SROTG(SA *float64, SB *float64, C *float64, S *float64) {
 		(*C) = (*SA) / R
 		(*S) = (*SB) / R
 		Z = 1.0
-		if ABS(SA) > ABS(SB) {
+		if intrinsic.ABS((*SA)) > intrinsic.ABS((*SB)) {
 			Z = (*S)
 		}
-		if ABS(SB) >= ABS(SA) && (*C) != 0.0 {
+		if intrinsic.ABS((*SB)) >= intrinsic.ABS((*SA)) && (*C) != 0.0 {
 			Z = 1.0 / (*C)
 		}
 	}

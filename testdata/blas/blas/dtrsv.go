@@ -189,7 +189,7 @@ func DTRSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, A *[][]float64, LDA *int
 		INFO = 3
 	} else if (*N) < 0 {
 		INFO = 4
-	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*N)) {
+	} else if (*LDA) < intrinsic.MAX(int(1), (*N)) {
 		INFO = 6
 	} else if (*INCX) == 0 {
 		INFO = 8

@@ -247,11 +247,11 @@ func ZHEMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex128, A *[][]com
 		INFO = 3
 	} else if (*N) < 0 {
 		INFO = 4
-	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), NROWA) {
+	} else if (*LDA) < intrinsic.MAX(int(1), NROWA) {
 		INFO = 7
-	} else if (*LDB) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*M)) {
+	} else if (*LDB) < intrinsic.MAX(int(1), (*M)) {
 		INFO = 9
-	} else if (*LDC) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*M)) {
+	} else if (*LDC) < intrinsic.MAX(int(1), (*M)) {
 		INFO = 12
 	}
 	if INFO != 0 {
@@ -300,9 +300,9 @@ func ZHEMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex128, A *[][]com
 						TEMP2 = TEMP2 + (*B)[K-(1)][J-(1)]*intrinsic.DCONJG((*A)[K-(1)][I-(1)])
 					}
 					if (*BETA) == ZERO {
-						(*C)[I-(1)][J-(1)] = TEMP1*DBLE(&((*A)[I-(1)][I-(1)])) + (*ALPHA)*TEMP2
+						(*C)[I-(1)][J-(1)] = TEMP1*intrinsic.DBLE((*A)[I-(1)][I-(1)]) + (*ALPHA)*TEMP2
 					} else {
-						(*C)[I-(1)][J-(1)] = (*BETA)*(*C)[I-(1)][J-(1)] + TEMP1*DBLE(&((*A)[I-(1)][I-(1)])) + (*ALPHA)*TEMP2
+						(*C)[I-(1)][J-(1)] = (*BETA)*(*C)[I-(1)][J-(1)] + TEMP1*intrinsic.DBLE((*A)[I-(1)][I-(1)]) + (*ALPHA)*TEMP2
 					}
 				}
 			}
@@ -316,9 +316,9 @@ func ZHEMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex128, A *[][]com
 						TEMP2 = TEMP2 + (*B)[K-(1)][J-(1)]*intrinsic.DCONJG((*A)[K-(1)][I-(1)])
 					}
 					if (*BETA) == ZERO {
-						(*C)[I-(1)][J-(1)] = TEMP1*DBLE(&((*A)[I-(1)][I-(1)])) + (*ALPHA)*TEMP2
+						(*C)[I-(1)][J-(1)] = TEMP1*intrinsic.DBLE((*A)[I-(1)][I-(1)]) + (*ALPHA)*TEMP2
 					} else {
-						(*C)[I-(1)][J-(1)] = (*BETA)*(*C)[I-(1)][J-(1)] + TEMP1*DBLE(&((*A)[I-(1)][I-(1)])) + (*ALPHA)*TEMP2
+						(*C)[I-(1)][J-(1)] = (*BETA)*(*C)[I-(1)][J-(1)] + TEMP1*intrinsic.DBLE((*A)[I-(1)][I-(1)]) + (*ALPHA)*TEMP2
 					}
 				}
 			}
@@ -328,7 +328,7 @@ func ZHEMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex128, A *[][]com
 		//*        Form  C := alpha*B*A + beta*C.
 		//*
 		for J = 1; J <= (*N); J++ {
-			TEMP1 = (*ALPHA) * DBLE(&((*A)[J-(1)][J-(1)]))
+			TEMP1 = (*ALPHA) * intrinsic.DBLE((*A)[J-(1)][J-(1)])
 			if (*BETA) == ZERO {
 				for I = 1; I <= (*M); I++ {
 					(*C)[I-(1)][J-(1)] = TEMP1 * (*B)[I-(1)][J-(1)]

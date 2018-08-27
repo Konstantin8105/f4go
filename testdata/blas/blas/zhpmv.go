@@ -275,7 +275,7 @@ func ZHPMV(UPLO *byte, N *int, ALPHA *complex128, AP *[]complex128, X *[]complex
 					TEMP2 = TEMP2 + intrinsic.DCONJG((*AP)[K-(1)])*(*X)[I-(1)]
 					K = K + 1
 				}
-				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*DBLE(&((*AP)[KK+J-1-(1)])) + (*ALPHA)*TEMP2
+				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*intrinsic.DBLE((*AP)[KK+J-1-(1)]) + (*ALPHA)*TEMP2
 				KK = KK + J
 			}
 		} else {
@@ -292,7 +292,7 @@ func ZHPMV(UPLO *byte, N *int, ALPHA *complex128, AP *[]complex128, X *[]complex
 					IX = IX + (*INCX)
 					IY = IY + (*INCY)
 				}
-				(*Y)[JY-(1)] = (*Y)[JY-(1)] + TEMP1*DBLE(&((*AP)[KK+J-1-(1)])) + (*ALPHA)*TEMP2
+				(*Y)[JY-(1)] = (*Y)[JY-(1)] + TEMP1*intrinsic.DBLE((*AP)[KK+J-1-(1)]) + (*ALPHA)*TEMP2
 				JX = JX + (*INCX)
 				JY = JY + (*INCY)
 				KK = KK + J
@@ -306,7 +306,7 @@ func ZHPMV(UPLO *byte, N *int, ALPHA *complex128, AP *[]complex128, X *[]complex
 			for J = 1; J <= (*N); J++ {
 				TEMP1 = (*ALPHA) * (*X)[J-(1)]
 				TEMP2 = ZERO
-				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*DBLE(&((*AP)[KK-(1)]))
+				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*intrinsic.DBLE((*AP)[KK-(1)])
 				K = KK + 1
 				for I = J + 1; I <= (*N); I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP1*(*AP)[K-(1)]
@@ -322,7 +322,7 @@ func ZHPMV(UPLO *byte, N *int, ALPHA *complex128, AP *[]complex128, X *[]complex
 			for J = 1; J <= (*N); J++ {
 				TEMP1 = (*ALPHA) * (*X)[JX-(1)]
 				TEMP2 = ZERO
-				(*Y)[JY-(1)] = (*Y)[JY-(1)] + TEMP1*DBLE(&((*AP)[KK-(1)]))
+				(*Y)[JY-(1)] = (*Y)[JY-(1)] + TEMP1*intrinsic.DBLE((*AP)[KK-(1)])
 				IX = JX
 				IY = JY
 				for K = KK + 1; K <= KK+(*N)-J; K++ {

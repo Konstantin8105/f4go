@@ -1,6 +1,7 @@
 package main
 
 import "math"
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SROTMG
 //*
 //*  =========== DOCUMENTATION ===========
@@ -159,7 +160,7 @@ func SROTMG(SD1 *float64, SD2 *float64, SX1 *float64, SY1 *float64, SPARAM *[5]f
 		SQ2 = SP2 * (*SY1)
 		SQ1 = SP1 * (*SX1)
 		//*
-		if ABS(&(SQ1)) > ABS(&(SQ2)) {
+		if intrinsic.ABS(SQ1) > intrinsic.ABS(SQ2) {
 			SH21 = -(*SY1) / (*SX1)
 			SH12 = SP2 / SP1
 			//*
@@ -220,7 +221,7 @@ func SROTMG(SD1 *float64, SD2 *float64, SX1 *float64, SY1 *float64, SPARAM *[5]f
 			}
 		}
 		if (*SD2) != ZERO {
-			for (ABS(SD2) <= RGAMSQ) || (ABS(SD2) >= GAMSQ) {
+			for (intrinsic.ABS((*SD2)) <= RGAMSQ) || (intrinsic.ABS((*SD2)) >= GAMSQ) {
 				if SFLAG == ZERO {
 					SH11 = ONE
 					SH22 = ONE
@@ -230,7 +231,7 @@ func SROTMG(SD1 *float64, SD2 *float64, SX1 *float64, SY1 *float64, SPARAM *[5]f
 					SH12 = ONE
 					SFLAG = -ONE
 				}
-				if ABS(SD2) <= RGAMSQ {
+				if intrinsic.ABS((*SD2)) <= RGAMSQ {
 					(*SD2) = (*SD2) * math.Pow(GAM, 2)
 					SH21 = SH21 / GAM
 					SH22 = SH22 / GAM

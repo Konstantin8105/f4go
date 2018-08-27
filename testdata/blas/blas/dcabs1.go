@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b DCABS1
 //*
 //*  =========== DOCUMENTATION ===========
@@ -60,6 +62,6 @@ func DCABS1(Z *complex128) (DCABS1_RES float64) {
 	//*
 	//*     .. Intrinsic Functions ..
 	//*
-	(DCABS1_RES) = ABS(DBLE(Z)) + ABS(DIMAG(Z))
+	(DCABS1_RES) = intrinsic.ABS(intrinsic.DBLE((*Z))) + intrinsic.ABS(DIMAG(Z))
 	return
 }

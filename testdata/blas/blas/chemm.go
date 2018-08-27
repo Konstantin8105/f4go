@@ -247,11 +247,11 @@ func CHEMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex64, A *[][]comp
 		INFO = 3
 	} else if (*N) < 0 {
 		INFO = 4
-	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), NROWA) {
+	} else if (*LDA) < intrinsic.MAX(int(1), NROWA) {
 		INFO = 7
-	} else if (*LDB) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*M)) {
+	} else if (*LDB) < intrinsic.MAX(int(1), (*M)) {
 		INFO = 9
-	} else if (*LDC) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*M)) {
+	} else if (*LDC) < intrinsic.MAX(int(1), (*M)) {
 		INFO = 12
 	}
 	if INFO != 0 {

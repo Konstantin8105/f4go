@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b ISAMAX
 //*
 //*  =========== DOCUMENTATION ===========
@@ -103,11 +105,11 @@ func ISAMAX(N *int, SX *[]float64, INCX *int) (ISAMAX_RES int) {
 		//*
 		//*        code for increment equal to 1
 		//*
-		SMAX = ABS(&((*SX)[1-(1)]))
+		SMAX = intrinsic.ABS((*SX)[1-(1)])
 		for I = 2; I <= (*N); I++ {
-			if ABS(&((*SX)[I-(1)])) > SMAX {
+			if intrinsic.ABS((*SX)[I-(1)]) > SMAX {
 				(ISAMAX_RES) = I
-				SMAX = ABS(&((*SX)[I-(1)]))
+				SMAX = intrinsic.ABS((*SX)[I-(1)])
 			}
 		}
 	} else {
@@ -115,12 +117,12 @@ func ISAMAX(N *int, SX *[]float64, INCX *int) (ISAMAX_RES int) {
 		//*        code for increment not equal to 1
 		//*
 		IX = 1
-		SMAX = ABS(&((*SX)[1-(1)]))
+		SMAX = intrinsic.ABS((*SX)[1-(1)])
 		IX = IX + (*INCX)
 		for I = 2; I <= (*N); I++ {
-			if ABS(&((*SX)[IX-(1)])) > SMAX {
+			if intrinsic.ABS((*SX)[IX-(1)]) > SMAX {
 				(ISAMAX_RES) = I
-				SMAX = ABS(&((*SX)[IX-(1)]))
+				SMAX = intrinsic.ABS((*SX)[IX-(1)])
 			}
 			IX = IX + (*INCX)
 		}

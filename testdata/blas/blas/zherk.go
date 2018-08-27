@@ -227,9 +227,9 @@ func ZHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 		INFO = 3
 	} else if (*K) < 0 {
 		INFO = 4
-	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), NROWA) {
+	} else if (*LDA) < intrinsic.MAX(int(1), NROWA) {
 		INFO = 7
-	} else if (*LDC) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*N)) {
+	} else if (*LDC) < intrinsic.MAX(int(1), (*N)) {
 		INFO = 10
 	}
 	if INFO != 0 {
@@ -258,7 +258,7 @@ func ZHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 					for I = 1; I <= J-1; I++ {
 						(*C)[I-(1)][J-(1)] = (*BETA) * (*C)[I-(1)][J-(1)]
 					}
-					(*C)[J-(1)][J-(1)] = (*BETA) * DBLE(&((*C)[J-(1)][J-(1)]))
+					(*C)[J-(1)][J-(1)] = (*BETA) * intrinsic.DBLE((*C)[J-(1)][J-(1)])
 				}
 			}
 		} else {
@@ -270,7 +270,7 @@ func ZHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 				}
 			} else {
 				for J = 1; J <= (*N); J++ {
-					(*C)[J-(1)][J-(1)] = (*BETA) * DBLE(&((*C)[J-(1)][J-(1)]))
+					(*C)[J-(1)][J-(1)] = (*BETA) * intrinsic.DBLE((*C)[J-(1)][J-(1)])
 					for I = J + 1; I <= (*N); I++ {
 						(*C)[I-(1)][J-(1)] = (*BETA) * (*C)[I-(1)][J-(1)]
 					}
@@ -296,9 +296,9 @@ func ZHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 					for I = 1; I <= J-1; I++ {
 						(*C)[I-(1)][J-(1)] = (*BETA) * (*C)[I-(1)][J-(1)]
 					}
-					(*C)[J-(1)][J-(1)] = (*BETA) * DBLE(&((*C)[J-(1)][J-(1)]))
+					(*C)[J-(1)][J-(1)] = (*BETA) * intrinsic.DBLE((*C)[J-(1)][J-(1)])
 				} else {
-					(*C)[J-(1)][J-(1)] = DBLE(&((*C)[J-(1)][J-(1)]))
+					(*C)[J-(1)][J-(1)] = intrinsic.DBLE((*C)[J-(1)][J-(1)])
 				}
 				for L = 1; L <= (*K); L++ {
 					if (*A)[J-(1)][L-(1)] != DCMPLX(&(ZERO)) {
@@ -306,7 +306,7 @@ func ZHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 						for I = 1; I <= J-1; I++ {
 							(*C)[I-(1)][J-(1)] = (*C)[I-(1)][J-(1)] + TEMP*(*A)[I-(1)][L-(1)]
 						}
-						(*C)[J-(1)][J-(1)] = DBLE(&((*C)[J-(1)][J-(1)])) + DBLE(TEMP*(*A)[I-(1)][L-(1)])
+						(*C)[J-(1)][J-(1)] = intrinsic.DBLE((*C)[J-(1)][J-(1)]) + intrinsic.DBLE(TEMP*(*A)[I-(1)][L-(1)])
 					}
 				}
 			}
@@ -317,17 +317,17 @@ func ZHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 						(*C)[I-(1)][J-(1)] = ZERO
 					}
 				} else if (*BETA) != ONE {
-					(*C)[J-(1)][J-(1)] = (*BETA) * DBLE(&((*C)[J-(1)][J-(1)]))
+					(*C)[J-(1)][J-(1)] = (*BETA) * intrinsic.DBLE((*C)[J-(1)][J-(1)])
 					for I = J + 1; I <= (*N); I++ {
 						(*C)[I-(1)][J-(1)] = (*BETA) * (*C)[I-(1)][J-(1)]
 					}
 				} else {
-					(*C)[J-(1)][J-(1)] = DBLE(&((*C)[J-(1)][J-(1)]))
+					(*C)[J-(1)][J-(1)] = intrinsic.DBLE((*C)[J-(1)][J-(1)])
 				}
 				for L = 1; L <= (*K); L++ {
 					if (*A)[J-(1)][L-(1)] != DCMPLX(&(ZERO)) {
 						TEMP = (*ALPHA) * intrinsic.DCONJG((*A)[J-(1)][L-(1)])
-						(*C)[J-(1)][J-(1)] = DBLE(&((*C)[J-(1)][J-(1)])) + DBLE(TEMP*(*A)[J-(1)][L-(1)])
+						(*C)[J-(1)][J-(1)] = intrinsic.DBLE((*C)[J-(1)][J-(1)]) + intrinsic.DBLE(TEMP*(*A)[J-(1)][L-(1)])
 						for I = J + 1; I <= (*N); I++ {
 							(*C)[I-(1)][J-(1)] = (*C)[I-(1)][J-(1)] + TEMP*(*A)[I-(1)][L-(1)]
 						}
@@ -359,7 +359,7 @@ func ZHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 				if (*BETA) == ZERO {
 					(*C)[J-(1)][J-(1)] = (*ALPHA) * RTEMP
 				} else {
-					(*C)[J-(1)][J-(1)] = (*ALPHA)*RTEMP + (*BETA)*DBLE(&((*C)[J-(1)][J-(1)]))
+					(*C)[J-(1)][J-(1)] = (*ALPHA)*RTEMP + (*BETA)*intrinsic.DBLE((*C)[J-(1)][J-(1)])
 				}
 			}
 		} else {
@@ -371,7 +371,7 @@ func ZHERK(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]compl
 				if (*BETA) == ZERO {
 					(*C)[J-(1)][J-(1)] = (*ALPHA) * RTEMP
 				} else {
-					(*C)[J-(1)][J-(1)] = (*ALPHA)*RTEMP + (*BETA)*DBLE(&((*C)[J-(1)][J-(1)]))
+					(*C)[J-(1)][J-(1)] = (*ALPHA)*RTEMP + (*BETA)*intrinsic.DBLE((*C)[J-(1)][J-(1)])
 				}
 				for I = J + 1; I <= (*N); I++ {
 					TEMP = ZERO

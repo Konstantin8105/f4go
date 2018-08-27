@@ -183,7 +183,7 @@ func ZHPR(UPLO *byte, N *int, ALPHA *float64, X *[]complex128, INCX *int, AP *[]
 	//*
 	//*     Quick return if possible.
 	//*
-	if ((*N) == 0) || ((*ALPHA) == DBLE(&(ZERO))) {
+	if ((*N) == 0) || ((*ALPHA) == intrinsic.DBLE(ZERO)) {
 		return
 	}
 	//*
@@ -212,9 +212,9 @@ func ZHPR(UPLO *byte, N *int, ALPHA *float64, X *[]complex128, INCX *int, AP *[]
 						(*AP)[K-(1)] = (*AP)[K-(1)] + (*X)[I-(1)]*TEMP
 						K = K + 1
 					}
-					(*AP)[KK+J-1-(1)] = DBLE(&((*AP)[KK+J-1-(1)])) + DBLE((*X)[J-(1)]*TEMP)
+					(*AP)[KK+J-1-(1)] = intrinsic.DBLE((*AP)[KK+J-1-(1)]) + intrinsic.DBLE((*X)[J-(1)]*TEMP)
 				} else {
-					(*AP)[KK+J-1-(1)] = DBLE(&((*AP)[KK+J-1-(1)]))
+					(*AP)[KK+J-1-(1)] = intrinsic.DBLE((*AP)[KK+J-1-(1)])
 				}
 				KK = KK + J
 			}
@@ -228,9 +228,9 @@ func ZHPR(UPLO *byte, N *int, ALPHA *float64, X *[]complex128, INCX *int, AP *[]
 						(*AP)[K-(1)] = (*AP)[K-(1)] + (*X)[IX-(1)]*TEMP
 						IX = IX + (*INCX)
 					}
-					(*AP)[KK+J-1-(1)] = DBLE(&((*AP)[KK+J-1-(1)])) + DBLE((*X)[JX-(1)]*TEMP)
+					(*AP)[KK+J-1-(1)] = intrinsic.DBLE((*AP)[KK+J-1-(1)]) + intrinsic.DBLE((*X)[JX-(1)]*TEMP)
 				} else {
-					(*AP)[KK+J-1-(1)] = DBLE(&((*AP)[KK+J-1-(1)]))
+					(*AP)[KK+J-1-(1)] = intrinsic.DBLE((*AP)[KK+J-1-(1)])
 				}
 				JX = JX + (*INCX)
 				KK = KK + J
@@ -244,14 +244,14 @@ func ZHPR(UPLO *byte, N *int, ALPHA *float64, X *[]complex128, INCX *int, AP *[]
 			for J = 1; J <= (*N); J++ {
 				if (*X)[J-(1)] != ZERO {
 					TEMP = (*ALPHA) * intrinsic.DCONJG((*X)[J-(1)])
-					(*AP)[KK-(1)] = DBLE(&((*AP)[KK-(1)])) + DBLE(TEMP*(*X)[J-(1)])
+					(*AP)[KK-(1)] = intrinsic.DBLE((*AP)[KK-(1)]) + intrinsic.DBLE(TEMP*(*X)[J-(1)])
 					K = KK + 1
 					for I = J + 1; I <= (*N); I++ {
 						(*AP)[K-(1)] = (*AP)[K-(1)] + (*X)[I-(1)]*TEMP
 						K = K + 1
 					}
 				} else {
-					(*AP)[KK-(1)] = DBLE(&((*AP)[KK-(1)]))
+					(*AP)[KK-(1)] = intrinsic.DBLE((*AP)[KK-(1)])
 				}
 				KK = KK + (*N) - J + 1
 			}
@@ -260,14 +260,14 @@ func ZHPR(UPLO *byte, N *int, ALPHA *float64, X *[]complex128, INCX *int, AP *[]
 			for J = 1; J <= (*N); J++ {
 				if (*X)[JX-(1)] != ZERO {
 					TEMP = (*ALPHA) * intrinsic.DCONJG((*X)[JX-(1)])
-					(*AP)[KK-(1)] = DBLE(&((*AP)[KK-(1)])) + DBLE(TEMP*(*X)[JX-(1)])
+					(*AP)[KK-(1)] = intrinsic.DBLE((*AP)[KK-(1)]) + intrinsic.DBLE(TEMP*(*X)[JX-(1)])
 					IX = JX
 					for K = KK + 1; K <= KK+(*N)-J; K++ {
 						IX = IX + (*INCX)
 						(*AP)[K-(1)] = (*AP)[K-(1)] + (*X)[IX-(1)]*TEMP
 					}
 				} else {
-					(*AP)[KK-(1)] = DBLE(&((*AP)[KK-(1)]))
+					(*AP)[KK-(1)] = intrinsic.DBLE((*AP)[KK-(1)])
 				}
 				JX = JX + (*INCX)
 				KK = KK + (*N) - J + 1

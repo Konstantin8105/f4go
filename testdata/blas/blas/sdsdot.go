@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SDSDOT
 //*
 //*  =========== DOCUMENTATION ===========
@@ -258,7 +260,7 @@ func SDSDOT(N *int, SB *float64, SX *[]float64, INCX *int, SY *[]float64, INCY *
 		//*
 		NS = (*N) * (*INCX)
 		for I = 1; I <= NS; I += (*INCX) {
-			DSDOT = DSDOT + DBLE(&((*SX)[I-(1)]))*DBLE(&((*SY)[I-(1)]))
+			DSDOT = DSDOT + intrinsic.DBLE((*SX)[I-(1)])*intrinsic.DBLE((*SY)[I-(1)])
 		}
 	} else {
 		//*
@@ -273,7 +275,7 @@ func SDSDOT(N *int, SB *float64, SX *[]float64, INCX *int, SY *[]float64, INCY *
 			KY = 1 + (1-(*N))*(*INCY)
 		}
 		for I = 1; I <= (*N); I++ {
-			DSDOT = DSDOT + DBLE(&((*SX)[KX-(1)]))*DBLE(&((*SY)[KY-(1)]))
+			DSDOT = DSDOT + intrinsic.DBLE((*SX)[KX-(1)])*intrinsic.DBLE((*SY)[KY-(1)])
 			KX = KX + (*INCX)
 			KY = KY + (*INCY)
 		}

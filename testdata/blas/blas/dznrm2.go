@@ -1,6 +1,7 @@
 package main
 
 import "math"
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b DZNRM2
 //*
 //*  =========== DOCUMENTATION ===========
@@ -113,8 +114,8 @@ func DZNRM2(N *int, X *[]complex128, INCX *int) (DZNRM2_RES float64) {
 		//*        CALL ZLASSQ( N, X, INCX, SCALE, SSQ )
 		//*
 		for IX = 1; IX <= 1+((*N)-1)*(*INCX); IX += (*INCX) {
-			if DBLE(&((*X)[IX-(1)])) != ZERO {
-				TEMP = ABS(DBLE(&((*X)[IX-(1)])))
+			if intrinsic.DBLE((*X)[IX-(1)]) != ZERO {
+				TEMP = intrinsic.ABS(intrinsic.DBLE((*X)[IX-(1)]))
 				if SCALE < TEMP {
 					SSQ = ONE + SSQ*math.Pow((SCALE/TEMP), 2)
 					SCALE = TEMP
@@ -123,7 +124,7 @@ func DZNRM2(N *int, X *[]complex128, INCX *int) (DZNRM2_RES float64) {
 				}
 			}
 			if DIMAG(&((*X)[IX-(1)])) != ZERO {
-				TEMP = ABS(DIMAG(&((*X)[IX-(1)])))
+				TEMP = intrinsic.ABS(DIMAG(&((*X)[IX-(1)])))
 				if SCALE < TEMP {
 					SSQ = ONE + SSQ*math.Pow((SCALE/TEMP), 2)
 					SCALE = TEMP

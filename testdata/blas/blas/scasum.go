@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SCASUM
 //*
 //*  =========== DOCUMENTATION ===========
@@ -102,7 +104,7 @@ func SCASUM(N *int, CX *[]complex64, INCX *int) (SCASUM_RES float64) {
 		//*        code for increment equal to 1
 		//*
 		for I = 1; I <= (*N); I++ {
-			STEMP = STEMP + ABS(real((*CX)[I-(1)])) + ABS(imag((*CX)[I-(1)]))
+			STEMP = STEMP + intrinsic.ABS(real((*CX)[I-(1)])) + intrinsic.ABS(imag((*CX)[I-(1)]))
 		}
 	} else {
 		//*
@@ -110,7 +112,7 @@ func SCASUM(N *int, CX *[]complex64, INCX *int) (SCASUM_RES float64) {
 		//*
 		NINCX = (*N) * (*INCX)
 		for I = 1; I <= NINCX; I += (*INCX) {
-			STEMP = STEMP + ABS(real((*CX)[I-(1)])) + ABS(imag((*CX)[I-(1)]))
+			STEMP = STEMP + intrinsic.ABS(real((*CX)[I-(1)])) + intrinsic.ABS(imag((*CX)[I-(1)]))
 		}
 	}
 	(SCASUM_RES) = STEMP

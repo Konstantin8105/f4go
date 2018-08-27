@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SCABS1
 //*
 //*  =========== DOCUMENTATION ===========
@@ -59,6 +61,6 @@ func SCABS1(Z *complex64) (SCABS1_RES float64) {
 	//*
 	//*     .. Intrinsic Functions ..
 	//*     ..
-	(SCABS1_RES) = ABS(real((*Z))) + ABS(imag((*Z)))
+	(SCABS1_RES) = intrinsic.ABS(real((*Z))) + intrinsic.ABS(imag((*Z)))
 	return
 }

@@ -199,7 +199,7 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 		INFO = 5
 	} else if (*INCY) == 0 {
 		INFO = 7
-	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*N)) {
+	} else if (*LDA) < intrinsic.MAX(int(1), (*N)) {
 		INFO = 9
 	}
 	if INFO != 0 {
@@ -247,9 +247,9 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 					for I = 1; I <= J-1; I++ {
 						(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[I-(1)]*TEMP1 + (*Y)[I-(1)]*TEMP2
 					}
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)])) + DBLE((*X)[J-(1)]*TEMP1+(*Y)[J-(1)]*TEMP2)
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)]) + intrinsic.DBLE((*X)[J-(1)]*TEMP1+(*Y)[J-(1)]*TEMP2)
 				} else {
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)]))
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)])
 				}
 			}
 		} else {
@@ -264,9 +264,9 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 						IX = IX + (*INCX)
 						IY = IY + (*INCY)
 					}
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)])) + DBLE((*X)[JX-(1)]*TEMP1+(*Y)[JY-(1)]*TEMP2)
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)]) + intrinsic.DBLE((*X)[JX-(1)]*TEMP1+(*Y)[JY-(1)]*TEMP2)
 				} else {
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)]))
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)])
 				}
 				JX = JX + (*INCX)
 				JY = JY + (*INCY)
@@ -281,12 +281,12 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 				if ((*X)[J-(1)] != ZERO) || ((*Y)[J-(1)] != ZERO) {
 					TEMP1 = (*ALPHA) * intrinsic.DCONJG((*Y)[J-(1)])
 					TEMP2 = intrinsic.DCONJG((*ALPHA) * (*X)[J-(1)])
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)])) + DBLE((*X)[J-(1)]*TEMP1+(*Y)[J-(1)]*TEMP2)
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)]) + intrinsic.DBLE((*X)[J-(1)]*TEMP1+(*Y)[J-(1)]*TEMP2)
 					for I = J + 1; I <= (*N); I++ {
 						(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[I-(1)]*TEMP1 + (*Y)[I-(1)]*TEMP2
 					}
 				} else {
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)]))
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)])
 				}
 			}
 		} else {
@@ -294,7 +294,7 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 				if ((*X)[JX-(1)] != ZERO) || ((*Y)[JY-(1)] != ZERO) {
 					TEMP1 = (*ALPHA) * intrinsic.DCONJG((*Y)[JY-(1)])
 					TEMP2 = intrinsic.DCONJG((*ALPHA) * (*X)[JX-(1)])
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)])) + DBLE((*X)[JX-(1)]*TEMP1+(*Y)[JY-(1)]*TEMP2)
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)]) + intrinsic.DBLE((*X)[JX-(1)]*TEMP1+(*Y)[JY-(1)]*TEMP2)
 					IX = JX
 					IY = JY
 					for I = J + 1; I <= (*N); I++ {
@@ -303,7 +303,7 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 						(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[IX-(1)]*TEMP1 + (*Y)[IY-(1)]*TEMP2
 					}
 				} else {
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)]))
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)])
 				}
 				JX = JX + (*INCX)
 				JY = JY + (*INCY)

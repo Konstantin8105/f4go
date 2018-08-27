@@ -200,7 +200,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
-	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*N)) {
+	} else if (*LDA) < intrinsic.MAX(int(1), (*N)) {
 		INFO = 5
 	} else if (*INCX) == 0 {
 		INFO = 7
@@ -278,7 +278,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP1*(*A)[I-(1)][J-(1)]
 					TEMP2 = TEMP2 + intrinsic.DCONJG((*A)[I-(1)][J-(1)])*(*X)[I-(1)]
 				}
-				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*DBLE(&((*A)[J-(1)][J-(1)])) + (*ALPHA)*TEMP2
+				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*intrinsic.DBLE((*A)[J-(1)][J-(1)]) + (*ALPHA)*TEMP2
 			}
 		} else {
 			JX = KX
@@ -294,7 +294,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 					IX = IX + (*INCX)
 					IY = IY + (*INCY)
 				}
-				(*Y)[JY-(1)] = (*Y)[JY-(1)] + TEMP1*DBLE(&((*A)[J-(1)][J-(1)])) + (*ALPHA)*TEMP2
+				(*Y)[JY-(1)] = (*Y)[JY-(1)] + TEMP1*intrinsic.DBLE((*A)[J-(1)][J-(1)]) + (*ALPHA)*TEMP2
 				JX = JX + (*INCX)
 				JY = JY + (*INCY)
 			}
@@ -307,7 +307,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 			for J = 1; J <= (*N); J++ {
 				TEMP1 = (*ALPHA) * (*X)[J-(1)]
 				TEMP2 = ZERO
-				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*DBLE(&((*A)[J-(1)][J-(1)]))
+				(*Y)[J-(1)] = (*Y)[J-(1)] + TEMP1*intrinsic.DBLE((*A)[J-(1)][J-(1)])
 				for I = J + 1; I <= (*N); I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP1*(*A)[I-(1)][J-(1)]
 					TEMP2 = TEMP2 + intrinsic.DCONJG((*A)[I-(1)][J-(1)])*(*X)[I-(1)]
@@ -320,7 +320,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 			for J = 1; J <= (*N); J++ {
 				TEMP1 = (*ALPHA) * (*X)[JX-(1)]
 				TEMP2 = ZERO
-				(*Y)[JY-(1)] = (*Y)[JY-(1)] + TEMP1*DBLE(&((*A)[J-(1)][J-(1)]))
+				(*Y)[JY-(1)] = (*Y)[JY-(1)] + TEMP1*intrinsic.DBLE((*A)[J-(1)][J-(1)])
 				IX = JX
 				IY = JY
 				for I = J + 1; I <= (*N); I++ {

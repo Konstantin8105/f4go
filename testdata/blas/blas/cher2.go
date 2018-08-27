@@ -199,7 +199,7 @@ func CHER2(UPLO *byte, N *int, ALPHA *complex64, X *[]complex64, INCX *int, Y *[
 		INFO = 5
 	} else if (*INCY) == 0 {
 		INFO = 7
-	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*N)) {
+	} else if (*LDA) < intrinsic.MAX(int(1), (*N)) {
 		INFO = 9
 	}
 	if INFO != 0 {

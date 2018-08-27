@@ -1,6 +1,7 @@
 package main
 
 import "math"
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SNRM2
 //*
 //*  =========== DOCUMENTATION ===========
@@ -105,7 +106,7 @@ func SNRM2(N *int, X *[]float64, INCX *int) (SNRM2_RES float64) {
 	if (*N) < 1 || (*INCX) < 1 {
 		NORM = ZERO
 	} else if (*N) == 1 {
-		NORM = ABS(&((*X)[1-(1)]))
+		NORM = intrinsic.ABS((*X)[1-(1)])
 	} else {
 		SCALE = ZERO
 		SSQ = ONE
@@ -115,7 +116,7 @@ func SNRM2(N *int, X *[]float64, INCX *int) (SNRM2_RES float64) {
 		//*
 		for IX = 1; IX <= 1+((*N)-1)*(*INCX); IX += (*INCX) {
 			if (*X)[IX-(1)] != ZERO {
-				ABSXI = ABS(&((*X)[IX-(1)]))
+				ABSXI = intrinsic.ABS((*X)[IX-(1)])
 				if SCALE < ABSXI {
 					SSQ = ONE + SSQ*math.Pow((SCALE/ABSXI), 2)
 					SCALE = ABSXI

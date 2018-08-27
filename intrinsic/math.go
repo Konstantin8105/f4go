@@ -1,6 +1,9 @@
 package intrinsic
 
-import "math/cmplx"
+import (
+	"math"
+	"math/cmplx"
+)
 
 func MIN(a, b int) int {
 	if a < b {
@@ -22,4 +25,12 @@ func CONJG(c complex64) complex64 {
 
 func DCONJG(c complex128) complex128 {
 	return cmplx.Conj(c)
+}
+
+func DBLE(a int) float64 {
+	return float64(a)
+}
+
+func ABS(a float64) float64 {
+	return math.Abs(a)
 }

@@ -178,7 +178,7 @@ func TestBlas(t *testing.T) {
 }
 
 func TestData(t *testing.T) {
-	files, err := getFortranTestFiles("./testdata")
+	files, err := getFortranTestFiles("./testdata/other")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -210,7 +210,6 @@ func TestData(t *testing.T) {
 				}
 				t.Fatal(fmt.Errorf("%v", err))
 			}
-
 		})
 	}
 }

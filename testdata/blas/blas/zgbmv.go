@@ -328,7 +328,7 @@ func ZGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *complex128, A *
 			for J = 1; J <= (*N); J++ {
 				TEMP = (*ALPHA) * (*X)[JX-(1)]
 				K = KUP1 - J
-				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
+				for I = intrinsic.MAX(int(1), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
 					(*Y)[I-(1)] = (*Y)[I-(1)] + TEMP*(*A)[K+I-(1)][J-(1)]
 				}
 				JX = JX + (*INCX)
@@ -338,7 +338,7 @@ func ZGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *complex128, A *
 				TEMP = (*ALPHA) * (*X)[JX-(1)]
 				IY = KY
 				K = KUP1 - J
-				for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
+				for I = intrinsic.MAX(int(1), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
 					(*Y)[IY-(1)] = (*Y)[IY-(1)] + TEMP*(*A)[K+I-(1)][J-(1)]
 					IY = IY + (*INCY)
 				}
@@ -358,11 +358,11 @@ func ZGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *complex128, A *
 				TEMP = ZERO
 				K = KUP1 - J
 				if NOCONJ {
-					for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
+					for I = intrinsic.MAX(int(1), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
 						TEMP = TEMP + (*A)[K+I-(1)][J-(1)]*(*X)[I-(1)]
 					}
 				} else {
-					for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
+					for I = intrinsic.MAX(int(1), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
 						TEMP = TEMP + intrinsic.DCONJG((*A)[K+I-(1)][J-(1)])*(*X)[I-(1)]
 					}
 				}
@@ -375,12 +375,12 @@ func ZGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *complex128, A *
 				IX = KX
 				K = KUP1 - J
 				if NOCONJ {
-					for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
+					for I = intrinsic.MAX(int(1), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
 						TEMP = TEMP + (*A)[K+I-(1)][J-(1)]*(*X)[IX-(1)]
 						IX = IX + (*INCX)
 					}
 				} else {
-					for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
+					for I = intrinsic.MAX(int(1), J-(*KU)); I <= intrinsic.MIN((*M), J+(*KL)); I++ {
 						TEMP = TEMP + intrinsic.DCONJG((*A)[K+I-(1)][J-(1)])*(*X)[IX-(1)]
 						IX = IX + (*INCX)
 					}

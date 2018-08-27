@@ -285,7 +285,7 @@ func CTBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex64
 							(*X)[J-(1)] = (*X)[J-(1)] / (*A)[KPLUS1-(1)][J-(1)]
 						}
 						TEMP = (*X)[J-(1)]
-						for I = J - 1; I <= intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I += -1 {
+						for I = J - 1; I <= intrinsic.MAX(int(1), J-(*K)); I += -1 {
 							(*X)[I-(1)] = (*X)[I-(1)] - TEMP*(*A)[L+I-(1)][J-(1)]
 						}
 					}
@@ -302,7 +302,7 @@ func CTBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex64
 							(*X)[JX-(1)] = (*X)[JX-(1)] / (*A)[KPLUS1-(1)][J-(1)]
 						}
 						TEMP = (*X)[JX-(1)]
-						for I = J - 1; I <= intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I += -1 {
+						for I = J - 1; I <= intrinsic.MAX(int(1), J-(*K)); I += -1 {
 							(*X)[IX-(1)] = (*X)[IX-(1)] - TEMP*(*A)[L+I-(1)][J-(1)]
 							IX = IX - (*INCX)
 						}
@@ -355,14 +355,14 @@ func CTBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex64
 					TEMP = (*X)[J-(1)]
 					L = KPLUS1 - J
 					if NOCONJ {
-						for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+						for I = intrinsic.MAX(int(1), J-(*K)); I <= J-1; I++ {
 							TEMP = TEMP - (*A)[L+I-(1)][J-(1)]*(*X)[I-(1)]
 						}
 						if NOUNIT {
 							TEMP = TEMP / (*A)[KPLUS1-(1)][J-(1)]
 						}
 					} else {
-						for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+						for I = intrinsic.MAX(int(1), J-(*K)); I <= J-1; I++ {
 							TEMP = TEMP - intrinsic.CONJG((*A)[L+I-(1)][J-(1)])*(*X)[I-(1)]
 						}
 						if NOUNIT {
@@ -378,7 +378,7 @@ func CTBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex64
 					IX = KX
 					L = KPLUS1 - J
 					if NOCONJ {
-						for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+						for I = intrinsic.MAX(int(1), J-(*K)); I <= J-1; I++ {
 							TEMP = TEMP - (*A)[L+I-(1)][J-(1)]*(*X)[IX-(1)]
 							IX = IX + (*INCX)
 						}
@@ -386,7 +386,7 @@ func CTBSV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, K *int, A *[][]complex64
 							TEMP = TEMP / (*A)[KPLUS1-(1)][J-(1)]
 						}
 					} else {
-						for I = intrinsic.MAX(func()*int{y:=1;return &y}(), J-(*K)); I <= J-1; I++ {
+						for I = intrinsic.MAX(int(1), J-(*K)); I <= J-1; I++ {
 							TEMP = TEMP - intrinsic.CONJG((*A)[L+I-(1)][J-(1)])*(*X)[IX-(1)]
 							IX = IX + (*INCX)
 						}

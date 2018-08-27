@@ -178,7 +178,7 @@ func ZHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex128, INCX *int, A *[][
 		INFO = 2
 	} else if (*INCX) == 0 {
 		INFO = 5
-	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*N)) {
+	} else if (*LDA) < intrinsic.MAX(int(1), (*N)) {
 		INFO = 7
 	}
 	if INFO != 0 {
@@ -188,7 +188,7 @@ func ZHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex128, INCX *int, A *[][
 	//*
 	//*     Quick return if possible.
 	//*
-	if ((*N) == 0) || ((*ALPHA) == DBLE(&(ZERO))) {
+	if ((*N) == 0) || ((*ALPHA) == intrinsic.DBLE(ZERO)) {
 		return
 	}
 	//*
@@ -215,9 +215,9 @@ func ZHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex128, INCX *int, A *[][
 					for I = 1; I <= J-1; I++ {
 						(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[I-(1)]*TEMP
 					}
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)])) + DBLE((*X)[J-(1)]*TEMP)
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)]) + intrinsic.DBLE((*X)[J-(1)]*TEMP)
 				} else {
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)]))
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)])
 				}
 			}
 		} else {
@@ -230,9 +230,9 @@ func ZHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex128, INCX *int, A *[][
 						(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[IX-(1)]*TEMP
 						IX = IX + (*INCX)
 					}
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)])) + DBLE((*X)[JX-(1)]*TEMP)
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)]) + intrinsic.DBLE((*X)[JX-(1)]*TEMP)
 				} else {
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)]))
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)])
 				}
 				JX = JX + (*INCX)
 			}
@@ -245,12 +245,12 @@ func ZHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex128, INCX *int, A *[][
 			for J = 1; J <= (*N); J++ {
 				if (*X)[J-(1)] != ZERO {
 					TEMP = (*ALPHA) * intrinsic.DCONJG((*X)[J-(1)])
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)])) + DBLE(TEMP*(*X)[J-(1)])
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)]) + intrinsic.DBLE(TEMP*(*X)[J-(1)])
 					for I = J + 1; I <= (*N); I++ {
 						(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[I-(1)]*TEMP
 					}
 				} else {
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)]))
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)])
 				}
 			}
 		} else {
@@ -258,14 +258,14 @@ func ZHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex128, INCX *int, A *[][
 			for J = 1; J <= (*N); J++ {
 				if (*X)[JX-(1)] != ZERO {
 					TEMP = (*ALPHA) * intrinsic.DCONJG((*X)[JX-(1)])
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)])) + DBLE(TEMP*(*X)[JX-(1)])
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)]) + intrinsic.DBLE(TEMP*(*X)[JX-(1)])
 					IX = JX
 					for I = J + 1; I <= (*N); I++ {
 						IX = IX + (*INCX)
 						(*A)[I-(1)][J-(1)] = (*A)[I-(1)][J-(1)] + (*X)[IX-(1)]*TEMP
 					}
 				} else {
-					(*A)[J-(1)][J-(1)] = DBLE(&((*A)[J-(1)][J-(1)]))
+					(*A)[J-(1)][J-(1)] = intrinsic.DBLE((*A)[J-(1)][J-(1)])
 				}
 				JX = JX + (*INCX)
 			}

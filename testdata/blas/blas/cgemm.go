@@ -263,11 +263,11 @@ func CGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *complex64,
 		INFO = 4
 	} else if (*K) < 0 {
 		INFO = 5
-	} else if (*LDA) < intrinsic.MAX(func()*int{y:=1;return &y}(), NROWA) {
+	} else if (*LDA) < intrinsic.MAX(int(1), NROWA) {
 		INFO = 8
-	} else if (*LDB) < intrinsic.MAX(func()*int{y:=1;return &y}(), NROWB) {
+	} else if (*LDB) < intrinsic.MAX(int(1), NROWB) {
 		INFO = 10
-	} else if (*LDC) < intrinsic.MAX(func()*int{y:=1;return &y}(), (*M)) {
+	} else if (*LDC) < intrinsic.MAX(int(1), (*M)) {
 		INFO = 13
 	}
 	if INFO != 0 {
