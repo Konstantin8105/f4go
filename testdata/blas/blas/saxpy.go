@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SAXPY
 //*
 //*  =========== DOCUMENTATION ===========
@@ -124,7 +126,7 @@ func SAXPY(N *int, SA *float64, SX *[]float64, INCX *int, SY *[]float64, INCY *i
 		//*
 		//*        clean-up loop
 		//*
-		M = MOD(N, func()*int{y:=4;return &y}())
+		M = intrinsic.MOD((*N), int(4))
 		if M != 0 {
 			for I = 1; I <= M; I++ {
 				(*SY)[I-(1)] = (*SY)[I-(1)] + (*SA)*(*SX)[I-(1)]

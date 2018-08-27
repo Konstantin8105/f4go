@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b DAXPY
 //*
 //*  =========== DOCUMENTATION ===========
@@ -124,7 +126,7 @@ func DAXPY(N *int, DA *float64, DX *[]float64, INCX *int, DY *[]float64, INCY *i
 		//*
 		//*        clean-up loop
 		//*
-		M = MOD(N, func()*int{y:=4;return &y}())
+		M = intrinsic.MOD((*N), int(4))
 		if M != 0 {
 			for I = 1; I <= M; I++ {
 				(*DY)[I-(1)] = (*DY)[I-(1)] + (*DA)*(*DX)[I-(1)]

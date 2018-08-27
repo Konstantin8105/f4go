@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SSCAL
 //*
 //*  =========== DOCUMENTATION ===========
@@ -110,7 +112,7 @@ func SSCAL(N *int, SA *float64, SX *[]float64, INCX *int) {
 		//*
 		//*        clean-up loop
 		//*
-		M = MOD(N, func()*int{y:=5;return &y}())
+		M = intrinsic.MOD((*N), int(5))
 		if M != 0 {
 			for I = 1; I <= M; I++ {
 				(*SX)[I-(1)] = (*SA) * (*SX)[I-(1)]

@@ -83,15 +83,15 @@ func CROTG(CA *complex64, CB *complex64, C *float64, S *complex64) {
 	//*     ..
 	//*     .. Intrinsic Functions ..
 	//*     ..
-	if CABS(CA) == 0. {
+	if intrinsic.CABS((*CA)) == 0. {
 		(*C) = 0.
 		(*S) = (1. + (0.)*1i)
 		(*CA) = (*CB)
 	} else {
-		SCALE = CABS(CA) + CABS(CB)
-		NORM = SCALE * SQRT(math.Pow((CABS((*CA)/SCALE)), 2)+math.Pow((CABS((*CB)/SCALE)), 2))
-		ALPHA = (*CA) / CABS(CA)
-		(*C) = CABS(CA) / NORM
+		SCALE = intrinsic.CABS((*CA)) + intrinsic.CABS((*CB))
+		NORM = SCALE * SQRT(math.Pow((intrinsic.CABS((*CA)/SCALE)), 2)+math.Pow((intrinsic.CABS((*CB)/SCALE)), 2))
+		ALPHA = (*CA) / intrinsic.CABS((*CA))
+		(*C) = intrinsic.CABS((*CA)) / NORM
 		(*S) = ALPHA * intrinsic.CONJG((*CB)) / NORM
 		(*CA) = ALPHA * NORM
 	}

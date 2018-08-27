@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SSWAP
 //*
 //*  =========== DOCUMENTATION ===========
@@ -115,7 +117,7 @@ func SSWAP(N *int, SX *[]float64, INCX *int, SY *[]float64, INCY *int) {
 		//*
 		//*       clean-up loop
 		//*
-		M = MOD(N, func()*int{y:=3;return &y}())
+		M = intrinsic.MOD((*N), int(3))
 		if M != 0 {
 			for I = 1; I <= M; I++ {
 				STEMP = (*SX)[I-(1)]

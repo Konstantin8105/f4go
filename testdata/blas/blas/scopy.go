@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SCOPY
 //*
 //*  =========== DOCUMENTATION ===========
@@ -114,7 +116,7 @@ func SCOPY(N *int, SX *[]float64, INCX *int, SY *[]float64, INCY *int) {
 		//*
 		//*        clean-up loop
 		//*
-		M = MOD(N, func()*int{y:=7;return &y}())
+		M = intrinsic.MOD((*N), int(7))
 		if M != 0 {
 			for I = 1; I <= M; I++ {
 				(*SY)[I-(1)] = (*SX)[I-(1)]

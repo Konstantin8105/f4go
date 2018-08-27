@@ -52,6 +52,10 @@ func ABS(a float64) float64 {
 	return math.Abs(a)
 }
 
+func CABS(a complex128) float64 {
+	return cmplx.Abs(a)
+}
+
 func SIGN(a float64) float64 {
 	if a < 0.0 {
 		return -1

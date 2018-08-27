@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b SDOT
 //*
 //*  =========== DOCUMENTATION ===========
@@ -117,7 +119,7 @@ func SDOT(N *int, SX *[]float64, INCX *int, SY *[]float64, INCY *int) (SDOT_RES 
 		//*
 		//*        clean-up loop
 		//*
-		M = MOD(N, func()*int{y:=5;return &y}())
+		M = intrinsic.MOD((*N), int(5))
 		if M != 0 {
 			for I = 1; I <= M; I++ {
 				STEMP = STEMP + (*SX)[I-(1)]*(*SY)[I-(1)]

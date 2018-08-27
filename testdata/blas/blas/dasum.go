@@ -106,7 +106,7 @@ func DASUM(N *int, DX *[]float64, INCX *int) (DASUM_RES float64) {
 		//*
 		//*        clean-up loop
 		//*
-		M = MOD(N, func()*int{y:=6;return &y}())
+		M = intrinsic.MOD((*N), int(6))
 		if M != 0 {
 			for I = 1; I <= M; I++ {
 				DTEMP = DTEMP + intrinsic.ABS((*DX)[I-(1)])

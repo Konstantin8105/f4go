@@ -138,6 +138,11 @@ var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 		intrinsicArgumentCorrection(p, f, "intrinsic.ABS", typeNames)
 	},
+	"CABS": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"complex128"}
+		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+		intrinsicArgumentCorrection(p, f, "intrinsic.CABS", typeNames)
+	},
 	"SIGN": func(p *parser, f *goast.CallExpr) {
 		typeNames := []string{"float64"}
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
@@ -147,6 +152,11 @@ var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 		typeNames := []string{"float64"}
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 		intrinsicArgumentCorrection(p, f, "intrinsic.DSIGN", typeNames)
+	},
+	"MOD": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"int", "int"}
+		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+		intrinsicArgumentCorrection(p, f, "intrinsic.MOD", typeNames)
 	},
 }
 

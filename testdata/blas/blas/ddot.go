@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b DDOT
 //*
 //*  =========== DOCUMENTATION ===========
@@ -117,7 +119,7 @@ func DDOT(N *int, DX *[]float64, INCX *int, DY *[]float64, INCY *int) (DDOT_RES 
 		//*
 		//*        clean-up loop
 		//*
-		M = MOD(N, func()*int{y:=5;return &y}())
+		M = intrinsic.MOD((*N), int(5))
 		if M != 0 {
 			for I = 1; I <= M; I++ {
 				DTEMP = DTEMP + (*DX)[I-(1)]*(*DY)[I-(1)]

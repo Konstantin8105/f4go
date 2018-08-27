@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b DCOPY
 //*
 //*  =========== DOCUMENTATION ===========
@@ -114,7 +116,7 @@ func DCOPY(N *int, DX *[]float64, INCX *int, DY *[]float64, INCY *int) {
 		//*
 		//*        clean-up loop
 		//*
-		M = MOD(N, func()*int{y:=7;return &y}())
+		M = intrinsic.MOD((*N), int(7))
 		if M != 0 {
 			for I = 1; I <= M; I++ {
 				(*DY)[I-(1)] = (*DX)[I-(1)]

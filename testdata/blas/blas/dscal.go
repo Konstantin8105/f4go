@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b DSCAL
 //*
 //*  =========== DOCUMENTATION ===========
@@ -110,7 +112,7 @@ func DSCAL(N *int, DA *float64, DX *[]float64, INCX *int) {
 		//*
 		//*        clean-up loop
 		//*
-		M = MOD(N, func()*int{y:=5;return &y}())
+		M = intrinsic.MOD((*N), int(5))
 		if M != 0 {
 			for I = 1; I <= M; I++ {
 				(*DX)[I-(1)] = (*DA) * (*DX)[I-(1)]

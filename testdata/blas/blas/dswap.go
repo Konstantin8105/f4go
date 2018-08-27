@@ -1,4 +1,6 @@
 package main
+
+import "github.com/Konstantin8105/f4go/intrinsic"
 //*> \brief \b DSWAP
 //*
 //*  =========== DOCUMENTATION ===========
@@ -115,7 +117,7 @@ func DSWAP(N *int, DX *[]float64, INCX *int, DY *[]float64, INCY *int) {
 		//*
 		//*       clean-up loop
 		//*
-		M = MOD(N, func()*int{y:=3;return &y}())
+		M = intrinsic.MOD((*N), int(3))
 		if M != 0 {
 			for I = 1; I <= M; I++ {
 				DTEMP = (*DX)[I-(1)]
