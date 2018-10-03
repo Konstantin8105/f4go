@@ -145,7 +145,7 @@ func CAXPY(N *int, CA *complex64, CX *[]complex64, INCX *int, CY *[]complex64, I
 
 Fortran 77 | Golang
 ---------- | ------------
-all argumenfs of function are pointers | ?
+all arguments of function are pointers | ?
 all arguments of intrisic function are pointers | ?
 all internal function variables are pointers | ?
 
