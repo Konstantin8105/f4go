@@ -1266,8 +1266,8 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		stmts = append(stmts, s...)
 
 	case ftAssign:
-		p.addError("ASSIGN is not support :" + p.getLine())
-		p.gotoEndLine()
+		s := p.parseAssign()
+		stmts = append(stmts, s...)
 
 	case ftDefine:
 		p.addError("#DEFINE is not support :" + p.getLine())
@@ -2043,5 +2043,32 @@ func (p *parser) parseParameter() (stmts []goast.Stmt) {
 
 	p.expect(token.RPAREN)
 	p.ident++
+	return
+}
+
+func (p *parser) parseAssign() (stmts []goast.Stmt) {
+	p.expect(ftAssign)
+	p.ident++
+
+	statement := string(p.ns[p.ident].b)
+	p.ident++
+
+	// ignore TO
+	p.ident++
+
+	intVar := string(p.ns[p.ident].b)
+	p.ident++
+	stmts = append(stmts, &goast.ExprStmt{
+		X: goast.NewIdent("// ASSIGN " + statement + " TO " + intVar),
+	}, &goast.AssignStmt{
+		Lhs: []goast.Expr{goast.NewIdent(intVar)},
+		Tok: token.ASSIGN,
+		Rhs: []goast.Expr{goast.NewIdent(statement)},
+	}, &goast.AssignStmt{
+		Lhs: []goast.Expr{goast.NewIdent("_")},
+		Tok: token.ASSIGN,
+		Rhs: []goast.Expr{goast.NewIdent(intVar)},
+	})
+
 	return
 }
