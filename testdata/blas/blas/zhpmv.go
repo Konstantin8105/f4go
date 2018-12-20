@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b ZHPMV
 //*
 //*  =========== DOCUMENTATION ===========
@@ -193,7 +194,7 @@ func ZHPMV(UPLO *byte, N *int, ALPHA *complex128, AP *[]complex128, X *[]complex
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
+	if !LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) && !LSAME(UPLO, func() *byte { y := byte('L'); return &y }()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -203,7 +204,7 @@ func ZHPMV(UPLO *byte, N *int, ALPHA *complex128, AP *[]complex128, X *[]complex
 		INFO = 9
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("ZHPMV ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("ZHPMV "); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -261,7 +262,7 @@ func ZHPMV(UPLO *byte, N *int, ALPHA *complex128, AP *[]complex128, X *[]complex
 		return
 	}
 	KK = 1
-	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
+	if LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) {
 		//*
 		//*        Form  y  when AP contains the upper triangle.
 		//*

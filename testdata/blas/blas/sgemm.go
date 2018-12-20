@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b SGEMM
 //*
 //*  =========== DOCUMENTATION ===========
@@ -229,8 +230,8 @@ func SGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *float64, A
 	//*     transposed and set  NROWA, NCOLA and  NROWB  as the number of rows
 	//*     and  columns of  A  and the  number of  rows  of  B  respectively.
 	//*
-	NOTA = LSAME(TRANSA, func()*byte{y:=byte('N');return &y}())
-	NOTB = LSAME(TRANSB, func()*byte{y:=byte('N');return &y}())
+	NOTA = LSAME(TRANSA, func() *byte { y := byte('N'); return &y }())
+	NOTB = LSAME(TRANSB, func() *byte { y := byte('N'); return &y }())
 	if NOTA {
 		NROWA = (*M)
 		NCOLA = (*K)
@@ -247,9 +248,9 @@ func SGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *float64, A
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if (!NOTA) && (!LSAME(TRANSA, func()*byte{y:=byte('C');return &y}())) && (!LSAME(TRANSA, func()*byte{y:=byte('T');return &y}())) {
+	if (!NOTA) && (!LSAME(TRANSA, func() *byte { y := byte('C'); return &y }())) && (!LSAME(TRANSA, func() *byte { y := byte('T'); return &y }())) {
 		INFO = 1
-	} else if (!NOTB) && (!LSAME(TRANSB, func()*byte{y:=byte('C');return &y}())) && (!LSAME(TRANSB, func()*byte{y:=byte('T');return &y}())) {
+	} else if (!NOTB) && (!LSAME(TRANSB, func() *byte { y := byte('C'); return &y }())) && (!LSAME(TRANSB, func() *byte { y := byte('T'); return &y }())) {
 		INFO = 2
 	} else if (*M) < 0 {
 		INFO = 3
@@ -265,7 +266,7 @@ func SGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *float64, A
 		INFO = 13
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("SGEMM ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("SGEMM "); return &y }(), &(INFO))
 		return
 	}
 	//*

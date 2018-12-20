@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b CGERU
 //*
 //*  =========== DOCUMENTATION ===========
@@ -177,7 +178,7 @@ func CGERU(M *int, N *int, ALPHA *complex64, X *[]complex64, INCX *int, Y *[]com
 		INFO = 9
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("CGERU ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("CGERU "); return &y }(), &(INFO))
 		return
 	}
 	//*

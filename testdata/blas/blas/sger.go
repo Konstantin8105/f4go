@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b SGER
 //*
 //*  =========== DOCUMENTATION ===========
@@ -177,7 +178,7 @@ func SGER(M *int, N *int, ALPHA *float64, X *[]float64, INCX *int, Y *[]float64,
 		INFO = 9
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("SGER  ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("SGER  "); return &y }(), &(INFO))
 		return
 	}
 	//*

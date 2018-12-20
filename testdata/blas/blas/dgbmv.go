@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b DGBMV
 //*
 //*  =========== DOCUMENTATION ===========
@@ -230,7 +231,7 @@ func DGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *float64, A *[][
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('T');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('C');return &y}()) {
+	if !LSAME(TRANS, func() *byte { y := byte('N'); return &y }()) && !LSAME(TRANS, func() *byte { y := byte('T'); return &y }()) && !LSAME(TRANS, func() *byte { y := byte('C'); return &y }()) {
 		INFO = 1
 	} else if (*M) < 0 {
 		INFO = 2
@@ -248,7 +249,7 @@ func DGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *float64, A *[][
 		INFO = 13
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("DGBMV ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("DGBMV "); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -261,7 +262,7 @@ func DGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *float64, A *[][
 	//*     Set  LENX  and  LENY, the lengths of the vectors x and y, and set
 	//*     up the start points in  X  and  Y.
 	//*
-	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
+	if LSAME(TRANS, func() *byte { y := byte('N'); return &y }()) {
 		LENX = (*N)
 		LENY = (*M)
 	} else {
@@ -314,7 +315,7 @@ func DGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *float64, A *[][
 		return
 	}
 	KUP1 = (*KU) + 1
-	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
+	if LSAME(TRANS, func() *byte { y := byte('N'); return &y }()) {
 		//*
 		//*        Form  y := alpha*A*x + y.
 		//*

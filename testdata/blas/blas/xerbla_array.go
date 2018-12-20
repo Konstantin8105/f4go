@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b XERBLA_ARRAY
 //*
 //*  =========== DOCUMENTATION ===========
@@ -107,7 +108,7 @@ func XERBLA_ARRAY(SRNAME_ARRAY *[]byte, SRNAME_LEN *int, INFO *int) {
 	//*     .. External Functions ..
 	//*     ..
 	//*     .. Executable Statements ..
-	SRNAME = *func()*[]byte{y:=[]byte("");return &y}()
+	SRNAME = *func() *[]byte { y := []byte(""); return &y }()
 	for I = 1; I <= intrinsic.MIN((*SRNAME_LEN), len(SRNAME)); I++ {
 		SRNAME[I-(1)] = (*SRNAME_ARRAY)[I-(1)]
 	}

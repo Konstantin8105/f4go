@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b CHER
 //*
 //*  =========== DOCUMENTATION ===========
@@ -172,7 +173,7 @@ func CHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex64, INCX *int, A *[][]
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
+	if !LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) && !LSAME(UPLO, func() *byte { y := byte('L'); return &y }()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -182,7 +183,7 @@ func CHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex64, INCX *int, A *[][]
 		INFO = 7
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("CHER  ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("CHER  "); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -204,7 +205,7 @@ func CHER(UPLO *byte, N *int, ALPHA *float64, X *[]complex64, INCX *int, A *[][]
 	//*     accessed sequentially with one pass through the triangular part
 	//*     of A.
 	//*
-	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
+	if LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) {
 		//*
 		//*        Form  A  when A is stored in upper triangle.
 		//*

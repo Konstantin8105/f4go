@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b ZTPMV
 //*
 //*  =========== DOCUMENTATION ===========
@@ -183,11 +184,11 @@ func ZTPMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, AP *[]complex128, X *[]c
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
+	if !LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) && !LSAME(UPLO, func() *byte { y := byte('L'); return &y }()) {
 		INFO = 1
-	} else if !LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('T');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('C');return &y}()) {
+	} else if !LSAME(TRANS, func() *byte { y := byte('N'); return &y }()) && !LSAME(TRANS, func() *byte { y := byte('T'); return &y }()) && !LSAME(TRANS, func() *byte { y := byte('C'); return &y }()) {
 		INFO = 2
-	} else if !LSAME(DIAG, func()*byte{y:=byte('U');return &y}()) && !LSAME(DIAG, func()*byte{y:=byte('N');return &y}()) {
+	} else if !LSAME(DIAG, func() *byte { y := byte('U'); return &y }()) && !LSAME(DIAG, func() *byte { y := byte('N'); return &y }()) {
 		INFO = 3
 	} else if (*N) < 0 {
 		INFO = 4
@@ -195,7 +196,7 @@ func ZTPMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, AP *[]complex128, X *[]c
 		INFO = 7
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("ZTPMV ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("ZTPMV "); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -205,8 +206,8 @@ func ZTPMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, AP *[]complex128, X *[]c
 		return
 	}
 	//*
-	NOCONJ = LSAME(TRANS, func()*byte{y:=byte('T');return &y}())
-	NOUNIT = LSAME(DIAG, func()*byte{y:=byte('N');return &y}())
+	NOCONJ = LSAME(TRANS, func() *byte { y := byte('T'); return &y }())
+	NOUNIT = LSAME(DIAG, func() *byte { y := byte('N'); return &y }())
 	//*
 	//*     Set up the start point in X if the increment is not unity. This
 	//*     will be  ( N - 1 )*INCX  too small for descending loops.
@@ -220,11 +221,11 @@ func ZTPMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, AP *[]complex128, X *[]c
 	//*     Start the operations. In this version the elements of AP are
 	//*     accessed sequentially with one pass through AP.
 	//*
-	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
+	if LSAME(TRANS, func() *byte { y := byte('N'); return &y }()) {
 		//*
 		//*        Form  x:= A*x.
 		//*
-		if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
+		if LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) {
 			KK = 1
 			if (*INCX) == 1 {
 				for J = 1; J <= (*N); J++ {
@@ -300,7 +301,7 @@ func ZTPMV(UPLO *byte, TRANS *byte, DIAG *byte, N *int, AP *[]complex128, X *[]c
 		//*
 		//*        Form  x := A**T*x  or  x := A**H*x.
 		//*
-		if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
+		if LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) {
 			KK = ((*N) * ((*N) + 1)) / 2
 			if (*INCX) == 1 {
 				for J = (*N); J <= 1; J += -1 {

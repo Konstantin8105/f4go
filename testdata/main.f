@@ -410,6 +410,11 @@ C -----------------------------------------------------
             Logical L1(0:1, 0:1)
             DATA    L1 / .FALSE.,.FALSE.,.FALSE.,.FALSE. /
 
+            DATA CHEPS/2.22D-16/
+            IF (CHEPS - 2.22D-16 .LT. 0) THEN
+                CALL FAIL("TEST_DATA: CHEPS")
+            END IF
+
             if ( r .NE. 25) then 
                 call fail("test_data 1")
             end if

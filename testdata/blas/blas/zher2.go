@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b ZHER2
 //*
 //*  =========== DOCUMENTATION ===========
@@ -191,7 +192,7 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
+	if !LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) && !LSAME(UPLO, func() *byte { y := byte('L'); return &y }()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -203,7 +204,7 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 		INFO = 9
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("ZHER2 ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("ZHER2 "); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -235,7 +236,7 @@ func ZHER2(UPLO *byte, N *int, ALPHA *complex128, X *[]complex128, INCX *int, Y 
 	//*     accessed sequentially with one pass through the triangular part
 	//*     of A.
 	//*
-	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
+	if LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) {
 		//*
 		//*        Form  A  when A is stored in the upper triangle.
 		//*

@@ -58,9 +58,9 @@ func TestIntegration(t *testing.T) {
 	}
 
 	if !bytes.Equal(fortranOutput, goOutput) {
-		// t.Errorf("Results is not same: `%v` != `%v`",
-		// 	string(fortranOutput),
-		// 	string(goOutput))
+		t.Errorf("Results is not same :\n`%v`\n`%v`",
+			string(fortranOutput),
+			string(goOutput))
 		fortLines := bytes.Split(fortranOutput, []byte("\n"))
 		goLines := bytes.Split(goOutput, []byte("\n"))
 		if len(fortLines) != len(goLines) {
@@ -72,7 +72,7 @@ func TestIntegration(t *testing.T) {
 		}
 		for i := 0; i < length; i++ {
 			if !bytes.Equal(fortLines[i], goLines[i]) {
-				t.Errorf("Results is not same in line %d: `%v` != `%v`",
+				t.Errorf("Results is not same in line %d: `%v`\n`%v`",
 					i,
 					string(fortLines[i]),
 					string(goLines[i]))

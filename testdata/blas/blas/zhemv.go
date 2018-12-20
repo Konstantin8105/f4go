@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b ZHEMV
 //*
 //*  =========== DOCUMENTATION ===========
@@ -196,7 +197,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
+	if !LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) && !LSAME(UPLO, func() *byte { y := byte('L'); return &y }()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -208,7 +209,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 		INFO = 10
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("ZHEMV ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("ZHEMV "); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -266,7 +267,7 @@ func ZHEMV(UPLO *byte, N *int, ALPHA *complex128, A *[][]complex128, LDA *int, X
 	if (*ALPHA) == ZERO {
 		return
 	}
-	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
+	if LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) {
 		//*
 		//*        Form  y  when A is stored in upper triangle.
 		//*

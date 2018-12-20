@@ -1,4 +1,5 @@
 package main
+
 //*> \brief \b ZDSCAL
 //*
 //*  =========== DOCUMENTATION ===========
@@ -105,7 +106,7 @@ func ZDSCAL(N *int, DA *float64, ZX *[]complex128, INCX *int) {
 		//*        code for increment equal to 1
 		//*
 		for I = 1; I <= (*N); I++ {
-			(*ZX)[I-(1)] = DCMPLX(DA, func()*float64{y:=0.0e0;return &y}()) * (*ZX)[I-(1)]
+			(*ZX)[I-(1)] = DCMPLX(DA, func() *float64 { y := 0.0e0; return &y }()) * (*ZX)[I-(1)]
 		}
 	} else {
 		//*
@@ -113,7 +114,7 @@ func ZDSCAL(N *int, DA *float64, ZX *[]complex128, INCX *int) {
 		//*
 		NINCX = (*N) * (*INCX)
 		for I = 1; I <= NINCX; I += (*INCX) {
-			(*ZX)[I-(1)] = DCMPLX(DA, func()*float64{y:=0.0e0;return &y}()) * (*ZX)[I-(1)]
+			(*ZX)[I-(1)] = DCMPLX(DA, func() *float64 { y := 0.0e0; return &y }()) * (*ZX)[I-(1)]
 		}
 	}
 	return

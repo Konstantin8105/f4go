@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b CHPMV
 //*
 //*  =========== DOCUMENTATION ===========
@@ -193,7 +194,7 @@ func CHPMV(UPLO *byte, N *int, ALPHA *complex64, AP *[]complex64, X *[]complex64
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
+	if !LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) && !LSAME(UPLO, func() *byte { y := byte('L'); return &y }()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -203,7 +204,7 @@ func CHPMV(UPLO *byte, N *int, ALPHA *complex64, AP *[]complex64, X *[]complex64
 		INFO = 9
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("CHPMV ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("CHPMV "); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -261,7 +262,7 @@ func CHPMV(UPLO *byte, N *int, ALPHA *complex64, AP *[]complex64, X *[]complex64
 		return
 	}
 	KK = 1
-	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
+	if LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) {
 		//*
 		//*        Form  y  when AP contains the upper triangle.
 		//*

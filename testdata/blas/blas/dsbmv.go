@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b DSBMV
 //*
 //*  =========== DOCUMENTATION ===========
@@ -228,7 +229,7 @@ func DSBMV(UPLO *byte, N *int, K *int, ALPHA *float64, A *[][]float64, LDA *int,
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
+	if !LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) && !LSAME(UPLO, func() *byte { y := byte('L'); return &y }()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -242,7 +243,7 @@ func DSBMV(UPLO *byte, N *int, K *int, ALPHA *float64, A *[][]float64, LDA *int,
 		INFO = 11
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("DSBMV ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("DSBMV "); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -299,7 +300,7 @@ func DSBMV(UPLO *byte, N *int, K *int, ALPHA *float64, A *[][]float64, LDA *int,
 	if (*ALPHA) == ZERO {
 		return
 	}
-	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
+	if LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) {
 		//*
 		//*        Form  y  when upper triangle of A is stored.
 		//*

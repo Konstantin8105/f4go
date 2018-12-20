@@ -2,6 +2,7 @@ package main
 
 import "math"
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b SCNRM2
 //*
 //*  =========== DOCUMENTATION ===========

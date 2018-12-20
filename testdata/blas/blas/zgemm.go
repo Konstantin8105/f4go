@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b ZGEMM
 //*
 //*  =========== DOCUMENTATION ===========
@@ -233,10 +234,10 @@ func ZGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *complex128
 	//*     NROWA, NCOLA and  NROWB  as the number of rows and  columns  of  A
 	//*     and the number of rows of  B  respectively.
 	//*
-	NOTA = LSAME(TRANSA, func()*byte{y:=byte('N');return &y}())
-	NOTB = LSAME(TRANSB, func()*byte{y:=byte('N');return &y}())
-	CONJA = LSAME(TRANSA, func()*byte{y:=byte('C');return &y}())
-	CONJB = LSAME(TRANSB, func()*byte{y:=byte('C');return &y}())
+	NOTA = LSAME(TRANSA, func() *byte { y := byte('N'); return &y }())
+	NOTB = LSAME(TRANSB, func() *byte { y := byte('N'); return &y }())
+	CONJA = LSAME(TRANSA, func() *byte { y := byte('C'); return &y }())
+	CONJB = LSAME(TRANSB, func() *byte { y := byte('C'); return &y }())
 	if NOTA {
 		NROWA = (*M)
 		NCOLA = (*K)
@@ -253,9 +254,9 @@ func ZGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *complex128
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if (!NOTA) && (!CONJA) && (!LSAME(TRANSA, func()*byte{y:=byte('T');return &y}())) {
+	if (!NOTA) && (!CONJA) && (!LSAME(TRANSA, func() *byte { y := byte('T'); return &y }())) {
 		INFO = 1
-	} else if (!NOTB) && (!CONJB) && (!LSAME(TRANSB, func()*byte{y:=byte('T');return &y}())) {
+	} else if (!NOTB) && (!CONJB) && (!LSAME(TRANSB, func() *byte { y := byte('T'); return &y }())) {
 		INFO = 2
 	} else if (*M) < 0 {
 		INFO = 3
@@ -271,7 +272,7 @@ func ZGEMM(TRANSA *byte, TRANSB *byte, M *int, N *int, K *int, ALPHA *complex128
 		INFO = 13
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("ZGEMM ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("ZGEMM "); return &y }(), &(INFO))
 		return
 	}
 	//*
