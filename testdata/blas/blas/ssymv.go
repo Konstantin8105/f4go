@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b SSYMV
 //*
 //*  =========== DOCUMENTATION ===========
@@ -194,7 +195,7 @@ func SSYMV(UPLO *byte, N *int, ALPHA *float64, A *[][]float64, LDA *int, X *[]fl
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
+	if !LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) && !LSAME(UPLO, func() *byte { y := byte('L'); return &y }()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -206,7 +207,7 @@ func SSYMV(UPLO *byte, N *int, ALPHA *float64, A *[][]float64, LDA *int, X *[]fl
 		INFO = 10
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("SSYMV ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("SSYMV "); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -264,7 +265,7 @@ func SSYMV(UPLO *byte, N *int, ALPHA *float64, A *[][]float64, LDA *int, X *[]fl
 	if (*ALPHA) == ZERO {
 		return
 	}
-	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
+	if LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) {
 		//*
 		//*        Form  y  when A is stored in upper triangle.
 		//*

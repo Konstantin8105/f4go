@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b CSYMM
 //*
 //*  =========== DOCUMENTATION ===========
@@ -227,19 +228,19 @@ func CSYMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex64, A *[][]comp
 	//*
 	//*     Set NROWA as the number of rows of A.
 	//*
-	if LSAME(SIDE, func()*byte{y:=byte('L');return &y}()) {
+	if LSAME(SIDE, func() *byte { y := byte('L'); return &y }()) {
 		NROWA = (*M)
 	} else {
 		NROWA = (*N)
 	}
-	UPPER = LSAME(UPLO, func()*byte{y:=byte('U');return &y}())
+	UPPER = LSAME(UPLO, func() *byte { y := byte('U'); return &y }())
 	//*
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if (!LSAME(SIDE, func()*byte{y:=byte('L');return &y}())) && (!LSAME(SIDE, func()*byte{y:=byte('R');return &y}())) {
+	if (!LSAME(SIDE, func() *byte { y := byte('L'); return &y }())) && (!LSAME(SIDE, func() *byte { y := byte('R'); return &y }())) {
 		INFO = 1
-	} else if (!UPPER) && (!LSAME(UPLO, func()*byte{y:=byte('L');return &y}())) {
+	} else if (!UPPER) && (!LSAME(UPLO, func() *byte { y := byte('L'); return &y }())) {
 		INFO = 2
 	} else if (*M) < 0 {
 		INFO = 3
@@ -253,7 +254,7 @@ func CSYMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex64, A *[][]comp
 		INFO = 12
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("CSYMM ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("CSYMM "); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -284,7 +285,7 @@ func CSYMM(SIDE *byte, UPLO *byte, M *int, N *int, ALPHA *complex64, A *[][]comp
 	//*
 	//*     Start the operations.
 	//*
-	if LSAME(SIDE, func()*byte{y:=byte('L');return &y}()) {
+	if LSAME(SIDE, func() *byte { y := byte('L'); return &y }()) {
 		//*
 		//*        Form  C := alpha*A*B + beta*C.
 		//*

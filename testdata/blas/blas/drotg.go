@@ -2,6 +2,7 @@ package main
 
 import "math"
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b DROTG
 //*
 //*  =========== DOCUMENTATION ===========
@@ -103,7 +104,7 @@ func DROTG(DA *float64, DB *float64, C *float64, S *float64) {
 		Z = 0.0e0
 	} else {
 		R = SCALE * DSQRT(math.Pow(((*DA)/SCALE), 2)+math.Pow(((*DB)/SCALE), 2))
-		R = DSIGN(func()*float64{y:=1.0e0;return &y}(), &(ROE)) * R
+		R = DSIGN(func() *float64 { y := 1.0e0; return &y }(), &(ROE)) * R
 		(*C) = (*DA) / R
 		(*S) = (*DB) / R
 		Z = 1.0e0

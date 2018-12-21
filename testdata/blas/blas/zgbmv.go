@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b ZGBMV
 //*
 //*  =========== DOCUMENTATION ===========
@@ -233,7 +234,7 @@ func ZGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *complex128, A *
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('T');return &y}()) && !LSAME(TRANS, func()*byte{y:=byte('C');return &y}()) {
+	if !LSAME(TRANS, func() *byte { y := byte('N'); return &y }()) && !LSAME(TRANS, func() *byte { y := byte('T'); return &y }()) && !LSAME(TRANS, func() *byte { y := byte('C'); return &y }()) {
 		INFO = 1
 	} else if (*M) < 0 {
 		INFO = 2
@@ -251,7 +252,7 @@ func ZGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *complex128, A *
 		INFO = 13
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("ZGBMV ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("ZGBMV "); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -261,12 +262,12 @@ func ZGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *complex128, A *
 		return
 	}
 	//*
-	NOCONJ = LSAME(TRANS, func()*byte{y:=byte('T');return &y}())
+	NOCONJ = LSAME(TRANS, func() *byte { y := byte('T'); return &y }())
 	//*
 	//*     Set  LENX  and  LENY, the lengths of the vectors x and y, and set
 	//*     up the start points in  X  and  Y.
 	//*
-	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
+	if LSAME(TRANS, func() *byte { y := byte('N'); return &y }()) {
 		LENX = (*N)
 		LENY = (*M)
 	} else {
@@ -319,7 +320,7 @@ func ZGBMV(TRANS *byte, M *int, N *int, KL *int, KU *int, ALPHA *complex128, A *
 		return
 	}
 	KUP1 = (*KU) + 1
-	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
+	if LSAME(TRANS, func() *byte { y := byte('N'); return &y }()) {
 		//*
 		//*        Form  y := alpha*A*x + y.
 		//*

@@ -1,4 +1,5 @@
 package main
+
 //*> \brief \b SSPMV
 //*
 //*  =========== DOCUMENTATION ===========
@@ -187,7 +188,7 @@ func SSPMV(UPLO *byte, N *int, ALPHA *float64, AP *[]float64, X *[]float64, INCX
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
+	if !LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) && !LSAME(UPLO, func() *byte { y := byte('L'); return &y }()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -197,7 +198,7 @@ func SSPMV(UPLO *byte, N *int, ALPHA *float64, AP *[]float64, X *[]float64, INCX
 		INFO = 9
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("SSPMV ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("SSPMV "); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -255,7 +256,7 @@ func SSPMV(UPLO *byte, N *int, ALPHA *float64, AP *[]float64, X *[]float64, INCX
 		return
 	}
 	KK = 1
-	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
+	if LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) {
 		//*
 		//*        Form  y  when AP contains the upper triangle.
 		//*

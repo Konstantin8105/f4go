@@ -7,6 +7,7 @@ import (
 	"go/format"
 	"go/token"
 	"io/ioutil"
+	"os/exec"
 	"runtime"
 	"strings"
 
@@ -25,8 +26,9 @@ func main() {
 func run() {
 	flag.Parse()
 
-	if flag.NFlag() == 0 {
-		flag.PrintDefaults()
+	if flag.NArg() < 1 {
+		flag.Usage()
+		return
 	}
 
 	if packageFlag == nil {
@@ -87,10 +89,18 @@ func parse(filename, packageName, goFilename string) []errorRow {
 		}
 	}
 
+	fmt.Println("\n\ngenerate : ", goFilename)
+
 	// save go source
 	if err = ioutil.WriteFile(goFilename, buf.Bytes(), 0644); err != nil {
 		return []errorRow{{err: fmt.Errorf("Cannot write Go source: %v", err), filename: filename}}
 	}
+
+	// gofmt simplification
+	_, _ = exec.Command("gofmt", "-s", "-w", goFilename).CombinedOutput()
+
+	// goimports
+	_, _ = exec.Command("goimport", "-w", goFilename).CombinedOutput()
 
 	return nil
 }

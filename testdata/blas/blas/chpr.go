@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b CHPR
 //*
 //*  =========== DOCUMENTATION ===========
@@ -169,7 +170,7 @@ func CHPR(UPLO *byte, N *int, ALPHA *float64, X *[]complex64, INCX *int, AP *[]c
 	//*     Test the input parameters.
 	//*
 	INFO = 0
-	if !LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) && !LSAME(UPLO, func()*byte{y:=byte('L');return &y}()) {
+	if !LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) && !LSAME(UPLO, func() *byte { y := byte('L'); return &y }()) {
 		INFO = 1
 	} else if (*N) < 0 {
 		INFO = 2
@@ -177,7 +178,7 @@ func CHPR(UPLO *byte, N *int, ALPHA *float64, X *[]complex64, INCX *int, AP *[]c
 		INFO = 5
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("CHPR  ");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("CHPR  "); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -199,7 +200,7 @@ func CHPR(UPLO *byte, N *int, ALPHA *float64, X *[]complex64, INCX *int, AP *[]c
 	//*     are accessed sequentially with one pass through AP.
 	//*
 	KK = 1
-	if LSAME(UPLO, func()*byte{y:=byte('U');return &y}()) {
+	if LSAME(UPLO, func() *byte { y := byte('U'); return &y }()) {
 		//*
 		//*        Form  A  when upper triangle is stored in AP.
 		//*

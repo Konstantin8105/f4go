@@ -2,6 +2,7 @@ package main
 
 import "math"
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b SROTG
 //*
 //*  =========== DOCUMENTATION ===========
@@ -103,7 +104,7 @@ func SROTG(SA *float64, SB *float64, C *float64, S *float64) {
 		Z = 0.0
 	} else {
 		R = SCALE * SQRT(math.Pow(((*SA)/SCALE), 2)+math.Pow(((*SB)/SCALE), 2))
-		R = SIGN(func()*float64{y:=1.0;return &y}(), &(ROE)) * R
+		R = SIGN(func() *float64 { y := 1.0; return &y }(), &(ROE)) * R
 		(*C) = (*SA) / R
 		(*S) = (*SB) / R
 		Z = 1.0

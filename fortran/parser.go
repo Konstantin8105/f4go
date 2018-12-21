@@ -6,6 +6,7 @@ import (
 	goast "go/ast"
 	goparser "go/parser"
 	"go/token"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -393,7 +394,7 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 		p.ns = comb
 		p.ident--
 
-		p.addError(fmt.Sprintf("Add fake PROGRAM MAIN in pos : %v", p.ns[p.ident].pos))
+		fmt.Fprintf(os.Stdout, "Add fake PROGRAM MAIN in pos : %v", p.ns[p.ident].pos)
 	}
 
 	return
@@ -1582,24 +1583,53 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			// LL                       - value
 			// LL                       - vector fully
 			// LL                       - matrix fully
-			if v, ok := p.initVars.get(nodesToString(name)); ok {
-				lenArray := p.getArrayLen(v.name)
-				isByte := v.typ.getBaseType() == "byte"
-				switch lenArray {
-				case 0:
+			v, ok := p.initVars.get(nodesToString(name))
+			if !ok {
+				p.initVars.add(nodesToString(name), goType{
+					baseType: "float64",
+				})
+				v, _ = p.initVars.get(nodesToString(name))
+			}
+			lenArray := p.getArrayLen(v.name)
+			isByte := v.typ.getBaseType() == "byte"
+			switch lenArray {
+			case 0:
+				nameExpr = append(nameExpr, tExpr{
+					expr:   p.parseExprNodes(name),
+					isByte: isByte,
+				})
+			case 1: // vector
+				size, ok := p.getSize(v.name, 0)
+				if !ok {
+					panic("Not ok : " + v.name)
+				}
+				for i := 0; i < size; i++ {
 					nameExpr = append(nameExpr, tExpr{
-						expr:   p.parseExprNodes(name),
-						isByte: isByte,
-					})
-				case 1: // vector
-					size, ok := p.getSize(v.name, 0)
-					if !ok {
-						panic("Not ok : " + v.name)
-					}
-					for i := 0; i < size; i++ {
+						expr: &goast.IndexExpr{
+							X:      goast.NewIdent(nodesToString(name)),
+							Lbrack: 1,
+							Index: &goast.BasicLit{
+								Kind:  token.INT,
+								Value: strconv.Itoa(i),
+							},
+						},
+						isByte: isByte})
+				}
+			case 2: // matrix
+				size0, _ := p.getSize(v.name, 0)
+				size1, _ := p.getSize(v.name, 1)
+				for i := 0; i < size0; i++ {
+					for j := 0; j < size1; j++ {
 						nameExpr = append(nameExpr, tExpr{
 							expr: &goast.IndexExpr{
-								X:      goast.NewIdent(nodesToString(name)),
+								X: &goast.IndexExpr{
+									X:      goast.NewIdent(nodesToString(name)),
+									Lbrack: 1,
+									Index: &goast.BasicLit{
+										Kind:  token.INT,
+										Value: strconv.Itoa(j),
+									},
+								},
 								Lbrack: 1,
 								Index: &goast.BasicLit{
 									Kind:  token.INT,
@@ -1608,15 +1638,25 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 							},
 							isByte: isByte})
 					}
-				case 2: // matrix
-					size0, _ := p.getSize(v.name, 0)
-					size1, _ := p.getSize(v.name, 1)
-					for i := 0; i < size0; i++ {
-						for j := 0; j < size1; j++ {
+				}
+			case 3: //matrix ()()()
+				size0, _ := p.getSize(v.name, 0)
+				size1, _ := p.getSize(v.name, 1)
+				size2, _ := p.getSize(v.name, 2)
+				for k := 0; k < size2; k++ {
+					for j := 0; j < size1; j++ {
+						for i := 0; i < size0; i++ {
 							nameExpr = append(nameExpr, tExpr{
 								expr: &goast.IndexExpr{
 									X: &goast.IndexExpr{
-										X:      goast.NewIdent(nodesToString(name)),
+										X: &goast.IndexExpr{
+											X:      goast.NewIdent(nodesToString(name)),
+											Lbrack: 1,
+											Index: &goast.BasicLit{
+												Kind:  token.INT,
+												Value: strconv.Itoa(i),
+											},
+										},
 										Lbrack: 1,
 										Index: &goast.BasicLit{
 											Kind:  token.INT,
@@ -1626,50 +1666,17 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 									Lbrack: 1,
 									Index: &goast.BasicLit{
 										Kind:  token.INT,
-										Value: strconv.Itoa(i),
+										Value: strconv.Itoa(k),
 									},
 								},
 								isByte: isByte})
 						}
 					}
-				case 3: //matrix ()()()
-					size0, _ := p.getSize(v.name, 0)
-					size1, _ := p.getSize(v.name, 1)
-					size2, _ := p.getSize(v.name, 2)
-					for k := 0; k < size2; k++ {
-						for j := 0; j < size1; j++ {
-							for i := 0; i < size0; i++ {
-								nameExpr = append(nameExpr, tExpr{
-									expr: &goast.IndexExpr{
-										X: &goast.IndexExpr{
-											X: &goast.IndexExpr{
-												X:      goast.NewIdent(nodesToString(name)),
-												Lbrack: 1,
-												Index: &goast.BasicLit{
-													Kind:  token.INT,
-													Value: strconv.Itoa(i),
-												},
-											},
-											Lbrack: 1,
-											Index: &goast.BasicLit{
-												Kind:  token.INT,
-												Value: strconv.Itoa(j),
-											},
-										},
-										Lbrack: 1,
-										Index: &goast.BasicLit{
-											Kind:  token.INT,
-											Value: strconv.Itoa(k),
-										},
-									},
-									isByte: isByte})
-							}
-						}
-					}
-				default:
-					panic("Not acceptable type : " + nodesToString(name))
 				}
+			default:
+				panic("Not acceptable type : " + nodesToString(name))
 			}
+
 			continue
 		}
 		if v, ok := p.initVars.get(string(name[0].b)); ok {

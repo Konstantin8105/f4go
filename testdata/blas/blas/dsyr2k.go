@@ -1,6 +1,7 @@
 package main
 
 import "github.com/Konstantin8105/f4go/intrinsic"
+
 //*> \brief \b DSYR2K
 //*
 //*  =========== DOCUMENTATION ===========
@@ -230,17 +231,17 @@ func DSYR2K(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]floa
 	//*
 	//*     Test the input parameters.
 	//*
-	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
+	if LSAME(TRANS, func() *byte { y := byte('N'); return &y }()) {
 		NROWA = (*N)
 	} else {
 		NROWA = (*K)
 	}
-	UPPER = LSAME(UPLO, func()*byte{y:=byte('U');return &y}())
+	UPPER = LSAME(UPLO, func() *byte { y := byte('U'); return &y }())
 	//*
 	INFO = 0
-	if (!UPPER) && (!LSAME(UPLO, func()*byte{y:=byte('L');return &y}())) {
+	if (!UPPER) && (!LSAME(UPLO, func() *byte { y := byte('L'); return &y }())) {
 		INFO = 1
-	} else if (!LSAME(TRANS, func()*byte{y:=byte('N');return &y}())) && (!LSAME(TRANS, func()*byte{y:=byte('T');return &y}())) && (!LSAME(TRANS, func()*byte{y:=byte('C');return &y}())) {
+	} else if (!LSAME(TRANS, func() *byte { y := byte('N'); return &y }())) && (!LSAME(TRANS, func() *byte { y := byte('T'); return &y }())) && (!LSAME(TRANS, func() *byte { y := byte('C'); return &y }())) {
 		INFO = 2
 	} else if (*N) < 0 {
 		INFO = 3
@@ -254,7 +255,7 @@ func DSYR2K(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]floa
 		INFO = 12
 	}
 	if INFO != 0 {
-		XERBLA(func()*[]byte{y:=[]byte("DSYR2K");return &y}(), &(INFO))
+		XERBLA(func() *[]byte { y := []byte("DSYR2K"); return &y }(), &(INFO))
 		return
 	}
 	//*
@@ -301,7 +302,7 @@ func DSYR2K(UPLO *byte, TRANS *byte, N *int, K *int, ALPHA *float64, A *[][]floa
 	//*
 	//*     Start the operations.
 	//*
-	if LSAME(TRANS, func()*byte{y:=byte('N');return &y}()) {
+	if LSAME(TRANS, func() *byte { y := byte('N'); return &y }()) {
 		//*
 		//*        Form  C := alpha*A*B**T + alpha*B*A**T + C.
 		//*
