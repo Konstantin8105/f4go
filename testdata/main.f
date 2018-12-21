@@ -73,6 +73,9 @@ C -----------------------------------------------------
             call testName("test_complex")
             call test_complex()
 
+            call testName("test_assign")
+            call test_assign()
+
             ! end of tests
         END
 
@@ -854,6 +857,28 @@ C -----------------------------------------------------
             INTEGER TTT
             TtT = 1
             WRITE(*,'(I2)') tTT
+        END
+
+C -----------------------------------------------------
+
+        SUBROUTINE test_assign
+            INTEGER TMP , TMPA 
+            INTEGER TMP2, TMPA2
+            TMP  = 10
+            TMPA = 865
+            IF ( TMP .EQ. 10) ASSIGN 860 TO TMPA
+            TMP = TMP + 10
+  860       TMP = TMP + 25
+  865       TMP = TMP + 45
+            WRITE(*,'(I2)') TMP
+
+            TMP2  = 15
+            TMPA2 = 875
+            IF ( TMP .NE. 10) ASSIGN 870 TO TMPA2
+            TMP2 = TMP2 + 10
+  870       TMP2 = TMP2 + 25
+  875       TMP2 = TMP2 + 45
+            WRITE(*,'(I2)') TMP2
         END
 
 C -----------------------------------------------------
