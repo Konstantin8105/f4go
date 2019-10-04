@@ -284,6 +284,9 @@ func (s strChanger) Visit(node goast.Node) (w goast.Visitor) {
 
 // parseNodes
 func (p *parser) parseNodes() (decls []goast.Decl) {
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Parse nodes\n")
+	}
 
 	if p.ident < 0 || p.ident >= len(p.ns) {
 		p.errs = append(p.errs,
@@ -706,6 +709,9 @@ end:
 //  DOUBLE PRECISION FUNCTION DNRM2 ( N , X , INCX )
 //  COMPLEX * 16 FUNCTION ZDOTC ( N , ZX , INCX , ZY , INCY )
 func (p *parser) parseFunction() (decl goast.Decl) {
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Parse function\n")
+	}
 	for i := p.ident; i < len(p.ns) && p.ns[i].tok != ftNewLine; i++ {
 		if p.ns[i].tok == ftFunction {
 			p.ns[i].tok = ftSubroutine
@@ -717,6 +723,9 @@ func (p *parser) parseFunction() (decl goast.Decl) {
 // Example:
 //   PROGRAM MAIN
 func (p *parser) parseProgram() (decl goast.Decl) {
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Parse program\n")
+	}
 	p.expect(ftProgram)
 	p.ns[p.ident].tok = ftSubroutine
 	decl = p.parseSubroutine()
@@ -734,6 +743,9 @@ func (p *parser) parseProgram() (decl goast.Decl) {
 //  PROGRAM MAIN
 //  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
 func (p *parser) parseSubroutine() (decl goast.Decl) {
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Parse subroutine\n")
+	}
 	var fd goast.FuncDecl
 	fd.Type = &goast.FuncType{
 		Params: &goast.FieldList{},
@@ -761,6 +773,9 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	p.expect(token.IDENT)
 	name := strings.ToUpper(string(p.ns[p.ident].b))
 	fd.Name = goast.NewIdent(name)
+	if Debug {
+		fmt.Fprintf(os.Stdout, "subroutine name is : %s\n", name)
+	}
 
 	// Add return type is exist
 	returnName := name + "_RES"

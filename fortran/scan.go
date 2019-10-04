@@ -741,14 +741,20 @@ impl:
 			}
 		}
 		injectNodes = append(injectNodes, n.Value.(*node))
-		injectNodes = append(injectNodes, nil)
 
 		if n.Value.(*node).tok == token.COMMA {
-			// add IMPLICIT and return
+			// add IMPLICIT and goto impl
+			// Example:
+			//	IMPLICIT COMPLEX (U,V,W), CHARACTER*4 (C,S)
 			// TODO
 		}
 
-		s.nodes.InsertBefore(injectNodes, e)
+		for i := len(injectNodes) - 1; i >= 0; i-- {
+			s.nodes.InsertBefore(injectNodes[i], e)
+		}
+		if Debug {
+			fmt.Fprintf(os.Stdout, "finding next IMPLICIT...\n")
+		}
 		goto impl
 	}
 }
