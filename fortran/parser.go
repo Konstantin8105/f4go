@@ -1216,7 +1216,11 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	defer func() {
 		if r := recover(); r != nil {
-			p.addError(fmt.Sprintf("Recover parseStmt pos{%v}: %v", pos, r))
+			err := fmt.Sprintf("Recover parseStmt pos{%v}: %v", pos, r)
+			if Debug {
+				fmt.Fprintf(os.Stdout, "%s\n", err)
+			}
+			p.addError(err)
 			p.gotoEndLine()
 		}
 	}()
@@ -1341,6 +1345,17 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		p.expect(ftNewLine)
 
 	case ftImplicit:
+		// Examples:
+		// FROM:
+		//	IMPLICIT DOUBLE PRECISION(A-H, O-Z)
+		//	IMPLICIT INTEGER(I-N)
+		// TO:
+		//	DOUBLE PRECISION A
+		//	DOUBLE PRECISION ...
+		//	DOUBLE PRECISION H
+		//	INTEGER I
+		//	INTEGER ...
+		//	INTEGER N
 		// TODO: add support IMPLICIT
 		var nodes []node
 		for ; p.ident < len(p.ns); p.ident++ {
@@ -1889,11 +1904,11 @@ mul:
 			str += fmt.Sprintln(">>", nodesToString(names[i]))
 			v, ok := p.initVars.get(nodesToString(names[i]))
 			if ok {
-				fmt.Println("1) ", v.name)
-				fmt.Println("2) ", v.typ)
-				fmt.Println("3) ", v.typ.baseType)
-				fmt.Println("4) ", v.typ.getBaseType())
-				fmt.Println("5) ", v.typ.arrayNode)
+				str += fmt.Sprintln("1) ", v.name)
+				str += fmt.Sprintln("2) ", v.typ)
+				str += fmt.Sprintln("3) ", v.typ.baseType)
+				str += fmt.Sprintln("4) ", v.typ.getBaseType())
+				str += fmt.Sprintln("5) ", v.typ.arrayNode)
 			}
 		}
 		for i := range values {

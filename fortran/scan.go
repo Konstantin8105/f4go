@@ -668,6 +668,89 @@ multi:
 		e.Value.(*node).b = []byte(strings.Replace(string(e.Value.(*node).b), "d", "e", -1))
 		e.Value.(*node).b = []byte(strings.Replace(string(e.Value.(*node).b), "q", "e", -1))
 	}
+
+	// FROM:
+	//	IMPLICIT DOUBLE PRECISION(A-H, O-Z)
+	//	IMPLICIT INTEGER(I-N)
+	//	IMPLICIT COMPLEX (U,V,W), CHARACTER*4 (C,S)
+	// TO:
+	//	DOUBLE PRECISION A
+	//	DOUBLE PRECISION ...
+	//	DOUBLE PRECISION H
+	//	INTEGER I
+	//	INTEGER ...
+	//	INTEGER N
+impl:
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok != ftImplicit {
+			continue
+		}
+		// record type nodes
+		var types []*node
+		n := e.Next()
+		for ; n != nil; n = n.Next() {
+			if n.Value.(*node).tok == token.LPAREN {
+				break
+			}
+			types = append(types, n.Value.(*node))
+		}
+		n = n.Next() // because n = LPAREN
+
+		// generate var names
+		var names []byte
+		for ; n != nil && n.Value.(*node).tok != token.RPAREN; n = n.Next() {
+			if n.Value.(*node).tok == token.COMMA {
+				continue
+			}
+			if n.Value.(*node).tok == token.SUB { // -
+				n = n.Next()
+				new := int(n.Value.(*node).b[0])
+				for ch := int(names[len(names)-1]) + 1; ch <= new; ch++ {
+					names = append(names, byte(ch))
+				}
+				continue
+			}
+			names = append(names, n.Value.(*node).b[0])
+		}
+		if n == nil {
+			break
+		}
+		n = n.Next() // because n = RPAREN
+
+		// inject code
+		var injectNodes []*node
+		injectNodes = append(injectNodes, types...)
+		for i := 0; i < len(names); i++ {
+			injectNodes = append(injectNodes, &node{
+				tok: token.IDENT,
+				b:   []byte{names[i]},
+				pos: position{
+					line: e.Value.(*node).pos.line,
+					col:  e.Value.(*node).pos.col,
+				},
+			})
+			if i != len(names)-1 {
+				injectNodes = append(injectNodes, &node{
+					tok: token.COMMA,
+					b:   []byte{','},
+					pos: position{
+						line: e.Value.(*node).pos.line,
+						col:  e.Value.(*node).pos.col,
+					},
+				})
+			}
+		}
+		injectNodes = append(injectNodes, n.Value.(*node))
+		injectNodes = append(injectNodes, nil)
+
+		if n.Value.(*node).tok == token.COMMA {
+			// add IMPLICIT and return
+			// TODO
+		}
+
+		s.nodes.InsertBefore(injectNodes, e)
+		goto impl
+	}
 }
 
 func (s *scanner) scanTokens() {
