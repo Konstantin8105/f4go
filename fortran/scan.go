@@ -188,6 +188,9 @@ func scan(b []byte) (ns []node) {
 		fmt.Fprintf(os.Stdout, "Scan: run postprocessor\n")
 	}
 	s.postprocessor()
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: end of postprocessor\n")
+	}
 
 	return
 }
@@ -680,7 +683,12 @@ multi:
 	//	INTEGER I
 	//	INTEGER ...
 	//	INTEGER N
+	iter := 0
 impl:
+	iter++
+	if iter > 100000 {
+		panic(fmt.Errorf("Too many IMPLICIT iterations"))
+	}
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		if e.Value.(*node).tok != ftImplicit {
 			continue
@@ -749,11 +757,16 @@ impl:
 			// TODO
 		}
 
-		for i := len(injectNodes) - 1; i >= 0; i-- {
+		for i := 0; i < len(injectNodes); i++ {
 			s.nodes.InsertBefore(injectNodes[i], e)
 		}
+		s.nodes.Remove(e)
+
+		for ; n != nil; n = n.Next() {
+			s.nodes.PushBack(n.Value.(*node))
+		}
 		if Debug {
-			fmt.Fprintf(os.Stdout, "finding next IMPLICIT...\n")
+			fmt.Fprintf(os.Stdout, "finding next IMPLICIT...  %d\n", iter)
 		}
 		goto impl
 	}
