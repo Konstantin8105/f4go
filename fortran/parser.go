@@ -1925,9 +1925,17 @@ mul:
 				str += fmt.Sprintln("4) ", v.typ.getBaseType())
 				str += fmt.Sprintln("5) ", v.typ.arrayNode)
 			}
+			// if i > 10 {
+			// 	str += fmt.Sprintf("and other %d names ...", len(names)-i)
+			// 	break
+			// }
 		}
 		for i := range values {
 			str += fmt.Sprintln("<<", nodesToString(values[i]))
+			// if i > 10 {
+			// 	str += fmt.Sprintf("and other %d values ...", len(values)-i)
+			// 	break
+			// }
 		}
 		panic(fmt.Errorf("Size is not same %d!=%d\n%v",
 			len(nameExpr), len(values), str))

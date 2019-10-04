@@ -760,11 +760,9 @@ impl:
 		for i := 0; i < len(injectNodes); i++ {
 			s.nodes.InsertBefore(injectNodes[i], e)
 		}
+		s.nodes.MoveBefore(n, e)
 		s.nodes.Remove(e)
 
-		for ; n != nil; n = n.Next() {
-			s.nodes.PushBack(n.Value.(*node))
-		}
 		if Debug {
 			fmt.Fprintf(os.Stdout, "finding next IMPLICIT...  %d\n", iter)
 		}
