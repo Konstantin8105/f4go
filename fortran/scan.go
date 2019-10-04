@@ -72,7 +72,7 @@ type scanner struct {
 	nodes *list.List
 }
 
-const Debug bool = true
+const Debug bool = true // false
 
 func scan(b []byte) (ns []node) {
 	if Debug {
@@ -857,6 +857,7 @@ empty:
 
 func (s *scanner) scanNumbers() {
 numb:
+	var again bool
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		if e.Value.(*node).tok != ftUndefine {
 			continue
@@ -876,16 +877,15 @@ numb:
 		//  5. Sign       // maybe
 		//  6. Digits     // maybe
 		for st := 0; st < len(e.Value.(*node).b); st++ {
-			if isDigit(e.Value.(*node).b[st]) ||
-				e.Value.(*node).b[st] == '.' {
+			if isDigit(e.Value.(*node).b[st]) || e.Value.(*node).b[st] == '.' {
 				var en int
 				for en = st; en < len(e.Value.(*node).b); en++ {
 					if !isDigit(e.Value.(*node).b[en]) {
 						break
 					}
 				}
-				if en < len(e.Value.(*node).b) && (e.Value.(*node).b[en] == '.' ||
-					isFloatLetter(e.Value.(*node).b[en])) {
+				if en < len(e.Value.(*node).b) &&
+					(e.Value.(*node).b[en] == '.' || isFloatLetter(e.Value.(*node).b[en])) {
 					// FLOAT
 					if e.Value.(*node).b[en] == '.' {
 						for en = en + 1; en < len(e.Value.(*node).b); en++ {
@@ -907,25 +907,35 @@ numb:
 						}
 					}
 					s.extract(st, en, e, token.FLOAT)
-					goto numb
+					again = true
+					break
 				} else {
 					// INT
 					s.extract(st, en, e, token.INT)
-					goto numb
+					again = true
+					break
 				}
-			} else {
-				for ; st < len(e.Value.(*node).b); st++ {
-					if e.Value.(*node).b[st] != '_' &&
-						!isDigit(e.Value.(*node).b[st]) &&
-						!isLetter(e.Value.(*node).b[st]) {
-						break
-					}
-				}
-				if st >= len(e.Value.(*node).b) {
+
+				continue
+			}
+
+			for ; st < len(e.Value.(*node).b); st++ {
+				if e.Value.(*node).b[st] != '_' &&
+					!isDigit(e.Value.(*node).b[st]) &&
+					!isLetter(e.Value.(*node).b[st]) {
 					break
 				}
 			}
+			if st >= len(e.Value.(*node).b) {
+				break
+			}
 		}
+	}
+	if again {
+		if Debug {
+			fmt.Fprintf(os.Stdout, "rescan numbers\n")
+		}
+		goto numb
 	}
 }
 
