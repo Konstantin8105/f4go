@@ -694,13 +694,14 @@ impl:
 			continue
 		}
 		// record type nodes
-		var types []*node
+		var types []node
+		begin := e
 		n := e.Next()
 		for ; n != nil; n = n.Next() {
 			if n.Value.(*node).tok == token.LPAREN {
 				break
 			}
-			types = append(types, n.Value.(*node))
+			types = append(types, *(n.Value.(*node)))
 		}
 		n = n.Next() // because n = LPAREN
 
@@ -726,10 +727,10 @@ impl:
 		n = n.Next() // because n = RPAREN
 
 		// inject code
-		var injectNodes []*node
+		var injectNodes []node
 		injectNodes = append(injectNodes, types...)
 		for i := 0; i < len(names); i++ {
-			injectNodes = append(injectNodes, &node{
+			injectNodes = append(injectNodes, node{
 				tok: token.IDENT,
 				b:   []byte{names[i]},
 				pos: position{
@@ -738,7 +739,7 @@ impl:
 				},
 			})
 			if i != len(names)-1 {
-				injectNodes = append(injectNodes, &node{
+				injectNodes = append(injectNodes, node{
 					tok: token.COMMA,
 					b:   []byte{','},
 					pos: position{
@@ -748,7 +749,7 @@ impl:
 				})
 			}
 		}
-		injectNodes = append(injectNodes, n.Value.(*node))
+		injectNodes = append(injectNodes, *(n.Value.(*node)))
 
 		if n.Value.(*node).tok == token.COMMA {
 			// add IMPLICIT and goto impl
@@ -757,11 +758,13 @@ impl:
 			// TODO
 		}
 
-		for i := 0; i < len(injectNodes); i++ {
-			s.nodes.InsertBefore(injectNodes[i], e)
+		for i := len(injectNodes) - 1; i >= 0; i-- {
+			s.nodes.InsertAfter(&(injectNodes[i]), n)
 		}
-		s.nodes.MoveBefore(n, e)
-		s.nodes.Remove(e)
+		for rem := begin; rem != nil && rem != n; rem = rem.Next() {
+			rem.Value.(*node).tok = ftNewLine
+			rem.Value.(*node).b = []byte{'\n'}
+		}
 
 		if Debug {
 			fmt.Fprintf(os.Stdout, "finding next IMPLICIT...  %d\n", iter)
