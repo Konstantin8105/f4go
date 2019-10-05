@@ -1260,6 +1260,8 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	case ftCommon:
 		// TODO: Add support COMMON, use memory pool
+		// Examples:
+		//    COMMON/PDAT/LOC(3), T(1)
 		p.gotoEndLine()
 
 	case token.RETURN:
