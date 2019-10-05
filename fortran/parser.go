@@ -284,6 +284,9 @@ func (s strChanger) Visit(node goast.Node) (w goast.Visitor) {
 
 // parseNodes
 func (p *parser) parseNodes() (decls []goast.Decl) {
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Parse nodes\n")
+	}
 
 	if p.ident < 0 || p.ident >= len(p.ns) {
 		p.errs = append(p.errs,
@@ -706,6 +709,9 @@ end:
 //  DOUBLE PRECISION FUNCTION DNRM2 ( N , X , INCX )
 //  COMPLEX * 16 FUNCTION ZDOTC ( N , ZX , INCX , ZY , INCY )
 func (p *parser) parseFunction() (decl goast.Decl) {
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Parse function\n")
+	}
 	for i := p.ident; i < len(p.ns) && p.ns[i].tok != ftNewLine; i++ {
 		if p.ns[i].tok == ftFunction {
 			p.ns[i].tok = ftSubroutine
@@ -717,6 +723,9 @@ func (p *parser) parseFunction() (decl goast.Decl) {
 // Example:
 //   PROGRAM MAIN
 func (p *parser) parseProgram() (decl goast.Decl) {
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Parse program\n")
+	}
 	p.expect(ftProgram)
 	p.ns[p.ident].tok = ftSubroutine
 	decl = p.parseSubroutine()
@@ -734,6 +743,9 @@ func (p *parser) parseProgram() (decl goast.Decl) {
 //  PROGRAM MAIN
 //  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
 func (p *parser) parseSubroutine() (decl goast.Decl) {
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Parse subroutine\n")
+	}
 	var fd goast.FuncDecl
 	fd.Type = &goast.FuncType{
 		Params: &goast.FieldList{},
@@ -761,6 +773,9 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	p.expect(token.IDENT)
 	name := strings.ToUpper(string(p.ns[p.ident].b))
 	fd.Name = goast.NewIdent(name)
+	if Debug {
+		fmt.Fprintf(os.Stdout, "subroutine name is : %s\n", name)
+	}
 
 	// Add return type is exist
 	returnName := name + "_RES"
@@ -1216,7 +1231,11 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	defer func() {
 		if r := recover(); r != nil {
-			p.addError(fmt.Sprintf("Recover parseStmt pos{%v}: %v", pos, r))
+			err := fmt.Sprintf("Recover parseStmt pos{%v}: %v", pos, r)
+			if Debug {
+				fmt.Fprintf(os.Stdout, "%s\n", err)
+			}
+			p.addError(err)
 			p.gotoEndLine()
 		}
 	}()
@@ -1241,6 +1260,16 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	case ftCommon:
 		// TODO: Add support COMMON, use memory pool
+		// Examples:
+		//    COMMON/PDAT/LOC(3), T(1)
+		// Implementation:
+		// vat COMMON MEMORY
+		// type MEMORY struct {
+		//		PDAT struct {
+		//			LOC [3]int
+		//			T   [1]float64
+		//		}
+		// }
 		p.gotoEndLine()
 
 	case token.RETURN:
@@ -1341,6 +1370,17 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		p.expect(ftNewLine)
 
 	case ftImplicit:
+		// Examples:
+		// FROM:
+		//	IMPLICIT DOUBLE PRECISION(A-H, O-Z)
+		//	IMPLICIT INTEGER(I-N)
+		// TO:
+		//	DOUBLE PRECISION A
+		//	DOUBLE PRECISION ...
+		//	DOUBLE PRECISION H
+		//	INTEGER I
+		//	INTEGER ...
+		//	INTEGER N
 		// TODO: add support IMPLICIT
 		var nodes []node
 		for ; p.ident < len(p.ns); p.ident++ {
@@ -1889,15 +1929,23 @@ mul:
 			str += fmt.Sprintln(">>", nodesToString(names[i]))
 			v, ok := p.initVars.get(nodesToString(names[i]))
 			if ok {
-				fmt.Println("1) ", v.name)
-				fmt.Println("2) ", v.typ)
-				fmt.Println("3) ", v.typ.baseType)
-				fmt.Println("4) ", v.typ.getBaseType())
-				fmt.Println("5) ", v.typ.arrayNode)
+				str += fmt.Sprintln("1) ", v.name)
+				str += fmt.Sprintln("2) ", v.typ)
+				str += fmt.Sprintln("3) ", v.typ.baseType)
+				str += fmt.Sprintln("4) ", v.typ.getBaseType())
+				str += fmt.Sprintln("5) ", v.typ.arrayNode)
 			}
+			// if i > 10 {
+			// 	str += fmt.Sprintf("and other %d names ...", len(names)-i)
+			// 	break
+			// }
 		}
 		for i := range values {
 			str += fmt.Sprintln("<<", nodesToString(values[i]))
+			// if i > 10 {
+			// 	str += fmt.Sprintf("and other %d values ...", len(values)-i)
+			// 	break
+			// }
 		}
 		panic(fmt.Errorf("Size is not same %d!=%d\n%v",
 			len(nameExpr), len(values), str))

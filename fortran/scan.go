@@ -5,6 +5,7 @@ import (
 	"container/list"
 	"fmt"
 	"go/token"
+	"os"
 	"strings"
 )
 
@@ -71,7 +72,12 @@ type scanner struct {
 	nodes *list.List
 }
 
+const Debug bool = true // false
+
 func scan(b []byte) (ns []node) {
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Begin of scan\n")
+	}
 	var s scanner
 	s.nodes = list.New()
 	s.nodes.PushFront(&node{
@@ -89,41 +95,80 @@ func scan(b []byte) (ns []node) {
 	}()
 
 	// separate lines
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: break lines\n")
+	}
 	s.scanBreakLines()
 
 	// separate comments
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: comments\n")
+	}
 	s.scanComments()
 
 	// merge lines
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: merge lines\n")
+	}
 	s.mergeLines()
 
 	// separate strings
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: strings\n")
+	}
 	s.scanStrings()
 
 	// comments !
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: comments !\n")
+	}
 	s.scanNextComments()
 
 	// preprocessor: add specific spaces
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: tokens with point\n")
+	}
 	s.scanTokenWithPoint()
 
 	// separate on other token
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: tokens\n")
+	}
 	s.scanTokens()
 
 	// remove empty
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: empty\n")
+	}
 	s.scanEmpty()
 
 	// scan numbers
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: numbers\n")
+	}
 	s.scanNumbers()
 
 	// remove empty
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: empty\n")
+	}
 	s.scanEmpty()
 
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: after tokens\n")
+	}
 	s.scanTokensAfter()
 
 	// remove empty
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: empty\n")
+	}
 	s.scanEmpty()
 
 	// IDENT for undefine
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: undefine idents\n")
+	}
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*node).tok {
 		case ftUndefine:
@@ -133,10 +178,19 @@ func scan(b []byte) (ns []node) {
 	}
 
 	// token GO TO
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: token GOTO\n")
+	}
 	s.scanGoto()
 
 	// postprocessor
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: run postprocessor\n")
+	}
 	s.postprocessor()
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: end of postprocessor\n")
+	}
 
 	return
 }
@@ -617,6 +671,103 @@ multi:
 		e.Value.(*node).b = []byte(strings.Replace(string(e.Value.(*node).b), "d", "e", -1))
 		e.Value.(*node).b = []byte(strings.Replace(string(e.Value.(*node).b), "q", "e", -1))
 	}
+
+	// FROM:
+	//	IMPLICIT DOUBLE PRECISION(A-H, O-Z)
+	//	IMPLICIT INTEGER(I-N)
+	//	IMPLICIT COMPLEX (U,V,W), CHARACTER*4 (C,S)
+	// TO:
+	//	DOUBLE PRECISION A
+	//	DOUBLE PRECISION ...
+	//	DOUBLE PRECISION H
+	//	INTEGER I
+	//	INTEGER ...
+	//	INTEGER N
+	iter := 0
+impl:
+	iter++
+	if iter > 100000 {
+		panic(fmt.Errorf("Too many IMPLICIT iterations"))
+	}
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok != ftImplicit {
+			continue
+		}
+		// record type nodes
+		var types []*node
+		n := e.Next()
+		for ; n != nil; n = n.Next() {
+			if n.Value.(*node).tok == token.LPAREN {
+				break
+			}
+			types = append(types, n.Value.(*node))
+		}
+		n = n.Next() // because n = LPAREN
+
+		// generate var names
+		var names []byte
+		for ; n != nil && n.Value.(*node).tok != token.RPAREN; n = n.Next() {
+			if n.Value.(*node).tok == token.COMMA {
+				continue
+			}
+			if n.Value.(*node).tok == token.SUB { // -
+				n = n.Next()
+				new := int(n.Value.(*node).b[0])
+				for ch := int(names[len(names)-1]) + 1; ch <= new; ch++ {
+					names = append(names, byte(ch))
+				}
+				continue
+			}
+			names = append(names, n.Value.(*node).b[0])
+		}
+		if n == nil {
+			break
+		}
+		n = n.Next() // because n = RPAREN
+
+		// inject code
+		var injectNodes []*node
+		injectNodes = append(injectNodes, types...)
+		for i := 0; i < len(names); i++ {
+			injectNodes = append(injectNodes, &node{
+				tok: token.IDENT,
+				b:   []byte{names[i]},
+				pos: position{
+					line: e.Value.(*node).pos.line,
+					col:  e.Value.(*node).pos.col,
+				},
+			})
+			if i != len(names)-1 {
+				injectNodes = append(injectNodes, &node{
+					tok: token.COMMA,
+					b:   []byte{','},
+					pos: position{
+						line: e.Value.(*node).pos.line,
+						col:  e.Value.(*node).pos.col,
+					},
+				})
+			}
+		}
+		injectNodes = append(injectNodes, n.Value.(*node))
+
+		if n.Value.(*node).tok == token.COMMA {
+			// add IMPLICIT and goto impl
+			// Example:
+			//	IMPLICIT COMPLEX (U,V,W), CHARACTER*4 (C,S)
+			// TODO
+		}
+
+		for i := 0; i < len(injectNodes); i++ {
+			s.nodes.InsertBefore(injectNodes[i], e)
+		}
+		s.nodes.MoveBefore(n, e)
+		s.nodes.Remove(e)
+
+		if Debug {
+			fmt.Fprintf(os.Stdout, "finding next IMPLICIT...  %d\n", iter)
+		}
+		goto impl
+	}
 }
 
 func (s *scanner) scanTokens() {
@@ -806,75 +957,85 @@ empty:
 
 func (s *scanner) scanNumbers() {
 numb:
+	var again bool
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
-		switch e.Value.(*node).tok {
-		case ftUndefine:
-			// Examples:
-			// +0.000E4
-			// -44
-			// 2
-			// +123.213545Q-5
-			// 12.324e34
-			// 4E23
-			// STAGES:        //
-			//  1. Digits     // must
-			//  2. Point      // must
-			//  3. Digits     // maybe
-			//  4. Exponenta  // maybe
-			//  5. Sign       // maybe
-			//  6. Digits     // maybe
-			for st := 0; st < len(e.Value.(*node).b); st++ {
-				if isDigit(e.Value.(*node).b[st]) ||
-					e.Value.(*node).b[st] == '.' {
-					var en int
-					for en = st; en < len(e.Value.(*node).b); en++ {
-						if !isDigit(e.Value.(*node).b[en]) {
-							break
-						}
-					}
-					if en < len(e.Value.(*node).b) && (e.Value.(*node).b[en] == '.' ||
-						isFloatLetter(e.Value.(*node).b[en])) {
-						// FLOAT
-						if e.Value.(*node).b[en] == '.' {
-							for en = en + 1; en < len(e.Value.(*node).b); en++ {
-								if !isDigit(e.Value.(*node).b[en]) {
-									break
-								}
-							}
-						}
-						if en < len(e.Value.(*node).b) &&
-							(isFloatLetter(e.Value.(*node).b[en])) {
-							if en+1 < len(e.Value.(*node).b) &&
-								(e.Value.(*node).b[en+1] == '+' || e.Value.(*node).b[en+1] == '-') {
-								en++
-							}
-							for en = en + 1; en < len(e.Value.(*node).b); en++ {
-								if !isDigit(e.Value.(*node).b[en]) {
-									break
-								}
-							}
-						}
-						s.extract(st, en, e, token.FLOAT)
-						goto numb
-					} else {
-						// INT
-						s.extract(st, en, e, token.INT)
-						goto numb
-					}
-				} else {
-					for ; st < len(e.Value.(*node).b); st++ {
-						if e.Value.(*node).b[st] != '_' &&
-							!isDigit(e.Value.(*node).b[st]) &&
-							!isLetter(e.Value.(*node).b[st]) {
-							break
-						}
-					}
-					if st >= len(e.Value.(*node).b) {
+		if e.Value.(*node).tok != ftUndefine {
+			continue
+		}
+		// Examples:
+		// +0.000E4
+		// -44
+		// 2
+		// +123.213545Q-5
+		// 12.324e34
+		// 4E23
+		// STAGES:        //
+		//  1. Digits     // must
+		//  2. Point      // must
+		//  3. Digits     // maybe
+		//  4. Exponenta  // maybe
+		//  5. Sign       // maybe
+		//  6. Digits     // maybe
+		for st := 0; st < len(e.Value.(*node).b); st++ {
+			if isDigit(e.Value.(*node).b[st]) || e.Value.(*node).b[st] == '.' {
+				var en int
+				for en = st; en < len(e.Value.(*node).b); en++ {
+					if !isDigit(e.Value.(*node).b[en]) {
 						break
 					}
 				}
+				if en < len(e.Value.(*node).b) &&
+					(e.Value.(*node).b[en] == '.' || isFloatLetter(e.Value.(*node).b[en])) {
+					// FLOAT
+					if e.Value.(*node).b[en] == '.' {
+						for en = en + 1; en < len(e.Value.(*node).b); en++ {
+							if !isDigit(e.Value.(*node).b[en]) {
+								break
+							}
+						}
+					}
+					if en < len(e.Value.(*node).b) &&
+						(isFloatLetter(e.Value.(*node).b[en])) {
+						if en+1 < len(e.Value.(*node).b) &&
+							(e.Value.(*node).b[en+1] == '+' || e.Value.(*node).b[en+1] == '-') {
+							en++
+						}
+						for en = en + 1; en < len(e.Value.(*node).b); en++ {
+							if !isDigit(e.Value.(*node).b[en]) {
+								break
+							}
+						}
+					}
+					s.extract(st, en, e, token.FLOAT)
+					again = true
+					break
+				} else {
+					// INT
+					s.extract(st, en, e, token.INT)
+					again = true
+					break
+				}
+
+				continue
+			}
+
+			for ; st < len(e.Value.(*node).b); st++ {
+				if e.Value.(*node).b[st] != '_' &&
+					!isDigit(e.Value.(*node).b[st]) &&
+					!isLetter(e.Value.(*node).b[st]) {
+					break
+				}
+			}
+			if st >= len(e.Value.(*node).b) {
+				break
 			}
 		}
+	}
+	if again {
+		if Debug {
+			fmt.Fprintf(os.Stdout, "rescan numbers\n")
+		}
+		goto numb
 	}
 }
 
