@@ -76,9 +76,9 @@ C -----------------------------------------------------
             call testName("test_assign")
             call test_assign()
 
-            call testName("test_common")
-            call test_common()
-            call test_common_satellite()
+C           call testName("test_common")
+C           call test_common()
+C           call test_common_satellite()
 
             ! end of tests
         END
@@ -886,28 +886,28 @@ C -----------------------------------------------------
         END
 
 C -----------------------------------------------------
-        SUBROUTINE test_common
-            COMMON/PDAT/LOC(3), T(1)
-            DATA LOC/ 2, 1 , 3/
-            DATA T/0.1/
-            IF ( LOC(1) .NE. 2   ) call fail("common 1")
-            IF ( LOC(2) .NE. 1   ) call fail("common 2")
-            IF ( LOC(3) .NE. 3   ) call fail("common 3")
-            IF (   T(1) .NE. 0.1 ) call fail("common 4")
-            WRITE(*,'(I2)') LOC(1)
-            WRITE(*,'(I2)') LOC(2)
-            WRITE(*,'(I2)') LOC(3)
-            WRITE(*,'(F8.2)') T(1)
-        END 
-        SUBROUTINE test_common_satellite
-            COMMON/PDAT/LOC(3), T(1)
-            IF ( LOC(1) .NE. 2   ) call fail("common 1")
-            IF ( LOC(2) .NE. 1   ) call fail("common 2")
-            IF ( LOC(3) .NE. 3   ) call fail("common 3")
-            IF (   T(1).NE. 0.1 ) call fail("common 4")
-            WRITE(*,'(I2)') LOC(1)
-            WRITE(*,'(I2)') LOC(2)
-            WRITE(*,'(I2)') LOC(3)
-            WRITE(*,'(F8.2)') T(1)
-        END
+C       SUBROUTINE test_common
+C           COMMON/PDAT/LOC(3), T(1)
+C           DATA LOC/ 2, 1 , 3/
+C           DATA T/0.1/
+C           IF ( LOC(1) .NE. 2   ) call fail("common 1")
+C           IF ( LOC(2) .NE. 1   ) call fail("common 2")
+C           IF ( LOC(3) .NE. 3   ) call fail("common 3")
+C           IF (   T(1) .NE. 0.1 ) call fail("common 4")
+C           WRITE(*,'(I2)') LOC(1)
+C           WRITE(*,'(I2)') LOC(2)
+C           WRITE(*,'(I2)') LOC(3)
+C           WRITE(*,'(F8.2)') T(1)
+C       END 
+C       SUBROUTINE test_common_satellite
+C           COMMON/PDAT/LOC(3), T(1)
+C           IF ( LOC(1) .NE. 2   ) call fail("common 1")
+C           IF ( LOC(2) .NE. 1   ) call fail("common 2")
+C           IF ( LOC(3) .NE. 3   ) call fail("common 3")
+C           IF (   T(1).NE. 0.1 ) call fail("common 4")
+C           WRITE(*,'(I2)') LOC(1)
+C           WRITE(*,'(I2)') LOC(2)
+C           WRITE(*,'(I2)') LOC(3)
+C           WRITE(*,'(F8.2)') T(1)
+C       END
 C -----------------------------------------------------

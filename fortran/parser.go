@@ -1262,6 +1262,14 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		// TODO: Add support COMMON, use memory pool
 		// Examples:
 		//    COMMON/PDAT/LOC(3), T(1)
+		// Implementation:
+		// vat COMMON MEMORY
+		// type MEMORY struct {
+		//		PDAT struct {
+		//			LOC [3]int
+		//			T   [1]float64
+		//		}
+		// }
 		p.gotoEndLine()
 
 	case token.RETURN:
