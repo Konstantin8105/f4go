@@ -79,6 +79,9 @@ C -----------------------------------------------------
             call testName("test_implicit")
             call test_implicit()
 
+            call testName("test_implicit2")
+            call test_implicit2()
+
 C           call testName("test_common")
 C           call test_common()
 C           call test_common_satellite()
@@ -916,26 +919,38 @@ C       END
 C -----------------------------------------------------
 
         SUBROUTINE test_implicit
-C           IMPLICIT INTEGER (A-C), (X-Z)
             IMPLICIT INTEGER (A-C)
             A = 5
             B = 8
             C = 1
-C           X = 4
-C           Y = 5
-C           Z = 6
             IF (A .NE. 5) call fail("implicit 1")
             IF (B .NE. 8) call fail("implicit 2")
             IF (C .NE. 1) call fail("implicit 3")
-C           IF (X .NE. 4) call fail("implicit 4")
-C           IF (Y .NE. 5) call fail("implicit 5")
-C           IF (Z .NE. 6) call fail("implicit 6")
             WRITE(*,'(I2)') A
             WRITE(*,'(I2)') B
             WRITE(*,'(I2)') C
-C           WRITE(*,'(I2)') X
-C           WRITE(*,'(I2)') Y
-C           WRITE(*,'(I2)') Z
+            END
+
+        SUBROUTINE test_implicit2
+            IMPLICIT INTEGER (A-C), INTEGER (X-Z)
+            A = 5
+            B = 8
+            C = 1
+            X = 4
+            Y = 5
+            Z = 6
+            IF (A .NE. 5) call fail("implicit 1")
+            IF (B .NE. 8) call fail("implicit 2")
+            IF (C .NE. 1) call fail("implicit 3")
+            IF (X .NE. 4) call fail("implicit 4")
+            IF (Y .NE. 5) call fail("implicit 5")
+            IF (Z .NE. 6) call fail("implicit 6")
+            WRITE(*,'(I2)') A
+            WRITE(*,'(I2)') B
+            WRITE(*,'(I2)') C
+            WRITE(*,'(I2)') X
+            WRITE(*,'(I2)') Y
+            WRITE(*,'(I2)') Z
             END
 
 C -----------------------------------------------------
