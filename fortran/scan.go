@@ -749,18 +749,31 @@ impl:
 				})
 			}
 		}
-		injectNodes = append(injectNodes, *(n.Value.(*node)))
 
 		if n.Value.(*node).tok == token.COMMA {
 			// add IMPLICIT and goto impl
 			// Example:
+			// from:
 			//	IMPLICIT COMPLEX (U,V,W), CHARACTER*4 (C,S)
-			// TODO
+			// to:
+			//	COMPLEX U,V,W
+			//  IMPLICIT CHARACTER*4 (C,S)
+			injectNodes = append(injectNodes, node{
+				tok: ftNewLine,
+				b:   []byte("\n"),
+			})
+			injectNodes = append(injectNodes, node{
+				tok: ftImplicit,
+				b:   []byte("IMPLICIT"),
+			})
+			n = n.Next() // remove comma
 		}
+		injectNodes = append(injectNodes, *(n.Value.(*node)))
 
 		for i := len(injectNodes) - 1; i >= 0; i-- {
 			s.nodes.InsertAfter(&(injectNodes[i]), n)
 		}
+
 		for rem := begin; rem != nil && rem != n; rem = rem.Next() {
 			rem.Value.(*node).tok = ftNewLine
 			rem.Value.(*node).b = []byte{'\n'}
