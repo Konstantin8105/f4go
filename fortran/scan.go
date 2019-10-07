@@ -92,6 +92,7 @@ func scan(b []byte) (ns []node) {
 		for e := s.nodes.Front(); e != nil; e = e.Next() {
 			ns = append(ns, *e.Value.(*node))
 		}
+		fmt.Println(ns)
 	}()
 
 	// separate lines
@@ -784,6 +785,97 @@ impl:
 		}
 		goto impl
 	}
+
+	// from:
+	//    COMMON/PDAT/LOC(3), T(1)
+	// to:
+	//    INTEGER LOC(3)
+	//    INTEGER Common.PDAT.LOC(3)
+	//    INTEGER T(1)
+	//    INTEGER Common.PDAT.T (1)
+	//    COMMON/PDAT/LOC(3), T(1)
+	// or:
+	// from:
+	//    COMMON LOC(3), T(1)
+	// to:
+	//    INTEGER LOC(3)
+	//    INTEGER T(1)
+	//    COMMON LOC(3), T(1)
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok != ftCommon {
+			continue
+		}
+		n := e.Next()
+
+		var blockName string
+
+		if n.Value.(*node).tok == token.QUO { // /
+			n = n.Next()
+			for ; n != nil && n.Value.(*node).tok != token.QUO; n = n.Next() {
+				blockName = string(n.Value.(*node).b)
+			}
+			n = n.Next()
+		}
+
+		if blockName == "" || blockName == "*" {
+			blockName = "ALL"
+		}
+
+		isFirst := true
+		var names []node
+		inject := func() {
+			iF := isFirst
+			// next nodes are names
+			if isFirst {
+				s.nodes.InsertBefore(&node{
+					tok: ftInteger,
+				}, e)
+				isFirst = false
+			} else {
+				s.nodes.InsertBefore(&node{
+					tok: ftReal,
+				}, e)
+			}
+			for i := 0; i < len(names); i++ {
+				s.nodes.InsertBefore(&names[i], e)
+			}
+			s.nodes.InsertBefore(&node{tok: ftNewLine, b: []byte{'\n'}}, e)
+
+			// initialize common type
+			isFirst = iF
+			if isFirst {
+				s.nodes.InsertBefore(&node{
+					tok: ftInteger,
+				}, e)
+				isFirst = false
+			} else {
+				s.nodes.InsertBefore(&node{
+					tok: ftReal,
+				}, e)
+			}
+			for i := 0; i < len(names); i++ {
+				name := names[i]
+				if i == 0 {
+					name.b = append([]byte("COMMON."+blockName+"."), name.b...)
+				}
+				s.nodes.InsertBefore(&name, e)
+			}
+			s.nodes.InsertBefore(&node{tok: ftNewLine, b: []byte{'\n'}}, e)
+		}
+		for ; n != nil; n = n.Next() {
+			if n.Value.(*node).tok == ftNewLine {
+				inject()
+				break
+			}
+			if n.Value.(*node).tok == token.COMMA {
+				inject()
+				names = make([]node, 0)
+				continue
+			}
+			names = append(names, *n.Value.(*node))
+		}
+	}
+
 }
 
 func (s *scanner) scanTokens() {

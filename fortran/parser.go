@@ -132,10 +132,23 @@ func (p parser) getArrayLen(name string) int {
 	return lenArray
 }
 
+type common struct {
+	mem map[string][]string
+}
+
+func (c *common) addBlockName(name string, vars []string) {
+	if c.mem == nil {
+		c.mem = map[string][]string{}
+	}
+	c.mem[name] = vars
+}
+
 type parser struct {
 	ast   goast.File
 	ident int
 	ns    []node
+
+	Common common // share memory between subroutines
 
 	functionExternalName []string
 
@@ -230,6 +243,56 @@ func Parse(b []byte, packageName string) (goast.File, []error) {
 	}
 
 	// TODO : add INTRINSIC fortran functions
+
+	// put COMMON
+	if len(p.Common.mem) > 0 {
+		var fields []*goast.Field
+		for names, vars := range p.Common.mem {
+			var nameFields []*goast.Field
+			for i := range vars {
+				varName := vars[i]
+				var varType string
+				if i == 0 {
+					varType = "int"
+				} else {
+					varType = "float64"
+				}
+				index := strings.Index(varName, "(")
+				if index > 0 {
+					varType = "[]" + varType
+					varName = varName[:index]
+				}
+				nameFields = append(nameFields, &goast.Field{
+					Names: []*goast.Ident{goast.NewIdent(varName)},
+					Type:  goast.NewIdent(varType), // TODO
+				})
+			}
+			fields = append(fields, &goast.Field{
+				Names: []*goast.Ident{goast.NewIdent(names)},
+				Type:  &goast.StructType{Fields: &goast.FieldList{List: nameFields}},
+			})
+		}
+
+		p.ast.Decls = append(p.ast.Decls, &goast.GenDecl{
+			Tok: token.TYPE,
+			Specs: []goast.Spec{
+				&goast.TypeSpec{
+					Name: goast.NewIdent("MEMORY"),
+					Type: &goast.StructType{Fields: &goast.FieldList{List: fields}},
+				},
+			},
+		})
+
+		p.ast.Decls = append(p.ast.Decls, &goast.GenDecl{
+			Tok: token.VAR,
+			Specs: []goast.Spec{
+				&goast.ValueSpec{
+					Names: []*goast.Ident{goast.NewIdent("COMMON")},
+					Type:  goast.NewIdent("MEMORY"),
+				},
+			},
+		})
+	}
 
 	p.ast.Decls = append(p.ast.Decls, decls...)
 
@@ -534,9 +597,13 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 				})
 				continue
 			}
+			tok := token.DEFINE
+			if strings.Contains(name, "COMMON.") {
+				tok = token.ASSIGN
+			}
 			vars = append(vars, &goast.AssignStmt{
 				Lhs: []goast.Expr{goast.NewIdent(name)},
-				Tok: token.DEFINE,
+				Tok: tok,
 				Rhs: []goast.Expr{
 					&goast.CallExpr{
 						Fun:    goast.NewIdent("make"),
@@ -1259,18 +1326,8 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		p.gotoEndLine()
 
 	case ftCommon:
-		// TODO: Add support COMMON, use memory pool
-		// Examples:
-		//    COMMON/PDAT/LOC(3), T(1)
-		// Implementation:
-		// vat COMMON MEMORY
-		// type MEMORY struct {
-		//		PDAT struct {
-		//			LOC [3]int
-		//			T   [1]float64
-		//		}
-		// }
-		p.gotoEndLine()
+		s := p.parseCommon()
+		stmts = append(stmts, s...)
 
 	case token.RETURN:
 		stmts = append(stmts, &goast.ReturnStmt{})
@@ -2117,6 +2174,85 @@ func (p *parser) parseAssign() (stmts []goast.Stmt) {
 		Tok: token.ASSIGN,
 		Rhs: []goast.Expr{goast.NewIdent(intVar)},
 	})
+
+	return
+}
+
+// Examples:
+//    COMMON/PDAT/LOC(3), T(1)
+// Implementation:
+// var COMMON MEMORY
+// type MEMORY struct {
+//		PDAT struct {
+//			LOC [3]int
+//			T   [1]float64
+//		}
+// }
+//
+//	COMMON A,B
+//
+// type MEMORY struct {
+//		A [2]int
+//		B [1]float64
+// }
+//
+func (p *parser) parseCommon() (stmts []goast.Stmt) {
+	p.expect(ftCommon)
+	p.ident++
+
+	var blockName string = "ALL"
+	if p.ns[p.ident].tok == token.QUO { // /
+		// find block name
+		p.ident++
+		blockName = string(p.ns[p.ident].b)
+		p.ident++
+
+		p.expect(token.QUO) // /
+		p.ident++
+	}
+
+	// variable names without type
+	var names []string
+	newIdent := true
+	for ; ; p.ident++ {
+		exit := false
+		switch v := p.ns[p.ident]; v.tok {
+		case token.COMMA:
+			newIdent = true
+			continue
+		case ftNewLine:
+			exit = true
+		default:
+			if newIdent {
+				newIdent = false
+				names = append(names, string(v.b))
+			} else {
+				names[len(names)-1] += string(v.b)
+			}
+		}
+		if exit {
+			break
+		}
+	}
+
+	p.expect(ftNewLine)
+
+	// put block name in parser
+	p.Common.addBlockName(blockName, names)
+
+	// generate stmts
+	// {{ .name }} = COMMON.{{ .blockName }}.{{ name }}
+	for i := range names {
+		name := names[i]
+		if index := strings.Index(name, "("); index > 0 {
+			name = name[:index]
+		}
+		stmts = append(stmts, &goast.AssignStmt{
+			Lhs: []goast.Expr{goast.NewIdent(name)},
+			Tok: token.ASSIGN,
+			Rhs: []goast.Expr{goast.NewIdent("COMMON." + blockName + "." + name)},
+		})
+	}
 
 	return
 }
