@@ -85,8 +85,8 @@ C -----------------------------------------------------
             call testName("test_common")
             call test_common()
 
-            call testName("test_common_satellite")
-            call test_common_satellite()
+C           call testName("test_common_satellite")
+C           call test_common_satellite()
 
             ! end of tests
         END
@@ -946,16 +946,16 @@ C -----------------------------------------------------
             WRITE(*,'(F8.2)') TS(1)
         END 
 
-        SUBROUTINE test_common_satellite
-            COMMON/PDAT/LOC(3), TS(1)
-            IF ( LOC(1) .NE. 2   ) call fail("common 1")
-            IF ( LOC(2) .NE. 1   ) call fail("common 2")
-            IF ( LOC(3) .NE. 3   ) call fail("common 3")
-            IF (  TS(1) .NE. 6   ) call fail("common 4")
-            WRITE(*,'(I2)') LOC(1)
-            WRITE(*,'(I2)') LOC(2)
-            WRITE(*,'(I2)') LOC(3)
-            WRITE(*,'(F8.2)') TS(1)
-        END
+C       SUBROUTINE test_common_satellite
+C           COMMON/PDAT/LOC(3), TS(1)
+C           IF ( LOC(1) .NE. 2   ) call fail("common 1")
+C           IF ( LOC(2) .NE. 1   ) call fail("common 2")
+C           IF ( LOC(3) .NE. 3   ) call fail("common 3")
+C           IF (  TS(1) .NE. 6   ) call fail("common 4")
+C           WRITE(*,'(I2)') LOC(1)
+C           WRITE(*,'(I2)') LOC(2)
+C           WRITE(*,'(I2)') LOC(3)
+C           WRITE(*,'(F8.2)') TS(1)
+C       END
 
 C -----------------------------------------------------
