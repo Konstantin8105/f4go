@@ -92,7 +92,6 @@ func scan(b []byte) (ns []node) {
 		for e := s.nodes.Front(); e != nil; e = e.Next() {
 			ns = append(ns, *e.Value.(*node))
 		}
-		fmt.Println(ns)
 	}()
 
 	// separate lines
