@@ -547,7 +547,7 @@ type replacer struct {
 func (r replacer) Visit(node goast.Node) (w goast.Visitor) {
 	if node != nil {
 		if ident, ok := node.(*goast.Ident); ok {
-			node.(*goast.Ident).Name = strings.ReplaceAll(ident.Name, r.from, r.to)
+			node.(*goast.Ident).Name = strings.Replace(ident.Name, r.from, r.to, -1)
 		}
 	}
 	return r
