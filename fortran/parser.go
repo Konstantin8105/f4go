@@ -1633,15 +1633,18 @@ func (p *parser) parseParamDecl() (fields []*goast.Field) {
 // INTEGER            LOCL12( 4 ), LOCU21( 4 ),
 // DATA               LOCU12 / 3, 4, 1, 2 / , LOCL21 / 2, 1, 4, 3 /
 //
+// DATA (M(I)  ,I= 1, 180) / ... /
+// DATA (P(1,I),I= 1, 500) / ... /
+//
 // TODO:
 //
 // INTEGER            LV, IPW2
 // PARAMETER          ( LV = 128 )
 // INTEGER            J
 // INTEGER            MM( LV, 4 )
-// DATA               ( MM( 1, J ), J = 1, 4 ) / 494, 322, 2508, 2549 /
 //
-// DATA (MAPPR(I),I=1,180)/ ... /
+// DATA (P(I,4),I= 1, 500) / ... /
+// DATA ((D(I,J),J=1,4),I=1,4) / ... /
 
 func (p *parser) parseData() (stmts []goast.Stmt) {
 	p.expect(ftData)
