@@ -540,6 +540,19 @@ checkArguments:
 	return
 }
 
+type replacer struct {
+	from, to string
+}
+
+func (r replacer) Visit(node goast.Node) (w goast.Visitor) {
+	if node != nil {
+		if ident, ok := node.(*goast.Ident); ok {
+			node.(*goast.Ident).Name = strings.Replace(ident.Name, r.from, r.to, -1)
+		}
+	}
+	return r
+}
+
 // init vars
 func (p *parser) initializeVars() (vars []goast.Stmt) {
 	for i := range []varInitialization(p.initVars) {
@@ -620,249 +633,77 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 
 		case 2: // matrix
 
-			// List: []ast.Stmt (len = 2) {
-			// .  0: *ast.AssignStmt {
-			// .  .  Lhs: []ast.Expr (len = 1) {
-			// .  .  .  0: *ast.Ident {
-			// .  .  .  .  Name: "A"
-			// .  .  .  }
-			// .  .  }
-			// .  .  Tok: :=
-			// .  .  Rhs: []ast.Expr (len = 1) {
-			// .  .  .  0: *ast.CallExpr {
-			// .  .  .  .  Fun: *ast.Ident {
-			// .  .  .  .  .  Name: "make"
-			// .  .  .  .  }
-			// .  .  .  .  Lparen: 4:11
-			// .  .  .  .  Args: []ast.Expr (len = 2) {
-			// .  .  .  .  .  0: *ast.ArrayType {
-			// .  .  .  .  .  .  Lbrack: 4:12
-			// .  .  .  .  .  .  Elt: *ast.ArrayType {
-			// .  .  .  .  .  .  .  Lbrack: 4:14
-			// .  .  .  .  .  .  .  Elt: *ast.Ident {
-			// .  .  .  .  .  .  .  .  Name: "int"
-			// .  .  .  .  .  .  .  }
-			// .  .  .  .  .  .  }
-			// .  .  .  .  .  }
-			// .  .  .  .  .  1: *ast.BasicLit {
-			// .  .  .  .  .  .  Kind: INT
-			// .  .  .  .  .  .  Value: "3"
-			// .  .  .  .  .  }
-			// .  .  .  .  }
-			// .  .  .  .  Rparen: 4:22
-			// .  .  .  }
-			// .  .  }
-			// .  }
-			// .  1: *ast.ForStmt {
-			// .  .  Init: *ast.AssignStmt {
-			// .  .  .  Lhs: []ast.Expr (len = 1) {
-			// .  .  .  .  0: *ast.Ident {
-			// .  .  .  .  .  Name: "i"
-			// .  .  .  .  }
-			// .  .  .  }
-			// .  .  .  Tok: :=
-			// .  .  .  Rhs: []ast.Expr (len = 1) {
-			// .  .  .  .  0: *ast.BasicLit {
-			// .  .  .  .  .  Kind: INT
-			// .  .  .  .  .  Value: "0"
-			// .  .  .  .  }
-			// .  .  .  }
-			// .  .  }
-			// .  .  Cond: *ast.BinaryExpr {
-			// .  .  .  X: *ast.Ident {
-			// .  .  .  .  Name: "i"
-			// .  .  .  }
-			// .  .  .  Op: <
-			// .  .  .  Y: *ast.BasicLit {
-			// .  .  .  .  Kind: INT
-			// .  .  .  .  Value: "3"
-			// .  .  .  }
-			// .  .  }
-			// .  .  Post: *ast.IncDecStmt {
-			// .  .  .  X: *ast.Ident {
-			// .  .  .  .  Name: "i"
-			// .  .  .  }
-			// .  .  .  Tok: ++
-			// .  .  }
-			// .  .  Body: *ast.BlockStmt {
-			// .  .  .  Lbrace: 5:25
-			// .  .  .  List: []ast.Stmt (len = 1) {
-			// .  .  .  .  0: *ast.AssignStmt {
-			// .  .  .  .  .  Lhs: []ast.Expr (len = 1) {
-			// .  .  .  .  .  .  0: *ast.IndexExpr {
-			// .  .  .  .  .  .  .  X: *ast.Ident {
-			// .  .  .  .  .  .  .  .  Name: "A"
-			// .  .  .  .  .  .  .  }
-			// .  .  .  .  .  .  .  Lbrack: 6:4
-			// .  .  .  .  .  .  .  Index: *ast.Ident {
-			// .  .  .  .  .  .  .  .  Name: "i"
-			// .  .  .  .  .  .  .  }
-			// .  .  .  .  .  .  .  Rbrack: 6:6
-			// .  .  .  .  .  .  }
-			// .  .  .  .  .  }
-			// .  .  .  .  .  Tok: =
-			// .  .  .  .  .  Rhs: []ast.Expr (len = 1) {
-			// .  .  .  .  .  .  0: *ast.CallExpr {
-			// .  .  .  .  .  .  .  Fun: *ast.Ident {
-			// .  .  .  .  .  .  .  .  Name: "make"
-			// .  .  .  .  .  .  .  }
-			// .  .  .  .  .  .  .  Lparen: 6:14
-			// .  .  .  .  .  .  .  Args: []ast.Expr (len = 2) {
-			// .  .  .  .  .  .  .  .  0: *ast.ArrayType {
-			// .  .  .  .  .  .  .  .  .  Lbrack: 6:15
-			// .  .  .  .  .  .  .  .  .  Elt: *ast.Ident {
-			// .  .  .  .  .  .  .  .  .  .  Name: "int"
-			// .  .  .  .  .  .  .  .  .  }
-			// .  .  .  .  .  .  .  .  }
-			// .  .  .  .  .  .  .  .  1: *ast.BasicLit {
-			// .  .  .  .  .  .  .  .  .  Kind: INT
-			// .  .  .  .  .  .  .  .  .  Value: "7"
-			// .  .  .  .  .  .  .  .  }
-			// .  .  .  .  .  .  .  }
-			// .  .  .  .  .  .  }
-			// .  .  .  .  .  }
-			// .  .  .  .  }
-			// .  .  .  }
-			// .  .  }
-			// .  }
-			// }
-
-			// Variables
-			// * name
-			// * size0
-			// * size1
-			// * typ
-
+			fset := token.NewFileSet() // positions are relative to fset
+			src := `package main
+func main() {
+	MATRIX := make([][]%s, %d)
+	for u := 0; u < %d; u++ {
+		MATRIX[u] = make([]%s, %d)
+	}
+}
+`
 			var (
-				name     = name
+				subName  = "MATRIX"
 				size0, _ = p.getSize(name, 0)
 				size1, _ = p.getSize(name, 1)
 				typ      = goT.getBaseType()
 			)
-
-			tok := token.DEFINE
-			if strings.Contains(name, "COMMON.") {
-				tok = token.ASSIGN
-			}
-
-			vars = append(vars, []goast.Stmt{
-				&goast.AssignStmt{
-					Lhs: []goast.Expr{goast.NewIdent(name)},
-					Tok: tok,
-					Rhs: []goast.Expr{&goast.CallExpr{
-						Fun:    goast.NewIdent("make"),
-						Lparen: 1,
-						Args: []goast.Expr{
-							&goast.ArrayType{
-								Lbrack: 1,
-								Elt: &goast.ArrayType{
-									Lbrack: 1,
-									Elt:    goast.NewIdent(typ),
-								},
-							},
-							&goast.BasicLit{
-								Kind:  token.INT,
-								Value: fmt.Sprintf("%d", size0),
-							},
-						},
-					}},
-				},
-				&goast.ForStmt{
-					Init: &goast.AssignStmt{
-						Lhs: []goast.Expr{goast.NewIdent("i")},
-						Tok: token.DEFINE,
-						Rhs: []goast.Expr{&goast.BasicLit{
-							Kind:  token.INT,
-							Value: "0",
-						}},
-					},
-					Cond: &goast.BinaryExpr{
-						X:  goast.NewIdent("i"),
-						Op: token.LSS,
-						Y: &goast.BasicLit{
-							Kind:  token.INT,
-							Value: fmt.Sprintf("%d", size0),
-						},
-					},
-					Post: &goast.IncDecStmt{
-						X:   goast.NewIdent("i"),
-						Tok: token.INC,
-					},
-					Body: &goast.BlockStmt{
-						Lbrace: 1,
-						List: []goast.Stmt{
-							&goast.AssignStmt{
-								Lhs: []goast.Expr{
-									&goast.IndexExpr{
-										X:      goast.NewIdent(name),
-										Lbrack: 1,
-										Index:  goast.NewIdent("i"),
-										Rbrack: 1,
-									},
-								},
-								Tok: token.ASSIGN,
-								Rhs: []goast.Expr{
-									&goast.CallExpr{
-										Fun:    goast.NewIdent("make"),
-										Lparen: 1,
-										Args: []goast.Expr{
-											&goast.ArrayType{
-												Lbrack: 1,
-												Elt:    goast.NewIdent(typ),
-											},
-											&goast.BasicLit{
-												Kind:  token.INT,
-												Value: fmt.Sprintf("%d", size1),
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			}...)
-
-		case 3: // ()()()
-			fset := token.NewFileSet() // positions are relative to fset
-			src := `package main
-func main() {
-	%s := make([][][]%s, %d)
-	for u := 0; u < %d; u++ {
-		%s[u] = make([][]%s, %d)
-		for w := 0; w < %d; w++ {
-			%s[u][w] = make([]%s, %d)
-		}
-	}
-}
-`
-			size0, _ := p.getSize(name, 0)
-			size1, _ := p.getSize(name, 1)
-			size2, _ := p.getSize(name, 2)
-			s := fmt.Sprintf(src,
-				// line 1
-				name,
-				goT.getBaseType(),
-				size0,
-				// line 2
-				size0,
-				// line 3
-				name,
-				goT.getBaseType(),
-				size1,
-				// line 4
-				size1,
-				// line 5
-				name,
-				goT.getBaseType(),
-				size2,
-			)
+			s := fmt.Sprintf(src, typ, size0, size0, typ, size1)
 			f, err := goparser.ParseFile(fset, "", s, 0)
 			if err != nil {
 				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
 					err, s, goT.arrayNode))
 			}
-			vars = append(vars, f.Decls[0].(*goast.FuncDecl).Body.List...)
+			var r replacer
+			r.from = subName
+			r.to = name
+			goast.Walk(r, f)
+
+			list := f.Decls[0].(*goast.FuncDecl).Body.List
+			if strings.Contains(name, "COMMON.") {
+				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
+			}
+
+			vars = append(vars, list...)
+
+		case 3: // ()()()
+			fset := token.NewFileSet() // positions are relative to fset
+			src := `package main
+func main() {
+	MATRIX := make([][][]%s, %d)
+	for u := 0; u < %d; u++ {
+		MATRIX[u] = make([][]%s, %d)
+		for w := 0; w < %d; w++ {
+			MATRIX[u][w] = make([]%s, %d)
+		}
+	}
+}
+`
+			var (
+				subName  = "MATRIX"
+				size0, _ = p.getSize(name, 0)
+				size1, _ = p.getSize(name, 1)
+				size2, _ = p.getSize(name, 2)
+				typ      = goT.getBaseType()
+			)
+			s := fmt.Sprintf(src, typ, size0, size0, typ, size1, size1, typ, size2)
+			f, err := goparser.ParseFile(fset, "", s, 0)
+			if err != nil {
+				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
+					err, s, goT.arrayNode))
+			}
+
+			var r replacer
+			r.from = subName
+			r.to = name
+			goast.Walk(r, f)
+
+			list := f.Decls[0].(*goast.FuncDecl).Body.List
+			if strings.Contains(name, "COMMON.") {
+				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
+			}
+
+			vars = append(vars, list...)
 		default:
 			panic(fmt.Errorf(
 				"not correct amount of array : %v", goT))
