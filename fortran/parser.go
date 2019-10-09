@@ -670,42 +670,40 @@ func main() {
 			fset := token.NewFileSet() // positions are relative to fset
 			src := `package main
 func main() {
-	%s := make([][][]%s, %d)
+	MATRIX := make([][][]%s, %d)
 	for u := 0; u < %d; u++ {
-		%s[u] = make([][]%s, %d)
+		MATRIX[u] = make([][]%s, %d)
 		for w := 0; w < %d; w++ {
-			%s[u][w] = make([]%s, %d)
+			MATRIX[u][w] = make([]%s, %d)
 		}
 	}
 }
 `
-			size0, _ := p.getSize(name, 0)
-			size1, _ := p.getSize(name, 1)
-			size2, _ := p.getSize(name, 2)
-			s := fmt.Sprintf(src,
-				// line 1
-				name,
-				goT.getBaseType(),
-				size0,
-				// line 2
-				size0,
-				// line 3
-				name,
-				goT.getBaseType(),
-				size1,
-				// line 4
-				size1,
-				// line 5
-				name,
-				goT.getBaseType(),
-				size2,
+			var (
+				subName  = "MATRIX"
+				size0, _ = p.getSize(name, 0)
+				size1, _ = p.getSize(name, 1)
+				size2, _ = p.getSize(name, 2)
+				typ      = goT.getBaseType()
 			)
+			s := fmt.Sprintf(src, typ, size0, size0, typ, size1, size1, typ, size2)
 			f, err := goparser.ParseFile(fset, "", s, 0)
 			if err != nil {
 				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
 					err, s, goT.arrayNode))
 			}
-			vars = append(vars, f.Decls[0].(*goast.FuncDecl).Body.List...)
+
+			var r replacer
+			r.from = subName
+			r.to = name
+			goast.Walk(r, f)
+
+			list := f.Decls[0].(*goast.FuncDecl).Body.List
+			if strings.Contains(name, "COMMON.") {
+				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
+			}
+
+			vars = append(vars, list...)
 		default:
 			panic(fmt.Errorf(
 				"not correct amount of array : %v", goT))
