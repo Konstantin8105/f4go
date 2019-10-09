@@ -1882,11 +1882,16 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 				})
 
 			case 2: // matrix
-				// (LL( 1, J ), J = 1, 4 )  - one row of matrix
 				if bytes.Equal(name[3].b, name[8].b) {
 					// (LL( J, 1 ), J = 1, 4 )  - one row of matrix
-					panic("TODO: Not support")
+					var names string
+					for i := range name {
+						names += fmt.Sprintf("[%s]", string(name[i].b))
+					}
+					panic(fmt.Errorf("TODO: Not support: %s", names))
 				}
+
+				// (LL( 1, J ), J = 1, 4 )  - one row of matrix
 				c, _ := strconv.Atoi(string(name[3].b))
 				start, _ := strconv.Atoi(string(name[10].b))
 				end, _ := strconv.Atoi(string(name[12].b))
