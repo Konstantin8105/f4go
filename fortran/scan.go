@@ -130,6 +130,12 @@ func scan(b []byte) (ns []node) {
 	}
 	s.scanTokenWithPoint()
 
+	// move comments
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Scan: move comments after RPAREN\n")
+	}
+	s.scanMoveComment()
+
 	// separate on other token
 	if Debug {
 		fmt.Fprintf(os.Stdout, "Scan: tokens\n")
@@ -882,6 +888,28 @@ impl:
 		}
 	}
 
+}
+
+func (s *scanner) scanMoveComment() {
+	// check amount PAREN
+	var left, rigth int
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		switch tok := e.Value.(*node).tok; tok {
+		case token.LPAREN:
+			left++
+		case token.RPAREN:
+			rigth++
+		}
+	}
+	if left != rigth {
+		if Debug {
+			fmt.Fprintf(os.Stdout, "Amount of left and rigth paren is not same: %d != %d\n", left, rigth)
+		}
+		return
+	}
+	if Debug {
+		fmt.Fprintf(os.Stdout, "Amount of left and rigth paren is same: %d\n", left)
+	}
 }
 
 func (s *scanner) scanTokens() {

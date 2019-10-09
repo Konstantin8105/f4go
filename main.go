@@ -61,6 +61,10 @@ func parse(filename, packageName, goFilename string) []errorRow {
 		}
 	}
 
+	// remove some end line symbols
+	dat = bytes.Replace(dat, []byte{'\r'}, []byte{}, -1)
+	dat = bytes.Replace(dat, []byte{'\015'}, []byte{}, -1)
+
 	// parse fortran to go/ast
 	ast, errs := fortran.Parse(dat, packageName)
 	if len(errs) > 0 {
