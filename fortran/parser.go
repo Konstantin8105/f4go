@@ -1640,6 +1640,8 @@ func (p *parser) parseParamDecl() (fields []*goast.Field) {
 // INTEGER            J
 // INTEGER            MM( LV, 4 )
 // DATA               ( MM( 1, J ), J = 1, 4 ) / 494, 322, 2508, 2549 /
+//
+// DATA (MAPPR(I),I=1,180)/ ... /
 
 func (p *parser) parseData() (stmts []goast.Stmt) {
 	p.expect(ftData)
