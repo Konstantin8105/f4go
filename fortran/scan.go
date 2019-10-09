@@ -861,12 +861,19 @@ impl:
 			}
 			s.nodes.InsertBefore(&node{tok: ftNewLine, b: []byte{'\n'}}, e)
 		}
+		isopen := false
 		for ; n != nil; n = n.Next() {
 			if n.Value.(*node).tok == ftNewLine {
 				inject()
 				break
 			}
-			if n.Value.(*node).tok == token.COMMA {
+			if n.Value.(*node).tok == token.LPAREN {
+				isopen = true
+			}
+			if n.Value.(*node).tok == token.RPAREN {
+				isopen = false
+			}
+			if n.Value.(*node).tok == token.COMMA && isopen == false {
 				inject()
 				names = make([]node, 0)
 				continue

@@ -933,17 +933,24 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
         SUBROUTINE test_common
-            COMMON/PDAT/LOC(3), TS(1)
+            COMMON/PDAT/LOC(3), TS(1), R(2,2)
+C           COMMON/PDAT/LOC(3), TS(1), R(2,2), RE(2,2,2)
             DATA LOC/ 2, 1 , 3/
             DATA TS / 0.6 /
+            DATA R  / 4*0.3 /
+C           DATA RE / 8*0.2 /
             IF ( LOC(1) .NE. 2   ) call fail("common 1")
             IF ( LOC(2) .NE. 1   ) call fail("common 2")
             IF ( LOC(3) .NE. 3   ) call fail("common 3")
-            IF (  TS(1) .NE. 0.6   ) call fail("common 4")
+            IF (  TS(1) .NE. 0.6 ) call fail("common 4")
+            IF ( R(1,1) .NE. 0.3 ) call fail("common 5")
+C           IF (RE(1,1,1).NE. 0.2) call fail("common 5")
             WRITE(*,'(I2)') LOC(1)
             WRITE(*,'(I2)') LOC(2)
             WRITE(*,'(I2)') LOC(3)
             WRITE(*,'(F8.2)') TS(1)
+            WRITE(*,'(F8.2)') R(1,1)
+C           WRITE(*,'(F8.2)') RE(1,1,1)
         END 
 
 C       SUBROUTINE test_common_satellite
