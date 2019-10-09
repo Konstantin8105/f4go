@@ -22,6 +22,7 @@ const (
 	ftEnd
 	ftElseif
 	ftDo
+	ftDimension
 	ftDouble
 	ftCall
 	ftThen
@@ -77,6 +78,7 @@ var o = [...]string{
 	ftEnd:         "END",
 	ftElseif:      "ELSEIF",
 	ftDo:          "DO",
+	ftDimension:   "DIMENSION",
 	ftDouble:      "DOUBLE",
 	ftCall:        "CALL",
 	ftThen:        "THEN",

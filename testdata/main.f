@@ -88,6 +88,9 @@ C -----------------------------------------------------
 C           call testName("test_common_satellite")
 C           call test_common_satellite()
 
+            call testName("test_dimension")
+            call test_dimensiOn()
+
             ! end of tests
         END
 
@@ -965,3 +968,19 @@ C           WRITE(*,'(F8.2)') TS(1)
 C       END
 
 C -----------------------------------------------------
+        SUBROUTINE test_dimension
+            DIMENSION M(50)
+            INTEGER I
+
+            DATA (M(I),I=1,20)/
+     &    3,  3,  4,  0,  4,  0,  0,  4,  0,  1,
+     1    1,  1,  1,  1,  3,  3,  0,  1,  3,  3/
+            
+            IF ( M(1) .NE. 3   ) call fail("DIMENSION 1")
+            IF ( M(3) .NE. 4   ) call fail("DIMENSION 2")
+            WRITE(*,'(I2)') M(1)
+            WRITE(*,'(I2)') M(2)
+            WRITE(*,'(I2)') M(3)
+        END 
+C -----------------------------------------------------
+

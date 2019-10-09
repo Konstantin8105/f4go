@@ -572,6 +572,16 @@ A:
 
 // postprocessor
 func (s *scanner) postprocessor() {
+	// from:
+	// DIMENSION M(100)
+	// to:
+	// INTEGER M(100)
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok != ftDimension {
+			continue
+		}
+		e.Value.(*node).tok = ftInteger
+	}
 
 	// From:
 	//  END SUBROUTINE
@@ -887,7 +897,6 @@ impl:
 			names = append(names, *n.Value.(*node))
 		}
 	}
-
 }
 
 func (s *scanner) scanMoveComment() {
@@ -929,6 +938,7 @@ func (s *scanner) scanTokens() {
 		{tok: ftEnd, pattern: []string{"END", "ENDDO"}},
 		{tok: ftDo, pattern: []string{"DO"}},
 		{tok: ftDouble, pattern: []string{"DOUBLE"}},
+		{tok: ftDimension, pattern: []string{"DIMENSION"}},
 		{tok: ftFunction, pattern: []string{"FUNCTION"}},
 		{tok: token.IF, pattern: []string{"IF"}},
 		{tok: token.ELSE, pattern: []string{"ELSE"}},
