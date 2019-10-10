@@ -24,6 +24,9 @@ func main() {
 }
 
 func run() {
+	// free 1 CPU for other computer stuff
+	runtime.GOMAXPROCS(runtime.GOMAXPROCS(0) - 1)
+
 	flag.Parse()
 
 	if flag.NArg() < 1 {

@@ -704,6 +704,108 @@ func main() {
 			}
 
 			vars = append(vars, list...)
+
+		case 4: // ()()()()
+			fset := token.NewFileSet() // positions are relative to fset
+			src := `package main
+func main() {
+	MATRIX := make([][][][]%s, %d)
+	for u := 0; u < %d; u++ {
+		MATRIX[u] = make([][][]%s, %d)
+		for w := 0; w < %d; w++ {
+			MATRIX[u][w] = make([][]%s, %d)
+			for q := 0; q < %d; q++{
+				MATRIX[u][w][q] = make([]%s, %d)
+			}
+		}
+	}
+}
+`
+			var (
+				subName  = "MATRIX"
+				size0, _ = p.getSize(name, 0)
+				size1, _ = p.getSize(name, 1)
+				size2, _ = p.getSize(name, 2)
+				size3, _ = p.getSize(name, 3)
+				typ      = goT.getBaseType()
+			)
+			s := fmt.Sprintf(src,
+				typ, size0, size0,
+				typ, size1, size1,
+				typ, size2, size2,
+				typ, size3,
+			)
+			f, err := goparser.ParseFile(fset, "", s, 0)
+			if err != nil {
+				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
+					err, s, goT.arrayNode))
+			}
+
+			var r replacer
+			r.from = subName
+			r.to = name
+			goast.Walk(r, f)
+
+			list := f.Decls[0].(*goast.FuncDecl).Body.List
+			if strings.Contains(name, "COMMON.") {
+				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
+			}
+
+			vars = append(vars, list...)
+
+		case 5: // ()()()()()
+			fset := token.NewFileSet() // positions are relative to fset
+			src := `package main
+func main() {
+	MATRIX := make([][][][][]%s, %d)
+	for u := 0; u < %d; u++ {
+		MATRIX[u] = make([][][][]%s, %d)
+		for w := 0; w < %d; w++ {
+			MATRIX[u][w] = make([][][]%s, %d)
+			for q := 0; q < %d; q++{
+				MATRIX[u][w][q] = make([][]%s, %d)
+				for s := 0; s < %d; s++{
+					MATRIX[u][w][q][s] = make([]%s, %d)
+				}
+			}
+		}
+	}
+}
+`
+			var (
+				subName  = "MATRIX"
+				size0, _ = p.getSize(name, 0)
+				size1, _ = p.getSize(name, 1)
+				size2, _ = p.getSize(name, 2)
+				size3, _ = p.getSize(name, 3)
+				size4, _ = p.getSize(name, 4)
+				typ      = goT.getBaseType()
+			)
+			s := fmt.Sprintf(src,
+				typ, size0, size0,
+				typ, size1, size1,
+				typ, size2, size2,
+				typ, size3, size3,
+				typ, size4,
+			)
+			f, err := goparser.ParseFile(fset, "", s, 0)
+			if err != nil {
+				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
+					err, s, goT.arrayNode))
+			}
+
+			var r replacer
+			r.from = subName
+			r.to = name
+			goast.Walk(r, f)
+
+			list := f.Decls[0].(*goast.FuncDecl).Body.List
+			if strings.Contains(name, "COMMON.") {
+				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
+			}
+
+			vars = append(vars, list...)
+
 		default:
 			panic(fmt.Errorf(
 				"not correct amount of array : %v", goT))
@@ -2013,13 +2115,13 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 										Lbrack: 1,
 										Index: &goast.BasicLit{
 											Kind:  token.INT,
-											Value: strconv.Itoa(i),
+											Value: strconv.Itoa(j),
 										},
 									},
 									Lbrack: 1,
 									Index: &goast.BasicLit{
 										Kind:  token.INT,
-										Value: strconv.Itoa(j),
+										Value: strconv.Itoa(i),
 									},
 								},
 								isByte: isByte})
