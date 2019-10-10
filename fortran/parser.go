@@ -1883,42 +1883,65 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 
 			case 2: // matrix
 				if bytes.Equal(name[3].b, name[8].b) {
-					// (LL( J, 1 ), J = 1, 4 )  - one row of matrix
-					var names string
-					for i := range name {
-						names += fmt.Sprintf("[%s]", string(name[i].b))
-					}
-					panic(fmt.Errorf("TODO: Not support: %s", names))
-				}
-
-				// (LL( 1, J ), J = 1, 4 )  - one row of matrix
-				c, _ := strconv.Atoi(string(name[3].b))
-				start, _ := strconv.Atoi(string(name[10].b))
-				end, _ := strconv.Atoi(string(name[12].b))
-				for j := start - 1; j < end; j++ {
-					nameExpr = append(nameExpr, tExpr{
-						expr: &goast.IndexExpr{
-							X: &goast.IndexExpr{
-								X:      goast.NewIdent(string(name[1].b)),
+					// ( L ( J , 1 ) , J = 1  ,  4  )  - one row of matrix
+					// 0 1 2 3 4 5 6 7 8 9 10 11 12 13
+					c, _ := strconv.Atoi(string(name[5].b))
+					start, _ := strconv.Atoi(string(name[10].b))
+					end, _ := strconv.Atoi(string(name[12].b))
+					for j := start - 1; j < end; j++ {
+						nameExpr = append(nameExpr, tExpr{
+							expr: &goast.IndexExpr{
+								X: &goast.IndexExpr{
+									X:      goast.NewIdent(string(name[1].b)),
+									Lbrack: 1,
+									Index: &goast.BasicLit{
+										Kind:  token.INT,
+										Value: strconv.Itoa(j),
+									},
+								},
 								Lbrack: 1,
 								Index: &goast.BasicLit{
 									Kind:  token.INT,
 									Value: strconv.Itoa(c - 1),
 								},
 							},
-							Lbrack: 1,
-							Index: &goast.BasicLit{
-								Kind:  token.INT,
-								Value: strconv.Itoa(j),
+							isByte: isByte})
+					}
+					stmts = append(stmts, &goast.AssignStmt{
+						Lhs: []goast.Expr{goast.NewIdent("_")},
+						Tok: token.ASSIGN,
+						Rhs: []goast.Expr{goast.NewIdent(string(name[3].b))},
+					})
+				} else {
+					// (LL( 1, J ), J = 1, 4 )  - one row of matrix
+					c, _ := strconv.Atoi(string(name[3].b))
+					start, _ := strconv.Atoi(string(name[10].b))
+					end, _ := strconv.Atoi(string(name[12].b))
+					for j := start - 1; j < end; j++ {
+						nameExpr = append(nameExpr, tExpr{
+							expr: &goast.IndexExpr{
+								X: &goast.IndexExpr{
+									X:      goast.NewIdent(string(name[1].b)),
+									Lbrack: 1,
+									Index: &goast.BasicLit{
+										Kind:  token.INT,
+										Value: strconv.Itoa(c - 1),
+									},
+								},
+								Lbrack: 1,
+								Index: &goast.BasicLit{
+									Kind:  token.INT,
+									Value: strconv.Itoa(j),
+								},
 							},
-						},
-						isByte: isByte})
+							isByte: isByte})
+					}
+					stmts = append(stmts, &goast.AssignStmt{
+						Lhs: []goast.Expr{goast.NewIdent("_")},
+						Tok: token.ASSIGN,
+						Rhs: []goast.Expr{goast.NewIdent(string(name[5].b))},
+					})
 				}
-				stmts = append(stmts, &goast.AssignStmt{
-					Lhs: []goast.Expr{goast.NewIdent("_")},
-					Tok: token.ASSIGN,
-					Rhs: []goast.Expr{goast.NewIdent(string(name[5].b))},
-				})
 
 			default:
 				panic("Not acceptable type : " + nodesToString(name))
@@ -1928,6 +1951,88 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 		if v, ok := p.initVars.get(string(name[2].b)); ok {
 			isByte := v.typ.getBaseType() == "byte"
 			switch p.getArrayLen(v.name) {
+			case 2: // matrix
+				if len(name) == 22 && bytes.Equal(name[4].b, name[16].b) && bytes.Equal(name[6].b, name[9].b) {
+					// ( ( M ( I , J ) , J =  1  ,  2  )  ,  I  =  1  ,  2  )
+					// 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21
+					var (
+						Istart, _ = strconv.Atoi(string(name[18].b))
+						Iend, _   = strconv.Atoi(string(name[20].b))
+						Jstart, _ = strconv.Atoi(string(name[11].b))
+						Jend, _   = strconv.Atoi(string(name[13].b))
+					)
+					for i := Istart - 1; i < Iend; i++ {
+						for j := Jstart - 1; j < Jend; j++ {
+							nameExpr = append(nameExpr, tExpr{
+								expr: &goast.IndexExpr{
+									X: &goast.IndexExpr{
+										X:      goast.NewIdent(string(name[2].b)),
+										Lbrack: 1,
+										Index: &goast.BasicLit{
+											Kind:  token.INT,
+											Value: strconv.Itoa(i),
+										},
+									},
+									Lbrack: 1,
+									Index: &goast.BasicLit{
+										Kind:  token.INT,
+										Value: strconv.Itoa(j),
+									},
+								},
+								isByte: isByte})
+						}
+					}
+					stmts = append(stmts, &goast.AssignStmt{
+						Lhs: []goast.Expr{goast.NewIdent("_")},
+						Tok: token.ASSIGN,
+						Rhs: []goast.Expr{goast.NewIdent(string(name[4].b))},
+					})
+					stmts = append(stmts, &goast.AssignStmt{
+						Lhs: []goast.Expr{goast.NewIdent("_")},
+						Tok: token.ASSIGN,
+						Rhs: []goast.Expr{goast.NewIdent(string(name[6].b))},
+					})
+				} else if len(name) == 22 && bytes.Equal(name[4].b, name[9].b) && bytes.Equal(name[6].b, name[16].b) {
+					// ( ( M ( I , J ) , I =  1  ,  2  )  ,  J  =  1  ,  2  )
+					// 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21
+					var (
+						Istart, _ = strconv.Atoi(string(name[11].b))
+						Iend, _   = strconv.Atoi(string(name[13].b))
+						Jstart, _ = strconv.Atoi(string(name[18].b))
+						Jend, _   = strconv.Atoi(string(name[20].b))
+					)
+					for i := Istart - 1; i < Iend; i++ {
+						for j := Jstart - 1; j < Jend; j++ {
+							nameExpr = append(nameExpr, tExpr{
+								expr: &goast.IndexExpr{
+									X: &goast.IndexExpr{
+										X:      goast.NewIdent(string(name[2].b)),
+										Lbrack: 1,
+										Index: &goast.BasicLit{
+											Kind:  token.INT,
+											Value: strconv.Itoa(i),
+										},
+									},
+									Lbrack: 1,
+									Index: &goast.BasicLit{
+										Kind:  token.INT,
+										Value: strconv.Itoa(j),
+									},
+								},
+								isByte: isByte})
+						}
+					}
+					stmts = append(stmts, &goast.AssignStmt{
+						Lhs: []goast.Expr{goast.NewIdent("_")},
+						Tok: token.ASSIGN,
+						Rhs: []goast.Expr{goast.NewIdent(string(name[4].b))},
+					})
+					stmts = append(stmts, &goast.AssignStmt{
+						Lhs: []goast.Expr{goast.NewIdent("_")},
+						Tok: token.ASSIGN,
+						Rhs: []goast.Expr{goast.NewIdent(string(name[6].b))},
+					})
+				}
 			case 3: // ()()()
 				// ((CV(I,J,1),I=1,2),J=1,2)
 				startI, _ := strconv.Atoi(string(name[13].b))

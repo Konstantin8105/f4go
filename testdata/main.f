@@ -49,6 +49,9 @@ C -----------------------------------------------------
             call testName("test_data5")
             call test_data5()
 
+            call testName("test_data6")
+            call test_data6()
+
             call testName("test_matrix")
             call test_matrix()
 
@@ -541,6 +544,28 @@ C -----------------------------------------------------
             if ( M(1,2) .NE. 1) call fail("test_data3 - M(1,2)")
             if ( M(2,1) .NE. 2) call fail("test_data3 - M(2,1)")
             if ( M(2,2) .NE. 3) call fail("test_data3 - M(2,2)")
+        end
+
+        subroutine test_data6
+            REAL  M(2,2), A(1)
+            INTEGER I,J
+            DATA ((M(I,J),J= 1,2),I=1,2), A(1) / 0,1,2,3, 5 /
+            if ( M(1,1) .NE. 0) call fail("test_data3 - M(1,1)")
+            if ( M(1,2) .NE. 1) call fail("test_data3 - M(1,2)")
+            if ( M(2,1) .NE. 2) call fail("test_data3 - M(2,1)")
+            if ( M(2,2) .NE. 3) call fail("test_data3 - M(2,2)")
+            if ( A(1)   .NE. 5) call fail("test_data3 - A(1)")
+        end
+
+        subroutine test_data7
+            REAL  M(2,2), A(1)
+            INTEGER I,J
+            DATA ((M(I,J),I= 1,2),J=1,2), A(1) / 0,1,2,3, 5 /
+            if ( M(1,1) .NE. 0) call fail("test_data3 - M(1,1)")
+            if ( M(1,2) .NE. 1) call fail("test_data3 - M(1,2)")
+            if ( M(2,1) .NE. 2) call fail("test_data3 - M(2,1)")
+            if ( M(2,2) .NE. 3) call fail("test_data3 - M(2,2)")
+            if ( A(1)   .NE. 5) call fail("test_data3 - A(1)")
         end
 C -----------------------------------------------------
 
