@@ -1660,6 +1660,9 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 		if p.ns[p.ident].tok == ftNewLine {
 			break
 		}
+		if p.ns[p.ident].tok == token.COMMENT {
+			continue
+		}
 		if p.ns[p.ident].tok == token.QUO {
 			if isNames {
 				values = append(values, []node{})

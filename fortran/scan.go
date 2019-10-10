@@ -325,6 +325,9 @@ merge:
 			if p == nil {
 				continue
 			}
+			if last := p.Prev(); last != nil && last.Value.(*node).tok == token.COMMENT {
+				continue
+			}
 			if p.Value.(*node).tok != ftNewLine {
 				continue
 			}

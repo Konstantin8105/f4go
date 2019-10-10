@@ -539,7 +539,9 @@ C -----------------------------------------------------
         subroutine test_data5
             REAL  M(2,2)
             INTEGER I,J
-            DATA ((M(I,J),J= 1,2),I=1,2) / 0,1,2,3 /
+            DATA ((M(I,J),J= 1,2),I=1,2) / 0,1,
+C some comment
+     &2,3 /
             if ( M(1,1) .NE. 0) call fail("test_data3 - M(1,1)")
             if ( M(1,2) .NE. 1) call fail("test_data3 - M(1,2)")
             if ( M(2,1) .NE. 2) call fail("test_data3 - M(2,1)")
@@ -549,7 +551,9 @@ C -----------------------------------------------------
         subroutine test_data6
             REAL  M(2,2), A(1)
             INTEGER I,J
-            DATA ((M(I,J),J= 1,2),I=1,2), A(1) / 0,1,2,3, 5 /
+            DATA ((M(I,J),J= 1,2),I=1,2), A(1) / 0,1,2,
+C...some comment
+     &3, 5 /
             if ( M(1,1) .NE. 0) call fail("test_data3 - M(1,1)")
             if ( M(1,2) .NE. 1) call fail("test_data3 - M(1,2)")
             if ( M(2,1) .NE. 2) call fail("test_data3 - M(2,1)")
