@@ -1727,7 +1727,7 @@ func (p *parser) parseParamDecl() (fields []*goast.Field) {
 // ( ( D ( I , J ) , J = 1 , 4 ) , I = 1 , 4 )
 // =                             = = = = = = =
 //
-// TODO: Sign is change behavior ( KFIN ( 1 , J ) , J = - 40 , 40 )
+// Sign is change behavior ( KFIN ( 1 , J ) , J = - 40 , 40 )
 func explodeFor(name []node) (out [][]node, ok bool) {
 	// have loop
 	if len(name) == 0 {
@@ -1738,6 +1738,32 @@ func explodeFor(name []node) (out [][]node, ok bool) {
 	}
 	if name[0].tok != token.LPAREN {
 		return
+	}
+	{
+		// replace to copy
+		c := append([]node{}, name...)
+		name = c
+	}
+	{
+		// compess values
+	again:
+		for i := 2; i < len(name); i++ {
+			if name[i].tok == token.INT &&
+				name[i-2].tok != token.IDENT &&
+				name[i-2].tok != token.INT {
+				switch name[i-1].tok {
+				case token.ADD: // +
+					// just remove token
+					name = append(name[:i-1], name[i:]...)
+					goto again
+				case token.SUB: // -
+					// inject into value
+					name[i].b = append([]byte{'-'}, name[i].b...)
+					name = append(name[:i-1], name[i:]...)
+					goto again
+				}
+			}
+		}
 	}
 	last := len(name)
 	if name[last-1].tok != token.RPAREN {
@@ -1998,8 +2024,31 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 
 			str := nodesToString(name)
 			str = strings.Replace(str, "(", "[", -1)
-			str = strings.Replace(str, ")", "-(1)]", -1)
-			str = strings.Replace(str, ",", "-(1)][", -1)
+			str = strings.Replace(str, ")", "]", -1)
+			str = strings.Replace(str, ",", "][", -1)
+			na := []byte(str)
+			col := 0
+			for i := 0; ; i++ {
+				if i > len(na)-1 {
+					break
+				}
+				if na[i] == ']' {
+					varinit, ok := p.initVars.get(string(name[0].b))
+					if !ok {
+						break
+					}
+					size, ok := varinit.typ.getMinLimit(col)
+					if !ok {
+						break
+					}
+					corner := "-(" + strconv.Itoa(size) + ")"
+					na = append(na[:i-1], append([]byte(corner), na[i-1:]...)...)
+					i += len(corner)
+					col++
+				}
+			}
+			str = string(na)
+
 			nameExpr = append(nameExpr, tExpr{
 				expr:   goast.NewIdent(str),
 				isByte: isByte,

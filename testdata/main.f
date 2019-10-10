@@ -58,6 +58,12 @@ C -----------------------------------------------------
             call testName("test_data8")
             call test_data8()
 
+            call testName("test_data9")
+            call test_data9()
+
+            call testName("test_data10")
+            call test_data10()
+
             call testName("test_matrix")
             call test_matrix()
 
@@ -582,6 +588,28 @@ C...some comment
             if ( C(1) .NE. 4 ) call fail("test_data8 - C(1)")
             if ( C(2) .NE. 5 ) call fail("test_data8 - C(2)")
             if ( D    .NE. 78) call fail("test_data8 - D")
+        end
+
+        subroutine test_data9
+            REAL  A(-2:3)
+            DATA A /0,1,2,3,4,5/
+            if ( A(-2) .NE. 0 ) call fail("test_data9 - A(-2) ")
+            if ( A(-1) .NE. 1 ) call fail("test_data9 - A(-1) ")
+            if ( A( 0) .NE. 2 ) call fail("test_data9 - A( 0) ")
+            if ( A(+1) .NE. 3 ) call fail("test_data9 - A(+1) ")
+            if ( A(+2) .NE. 4 ) call fail("test_data9 - A(+2) ")
+            if ( A(+3) .NE. 5 ) call fail("test_data9 - A(+3) ")
+        end
+
+        subroutine test_data10
+            REAL  A(-2:3)
+            DATA (A(I),I=-2,3) /0,1,2,3,4,5/
+            if ( A(-2) .NE. 0 ) call fail("test_data10 - A(-2) ")
+            if ( A(-1) .NE. 1 ) call fail("test_data10 - A(-1) ")
+            if ( A( 0) .NE. 2 ) call fail("test_data10 - A( 0) ")
+            if ( A(+1) .NE. 3 ) call fail("test_data10 - A(+1) ")
+            if ( A(+2) .NE. 4 ) call fail("test_data10 - A(+2) ")
+            if ( A(+3) .NE. 5 ) call fail("test_data10 - A(+3) ")
         end
 C -----------------------------------------------------
 
