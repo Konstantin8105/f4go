@@ -18,6 +18,40 @@ type goType struct {
 	arrayNode [][]node
 }
 
+func (g goType) getMinLimit(col int) (size int, ok bool) {
+	if !g.isArray() {
+		return
+	}
+	if col > len(g.arrayNode) {
+		return
+	}
+
+	// Examples:
+	// [[INT, `2`, {582 27}]]
+	// [[-, `-`, {605 21}] [INT, `2`, {605 22}] [:, `:`, {605 23}] [INT, `3`, {605 24}]]
+	index := -1
+	for i := range g.arrayNode[col] {
+		if g.arrayNode[col][i].tok == token.COLON { // :
+			index = i
+		}
+	}
+	if index < 0 {
+		return 1, true
+	}
+	var value string
+	for i := range g.arrayNode[col] {
+		if i == index {
+			break
+		}
+		value += string(g.arrayNode[col][i].b)
+	}
+	number, err := strconv.Atoi(value)
+	if err != nil {
+		return 1, true // TODO : need more clear error
+	}
+	return number, true
+}
+
 func (g goType) String() (s string) {
 	s = g.getBaseType()
 	for i := 0; i < len(g.arrayNode); i++ {
