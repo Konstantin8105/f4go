@@ -12,12 +12,15 @@ import (
 
 // Example:
 //  REWIND NTRA
+//  REWIND MSTP(161)
 func (p *parser) parseRewind() (stmts []goast.Stmt) {
 	p.expect(ftRewind)
 	p.ident++
 
-	name := string(p.ns[p.ident].b)
-	p.ident++
+	var name string
+	for ; p.ident < len(p.ns) && p.ns[p.ident].tok != ftNewLine; p.ident++ {
+		name += string(p.ns[p.ident].b)
+	}
 	p.expect(ftNewLine)
 
 	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
