@@ -1726,6 +1726,8 @@ func (p *parser) parseParamDecl() (fields []*goast.Field) {
 // Example:
 // ( ( D ( I , J ) , J = 1 , 4 ) , I = 1 , 4 )
 // =                             = = = = = = =
+//
+// TODO: Sign is change behavior ( KFIN ( 1 , J ) , J = - 40 , 40 )
 func explodeFor(name []node) (out [][]node, ok bool) {
 	// have loop
 	if len(name) == 0 {
