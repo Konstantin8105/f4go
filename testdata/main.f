@@ -37,6 +37,21 @@ C -----------------------------------------------------
             call testName("test_data")
             call test_data()
 
+            call testName("test_data2")
+            call test_data2()
+            
+            call testName("test_data3")
+            call test_data3()
+            
+            call testName("test_data4")
+            call test_data4()
+
+            call testName("test_data5")
+            call test_data5()
+
+            call testName("test_data6")
+            call test_data6()
+
             call testName("test_matrix")
             call test_matrix()
 
@@ -494,6 +509,68 @@ C -----------------------------------------------------
 
         end subroutine
 
+        subroutine test_data2
+            REAL  M(5)
+            INTEGER I
+            DATA (M(I),I= 1,5) / 0,1,2,3,4 /
+            if ( M(1) .NE. 0) call fail("test_data2 - M(1)")
+            if ( M(2) .NE. 1) call fail("test_data2 - M(2)")
+            if ( M(3) .NE. 2) call fail("test_data2 - M(3)")
+            if ( M(4) .NE. 3) call fail("test_data2 - M(4)")
+            if ( M(5) .NE. 4) call fail("test_data2 - M(5)")
+        end
+
+        subroutine test_data3
+            REAL  M(2,2)
+            INTEGER I
+            DATA (M(1,I),I= 1,2) / 0,1 /
+            if ( M(1,1) .NE. 0) call fail("test_data3 - M(1,1)")
+            if ( M(1,2) .NE. 1) call fail("test_data3 - M(1,2)")
+        end
+
+        subroutine test_data4
+            REAL  M(2,2)
+            INTEGER I
+            DATA (M(I,1),I= 1,2) / 0,1 /
+            if ( M(1,1) .NE. 0) call fail("test_data3 - M(1,1)")
+            if ( M(2,1) .NE. 1) call fail("test_data3 - M(2,1)")
+        end
+
+        subroutine test_data5
+            REAL  M(2,2)
+            INTEGER I,J
+            DATA ((M(I,J),J= 1,2),I=1,2) / 0,1,
+C some comment
+     &2,3 /
+            if ( M(1,1) .NE. 0) call fail("test_data3 - M(1,1)")
+            if ( M(1,2) .NE. 1) call fail("test_data3 - M(1,2)")
+            if ( M(2,1) .NE. 2) call fail("test_data3 - M(2,1)")
+            if ( M(2,2) .NE. 3) call fail("test_data3 - M(2,2)")
+        end
+
+        subroutine test_data6
+            REAL  M(2,2), A(1)
+            INTEGER I,J
+            DATA ((M(I,J),J= 1,2),I=1,2), A(1) / 0,1,2,
+C...some comment
+     &3, 5 /
+            if ( M(1,1) .NE. 0) call fail("test_data3 - M(1,1)")
+            if ( M(1,2) .NE. 1) call fail("test_data3 - M(1,2)")
+            if ( M(2,1) .NE. 2) call fail("test_data3 - M(2,1)")
+            if ( M(2,2) .NE. 3) call fail("test_data3 - M(2,2)")
+            if ( A(1)   .NE. 5) call fail("test_data3 - A(1)")
+        end
+
+        subroutine test_data7
+            REAL  M(2,2), A(1)
+            INTEGER I,J
+            DATA ((M(I,J),I= 1,2),J=1,2), A(1) / 0,1,2,3, 5 /
+            if ( M(1,1) .NE. 0) call fail("test_data3 - M(1,1)")
+            if ( M(1,2) .NE. 1) call fail("test_data3 - M(1,2)")
+            if ( M(2,1) .NE. 2) call fail("test_data3 - M(2,1)")
+            if ( M(2,2) .NE. 3) call fail("test_data3 - M(2,2)")
+            if ( A(1)   .NE. 5) call fail("test_data3 - A(1)")
+        end
 C -----------------------------------------------------
 
         subroutine test_matrix

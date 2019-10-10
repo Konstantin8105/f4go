@@ -1633,15 +1633,18 @@ func (p *parser) parseParamDecl() (fields []*goast.Field) {
 // INTEGER            LOCL12( 4 ), LOCU21( 4 ),
 // DATA               LOCU12 / 3, 4, 1, 2 / , LOCL21 / 2, 1, 4, 3 /
 //
+// DATA (M(I)  ,I= 1, 180) / ... /
+// DATA (P(1,I),I= 1, 500) / ... /
+//
 // TODO:
 //
 // INTEGER            LV, IPW2
 // PARAMETER          ( LV = 128 )
 // INTEGER            J
 // INTEGER            MM( LV, 4 )
-// DATA               ( MM( 1, J ), J = 1, 4 ) / 494, 322, 2508, 2549 /
 //
-// DATA (MAPPR(I),I=1,180)/ ... /
+// DATA (P(I,4),I= 1, 500) / ... /
+// DATA ((D(I,J),J=1,4),I=1,4) / ... /
 
 func (p *parser) parseData() (stmts []goast.Stmt) {
 	p.expect(ftData)
@@ -1656,6 +1659,9 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 	for ; p.ident < len(p.ns); p.ident++ {
 		if p.ns[p.ident].tok == ftNewLine {
 			break
+		}
+		if p.ns[p.ident].tok == token.COMMENT {
+			continue
 		}
 		if p.ns[p.ident].tok == token.QUO {
 			if isNames {
@@ -1879,38 +1885,66 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 				})
 
 			case 2: // matrix
-				// (LL( 1, J ), J = 1, 4 )  - one row of matrix
 				if bytes.Equal(name[3].b, name[8].b) {
-					// (LL( J, 1 ), J = 1, 4 )  - one row of matrix
-					panic("TODO: Not support")
-				}
-				c, _ := strconv.Atoi(string(name[3].b))
-				start, _ := strconv.Atoi(string(name[10].b))
-				end, _ := strconv.Atoi(string(name[12].b))
-				for j := start - 1; j < end; j++ {
-					nameExpr = append(nameExpr, tExpr{
-						expr: &goast.IndexExpr{
-							X: &goast.IndexExpr{
-								X:      goast.NewIdent(string(name[1].b)),
+					// ( L ( J , 1 ) , J = 1  ,  4  )  - one row of matrix
+					// 0 1 2 3 4 5 6 7 8 9 10 11 12 13
+					c, _ := strconv.Atoi(string(name[5].b))
+					start, _ := strconv.Atoi(string(name[10].b))
+					end, _ := strconv.Atoi(string(name[12].b))
+					for j := start - 1; j < end; j++ {
+						nameExpr = append(nameExpr, tExpr{
+							expr: &goast.IndexExpr{
+								X: &goast.IndexExpr{
+									X:      goast.NewIdent(string(name[1].b)),
+									Lbrack: 1,
+									Index: &goast.BasicLit{
+										Kind:  token.INT,
+										Value: strconv.Itoa(j),
+									},
+								},
 								Lbrack: 1,
 								Index: &goast.BasicLit{
 									Kind:  token.INT,
 									Value: strconv.Itoa(c - 1),
 								},
 							},
-							Lbrack: 1,
-							Index: &goast.BasicLit{
-								Kind:  token.INT,
-								Value: strconv.Itoa(j),
+							isByte: isByte})
+					}
+					stmts = append(stmts, &goast.AssignStmt{
+						Lhs: []goast.Expr{goast.NewIdent("_")},
+						Tok: token.ASSIGN,
+						Rhs: []goast.Expr{goast.NewIdent(string(name[3].b))},
+					})
+				} else {
+					// (LL( 1, J ), J = 1, 4 )  - one row of matrix
+					c, _ := strconv.Atoi(string(name[3].b))
+					start, _ := strconv.Atoi(string(name[10].b))
+					end, _ := strconv.Atoi(string(name[12].b))
+					for j := start - 1; j < end; j++ {
+						nameExpr = append(nameExpr, tExpr{
+							expr: &goast.IndexExpr{
+								X: &goast.IndexExpr{
+									X:      goast.NewIdent(string(name[1].b)),
+									Lbrack: 1,
+									Index: &goast.BasicLit{
+										Kind:  token.INT,
+										Value: strconv.Itoa(c - 1),
+									},
+								},
+								Lbrack: 1,
+								Index: &goast.BasicLit{
+									Kind:  token.INT,
+									Value: strconv.Itoa(j),
+								},
 							},
-						},
-						isByte: isByte})
+							isByte: isByte})
+					}
+					stmts = append(stmts, &goast.AssignStmt{
+						Lhs: []goast.Expr{goast.NewIdent("_")},
+						Tok: token.ASSIGN,
+						Rhs: []goast.Expr{goast.NewIdent(string(name[5].b))},
+					})
 				}
-				stmts = append(stmts, &goast.AssignStmt{
-					Lhs: []goast.Expr{goast.NewIdent("_")},
-					Tok: token.ASSIGN,
-					Rhs: []goast.Expr{goast.NewIdent(string(name[5].b))},
-				})
 
 			default:
 				panic("Not acceptable type : " + nodesToString(name))
@@ -1920,6 +1954,88 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 		if v, ok := p.initVars.get(string(name[2].b)); ok {
 			isByte := v.typ.getBaseType() == "byte"
 			switch p.getArrayLen(v.name) {
+			case 2: // matrix
+				if len(name) == 22 && bytes.Equal(name[4].b, name[16].b) && bytes.Equal(name[6].b, name[9].b) {
+					// ( ( M ( I , J ) , J =  1  ,  2  )  ,  I  =  1  ,  2  )
+					// 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21
+					var (
+						Istart, _ = strconv.Atoi(string(name[18].b))
+						Iend, _   = strconv.Atoi(string(name[20].b))
+						Jstart, _ = strconv.Atoi(string(name[11].b))
+						Jend, _   = strconv.Atoi(string(name[13].b))
+					)
+					for i := Istart - 1; i < Iend; i++ {
+						for j := Jstart - 1; j < Jend; j++ {
+							nameExpr = append(nameExpr, tExpr{
+								expr: &goast.IndexExpr{
+									X: &goast.IndexExpr{
+										X:      goast.NewIdent(string(name[2].b)),
+										Lbrack: 1,
+										Index: &goast.BasicLit{
+											Kind:  token.INT,
+											Value: strconv.Itoa(i),
+										},
+									},
+									Lbrack: 1,
+									Index: &goast.BasicLit{
+										Kind:  token.INT,
+										Value: strconv.Itoa(j),
+									},
+								},
+								isByte: isByte})
+						}
+					}
+					stmts = append(stmts, &goast.AssignStmt{
+						Lhs: []goast.Expr{goast.NewIdent("_")},
+						Tok: token.ASSIGN,
+						Rhs: []goast.Expr{goast.NewIdent(string(name[4].b))},
+					})
+					stmts = append(stmts, &goast.AssignStmt{
+						Lhs: []goast.Expr{goast.NewIdent("_")},
+						Tok: token.ASSIGN,
+						Rhs: []goast.Expr{goast.NewIdent(string(name[6].b))},
+					})
+				} else if len(name) == 22 && bytes.Equal(name[4].b, name[9].b) && bytes.Equal(name[6].b, name[16].b) {
+					// ( ( M ( I , J ) , I =  1  ,  2  )  ,  J  =  1  ,  2  )
+					// 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21
+					var (
+						Istart, _ = strconv.Atoi(string(name[11].b))
+						Iend, _   = strconv.Atoi(string(name[13].b))
+						Jstart, _ = strconv.Atoi(string(name[18].b))
+						Jend, _   = strconv.Atoi(string(name[20].b))
+					)
+					for i := Istart - 1; i < Iend; i++ {
+						for j := Jstart - 1; j < Jend; j++ {
+							nameExpr = append(nameExpr, tExpr{
+								expr: &goast.IndexExpr{
+									X: &goast.IndexExpr{
+										X:      goast.NewIdent(string(name[2].b)),
+										Lbrack: 1,
+										Index: &goast.BasicLit{
+											Kind:  token.INT,
+											Value: strconv.Itoa(i),
+										},
+									},
+									Lbrack: 1,
+									Index: &goast.BasicLit{
+										Kind:  token.INT,
+										Value: strconv.Itoa(j),
+									},
+								},
+								isByte: isByte})
+						}
+					}
+					stmts = append(stmts, &goast.AssignStmt{
+						Lhs: []goast.Expr{goast.NewIdent("_")},
+						Tok: token.ASSIGN,
+						Rhs: []goast.Expr{goast.NewIdent(string(name[4].b))},
+					})
+					stmts = append(stmts, &goast.AssignStmt{
+						Lhs: []goast.Expr{goast.NewIdent("_")},
+						Tok: token.ASSIGN,
+						Rhs: []goast.Expr{goast.NewIdent(string(name[6].b))},
+					})
+				}
 			case 3: // ()()()
 				// ((CV(I,J,1),I=1,2),J=1,2)
 				startI, _ := strconv.Atoi(string(name[13].b))
