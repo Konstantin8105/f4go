@@ -100,6 +100,11 @@ func (p *parser) split(nodes *[]node, pos int) (
 				}
 				leftSeparator--
 			}
+
+		case token.COMMA: // ,
+			leftSeparator++
+			br = true
+
 		case token.ADD, // +
 			token.SUB, // -
 			token.MUL, // *
@@ -142,8 +147,16 @@ func (p *parser) split(nodes *[]node, pos int) (
 			if isExternalFunction {
 				break
 			}
-			p.addError("Cannot identify token in left part separation :" +
-				view(leftPart[leftSeparator].tok) + " in " + nodesToString(*nodes))
+			p.addError(fmt.Sprintf(
+				"Cannot identify token in left part separation %d : \"%v\" in \"%v\" with leftpart : \"%v\" --> position : %v ::: leftSeparator %d \"%v\"",
+				leftSeparator,
+				view(leftPart[leftSeparator].tok),
+				nodesToString(*nodes),
+				nodesToString(leftPart),
+				string((*nodes)[pos].b),
+				leftSeparator,
+				leftPart[leftSeparator],
+			))
 			br = true
 		}
 		if br {

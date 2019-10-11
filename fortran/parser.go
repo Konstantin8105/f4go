@@ -7,6 +7,7 @@ import (
 	goparser "go/parser"
 	"go/token"
 	"os"
+	"runtime/debug"
 	"strconv"
 	"strings"
 )
@@ -1435,6 +1436,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 			if Debug {
 				fmt.Fprintf(os.Stdout, "%s\n", err)
 			}
+			p.addError("stacktrace from panic: \n" + string(debug.Stack()))
 			p.addError(err)
 			p.gotoEndLine()
 		}
