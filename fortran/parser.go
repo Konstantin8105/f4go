@@ -205,7 +205,7 @@ func lv(ns []node) (output string) {
 }
 
 // Parse is convert fortran source to go ast tree
-func Parse(b []byte, packageName string) (goast.File, []error) {
+func Parse(b []byte, packageName string) (_ goast.File, errs []error) {
 
 	if packageName == "" {
 		packageName = "main"
@@ -224,9 +224,6 @@ func Parse(b []byte, packageName string) (goast.File, []error) {
 	var decls []goast.Decl
 	p.ident = 0
 	decls = p.parseNodes()
-	if len(p.errs) > 0 {
-		return p.ast, p.errs
-	}
 
 	// add packages
 	for pkg := range p.pkgs {
@@ -1137,7 +1134,7 @@ func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 		}
 
 		stmt := p.parseStmt()
-		if stmt == nil {
+		if len(stmt) == 0 {
 			// p.addError("stmt is nil in line ")
 			// break
 			continue

@@ -389,4 +389,8 @@ func TestCrash(t *testing.T) {
 	if len(d) == 0 {
 		t.Fatal("Output file is empty")
 	}
+
+	if lines := strings.Split(string(d), "\n"); len(lines) < 5 {
+		t.Fatal("Not enougth code")
+	}
 }
