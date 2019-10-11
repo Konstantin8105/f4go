@@ -1424,6 +1424,7 @@ func (p *parser) parseExternal() {
 }
 
 func (p *parser) parseStmt() (stmts []goast.Stmt) {
+	onlyForRecover := p.ident
 
 	pos := p.ns[p.ident].pos
 
@@ -1436,6 +1437,13 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 			p.addError("stacktrace from panic: \n" + string(debug.Stack()))
 			p.addError(err)
 			p.gotoEndLine()
+
+			// generate as comment
+			stmts = append(stmts, &goast.ExprStmt{
+				X: goast.NewIdent("/" + "/" +
+					"F4GO: NOT IMPLEMENTED :" +
+					nodesToString(p.ns[onlyForRecover:p.ident])),
+			})
 		}
 	}()
 
