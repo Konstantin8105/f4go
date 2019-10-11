@@ -51,7 +51,10 @@ type errorRow struct {
 }
 
 // parsing to Go code
-func parse(filename, packageName, goFilename string) []errorRow {
+func parse(filename, packageName, goFilename string) (errR []errorRow) {
+	if packageName == "" {
+		packageName = "main"
+	}
 
 	// read fortran source
 	dat, err := ioutil.ReadFile(filename)
@@ -71,14 +74,12 @@ func parse(filename, packageName, goFilename string) []errorRow {
 	// parse fortran to go/ast
 	ast, errs := fortran.Parse(dat, packageName)
 	if len(errs) > 0 {
-		var e []errorRow
 		for _, er := range errs {
-			e = append(e, errorRow{
+			errR = append(errR, errorRow{
 				err:      fmt.Errorf("Parsing error : %v", er.Error()),
 				filename: filename,
 			})
 		}
-		return e
 	}
 
 	// convert ast tree to string
@@ -109,7 +110,7 @@ func parse(filename, packageName, goFilename string) []errorRow {
 	// goimports
 	_, _ = exec.Command("goimport", "-w", goFilename).CombinedOutput()
 
-	return nil
+	return
 }
 
 func parseParallel(filenames []string, packageName string) (ess []errorRow) {
