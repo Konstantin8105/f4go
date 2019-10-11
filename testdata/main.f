@@ -117,6 +117,9 @@ C           call test_common_satellite()
 
             call testName("test_dimension")
             call test_dimensiOn()
+        
+            call testName("test_call_left_part")
+            call test_call_left_part()
 
             ! end of tests
         END
@@ -1098,5 +1101,19 @@ C -----------------------------------------------------
             WRITE(*,'(I2)') M(2)
             WRITE(*,'(I2)') M(3)
         END 
+
+C -----------------------------------------------------
+
+        SUBROUTINE test_call_left_part
+            REAL P,A
+            P = 10
+            A = 12
+            WRITE(*,'(F8.2)') P
+            WRITE(*,'(F8.2)') A
+            P=MAX(P,(1.1D0*A)**2)
+            WRITE(*,'(F8.2)') P
+            WRITE(*,'(F8.2)') A
+        END 
+
 C -----------------------------------------------------
 

@@ -13,7 +13,7 @@ func MIN(a, b int) int {
 	return b
 }
 
-func MAX(a, b int) int {
+func MAX(a, b float64) float64 {
 	if a > b {
 		return a
 	}
