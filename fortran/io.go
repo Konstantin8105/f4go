@@ -297,6 +297,9 @@ func (p *parser) parseRead() (stmts []goast.Stmt) {
 
 	if p.ns[p.ident].tok == token.LPAREN {
 		if v, ok := p.initVars.get(string(p.ns[p.ident+1].b)); ok && v.typ.isArray() {
+
+			// TODO : remove because we have explode
+
 			// ( IDIM ( I )  , I = 1  ,  NIDIM )
 			// ( A ( I , J ) , J = 1  ,  NIDIM )
 			//               ^
