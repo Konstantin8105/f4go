@@ -52,6 +52,9 @@ func (p *parser) parseExprNodes(in []node) (expr goast.Expr) {
 
 	p.fixFakeParen(&nodes)
 	p.fixArrayVariables(&nodes)
+	if m, ok := p.fixVectorExplode(&nodes); ok {
+		nodes = m
+	}
 	p.fixDoubleStar(&nodes)
 	p.fixString(&nodes)
 	p.fixComplexValue(&nodes)
@@ -193,6 +196,28 @@ func (p *parser) fixArrayVariables(nodes *[]node) {
 		(*nodes) = append((*nodes)[:pos], append(inject, (*nodes)[pos+end:]...)...)
 		pos += end
 	}
+}
+
+// Example:
+// ( ( D ( I , J ) , J = 1 , 4 ) , I = 1 , 4 )
+// =                             = = = = = = =
+//
+// Sign is change behavior ( KFIN ( 1 , J ) , J = - 40 , 40 )
+func (p *parser) fixVectorExplode(nodes *[]node) (merge []node, ok bool) {
+	ns, ok := explodeFor(*nodes)
+	if !ok {
+		return
+	}
+	for i := range ns {
+		merge = append(merge, ns[i]...)
+		if i != len(ns)-1 {
+			merge = append(merge, node{
+				tok: token.COMMA,
+				b:   []byte{','},
+			})
+		}
+	}
+	return merge, true
 }
 
 // Examples:

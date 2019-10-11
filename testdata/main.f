@@ -120,6 +120,9 @@ C           call test_common_satellite()
         
             call testName("test_call_left_part")
             call test_call_left_part()
+        
+            call testName("test_write_loop")
+            call test_write_loop()
 
             ! end of tests
         END
@@ -940,7 +943,7 @@ C           REAL ARRAY
 C
             READ (OUT, FMT = *  ) (IN_A(I), I=1,A)
             WRITE( * , '(F8.2)' )  IN_A(1)
-            WRITE( * , '(F8.2)' ) (IN_A(I), I=1,A)
+C           WRITE( * , '(F8.2)' ) (IN_A(I), I=1,A)
 C
 C           CHARACTER
 C
@@ -1113,6 +1116,16 @@ C -----------------------------------------------------
             P=MAX(P,(1.1D0*A)**2)
             WRITE(*,'(F8.2)') P
             WRITE(*,'(F8.2)') A
+        END 
+
+C -----------------------------------------------------
+
+        SUBROUTINE test_write_loop
+            INTEGER P(3), E
+            E = 42
+            DATA (P(I),I=1,3) / 5,3,1 /
+            WRITE(*,'(I2)') (P(I),I=1,3)
+            WRITE(*,'(I2)') (P(I),I=1,3), E
         END 
 
 C -----------------------------------------------------

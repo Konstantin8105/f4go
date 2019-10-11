@@ -92,28 +92,6 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 
 	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 
-	if p.ns[p.ident].tok == token.LPAREN {
-		if v, ok := p.initVars.get(string(p.ns[p.ident+1].b)); ok && v.typ.isArray() {
-			// ( IDIM ( I )  , I = 1  ,  NIDIM )
-			// ( A ( I , J ) , J = 1  ,  NIDIM )
-			//               ^
-			//               |
-			//               find this
-			args, end := separateArgsParen(p.ns[p.ident:])
-
-			s := fmt.Sprintf("intrinsic.WRITE(%s,%s,%s)", unit, fs,
-				nodesToString(args[0]))
-
-			ast := p.parseExprNodes(scan([]byte(s)))
-
-			f := p.createForArguments(append(args[1], args[2]...), ast)
-
-			p.ident += end
-			stmts = append(stmts, &f)
-			return
-		}
-	}
-
 	s := fmt.Sprintf("intrinsic.WRITE(%s,%s)", unit, fs)
 
 	ast, err := goparser.ParseExpr(s)
@@ -125,36 +103,6 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 			{tok: token.LPAREN, b: []byte("(")},
 		}, p.ns[p.ident:end]...), node{tok: token.RPAREN, b: []byte(")")}))
 		for _, ta := range tempArgs {
-			if ta[0].tok == token.LPAREN && len(ta) > 11 {
-				// From :
-				//  ( NVAL ( I ) , I = 1 , NN )
-				//  (  A( I, J ) , J = 1 , N  )
-				// To:
-				//    NVAL (     1 : NN )
-				//      A  ( I , 1 : N  )
-				args, _ := separateArgsParen(ta[2:])
-				if len(args) == 1 {
-					ta = []node{ta[1], ta[2], ta[8],
-						{tok: token.COLON, b: []byte(":")},
-						ta[10], ta[11]}
-				} else {
-					if nodesToString(args[0]) == nodesToString([]node{ta[8]}) {
-						//  ( A ( I , J ) , I =  1   ,   N   )
-						//  0 1 2 3 4 5 6 7 8 9  10  11  12  13
-						//    A ( 1 : N , J )
-						ta = []node{ta[1], ta[2],
-							ta[10], {tok: token.COLON, b: []byte(":")}, ta[12],
-							ta[4], ta[5], ta[6]}
-					} else {
-						//  ( A ( I , J ) , J = 1  ,  N  )
-						//  0 1 2 3 4 5 6 7 8 9 10 11 12 13
-						//    A ( I , 1 : N )
-						ta = []node{ta[1], ta[2], ta[3],
-							ta[10], {tok: token.COLON, b: []byte(":")}, ta[12],
-							ta[6]}
-					}
-				}
-			}
 			ast.(*goast.CallExpr).Args = append(ast.(*goast.CallExpr).Args,
 				p.parseExprNodes(ta))
 		}
