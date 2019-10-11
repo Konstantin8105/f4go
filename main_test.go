@@ -197,6 +197,48 @@ func TestBlas(t *testing.T) {
 	if float64(amount) > 0.25*float64(len(ss)) {
 		t.Errorf("too mush errors")
 	}
+
+	// check README
+	lines := func(file string) []string {
+		d, err := ioutil.ReadFile(file)
+		if err != nil {
+			t.Fatal(err)
+		}
+		return strings.Split(string(d), "\n")
+	}
+
+	// get lines of README.md
+	readme := lines("./README.md")
+
+	// get lines of source fortran file
+	fortran := lines("./testdata/blas/caxpy.f")
+	for i := range fortran {
+		found := false
+		for j := range readme {
+			if fortran[i] == readme[j] {
+				found = true
+				break
+			}
+		}
+		if !found {
+			t.Errorf("Cannot find fortran line %d: %s", i, fortran[i])
+		}
+	}
+
+	// get lines of Go file
+	gof := lines("./testdata/blas/caxpy.go")
+	for i := range gof {
+		found := false
+		for j := range readme {
+			if gof[i] == readme[j] {
+				found = true
+				break
+			}
+		}
+		if !found {
+			t.Errorf("Cannot find go line %d: %s", i, gof[i])
+		}
+	}
 }
 
 func TestData(t *testing.T) {
