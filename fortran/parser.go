@@ -555,6 +555,16 @@ func (r replacer) Visit(node goast.Node) (w goast.Visitor) {
 
 // init vars
 func (p *parser) initializeVars() (vars []goast.Stmt) {
+	defer func() {
+		if r := recover(); r != nil {
+			err := fmt.Sprintf("Recover initializeVars : %v", r)
+			if Debug {
+				fmt.Fprintf(os.Stdout, "%s\n", err)
+			}
+			p.addError(err)
+			p.gotoEndLine()
+		}
+	}()
 	for i := range []varInitialization(p.initVars) {
 		name := ([]varInitialization(p.initVars)[i]).name
 		goT := ([]varInitialization(p.initVars)[i]).typ

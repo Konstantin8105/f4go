@@ -368,3 +368,30 @@ func TestComments(t *testing.T) {
 	}
 	t.Logf("Amount comments: %d", amount)
 }
+
+func TestCrash(t *testing.T) {
+	var (
+		in  = "./testdata/min_crash.f"
+		out = "./testdata/min_crash.go"
+	)
+
+	// parsing to Go code
+	errs := parse(in, "main", out)
+	if len(errs) == 0 {
+		t.Fatal("No errors, but expect errorrs")
+	}
+	if len(errs) > 0 {
+		for _, er := range errs {
+			fmt.Fprintf(os.Stdout, "Error: %20s %v", er.filename, er.err.Error())
+		}
+	}
+
+	d, err := ioutil.ReadFile(out)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if len(d) == 0 {
+		t.Fatal("Output file is empty")
+	}
+}

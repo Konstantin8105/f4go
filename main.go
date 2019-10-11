@@ -52,6 +52,9 @@ type errorRow struct {
 
 // parsing to Go code
 func parse(filename, packageName, goFilename string) []errorRow {
+	if packageName == "" {
+		packageName = "main"
+	}
 
 	// read fortran source
 	dat, err := ioutil.ReadFile(filename)
