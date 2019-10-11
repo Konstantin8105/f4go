@@ -21,6 +21,7 @@ C -----------------------------------------------------
 
         END
 
+
         subroutine testName(name)
             character(*) name
             write (*,FMT=45) name
@@ -89,7 +90,7 @@ C -----------------------------------------------------
             REAL a,b
             a = 5
             b = 6
-            write (*, FMT = 131) 1,a
+            write (*||FMT = 131) 1,a ! ERRRRROORORORORORORO
             write (*, FMT = 131) 2,b
             CALL ab(a,b)
             write (*, FMT = 131) 3,a
@@ -109,11 +110,9 @@ C -----------------------------------------------------
 
         recursive subroutine test_if()
             integer i, J
-            logical l(1,2,2,2,2,2,2)
-            EROROROROROR SDF(88)
-
+            logical l
             l = .false.
-            i = 5uty
+            i = 5
             IF ( i .EQ. 5) write(*,*) "Operation  .EQ.    is Ok"
             IF ( i .GE. 5) write(*,*) "Operation  .GE.    is Ok"
             IF ( i .LE. 5) write(*,*) "Operation  .LE.    is Ok"
@@ -121,23 +120,23 @@ C -----------------------------------------------------
             IF ( i .LE. 3) write(*,*) "Operation  .GE.    is Ok"
             IF ( i .NE. 3) write(*,*) "Operation  .NE.    is Ok"
             IF ( .true.  ) write(*,*) "Operation  .TRUE.  is Ok"
-            I2F (.NOT. l  ) write(*,*) "Operation .NOT. .false. is Ok"
+            IF (.NOT. l  ) write(*,*) "Operation .NOT. .false. is Ok"
             IF (.NOT. l  ) write(*,*) "Operation .NOT. .FALSE. is Ok"
             l = .TRUE.
             IF ( l       ) write(*,*) "Operation  .TRUE.  is Ok"
 
-            IF (i .GE. 100) THEN2w
+            IF (i .GE. 100) THEN
                 STOP 
-            ELSEIF (i .EQ. 5) THe12EN ! TEST COMMENT
+            ELSEIF (i .EQ. 5) THEN ! TEST COMMENT
                 WRITE(*,*) "ELSEIF is Ok"
-            END IF ! TEST COMMENeT
+            END IF ! TEST COMMENT
 
             DO 100 J = 1,2
-                IF (.NOT.l) THEN eee ! TEST COMMENT
+                IF (.NOT.l) THEN ! TEST COMMENT
                 ELSE 
                     IF (J.GE.0) THEN 
                         WRITE(*,*) "Ok"
-                    E1ND IFe21
+                    END IF
                 END IF
   100       CONTINUE
 
@@ -148,9 +147,11 @@ C -----------------------------------------------------
 
         SUBROUTINE ZD()
 			INTEGER IFORM
+            sdf sdfsdf sdfsdf
             DO 100 IFORM = 1, 2
       			IF ( IFORM .NE. 0 ) THEN
                     WRITE(*,'(I1)')IFORM
                 END IF
   100       CONTINUE
         RETURN
+        END

@@ -120,6 +120,9 @@ C           call test_common_satellite()
         
             call testName("test_call_left_part")
             call test_call_left_part()
+        
+            call testName("test_write_loop")
+            call test_write_loop()
 
             ! end of tests
         END
@@ -919,10 +922,9 @@ C
             READ (OUT, FMT=* ) IN_I
             WRITE(*  ,'(I7)' ) IN_I
 
-            ! TODO 
-  !     DO 100 I = 1, N
-  !        READ( NIN, FMT = * )( A( I, J ), J = 1, N )
-  ! 100 CONTINUE
+C           DO 100 I = 1, N
+C               READ( NIN, FMT = * )( A( I, J ), J = 1, N )
+C           100 CONTINUE
 
             READ( OUT, FMT = * )( AI ( I ), I = 1, NAI )
             DO I = 1, NAI
@@ -940,7 +942,7 @@ C           REAL ARRAY
 C
             READ (OUT, FMT = *  ) (IN_A(I), I=1,A)
             WRITE( * , '(F8.2)' )  IN_A(1)
-            WRITE( * , '(F8.2)' ) (IN_A(I), I=1,A)
+C           WRITE( * , '(3F8.2)' ) (IN_A(I), I=1,A)
 C
 C           CHARACTER
 C
@@ -1113,6 +1115,20 @@ C -----------------------------------------------------
             P=MAX(P,(1.1D0*A)**2)
             WRITE(*,'(F8.2)') P
             WRITE(*,'(F8.2)') A
+        END 
+
+C -----------------------------------------------------
+
+        SUBROUTINE test_write_loop
+            INTEGER P(3), E
+            E = 42
+            DATA (P(I),I=1,3) / 5,3,1 /
+C           WRITE(*,'(I2)') (P(I),I=1,3)
+            WRITE(*,'(I2)') E
+C           WRITE(*,'(3I2)') (P(I),I=1,3)
+C           WRITE(*,'(I2)') (P(I),I=1,3), E
+C           WRITE(*,'(4I2)') (P(I),I=1,3), E
+C           WRITE(*,'( I2    I3   I4            I5 )') (P(I),I=1,3), E
         END 
 
 C -----------------------------------------------------

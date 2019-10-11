@@ -205,7 +205,7 @@ func lv(ns []node) (output string) {
 }
 
 // Parse is convert fortran source to go ast tree
-func Parse(b []byte, packageName string) (goast.File, []error) {
+func Parse(b []byte, packageName string) (_ goast.File, errs []error) {
 
 	if packageName == "" {
 		packageName = "main"
@@ -224,9 +224,6 @@ func Parse(b []byte, packageName string) (goast.File, []error) {
 	var decls []goast.Decl
 	p.ident = 0
 	decls = p.parseNodes()
-	if len(p.errs) > 0 {
-		return p.ast, p.errs
-	}
 
 	// add packages
 	for pkg := range p.pkgs {
@@ -1088,9 +1085,10 @@ func (p *parser) addError(msg string) {
 func (p *parser) expect(t token.Token) {
 	if t != p.ns[p.ident].tok {
 		// Show all errors
-		for _, err := range p.errs {
-			fmt.Println("Error : ", err.Error())
-		}
+		// No need show all error for avoid dublicates
+		//	for _, err := range p.errs {
+		//		fmt.Println("Error : ", err.Error())
+		//	}
 		// Panic
 		panic(fmt.Errorf("Expect %s, but we have {{%s,%s}}. Pos = %v",
 			view(t), view(p.ns[p.ident].tok), string(p.ns[p.ident].b),
@@ -1137,7 +1135,7 @@ func (p *parser) parseListStmt() (stmts []goast.Stmt) {
 		}
 
 		stmt := p.parseStmt()
-		if stmt == nil {
+		if len(stmt) == 0 {
 			// p.addError("stmt is nil in line ")
 			// break
 			continue
@@ -1427,6 +1425,7 @@ func (p *parser) parseExternal() {
 }
 
 func (p *parser) parseStmt() (stmts []goast.Stmt) {
+	onlyForRecover := p.ident
 
 	pos := p.ns[p.ident].pos
 
@@ -1439,6 +1438,13 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 			p.addError("stacktrace from panic: \n" + string(debug.Stack()))
 			p.addError(err)
 			p.gotoEndLine()
+
+			// generate as comment
+			stmts = append(stmts, &goast.ExprStmt{
+				X: goast.NewIdent("/" + "/" +
+					"F4GO: NOT IMPLEMENTED :" +
+					nodesToString(p.ns[onlyForRecover:p.ident])),
+			})
 		}
 	}()
 
