@@ -102,7 +102,38 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 		tempArgs, _ := separateArgsParen(append(append([]node{
 			{tok: token.LPAREN, b: []byte("(")},
 		}, p.ns[p.ident:end]...), node{tok: token.RPAREN, b: []byte(")")}))
+
 		for _, ta := range tempArgs {
+			list, ok := explodeFor(ta)
+			if ok {
+				for i := range list {
+					ast.(*goast.CallExpr).Args = append(ast.(*goast.CallExpr).Args,
+						p.parseExprNodes(list[i]))
+				}
+				continue
+			} else {
+				if p.ns[p.ident].tok == token.LPAREN {
+					if v, ok := p.initVars.get(string(p.ns[p.ident+1].b)); ok && v.typ.isArray() {
+						// ( IDIM ( I )  , I = 1  ,  NIDIM )
+						// ( A ( I , J ) , J = 1  ,  NIDIM )
+						//               ^
+						//               |
+						//               find this
+						args, end := separateArgsParen(p.ns[p.ident:])
+
+						s := fmt.Sprintf("intrinsic.WRITE(%s,%s,%s)", unit, fs,
+							nodesToString(args[0]))
+
+						ast := p.parseExprNodes(scan([]byte(s)))
+
+						f := p.createForArguments(append(args[1], args[2]...), ast)
+
+						p.ident += end
+						stmts = append(stmts, &f)
+						return
+					}
+				}
+			}
 			ast.(*goast.CallExpr).Args = append(ast.(*goast.CallExpr).Args,
 				p.parseExprNodes(ta))
 		}
