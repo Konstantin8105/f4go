@@ -144,12 +144,19 @@ func (c *common) addBlockName(name string, vars []string) {
 	c.mem[name] = vars
 }
 
+type implicitVariable struct {
+	symbol byte
+	typ    []node
+}
+
 type parser struct {
 	ast   goast.File
 	ident int
 	ns    []node
 
 	Common common // share memory between subroutines
+
+	implicit []implicitVariable
 
 	functionExternalName []string
 
@@ -944,6 +951,11 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	if Debug {
 		fmt.Fprintf(os.Stdout, "Parse subroutine\n")
 	}
+
+	defer func() {
+		p.resetImplicit()
+	}()
+
 	var fd goast.FuncDecl
 	fd.Type = &goast.FuncType{
 		Params: &goast.FieldList{},
@@ -1424,6 +1436,19 @@ func (p *parser) parseExternal() {
 	}
 }
 
+func (p *parser) resetImplicit() {
+	p.implicit = nil
+}
+
+func (p parser) isImplicit(b byte) (typ []node, ok bool) {
+	for i := range p.implicit {
+		if b == p.implicit[i].symbol {
+			return p.implicit[i].typ, true
+		}
+	}
+	return
+}
+
 func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	onlyForRecover := p.ident
 
@@ -1569,27 +1594,26 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	case ftImplicit:
 		// Examples:
-		// FROM:
-		//	IMPLICIT DOUBLE PRECISION(A-H, O-Z)
-		//	IMPLICIT INTEGER(I-N)
-		// TO:
-		//	DOUBLE PRECISION A
-		//	DOUBLE PRECISION ...
-		//	DOUBLE PRECISION H
-		//	INTEGER I
-		//	INTEGER ...
-		//	INTEGER N
-		// TODO: add support IMPLICIT
-		var nodes []node
+		//	IMPLICIT DOUBLE PRECISION A
+		//	IMPLICIT INTEGER B
+		//
+		// Only with one symbol name
+		p.expect(ftImplicit)
+		p.ident++
+
+		var typ []node
 		for ; p.ident < len(p.ns); p.ident++ {
 			if p.ns[p.ident].tok == ftNewLine || p.ns[p.ident].tok == token.EOF {
 				break
 			}
-			nodes = append(nodes, p.ns[p.ident])
+			typ = append(typ, p.ns[p.ident])
 		}
-		// p.addError("IMPLICIT is not support.\n" + nodesToString(nodes))
-		// ignore
-		_ = nodes
+		impl := implicitVariable{
+			symbol: typ[len(typ)-2].b[0],
+			typ:    typ[:len(typ)-3],
+		}
+		p.implicit = append(p.implicit, impl)
+		p.expect(ftNewLine)
 
 	case token.INT:
 		labelName := string(p.ns[p.ident].b)
@@ -1669,6 +1693,38 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		}
 
 		if isAssignStmt {
+			// IMPLICIT initialization
+			if v := p.ns[start]; v.tok == token.IDENT {
+				_, ok := p.initVars.get(string(v.b))
+				if !ok {
+					typ, ok := p.isImplicit(v.b[0])
+					if ok {
+						// add init
+						var inject []node
+						inject = append(inject, typ...)
+						for i := start; i < pos; i++ {
+							inject = append(inject, p.ns[i])
+						}
+						inject = append(inject, node{
+							tok: ftNewLine,
+							b:   []byte{'\n'},
+						})
+						p.ns = append(p.ns[:start], append(inject, p.ns[start:]...)...)
+						old := p.ident
+						p.ident -= len(inject)
+						// s := p.parseStmt()
+						s := p.parseInit()
+						p.ident = old + len(inject)
+						if len(s) > 0 {
+							stmts = append(stmts, s...)
+						}
+						start += len(inject)
+						pos += len(inject)
+					}
+				}
+			}
+
+			// add assign
 			assign := goast.AssignStmt{
 				Lhs: []goast.Expr{p.parseExpr(start, pos)},
 				Tok: token.ASSIGN,

@@ -696,111 +696,170 @@ multi:
 	//	IMPLICIT INTEGER(I-N)
 	//	IMPLICIT COMPLEX (U,V,W), CHARACTER*4 (C,S)
 	// TO:
-	//	DOUBLE PRECISION A
-	//	DOUBLE PRECISION ...
-	//	DOUBLE PRECISION H
-	//	INTEGER I
-	//	INTEGER ...
-	//	INTEGER N
+	//	IMPLICIT DOUBLE PRECISION (A)
+	//	IMPLICIT DOUBLE PRECISION ...
+	//	IMPLICIT DOUBLE PRECISION (H)
+	//	IMPLICIT INTEGER (I)
+	//	IMPLICIT INTEGER ...
+	//	IMPLICIT INTEGER (N)
 	iter := 0
 impl:
 	iter++
 	if iter > 100000 {
 		panic(fmt.Errorf("Too many IMPLICIT iterations"))
+	} else if Debug {
+		fmt.Fprintf(os.Stdout, "finding next IMPLICIT...  %d\n", iter)
 	}
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		if e.Value.(*node).tok != ftImplicit {
 			continue
 		}
-		// record type nodes
-		var types []node
-		begin := e
-		n := e.Next()
-		for ; n != nil; n = n.Next() {
-			if n.Value.(*node).tok == token.LPAREN {
+
+		// split from:
+		//	IMPLICIT COMPLEX (U,V,W), CHARACTER*4 (C,S)
+		// to:
+		//	IMPLICIT COMPLEX (U,V,W)
+		//	IMPLICIT CHARACTER*4 (C,S)
+		for n := e.Next(); n != nil; n = n.Next() {
+			if n.Value.(*node).tok == ftNewLine {
 				break
 			}
-			types = append(types, *(n.Value.(*node)))
+			if n.Value.(*node).tok == token.COMMA && // ,
+				n.Prev().Value.(*node).tok == token.RPAREN { // )
+				// need split
+				n.Value.(*node).tok = ftImplicit
+				n.Value.(*node).b = []byte("IMPLICIT")
+				s.nodes.InsertBefore(&node{
+					tok: ftNewLine,
+					b:   []byte("\n"),
+				}, n)
+				goto impl
+			}
 		}
-		n = n.Next() // because n = LPAREN
 
-		// generate var names
-		var names []byte
-		for ; n != nil && n.Value.(*node).tok != token.RPAREN; n = n.Next() {
+		// split from:
+		//	IMPLICIT COMPLEX (U,V,W)
+		// to:
+		//	IMPLICIT COMPLEX (U)
+		//	IMPLICIT COMPLEX (V)
+		//	IMPLICIT COMPLEX (W)
+		// or
+		//	IMPLICIT COMPLEX (A-C)
+		// to
+		//	IMPLICIT COMPLEX (A,B,C)
+		haveRparen := false
+		var n *list.Element
+		for n = e.Next(); n != nil; n = n.Next() {
+			if n.Value.(*node).tok == ftNewLine {
+				if n.Prev().Value.(*node).tok == token.RPAREN {
+					haveRparen = true
+				}
+				break
+			}
+		}
+		if !haveRparen {
+			continue
+		}
+		var nodes []*node
+		n = n.Prev() // now RPAREN
+		withSub := false
+		for n = n.Prev(); n != nil; n = n.Prev() {
 			if n.Value.(*node).tok == token.COMMA {
 				continue
 			}
 			if n.Value.(*node).tok == token.SUB { // -
-				n = n.Next()
-				new := int(n.Value.(*node).b[0])
-				for ch := int(names[len(names)-1]) + 1; ch <= new; ch++ {
-					names = append(names, byte(ch))
-				}
+				withSub = true
+				n.Value.(*node).tok = token.COMMA
 				continue
 			}
-			names = append(names, n.Value.(*node).b[0])
+			if n.Value.(*node).tok == token.LPAREN {
+				break
+			}
+			nodes = append(nodes, n.Value.(*node))
 		}
-		if n == nil {
-			break
+		// reverse nodes
+		for left, right := 0, len(nodes)-1; left < right; left, right = left+1, right-1 {
+			nodes[left], nodes[right] = nodes[right], nodes[left]
 		}
-		n = n.Next() // because n = RPAREN
-
-		// inject code
-		var injectNodes []node
-		injectNodes = append(injectNodes, types...)
-		for i := 0; i < len(names); i++ {
-			injectNodes = append(injectNodes, node{
-				tok: token.IDENT,
-				b:   []byte{names[i]},
-				pos: position{
-					line: e.Value.(*node).pos.line,
-					col:  e.Value.(*node).pos.col,
-				},
-			})
-			if i != len(names)-1 {
-				injectNodes = append(injectNodes, node{
+		if len(nodes) == 1 {
+			continue
+		}
+		if withSub && len(nodes) == 2 {
+			// case :
+			//	IMPLICIT COMPLEX (A-C)
+			// in nodes : [A  C]
+			// transform for
+			//	IMPLICIT COMPLEX (A,B,C)
+			var names []byte
+			for ch := int(nodes[0].b[0]) + 1; ch < int(nodes[1].b[0]); ch++ {
+				names = append(names, byte(ch))
+			}
+			for i := range names {
+				s.nodes.InsertAfter(&node{
 					tok: token.COMMA,
 					b:   []byte{','},
-					pos: position{
-						line: e.Value.(*node).pos.line,
-						col:  e.Value.(*node).pos.col,
-					},
-				})
+				}, n)
+				s.nodes.InsertAfter(&node{
+					tok: token.IDENT,
+					b:   []byte{names[i]},
+				}, n)
 			}
+			goto impl
+		}
+		//	IMPLICIT COMPLEX (U,V)
+		// to:
+		//	IMPLICIT COMPLEX (U)
+		//	IMPLICIT COMPLEX (V)
+
+		// get type of variables
+		var typ []node
+		for n := e.Next(); n != nil; n = n.Next() {
+			if n.Value.(*node).tok == token.LPAREN {
+				break
+			}
+			typ = append(typ, *(n.Value.(*node)))
+		}
+		// generate inject nodes
+		var inject []node
+		for i := range nodes {
+			inject = append(inject,
+				node{
+					tok: ftImplicit,
+					b:   []byte("IMPLICIT"),
+				},
+			)
+			inject = append(inject, typ...)
+			inject = append(inject,
+				node{
+					tok: token.LPAREN,
+					b:   []byte{'('},
+				},
+				node{
+					tok: token.IDENT,
+					b:   []byte{nodes[i].b[0]},
+				},
+				node{
+					tok: token.RPAREN,
+					b:   []byte{')'},
+				},
+				node{
+					tok: ftNewLine,
+					b:   []byte{'\n'},
+				},
+			)
+		}
+		// inject new code and remove old
+		for i := 0; i < len(inject); i++ {
+			s.nodes.InsertBefore(&(inject[i]), e)
+		}
+		var rem []*list.Element
+		for n := e; n != nil && n.Value.(*node).tok != ftNewLine; n = n.Next() {
+			rem = append(rem, n)
+		}
+		for i := range rem {
+			s.nodes.Remove(rem[i])
 		}
 
-		if n.Value.(*node).tok == token.COMMA {
-			// add IMPLICIT and goto impl
-			// Example:
-			// from:
-			//	IMPLICIT COMPLEX (U,V,W), CHARACTER*4 (C,S)
-			// to:
-			//	COMPLEX U,V,W
-			//  IMPLICIT CHARACTER*4 (C,S)
-			injectNodes = append(injectNodes, node{
-				tok: ftNewLine,
-				b:   []byte("\n"),
-			})
-			injectNodes = append(injectNodes, node{
-				tok: ftImplicit,
-				b:   []byte("IMPLICIT"),
-			})
-			n = n.Next() // remove comma
-		}
-		injectNodes = append(injectNodes, *(n.Value.(*node)))
-
-		for i := len(injectNodes) - 1; i >= 0; i-- {
-			s.nodes.InsertAfter(&(injectNodes[i]), n)
-		}
-
-		for rem := begin; rem != nil && rem != n; rem = rem.Next() {
-			rem.Value.(*node).tok = ftNewLine
-			rem.Value.(*node).b = []byte{'\n'}
-		}
-
-		if Debug {
-			fmt.Fprintf(os.Stdout, "finding next IMPLICIT...  %d\n", iter)
-		}
 		goto impl
 	}
 
