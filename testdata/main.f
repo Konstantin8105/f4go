@@ -1060,16 +1060,25 @@ C -----------------------------------------------------
 
         SUBROUTINE test_implicit3
             IMPLICIT INTEGER (A-C)
+C           IMPLICIT INTEGER (Z)
             AQ = 5
             BQ = 8
             CQ = 1
+C           CALL INIT_Z(Z)
             IF (AQ.NE. 5) call fail("implicit 1")
             IF (BQ.NE. 8) call fail("implicit 2")
             IF (CQ.NE. 1) call fail("implicit 3")
+C           IF (Z .NE.42) call fail("implicit 4")
             WRITE(*,'(I2)') AQ
             WRITE(*,'(I2)') BQ
             WRITE(*,'(I2)') CQ
+C           WRITE(*,'(I2)') Z
         END
+
+C       SUBROUTINE INIT_Z(Z)
+C           INTEGER Z
+C           Z = 42
+C       END
 
 C -----------------------------------------------------
 
