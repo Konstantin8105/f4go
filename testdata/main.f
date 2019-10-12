@@ -109,6 +109,9 @@ C -----------------------------------------------------
             call testName("test_implicit2")
             call test_implicit2()
 
+            call testName("test_implicit3")
+            call test_implicit3()
+
             call testName("test_common")
             call test_common()
 
@@ -1053,7 +1056,20 @@ C -----------------------------------------------------
             WRITE(*,'(I2)') X
             WRITE(*,'(I2)') Y
             WRITE(*,'(I2)') Z
-            END
+        END
+
+        SUBROUTINE test_implicit3
+            IMPLICIT INTEGER (A-C)
+            AQ = 5
+            BQ = 8
+            CQ = 1
+            IF (AQ.NE. 5) call fail("implicit 1")
+            IF (BQ.NE. 8) call fail("implicit 2")
+            IF (CQ.NE. 1) call fail("implicit 3")
+            WRITE(*,'(I2)') AQ
+            WRITE(*,'(I2)') BQ
+            WRITE(*,'(I2)') CQ
+        END
 
 C -----------------------------------------------------
 
