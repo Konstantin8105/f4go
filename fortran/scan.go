@@ -92,7 +92,6 @@ func scan(b []byte) (ns []node) {
 		for e := s.nodes.Front(); e != nil; e = e.Next() {
 			ns = append(ns, *e.Value.(*node))
 		}
-		fmt.Println(ns)
 	}()
 
 	// separate lines
@@ -708,6 +707,8 @@ impl:
 	iter++
 	if iter > 100000 {
 		panic(fmt.Errorf("Too many IMPLICIT iterations"))
+	} else if Debug {
+		fmt.Fprintf(os.Stdout, "finding next IMPLICIT...  %d\n", iter)
 	}
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		if e.Value.(*node).tok != ftImplicit {
@@ -720,6 +721,9 @@ impl:
 		//	IMPLICIT COMPLEX (U,V,W)
 		//	IMPLICIT CHARACTER*4 (C,S)
 		for n := e.Next(); n != nil; n = n.Next() {
+			if n.Value.(*node).tok == ftNewLine {
+				break
+			}
 			if n.Value.(*node).tok == token.COMMA && // ,
 				n.Prev().Value.(*node).tok == token.RPAREN { // )
 				// need split
@@ -848,8 +852,12 @@ impl:
 		for i := 0; i < len(inject); i++ {
 			s.nodes.InsertBefore(&(inject[i]), e)
 		}
-		for n := e.Next(); n != nil && n.Value.(*node).tok != ftNewLine; {
-			s.nodes.Remove(n.Prev())
+		var rem []*list.Element
+		for n := e; n != nil && n.Value.(*node).tok != ftNewLine; n = n.Next() {
+			rem = append(rem, n)
+		}
+		for i := range rem {
+			s.nodes.Remove(rem[i])
 		}
 
 		goto impl

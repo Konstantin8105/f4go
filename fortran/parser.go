@@ -1440,6 +1440,15 @@ func (p *parser) resetImplicit() {
 	p.implicit = nil
 }
 
+func (p parser) isImplicit(b byte) (typ []node, ok bool) {
+	for i := range p.implicit {
+		if b == p.implicit[i].symbol {
+			return p.implicit[i].typ, true
+		}
+	}
+	return
+}
+
 func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	onlyForRecover := p.ident
 
@@ -1684,6 +1693,38 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		}
 
 		if isAssignStmt {
+			// IMPLICIT initialization
+			if v := p.ns[start]; v.tok == token.IDENT {
+				_, ok := p.initVars.get(string(v.b))
+				if !ok {
+					typ, ok := p.isImplicit(v.b[0])
+					if ok {
+						// add init
+						var inject []node
+						inject = append(inject, typ...)
+						for i := start; i < pos; i++ {
+							inject = append(inject, p.ns[i])
+						}
+						inject = append(inject, node{
+							tok: ftNewLine,
+							b:   []byte{'\n'},
+						})
+						p.ns = append(p.ns[:start], append(inject, p.ns[start:]...)...)
+						old := p.ident
+						p.ident -= len(inject)
+						// s := p.parseStmt()
+						s := p.parseInit()
+						p.ident = old + len(inject)
+						if len(s) > 0 {
+							stmts = append(stmts, s...)
+						}
+						start += len(inject)
+						pos += len(inject)
+					}
+				}
+			}
+
+			// add assign
 			assign := goast.AssignStmt{
 				Lhs: []goast.Expr{p.parseExpr(start, pos)},
 				Tok: token.ASSIGN,
