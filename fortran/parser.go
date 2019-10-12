@@ -1711,8 +1711,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 						})
 						p.ns = append(p.ns[:start], append(inject, p.ns[start:]...)...)
 						old := p.ident
-						p.ident -= len(inject)
-						// s := p.parseStmt()
+						p.ident = start
 						s := p.parseInit()
 						p.ident = old + len(inject)
 						if len(s) > 0 {
@@ -1727,7 +1726,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 			// add assign
 			assign := goast.AssignStmt{
 				Lhs: []goast.Expr{p.parseExpr(start, pos)},
-				Tok: token.ASSIGN,
+				Tok: token.ASSIGN, // =
 				Rhs: []goast.Expr{p.parseExpr(pos+1, p.ident)},
 			}
 			stmts = append(stmts, &assign)
