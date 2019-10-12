@@ -1037,25 +1037,28 @@ C -----------------------------------------------------
             END
 
         SUBROUTINE test_implicit2
-            IMPLICIT INTEGER (A-C), INTEGER (X-Z)
+            IMPLICIT INTEGER (A-C), INTEGER (X-Z), INTEGER (R)
             A = 5
             B = 8
             C = 1
             X = 4
             Y = 5
             Z = 6
+            R = MIN(Y,Z)
             IF (A .NE. 5) call fail("implicit 1")
             IF (B .NE. 8) call fail("implicit 2")
             IF (C .NE. 1) call fail("implicit 3")
             IF (X .NE. 4) call fail("implicit 4")
             IF (Y .NE. 5) call fail("implicit 5")
             IF (Z .NE. 6) call fail("implicit 6")
+            IF (R .NE. 5) call fail("implicit 7")
             WRITE(*,'(I2)') A
             WRITE(*,'(I2)') B
             WRITE(*,'(I2)') C
             WRITE(*,'(I2)') X
             WRITE(*,'(I2)') Y
             WRITE(*,'(I2)') Z
+            WRITE(*,'(I2)') R
         END
 
         SUBROUTINE test_implicit3
