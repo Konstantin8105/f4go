@@ -101,10 +101,6 @@ func (p *parser) split(nodes *[]node, pos int) (
 				leftSeparator--
 			}
 
-		case token.COMMA: // ,
-			leftSeparator++
-			br = true
-
 		case token.ADD, // +
 			token.SUB, // -
 			token.MUL, // *
@@ -130,6 +126,10 @@ func (p *parser) split(nodes *[]node, pos int) (
 			token.NEQ, // !=
 			token.LEQ, // <=
 			token.GEQ, // >=
+
+			ftDoubleStar, // **
+
+			token.COMMA, // ,
 
 			token.LPAREN: // (
 
