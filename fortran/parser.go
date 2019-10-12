@@ -2144,23 +2144,24 @@ mul:
 			len(nameExpr), len(values), str))
 	}
 
-	for i := range nameExpr {
-		if nameExpr[i].isByte {
-			e := p.parseExprNodes(values[i])
-			e.(*goast.BasicLit).Kind = token.CHAR
-			e.(*goast.BasicLit).Value = fmt.Sprintf("'%c'", e.(*goast.BasicLit).Value[1])
-			stmts = append(stmts, &goast.AssignStmt{
-				Lhs: []goast.Expr{nameExpr[i].expr},
-				Tok: token.ASSIGN,
-				Rhs: []goast.Expr{e},
-			})
-			continue
+	if len(nameExpr) > 0 {
+		var assign goast.AssignStmt
+		assign.Tok = token.ASSIGN
+
+		for i := range nameExpr {
+			if nameExpr[i].isByte {
+				e := p.parseExprNodes(values[i])
+				e.(*goast.BasicLit).Kind = token.CHAR
+				e.(*goast.BasicLit).Value = fmt.Sprintf("'%c'", e.(*goast.BasicLit).Value[1])
+				assign.Lhs = append(assign.Lhs, nameExpr[i].expr)
+				assign.Rhs = append(assign.Rhs, e)
+				continue
+			}
+			assign.Lhs = append(assign.Lhs, nameExpr[i].expr)
+			assign.Rhs = append(assign.Rhs, p.parseExprNodes(values[i]))
 		}
-		stmts = append(stmts, &goast.AssignStmt{
-			Lhs: []goast.Expr{nameExpr[i].expr},
-			Tok: token.ASSIGN,
-			Rhs: []goast.Expr{p.parseExprNodes(values[i])},
-		})
+
+		stmts = append(stmts, &assign)
 	}
 
 	return
