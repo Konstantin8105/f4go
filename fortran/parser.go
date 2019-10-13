@@ -19,6 +19,11 @@ type varInitialization struct {
 
 type varInits []varInitialization
 
+func (v *varInits) reset() {
+	(*v) = nil
+	v = nil
+}
+
 func (v varInits) get(n string) (varInitialization, bool) {
 	n = strings.ToUpper(n)
 	for _, val := range []varInitialization(v) {
@@ -954,6 +959,7 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 
 	defer func() {
 		p.resetImplicit()
+		p.initVars.reset()
 	}()
 
 	var fd goast.FuncDecl
@@ -1484,6 +1490,35 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	case ftRewind:
 		s := p.parseRewind()
 		stmts = append(stmts, s...)
+
+	case ftDimension:
+		// from:
+		// DIMENSION M(100)
+		// to:
+		// INTEGER M(100)
+		//
+		// from:
+		// IMPLICIT REAL M
+		// DIMENSION M(100)
+		// to:
+		// REAL M(100)
+		p.expect(ftDimension)
+		p.ident++
+		p.expect(token.IDENT)
+		name := string(p.ns[p.ident].b)
+		if typ, ok := p.isImplicit(p.ns[p.ident].b[0]); ok {
+			p.ident++
+			for ; p.ident < len(p.ns) && p.ns[p.ident].tok != ftNewLine; p.ident++ {
+				typ = append(typ, p.ns[p.ident])
+			}
+			p.initVars.add(name, parseType(typ))
+		} else {
+			p.ident -= 1
+			p.expect(ftDimension)
+			p.ns[p.ident].tok = ftInteger
+			p.ns[p.ident].b = []byte("INTEGER")
+			return p.parseStmt()
+		}
 
 	case ftFormat:
 		stmts = append(stmts, &goast.ExprStmt{

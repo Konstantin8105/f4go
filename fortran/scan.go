@@ -576,14 +576,15 @@ A:
 // postprocessor
 func (s *scanner) postprocessor() {
 	// from:
-	// DIMENSION M(100)
+	// DIMENSION M(100), A(2)
 	// to:
-	// INTEGER M(100)
+	// DIMENSION M(100)
+	// DIMENSION A(2)
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		if e.Value.(*node).tok != ftDimension {
 			continue
 		}
-		e.Value.(*node).tok = ftInteger
+		// TODO
 	}
 
 	// From:

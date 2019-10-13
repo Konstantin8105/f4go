@@ -64,6 +64,9 @@ C -----------------------------------------------------
             call testName("test_data10")
             call test_data10()
 
+            call testName("test_data_implicit")
+            call test_data_implicit()
+
             call testName("test_matrix")
             call test_matrix()
 
@@ -611,15 +614,31 @@ C...some comment
         end
 
         subroutine test_data10
+            IMPLICIT DOUBLE precision (P)
+            DIMENSION PMC(3)
             REAL  A(-2:3)
             DATA (A(I),I=-2,3) /0,1,2,3,4,5/
+            PMC(1) = 1.2
             if ( A(-2) .NE. 0 ) call fail("test_data10 - A(-2) ")
             if ( A(-1) .NE. 1 ) call fail("test_data10 - A(-1) ")
             if ( A( 0) .NE. 2 ) call fail("test_data10 - A( 0) ")
             if ( A(+1) .NE. 3 ) call fail("test_data10 - A(+1) ")
             if ( A(+2) .NE. 4 ) call fail("test_data10 - A(+2) ")
             if ( A(+3) .NE. 5 ) call fail("test_data10 - A(+3) ")
+            if (PMC(1) .NE. 1.2 ) call fail("test_data10 - PMC ")
         end
+
+        subroutine test_data_implicit
+            IMPLICIT DOUBLE precision (A-B,O-Z)
+            DATA PMC/1.3D0/, P2/4.6D0/, AEM/0.0011D0/
+            if (PMC .NE. 1.3D0) call fail("test_data_implicit - 1")
+            if (P2  .NE. 4.6D0) call fail("test_data_implicit - 2")
+            if (AEM .NE. 0.0011D0) call fail("test_data_implicit - 3")
+            WRITE(*,'(F8.5)') PMC
+            WRITE(*,'(F8.5)') P2
+            WRITE(*,'(F8.5)') AEM
+        end
+
 C -----------------------------------------------------
 
         subroutine test_matrix
