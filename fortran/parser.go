@@ -342,6 +342,11 @@ func (s strChanger) Visit(node goast.Node) (w goast.Visitor) {
 				}
 			}
 		}
+		if ident, ok := call.Fun.(*goast.Ident); ok {
+			if ident.Name == "panic" {
+				return nil
+			}
+		}
 	}
 	if _, ok := node.(*goast.ImportSpec); ok {
 		return nil
@@ -858,6 +863,9 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 		if call, ok := node.(*goast.CallExpr); ok {
 			if id, ok := call.Fun.(*goast.Ident); ok {
 				if id.Name == "append" {
+					return nil
+				}
+				if id.Name == "panic" {
 					return nil
 				}
 			}
@@ -1621,7 +1629,8 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		}
 		stmts = append(stmts, &goast.ExprStmt{
 			X: &goast.CallExpr{
-				Fun: goast.NewIdent("panic"),
+				Fun:    goast.NewIdent("panic"),
+				Lparen: 1,
 				Args: []goast.Expr{
 					&goast.BasicLit{
 						Kind:  token.STRING,
