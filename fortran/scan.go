@@ -703,6 +703,11 @@ multi:
 	//	IMPLICIT INTEGER (I)
 	//	IMPLICIT INTEGER ...
 	//	IMPLICIT INTEGER (N)
+	//
+	// FROM:
+	//	IMPLICIT NONE
+	// TO:
+	// 	nothing
 	iter := 0
 impl:
 	iter++
@@ -735,6 +740,24 @@ impl:
 					b:   []byte("\n"),
 				}, n)
 				goto impl
+			}
+		}
+
+		// FROM:
+		//	IMPLICIT NONE
+		// TO:
+		// 	nothing
+		{
+			n := e.Next()
+			if n != nil && n.Value.(*node).tok == token.IDENT &&
+				bytes.Equal([]byte("NONE"), bytes.ToUpper(n.Value.(*node).b)) {
+
+				e.Value.(*node).tok = ftNewLine
+				e.Value.(*node).b = []byte{'\n'}
+				n.Value.(*node).tok = ftNewLine
+				n.Value.(*node).b = []byte{'\n'}
+
+				continue
 			}
 		}
 

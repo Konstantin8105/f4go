@@ -908,6 +908,7 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
         SUBROUTINE test_parameter
+            IMPLICIT none
             REAL      ZERO, ONE
             PARAMETER ( ZERO = 0.0E+0, ONE = 1.0E+0 )
             WRITE(*,FMT=570) ZERO
