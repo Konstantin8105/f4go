@@ -1011,7 +1011,7 @@ func (s *scanner) scanTokens() {
 		{tok: ftReal, pattern: []string{"REAL"}},
 		{tok: ftData, pattern: []string{"DATA"}},
 		{tok: ftExternal, pattern: []string{"EXTERNAL"}},
-		{tok: ftEnd, pattern: []string{"END", "ENDDO"}},
+		{tok: ftEnd, pattern: []string{"END", "ENDDO", "ENDIF"}},
 		{tok: ftDo, pattern: []string{"DO"}},
 		{tok: ftDouble, pattern: []string{"DOUBLE"}},
 		{tok: ftDimension, pattern: []string{"DIMENSION"}},
