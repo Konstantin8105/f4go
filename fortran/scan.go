@@ -5,7 +5,9 @@ import (
 	"container/list"
 	"fmt"
 	"go/token"
+	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -996,6 +998,58 @@ impl:
 			names = append(names, *n.Value.(*node))
 		}
 	}
+
+	// inject code from INCLUDE
+incl:
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if e.Value.(*node).tok != ftInclude {
+			continue
+		}
+		e.Value.(*node).tok = ftNewLine
+		e.Value.(*node).b = []byte{'\n'}
+		// Example :
+		// include 'file'
+		var filename []byte
+		for n := e.Next(); n != nil && n.Value.(*node).tok != ftNewLine; n = n.Next() {
+			filename = append(filename, n.Value.(*node).b...)
+			n.Value.(*node).tok = ftNewLine
+			n.Value.(*node).b = []byte{'\n'}
+		}
+
+		for _, sep := range []byte{'\'', '"'} {
+			if filename[0] == sep {
+				filename = filename[1:]
+			}
+			if filename[len(filename)-1] == sep {
+				filename = filename[:len(filename)-1]
+			}
+		}
+
+		var dat []byte
+
+		if err := filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return nil
+			}
+
+			if info.Name() == string(filename) {
+				var ef error
+				dat, ef = ioutil.ReadFile(path)
+				return ef
+			}
+			return nil
+		}); err != nil {
+			continue
+		}
+
+		ns := scan(dat)
+		for i := range ns {
+			s.nodes.InsertBefore(&ns[i], e)
+		}
+
+		goto incl
+	}
+
 }
 
 func (s *scanner) scanMoveComment() {
@@ -1064,6 +1118,7 @@ func (s *scanner) scanTokens() {
 		{tok: ftEquivalence, pattern: []string{"EQUIVALENCE"}},
 		{tok: ftCommon, pattern: []string{"COMMON"}},
 		{tok: ftRewind, pattern: []string{"REWIND"}},
+		{tok: ftInclude, pattern: []string{"INCLUDE"}},
 	}
 	for _, ent := range entities {
 		for _, pat := range ent.pattern {
