@@ -919,6 +919,18 @@ impl:
 			}
 			s.nodes.InsertBefore(&node{tok: ftNewLine, b: []byte{'\n'}}, e)
 
+			// do not initialize variables without array
+			foundParen := false
+			for i := range names {
+				if names[i].tok == token.LPAREN {
+					foundParen = true
+					break
+				}
+			}
+			if !foundParen {
+				return
+			}
+
 			// initialize common type
 			isFirst = iF
 			if isFirst {
@@ -931,6 +943,7 @@ impl:
 					tok: ftReal,
 				}, e)
 			}
+
 			for i := 0; i < len(names); i++ {
 				name := names[i]
 				if i == 0 {
