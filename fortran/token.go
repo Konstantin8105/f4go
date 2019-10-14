@@ -50,6 +50,8 @@ const (
 	ftCommon
 	ftRewind
 
+	ftInclude
+
 	// undefine tokens
 	ftUndefine
 )
@@ -107,6 +109,8 @@ var o = [...]string{
 	ftEquivalence: "EQUIVALENCE",
 	ftCommon:      "COMMON",
 	ftRewind:      "REWIND",
+
+	ftInclude: "INCLUDE",
 
 	ftUndefine: "UNDEFINE",
 }
