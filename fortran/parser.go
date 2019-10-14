@@ -1615,8 +1615,21 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	case ftStop:
 		p.expect(ftStop)
 		p.ident++
-		p.expect(ftNewLine)
-		stmts = append(stmts, &goast.ReturnStmt{})
+		var msg []byte
+		for ; p.ident < len(p.ns) && p.ns[p.ident].tok != ftNewLine; p.ident++ {
+			msg = append(msg, p.ns[p.ident].b...)
+		}
+		stmts = append(stmts, &goast.ExprStmt{
+			X: &goast.CallExpr{
+				Fun: goast.NewIdent("panic"),
+				Args: []goast.Expr{
+					&goast.BasicLit{
+						Kind:  token.STRING,
+						Value: "\"" + string(msg) + "\"",
+					},
+				},
+			},
+		})
 
 	case token.GOTO:
 		// Examples:
