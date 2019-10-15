@@ -19,11 +19,6 @@ type varInitialization struct {
 
 type varInits []varInitialization
 
-func (v *varInits) reset() {
-	(*v) = nil
-	v = nil
-}
-
 func (v varInits) get(n string) (varInitialization, bool) {
 	n = strings.ToUpper(n)
 	for _, val := range []varInitialization(v) {
@@ -195,7 +190,7 @@ func (p *parser) init() {
 	p.initVars = varInits{}
 	p.parameters = map[string]string{}
 	p.formats = map[string][]node{}
-
+	p.implicit = nil
 	p.constants = map[string][]node{}
 }
 
@@ -964,8 +959,7 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	}
 
 	defer func() {
-		p.resetImplicit()
-		p.initVars.reset()
+		p.init()
 	}()
 
 	var fd goast.FuncDecl
