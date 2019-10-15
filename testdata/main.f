@@ -251,6 +251,16 @@ C -----------------------------------------------------
                 END IF
   100       CONTINUE
 
+            DO 150 J = 1,2
+                DO 130 I = 1,2
+                    WRITE(*,'(I2)') I
+                    WRITE(*,'(I2)') J
+                    IF (I .EQ. 1) GOTO 130
+                    WRITE(*,'(I2)') I
+                    WRITE(*,'(I2)') J
+  130 CONTINUE
+  150 CONTINUE
+
             CALL ZD()
 
             RETURN
