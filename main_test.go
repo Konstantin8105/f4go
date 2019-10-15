@@ -212,6 +212,25 @@ func TestBlas(t *testing.T) {
 				t.Logf("Error is not empty")
 				amount++
 			}
+
+			if !strings.Contains(ss[i], "TESTING") {
+				return
+			}
+
+			// Go name
+			goname := ss[i]
+			if index := strings.LastIndex(goname, "."); index > 0 {
+				goname = goname[:index] + ".go"
+			}
+
+			// run Go test
+			cmd := exec.Command(
+				"go", "build", goname,
+			)
+			goOutput, err := cmd.CombinedOutput()
+			if err != nil {
+				t.Errorf("Cannot go executable file : %v\n%s", err, goOutput)
+			}
 		})
 	}
 
