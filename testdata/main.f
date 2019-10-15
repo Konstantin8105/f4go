@@ -118,6 +118,9 @@ C -----------------------------------------------------
             call testName("test_common")
             call test_common()
 
+            call testName("test_common2")
+            call test_common2()
+
 C           call testName("test_common_satellite")
 C           call test_common_satellite()
 
@@ -1157,6 +1160,16 @@ C -----------------------------------------------------
             WRITE(*,'(F8.2)') RE(1,1,1)
             WRITE(*,'(F8.2)') W
         END 
+
+
+        SUBROUTINE test_common2
+            INTEGER COL
+            COMMON /INFOC/ COL
+            COL = 5
+            IF (COL.NE.5) call fail("common2 - COL")
+            WRITE(*,'(I2)') COL
+        END 
+
 
 C       SUBROUTINE test_common_satellite
 C           COMMON/PDAT/LOC(3), TS(1)
