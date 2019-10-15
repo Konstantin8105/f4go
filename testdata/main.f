@@ -223,7 +223,7 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
         recursive subroutine test_if()
-            integer i, J
+            integer i, J, TT
             logical l
             l = .false.
             i = 5
@@ -255,6 +255,10 @@ C -----------------------------------------------------
   100       CONTINUE
 
             DO 150 J = 1,2
+                    TT = I + 150
+                    WRITE(*,'(I5)') TT
+                    TT = J + 150
+                    WRITE(*,'(I5)') TT
                 DO 130 I = 1,2
                     WRITE(*,'(I2)') I
                     WRITE(*,'(I2)') J
@@ -262,6 +266,10 @@ C -----------------------------------------------------
                     WRITE(*,'(I2)') I
                     WRITE(*,'(I2)') J
   130 CONTINUE
+                    TT = I + 130
+                    WRITE(*,'(I5)') TT
+                    TT = J + 130
+                    WRITE(*,'(I5)') TT
   150 CONTINUE
 
             CALL ZD()

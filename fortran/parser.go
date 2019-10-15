@@ -2496,6 +2496,41 @@ func (p *parser) parseCommon() (stmts []goast.Stmt) {
 	// generate stmts
 	// {{ .name }} = COMMON.{{ .blockName }}.{{ name }}
 	for i := range names {
+
+		// if variable is not initialized
+		if _, ok := p.initVars.get(names[i]); !ok {
+			// from:
+			//    COMMON LOC(3), T(1)
+			// to:
+			//    INTEGER LOC(3)
+			//    INTEGER T(1)
+			//    COMMON LOC(3), T(1)
+			var inject []node
+			inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
+			if i == 0 {
+				inject = append(inject, node{tok: ftInteger, b: []byte("INTEGER")})
+			} else {
+				inject = append(inject, node{tok: ftReal, b: []byte("REAL")})
+			}
+			n := scan([]byte(names[i]))
+			inject = append(inject, n...)
+			inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
+
+			if strings.Contains(names[i], "(") {
+				inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
+				if i == 0 {
+					inject = append(inject, node{tok: ftInteger, b: []byte("INTEGER")})
+				} else {
+					inject = append(inject, node{tok: ftReal, b: []byte("REAL")})
+				}
+				n[0].b = append([]byte("COMMON."+blockName+"."), n[0].b...)
+				inject = append(inject, n...)
+				inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
+			}
+
+			p.ns = append(p.ns[:p.ident], append(inject, p.ns[p.ident:]...)...)
+		}
+
 		name := names[i]
 		if index := strings.Index(name, "("); index > 0 {
 			name = name[:index]
