@@ -74,7 +74,7 @@ type scanner struct {
 	nodes *list.List
 }
 
-const Debug bool = true // false
+var Debug bool = true // false
 
 func scan(b []byte) (ns []node) {
 	if Debug {

@@ -21,6 +21,9 @@ import (
 )
 
 func TestIntegration(t *testing.T) {
+
+	fortran.Debug = testing.Verbose()
+
 	// gfortran ./testdata/main.f -o ./testdata/a.out
 	out, err := exec.Command(
 		"gfortran",
@@ -118,6 +121,9 @@ func ShowDiff(a, b string) string {
 }
 
 func TestFail(t *testing.T) {
+
+	fortran.Debug = testing.Verbose()
+
 	// wrong source
 	errs := parse("./testdata/fortran_fail.f", "", "")
 	if len(errs) == 0 {
@@ -176,9 +182,20 @@ func getFortranTestFiles(dir string) (files []string, err error) {
 }
 
 func TestBlas(t *testing.T) {
-	ss, err := filepath.Glob(fmt.Sprintf("./testdata/blas/%s", "*.f"))
-	if err != nil {
+
+	fortran.Debug = testing.Verbose()
+
+	ss, err := filepath.Glob(fmt.Sprintf("./testdata/blas/SRC/%s", "*.f"))
+	if err != nil || len(ss) == 0 {
 		t.Fatal(err)
+	}
+	{
+		// add TESTING
+		ss2, err := filepath.Glob(fmt.Sprintf("./testdata/blas/TESTING/%s", "*.f"))
+		if err != nil || len(ss) == 0 {
+			t.Fatal(err)
+		}
+		ss = append(ss, ss2...)
 	}
 
 	var amount int
@@ -215,7 +232,7 @@ func TestBlas(t *testing.T) {
 	readme := lines("./README.md")
 
 	// get lines of source fortran file
-	fortran := lines("./testdata/blas/caxpy.f")
+	fortran := lines("./testdata/blas/SRC/caxpy.f")
 	for i := range fortran {
 		found := false
 		for j := range readme {
@@ -230,7 +247,7 @@ func TestBlas(t *testing.T) {
 	}
 
 	// get lines of Go file
-	gof := lines("./testdata/blas/caxpy.go")
+	gof := lines("./testdata/blas/SRC/caxpy.go")
 	for i := range gof {
 		found := false
 		for j := range readme {
@@ -407,6 +424,9 @@ func TestComments(t *testing.T) {
 }
 
 func TestCrash(t *testing.T) {
+
+	fortran.Debug = testing.Verbose()
+
 	var (
 		in  = "./testdata/min_crash.f"
 		out = "./testdata/min_crash.go"

@@ -948,9 +948,7 @@ func (p *parser) parseProgram() (decl goast.Decl) {
 	p.ns[p.ident].tok = ftSubroutine
 	decl = p.parseSubroutine()
 	if fd, ok := decl.(*goast.FuncDecl); ok {
-		if strings.ToUpper(fd.Name.Name) == "MAIN" {
-			fd.Name.Name = "main"
-		}
+		fd.Name.Name = "main"
 	}
 	return
 }

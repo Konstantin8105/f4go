@@ -2,7 +2,7 @@ C -----------------------------------------------------
 C Tests 
 C -----------------------------------------------------
 
-        program MAIN
+        program MAIN_PROGRAM
             ! begin of tests
             call testName("test_operations")
             call test_operations()
