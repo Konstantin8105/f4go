@@ -1667,6 +1667,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	case token.INT:
 		labelName := string(p.ns[p.ident].b)
 		if v, ok := p.endLabelDo[labelName]; ok && v > 0 {
+			stmts = append(stmts, p.addLabel(p.ns[p.ident].b))
 			// if after END DO, then remove
 			for i := p.ident; p.ns[i].tok != ftNewLine; i++ {
 				p.ns[i].tok, p.ns[i].b = ftNewLine, []byte("\n")
