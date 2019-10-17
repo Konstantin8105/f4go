@@ -2,7 +2,7 @@ C -----------------------------------------------------
 C Tests 
 C -----------------------------------------------------
 
-        program MAIN
+        program MAIN_PROGRAM
             ! begin of tests
             call testName("test_operations")
             call test_operations()
@@ -118,6 +118,9 @@ C -----------------------------------------------------
             call testName("test_common")
             call test_common()
 
+            call testName("test_common2")
+            call test_common2()
+
 C           call testName("test_common_satellite")
 C           call test_common_satellite()
 
@@ -220,7 +223,7 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
         recursive subroutine test_if()
-            integer i, J
+            integer i, J, TT
             logical l
             l = .false.
             i = 5
@@ -250,6 +253,24 @@ C -----------------------------------------------------
                     END IF
                 END IF
   100       CONTINUE
+
+            DO 150 J = 1,2
+                    TT = I + 150
+                    WRITE(*,'(I5)') TT
+                    TT = J + 150
+                    WRITE(*,'(I5)') TT
+                DO 130 I = 1,2
+                    WRITE(*,'(I2)') I
+                    WRITE(*,'(I2)') J
+                    IF (I .EQ. 1) GOTO 130
+                    WRITE(*,'(I2)') I
+                    WRITE(*,'(I2)') J
+  130 CONTINUE
+                    TT = I + 130
+                    WRITE(*,'(I5)') TT
+                    TT = J + 130
+                    WRITE(*,'(I5)') TT
+  150 CONTINUE
 
             CALL ZD()
 
@@ -1147,6 +1168,16 @@ C -----------------------------------------------------
             WRITE(*,'(F8.2)') RE(1,1,1)
             WRITE(*,'(F8.2)') W
         END 
+
+
+        SUBROUTINE test_common2
+            INTEGER COL
+            COMMON /INFOC/ COL
+            COL = 5
+            IF (COL.NE.5) call fail("common2 - COL")
+            WRITE(*,'(I2)') COL
+        END 
+
 
 C       SUBROUTINE test_common_satellite
 C           COMMON/PDAT/LOC(3), TS(1)

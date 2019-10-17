@@ -7,6 +7,7 @@ import (
 	"go/format"
 	"go/token"
 	"io/ioutil"
+	"os"
 	"os/exec"
 	"runtime"
 	"strings"
@@ -30,7 +31,7 @@ func run() {
 	flag.Parse()
 
 	if flag.NArg() < 1 {
-		flag.Usage()
+		fmt.Fprintln(os.Stdout, "Please run: f4go -h")
 		return
 	}
 
@@ -97,7 +98,7 @@ func parse(filename, packageName, goFilename string) (errR []errorRow) {
 		}
 	}
 
-	fmt.Println("\n\ngenerate : ", goFilename)
+	// 	fmt.Println("\n\ngenerate : ", goFilename)
 
 	// save go source
 	if err = ioutil.WriteFile(goFilename, buf.Bytes(), 0644); err != nil {

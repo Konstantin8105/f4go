@@ -14,7 +14,8 @@ testdata/*.out
 testdata/*.go
 *.o
 testdata/other/*
-testdata/blas/*.go
+testdata/blas/SRC/*.go
+testdata/blas/TESTING/*.go
 testdata/result
 *.txt
 

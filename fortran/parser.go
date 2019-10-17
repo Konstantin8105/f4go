@@ -19,11 +19,6 @@ type varInitialization struct {
 
 type varInits []varInitialization
 
-func (v *varInits) reset() {
-	(*v) = nil
-	v = nil
-}
-
 func (v varInits) get(n string) (varInitialization, bool) {
 	n = strings.ToUpper(n)
 	for _, val := range []varInitialization(v) {
@@ -195,7 +190,7 @@ func (p *parser) init() {
 	p.initVars = varInits{}
 	p.parameters = map[string]string{}
 	p.formats = map[string][]node{}
-
+	p.implicit = nil
 	p.constants = map[string][]node{}
 }
 
@@ -948,9 +943,7 @@ func (p *parser) parseProgram() (decl goast.Decl) {
 	p.ns[p.ident].tok = ftSubroutine
 	decl = p.parseSubroutine()
 	if fd, ok := decl.(*goast.FuncDecl); ok {
-		if strings.ToUpper(fd.Name.Name) == "MAIN" {
-			fd.Name.Name = "main"
-		}
+		fd.Name.Name = "main"
 	}
 	return
 }
@@ -966,8 +959,7 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	}
 
 	defer func() {
-		p.resetImplicit()
-		p.initVars.reset()
+		p.init()
 	}()
 
 	var fd goast.FuncDecl
@@ -1675,6 +1667,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	case token.INT:
 		labelName := string(p.ns[p.ident].b)
 		if v, ok := p.endLabelDo[labelName]; ok && v > 0 {
+			stmts = append(stmts, p.addLabel(p.ns[p.ident].b))
 			// if after END DO, then remove
 			for i := p.ident; p.ns[i].tok != ftNewLine; i++ {
 				p.ns[i].tok, p.ns[i].b = ftNewLine, []byte("\n")
@@ -2503,6 +2496,41 @@ func (p *parser) parseCommon() (stmts []goast.Stmt) {
 	// generate stmts
 	// {{ .name }} = COMMON.{{ .blockName }}.{{ name }}
 	for i := range names {
+
+		// if variable is not initialized
+		if _, ok := p.initVars.get(names[i]); !ok {
+			// from:
+			//    COMMON LOC(3), T(1)
+			// to:
+			//    INTEGER LOC(3)
+			//    INTEGER T(1)
+			//    COMMON LOC(3), T(1)
+			var inject []node
+			inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
+			if i == 0 {
+				inject = append(inject, node{tok: ftInteger, b: []byte("INTEGER")})
+			} else {
+				inject = append(inject, node{tok: ftReal, b: []byte("REAL")})
+			}
+			n := scan([]byte(names[i]))
+			inject = append(inject, n...)
+			inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
+
+			if strings.Contains(names[i], "(") {
+				inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
+				if i == 0 {
+					inject = append(inject, node{tok: ftInteger, b: []byte("INTEGER")})
+				} else {
+					inject = append(inject, node{tok: ftReal, b: []byte("REAL")})
+				}
+				n[0].b = append([]byte("COMMON."+blockName+"."), n[0].b...)
+				inject = append(inject, n...)
+				inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
+			}
+
+			p.ns = append(p.ns[:p.ident], append(inject, p.ns[p.ident:]...)...)
+		}
+
 		name := names[i]
 		if index := strings.Index(name, "("); index > 0 {
 			name = name[:index]
