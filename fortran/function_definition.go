@@ -113,7 +113,7 @@ var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 		intrinsicArgumentCorrection(p, f, "intrinsic.MIN", typeNames)
 	},
 	"MAX": func(p *parser, f *goast.CallExpr) {
-		typeNames := []string{"int", "int"}
+		typeNames := []string{"float64", "float64"}
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 		intrinsicArgumentCorrection(p, f, "intrinsic.MAX", typeNames)
 	},

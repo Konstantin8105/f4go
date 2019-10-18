@@ -134,12 +134,27 @@ func (p parser) getArrayLen(name string) int {
 }
 
 type common struct {
-	mem map[string][]string
+	mem map[string][]varInitialization
 }
 
-func (c *common) addBlockName(name string, vars []string) {
+func (c *common) addBlockName(name string, vars []varInitialization) {
 	if c.mem == nil {
-		c.mem = map[string][]string{}
+		c.mem = map[string][]varInitialization{}
+	}
+	// common may add new vars
+	if v, ok := c.mem[name]; ok {
+		for i := range v {
+			found := false
+			for j := range vars {
+				if v[i].name == vars[j].name {
+					found = true
+				}
+			}
+			if found {
+				continue
+			}
+			vars = append(vars, v[i])
+		}
 	}
 	c.mem[name] = vars
 }
@@ -255,24 +270,43 @@ func Parse(b []byte, packageName string) (_ goast.File, errs []error) {
 		for names, vars := range p.Common.mem {
 			var nameFields []*goast.Field
 			for i := range vars {
-				varName := vars[i]
-				var varType string
-				if i == 0 {
-					varType = "int"
-				} else {
-					varType = "float64"
-				}
-				index := strings.Index(varName, "(")
-				if index > 0 {
-					count := strings.Count(varName, ",")
-					for i := 0; i <= count; i++ {
-						varType = "[]" + varType
+				var (
+					varName = vars[i].name
+					varType = []byte(vars[i].typ.String())
+				)
+				// from:
+				//
+				// [3]int
+				// [1]float64
+				// [2][2][2]float64
+				// float64
+				// int
+				//
+				// to:
+				//
+				// []int
+				// []float64
+				// [][][]float64
+				// float64
+				// int
+				isopen := false
+				for i := range varType {
+					if varType[i] == '[' {
+						isopen = true
+						continue
 					}
-					varName = varName[:index]
+					if varType[i] == ']' {
+						isopen = false
+						continue
+					}
+					if !isopen {
+						continue
+					}
+					varType[i] = ' '
 				}
 				nameFields = append(nameFields, &goast.Field{
 					Names: []*goast.Ident{goast.NewIdent(varName)},
-					Type:  goast.NewIdent(varType), // TODO
+					Type:  goast.NewIdent(string(varType)),
 				})
 			}
 			fields = append(fields, &goast.Field{
@@ -2491,19 +2525,46 @@ func (p *parser) parseCommon() (stmts []goast.Stmt) {
 	p.expect(ftNewLine)
 
 	// put block name in parser
-	p.Common.addBlockName(blockName, names)
+	var variables []varInitialization
+	for i := range names {
+		name := names[i]
+		var addition []node
+		if index := strings.Index(names[i], "("); index > 0 {
+			addition = scan([]byte(name[index:]))
+			name = name[:index]
+		}
+		var typ goType
+		var typNode node
+		if i == 0 {
+			typNode = node{tok: ftInteger, b: []byte("INTEGER")}
+		} else {
+			typNode = node{tok: ftReal, b: []byte("REAL")}
+		}
+		typ = parseType(append([]node{typNode}, addition...))
+
+		if v, ok := p.initVars.get(name); ok {
+			typ = v.typ
+		}
+
+		variables = append(variables, varInitialization{name: name, typ: typ})
+	}
+	p.Common.addBlockName(blockName, variables)
 
 	// generate stmts
 	// {{ .name }} = COMMON.{{ .blockName }}.{{ name }}
 	for i := range names {
 
 		// if variable is not initialized
-		if _, ok := p.initVars.get(names[i]); !ok {
+		name := names[i]
+		if index := strings.Index(names[i], "("); index > 0 {
+			name = name[:index]
+		}
+		if _, ok := p.initVars.get(name); !ok {
 			// from:
 			//    COMMON LOC(3), T(1)
 			// to:
 			//    INTEGER LOC(3)
-			//    INTEGER T(1)
+			//    REAL T(1)
 			//    COMMON LOC(3), T(1)
 			var inject []node
 			inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
@@ -2531,10 +2592,6 @@ func (p *parser) parseCommon() (stmts []goast.Stmt) {
 			p.ns = append(p.ns[:p.ident], append(inject, p.ns[p.ident:]...)...)
 		}
 
-		name := names[i]
-		if index := strings.Index(name, "("); index > 0 {
-			name = name[:index]
-		}
 		stmts = append(stmts, &goast.AssignStmt{
 			Lhs: []goast.Expr{goast.NewIdent(name)},
 			Tok: token.ASSIGN,
