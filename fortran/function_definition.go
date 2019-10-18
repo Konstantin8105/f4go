@@ -11,23 +11,31 @@ type callArgumentSimplification struct {
 func (c callArgumentSimplification) Visit(node goast.Node) (w goast.Visitor) {
 	// from : &((*a))
 	// to   : a
-	if id, ok := node.(*goast.Ident); ok && strings.Contains(id.Name, "*func()") {
-		// TODO: simplify
-		//		if len(id.Name) > 6 && id.Name[:4] == "&((*" {
-		//			id.Name = id.Name[4 : len(id.Name)-2]
-		//		}
-		//
-		//		if len(id.Name) > 11 && id.Name[:11] == "*func()*int" {
-		//			// *func()*int{y:=6;return &y}()
-		//			id.Name = id.Name[15:]
-		//			id.Name = id.Name[:len(id.Name)-13]
-		//		}
-		//
-		//		if len(id.Name) > 8 && id.Name[:8] == "*func()*" {
-		//			// TODO : for other types
-		//			// fmt.Println("Simply : ", id.Name)
-		//		}
+	id, ok := node.(*goast.Ident)
+	if !ok {
+		return c
 	}
+
+	if len(id.Name) > 6 && id.Name[:4] == "&((*" {
+		id.Name = id.Name[4 : len(id.Name)-2]
+		return c
+	}
+
+	if !strings.Contains(id.Name, "*func()") {
+		return c
+	}
+
+	// *func()*int{y:=6;return &y}()
+	// *func()*byte{y:=byte('K');return &y}()
+	index := strings.Index(id.Name, "=")
+	if index < 0 {
+		return c
+	}
+	last := strings.LastIndex(id.Name, ";")
+	if last < 0 {
+		return c
+	}
+	id.Name = id.Name[index+1 : last]
 
 	return c
 }
