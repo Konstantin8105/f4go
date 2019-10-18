@@ -90,6 +90,8 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 	return in
 }
 
+const any = "ANY"
+
 var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 	"COMPLEX": func(p *parser, f *goast.CallExpr) {
 		typeNames := []string{"float64", "float64"}
@@ -113,7 +115,7 @@ var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 		intrinsicArgumentCorrection(p, f, "intrinsic.MIN", typeNames)
 	},
 	"MAX": func(p *parser, f *goast.CallExpr) {
-		typeNames := []string{"float64", "float64"}
+		typeNames := []string{any, any}
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 		intrinsicArgumentCorrection(p, f, "intrinsic.MAX", typeNames)
 	},
@@ -176,6 +178,9 @@ func intrinsicArgumentCorrection(p *parser, f *goast.CallExpr, name string, type
 	f.Fun.(*goast.Ident).Name = name
 
 	for i := range typeNames {
+		if typeNames[i] == any {
+			continue
+		}
 		if id, ok := f.Args[i].(*goast.Ident); ok {
 			if len(id.Name) > 3 && id.Name[:2] == "&(" {
 				id.Name = id.Name[2 : len(id.Name)-1]

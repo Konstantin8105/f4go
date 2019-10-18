@@ -13,11 +13,33 @@ func MIN(a, b int) int {
 	return b
 }
 
-func MAX(a, b float64) float64 {
-	if a > b {
-		return a
+func MAX(a, b interface{}) float64 {
+	cast := func(w interface{}) float64 {
+		switch v := w.(type) {
+		case float64:
+			return v
+		case *float64:
+			return *v
+		case float32:
+			return float64(v)
+		case *float32:
+			return float64(*v)
+		case int:
+			return float64(v)
+		case *int:
+			return float64(*v)
+		default:
+			panic(fmt.Errorf("cannot cast: %#v", w))
+		}
 	}
-	return b
+
+	A := cast(a)
+	B := cast(b)
+
+	if A > B {
+		return A
+	}
+	return B
 }
 
 func EPSILON(f float64) float64 {
