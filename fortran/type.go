@@ -151,14 +151,14 @@ func parseType(nodes []node) (typ goType) {
 		}
 	case ftComplex:
 		// COMPLEX or COMPLEX * 8
-		typ.baseType = "complex64"
+		typ.baseType = "complex128" // TODO: for minimaze type convection "complex64"
 		nodes = nodes[1:]
 		if len(nodes) > 1 &&
 			nodes[0].tok == token.MUL &&
 			nodes[1].tok == token.INT {
 			switch string(nodes[1].b) {
 			case "8": // COMPLEX * 8
-				typ.baseType = "complex64"
+				typ.baseType = "complex128" // TODO: for minimaze type convection "complex64"
 			case "16": // COMPLEX * 16
 				typ.baseType = "complex128"
 			default:
@@ -191,7 +191,7 @@ func parseType(nodes []node) (typ goType) {
 			nodes[1].tok == token.INT {
 			switch string(nodes[1].b) {
 			case "4": // REAL or REAL * 4
-				typ.baseType = "float32"
+				typ.baseType = "float64" // TODO: for minimaze type convection "float32"
 			case "8": // REAL * 8
 				typ.baseType = "float64"
 			default:

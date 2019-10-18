@@ -118,7 +118,7 @@ var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 		intrinsicArgumentCorrection(p, f, "intrinsic.MAX", typeNames)
 	},
 	"CONJG": func(p *parser, f *goast.CallExpr) {
-		typeNames := []string{"complex64"}
+		typeNames := []string{"complex128"}
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 		intrinsicArgumentCorrection(p, f, "intrinsic.CONJG", typeNames)
 	},
