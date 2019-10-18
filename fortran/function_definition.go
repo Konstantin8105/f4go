@@ -162,6 +162,11 @@ var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 		intrinsicArgumentCorrection(p, f, "intrinsic.MOD", typeNames)
 	},
+	"EPSILON": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"float64"}
+		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+		intrinsicArgumentCorrection(p, f, "intrinsic.EPSILON", typeNames)
+	},
 }
 
 func intrinsicArgumentCorrection(p *parser, f *goast.CallExpr, name string, typeNames []string) {

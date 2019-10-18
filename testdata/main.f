@@ -135,6 +135,9 @@ C           call test_common_satellite()
         
             call testName("test_write_loop")
             call test_write_loop()
+        
+            call testName("test_epsilon")
+            call test_epsilon()
 
             ! end of tests
         END
@@ -1247,4 +1250,14 @@ C           WRITE(*,'( I2    I3   I4            I5 )') (P(I),I=1,3), E
         END 
 
 C -----------------------------------------------------
+
+        SUBROUTINE test_epsilon
+            real  x = 3.143
+            real  y = 2.33
+            WRITE(*,'(F18.10)') EPSILON(x)
+            WRITE(*,'(F18.10)') EPSILON(y)
+        END 
+
+C -----------------------------------------------------
+
 

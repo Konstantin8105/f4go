@@ -20,6 +20,10 @@ func MAX(a, b float64) float64 {
 	return b
 }
 
+func EPSILON(f float64) float64 {
+	return 0.0000001192
+}
+
 func CONJG(c complex64) complex64 {
 	return complex64(cmplx.Conj(complex128(c)))
 }
