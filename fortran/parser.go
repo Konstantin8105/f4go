@@ -939,11 +939,22 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 					},
 				}
 
+			case *goast.CallExpr:
+			//	var ident goast.Ident
+			//	ident, ok := a.Fun.(*goast.Ident)
+			//	if ok {
+			//		continue
+			//	}
+			//	returnType, ok := p.functionReturnType[ident.Name]
+			//	if ok {
+			//		continue
+			//	}
+			// TODO: convection function return type (int) to (*int)
+
+			default:
 				// TODO:
-				// default:
-				// 	goast.Print(token.NewFileSet(), a)
-				// 	panic(fmt.Errorf(
-				// 		"Not support arg call token: %T ", a))
+				//	goast.Print(token.NewFileSet(), a)
+				//	panic(fmt.Errorf("Not support arg call token: %T ", a))
 			}
 		}
 	}

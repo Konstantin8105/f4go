@@ -178,9 +178,6 @@ func intrinsicArgumentCorrection(p *parser, f *goast.CallExpr, name string, type
 	f.Fun.(*goast.Ident).Name = name
 
 	for i := range typeNames {
-		if typeNames[i] == any {
-			continue
-		}
 		if id, ok := f.Args[i].(*goast.Ident); ok {
 			if len(id.Name) > 3 && id.Name[:2] == "&(" {
 				id.Name = id.Name[2 : len(id.Name)-1]
@@ -190,7 +187,9 @@ func intrinsicArgumentCorrection(p *parser, f *goast.CallExpr, name string, type
 			if strings.Contains(id.Name, "func()*int{y:=") {
 				id.Name = id.Name[len("func()*int{y:="):]
 				id.Name = strings.TrimRight(id.Name, ";return &y}()")
-				id.Name = typeNames[i] + "(" + id.Name + ")"
+				if typeNames[i] != any {
+					id.Name = typeNames[i] + "(" + id.Name + ")"
+				}
 			}
 		}
 		if un, ok := f.Args[i].(*goast.UnaryExpr); ok {

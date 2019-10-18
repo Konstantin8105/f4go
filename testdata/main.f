@@ -322,6 +322,7 @@ C -----------------------------------------------------
                 call fail("test_do 1")
             end if
 
+C           Do IR = 1,ab_min(ab_min(3,13),1000)
             Do IR = 1,ab_min(3,13)
                 write (*,FMT=149) IR
             enddo
