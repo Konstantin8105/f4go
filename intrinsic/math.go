@@ -13,29 +13,33 @@ func MIN(a, b int) int {
 	return b
 }
 
-func MAX(a, b interface{}) float64 {
-	cast := func(w interface{}) float64 {
-		switch v := w.(type) {
-		case float64:
-			return v
-		case *float64:
-			return *v
-		case float32:
-			return float64(v)
-		case *float32:
-			return float64(*v)
-		case int:
-			return float64(v)
-		case *int:
-			return float64(*v)
-		default:
-			panic(fmt.Errorf("cannot cast: %#v", w))
-		}
+func castToFloat64(w interface{}) float64 {
+	switch v := w.(type) {
+	case float64:
+		return v
+	case *float64:
+		return *v
+	case float32:
+		return float64(v)
+	case *float32:
+		return float64(*v)
+	case int:
+		return float64(v)
+	case *int:
+		return float64(*v)
+	default:
+		panic(fmt.Errorf("cannot cast: %#v", w))
 	}
+}
 
-	A := cast(a)
-	B := cast(b)
+func SQRT(a interface{}) float64 {
+	A := castToFloat64(a)
+	return math.Sqrt(A)
+}
 
+func MAX(a, b interface{}) float64 {
+	A := castToFloat64(a)
+	B := castToFloat64(b)
 	if A > B {
 		return A
 	}
