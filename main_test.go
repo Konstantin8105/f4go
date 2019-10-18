@@ -181,6 +181,20 @@ func getFortranTestFiles(dir string) (files []string, err error) {
 	return
 }
 
+func parsingBlas(filename string) (failed bool) {
+	filename = "./" + filename
+
+	// Go name
+	goname := filename
+	if index := strings.LastIndex(goname, "."); index > 0 {
+		goname = goname[:index] + ".go"
+	}
+	goname = strings.Replace(goname, "SRC", "TESTING", 1)
+
+	// parse
+	return len(parse(filename, "main", goname)) > 0
+}
+
 func TestBlas(t *testing.T) {
 
 	fortran.Debug = testing.Verbose()
@@ -201,56 +215,12 @@ func TestBlas(t *testing.T) {
 	var amount int
 
 	for i := range ss {
-		t.Run(ss[i], func(t *testing.T) {
-			ss[i] = "./" + ss[i]
-
-			// Go name
-			goname := ss[i]
-			if index := strings.LastIndex(goname, "."); index > 0 {
-				goname = goname[:index] + ".go"
-			}
-			goname = strings.Replace(goname, "SRC", "TESTING", 1)
-
-			// parse
-			es := parse(ss[i], "main", goname)
-			for _, e := range es {
-				fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
-			}
-			if len(es) > 0 {
-				t.Logf("Error is not empty")
-				amount++
-			}
-
-		})
+		failed := parsingBlas(ss[i])
+		if failed {
+			t.Logf("Error is not empty in file: %s", ss[i])
+			amount++
+		}
 	}
-
-	//	gonames := [][]string{
-	//		[]string{
-	//			"./testdata/blas/TESTING/cblat1.go", // testing file
-	//			"./testdata/blas/TESTING/csscal.go",
-	//			"./testdata/blas/TESTING/cdotc.go",
-	//			"./testdata/blas/TESTING/cdotu.go",
-	//			"./testdata/blas/TESTING/cscal.go",
-	//			"./testdata/blas/TESTING/scnrm2.go",
-	//			"./testdata/blas/TESTING/icamax.go",
-	//			"./testdata/blas/TESTING/caxpy.go",
-	//			"./testdata/blas/TESTING/scasum.go",
-	//			"./testdata/blas/TESTING/ccopy.go",
-	//			"./testdata/blas/TESTING/cswap.go",
-	//			"./testdata/blas/TESTING/scabs1.go",
-	//		},
-	//	}
-	//	for i := range gonames {
-	//		t.Run(fmt.Sprintf("TESTING%3d", i), func(t *testing.T) {
-	//			args := []string{"build", "-gcflags", "-e"}
-	//			//		run Go test
-	//			cmd := exec.Command("go", append(args, gonames[i]...)...)
-	//			goOutput, err := cmd.CombinedOutput()
-	//			if err != nil {
-	//				t.Errorf("Cannot go executable file : %v\n%s", err, goOutput)
-	//			}
-	//		})
-	//	}
 
 	if float64(amount) > 0.25*float64(len(ss)) {
 		t.Errorf("too mush errors")
@@ -297,6 +267,67 @@ func TestBlas(t *testing.T) {
 			t.Errorf("Cannot find go line %d: %s", i, gof[i])
 		}
 	}
+}
+
+func TestBlasTesting(t *testing.T) {
+	isFull := os.Getenv("FULL") != ""
+
+	if !isFull {
+		return
+	}
+
+	tcs := []struct {
+		fortranFiles []string
+		goFiles      []string
+	}{
+		{
+			fortranFiles: []string{
+				"./testdata/blas/TESTING/cblat1.f", // testing file
+				"./testdata/blas/SRC/csscal.f",
+				"./testdata/blas/SRC/cdotc.f",
+				"./testdata/blas/SRC/cdotu.f",
+				"./testdata/blas/SRC/cscal.f",
+				"./testdata/blas/SRC/scnrm2.f",
+				"./testdata/blas/SRC/icamax.f",
+				"./testdata/blas/SRC/caxpy.f",
+				"./testdata/blas/SRC/scasum.f",
+				"./testdata/blas/SRC/ccopy.f",
+				"./testdata/blas/SRC/cswap.f",
+				"./testdata/blas/SRC/scabs1.f",
+			},
+		},
+	}
+
+	// generate go names
+	for i := range tcs {
+		for j := range tcs[i].fortranFiles {
+			goname := tcs[i].fortranFiles[j]
+			index := strings.LastIndex(goname, ".")
+			goname = goname[:index] + ".go"
+			goname = strings.Replace(goname, "SRC", "TESTING", -1)
+			tcs[i].goFiles = append(tcs[i].goFiles, goname)
+		}
+	}
+
+	for i := range tcs {
+		t.Run(fmt.Sprintf("TESTING%3d", i), func(t *testing.T) {
+			for j := range tcs[i].fortranFiles {
+				failed := parsingBlas(tcs[i].fortranFiles[j])
+				if failed {
+					t.Logf("failed file: %s", tcs[i].fortranFiles[j])
+				}
+			}
+
+			args := []string{"build", "-gcflags", "-e"}
+			//		run Go test
+			cmd := exec.Command("go", append(args, tcs[i].goFiles...)...)
+			goOutput, err := cmd.CombinedOutput()
+			if err != nil {
+				t.Errorf("Cannot go executable file : %v\n%s", err, goOutput)
+			}
+		})
+	}
+
 }
 
 func TestData(t *testing.T) {
