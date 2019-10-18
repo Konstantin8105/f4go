@@ -221,22 +221,36 @@ func TestBlas(t *testing.T) {
 				amount++
 			}
 
-			// TODO: add full implementation
-			//
-			// 			if !strings.Contains(ss[i], "TESTING") {
-			// 				return
-			// 			}
-			//
-			// //		run Go test
-			// 			cmd := exec.Command(
-			// 				"go", "build", "-gcflags", "-e", goname,
-			// 			)
-			// 			goOutput, err := cmd.CombinedOutput()
-			// 			if err != nil {
-			// 				t.Errorf("Cannot go executable file : %v\n%s", err, goOutput)
-			// 			}
 		})
 	}
+
+	//	gonames := [][]string{
+	//		[]string{
+	//			"./testdata/blas/TESTING/cblat1.go", // testing file
+	//			"./testdata/blas/TESTING/csscal.go",
+	//			"./testdata/blas/TESTING/cdotc.go",
+	//			"./testdata/blas/TESTING/cdotu.go",
+	//			"./testdata/blas/TESTING/cscal.go",
+	//			"./testdata/blas/TESTING/scnrm2.go",
+	//			"./testdata/blas/TESTING/icamax.go",
+	//			"./testdata/blas/TESTING/caxpy.go",
+	//			"./testdata/blas/TESTING/scasum.go",
+	//			"./testdata/blas/TESTING/ccopy.go",
+	//			"./testdata/blas/TESTING/cswap.go",
+	//			"./testdata/blas/TESTING/scabs1.go",
+	//		},
+	//	}
+	//	for i := range gonames {
+	//		t.Run(fmt.Sprintf("TESTING%3d", i), func(t *testing.T) {
+	//			args := []string{"build", "-gcflags", "-e"}
+	//			//		run Go test
+	//			cmd := exec.Command("go", append(args, gonames[i]...)...)
+	//			goOutput, err := cmd.CombinedOutput()
+	//			if err != nil {
+	//				t.Errorf("Cannot go executable file : %v\n%s", err, goOutput)
+	//			}
+	//		})
+	//	}
 
 	if float64(amount) > 0.25*float64(len(ss)) {
 		t.Errorf("too mush errors")
