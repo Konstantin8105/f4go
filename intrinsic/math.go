@@ -40,6 +40,11 @@ func castToFloat64(w interface{}) float64 {
 	}
 }
 
+func CMPLX(a interface{}) complex128 {
+	A := castToFloat64(a)
+	return complex(A, 0)
+}
+
 func SQRT(a interface{}) float64 {
 	A := castToFloat64(a)
 	return math.Sqrt(A)

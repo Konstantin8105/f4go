@@ -197,6 +197,11 @@ var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 		intrinsicArgumentCorrection(p, f, "intrinsic.EPSILON", typeNames)
 	},
+	"CMPLX": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"any"}
+		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+		intrinsicArgumentCorrection(p, f, "intrinsic.CMPLX", typeNames)
+	},
 	"SQRT": func(p *parser, f *goast.CallExpr) {
 		typeNames := []string{"any"}
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
