@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	goast "go/ast"
+	"go/format"
 	goparser "go/parser"
 	"go/token"
 	"os"
@@ -247,7 +248,7 @@ func Parse(b []byte, packageName string) (_ goast.File, errs []error) {
 	p.ident = 0
 	decls = p.parseNodes()
 
-	correctCellVector(decls)
+	p.correctCellVector(decls)
 
 	// add packages
 	for pkg := range p.pkgs {
@@ -348,6 +349,7 @@ func Parse(b []byte, packageName string) (_ goast.File, errs []error) {
 
 type callCorrection struct {
 	args map[string][]*goast.Field
+	p    *parser
 }
 
 func (cc callCorrection) Visit(node goast.Node) (w goast.Visitor) {
@@ -394,24 +396,51 @@ func (cc callCorrection) Visit(node goast.Node) (w goast.Visitor) {
 		if nameCount == 0 {
 			continue
 		}
-		// TODO: replace cell to vector information
-		fmt.Println(">>", name, count, nameCount)
+		if nameCount != 1 {
+			// TODO: not clear - is it happend?
+			continue
+		}
 		// preliminary code:
 		// CTEST(M[2][3][4])
+		//       ----------
+		//         CELL
 		//
 		// transform cell to vector
 		// CTEST((*[1000000]float64)(unsafe.Pointer(M[2][3][4]))[:])
 		//                  -------                 ----------
 		//                    TYPE                     CELL
+
+		var cell string // M[2][3][4]
+		{
+			// func Fprint(w io.Writer, fset *token.FileSet, x interface{}, f FieldFilter) error
+			var buf bytes.Buffer
+			err := format.Node(&buf, token.NewFileSet(), call.Args[i])
+			if err != nil {
+				panic(err)
+			}
+			cell = buf.String()
+		}
+
+		var typ = args[i].Type.(*goast.Ident).Name // "*[  ]complex128"
+		var typSize = strings.Replace(typ, "[", "[1000000", -1)
+
+		//	func () ( output *[]TYPE) {
+		//		output = (*[1000000]TYPE)(unsafe.Pointer(M[2][3][4]))[:]
+		//		return
+		//	}
+
+		call.Args[i] = goast.NewIdent(fmt.Sprintf(` func () ( _ %s) { output := (%s)(unsafe.Pointer(%s))[:]; return &output}() `, typ, typSize, cell))
+		cc.p.addImport("unsafe")
 	}
 
 	return cc
 }
 
-func correctCellVector(decls []goast.Decl) {
+func (p *parser) correctCellVector(decls []goast.Decl) {
 	// get all goast.FuncDecl arguments
 	var cc callCorrection
 	cc.args = map[string][]*goast.Field{}
+	cc.p = p
 	for i := range decls {
 		decl, ok := decls[i].(*goast.FuncDecl)
 		if !ok {
