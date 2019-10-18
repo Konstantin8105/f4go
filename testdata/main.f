@@ -387,6 +387,8 @@ C           Do IR = 1,ab_min(ab_min(3,13),1000)
             COMPLEX STRUE(20)
             Integer i
             DO i = 1,20
+                WRITE (*,*       ) "CTEST"
+                WRITE (*,'(I2)'  ) I
                 WRITE (*,'(F8.2)') REAL(STRUE(I))
             ENd do
          END SUBROUTINE

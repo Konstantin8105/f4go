@@ -247,6 +247,8 @@ func Parse(b []byte, packageName string) (_ goast.File, errs []error) {
 	p.ident = 0
 	decls = p.parseNodes()
 
+	correctCellVector(decls)
+
 	// add packages
 	for pkg := range p.pkgs {
 		p.ast.Decls = append(p.ast.Decls, &goast.GenDecl{
@@ -342,6 +344,81 @@ func Parse(b []byte, packageName string) (_ goast.File, errs []error) {
 	goast.Walk(strC, &p.ast)
 
 	return p.ast, p.errs
+}
+
+type callCorrection struct {
+	args map[string][]*goast.Field
+}
+
+func (cc callCorrection) Visit(node goast.Node) (w goast.Visitor) {
+	call, ok := node.(*goast.CallExpr)
+	if !ok {
+		return cc
+	}
+
+	ident, ok := call.Fun.(*goast.Ident)
+	if !ok {
+		return cc
+	}
+
+	name := ident.Name
+
+	args, ok := cc.args[name]
+	if !ok {
+		return cc
+	}
+
+	if len(args) != len(call.Args) {
+		return cc
+	}
+
+	for i := range call.Args {
+		var count int
+		goast.Inspect(call.Args[i], func(node goast.Node) bool {
+			if _, ok := node.(*goast.IndexExpr); ok {
+				count++
+			}
+			return true
+		})
+		ident, ok := args[i].Type.(*goast.Ident)
+		if !ok {
+			continue
+		}
+		nameCount := strings.Count(ident.Name, "[")
+		if count == nameCount {
+			continue
+		}
+		if count < nameCount {
+			continue
+		}
+		if nameCount == 0 {
+			continue
+		}
+		// TODO: replace cell to vector information
+		fmt.Println(">>", name, count, nameCount)
+	}
+
+	return cc
+}
+
+func correctCellVector(decls []goast.Decl) {
+	// get all goast.FuncDecl arguments
+	var cc callCorrection
+	cc.args = map[string][]*goast.Field{}
+	for i := range decls {
+		decl, ok := decls[i].(*goast.FuncDecl)
+		if !ok {
+			continue
+		}
+		name := decl.Name.Name
+		typ := decl.Type.Params.List
+		cc.args[name] = typ
+	}
+
+	// iteration by all goast.CallExpr
+	for i := range decls {
+		goast.Walk(cc, decls[i])
+	}
 }
 
 // go/ast Visitor for comment label
