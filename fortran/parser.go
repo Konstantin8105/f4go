@@ -141,6 +141,21 @@ func (c *common) addBlockName(name string, vars []varInitialization) {
 	if c.mem == nil {
 		c.mem = map[string][]varInitialization{}
 	}
+	// common may add new vars
+	if v, ok := c.mem[name]; ok {
+		for i := range v {
+			found := false
+			for j := range vars {
+				if v[i].name == vars[j].name {
+					found = true
+				}
+			}
+			if found {
+				continue
+			}
+			vars = append(vars, v[i])
+		}
+	}
 	c.mem[name] = vars
 }
 
