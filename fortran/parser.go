@@ -1467,7 +1467,6 @@ func (p *parser) parseExternal() {
 		case token.IDENT, ftInteger, ftReal, ftComplex:
 			name := string(p.ns[p.ident].b)
 			p.functionExternalName = append(p.functionExternalName, name)
-			// fmt.Println("Function external: ", name)
 		case token.COMMA:
 			// ingore
 		default:
@@ -1624,6 +1623,11 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		for ; p.ns[p.ident].tok != ftNewLine; p.ident++ {
 		}
 		f := p.parseExpr(start, p.ident)
+		if ident, ok := f.(*goast.Ident); ok {
+			f = &goast.CallExpr{
+				Fun: ident,
+			}
+		}
 		stmts = append(stmts, &goast.ExprStmt{
 			X: f,
 		})
