@@ -396,6 +396,13 @@ func (cc callCorrection) Visit(node goast.Node) (w goast.Visitor) {
 		}
 		// TODO: replace cell to vector information
 		fmt.Println(">>", name, count, nameCount)
+		// preliminary code:
+		// CTEST(M[2][3][4])
+		//
+		// transform cell to vector
+		// CTEST((*[1000000]float64)(unsafe.Pointer(M[2][3][4]))[:])
+		//                  -------                 ----------
+		//                    TYPE                     CELL
 	}
 
 	return cc
