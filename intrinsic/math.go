@@ -27,6 +27,14 @@ func castToFloat64(w interface{}) float64 {
 		return float64(v)
 	case *int:
 		return float64(*v)
+		// 	case complex128:
+		// 		r := real(v)
+		// 		i := imag(v)
+		// 		return float64(math.Mod(r, 2) - math.Mod(i, 2))
+		// 	case *complex128:
+		// 		r := real(*v)
+		// 		i := imag(*v)
+		// 		return float64(math.Mod(r, 2) - math.Mod(i, 2))
 	default:
 		panic(fmt.Errorf("cannot cast: %#v", w))
 	}
