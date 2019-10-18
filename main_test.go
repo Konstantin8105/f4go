@@ -270,7 +270,7 @@ func TestBlas(t *testing.T) {
 	}
 
 	// get lines of Go file
-	gof := lines("./testdata/blas/SRC/caxpy.go")
+	gof := lines("./testdata/blas/TESTING/caxpy.go")
 	for i := range gof {
 		found := false
 		for j := range readme {
