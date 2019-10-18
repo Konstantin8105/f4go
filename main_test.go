@@ -203,8 +203,16 @@ func TestBlas(t *testing.T) {
 	for i := range ss {
 		t.Run(ss[i], func(t *testing.T) {
 			ss[i] = "./" + ss[i]
+
+			// Go name
+			goname := ss[i]
+			if index := strings.LastIndex(goname, "."); index > 0 {
+				goname = goname[:index] + ".go"
+			}
+			goname = strings.Replace(goname, "SRC", "TESTING", 1)
+
 			// parse
-			es := parse(ss[i], "main", "")
+			es := parse(ss[i], "main", goname)
 			for _, e := range es {
 				fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
 			}
@@ -215,24 +223,18 @@ func TestBlas(t *testing.T) {
 
 			// TODO: add full implementation
 			//
-			//	if !strings.Contains(ss[i], "TESTING") {
-			//		return
-			//	}
+			// 			if !strings.Contains(ss[i], "TESTING") {
+			// 				return
+			// 			}
 			//
-			//	// Go name
-			//	goname := ss[i]
-			//	if index := strings.LastIndex(goname, "."); index > 0 {
-			//		goname = goname[:index] + ".go"
-			//	}
-			//
-			//	// run Go test
-			//	cmd := exec.Command(
-			//		"go", "build", goname,
-			//	)
-			//	goOutput, err := cmd.CombinedOutput()
-			//	if err != nil {
-			//		t.Errorf("Cannot go executable file : %v\n%s", err, goOutput)
-			//	}
+			// //		run Go test
+			// 			cmd := exec.Command(
+			// 				"go", "build", "-gcflags", "-e", goname,
+			// 			)
+			// 			goOutput, err := cmd.CombinedOutput()
+			// 			if err != nil {
+			// 				t.Errorf("Cannot go executable file : %v\n%s", err, goOutput)
+			// 			}
 		})
 	}
 
