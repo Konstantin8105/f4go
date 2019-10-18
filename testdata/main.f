@@ -298,9 +298,20 @@ C -----------------------------------------------------
             integer IR, JR, HR, iterator
             integer ab_min, funarr, funcell
             integer A(2,2)
-C           INTEGER LEN, NP1, INCX
-C           COMPLEX CTRUE5(8,5,2), CX(8)
-C           REAL              SFAC
+            INTEGER NP1, INCX
+            COMPLEX CTRUE5(8,5,2)
+            
+            iterator = 9
+            DO IR = 1,8
+                DO JR = 1,5
+                    DO HR = 1,2
+                        CTRUE5(IR,JR,HR) = CMPLX(iterator)
+                        iterator = iterator + 3
+                        WRITE (*,'(F8.2)') REAL(CTRUE5(IR,JR,HR))
+                    END DO
+                END DO
+            END DO
+
             JR = 1
             iterator = 1
             DO 140 IR = 1,2
@@ -357,8 +368,9 @@ C           Do IR = 1,ab_min(ab_min(3,13),1000)
             END IF
             call test_do2()
         
-C           CALL CTEST(LEN,CX,CTRUE5(1,NP1,INCX),CTRUE5(1,NP1,INCX),
-C    +                    SFAC)
+            NP1 = 1
+            INCX = 1
+            CALL CTEST(CTRUE5(1,NP1,INCX))
 
 
             return
@@ -371,11 +383,13 @@ C    +                    SFAC)
   151 FORMAT (' iterator = ', I2)
             end
 
-C        SUBROUTINE CTEST(LEN, SCOMP, STRUE, SSIZE, SFAC)
-C           REAL             SFAC
-C           INTEGER          LEN
-C           COMPLEX SCOMP(20), SSIZE(20), STRUE(20)
-C        END SUBROUTINE
+         SUBROUTINE CTEST(STRUE)
+            COMPLEX STRUE(20)
+            Integer i
+            DO i = 1,20
+                WRITE (*,'(F8.2)') REAL(STRUE(I))
+            ENd do
+         END SUBROUTINE
 
          SUBROUTINE funcwrt(LEN, a)
              INTEGER LEN

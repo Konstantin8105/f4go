@@ -9,14 +9,14 @@ type callArgumentSimplification struct {
 }
 
 func (c callArgumentSimplification) Visit(node goast.Node) (w goast.Visitor) {
-	// from : &((*a))
-	// to   : a
 	id, ok := node.(*goast.Ident)
 	if !ok {
 		return c
 	}
 
 	if len(id.Name) > 6 && id.Name[:4] == "&((*" {
+		// from : &((*a))
+		// to   : a
 		id.Name = id.Name[4 : len(id.Name)-2]
 		return c
 	}
