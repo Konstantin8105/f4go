@@ -21,7 +21,7 @@ func MAX(a, b float64) float64 {
 }
 
 func EPSILON(f float64) float64 {
-	return 0.0000001192
+	return math.Pow(2, -23)
 }
 
 func CONJG(c complex64) complex64 {
