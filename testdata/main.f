@@ -332,6 +332,8 @@ C -----------------------------------------------------
             If (funcell(a(2,1)) .NE. 4) call fail("funcell 1")
             If (a(2,1) .NE. 9) call fail("funcell 2")
 
+            call NOPAREN
+
 C           Do IR = 1,ab_min(ab_min(3,13),1000)
             Do IR = 1,ab_min(3,13)
                 write (*,FMT=149) IR
@@ -356,6 +358,10 @@ C           Do IR = 1,ab_min(ab_min(3,13),1000)
   150 FORMAT ('Double DO ', I2, I2)
   151 FORMAT (' iterator = ', I2)
          end
+
+         SUBROUTINE NOPAREN
+             WRITE(*,*) "NOPAREN"
+         END SUBROUTINE
 
          integer function funarr(a)
             integer a(2,2)
