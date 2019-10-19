@@ -1102,6 +1102,33 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 		switch fd.Type.Params.List[i].Type.(type) {
 		case *goast.Ident:
 			id := fd.Type.Params.List[i].Type.(*goast.Ident)
+			{
+				// remove sizes in matrix
+				// from:
+				// [2][2]int
+				// to:
+				// [][]int
+				isopen := false
+				b := []byte(id.Name)
+				for i := range b {
+					if b[i] == '[' {
+						isopen = true
+						continue
+					}
+					if b[i] == ']' {
+						isopen = false
+						continue
+					}
+					if !isopen {
+						continue
+					}
+					b[i] = ' '
+				}
+
+				id.Name = string(b)
+			}
+
+			// add pointer
 			id.Name = "*" + id.Name
 		default:
 			panic(fmt.Errorf("Cannot parse type in fields: %T",

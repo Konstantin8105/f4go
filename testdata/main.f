@@ -296,7 +296,8 @@ C -----------------------------------------------------
 
         subroutine test_do()
             integer IR, JR, HR, iterator
-            integer ab_min
+            integer ab_min, funarr
+            integer A(2,2)
             JR = 1
             iterator = 1
             DO 140 IR = 1,2
@@ -322,6 +323,12 @@ C -----------------------------------------------------
                 call fail("test_do 1")
             end if
 
+            a(1,1) = 1
+            a(1,2) = 2
+            a(2,1) = 3
+            a(2,2) = 4
+            If (funarr(a) .NE. 3) call fail("fun_arr")
+
 C           Do IR = 1,ab_min(ab_min(3,13),1000)
             Do IR = 1,ab_min(3,13)
                 write (*,FMT=149) IR
@@ -346,6 +353,16 @@ C           Do IR = 1,ab_min(ab_min(3,13),1000)
   150 FORMAT ('Double DO ', I2, I2)
   151 FORMAT (' iterator = ', I2)
          end
+
+         integer function funarr(a)
+            integer a(2,2)
+            IF (a(1,1) .NE. 1) call fail("fun_arr (1)(1)")
+            IF (a(1,2) .NE. 2) call fail("fun_arr (1)(2)")
+            IF (a(2,1) .NE. 3) call fail("fun_arr (2)(1)")
+            IF (a(2,2) .NE. 4) call fail("fun_arr (2)(2)")
+            funarr = a(2,1)
+            return
+         end function
 
          integer function ab_min(a,b)
              integer a,b
