@@ -296,7 +296,7 @@ C -----------------------------------------------------
 
         subroutine test_do()
             integer IR, JR, HR, iterator
-            integer ab_min, funarr
+            integer ab_min, funarr, funcell
             integer A(2,2)
             JR = 1
             iterator = 1
@@ -328,6 +328,9 @@ C -----------------------------------------------------
             a(2,1) = 3
             a(2,2) = 4
             If (funarr(a) .NE. 3) call fail("fun_arr")
+
+            If (funcell(a(2,1)) .NE. 4) call fail("funcell 1")
+            If (a(2,1) .NE. 9) call fail("funcell 2")
 
 C           Do IR = 1,ab_min(ab_min(3,13),1000)
             Do IR = 1,ab_min(3,13)
@@ -361,6 +364,13 @@ C           Do IR = 1,ab_min(ab_min(3,13),1000)
             IF (a(2,1) .NE. 3) call fail("fun_arr (2)(1)")
             IF (a(2,2) .NE. 4) call fail("fun_arr (2)(2)")
             funarr = a(2,1)
+            return
+         end function
+
+         integer function funcell(a)
+            integer a
+            funcell = a + 1
+            a = 9
             return
          end function
 
