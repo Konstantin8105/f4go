@@ -939,11 +939,22 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 					},
 				}
 
+			case *goast.CallExpr:
+			//	var ident goast.Ident
+			//	ident, ok := a.Fun.(*goast.Ident)
+			//	if ok {
+			//		continue
+			//	}
+			//	returnType, ok := p.functionReturnType[ident.Name]
+			//	if ok {
+			//		continue
+			//	}
+			// TODO: convection function return type (int) to (*int)
+
+			default:
 				// TODO:
-				// default:
-				// 	goast.Print(token.NewFileSet(), a)
-				// 	panic(fmt.Errorf(
-				// 		"Not support arg call token: %T ", a))
+				//	goast.Print(token.NewFileSet(), a)
+				//	panic(fmt.Errorf("Not support arg call token: %T ", a))
 			}
 		}
 	}
@@ -1091,6 +1102,33 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 		switch fd.Type.Params.List[i].Type.(type) {
 		case *goast.Ident:
 			id := fd.Type.Params.List[i].Type.(*goast.Ident)
+			{
+				// remove sizes in matrix
+				// from:
+				// [2][2]int
+				// to:
+				// [][]int
+				isopen := false
+				b := []byte(id.Name)
+				for i := range b {
+					if b[i] == '[' {
+						isopen = true
+						continue
+					}
+					if b[i] == ']' {
+						isopen = false
+						continue
+					}
+					if !isopen {
+						continue
+					}
+					b[i] = ' '
+				}
+
+				id.Name = string(b)
+			}
+
+			// add pointer
 			id.Name = "*" + id.Name
 		default:
 			panic(fmt.Errorf("Cannot parse type in fields: %T",
@@ -1467,7 +1505,6 @@ func (p *parser) parseExternal() {
 		case token.IDENT, ftInteger, ftReal, ftComplex:
 			name := string(p.ns[p.ident].b)
 			p.functionExternalName = append(p.functionExternalName, name)
-			// fmt.Println("Function external: ", name)
 		case token.COMMA:
 			// ingore
 		default:
@@ -1624,6 +1661,11 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		for ; p.ns[p.ident].tok != ftNewLine; p.ident++ {
 		}
 		f := p.parseExpr(start, p.ident)
+		if ident, ok := f.(*goast.Ident); ok {
+			f = &goast.CallExpr{
+				Fun: ident,
+			}
+		}
 		stmts = append(stmts, &goast.ExprStmt{
 			X: f,
 		})

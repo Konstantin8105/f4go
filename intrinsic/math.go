@@ -13,15 +13,53 @@ func MIN(a, b int) int {
 	return b
 }
 
-func MAX(a, b float64) float64 {
-	if a > b {
-		return a
+func castToFloat64(w interface{}) float64 {
+	switch v := w.(type) {
+	case float64:
+		return v
+	case *float64:
+		return *v
+	case float32:
+		return float64(v)
+	case *float32:
+		return float64(*v)
+	case int:
+		return float64(v)
+	case *int:
+		return float64(*v)
+		// 	case complex128:
+		// 		r := real(v)
+		// 		i := imag(v)
+		// 		return float64(math.Mod(r, 2) - math.Mod(i, 2))
+		// 	case *complex128:
+		// 		r := real(*v)
+		// 		i := imag(*v)
+		// 		return float64(math.Mod(r, 2) - math.Mod(i, 2))
+	default:
+		panic(fmt.Errorf("cannot cast: %#v", w))
 	}
-	return b
 }
 
-func CONJG(c complex64) complex64 {
-	return complex64(cmplx.Conj(complex128(c)))
+func SQRT(a interface{}) float64 {
+	A := castToFloat64(a)
+	return math.Sqrt(A)
+}
+
+func MAX(a, b interface{}) float64 {
+	A := castToFloat64(a)
+	B := castToFloat64(b)
+	if A > B {
+		return A
+	}
+	return B
+}
+
+func EPSILON(f float64) float64 {
+	return math.Pow(2, -23)
+}
+
+func CONJG(c complex128) complex128 {
+	return complex128(cmplx.Conj(complex128(c)))
 }
 
 func DCONJG(c complex128) complex128 {

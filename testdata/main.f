@@ -135,6 +135,9 @@ C           call test_common_satellite()
         
             call testName("test_write_loop")
             call test_write_loop()
+        
+            call testName("test_epsilon")
+            call test_epsilon()
 
             ! end of tests
         END
@@ -293,7 +296,8 @@ C -----------------------------------------------------
 
         subroutine test_do()
             integer IR, JR, HR, iterator
-            integer ab_min
+            integer ab_min, funarr, funcell
+            integer A(2,2)
             JR = 1
             iterator = 1
             DO 140 IR = 1,2
@@ -319,6 +323,22 @@ C -----------------------------------------------------
                 call fail("test_do 1")
             end if
 
+            a(1,1) = 1
+            a(1,2) = 2
+            a(2,1) = 3
+            a(2,2) = 4
+
+C           call funcwrt(2,a(2,1))
+C           call funcwrt(2,a(1,1))
+
+            If (funarr(a) .NE. 3) call fail("fun_arr")
+
+            If (funcell(a(2,1)) .NE. 4) call fail("funcell 1")
+            If (a(2,1) .NE. 9) call fail("funcell 2")
+
+            call NOPAREN
+
+C           Do IR = 1,ab_min(ab_min(3,13),1000)
             Do IR = 1,ab_min(3,13)
                 write (*,FMT=149) IR
             enddo
@@ -341,7 +361,41 @@ C -----------------------------------------------------
   149 FORMAT ('Do with enddo ', I2)
   150 FORMAT ('Double DO ', I2, I2)
   151 FORMAT (' iterator = ', I2)
-         end
+            end
+
+         SUBROUTINE funcwrt(LEN, a)
+             INTEGER LEN
+             INTEGER a(LEN)
+             WRITE(*,*) "start of funcwrt"
+             WRITE(*,'(I2)') a(1)
+             WRITE(*,'(I2)') a(2)
+             WRITE(*,*) "end   of funcwrt"
+         END SUBROUTINE
+
+         SUBROUTINE NOPAREN
+             WRITE(*,*) "NOPAREN"
+         END SUBROUTINE
+
+         integer function funarr(a)
+            integer a(2,2)
+            IF (a(1,1) .NE. 1) call fail("fun_arr (1)(1)")
+            IF (a(1,2) .NE. 2) call fail("fun_arr (1)(2)")
+            IF (a(2,1) .NE. 3) call fail("fun_arr (2)(1)")
+            IF (a(2,2) .NE. 4) call fail("fun_arr (2)(2)")
+            funarr = a(2,1)
+            return
+         end function
+
+         integer function funcell(a)
+            integer a
+            funcell = a + 1
+            a = 9
+            WRITE(*,*)      "funcell"
+            WRITE(*,'(I2)') a
+            WRITE(*,'(I2)') funcell
+            WRITE(*,*)      "end of funcell"
+            return
+         end function
 
          integer function ab_min(a,b)
              integer a,b
@@ -1222,14 +1276,24 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
         SUBROUTINE test_call_left_part
+            INTEGER I
             REAL P,A
+C           COMPLEX C
+C           C = (22,33)
             P = 10
             A = 12
+            I = 5
             WRITE(*,'(F8.2)') P
             WRITE(*,'(F8.2)') A
             P=MAX(P,(1.1D0*A)**2)
             WRITE(*,'(F8.2)') P
             WRITE(*,'(F8.2)') A
+            P=MAX(I, 5)
+            WRITE(*,'(F8.2)') P
+            P=SQRT(23.0)
+            WRITE(*,'(F8.2)') P
+C           P=SQRT(C)
+C           WRITE(*,'(F8.2)') P
         END 
 
 C -----------------------------------------------------
@@ -1247,4 +1311,14 @@ C           WRITE(*,'( I2    I3   I4            I5 )') (P(I),I=1,3), E
         END 
 
 C -----------------------------------------------------
+
+        SUBROUTINE test_epsilon
+            real  x = 3.143
+            real  y = 2.33
+            WRITE(*,'(F18.10)') EPSILON(x)
+            WRITE(*,'(F18.10)') EPSILON(y)
+        END 
+
+C -----------------------------------------------------
+
 

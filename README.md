@@ -259,7 +259,7 @@ package main
 //*> \endverbatim
 //*>
 //*  =====================================================================
-func CAXPY(N *int, CA *complex64, CX *[]complex64, INCX *int, CY *[]complex64, INCY *int) {
+func CAXPY(N *int, CA *complex128, CX *[]complex128, INCX *int, CY *[]complex128, INCY *int) {
 	var I int
 	var IX int
 	var IY int

@@ -90,6 +90,8 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 	return in
 }
 
+const any = "ANY"
+
 var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 	"COMPLEX": func(p *parser, f *goast.CallExpr) {
 		typeNames := []string{"float64", "float64"}
@@ -113,12 +115,12 @@ var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 		intrinsicArgumentCorrection(p, f, "intrinsic.MIN", typeNames)
 	},
 	"MAX": func(p *parser, f *goast.CallExpr) {
-		typeNames := []string{"float64", "float64"}
+		typeNames := []string{any, any}
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 		intrinsicArgumentCorrection(p, f, "intrinsic.MAX", typeNames)
 	},
 	"CONJG": func(p *parser, f *goast.CallExpr) {
-		typeNames := []string{"complex64"}
+		typeNames := []string{"complex128"}
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 		intrinsicArgumentCorrection(p, f, "intrinsic.CONJG", typeNames)
 	},
@@ -162,6 +164,16 @@ var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 		intrinsicArgumentCorrection(p, f, "intrinsic.MOD", typeNames)
 	},
+	"EPSILON": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"float64"}
+		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+		intrinsicArgumentCorrection(p, f, "intrinsic.EPSILON", typeNames)
+	},
+	"SQRT": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"any"}
+		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+		intrinsicArgumentCorrection(p, f, "intrinsic.SQRT", typeNames)
+	},
 }
 
 func intrinsicArgumentCorrection(p *parser, f *goast.CallExpr, name string, typeNames []string) {
@@ -180,7 +192,9 @@ func intrinsicArgumentCorrection(p *parser, f *goast.CallExpr, name string, type
 			if strings.Contains(id.Name, "func()*int{y:=") {
 				id.Name = id.Name[len("func()*int{y:="):]
 				id.Name = strings.TrimRight(id.Name, ";return &y}()")
-				id.Name = typeNames[i] + "(" + id.Name + ")"
+				if typeNames[i] != any {
+					id.Name = typeNames[i] + "(" + id.Name + ")"
+				}
 			}
 		}
 		if un, ok := f.Args[i].(*goast.UnaryExpr); ok {
