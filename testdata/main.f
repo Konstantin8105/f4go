@@ -327,6 +327,10 @@ C -----------------------------------------------------
             a(1,2) = 2
             a(2,1) = 3
             a(2,2) = 4
+
+C           call funcwrt(2,a(2,1))
+C           call funcwrt(2,a(1,1))
+
             If (funarr(a) .NE. 3) call fail("fun_arr")
 
             If (funcell(a(2,1)) .NE. 4) call fail("funcell 1")
@@ -357,7 +361,16 @@ C           Do IR = 1,ab_min(ab_min(3,13),1000)
   149 FORMAT ('Do with enddo ', I2)
   150 FORMAT ('Double DO ', I2, I2)
   151 FORMAT (' iterator = ', I2)
-         end
+            end
+
+         SUBROUTINE funcwrt(LEN, a)
+             INTEGER LEN
+             INTEGER a(LEN)
+             WRITE(*,*) "start of funcwrt"
+             WRITE(*,'(I2)') a(1)
+             WRITE(*,'(I2)') a(2)
+             WRITE(*,*) "end   of funcwrt"
+         END SUBROUTINE
 
          SUBROUTINE NOPAREN
              WRITE(*,*) "NOPAREN"
