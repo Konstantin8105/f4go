@@ -377,6 +377,10 @@ C           Do IR = 1,ab_min(ab_min(3,13),1000)
             integer a
             funcell = a + 1
             a = 9
+            WRITE(*,*)      "funcell"
+            WRITE(*,'(I2)') a
+            WRITE(*,'(I2)') funcell
+            WRITE(*,*)      "end of funcell"
             return
          end function
 
