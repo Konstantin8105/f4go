@@ -341,8 +341,7 @@ C           call funcwrt(2,a(1,1))
 
             call NOPAREN
 
-C           Do IR = 1,ab_min(ab_min(3,13),1000)
-            Do IR = 1,ab_min(3,13)
+            Do IR = 1,ab_min(ab_min(3,13),1000)
                 write (*,FMT=149) IR
             enddo
             DO 145, HR = 1,2
