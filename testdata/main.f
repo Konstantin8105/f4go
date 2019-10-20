@@ -298,6 +298,9 @@ C -----------------------------------------------------
             integer IR, JR, HR, iterator
             integer ab_min, funarr, funcell
             integer A(2,2)
+C           INTEGER LEN, NP1, INCX
+C           COMPLEX CTRUE5(8,5,2), CX(8)
+C           REAL              SFAC
             JR = 1
             iterator = 1
             DO 140 IR = 1,2
@@ -353,6 +356,11 @@ C           Do IR = 1,ab_min(ab_min(3,13),1000)
                 GO TO 144
             END IF
             call test_do2()
+        
+C           CALL CTEST(LEN,CX,CTRUE5(1,NP1,INCX),CTRUE5(1,NP1,INCX),
+C    +                    SFAC)
+
+
             return
   142 FORMAT ('Do with inc ', I2)
   146 FORMAT ('Do ', I2)
@@ -362,6 +370,12 @@ C           Do IR = 1,ab_min(ab_min(3,13),1000)
   150 FORMAT ('Double DO ', I2, I2)
   151 FORMAT (' iterator = ', I2)
             end
+
+C        SUBROUTINE CTEST(LEN, SCOMP, STRUE, SSIZE, SFAC)
+C           REAL             SFAC
+C           INTEGER          LEN
+C           COMPLEX SCOMP(20), SSIZE(20), STRUE(20)
+C        END SUBROUTINE
 
          SUBROUTINE funcwrt(LEN, a)
              INTEGER LEN
