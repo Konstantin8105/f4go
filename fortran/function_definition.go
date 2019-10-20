@@ -36,6 +36,21 @@ type intrinsic struct {
 	p *parser
 }
 
+func isGoFunc(name string) bool {
+	var list = [...]string{
+		"panic",
+		"make",
+		"real",
+		"append",
+	}
+	for i := range list {
+		if list[i] == name {
+			return true
+		}
+	}
+	return false
+}
+
 func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 
 	call, ok := node.(*goast.CallExpr)
@@ -46,7 +61,7 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 	if n, ok := call.Fun.(*goast.Ident); ok {
 		if f, ok := intrinsicFunction[strings.ToUpper(n.Name)]; ok {
 			f(in.p, call)
-		} else if n.Name != "make" && n.Name != "append" && n.Name != "panic" {
+		} else if !isGoFunc(n.Name) {
 			n.Name = strings.ToUpper(n.Name)
 		}
 	}

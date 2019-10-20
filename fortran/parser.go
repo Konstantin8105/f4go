@@ -891,10 +891,7 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 		}
 		if call, ok := node.(*goast.CallExpr); ok {
 			if id, ok := call.Fun.(*goast.Ident); ok {
-				if id.Name == "append" {
-					return nil
-				}
-				if id.Name == "panic" {
+				if isGoFunc(id.Name) {
 					return nil
 				}
 			}
@@ -940,11 +937,12 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 				}
 
 			case *goast.CallExpr:
-			//	var ident goast.Ident
+			//	var ident *goast.Ident
 			//	ident, ok := a.Fun.(*goast.Ident)
-			//	if ok {
+			//	if !ok {
 			//		continue
 			//	}
+			//	fmt.Println(">>>>>>", ident)
 			//	returnType, ok := p.functionReturnType[ident.Name]
 			//	if ok {
 			//		continue
