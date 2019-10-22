@@ -15,11 +15,19 @@ import (
 	"github.com/Konstantin8105/f4go/fortran"
 )
 
-var packageFlag *string
+var (
+	packageFlag string
+	verboseFlag bool
+)
 
 func main() {
-	packageFlag = flag.String("p",
-		"main", "set the name of the generated package")
+	pntPack := &packageFlag
+	pntPack = flag.String("p", "main", "set the name of the generated package")
+	_ = pntPack
+
+	pntVerbose := &verboseFlag
+	pntVerbose = flag.Bool("v", false, "verbose all stages of transpilation and all errors")
+	_ = pntVerbose
 
 	run()
 }
@@ -35,20 +43,21 @@ func run() {
 		return
 	}
 
-	if packageFlag == nil {
-		var s string
-		packageFlag = &s
-	}
-
-	es := parseParallel(flag.Args(), *packageFlag)
-	for _, e := range es {
-		fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
+	es := parseParallel(flag.Args(), packageFlag)
+	if verboseFlag {
+		for _, e := range es {
+			fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
+		}
 	}
 }
 
 type errorRow struct {
 	err      error
 	filename string
+}
+
+func (e errorRow) Error() string {
+	return fmt.Sprintf("%s : %v", e.filename, e.err)
 }
 
 // parsing to Go code

@@ -40,6 +40,11 @@ func castToFloat64(w interface{}) float64 {
 	}
 }
 
+func CMPLX(a interface{}) complex128 {
+	A := castToFloat64(a)
+	return complex(A, 0)
+}
+
 func SQRT(a interface{}) float64 {
 	A := castToFloat64(a)
 	return math.Sqrt(A)
@@ -86,8 +91,8 @@ func DBLE(a interface{}) float64 {
 	panic(fmt.Errorf("Cannot find type : %T", a))
 }
 
-func ABS(a float64) float64 {
-	return math.Abs(a)
+func ABS(a interface{}) float64 {
+	return math.Abs(castToFloat64(a))
 }
 
 func CABS(a complex128) float64 {

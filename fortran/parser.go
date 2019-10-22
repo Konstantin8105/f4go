@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	goast "go/ast"
+	"go/format"
 	goparser "go/parser"
 	"go/token"
 	"os"
@@ -247,6 +248,8 @@ func Parse(b []byte, packageName string) (_ goast.File, errs []error) {
 	p.ident = 0
 	decls = p.parseNodes()
 
+	p.correctCellVector(decls)
+
 	// add packages
 	for pkg := range p.pkgs {
 		p.ast.Decls = append(p.ast.Decls, &goast.GenDecl{
@@ -342,6 +345,116 @@ func Parse(b []byte, packageName string) (_ goast.File, errs []error) {
 	goast.Walk(strC, &p.ast)
 
 	return p.ast, p.errs
+}
+
+type callCorrection struct {
+	args map[string][]*goast.Field
+	p    *parser
+}
+
+func (cc callCorrection) Visit(node goast.Node) (w goast.Visitor) {
+	call, ok := node.(*goast.CallExpr)
+	if !ok {
+		return cc
+	}
+
+	ident, ok := call.Fun.(*goast.Ident)
+	if !ok {
+		return cc
+	}
+
+	name := ident.Name
+
+	args, ok := cc.args[name]
+	if !ok {
+		return cc
+	}
+
+	if len(args) != len(call.Args) {
+		return cc
+	}
+
+	for i := range call.Args {
+		var count int
+		goast.Inspect(call.Args[i], func(node goast.Node) bool {
+			if _, ok := node.(*goast.IndexExpr); ok {
+				count++
+			}
+			return true
+		})
+		ident, ok := args[i].Type.(*goast.Ident)
+		if !ok {
+			continue
+		}
+		nameCount := strings.Count(ident.Name, "[")
+		if count == nameCount {
+			continue
+		}
+		if count < nameCount {
+			continue
+		}
+		if nameCount == 0 {
+			continue
+		}
+		if nameCount != 1 {
+			// TODO: not clear - is it happend?
+			continue
+		}
+		// preliminary code:
+		// CTEST(M[2][3][4])
+		//       ----------
+		//         CELL
+		//
+		// transform cell to vector
+		// CTEST((*[1000000]float64)(unsafe.Pointer(M[2][3][4]))[:])
+		//                  -------                 ----------
+		//                    TYPE                     CELL
+
+		var cell string // M[2][3][4]
+		{
+			// func Fprint(w io.Writer, fset *token.FileSet, x interface{}, f FieldFilter) error
+			var buf bytes.Buffer
+			err := format.Node(&buf, token.NewFileSet(), call.Args[i])
+			if err != nil {
+				panic(err)
+			}
+			cell = buf.String()
+		}
+
+		var typ = args[i].Type.(*goast.Ident).Name // "*[  ]complex128"
+		var typSize = strings.Replace(typ, "[", "[1000000", -1)
+
+		//	func () ( output *[]TYPE) {
+		//		output = (*[1000000]TYPE)(unsafe.Pointer(M[2][3][4]))[:]
+		//		return
+		//	}
+
+		call.Args[i] = goast.NewIdent(fmt.Sprintf(` func () ( _ %s) { output := (%s)(unsafe.Pointer(%s))[:]; return &output}() `, typ, typSize, cell))
+		cc.p.addImport("unsafe")
+	}
+
+	return cc
+}
+
+func (p *parser) correctCellVector(decls []goast.Decl) {
+	// get all goast.FuncDecl arguments
+	var cc callCorrection
+	cc.args = map[string][]*goast.Field{}
+	cc.p = p
+	for i := range decls {
+		decl, ok := decls[i].(*goast.FuncDecl)
+		if !ok {
+			continue
+		}
+		name := decl.Name.Name
+		typ := decl.Type.Params.List
+		cc.args[name] = typ
+	}
+
+	// iteration by all goast.CallExpr
+	for i := range decls {
+		goast.Walk(cc, decls[i])
+	}
 }
 
 // go/ast Visitor for comment label
@@ -891,10 +1004,7 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 		}
 		if call, ok := node.(*goast.CallExpr); ok {
 			if id, ok := call.Fun.(*goast.Ident); ok {
-				if id.Name == "append" {
-					return nil
-				}
-				if id.Name == "panic" {
+				if isGoFunc(id.Name) {
 					return nil
 				}
 			}
@@ -940,11 +1050,12 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 				}
 
 			case *goast.CallExpr:
-			//	var ident goast.Ident
+			//	var ident *goast.Ident
 			//	ident, ok := a.Fun.(*goast.Ident)
-			//	if ok {
+			//	if !ok {
 			//		continue
 			//	}
+			//	fmt.Println(">>>>>>", ident)
 			//	returnType, ok := p.functionReturnType[ident.Name]
 			//	if ok {
 			//		continue

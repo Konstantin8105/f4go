@@ -298,6 +298,20 @@ C -----------------------------------------------------
             integer IR, JR, HR, iterator
             integer ab_min, funarr, funcell
             integer A(2,2)
+            INTEGER NP1, INCX
+            COMPLEX CTRUE5(8,5,2)
+            
+            iterator = 9
+            DO IR = 1,8
+                DO JR = 1,5
+                    DO HR = 1,2
+                        CTRUE5(IR,JR,HR) = CMPLX(iterator)
+                        iterator = iterator + 3
+                        WRITE (*,'(F8.2)') REAL(CTRUE5(IR,JR,HR))
+                    END DO
+                END DO
+            END DO
+
             JR = 1
             iterator = 1
             DO 140 IR = 1,2
@@ -353,6 +367,12 @@ C           Do IR = 1,ab_min(ab_min(3,13),1000)
                 GO TO 144
             END IF
             call test_do2()
+        
+            NP1 = 1
+            INCX = 1
+            CALL CTEST(CTRUE5(1,NP1,INCX))
+
+
             return
   142 FORMAT ('Do with inc ', I2)
   146 FORMAT ('Do ', I2)
@@ -362,6 +382,16 @@ C           Do IR = 1,ab_min(ab_min(3,13),1000)
   150 FORMAT ('Double DO ', I2, I2)
   151 FORMAT (' iterator = ', I2)
             end
+
+         SUBROUTINE CTEST(STRUE)
+            COMPLEX STRUE(20)
+            Integer i
+            DO i = 1,20
+                WRITE (*,*       ) "CTEST"
+                WRITE (*,'(I2)'  ) I
+                WRITE (*,'(F8.2)') REAL(STRUE(I))
+            ENd do
+         END SUBROUTINE
 
          SUBROUTINE funcwrt(LEN, a)
              INTEGER LEN

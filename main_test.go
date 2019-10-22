@@ -122,7 +122,14 @@ func ShowDiff(a, b string) string {
 
 func TestFail(t *testing.T) {
 
-	fortran.Debug = testing.Verbose()
+	{
+		oldVerbose := verboseFlag
+		defer func() {
+			verboseFlag = oldVerbose
+		}()
+		fortran.Debug = testing.Verbose()
+		verboseFlag = testing.Verbose()
+	}
 
 	// wrong source
 	errs := parse("./testdata/fortran_fail.f", "", "")
@@ -181,7 +188,7 @@ func getFortranTestFiles(dir string) (files []string, err error) {
 	return
 }
 
-func parsingBlas(filename string) (failed bool) {
+func parsingBlas(filename string) (err error) {
 	filename = "./" + filename
 
 	// Go name
@@ -192,7 +199,17 @@ func parsingBlas(filename string) (failed bool) {
 	goname = strings.Replace(goname, "SRC", "TESTING", 1)
 
 	// parse
-	return len(parse(filename, "main", goname)) > 0
+	errR := parse(filename, "main", goname)
+	if len(errR) == 0 {
+		return nil
+	}
+
+	var str string
+	for i := range errR {
+		str += errR[i].Error() + "\n"
+	}
+
+	return fmt.Errorf(str)
 }
 
 func TestBlas(t *testing.T) {
@@ -215,9 +232,10 @@ func TestBlas(t *testing.T) {
 	var amount int
 
 	for i := range ss {
-		failed := parsingBlas(ss[i])
-		if failed {
+		err := parsingBlas(ss[i])
+		if err != nil {
 			t.Logf("Error is not empty in file: %s", ss[i])
+			t.Logf("%v", err)
 			amount++
 		}
 	}
@@ -249,7 +267,7 @@ func TestBlas(t *testing.T) {
 			}
 		}
 		if !found {
-			t.Errorf("Cannot find fortran line %d: %s", i, fortran[i])
+			t.Errorf("Cannot find FORTRAN line %d: %s", i, fortran[i])
 		}
 	}
 
@@ -264,7 +282,7 @@ func TestBlas(t *testing.T) {
 			}
 		}
 		if !found {
-			t.Errorf("Cannot find go line %d: %s", i, gof[i])
+			t.Errorf("Cannot find GO line %d: %s", i, gof[i])
 		}
 	}
 }
@@ -312,9 +330,10 @@ func TestBlasTesting(t *testing.T) {
 	for i := range tcs {
 		t.Run(fmt.Sprintf("TESTING%3d", i), func(t *testing.T) {
 			for j := range tcs[i].fortranFiles {
-				failed := parsingBlas(tcs[i].fortranFiles[j])
-				if failed {
+				err := parsingBlas(tcs[i].fortranFiles[j])
+				if err != nil {
 					t.Logf("failed file: %s", tcs[i].fortranFiles[j])
+					t.Logf("%v", err)
 				}
 			}
 
@@ -493,7 +512,14 @@ func TestComments(t *testing.T) {
 
 func TestCrash(t *testing.T) {
 
-	fortran.Debug = testing.Verbose()
+	{
+		oldVerbose := verboseFlag
+		defer func() {
+			verboseFlag = oldVerbose
+		}()
+		fortran.Debug = testing.Verbose()
+		verboseFlag = testing.Verbose()
+	}
 
 	var (
 		in  = "./testdata/min_crash.f"
