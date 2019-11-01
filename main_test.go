@@ -199,13 +199,13 @@ func TestBlas(t *testing.T) {
 
 	fortran.Debug = testing.Verbose()
 
-	ss, err := filepath.Glob(fmt.Sprintf("./testdata/blas/SRC/%s", "*.f"))
+	ss, err := filepath.Glob(fmt.Sprintf("./testdata/lapack/BLAS/SRC/%s", "*.f"))
 	if err != nil || len(ss) == 0 {
 		t.Fatal(err)
 	}
 	{
 		// add TESTING
-		ss2, err := filepath.Glob(fmt.Sprintf("./testdata/blas/TESTING/%s", "*.f"))
+		ss2, err := filepath.Glob(fmt.Sprintf("./testdata/lapack/BLAS/TESTING/%s", "*.f"))
 		if err != nil || len(ss) == 0 {
 			t.Fatal(err)
 		}
@@ -239,7 +239,7 @@ func TestBlas(t *testing.T) {
 	readme := lines("./README.md")
 
 	// get lines of source fortran file
-	fortran := lines("./testdata/blas/SRC/caxpy.f")
+	fortran := lines("./testdata/lapack/BLAS/SRC/caxpy.f")
 	for i := range fortran {
 		found := false
 		for j := range readme {
@@ -254,7 +254,7 @@ func TestBlas(t *testing.T) {
 	}
 
 	// get lines of Go file
-	gof := lines("./testdata/blas/TESTING/caxpy.go")
+	gof := lines("./testdata/lapack/BLAS/TESTING/caxpy.go")
 	for i := range gof {
 		found := false
 		for j := range readme {
@@ -282,18 +282,18 @@ func TestBlasTesting(t *testing.T) {
 	}{
 		{
 			fortranFiles: []string{
-				"./testdata/blas/TESTING/cblat1.f", // testing file
-				"./testdata/blas/SRC/csscal.f",
-				"./testdata/blas/SRC/cdotc.f",
-				"./testdata/blas/SRC/cdotu.f",
-				"./testdata/blas/SRC/cscal.f",
-				"./testdata/blas/SRC/scnrm2.f",
-				"./testdata/blas/SRC/icamax.f",
-				"./testdata/blas/SRC/caxpy.f",
-				"./testdata/blas/SRC/scasum.f",
-				"./testdata/blas/SRC/ccopy.f",
-				"./testdata/blas/SRC/cswap.f",
-				"./testdata/blas/SRC/scabs1.f",
+				"./testdata/lapack/BLAS/TESTING/cblat1.f", // testing file
+				"./testdata/lapack/BLAS/SRC/csscal.f",
+				"./testdata/lapack/BLAS/SRC/cdotc.f",
+				"./testdata/lapack/BLAS/SRC/cdotu.f",
+				"./testdata/lapack/BLAS/SRC/cscal.f",
+				"./testdata/lapack/BLAS/SRC/scnrm2.f",
+				"./testdata/lapack/BLAS/SRC/icamax.f",
+				"./testdata/lapack/BLAS/SRC/caxpy.f",
+				"./testdata/lapack/BLAS/SRC/scasum.f",
+				"./testdata/lapack/BLAS/SRC/ccopy.f",
+				"./testdata/lapack/BLAS/SRC/cswap.f",
+				"./testdata/lapack/BLAS/SRC/scabs1.f",
 			},
 		},
 	}
@@ -388,7 +388,7 @@ func BenchmarkCgemm(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		b.StopTimer()
 		// read body of file
-		d, err := ioutil.ReadFile("./testdata/blas/cgemm.f")
+		d, err := ioutil.ReadFile("./testdata/lapack/BLAS/cgemm.f")
 		if err != nil {
 			b.Fatal(err)
 		}
