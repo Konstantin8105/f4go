@@ -16,6 +16,8 @@ testdata/*.go
 testdata/other/*
 testdata/lapack/BLAS/SRC/*.go
 testdata/lapack/BLAS/TESTING/*.go
+testdata/lapack/SRC/*.go
+testdata/lapack/TESTING/*.go
 testdata/result
 *.txt
 

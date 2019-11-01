@@ -181,7 +181,7 @@ func getFortranTestFiles(dir string) (files []string, err error) {
 	return
 }
 
-func parsingBlas(filename string) (failed bool) {
+func parsingBlas(filename string) error {
 	filename = "./" + filename
 
 	// Go name
@@ -192,7 +192,40 @@ func parsingBlas(filename string) (failed bool) {
 	goname = strings.Replace(goname, "SRC", "TESTING", 1)
 
 	// parse
-	return len(parse(filename, "main", goname)) > 0
+	errs := parse(filename, "main", goname)
+	if len(errs) == 0 {
+		return nil
+	}
+
+	var s string
+	for i := range errs {
+		s += errs[i].Error() + "\n"
+	}
+	return fmt.Errorf("%s", s)
+}
+
+func TestLapack(t *testing.T) {
+
+	fortran.Debug = testing.Verbose()
+
+	ss, err := filepath.Glob(fmt.Sprintf("./testdata/lapack/SRC/%s", "*.f"))
+	if err != nil || len(ss) == 0 {
+		t.Fatal(err)
+	}
+
+	var amount int
+
+	for i := range ss {
+		err = parsingBlas(ss[i])
+		if err != nil {
+			t.Logf("Error is not empty in file: %s. %v", ss[i], err)
+			amount++
+		}
+	}
+
+	if float64(amount) > 0.25*float64(len(ss)) {
+		t.Errorf("too mush errors")
+	}
 }
 
 func TestBlas(t *testing.T) {
@@ -215,9 +248,9 @@ func TestBlas(t *testing.T) {
 	var amount int
 
 	for i := range ss {
-		failed := parsingBlas(ss[i])
-		if failed {
-			t.Logf("Error is not empty in file: %s", ss[i])
+		err := parsingBlas(ss[i])
+		if err != nil {
+			t.Logf("Error is not empty in file: %s. %v", ss[i], err)
 			amount++
 		}
 	}
@@ -312,9 +345,9 @@ func TestBlasTesting(t *testing.T) {
 	for i := range tcs {
 		t.Run(fmt.Sprintf("TESTING%3d", i), func(t *testing.T) {
 			for j := range tcs[i].fortranFiles {
-				failed := parsingBlas(tcs[i].fortranFiles[j])
-				if failed {
-					t.Logf("failed file: %s", tcs[i].fortranFiles[j])
+				err := parsingBlas(tcs[i].fortranFiles[j])
+				if err != nil {
+					t.Logf("failed file: %s. %v", tcs[i].fortranFiles[j], err)
 				}
 			}
 
