@@ -18,7 +18,7 @@ before_script:
   - go get -u -v github.com/wadey/gocovmerge
 
 script:
-  - . ./travis.sh
+  - go test -covermode=atomic -coverprofile=coverage.txt --cover ./...
 
 after_success:
   - include_cov=coverage.txt bash <(curl -s https://codecov.io/bash)
