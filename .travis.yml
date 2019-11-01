@@ -1,10 +1,7 @@
 language: go
-
+sudo: false
 go:
-  - "1.8"
-
-os:
-  - linux
+  - tip
 
 before_script:
   - |
@@ -13,13 +10,9 @@ before_script:
         sudo apt-get install -f -y --force-yes gfortran
       fi
 
-  # gocovmerge is used to merge all the separate unit/integration test coverage
-  # profiles.
-  - go get -u -v github.com/wadey/gocovmerge
-
 script:
-  - go test -coverprofile=coverage.txt ./...
+  - go test -covermode=count  -coverprofile=coverage.out ./...
 
 after_success:
-  - include_cov=coverage.txt bash <(curl -s https://codecov.io/bash)
+  - include_cov=coverage.out bash <(curl -s https://codecov.io/bash)
   - rm coverage.txt

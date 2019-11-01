@@ -22,6 +22,7 @@ testdata/result
 *.txt
 
 coverage.txt
+coverage.out
 *.coverprofile
 
 # application
