@@ -441,6 +441,9 @@ func (p *parser) fixIdent(nodes *[]node) {
 		if i+1 < len(*nodes) && (*nodes)[i+1].tok == token.LPAREN {
 			continue
 		}
+		if s := string((*nodes)[i].b); s == "false" || s == "true" {
+			continue
+		}
 
 		// from | IDENT  |
 		// to   | LPAREN | STAR | IDENT | RPAREN |

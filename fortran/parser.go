@@ -628,45 +628,35 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 			})
 
 		case 1: // vector
-			arrayType := goT.getBaseType()
-			for i := 0; i < p.getArrayLen(name); i++ {
-				arrayType = "[]" + arrayType
+
+			fset := token.NewFileSet() // positions are relative to fset
+			src := `package main
+func main() {
+	MATRIX := func() (*[]%s){ arr:=make([]%s, %d); return &arr}()
+}
+`
+			var (
+				subName  = "MATRIX"
+				size0, _ = p.getSize(name, 0)
+				typ      = goT.getBaseType()
+			)
+			s := fmt.Sprintf(src, typ, typ, size0)
+			f, err := goparser.ParseFile(fset, "", s, 0)
+			if err != nil {
+				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
+					err, s, goT.arrayNode))
 			}
-			size, ok := p.getSize(name, 0)
-			if !ok {
-				vars = append(vars, &goast.DeclStmt{
-					Decl: &goast.GenDecl{
-						Tok: token.VAR,
-						Specs: []goast.Spec{
-							&goast.ValueSpec{
-								Names: []*goast.Ident{
-									goast.NewIdent(name),
-								},
-								Type: goast.NewIdent(
-									goT.String()),
-							},
-						},
-					},
-				})
-				continue
-			}
-			tok := token.DEFINE
+			var r replacer
+			r.from = subName
+			r.to = name
+			goast.Walk(r, f)
+
+			list := f.Decls[0].(*goast.FuncDecl).Body.List
 			if strings.Contains(name, "COMMON.") {
-				tok = token.ASSIGN
+				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
 			}
-			vars = append(vars, &goast.AssignStmt{
-				Lhs: []goast.Expr{goast.NewIdent(name)},
-				Tok: tok,
-				Rhs: []goast.Expr{
-					&goast.CallExpr{
-						Fun:    goast.NewIdent("make"),
-						Lparen: 1,
-						Args: []goast.Expr{
-							goast.NewIdent(arrayType),
-							goast.NewIdent(strconv.Itoa(size)),
-						},
-					}},
-			})
+
+			vars = append(vars, list...)
 
 		case 2: // matrix
 
@@ -922,6 +912,9 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 					},
 				}
 
+			case *goast.ParenExpr:
+				// (*NAME)
+
 			// case *goast.CallExpr:
 			//	var ident goast.Ident
 			//	ident, ok := a.Fun.(*goast.Ident)
@@ -1076,7 +1069,7 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	//  *a
 	v := initVis()
 	for _, arg := range arguments {
-		v.c[arg] = "*" + arg
+		v.c[arg] = arg
 	}
 	goast.Walk(v, fd.Body)
 
@@ -1322,7 +1315,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 	}
 
 	p.expect(token.IDENT)
-	name := string(p.ns[p.ident].b)
+	name := p.ns[p.ident]
 
 	p.ident++
 	p.expect(token.ASSIGN)
@@ -1346,7 +1339,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 	}
 	sDo.Init = &goast.AssignStmt{
 		Lhs: []goast.Expr{
-			goast.NewIdent(name),
+			p.parseExprNodes([]node{name}),
 		},
 		Tok: token.ASSIGN, // =
 		Rhs: []goast.Expr{
@@ -1375,14 +1368,14 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 		}
 	}
 	sDo.Cond = &goast.BinaryExpr{
-		X:  goast.NewIdent(name),
+		X:  p.parseExprNodes([]node{name}),
 		Op: token.LEQ,
 		Y:  p.parseExpr(start, p.ident),
 	}
 
 	if p.ns[p.ident].tok == ftNewLine {
 		sDo.Post = &goast.IncDecStmt{
-			X:   goast.NewIdent(name),
+			X:   p.parseExprNodes([]node{name}),
 			Tok: token.INC,
 		}
 	} else {
@@ -1397,7 +1390,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 			}
 		}
 		sDo.Post = &goast.AssignStmt{
-			Lhs: []goast.Expr{goast.NewIdent(name)},
+			Lhs: []goast.Expr{p.parseExprNodes([]node{name})},
 			Tok: token.ADD_ASSIGN, // +=
 			Rhs: []goast.Expr{p.parseExpr(start, p.ident)},
 		}
@@ -1647,6 +1640,14 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		if ident, ok := f.(*goast.Ident); ok {
 			f = &goast.CallExpr{
 				Fun: ident,
+			}
+		}
+		if c, ok := f.(*goast.CallExpr); ok {
+			for i := range c.Args {
+				f.(*goast.CallExpr).Args[i] = &goast.UnaryExpr{
+					Op: token.AND,
+					X:  f.(*goast.CallExpr).Args[i],
+				}
 			}
 		}
 		stmts = append(stmts, &goast.ExprStmt{
