@@ -663,10 +663,13 @@ func main() {
 			fset := token.NewFileSet() // positions are relative to fset
 			src := `package main
 func main() {
-	MATRIX := make([][]%s, %d)
-	for u := 0; u < %d; u++ {
-		MATRIX[u] = make([]%s, %d)
-	}
+	MATRIX := func()(*[][]%s){
+		arr := make([][]%s, %d)
+		for u := 0; u < %d; u++ {
+			arr[u] = make([]%s, %d)
+		}
+		return &arr
+	}()
 }
 `
 			var (
@@ -675,7 +678,7 @@ func main() {
 				size1, _ = p.getSize(name, 1)
 				typ      = goT.getBaseType()
 			)
-			s := fmt.Sprintf(src, typ, size0, size0, typ, size1)
+			s := fmt.Sprintf(src, typ, typ, size0, size0, typ, size1)
 			f, err := goparser.ParseFile(fset, "", s, 0)
 			if err != nil {
 				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
@@ -697,13 +700,16 @@ func main() {
 			fset := token.NewFileSet() // positions are relative to fset
 			src := `package main
 func main() {
-	MATRIX := make([][][]%s, %d)
-	for u := 0; u < %d; u++ {
-		MATRIX[u] = make([][]%s, %d)
-		for w := 0; w < %d; w++ {
-			MATRIX[u][w] = make([]%s, %d)
+	MATRIX := func()(*[][]%s) {
+		arr := make([][][]%s, %d)
+		for u := 0; u < %d; u++ {
+			arr[u] = make([][]%s, %d)
+			for w := 0; w < %d; w++ {
+				arr[u][w] = make([]%s, %d)
+			}
 		}
-	}
+		return &arr
+	}()
 }
 `
 			var (
@@ -713,7 +719,7 @@ func main() {
 				size2, _ = p.getSize(name, 2)
 				typ      = goT.getBaseType()
 			)
-			s := fmt.Sprintf(src, typ, size0, size0, typ, size1, size1, typ, size2)
+			s := fmt.Sprintf(src, typ, typ, size0, size0, typ, size1, size1, typ, size2)
 			f, err := goparser.ParseFile(fset, "", s, 0)
 			if err != nil {
 				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
@@ -1030,7 +1036,7 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 		// change function name variable to returnName
 		if len(returnType) > 0 {
 			v := initVis()
-			v.c[name] = "*" + returnName
+			v.c[name] = returnName
 			goast.Walk(v, fd.Body)
 		}
 	}()

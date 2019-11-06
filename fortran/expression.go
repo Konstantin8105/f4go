@@ -76,6 +76,7 @@ func (p *parser) parseExprNodes(in []node) (expr goast.Expr) {
 	}
 
 	p.fixComplexRealOperation(ast)
+	p.fixBinaryExpr(ast)
 
 	return ast
 }
@@ -494,6 +495,52 @@ func (p *parser) fixComplexRealOperation(ast goast.Expr) {
 					},
 				}
 			}
+		}
+	}
+}
+
+func (p *parser) fixBinaryExpr(ast goast.Expr) {
+	b, ok := ast.(*goast.BinaryExpr)
+	if !ok {
+		return
+	}
+	if b.Op != token.LSS && // <
+		b.Op != token.GTR && // >
+		b.Op != token.LEQ && // <=
+		b.Op != token.GEQ && // >=
+		b.Op != token.NOT && // !
+		b.Op != token.NEQ && // !=
+		b.Op != token.EQL && // ==
+		b.Op != token.LAND && // &&
+		b.Op != token.LOR { // ||
+		return
+	}
+	_, xok := b.X.(*goast.BasicLit)
+	_, yok := b.Y.(*goast.BasicLit)
+	if xok && yok {
+		return
+	}
+
+	if !xok {
+		found := false
+		if par, ok := b.X.(*goast.ParenExpr); ok {
+			if _, ok := par.X.(*goast.StarExpr); ok {
+				found = true
+			}
+		}
+		if !found {
+			b.X = &goast.ParenExpr{X: &goast.StarExpr{X: b.X}}
+		}
+	}
+	if !yok {
+		found := false
+		if par, ok := b.Y.(*goast.ParenExpr); ok {
+			if _, ok := par.X.(*goast.StarExpr); ok {
+				found = true
+			}
+		}
+		if !found {
+			b.Y = &goast.ParenExpr{X: &goast.StarExpr{X: b.Y}}
 		}
 	}
 }
