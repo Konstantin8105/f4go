@@ -327,4 +327,4 @@ all internal function variables are pointers | ?
 
 ### Fortran test sources
 
-* [**blas from lapack3.8.0**](http://netlib.org/lapack/index.html)
+* [**LAPACK from lapack3.8.0**](http://netlib.org/lapack/index.html)

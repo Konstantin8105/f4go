@@ -51,6 +51,10 @@ type errorRow struct {
 	filename string
 }
 
+func (err errorRow) Error() string {
+	return fmt.Sprintf("%s : %v", err.filename, err.err)
+}
+
 // parsing to Go code
 func parse(filename, packageName, goFilename string) (errR []errorRow) {
 	if packageName == "" {

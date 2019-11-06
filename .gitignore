@@ -14,8 +14,10 @@ testdata/*.out
 testdata/*.go
 *.o
 testdata/other/*
-testdata/blas/SRC/*.go
-testdata/blas/TESTING/*.go
+testdata/lapack/BLAS/SRC/*.go
+testdata/lapack/BLAS/TESTING/*.go
+testdata/lapack/SRC/*.go
+testdata/lapack/TESTING/*.go
 testdata/result
 *.txt
 
