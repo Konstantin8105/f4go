@@ -614,35 +614,18 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 		goT := ([]varInitialization(p.initVars)[i]).typ
 		switch p.getArrayLen(name) {
 		case 0:
-			decl := goast.GenDecl{
-				Tok: token.VAR,
-				Specs: []goast.Spec{
-					&goast.ValueSpec{
-						Names: []*goast.Ident{
-							goast.NewIdent(name),
+			vars = append(vars, &goast.AssignStmt{
+				Lhs: []goast.Expr{goast.NewIdent(name)},
+				Tok: token.DEFINE,
+				Rhs: []goast.Expr{
+					&goast.CallExpr{
+						Fun: goast.NewIdent("new"),
+						Args: []goast.Expr{
+							goast.NewIdent(goT.String()),
 						},
-						Type: goast.NewIdent(
-							goT.String()),
 					},
 				},
-			}
-			if val, ok := p.constants[name]; ok {
-				decl.Specs[0].(*goast.ValueSpec).Values = []goast.Expr{
-					p.parseExprNodes(val),
-				}
-			} else if v, ok := p.initVars.get(name); ok && v.typ.baseType == "string" {
-				decl.Specs[0].(*goast.ValueSpec).Values = []goast.Expr{
-					&goast.CallExpr{
-						Fun: goast.NewIdent("make"),
-						Args: []goast.Expr{
-							&goast.ArrayType{Elt: goast.NewIdent("byte")},
-							goast.NewIdent(nodesToString(v.typ.arrayNode[0])),
-						},
-					},
-				}
-
-			}
-			vars = append(vars, &goast.DeclStmt{Decl: &decl})
+			})
 
 		case 1: // vector
 			arrayType := goT.getBaseType()
@@ -1045,7 +1028,7 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 			List: []*goast.Field{
 				{
 					Names: []*goast.Ident{goast.NewIdent(returnName)},
-					Type:  goast.NewIdent(parseType(returnType).String()),
+					Type:  goast.NewIdent("*" + parseType(returnType).String()),
 				},
 			},
 		}
@@ -1054,7 +1037,7 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 		// change function name variable to returnName
 		if len(returnType) > 0 {
 			v := initVis()
-			v.c[name] = returnName
+			v.c[name] = "*" + returnName
 			goast.Walk(v, fd.Body)
 		}
 	}()
@@ -1365,7 +1348,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 		Lhs: []goast.Expr{
 			goast.NewIdent(name),
 		},
-		Tok: token.ASSIGN,
+		Tok: token.ASSIGN, // =
 		Rhs: []goast.Expr{
 			p.parseExpr(start, p.ident),
 		},
@@ -1415,7 +1398,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 		}
 		sDo.Post = &goast.AssignStmt{
 			Lhs: []goast.Expr{goast.NewIdent(name)},
-			Tok: token.ADD_ASSIGN,
+			Tok: token.ADD_ASSIGN, // +=
 			Rhs: []goast.Expr{p.parseExpr(start, p.ident)},
 		}
 	}
@@ -2327,7 +2310,7 @@ mul:
 
 	if len(nameExpr) > 0 {
 		var assign goast.AssignStmt
-		assign.Tok = token.ASSIGN
+		assign.Tok = token.ASSIGN // =
 
 		for i := range nameExpr {
 			if nameExpr[i].isByte {
@@ -2636,7 +2619,7 @@ func (p *parser) parseCommon() (stmts []goast.Stmt) {
 
 		stmts = append(stmts, &goast.AssignStmt{
 			Lhs: []goast.Expr{goast.NewIdent(name)},
-			Tok: token.ASSIGN,
+			Tok: token.ASSIGN, // =
 			Rhs: []goast.Expr{goast.NewIdent("COMMON." + blockName + "." + name)},
 		})
 	}

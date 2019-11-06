@@ -40,7 +40,8 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 		if n, ok := call.Fun.(*goast.Ident); ok {
 			if f, ok := intrinsicFunction[strings.ToUpper(n.Name)]; ok {
 				f(in.p, call)
-			} else if n.Name != "make" && n.Name != "append" && n.Name != "panic" {
+			} else if n.Name != "make" && n.Name != "append" &&
+				n.Name != "panic" && n.Name != "new" {
 				n.Name = strings.ToUpper(n.Name)
 			}
 		}

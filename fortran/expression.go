@@ -59,6 +59,7 @@ func (p *parser) parseExprNodes(in []node) (expr goast.Expr) {
 	p.fixString(&nodes)
 	p.fixComplexValue(&nodes)
 	p.fixConcatString(&nodes)
+	p.fixIdent(&nodes)
 
 	str := nodesToString(nodes)
 
@@ -429,6 +430,21 @@ func (p *parser) fixConcatString(nodes *[]node) {
 		comb = append(comb, rightOther...)
 
 		*nodes = comb
+	}
+}
+
+func (p *parser) fixIdent(nodes *[]node) {
+	// is not | IDENT | token.LPAREN ( |
+	for i := 0; i < len(*nodes); i++ {
+		if (*nodes)[i].tok != token.IDENT {
+			continue
+		}
+		if i+1 < len(*nodes) && (*nodes)[i+1].tok == token.LPAREN {
+			continue
+		}
+		// from | IDENT  |
+		// to   | LPAREN | STAR | IDENT | RPAREN |
+		(*nodes)[i].b = append([]byte("(*"), append((*nodes)[i].b, ')')...)
 	}
 }
 
