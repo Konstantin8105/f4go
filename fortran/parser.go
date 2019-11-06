@@ -1349,6 +1349,10 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 	// Cond is expression
 	p.ident++
 	start = p.ident
+	p.ns = append(p.ns[:start], append([]node{
+		name,
+		{tok: token.LSS, b: []byte{'<'}},
+	}, p.ns[start:]...)...)
 	counter = 0
 	for ; p.ident < len(p.ns); p.ident++ {
 		if p.ns[p.ident].tok == token.LPAREN {
@@ -1364,11 +1368,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 			break
 		}
 	}
-	sDo.Cond = &goast.BinaryExpr{
-		X:  p.parseExprNodes([]node{name}),
-		Op: token.LEQ,
-		Y:  p.parseExpr(start, p.ident),
-	}
+	sDo.Cond = p.parseBinary(start, p.ident)
 
 	if p.ns[p.ident].tok == ftNewLine {
 		sDo.Post = &goast.IncDecStmt{
@@ -1403,6 +1403,48 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 	return
 }
 
+func (p *parser) parseBinary(start, finish int) (expr goast.Expr) {
+	// conditions
+	var operationPos int
+	for operationPos = start; operationPos < finish; operationPos++ {
+		var found bool
+		switch p.ns[operationPos].tok {
+		case
+			token.LSS,  // <
+			token.GTR,  // >
+			token.LEQ,  // <=
+			token.GEQ,  // >=
+			token.NOT,  // !
+			token.NEQ,  // !=
+			token.EQL,  // ==
+			token.LAND, // &&
+			token.LOR:  // ||
+			found = true
+		}
+		if found {
+			break
+		}
+	}
+	if start < operationPos && operationPos < p.ident {
+		expr = &goast.BinaryExpr{
+			X:  p.parseExpr(start, operationPos),
+			Op: p.ns[operationPos].tok,
+			Y:  p.parseExpr(operationPos+1, p.ident),
+		}
+	} else {
+		expr = p.parseExpr(start, p.ident)
+	}
+	if b, ok := expr.(*goast.BinaryExpr); ok {
+		if _, ok := b.X.(*goast.CallExpr); ok {
+			b.X = &goast.ParenExpr{X: &goast.StarExpr{X: b.X}}
+		}
+		if _, ok := b.Y.(*goast.CallExpr); ok {
+			b.Y = &goast.ParenExpr{X: &goast.StarExpr{X: b.Y}}
+		}
+	}
+	return
+}
+
 func (p *parser) parseIf() (sIf goast.IfStmt) {
 	p.ident++
 	p.expect(token.LPAREN)
@@ -1425,46 +1467,7 @@ func (p *parser) parseIf() (sIf goast.IfStmt) {
 		}
 	}
 
-	{
-		// conditions
-		var operationPos int
-		for operationPos = start; operationPos < p.ident; operationPos++ {
-			var found bool
-			switch p.ns[operationPos].tok {
-			case
-				token.LSS,  // <
-				token.GTR,  // >
-				token.LEQ,  // <=
-				token.GEQ,  // >=
-				token.NOT,  // !
-				token.NEQ,  // !=
-				token.EQL,  // ==
-				token.LAND, // &&
-				token.LOR:  // ||
-				found = true
-			}
-			if found {
-				break
-			}
-		}
-		if start < operationPos && operationPos < p.ident {
-			sIf.Cond = &goast.BinaryExpr{
-				X:  p.parseExpr(start, operationPos),
-				Op: p.ns[operationPos].tok,
-				Y:  p.parseExpr(operationPos+1, p.ident),
-			}
-		} else {
-			sIf.Cond = p.parseExpr(start, p.ident)
-		}
-		if b, ok := sIf.Cond.(*goast.BinaryExpr); ok {
-			if _, ok := b.X.(*goast.CallExpr); ok {
-				b.X = &goast.ParenExpr{X: &goast.StarExpr{X: b.X}}
-			}
-			if _, ok := b.Y.(*goast.CallExpr); ok {
-				b.Y = &goast.ParenExpr{X: &goast.StarExpr{X: b.Y}}
-			}
-		}
-	}
+	sIf.Cond = p.parseBinary(start, p.ident)
 
 	p.expect(token.RPAREN)
 	p.ident++
