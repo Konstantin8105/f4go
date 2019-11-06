@@ -1673,9 +1673,9 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		for ; p.ns[p.ident].tok != ftNewLine; p.ident++ {
 		}
 		f := p.parseExpr(start, p.ident)
-		if ident, ok := f.(*goast.Ident); ok {
+		if p.ident-start == 1 {
 			f = &goast.CallExpr{
-				Fun: ident,
+				Fun: goast.NewIdent(string(p.ns[start].b)),
 			}
 		}
 		stmts = append(stmts, &goast.ExprStmt{
