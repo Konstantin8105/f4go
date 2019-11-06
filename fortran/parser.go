@@ -858,89 +858,80 @@ type callArg struct {
 // ab_min(3, 14)
 //  To:
 // ab_min(func() *int { y := 3; return &y }(), func() *int { y := 14; return &y }())
-func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
-	if call, ok := node.(*goast.CallExpr); ok && call != nil {
-
-		if sel, ok := call.Fun.(*goast.SelectorExpr); ok {
-			if name, ok := sel.X.(*goast.Ident); ok {
-				if name.Name == "math" || name.Name == "fmt" {
-					goto end
-				}
-			}
-		}
-		if call, ok := node.(*goast.CallExpr); ok {
-			if id, ok := call.Fun.(*goast.Ident); ok {
-				if id.Name == "append" {
-					return nil
-				}
-				if id.Name == "panic" {
-					return nil
-				}
-			}
-		}
-
-		for i := range call.Args {
-			switch a := call.Args[i].(type) {
-			case *goast.BasicLit:
-				switch a.Kind {
-				case token.STRING:
-					call.Args[i] = goast.NewIdent(
-						fmt.Sprintf("func()*[]byte{y:=[]byte(%s);return &y}()", a.Value))
-					if len(a.Value) == 3 {
-						a.Value = strings.Replace(a.Value, "\"", "'", -1)
-						call.Args[i] = goast.NewIdent(
-							fmt.Sprintf("func()*byte{y:=byte(%s);return &y}()", a.Value))
-					}
-				case token.INT:
-					call.Args[i] = goast.NewIdent(
-						fmt.Sprintf("func()*int{y:=%s;return &y}()", a.Value))
-				case token.FLOAT:
-					call.Args[i] = goast.NewIdent(
-						fmt.Sprintf("func()*float64{y:=%s;return &y}()", a.Value))
-				case token.CHAR:
-					call.Args[i] = goast.NewIdent(
-						fmt.Sprintf("func()*byte{y:=%s;return &y}()", a.Value))
-				default:
-					panic(fmt.Errorf(
-						"Not support basiclit token: %T ", a.Kind))
-				}
-
-			case *goast.Ident: // TODO : not correct for array
-				id := call.Args[i].(*goast.Ident)
-				id.Name = "&(" + id.Name + ")"
-
-			case *goast.IndexExpr:
-				call.Args[i] = &goast.UnaryExpr{
-					Op: token.AND,
-					X: &goast.ParenExpr{
-						Lparen: 1,
-						X:      call.Args[i],
-					},
-				}
-
-			case *goast.ParenExpr:
-				// (*NAME)
-
-			// case *goast.CallExpr:
-			//	var ident goast.Ident
-			//	ident, ok := a.Fun.(*goast.Ident)
-			//	if ok {
-			//		continue
-			//	}
-			//	returnType, ok := p.functionReturnType[ident.Name]
-			//	if ok {
-			//		continue
-			//	}
-			// TODO: convection function return type (int) to (*int)
-
-			default:
-				// TODO:
-				//	goast.Print(token.NewFileSet(), a)
-				//	panic(fmt.Errorf("Not support arg call token: %T ", a))
+func (c callArg) Visit(node goast.Node) goast.Visitor {
+	call, ok := node.(*goast.CallExpr)
+	if !ok {
+		return c
+	}
+	if call == nil {
+		return nil
+	}
+	if sel, ok := call.Fun.(*goast.SelectorExpr); ok {
+		if name, ok := sel.X.(*goast.Ident); ok {
+			switch name.Name {
+			case
+				"math",
+				"real",
+				"fmt":
+				return c
 			}
 		}
 	}
-end:
+
+	if call, ok := node.(*goast.CallExpr); ok {
+		if id, ok := call.Fun.(*goast.Ident); ok {
+			switch id.Name {
+			case "append",
+				"panic":
+				return c
+			}
+		}
+	}
+
+	for i := range call.Args {
+		switch a := call.Args[i].(type) {
+		case *goast.BasicLit:
+			switch a.Kind {
+			case token.STRING:
+				call.Args[i] = goast.NewIdent(
+					fmt.Sprintf("func()*[]byte{y:=[]byte(%s);return &y}()", a.Value))
+				if len(a.Value) == 3 {
+					a.Value = strings.Replace(a.Value, "\"", "'", -1)
+					call.Args[i] = goast.NewIdent(
+						fmt.Sprintf("func()*byte{y:=byte(%s);return &y}()", a.Value))
+				}
+			case token.INT:
+				call.Args[i] = goast.NewIdent(
+					fmt.Sprintf("func()*int{y:=%s;return &y}()", a.Value))
+			case token.FLOAT:
+				call.Args[i] = goast.NewIdent(
+					fmt.Sprintf("func()*float64{y:=%s;return &y}()", a.Value))
+			case token.CHAR:
+				call.Args[i] = goast.NewIdent(
+					fmt.Sprintf("func()*byte{y:=%s;return &y}()", a.Value))
+			default:
+				panic(fmt.Errorf(
+					"Not support basiclit token: %T ", a.Kind))
+			}
+
+		case *goast.Ident, *goast.IndexExpr, *goast.ParenExpr:
+			// from:  NAME
+			// to  : &NAME
+			call.Args[i] = &goast.UnaryExpr{
+				Op: token.AND,
+				X: &goast.ParenExpr{
+					Lparen: 1,
+					X:      call.Args[i],
+				},
+			}
+
+		default:
+			// TODO:
+			// goast.Print(token.NewFileSet(), a)
+			// panic(fmt.Errorf("Not support arg call token: %T ", a))
+		}
+	}
+
 	return c
 }
 
@@ -1434,7 +1425,46 @@ func (p *parser) parseIf() (sIf goast.IfStmt) {
 		}
 	}
 
-	sIf.Cond = p.parseExpr(start, p.ident)
+	{
+		// conditions
+		var operationPos int
+		for operationPos = start; operationPos < p.ident; operationPos++ {
+			var found bool
+			switch p.ns[operationPos].tok {
+			case
+				token.LSS,  // <
+				token.GTR,  // >
+				token.LEQ,  // <=
+				token.GEQ,  // >=
+				token.NOT,  // !
+				token.NEQ,  // !=
+				token.EQL,  // ==
+				token.LAND, // &&
+				token.LOR:  // ||
+				found = true
+			}
+			if found {
+				break
+			}
+		}
+		if start < operationPos && operationPos < p.ident {
+			sIf.Cond = &goast.BinaryExpr{
+				X:  p.parseExpr(start, operationPos),
+				Op: p.ns[operationPos].tok,
+				Y:  p.parseExpr(operationPos+1, p.ident),
+			}
+		} else {
+			sIf.Cond = p.parseExpr(start, p.ident)
+		}
+		if b, ok := sIf.Cond.(*goast.BinaryExpr); ok {
+			if _, ok := b.X.(*goast.CallExpr); ok {
+				b.X = &goast.ParenExpr{X: &goast.StarExpr{X: b.X}}
+			}
+			if _, ok := b.Y.(*goast.CallExpr); ok {
+				b.Y = &goast.ParenExpr{X: &goast.StarExpr{X: b.Y}}
+			}
+		}
+	}
 
 	p.expect(token.RPAREN)
 	p.ident++
@@ -1646,14 +1676,6 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		if ident, ok := f.(*goast.Ident); ok {
 			f = &goast.CallExpr{
 				Fun: ident,
-			}
-		}
-		if c, ok := f.(*goast.CallExpr); ok {
-			for i := range c.Args {
-				f.(*goast.CallExpr).Args[i] = &goast.UnaryExpr{
-					Op: token.AND,
-					X:  f.(*goast.CallExpr).Args[i],
-				}
 			}
 		}
 		stmts = append(stmts, &goast.ExprStmt{

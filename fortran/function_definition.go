@@ -2,6 +2,7 @@ package fortran
 
 import (
 	goast "go/ast"
+	"go/token"
 	"strings"
 )
 
@@ -40,9 +41,16 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 		if n, ok := call.Fun.(*goast.Ident); ok {
 			if f, ok := intrinsicFunction[strings.ToUpper(n.Name)]; ok {
 				f(in.p, call)
-			} else if n.Name != "make" && n.Name != "append" &&
-				n.Name != "panic" && n.Name != "new" {
-				n.Name = strings.ToUpper(n.Name)
+			} else {
+				switch n.Name {
+				case "make",
+					"append",
+					"panic",
+					"new",
+					"real":
+				default:
+					n.Name = strings.ToUpper(n.Name)
+				}
 			}
 		}
 	}
@@ -184,6 +192,12 @@ func intrinsicArgumentCorrection(p *parser, f *goast.CallExpr, name string, type
 	f.Fun.(*goast.Ident).Name = name
 
 	for i := range typeNames {
+		// from "&(" to ""
+		if un, ok := f.Args[i].(*goast.UnaryExpr); ok && un.Op == token.AND {
+			if par, ok := un.X.(*goast.ParenExpr); ok {
+				f.Args[i] = par
+			}
+		}
 		if id, ok := f.Args[i].(*goast.Ident); ok {
 			if len(id.Name) > 3 && id.Name[:2] == "&(" {
 				id.Name = id.Name[2 : len(id.Name)-1]

@@ -325,6 +325,16 @@ all arguments of function are pointers | ?
 all arguments of intrisic function are pointers | ?
 all internal function variables are pointers | ?
 
+
+**IDENT**:
+* constants
+* arrays, matrixes
+
+Operations:
+* assign
+* initialization
+* boolean
+
 ### Fortran test sources
 
 * [**LAPACK from lapack3.8.0**](http://netlib.org/lapack/index.html)
