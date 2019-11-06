@@ -853,6 +853,30 @@ type callArg struct {
 	p *parser
 }
 
+func isIgnoreCall(call *goast.CallExpr) bool {
+	if sel, ok := call.Fun.(*goast.SelectorExpr); ok {
+		if name, ok := sel.X.(*goast.Ident); ok {
+			switch name.Name {
+			case
+				"math",
+				"real",
+				"fmt":
+				return true
+			}
+		}
+	}
+
+	if id, ok := call.Fun.(*goast.Ident); ok {
+		switch id.Name {
+		case "append",
+			"panic":
+			return true
+		}
+	}
+
+	return false
+}
+
 // Example
 //  From :
 // ab_min(3, 14)
@@ -866,26 +890,8 @@ func (c callArg) Visit(node goast.Node) goast.Visitor {
 	if call == nil {
 		return nil
 	}
-	if sel, ok := call.Fun.(*goast.SelectorExpr); ok {
-		if name, ok := sel.X.(*goast.Ident); ok {
-			switch name.Name {
-			case
-				"math",
-				"real",
-				"fmt":
-				return c
-			}
-		}
-	}
-
-	if call, ok := node.(*goast.CallExpr); ok {
-		if id, ok := call.Fun.(*goast.Ident); ok {
-			switch id.Name {
-			case "append",
-				"panic":
-				return c
-			}
-		}
+	if isIgnoreCall(call) {
+		return c
 	}
 
 	for i := range call.Args {
@@ -1870,6 +1876,11 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 				Tok: token.ASSIGN, // =
 				Rhs: []goast.Expr{p.parseExpr(pos+1, p.ident)},
 			}
+			if f, ok := assign.Rhs[0].(*goast.CallExpr); ok {
+				if !isIgnoreCall(f) {
+					assign.Rhs[0] = &goast.ParenExpr{X: &goast.StarExpr{X: assign.Rhs[0]}}
+				}
+			}
 			stmts = append(stmts, &assign)
 		} else {
 			stmts = append(stmts, &goast.ExprStmt{
@@ -2159,7 +2170,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 				for i := 0; i < size; i++ {
 					nameExpr = append(nameExpr, tExpr{
 						expr: &goast.IndexExpr{
-							X:      goast.NewIdent(nodesToString(name)),
+							X:      &goast.StarExpr{X: goast.NewIdent(nodesToString(name))},
 							Lbrack: 1,
 							Index: &goast.BasicLit{
 								Kind:  token.INT,
@@ -2176,7 +2187,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 						nameExpr = append(nameExpr, tExpr{
 							expr: &goast.IndexExpr{
 								X: &goast.IndexExpr{
-									X:      goast.NewIdent(nodesToString(name)),
+									X:      &goast.StarExpr{X: goast.NewIdent(nodesToString(name))},
 									Lbrack: 1,
 									Index: &goast.BasicLit{
 										Kind:  token.INT,
@@ -2203,7 +2214,7 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 								expr: &goast.IndexExpr{
 									X: &goast.IndexExpr{
 										X: &goast.IndexExpr{
-											X:      goast.NewIdent(nodesToString(name)),
+											X:      &goast.StarExpr{X: goast.NewIdent(nodesToString(name))},
 											Lbrack: 1,
 											Index: &goast.BasicLit{
 												Kind:  token.INT,
