@@ -1410,35 +1410,59 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 }
 
 func (p *parser) parseBinary(start, finish int) (expr goast.Expr) {
+
+	if p.ns[start].tok == token.NOT {
+		return &goast.UnaryExpr{
+			Op: token.NOT,
+			X:  &goast.ParenExpr{X: p.parseExpr(start+1, finish)},
+		}
+	}
+
 	// conditions
 	var operationPos int
 	for operationPos = start; operationPos < finish; operationPos++ {
 		var found bool
 		switch p.ns[operationPos].tok {
 		case
-			token.LSS,  // <
-			token.GTR,  // >
-			token.LEQ,  // <=
-			token.GEQ,  // >=
-			token.NOT,  // !
-			token.NEQ,  // !=
-			token.EQL,  // ==
 			token.LAND, // &&
 			token.LOR:  // ||
+			found = true
+		}
+		if found {
+			left := p.parseBinary(start, operationPos)
+			rigth := p.parseBinary(operationPos+1, finish)
+			return &goast.BinaryExpr{
+				X:  left,
+				Op: p.ns[operationPos].tok,
+				Y:  rigth,
+			}
+		}
+	}
+
+	for operationPos = start; operationPos < finish; operationPos++ {
+		var found bool
+		switch p.ns[operationPos].tok {
+		case
+			token.LSS, // <
+			token.GTR, // >
+			token.LEQ, // <=
+			token.GEQ, // >=
+			token.NEQ, // !=
+			token.EQL: // ==
 			found = true
 		}
 		if found {
 			break
 		}
 	}
-	if start < operationPos && operationPos < p.ident {
+	if start < operationPos && operationPos < finish {
 		expr = &goast.BinaryExpr{
 			X:  p.parseExpr(start, operationPos),
 			Op: p.ns[operationPos].tok,
-			Y:  p.parseExpr(operationPos+1, p.ident),
+			Y:  p.parseExpr(operationPos+1, finish),
 		}
 	} else {
-		expr = p.parseExpr(start, p.ident)
+		expr = p.parseExpr(start, finish)
 	}
 	if b, ok := expr.(*goast.BinaryExpr); ok {
 		if _, ok := b.X.(*goast.CallExpr); ok {
@@ -2248,34 +2272,12 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			isByte := v.typ.getBaseType() == "byte"
 
 			str := nodesToString(name)
-			str = strings.Replace(str, "(", "[", -1)
-			str = strings.Replace(str, ")", "]", -1)
-			str = strings.Replace(str, ",", "][", -1)
 			na := []byte(str)
-			col := 0
-			for i := 0; ; i++ {
-				if i > len(na)-1 {
-					break
-				}
-				if na[i] == ']' {
-					varinit, ok := p.initVars.get(string(name[0].b))
-					if !ok {
-						break
-					}
-					size, ok := varinit.typ.getMinLimit(col)
-					if !ok {
-						break
-					}
-					corner := "-(" + strconv.Itoa(size) + ")"
-					na = append(na[:i-1], append([]byte(corner), na[i-1:]...)...)
-					i += len(corner)
-					col++
-				}
-			}
-			str = string(na)
+
+			nodes := p.parseExprNodes(scan(na))
 
 			nameExpr = append(nameExpr, tExpr{
-				expr:   goast.NewIdent(str),
+				expr:   nodes,
 				isByte: isByte,
 			})
 
