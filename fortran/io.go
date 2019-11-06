@@ -134,8 +134,9 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 					}
 				}
 			}
-			ast.(*goast.CallExpr).Args = append(ast.(*goast.CallExpr).Args,
-				p.parseExprNodes(ta))
+
+			nast := p.parseExprNodes(ta)
+			ast.(*goast.CallExpr).Args = append(ast.(*goast.CallExpr).Args, nast)
 		}
 	}
 	stmts = append(stmts, &goast.ExprStmt{

@@ -434,17 +434,25 @@ func (p *parser) fixConcatString(nodes *[]node) {
 }
 
 func (p *parser) fixIdent(nodes *[]node) {
-	// is not | IDENT | token.LPAREN ( |
-	for i := 0; i < len(*nodes); i++ {
+	for i := len(*nodes) - 1; i >= 0; i-- {
 		if (*nodes)[i].tok != token.IDENT {
 			continue
 		}
 		if i+1 < len(*nodes) && (*nodes)[i+1].tok == token.LPAREN {
 			continue
 		}
+
 		// from | IDENT  |
 		// to   | LPAREN | STAR | IDENT | RPAREN |
-		(*nodes)[i].b = append([]byte("(*"), append((*nodes)[i].b, ')')...)
+		var comb []node
+		comb = append(comb, (*nodes)[:i]...)
+		comb = append(comb, node{tok: token.LPAREN, b: []byte("(")})
+		comb = append(comb, node{tok: token.MUL, b: []byte("*")})
+		comb = append(comb, (*nodes)[i])
+		comb = append(comb, node{tok: token.RPAREN, b: []byte(")")})
+		comb = append(comb, (*nodes)[i+1:]...)
+		*nodes = comb
+		i += 1
 	}
 }
 

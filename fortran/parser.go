@@ -922,7 +922,7 @@ func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
 					},
 				}
 
-			case *goast.CallExpr:
+			// case *goast.CallExpr:
 			//	var ident goast.Ident
 			//	ident, ok := a.Fun.(*goast.Ident)
 			//	if ok {
