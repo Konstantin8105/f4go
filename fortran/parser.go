@@ -1907,8 +1907,9 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 			}
 			stmts = append(stmts, &assign)
 		} else {
+			nodes := p.parseExpr(start, p.ident)
 			stmts = append(stmts, &goast.ExprStmt{
-				X: p.parseExpr(start, p.ident),
+				X: nodes,
 			})
 		}
 

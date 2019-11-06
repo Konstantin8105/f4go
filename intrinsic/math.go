@@ -58,12 +58,14 @@ func EPSILON(f float64) float64 {
 	return math.Pow(2, -23)
 }
 
-func CONJG(c complex128) complex128 {
-	return complex128(cmplx.Conj(complex128(c)))
+func CONJG(c complex128) *complex128 {
+	v := complex128(cmplx.Conj(complex128(c)))
+	return &v
 }
 
-func DCONJG(c complex128) complex128 {
-	return cmplx.Conj(c)
+func DCONJG(c complex128) *complex128 {
+	v := cmplx.Conj(c)
+	return &v
 }
 
 func DBLE(a interface{}) float64 {
