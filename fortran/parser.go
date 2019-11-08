@@ -2529,24 +2529,24 @@ func (p *parser) parseAssign() (stmts []goast.Stmt) {
 	p.expect(ftAssign)
 	p.ident++
 
-	statement := string(p.ns[p.ident].b)
+	statement := p.ident
 	p.ident++
 
 	// ignore TO
 	p.ident++
 
-	intVar := string(p.ns[p.ident].b)
+	intVar := p.ident
 	p.ident++
 	stmts = append(stmts, &goast.ExprStmt{
-		X: goast.NewIdent("// ASSIGN " + statement + " TO " + intVar),
+		X: goast.NewIdent(fmt.Sprintf("// ASSIGN %v TO %v", string(p.ns[statement].b), string(p.ns[intVar].b))),
 	}, &goast.AssignStmt{
-		Lhs: []goast.Expr{goast.NewIdent(intVar)},
+		Lhs: []goast.Expr{p.parseExpr(intVar, intVar+1)},
 		Tok: token.ASSIGN,
-		Rhs: []goast.Expr{goast.NewIdent(statement)},
+		Rhs: []goast.Expr{p.parseExpr(statement, statement+1)},
 	}, &goast.AssignStmt{
 		Lhs: []goast.Expr{goast.NewIdent("_")},
 		Tok: token.ASSIGN,
-		Rhs: []goast.Expr{goast.NewIdent(intVar)},
+		Rhs: []goast.Expr{p.parseExpr(intVar, intVar+1)},
 	})
 
 	return
