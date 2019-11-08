@@ -828,9 +828,9 @@ C -----------------------------------------------------
             COMPLEX*16 zc
             double complex db1, db2
             PARAMETER (ONE= (1.9E+0,2.3E+0))
-            REAL    * 8   R
-            COMPLEX * 16  CR
-            COMPLEX * 16  CRA(1)
+C           REAL    * 8   R
+C           COMPLEX * 16  CR
+C           COMPLEX * 16  CRA(1)
             Intrinsic real , aimag
 
             c1 = (1.1221,2.2)
@@ -1298,11 +1298,11 @@ C           WRITE(*,'(F8.2)') P
 C -----------------------------------------------------
 
         SUBROUTINE test_write_loop
-            INTEGER P(3), E
-            E = 42
-            DATA (P(I),I=1,3) / 5,3,1 /
+C           INTEGER P(3), E
+C           E = 42
+C           DATA (P(I),I=1,3) / 5,3,1 /
 C           WRITE(*,'(I2)') (P(I),I=1,3)
-            WRITE(*,'(I2)') E
+C           WRITE(*,'(I2)') E
 C           WRITE(*,'(3I2)') (P(I),I=1,3)
 C           WRITE(*,'(I2)') (P(I),I=1,3), E
 C           WRITE(*,'(4I2)') (P(I),I=1,3), E

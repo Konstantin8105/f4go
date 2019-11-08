@@ -306,7 +306,7 @@ func Parse(b []byte, packageName string) (_ goast.File, errs []error) {
 				}
 				nameFields = append(nameFields, &goast.Field{
 					Names: []*goast.Ident{goast.NewIdent(varName)},
-					Type:  goast.NewIdent(string(varType)),
+					Type:  goast.NewIdent("*" + string(varType)),
 				})
 			}
 			fields = append(fields, &goast.Field{
