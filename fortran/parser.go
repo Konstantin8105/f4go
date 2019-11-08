@@ -611,10 +611,11 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 	}()
 	for i := range []varInitialization(p.initVars) {
 		name := ([]varInitialization(p.initVars)[i]).name
+		assign := strings.Contains(name, "COMMON.") || strings.Contains(name, returnPostfix)
 		goT := ([]varInitialization(p.initVars)[i]).typ
 		switch p.getArrayLen(name) {
 		case 0:
-			vars = append(vars, &goast.AssignStmt{
+			list := &goast.AssignStmt{
 				Lhs: []goast.Expr{goast.NewIdent(name)},
 				Tok: token.DEFINE,
 				Rhs: []goast.Expr{
@@ -625,7 +626,11 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 						},
 					},
 				},
-			})
+			}
+			if assign {
+				list.Tok = token.ASSIGN
+			}
+			vars = append(vars, list)
 
 		case 1: // vector
 
@@ -652,7 +657,7 @@ func main() {
 			goast.Walk(r, f)
 
 			list := f.Decls[0].(*goast.FuncDecl).Body.List
-			if strings.Contains(name, "COMMON.") {
+			if assign {
 				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
 			}
 
@@ -690,7 +695,7 @@ func main() {
 			goast.Walk(r, f)
 
 			list := f.Decls[0].(*goast.FuncDecl).Body.List
-			if strings.Contains(name, "COMMON.") {
+			if assign {
 				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
 			}
 
@@ -732,7 +737,7 @@ func main() {
 			goast.Walk(r, f)
 
 			list := f.Decls[0].(*goast.FuncDecl).Body.List
-			if strings.Contains(name, "COMMON.") {
+			if assign {
 				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
 			}
 
@@ -780,7 +785,7 @@ func main() {
 			goast.Walk(r, f)
 
 			list := f.Decls[0].(*goast.FuncDecl).Body.List
-			if strings.Contains(name, "COMMON.") {
+			if assign {
 				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
 			}
 
@@ -833,7 +838,7 @@ func main() {
 			goast.Walk(r, f)
 
 			list := f.Decls[0].(*goast.FuncDecl).Body.List
-			if strings.Contains(name, "COMMON.") {
+			if assign {
 				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
 			}
 
@@ -973,6 +978,8 @@ func (p *parser) parseProgram() (decl goast.Decl) {
 	return
 }
 
+const returnPostfix string = "_RETURN"
+
 // parseSubroutine  is parsed SUBROUTINE, FUNCTION, PROGRAM
 // Example :
 //  SUBROUTINE CHBMV ( UPLO , N , K , ALPHA , A , LDA , X , INCX , BETA , Y , INCY )
@@ -1019,16 +1026,18 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	}
 
 	// Add return type is exist
-	returnName := name + "_RES"
+	returnName := name + returnPostfix
 	if len(returnType) > 0 {
+		typ := parseType(returnType)
 		fd.Type.Results = &goast.FieldList{
 			List: []*goast.Field{
 				{
 					Names: []*goast.Ident{goast.NewIdent(returnName)},
-					Type:  goast.NewIdent("*" + parseType(returnType).String()),
+					Type:  goast.NewIdent("*" + typ.String()),
 				},
 			},
 		}
+		p.initVars.add(returnName, typ)
 	}
 	defer func() {
 		// change function name variable to returnName
@@ -1358,7 +1367,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 	start = p.ident
 	p.ns = append(p.ns[:start], append([]node{
 		name,
-		{tok: token.LSS, b: []byte{'<'}},
+		{tok: token.LEQ, b: []byte{'<', '='}},
 	}, p.ns[start:]...)...)
 	counter = 0
 	for ; p.ident < len(p.ns); p.ident++ {

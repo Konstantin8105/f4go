@@ -39,6 +39,28 @@ func (c callArgumentSimplification) Visit(node goast.Node) (w goast.Visitor) {
 		}
 	}
 
+	if call, ok := node.(*goast.CallExpr); ok {
+		for i := range call.Args {
+			switch a := call.Args[i].(type) {
+			case *goast.UnaryExpr:
+				if a.Op == token.AND {
+					if par, ok := a.X.(*goast.ParenExpr); ok {
+						if st, ok := par.X.(*goast.StarExpr); ok {
+							call.Args[i] = st.X
+						}
+					}
+					if par, ok := a.X.(*goast.ParenExpr); ok {
+						if par2, ok := par.X.(*goast.ParenExpr); ok {
+							if st, ok := par2.X.(*goast.StarExpr); ok {
+								call.Args[i] = st.X
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	return c
 }
 
