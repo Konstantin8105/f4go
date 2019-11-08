@@ -19,6 +19,13 @@ func REWIND(unit int) {
 }
 
 func WRITE(unit int, format []byte, a ...interface{}) {
+
+	for i := range a {
+		if str, ok := a[i].([]byte); ok {
+			a[i] = string(str)
+		}
+	}
+
 	fmt.Fprintf(units[unit], string(format), a...)
 }
 
