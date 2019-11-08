@@ -2176,126 +2176,126 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 		expr   goast.Expr
 		isByte bool
 	}
-	var nameExpr []tExpr
-	for _, name := range names {
-		if len(name) == 1 {
-			// LL                       - value
-			// LL                       - vector fully
-			// LL                       - matrix fully
-			v, ok := p.initVars.get(nodesToString(name))
-			if !ok {
-				p.initVars.add(nodesToString(name), goType{
-					baseType: "float64",
-				})
-				v, _ = p.initVars.get(nodesToString(name))
-			}
-			lenArray := p.getArrayLen(v.name)
-			isByte := v.typ.getBaseType() == "byte"
-			switch lenArray {
-			case 0:
-				nameExpr = append(nameExpr, tExpr{
-					expr:   p.parseExprNodes(name),
-					isByte: isByte,
-				})
-			case 1: // vector
-				size, ok := p.getSize(v.name, 0)
-				if !ok {
-					panic("Not ok : " + v.name)
-				}
-				for i := 0; i < size; i++ {
-					nameExpr = append(nameExpr, tExpr{
-						expr: &goast.IndexExpr{
-							X:      &goast.StarExpr{X: goast.NewIdent(nodesToString(name))},
-							Lbrack: 1,
-							Index: &goast.BasicLit{
-								Kind:  token.INT,
-								Value: strconv.Itoa(i),
-							},
-						},
-						isByte: isByte})
-				}
-			case 2: // matrix
-				size0, _ := p.getSize(v.name, 0)
-				size1, _ := p.getSize(v.name, 1)
-				for i := 0; i < size0; i++ {
-					for j := 0; j < size1; j++ {
-						nameExpr = append(nameExpr, tExpr{
-							expr: &goast.IndexExpr{
-								X: &goast.IndexExpr{
-									X:      &goast.StarExpr{X: goast.NewIdent(nodesToString(name))},
-									Lbrack: 1,
-									Index: &goast.BasicLit{
-										Kind:  token.INT,
-										Value: strconv.Itoa(j),
-									},
-								},
-								Lbrack: 1,
-								Index: &goast.BasicLit{
-									Kind:  token.INT,
-									Value: strconv.Itoa(i),
-								},
-							},
-							isByte: isByte})
-					}
-				}
-			case 3: //matrix ()()()
-				size0, _ := p.getSize(v.name, 0)
-				size1, _ := p.getSize(v.name, 1)
-				size2, _ := p.getSize(v.name, 2)
-				for k := 0; k < size2; k++ {
-					for j := 0; j < size1; j++ {
-						for i := 0; i < size0; i++ {
-							nameExpr = append(nameExpr, tExpr{
-								expr: &goast.IndexExpr{
-									X: &goast.IndexExpr{
-										X: &goast.IndexExpr{
-											X:      &goast.StarExpr{X: goast.NewIdent(nodesToString(name))},
-											Lbrack: 1,
-											Index: &goast.BasicLit{
-												Kind:  token.INT,
-												Value: strconv.Itoa(i),
-											},
-										},
-										Lbrack: 1,
-										Index: &goast.BasicLit{
-											Kind:  token.INT,
-											Value: strconv.Itoa(j),
-										},
-									},
-									Lbrack: 1,
-									Index: &goast.BasicLit{
-										Kind:  token.INT,
-										Value: strconv.Itoa(k),
-									},
-								},
-								isByte: isByte})
-						}
-					}
-				}
-			default:
-				panic("Not acceptable type 1 : " + nodesToString(name))
-			}
 
+	for _, name := range names {
+		_, ok := p.initVars.get(nodesToString(name[:1]))
+		if !ok {
+			p.initVars.add(nodesToString(name[:1]), goType{
+				baseType: "float64",
+			})
+		}
+	}
+
+namesExplode:
+	for i := range names {
+		name := names[i]
+
+		v, ok := p.initVars.get(nodesToString(name[:1]))
+		if !ok {
+			continue
+		}
+		lenArray := p.getArrayLen(v.name)
+
+		// L(1,1) but size of len is 3
+		exs := 0
+		for i := range name {
+			if name[i].tok == token.COMMA {
+				exs++
+			}
+			if name[i].tok == token.LPAREN {
+				exs++
+			}
+		}
+
+		if lenArray == exs {
 			continue
 		}
 
-		// 		if v, ok := p.initVars.get(string(name[0].b)); ok {
-		// 			isByte := v.typ.getBaseType() == "byte"
-		//
-		// 			str := nodesToString(name)
-		// 			na := []byte(str)
-		//
-		// 			nodes := p.parseExprNodes(scan(na))
-		//
-		// 			nameExpr = append(nameExpr, tExpr{
-		// 				expr:   nodes,
-		// 				isByte: isByte,
-		// 			})
-		//
-		// 			continue
-		// 		}
-		//
-		panic("Not acceptable type 3 : " + nodesToString(name))
+		// P    -> P(   -> P(  1,1)   , P(  2,1)   , P(  1,2)   , P(  2,2)   //
+		// P(1) -> P(1, -> P(1,1,1)   , P(1,2,1)   , P(1,1,2)   , P(1,2,2)   //
+		if name[len(name)-1].tok == token.RPAREN {
+			name[len(name)-1].tok = token.COMMA
+			name[len(name)-1].b = []byte(",")
+		} else if len(name) == 1 {
+			name = append(name, node{tok: token.LPAREN, b: []byte("(")})
+		}
+
+		var inject [][]node
+		switch lenArray - exs {
+		case 1:
+			var (
+				s1, _    = v.typ.getMinLimit(exs)
+				size1, _ = p.getSize(v.name, exs)
+			)
+			for i := 1; i <= size1; i++ {
+				var sl []node
+				sl = append(sl, name...)
+				sl = append(sl,
+					node{tok: token.INT, b: []byte(strconv.Itoa(s1 + i - 1))},
+					node{tok: token.RPAREN, b: []byte(")")},
+				)
+				inject = append(inject, sl)
+			}
+		case 2:
+			var (
+				s1, _    = v.typ.getMinLimit(exs)
+				size1, _ = p.getSize(v.name, exs)
+				s2, _    = v.typ.getMinLimit(exs + 1)
+				size2, _ = p.getSize(v.name, exs+1)
+			)
+			for j := 1; j <= size2; j++ {
+				for i := 1; i <= size1; i++ {
+					var sl []node
+					sl = append(sl, name...)
+					sl = append(sl,
+						node{tok: token.INT, b: []byte(strconv.Itoa(s1 + i - 1))},
+						node{tok: token.COMMA, b: []byte(",")},
+						node{tok: token.INT, b: []byte(strconv.Itoa(s2 + j - 1))},
+						node{tok: token.RPAREN, b: []byte(")")},
+					)
+					inject = append(inject, sl)
+				}
+			}
+		case 3:
+			var (
+				s1, _    = v.typ.getMinLimit(exs)
+				size1, _ = p.getSize(v.name, exs)
+				s2, _    = v.typ.getMinLimit(exs + 1)
+				size2, _ = p.getSize(v.name, exs+1)
+				s3, _    = v.typ.getMinLimit(exs + 2)
+				size3, _ = p.getSize(v.name, exs+2)
+			)
+			for k := 1; k <= size3; k++ {
+				for j := 1; j <= size2; j++ {
+					for i := 1; i <= size1; i++ {
+						var sl []node
+						sl = append(sl, name...)
+						sl = append(sl,
+							node{tok: token.INT, b: []byte(strconv.Itoa(s1 + i - 1))},
+							node{tok: token.COMMA, b: []byte(",")},
+							node{tok: token.INT, b: []byte(strconv.Itoa(s2 + j - 1))},
+							node{tok: token.COMMA, b: []byte(",")},
+							node{tok: token.INT, b: []byte(strconv.Itoa(s3 + k - 1))},
+							node{tok: token.RPAREN, b: []byte(")")},
+						)
+						inject = append(inject, sl)
+					}
+				}
+			}
+		}
+		names = append(names[:i], append(inject, names[i+1:]...)...)
+		goto namesExplode
+	}
+
+	var nameExpr []tExpr
+	for _, name := range names {
+		v, _ := p.initVars.get(nodesToString(name[:1]))
+		isByte := v.typ.getBaseType() == "byte"
+		n := p.parseExprNodes(name)
+		nameExpr = append(nameExpr, tExpr{
+			expr:   n,
+			isByte: isByte,
+		})
 	}
 
 mul:
