@@ -28,6 +28,17 @@ func (c callArgumentSimplification) Visit(node goast.Node) (w goast.Visitor) {
 		}
 	}
 
+	// intrinsic return not pointer
+	if par, ok := node.(*goast.ParenExpr); ok {
+		if st, ok := par.X.(*goast.StarExpr); ok {
+			if call, ok := st.X.(*goast.CallExpr); ok {
+				if id, ok := call.Fun.(*goast.Ident); ok && strings.Contains(id.Name, "intrinsic") {
+					par.X = call
+				}
+			}
+		}
+	}
+
 	return c
 }
 
@@ -54,11 +65,12 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 			}
 		}
 	}
+
 	if call, ok := node.(*goast.CallExpr); ok {
 		if sel, ok := call.Fun.(*goast.SelectorExpr); ok {
 			if x, ok := sel.X.(*goast.Ident); ok && x.Name == "intrinsic" {
 
-				var isRead bool = sel.Sel.Name == "READ"
+				var isRead bool = (sel.Sel.Name == "READ")
 
 				for i := range call.Args {
 					if isRead && i > 1 {

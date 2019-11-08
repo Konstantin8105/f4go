@@ -127,9 +127,9 @@ func (p parser) getArrayLen(name string) int {
 		panic("Cannot find variable : " + name)
 	}
 	lenArray := len(v.typ.arrayNode)
-	if v.typ.baseType == "string" {
-		lenArray--
-	}
+	// 	if v.typ.baseType == "string" {
+	// 		lenArray--
+	// 	}
 	return lenArray
 }
 
@@ -700,7 +700,7 @@ func main() {
 			fset := token.NewFileSet() // positions are relative to fset
 			src := `package main
 func main() {
-	MATRIX := func()(*[][]%s) {
+	MATRIX := func()(*[][][]%s) {
 		arr := make([][][]%s, %d)
 		for u := 0; u < %d; u++ {
 			arr[u] = make([][]%s, %d)
@@ -860,6 +860,7 @@ func isIgnoreCall(call *goast.CallExpr) bool {
 			case
 				"math",
 				"real",
+				"intrinsic",
 				"fmt":
 				return true
 			}
@@ -2269,22 +2270,22 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 			continue
 		}
 
-		if v, ok := p.initVars.get(string(name[0].b)); ok {
-			isByte := v.typ.getBaseType() == "byte"
-
-			str := nodesToString(name)
-			na := []byte(str)
-
-			nodes := p.parseExprNodes(scan(na))
-
-			nameExpr = append(nameExpr, tExpr{
-				expr:   nodes,
-				isByte: isByte,
-			})
-
-			continue
-		}
-
+		// 		if v, ok := p.initVars.get(string(name[0].b)); ok {
+		// 			isByte := v.typ.getBaseType() == "byte"
+		//
+		// 			str := nodesToString(name)
+		// 			na := []byte(str)
+		//
+		// 			nodes := p.parseExprNodes(scan(na))
+		//
+		// 			nameExpr = append(nameExpr, tExpr{
+		// 				expr:   nodes,
+		// 				isByte: isByte,
+		// 			})
+		//
+		// 			continue
+		// 		}
+		//
 		panic("Not acceptable type 3 : " + nodesToString(name))
 	}
 
@@ -2315,6 +2316,32 @@ mul:
 		}
 		values = append(values[:k], append(inject, values[k+1:]...)...)
 		goto mul
+	}
+
+	for k := range values {
+		for j := range values[k] {
+			// [[STRING, `"123456"`, {898 24}]]
+			if values[k][j].tok != token.STRING {
+				continue
+			}
+			if len(values[k][j].b) < 4 {
+				continue
+			}
+
+			var inject [][]node
+			for r := range values[k][j].b {
+				if r == 0 || r == len(values[k][j].b)-1 {
+					continue
+				}
+				inject = append(inject, []node{{
+					tok: token.STRING,
+					b:   []byte{'\'', values[k][j].b[r], '\''},
+				}})
+			}
+			values = append(values[:k], append(inject, values[k+1:]...)...)
+
+			goto mul
+		}
 	}
 
 	if len(nameExpr) != len(values) {

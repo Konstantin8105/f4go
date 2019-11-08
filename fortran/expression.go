@@ -58,8 +58,8 @@ func (p *parser) parseExprNodes(in []node) (expr goast.Expr) {
 	p.fixDoubleStar(&nodes)
 	p.fixString(&nodes)
 	p.fixComplexValue(&nodes)
-	p.fixConcatString(&nodes)
 	p.fixIdent(&nodes)
+	p.fixConcatString(&nodes)
 
 	str := nodesToString(nodes)
 
