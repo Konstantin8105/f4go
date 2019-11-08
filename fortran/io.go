@@ -270,7 +270,13 @@ func (p *parser) parseRead() (stmts []goast.Stmt) {
 
 	stmts = p.parseStmt()
 
-	stmts[0].(*goast.ExprStmt).X.(*goast.CallExpr).Fun.(*goast.SelectorExpr).Sel.Name = "READ"
+	if e, ok := stmts[0].(*goast.ExprStmt); ok {
+		if c, ok := e.X.(*goast.CallExpr); ok {
+			if sel, ok := c.Fun.(*goast.SelectorExpr); ok {
+				sel.Sel.Name = "READ"
+			}
+		}
+	}
 
 	return
 }

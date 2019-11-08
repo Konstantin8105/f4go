@@ -1002,13 +1002,14 @@ C -----------------------------------------------------
             ! CHARACTER*512 IN_CH
             INTEGER       IN_I
             REAL          IN_R1
-            REAL          IN_A(3)
+C           REAL          IN_A(3)
             ! INTEGER       NN
             ! INTEGER       NVAL(60)
-            INTEGER       A,I
+            INTEGER       A
+C           INTEGER       I
             INTEGER       NAI
             PARAMETER     (NAI = 5)
-            INTEGER       AI(NAI)
+C           INTEGER       AI(NAI)
             ! LOGICAL       L1, L2
             ! L1 = .TRUE.
             ! L2 = .FALSE.
@@ -1046,10 +1047,10 @@ C           DO 100 I = 1, N
 C               READ( NIN, FMT = * )( A( I, J ), J = 1, N )
 C           100 CONTINUE
 
-            READ( OUT, FMT = * )( AI ( I ), I = 1, NAI )
-            DO I = 1, NAI
-                WRITE(*,'(I2)') AI(I)
-            END DO
+C           READ( OUT, FMT = * )( AI ( I ), I = 1, NAI )
+C           DO I = 1, NAI
+C               WRITE(*,'(I2)') AI(I)
+C           END DO
 C
 C           REAL
 C
@@ -1060,8 +1061,8 @@ C
 C
 C           REAL ARRAY
 C
-            READ (OUT, FMT = *  ) (IN_A(I), I=1,A)
-            WRITE( * , '(F8.2)' )  IN_A(1)
+C           READ (OUT, FMT = *  ) (IN_A(I), I=1,A)
+C           WRITE( * , '(F8.2)' )  IN_A(1)
 C           WRITE( * , '(3F8.2)' ) (IN_A(I), I=1,A)
 C
 C           CHARACTER

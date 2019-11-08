@@ -19,6 +19,18 @@ func REWIND(unit int) {
 }
 
 func WRITE(unit int, format []byte, a ...interface{}) {
+again:
+	for i := 1; i < len(a); i++ {
+		b1, ok1 := a[i].([]byte)
+		for j := i + 1; j < len(a); j++ {
+			b2, ok2 := a[j].([]byte)
+			if ok1 && ok2 {
+				b1 = append(b1, b2...)
+				a = append(a[:i], append([]interface{}{b1}, a[i+1:]...)...)
+				goto again
+			}
+		}
+	}
 
 	for i := range a {
 		if str, ok := a[i].([]byte); ok {

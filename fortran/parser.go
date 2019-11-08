@@ -2229,48 +2229,52 @@ namesExplode:
 			continue
 		}
 
-		// P    -> P(   -> P(  1,1)   , P(  2,1)   , P(  1,2)   , P(  2,2)   //
-		// P(1) -> P(1, -> P(1,1,1)   , P(1,2,1)   , P(1,1,2)   , P(1,2,2)   //
-		if name[len(name)-1].tok == token.RPAREN {
-			name[len(name)-1].tok = token.COMMA
-			name[len(name)-1].b = []byte(",")
-		} else if len(name) == 1 {
-			name = append(name, node{tok: token.LPAREN, b: []byte("(")})
+		//          prefix|  | postfix
+		// P    ->      P(|  |  )       -> P(1,1   )   , P(2,1   )   , P(1,2   )   , P(2,2   )   //
+		// P(1) ->      P(|  |,1)       -> P(1,1 ,1)   , P(1,2 ,1)   , P(1,2 ,1)   , P(2,2 ,1)   //
+
+		var prefix []node
+		prefix = append([]node{name[0]}, node{tok: token.LPAREN, b: []byte("(")})
+
+		var postfix []node
+		postfix = append(postfix, node{tok: token.RPAREN, b: []byte(")")})
+		if len(name) > 1 {
+			postfix = append([]node{{tok: token.COMMA, b: []byte(",")}}, name[2:len(name)]...)
 		}
 
 		var inject [][]node
 		switch lenArray - exs {
 		case 1:
 			var (
-				s1, _    = v.typ.getMinLimit(exs)
-				size1, _ = p.getSize(v.name, exs)
+				s1, _    = v.typ.getMinLimit(lenArray - 1 - exs)
+				size1, _ = p.getSize(v.name, lenArray-1-exs)
 			)
 			for i := 1; i <= size1; i++ {
 				var sl []node
-				sl = append(sl, name...)
+				sl = append(sl, prefix...)
 				sl = append(sl,
 					node{tok: token.INT, b: []byte(strconv.Itoa(s1 + i - 1))},
-					node{tok: token.RPAREN, b: []byte(")")},
 				)
+				sl = append(sl, postfix...)
 				inject = append(inject, sl)
 			}
 		case 2:
 			var (
-				s1, _    = v.typ.getMinLimit(exs)
-				size1, _ = p.getSize(v.name, exs)
-				s2, _    = v.typ.getMinLimit(exs + 1)
-				size2, _ = p.getSize(v.name, exs+1)
+				s1, _    = v.typ.getMinLimit(lenArray - 1 - exs)
+				size1, _ = p.getSize(v.name, lenArray-1-exs)
+				s2, _    = v.typ.getMinLimit(lenArray - 1 - exs + 1)
+				size2, _ = p.getSize(v.name, lenArray-1-exs+1)
 			)
 			for j := 1; j <= size2; j++ {
 				for i := 1; i <= size1; i++ {
 					var sl []node
-					sl = append(sl, name...)
+					sl = append(sl, prefix...)
 					sl = append(sl,
 						node{tok: token.INT, b: []byte(strconv.Itoa(s1 + i - 1))},
 						node{tok: token.COMMA, b: []byte(",")},
 						node{tok: token.INT, b: []byte(strconv.Itoa(s2 + j - 1))},
-						node{tok: token.RPAREN, b: []byte(")")},
 					)
+					sl = append(sl, postfix...)
 					inject = append(inject, sl)
 				}
 			}
@@ -2287,20 +2291,21 @@ namesExplode:
 				for j := 1; j <= size2; j++ {
 					for i := 1; i <= size1; i++ {
 						var sl []node
-						sl = append(sl, name...)
+						sl = append(sl, prefix...)
 						sl = append(sl,
 							node{tok: token.INT, b: []byte(strconv.Itoa(s1 + i - 1))},
 							node{tok: token.COMMA, b: []byte(",")},
 							node{tok: token.INT, b: []byte(strconv.Itoa(s2 + j - 1))},
 							node{tok: token.COMMA, b: []byte(",")},
 							node{tok: token.INT, b: []byte(strconv.Itoa(s3 + k - 1))},
-							node{tok: token.RPAREN, b: []byte(")")},
 						)
+						sl = append(sl, postfix...)
 						inject = append(inject, sl)
 					}
 				}
 			}
 		}
+
 		names = append(names[:i], append(inject, names[i+1:]...)...)
 		goto namesExplode
 	}
@@ -2510,6 +2515,7 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 //  PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 )  , ZERO = 0.0E+0 )
 //  PARAMETER ( LV = 2 )
 func (p *parser) parseParameter() (stmts []goast.Stmt) {
+	start := p.ident
 	p.expect(ftParameter)
 	p.ident++
 	p.expect(token.LPAREN)
@@ -2549,6 +2555,32 @@ func (p *parser) parseParameter() (stmts []goast.Stmt) {
 
 	p.expect(token.RPAREN)
 	p.ident++
+
+	p.ident = start
+
+	p.ns[p.ident].tok = ftNewLine
+	p.ident++
+	p.ns[p.ident].tok = ftNewLine
+	counter = 1
+	for ; p.ident < len(p.ns); p.ident++ {
+		if p.ns[p.ident].tok == token.LPAREN {
+			counter++
+		}
+		if p.ns[p.ident].tok == token.RPAREN {
+			counter--
+		}
+		if p.ns[p.ident].tok == token.RPAREN && counter == 0 {
+			p.ns[p.ident].tok = ftNewLine
+			p.ns[p.ident].b = []byte("\n")
+			break
+		}
+		if p.ns[p.ident].tok == token.COMMA && counter == 1 {
+			p.ns[p.ident].tok = ftNewLine
+			p.ns[p.ident].b = []byte("\n")
+			continue
+		}
+	}
+	p.ident = start
 	return
 }
 
