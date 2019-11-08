@@ -865,8 +865,14 @@ func isIgnoreCall(call *goast.CallExpr) bool {
 			case
 				"math",
 				"real",
-				"intrinsic",
 				"fmt":
+				return true
+
+			case
+				"intrinsic":
+				if sel.Sel.Name == "READ" {
+					return false
+				}
 				return true
 			}
 		}

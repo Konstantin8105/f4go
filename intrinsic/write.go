@@ -34,9 +34,9 @@ func CLOSE(unit int) {
 	delete(units, unit)
 }
 
-func READ(unit int, format []byte, a ...interface{}) {
+func READ(unit *int, format []byte, a ...interface{}) {
 
-	format = bytes.ToLower(format)
+	format = bytes.TrimSpace(bytes.ToLower(format))
 
 	// Change from %15.4f to %15f
 	for i := 1; i < 20; i++ {
@@ -49,7 +49,7 @@ func READ(unit int, format []byte, a ...interface{}) {
 	}
 
 	ft := string(format)
-	_, err := fmt.Fscanf(units[unit], ft, a...)
+	_, err := fmt.Fscanf(units[*unit], ft, a...)
 	if err != nil {
 		var types string
 		for i := range a {

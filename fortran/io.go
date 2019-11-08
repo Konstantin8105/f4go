@@ -79,7 +79,7 @@ func (p *parser) parseWrite() (stmts []goast.Stmt) {
 			fs = p.parseFormat(line[2:])
 		} else if fmts.tok == token.MUL {
 			// Example: *
-			fs = "\" %s\\n\""
+			fs = "\" %v\\n\""
 		} else {
 			// Example :
 			// '(A80)'
