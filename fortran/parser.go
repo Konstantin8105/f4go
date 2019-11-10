@@ -507,7 +507,7 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 		p.ns = comb
 		p.ident--
 
-		fmt.Fprintf(os.Stdout, "Add fake PROGRAM MAIN in pos : %v", p.ns[p.ident].pos)
+		fmt.Fprintf(os.Stdout, "Add fake PROGRAM MAIN in pos : %v\n", p.ns[p.ident].pos)
 	}
 
 	return
@@ -2260,10 +2260,10 @@ namesExplode:
 			}
 		case 2:
 			var (
-				s1, _    = v.typ.getMinLimit(lenArray - 1 - exs)
-				size1, _ = p.getSize(v.name, lenArray-1-exs)
-				s2, _    = v.typ.getMinLimit(lenArray - 1 - exs + 1)
-				size2, _ = p.getSize(v.name, lenArray-1-exs+1)
+				s1, _    = v.typ.getMinLimit(lenArray - 1 - exs - 1)
+				size1, _ = p.getSize(v.name, lenArray-1-exs-1)
+				s2, _    = v.typ.getMinLimit(lenArray - 1 - exs)
+				size2, _ = p.getSize(v.name, lenArray-1-exs)
 			)
 			for j := 1; j <= size2; j++ {
 				for i := 1; i <= size1; i++ {
@@ -2280,12 +2280,12 @@ namesExplode:
 			}
 		case 3:
 			var (
-				s1, _    = v.typ.getMinLimit(exs)
-				size1, _ = p.getSize(v.name, exs)
-				s2, _    = v.typ.getMinLimit(exs + 1)
-				size2, _ = p.getSize(v.name, exs+1)
-				s3, _    = v.typ.getMinLimit(exs + 2)
-				size3, _ = p.getSize(v.name, exs+2)
+				s1, _    = v.typ.getMinLimit(lenArray - 1 - exs - 2)
+				size1, _ = p.getSize(v.name, lenArray-1-exs-2)
+				s2, _    = v.typ.getMinLimit(lenArray - 1 - exs - 1)
+				size2, _ = p.getSize(v.name, lenArray-1-exs-1)
+				s3, _    = v.typ.getMinLimit(lenArray - 1 - exs)
+				size3, _ = p.getSize(v.name, lenArray-1-exs)
 			)
 			for k := 1; k <= size3; k++ {
 				for j := 1; j <= size2; j++ {

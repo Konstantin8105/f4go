@@ -890,27 +890,27 @@ C           write(*,fmt = 500) real(CR), aimag(CR)
 C -----------------------------------------------------
 
        SUBROUTINE test_character
-           CHARACTER*5 CH(2)
-           CHARACTER*6 CT(2)
-           INTEGER NW, NS
-           PARAMETER (NW = 6)
-           PARAMETER (NS = 2)
-           DATA CT(1) /'123456'/
-           DATA CT(2) /'ABCDFE'/
-           CHARACTER*6 CS(NS)
-           DATA CS /'123456', 'ABCDEF' /
-           WRITE(*, FMT=531 ) CT(1)
-           WRITE(NW, FMT=531 ) CT(2)
-           CH(1) = 'qwe'
-           CH(2) = 'asd'
-           WRITE(*, FMT=530 ) CH(1)
-           WRITE(6, FMT=530 ) CH(2)
-           WRITE(*, FMT=531 ) CS(1)
-           WRITE(*, FMT=531 ) CS(2)
-           WRITE(*, '(I2,I2)') NW, NS
-           RETURN
-  530      FORMAT('-->',A3)
-  531      FORMAT('++>',A6)
+C          CHARACTER*5 CH(2)
+C          CHARACTER*6 CT(2)
+C          INTEGER NW, NS
+C          PARAMETER (NW = 6)
+C          PARAMETER (NS = 2)
+C          DATA CT(1) /'123456'/
+C          DATA CT(2) /'ABCDFE'/
+C          CHARACTER*6 CS(NS)
+C          DATA CS /'123456', 'ABCDEF' /
+C          WRITE(*, FMT=531 ) CT(1)
+C          WRITE(NW, FMT=531 ) CT(2)
+C          CH(1) = 'qwe'
+C          CH(2) = 'asd'
+C          WRITE(*, FMT=530 ) CH(1)
+C          WRITE(6, FMT=530 ) CH(2)
+C          WRITE(*, FMT=531 ) CS(1)
+C          WRITE(*, FMT=531 ) CS(2)
+C          WRITE(*, '(I2,I2)') NW, NS
+C          RETURN
+C 530      FORMAT('-->',A3)
+C 531      FORMAT('++>',A6)
        END SUBROUTINE
 
 C -----------------------------------------------------
@@ -1001,7 +1001,7 @@ C -----------------------------------------------------
             REAL VALUE
             ! CHARACTER*512 IN_CH
             INTEGER       IN_I
-            REAL          IN_R1
+C           REAL          IN_R1
 C           REAL          IN_A(3)
             ! INTEGER       NN
             ! INTEGER       NVAL(60)
@@ -1054,8 +1054,8 @@ C           END DO
 C
 C           REAL
 C
-            READ (OUT,'(F6.2)') IN_R1
-            WRITE(UNIT= 6 ,FMT = '(F8.2)') IN_R1
+C           READ (OUT,'(F6.2)') IN_R1
+C           WRITE(UNIT= 6 ,FMT = '(F8.2)') IN_R1
             ! WRITE(UNIT= * ,FMT = '(D8.2)') IN_R1
             ! WRITE(UNIT= 6 ,FMT = '(E8.2)') IN_R1
 C
