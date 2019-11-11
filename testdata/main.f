@@ -1245,11 +1245,11 @@ C -----------------------------------------------------
 
 
         SUBROUTINE test_common2
-C           INTEGER COL
-C           COMMON /INFOC/ COL
-C           COL = 5
-C           IF (COL.NE.5) call fail("common2 - COL")
-C           WRITE(*,'(I2)') COL
+            INTEGER COL
+            COMMON /INFOC/ COL
+            COL = 5
+            IF (COL.NE.5) call fail("common2 - COL")
+            WRITE(*,'(I2)') COL
         END 
 
         SUBROUTINE test_common3

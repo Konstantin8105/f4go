@@ -2748,6 +2748,8 @@ func (p *parser) parseCommon() (stmts []goast.Stmt) {
 		if index := strings.Index(names[i], "("); index > 0 {
 			name = name[:index]
 		}
+		var inject []node
+		n := scan([]byte(names[i]))
 		if _, ok := p.initVars.get(name); !ok {
 			// from:
 			//    COMMON LOC(3), T(1)
@@ -2757,30 +2759,30 @@ func (p *parser) parseCommon() (stmts []goast.Stmt) {
 			//    COMMON LOC(3), T(1)
 
 			// INTEGER name
-			var inject []node
 			inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
 			if i == 0 {
 				inject = append(inject, node{tok: ftInteger, b: []byte("INTEGER")})
 			} else {
 				inject = append(inject, node{tok: ftReal, b: []byte("REAL")})
 			}
-			n := scan([]byte(names[i]))
 			inject = append(inject, n...)
 			inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
-
-			// INTEGER COMMON.blockName.name
-			inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
-			if i == 0 {
-				inject = append(inject, node{tok: ftInteger, b: []byte("INTEGER")})
-			} else {
-				inject = append(inject, node{tok: ftReal, b: []byte("REAL")})
-			}
-			n[0].b = append([]byte("COMMON."+blockName+"."), n[0].b...)
-			inject = append(inject, n...)
-			inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
-
-			p.ns = append(p.ns[:p.ident], append(inject, p.ns[p.ident:]...)...)
 		}
+
+		// INTEGER COMMON.blockName.name
+		n = scan([]byte(names[i]))
+		inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
+		if i == 0 {
+			inject = append(inject, node{tok: ftInteger, b: []byte("INTEGER")})
+		} else {
+			inject = append(inject, node{tok: ftReal, b: []byte("REAL")})
+		}
+		n[0].b = append([]byte("COMMON."+blockName+"."), n[0].b...)
+		n[0].tok = token.IDENT
+		inject = append(inject, n...)
+		inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
+
+		p.ns = append(p.ns[:p.ident], append(inject, p.ns[p.ident:]...)...)
 
 		// name = COMMON.blockName.name
 		stmts = append(stmts, &goast.AssignStmt{
