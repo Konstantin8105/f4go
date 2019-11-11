@@ -1316,11 +1316,11 @@ C           WRITE(*,'(F8.2)') P
 C -----------------------------------------------------
 
         SUBROUTINE test_write_loop
-C           INTEGER P(3), E
-C           E = 42
-C           DATA (P(I),I=1,3) / 5,3,1 /
+            INTEGER P(3), E
+            E = 42
+            DATA (P(I),I=1,3) / 5,3,1 /
 C           WRITE(*,'(I2)') (P(I),I=1,3)
-C           WRITE(*,'(I2)') E
+            WRITE(*,'(I2)') E
 C           WRITE(*,'(3I2)') (P(I),I=1,3)
 C           WRITE(*,'(I2)') (P(I),I=1,3), E
 C           WRITE(*,'(4I2)') (P(I),I=1,3), E

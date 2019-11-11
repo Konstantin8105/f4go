@@ -1328,6 +1328,104 @@ func (p *parser) parseDoWhile() (sDo goast.ForStmt) {
 	return
 }
 
+// Examples:
+// CALL XERBLA ( 'CGEMM ' , INFO )
+// CALL NORET
+func (p *parser) parseCall() goast.Stmt {
+	{
+		begin := p.ident
+		p.expect(ftCall)
+		p.ident++
+		p.expect(token.IDENT)
+		p.ident++
+		start := p.ident
+
+		// parse names and values
+		var args [][]node
+		{
+			var nodes []node
+			addNode := func() {
+				args = append(args, nodes)
+				nodes = make([]node, 0)
+			}
+			counter := 0
+			for ; p.ident < len(p.ns); p.ident++ {
+				if p.ns[p.ident].tok == ftNewLine {
+					break
+				}
+				if p.ns[p.ident].tok == token.COMMENT {
+					continue
+				}
+				if p.ns[p.ident].tok == token.LPAREN {
+					counter++
+					if counter == 1 {
+						continue
+					}
+				}
+				if p.ns[p.ident].tok == token.RPAREN {
+					counter--
+					if counter == 0 {
+						continue
+					}
+				}
+				if p.ns[p.ident].tok == token.COMMA && counter == 1 {
+					addNode()
+					continue
+				}
+				nodes = append(nodes, p.ns[p.ident])
+			}
+			addNode()
+		}
+
+		// Explode loops
+		{
+			var exp [][]node
+			for i := range args {
+				e, ok := explodeFor(args[i])
+				if ok {
+					exp = append(exp, e...)
+					continue
+				}
+				exp = append(exp, args[i])
+			}
+			args = exp
+		}
+
+		// merge nodes
+		{
+			finish := p.ident
+			var inject []node
+			inject = append(inject, node{tok: token.LPAREN, b: []byte("(")})
+			for i := range args {
+				inject = append(inject, args[i]...)
+				if i != len(args)-1 {
+					inject = append(inject, node{tok: token.COMMA, b: []byte(",")})
+				}
+			}
+			inject = append(inject, node{tok: token.RPAREN, b: []byte(")")})
+
+			p.ns = append(p.ns[:start], append(inject, p.ns[finish:]...)...)
+			p.ident = begin
+		}
+	}
+
+	p.expect(ftCall)
+	p.ident++
+	start := p.ident
+	for ; p.ns[p.ident].tok != ftNewLine; p.ident++ {
+	}
+	f := p.parseExpr(start, p.ident)
+	if p.ident-start == 1 {
+		f = &goast.CallExpr{
+			Fun: goast.NewIdent(string(p.ns[start].b)),
+		}
+	}
+	p.expect(ftNewLine)
+	return &goast.ExprStmt{
+		X: f,
+	}
+}
+
 func (p *parser) parseDo() (sDo goast.ForStmt) {
 	p.expect(ftDo)
 	p.ident++
@@ -1675,21 +1773,8 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	case ftCall:
 		// Example:
 		// CALL XERBLA ( 'CGEMM ' , INFO )
-		p.expect(ftCall)
-		p.ident++
-		start := p.ident
-		for ; p.ns[p.ident].tok != ftNewLine; p.ident++ {
-		}
-		f := p.parseExpr(start, p.ident)
-		if p.ident-start == 1 {
-			f = &goast.CallExpr{
-				Fun: goast.NewIdent(string(p.ns[start].b)),
-			}
-		}
-		stmts = append(stmts, &goast.ExprStmt{
-			X: f,
-		})
-		p.expect(ftNewLine)
+		sCall := p.parseCall()
+		stmts = append(stmts, sCall)
 
 	case ftIntrinsic:
 		// Example:
