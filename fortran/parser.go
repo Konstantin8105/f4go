@@ -1438,60 +1438,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 }
 
 func (p *parser) parseBinary(start, finish int) (expr goast.Expr) {
-
-	if p.ns[start].tok == token.NOT {
-		return &goast.UnaryExpr{
-			Op: token.NOT,
-			X:  &goast.ParenExpr{X: p.parseExpr(start+1, finish)},
-		}
-	}
-
-	// conditions
-	var operationPos int
-	for operationPos = start; operationPos < finish; operationPos++ {
-		var found bool
-		switch p.ns[operationPos].tok {
-		case
-			token.LAND, // &&
-			token.LOR:  // ||
-			found = true
-		}
-		if found {
-			left := p.parseBinary(start, operationPos)
-			rigth := p.parseBinary(operationPos+1, finish)
-			return &goast.BinaryExpr{
-				X:  left,
-				Op: p.ns[operationPos].tok,
-				Y:  rigth,
-			}
-		}
-	}
-
-	for operationPos = start; operationPos < finish; operationPos++ {
-		var found bool
-		switch p.ns[operationPos].tok {
-		case
-			token.LSS, // <
-			token.GTR, // >
-			token.LEQ, // <=
-			token.GEQ, // >=
-			token.NEQ, // !=
-			token.EQL: // ==
-			found = true
-		}
-		if found {
-			break
-		}
-	}
-	if start < operationPos && operationPos < finish {
-		expr = &goast.BinaryExpr{
-			X:  p.parseExpr(start, operationPos),
-			Op: p.ns[operationPos].tok,
-			Y:  p.parseExpr(operationPos+1, finish),
-		}
-	} else {
-		expr = p.parseExpr(start, finish)
-	}
+	expr = p.parseExpr(start, finish)
 	if b, ok := expr.(*goast.BinaryExpr); ok {
 		if _, ok := b.X.(*goast.CallExpr); ok {
 			b.X = &goast.ParenExpr{X: &goast.StarExpr{X: b.X}}
