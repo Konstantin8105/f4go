@@ -472,6 +472,26 @@ func (p *parser) fixIdent(nodes *[]node) {
 // 13  .  .  Name: "CR"
 // 15  .  }
 // 16  }
+//
+//  0  *ast.BinaryExpr {
+//  1  .  X: *ast.ParenExpr {
+//  3  .  .  X: *ast.StarExpr {
+//  5  .  .  .  X: *ast.Ident {
+//  7  .  .  .  .  Name: "R"
+// 12  .  .  .  }
+// 13  .  .  }
+// 15  .  }
+// 16  .  OpPos: -
+// 17  .  Op: *
+// 18  .  Y: *ast.ParenExpr {
+// 20  .  .  X: *ast.StarExpr {
+// 22  .  .  .  X: *ast.Ident {
+// 24  .  .  .  .  Name: "CR"
+// 26  .  .  .  }
+// 27  .  .  }
+// 29  .  }
+// 30  }
+//
 func (p *parser) fixComplexRealOperation(ast goast.Expr) {
 	if be, ok := ast.(*goast.BinaryExpr); ok {
 		xIsComplex, xOk := p.isComplex(be.X)
@@ -514,7 +534,28 @@ func (p *parser) fixComplexRealOperation(ast goast.Expr) {
 // 0  *ast.Ident {
 // 2  .  Name: "A"
 // 7  }
+//
+// 18 *ast.ParenExpr {
+// 20 X: *ast.StarExpr {
+// 22 .  X: *ast.Ident {
+// 24 .  .  Name: "CR"
+// 26 .  }
+// 27 }
+//
 func (p *parser) isComplex(e goast.Expr) (isComplex, ok bool) {
+	if par, ok := e.(*goast.ParenExpr); ok {
+		if st, ok := par.X.(*goast.StarExpr); ok {
+			if id, ok := st.X.(*goast.Ident); ok {
+				if v, ok := p.initVars.get(id.Name); ok {
+					if strings.Contains(v.typ.getBaseType(), "complex") {
+						return true, true
+					} else {
+						return false, true
+					}
+				}
+			}
+		}
+	}
 	if id, ok := e.(*goast.Ident); ok {
 		if v, ok := p.initVars.get(id.Name); ok {
 			if strings.Contains(v.typ.getBaseType(), "complex") {
