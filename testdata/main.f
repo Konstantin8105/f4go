@@ -845,9 +845,9 @@ C -----------------------------------------------------
             COMPLEX*16 zc
             double complex db1, db2
             PARAMETER (ONE= (1.9E+0,2.3E+0))
-C           REAL    * 8   R
-C           COMPLEX * 16  CR
-C           COMPLEX * 16  CRA(1)
+            REAL    * 8   R
+            COMPLEX * 16  CR
+            COMPLEX * 16  CRA(1)
             Intrinsic real , aimag
 
             c1 = (1.1221,2.2)
@@ -874,23 +874,23 @@ C           COMPLEX * 16  CRA(1)
             write(*,fmt = 500) real(db1), aimag(db1)
             write(*,fmt = 500) real(db2), aimag(db2)
 
-C           write(*,*) "==== REAL * COMPLEX ===="
-C           CR = (0.12,0.34)
-C           R = 12.34
-C           CR = R * CR
-C           write(*,fmt = 500) real(cr), aimag(cr)
-C           CR = CR * R
-C           write(*,fmt = 500) real(CR), aimag(CR)
-C           CR = (1.23,2.34)
-C           CR = DBLE(CR) * CR
-C           write(*,fmt = 500) real(CR), aimag(CR)
-C           CR = CR * DBLE(CR)
-C           write(*,fmt = 500) real(CR), aimag(CR)
-C           CRA(1) = (3.45,4.56)
-C           CR = CRA(1) * CR
-C           write(*,fmt = 500) real(CR), aimag(CR)
-C           CR = CR * CRA(1)
-C           write(*,fmt = 500) real(CR), aimag(CR)
+            write(*,*) "==== REAL * COMPLEX ===="
+            CR = (0.12,0.34)
+            R = 12.34
+            CR = R * CR
+            write(*,fmt = 500) real(cr), aimag(cr)
+            CR = CR * R
+            write(*,fmt = 500) real(CR), aimag(CR)
+            CR = (1.23,2.34)
+            CR = DBLE(CR) * CR
+            write(*,fmt = 500) real(CR), aimag(CR)
+            CR = CR * DBLE(CR)
+            write(*,fmt = 500) real(CR), aimag(CR)
+            CRA(1) = (3.45,4.56)
+            CR = CRA(1) * CR
+            write(*,fmt = 500) real(CR), aimag(CR)
+            CR = CR * CRA(1)
+            write(*,fmt = 500) real(CR), aimag(CR)
 
             return
   500  FORMAT('>',F15.2,' + ',F15.2,'<')
