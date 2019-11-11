@@ -298,6 +298,23 @@ C -----------------------------------------------------
             integer IR, JR, HR, iterator
             integer ab_min, funarr, funcell
             integer A(2,2)
+
+
+            COMPLEX CTRUE5(8,5,2)
+
+            iterator = 9
+            DO IR = 1,8
+                DO JR = 1,5
+                    DO HR = 1,2
+                        CTRUE5(IR,JR,HR) = CMPLX(iterator)
+                        iterator = iterator + 3
+                        WRITE (*,'(F8.2)') REAL(CTRUE5(IR,JR,HR))
+                    END DO
+                END DO
+            END DO
+
+
+
             JR = 1
             iterator = 1
             DO 140 IR = 1,2
