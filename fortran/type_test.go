@@ -32,7 +32,7 @@ func TestParseType(t *testing.T) {
 				{tok: token.MUL, b: []byte("*")},
 				{tok: token.INT, b: []byte("32")},
 			},
-			typ: "[]byte",
+			typ: "[32]byte",
 		},
 		{
 			nodes: []node{

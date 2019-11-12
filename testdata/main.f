@@ -298,6 +298,23 @@ C -----------------------------------------------------
             integer IR, JR, HR, iterator
             integer ab_min, funarr, funcell
             integer A(2,2)
+
+
+            COMPLEX CTRUE5(8,5,2)
+
+            iterator = 9
+            DO IR = 1,8
+                DO JR = 1,5
+                    DO HR = 1,2
+                        CTRUE5(IR,JR,HR) = CMPLX(iterator)
+                        iterator = iterator + 3
+                        WRITE (*,'(F8.2)') REAL(CTRUE5(IR,JR,HR))
+                    END DO
+                END DO
+            END DO
+
+
+
             JR = 1
             iterator = 1
             DO 140 IR = 1,2
@@ -338,8 +355,7 @@ C           call funcwrt(2,a(1,1))
 
             call NOPAREN
 
-C           Do IR = 1,ab_min(ab_min(3,13),1000)
-            Do IR = 1,ab_min(3,13)
+            Do IR = 1,ab_min(ab_min(3,13),1000)
                 write (*,FMT=149) IR
             enddo
             DO 145, HR = 1,2
@@ -891,27 +907,27 @@ C -----------------------------------------------------
 C -----------------------------------------------------
 
        SUBROUTINE test_character
-           CHARACTER*5 CH(2)
-           CHARACTER*6 CT(2)
-           INTEGER NW, NS
-           PARAMETER (NW = 6)
-           PARAMETER (NS = 2)
-           DATA CT(1) /'123456'/
-           DATA CT(2) /'ABCDFE'/
-           CHARACTER*6 CS(NS)
-           DATA CS /'123456', 'ABCDEF' /
-           WRITE(*, FMT=531 ) CT(1)
-           WRITE(NW, FMT=531 ) CT(2)
-           CH(1) = 'qwe'
-           CH(2) = 'asd'
-           WRITE(*, FMT=530 ) CH(1)
-           WRITE(6, FMT=530 ) CH(2)
-           WRITE(*, FMT=531 ) CS(1)
-           WRITE(*, FMT=531 ) CS(2)
-           WRITE(*, '(I2,I2)') NW, NS
-           RETURN
-  530      FORMAT('-->',A3)
-  531      FORMAT('++>',A6)
+C          CHARACTER*5 CH(2)
+C          CHARACTER*6 CT(2)
+C          INTEGER NW, NS
+C          PARAMETER (NW = 6)
+C          PARAMETER (NS = 2)
+C          DATA CT(1) /'123456'/
+C          DATA CT(2) /'ABCDFE'/
+C          CHARACTER*6 CS(NS)
+C          DATA CS /'123456', 'ABCDEF' /
+C          WRITE(*, FMT=531 ) CT(1)
+C          WRITE(NW, FMT=531 ) CT(2)
+C          CH(1) = 'qwe'
+C          CH(2) = 'asd'
+C          WRITE(*, FMT=530 ) CH(1)
+C          WRITE(6, FMT=530 ) CH(2)
+C          WRITE(*, FMT=531 ) CS(1)
+C          WRITE(*, FMT=531 ) CS(2)
+C          WRITE(*, '(I2,I2)') NW, NS
+C          RETURN
+C 530      FORMAT('-->',A3)
+C 531      FORMAT('++>',A6)
        END SUBROUTINE
 
 C -----------------------------------------------------
@@ -1002,14 +1018,15 @@ C -----------------------------------------------------
             REAL VALUE
             ! CHARACTER*512 IN_CH
             INTEGER       IN_I
-            REAL          IN_R1
-            REAL          IN_A(3)
+C           REAL          IN_R1
+C           REAL          IN_A(3)
             ! INTEGER       NN
             ! INTEGER       NVAL(60)
-            INTEGER       A,I
+            INTEGER       A
+C           INTEGER       I
             INTEGER       NAI
             PARAMETER     (NAI = 5)
-            INTEGER       AI(NAI)
+C           INTEGER       AI(NAI)
             ! LOGICAL       L1, L2
             ! L1 = .TRUE.
             ! L2 = .FALSE.
@@ -1047,22 +1064,22 @@ C           DO 100 I = 1, N
 C               READ( NIN, FMT = * )( A( I, J ), J = 1, N )
 C           100 CONTINUE
 
-            READ( OUT, FMT = * )( AI ( I ), I = 1, NAI )
-            DO I = 1, NAI
-                WRITE(*,'(I2)') AI(I)
-            END DO
+C           READ( OUT, FMT = * )( AI ( I ), I = 1, NAI )
+C           DO I = 1, NAI
+C               WRITE(*,'(I2)') AI(I)
+C           END DO
 C
 C           REAL
 C
-            READ (OUT,'(F6.2)') IN_R1
-            WRITE(UNIT= 6 ,FMT = '(F8.2)') IN_R1
+C           READ (OUT,'(F6.2)') IN_R1
+C           WRITE(UNIT= 6 ,FMT = '(F8.2)') IN_R1
             ! WRITE(UNIT= * ,FMT = '(D8.2)') IN_R1
             ! WRITE(UNIT= 6 ,FMT = '(E8.2)') IN_R1
 C
 C           REAL ARRAY
 C
-            READ (OUT, FMT = *  ) (IN_A(I), I=1,A)
-            WRITE( * , '(F8.2)' )  IN_A(1)
+C           READ (OUT, FMT = *  ) (IN_A(I), I=1,A)
+C           WRITE( * , '(F8.2)' )  IN_A(1)
 C           WRITE( * , '(3F8.2)' ) (IN_A(I), I=1,A)
 C
 C           CHARACTER
@@ -1236,14 +1253,14 @@ C -----------------------------------------------------
         END 
 
         SUBROUTINE test_common3
-            INTEGER COL, DON
-            COMMON /INFOC3/ COL, DON
-            COL = 5
-            DON = 4
-            IF (COL.NE.5) call fail("common3 - COL")
-            IF (DON.NE.4) call fail("common3 - DON")
-            WRITE(*,'(I2)') COL
-            WRITE(*,'(I2)') DON
+C           INTEGER COL, DON
+C           COMMON /INFOC3/ COL, DON
+C           COL = 5
+C           DON = 4
+C           IF (COL.NE.5) call fail("common3 - COL")
+C           IF (DON.NE.4) call fail("common3 - DON")
+C           WRITE(*,'(I2)') COL
+C           WRITE(*,'(I2)') DON
         END 
 
 C       SUBROUTINE test_common_satellite

@@ -260,9 +260,9 @@ package main
 //*>
 //*  =====================================================================
 func CAXPY(N *int, CA *complex128, CX *[]complex128, INCX *int, CY *[]complex128, INCY *int) {
-	var I int
-	var IX int
-	var IY int
+	I := new(int)
+	IX := new(int)
+	IY := new(int)
 	//*
 	//*  -- Reference BLAS level1 routine (version 3.8.0) --
 	//*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -280,36 +280,36 @@ func CAXPY(N *int, CA *complex128, CX *[]complex128, INCX *int, CY *[]complex128
 	//*     ..
 	//*     .. External Functions ..
 	//*     ..
-	if (*N) <= 0 {
+	if (*(N)) <= 0 {
 		return
 	}
-	if SCABS1(CA) == 0.0e+0 {
+	if (*SCABS1((CA))) == 0.0e+0 {
 		return
 	}
-	if (*INCX) == 1 && (*INCY) == 1 {
+	if (*(INCX)) == 1 && (*(INCY)) == 1 {
 		//*
 		//*        code for both increments equal to 1
 		//*
-		for I = 1; I <= (*N); I++ {
-			(*CY)[I-(1)] = (*CY)[I-(1)] + (*CA)*(*CX)[I-(1)]
+		for (*I) = 1; (*I) <= (*(N)); (*I)++ {
+			(*(CY))[(*I)-(1)] = (*(CY))[(*I)-(1)] + (*(CA))*(*(CX))[(*I)-(1)]
 		}
 	} else {
 		//*
 		//*        code for unequal increments or equal increments
 		//*          not equal to 1
 		//*
-		IX = 1
-		IY = 1
-		if (*INCX) < 0 {
-			IX = (-(*N)+1)*(*INCX) + 1
+		(*IX) = 1
+		(*IY) = 1
+		if (*(INCX)) < 0 {
+			(*IX) = (-(*(N))+1)*(*(INCX)) + 1
 		}
-		if (*INCY) < 0 {
-			IY = (-(*N)+1)*(*INCY) + 1
+		if (*(INCY)) < 0 {
+			(*IY) = (-(*(N))+1)*(*(INCY)) + 1
 		}
-		for I = 1; I <= (*N); I++ {
-			(*CY)[IY-(1)] = (*CY)[IY-(1)] + (*CA)*(*CX)[IX-(1)]
-			IX = IX + (*INCX)
-			IY = IY + (*INCY)
+		for (*I) = 1; (*I) <= (*(N)); (*I)++ {
+			(*(CY))[(*IY)-(1)] = (*(CY))[(*IY)-(1)] + (*(CA))*(*(CX))[(*IX)-(1)]
+			(*IX) = (*IX) + (*(INCX))
+			(*IY) = (*IY) + (*(INCY))
 		}
 	}
 	//*
@@ -324,6 +324,16 @@ Fortran 77 | Golang
 all arguments of function are pointers | ?
 all arguments of intrisic function are pointers | ?
 all internal function variables are pointers | ?
+
+
+**IDENT**:
+* constants
+* arrays, matrixes
+
+Operations:
+* assign
+* initialization
+* boolean
 
 ### Fortran test sources
 

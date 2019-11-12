@@ -2,6 +2,7 @@ package fortran
 
 import (
 	goast "go/ast"
+	"go/token"
 	"strings"
 )
 
@@ -27,6 +28,39 @@ func (c callArgumentSimplification) Visit(node goast.Node) (w goast.Visitor) {
 		}
 	}
 
+	// intrinsic return not pointer
+	if par, ok := node.(*goast.ParenExpr); ok {
+		if st, ok := par.X.(*goast.StarExpr); ok {
+			if call, ok := st.X.(*goast.CallExpr); ok {
+				if id, ok := call.Fun.(*goast.Ident); ok && strings.Contains(id.Name, "intrinsic") {
+					par.X = call
+				}
+			}
+		}
+	}
+
+	if call, ok := node.(*goast.CallExpr); ok {
+		for i := range call.Args {
+			switch a := call.Args[i].(type) {
+			case *goast.UnaryExpr:
+				if a.Op == token.AND {
+					if par, ok := a.X.(*goast.ParenExpr); ok {
+						if st, ok := par.X.(*goast.StarExpr); ok {
+							call.Args[i] = st.X
+						}
+					}
+					if par, ok := a.X.(*goast.ParenExpr); ok {
+						if par2, ok := par.X.(*goast.ParenExpr); ok {
+							if st, ok := par2.X.(*goast.StarExpr); ok {
+								call.Args[i] = st.X
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	return c
 }
 
@@ -40,16 +74,25 @@ func (in intrinsic) Visit(node goast.Node) (w goast.Visitor) {
 		if n, ok := call.Fun.(*goast.Ident); ok {
 			if f, ok := intrinsicFunction[strings.ToUpper(n.Name)]; ok {
 				f(in.p, call)
-			} else if n.Name != "make" && n.Name != "append" && n.Name != "panic" {
-				n.Name = strings.ToUpper(n.Name)
+			} else {
+				switch n.Name {
+				case "make",
+					"append",
+					"panic",
+					"new",
+					"real":
+				default:
+					n.Name = strings.ToUpper(n.Name)
+				}
 			}
 		}
 	}
+
 	if call, ok := node.(*goast.CallExpr); ok {
 		if sel, ok := call.Fun.(*goast.SelectorExpr); ok {
 			if x, ok := sel.X.(*goast.Ident); ok && x.Name == "intrinsic" {
 
-				var isRead bool = sel.Sel.Name == "READ"
+				var isRead bool = (sel.Sel.Name == "READ")
 
 				for i := range call.Args {
 					if isRead && i > 1 {
@@ -174,6 +217,11 @@ var intrinsicFunction = map[string]func(*parser, *goast.CallExpr){
 		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
 		intrinsicArgumentCorrection(p, f, "intrinsic.SQRT", typeNames)
 	},
+	"CMPLX": func(p *parser, f *goast.CallExpr) {
+		typeNames := []string{"any"}
+		p.addImport("github.com/Konstantin8105/f4go/intrinsic")
+		intrinsicArgumentCorrection(p, f, "intrinsic.CMPLX", typeNames)
+	},
 }
 
 func intrinsicArgumentCorrection(p *parser, f *goast.CallExpr, name string, typeNames []string) {
@@ -183,6 +231,12 @@ func intrinsicArgumentCorrection(p *parser, f *goast.CallExpr, name string, type
 	f.Fun.(*goast.Ident).Name = name
 
 	for i := range typeNames {
+		// from "&(" to ""
+		if un, ok := f.Args[i].(*goast.UnaryExpr); ok && un.Op == token.AND {
+			if par, ok := un.X.(*goast.ParenExpr); ok {
+				f.Args[i] = par
+			}
+		}
 		if id, ok := f.Args[i].(*goast.Ident); ok {
 			if len(id.Name) > 3 && id.Name[:2] == "&(" {
 				id.Name = id.Name[2 : len(id.Name)-1]

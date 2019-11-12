@@ -19,6 +19,25 @@ func REWIND(unit int) {
 }
 
 func WRITE(unit int, format []byte, a ...interface{}) {
+again:
+	for i := 1; i < len(a); i++ {
+		b1, ok1 := a[i].([]byte)
+		for j := i + 1; j < len(a); j++ {
+			b2, ok2 := a[j].([]byte)
+			if ok1 && ok2 {
+				b1 = append(b1, b2...)
+				a = append(a[:i], append([]interface{}{b1}, a[i+1:]...)...)
+				goto again
+			}
+		}
+	}
+
+	for i := range a {
+		if str, ok := a[i].([]byte); ok {
+			a[i] = string(str)
+		}
+	}
+
 	fmt.Fprintf(units[unit], string(format), a...)
 }
 
@@ -34,9 +53,9 @@ func CLOSE(unit int) {
 	delete(units, unit)
 }
 
-func READ(unit int, format []byte, a ...interface{}) {
+func READ(unit *int, format []byte, a ...interface{}) {
 
-	format = bytes.ToLower(format)
+	format = bytes.TrimSpace(bytes.ToLower(format))
 
 	// Change from %15.4f to %15f
 	for i := 1; i < 20; i++ {
@@ -49,7 +68,7 @@ func READ(unit int, format []byte, a ...interface{}) {
 	}
 
 	ft := string(format)
-	_, err := fmt.Fscanf(units[unit], ft, a...)
+	_, err := fmt.Fscanf(units[*unit], ft, a...)
 	if err != nil {
 		var types string
 		for i := range a {

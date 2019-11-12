@@ -43,108 +43,90 @@ func (p *parser) parseRewind() (stmts []goast.Stmt) {
 //
 // write (*, '(I1,A2,I1)') i,'YY',i
 func (p *parser) parseWrite() (stmts []goast.Stmt) {
+	{
+		start := p.ident
+		p.expect(ftWrite)
+		p.ident++
+		p.expect(token.LPAREN)
 
+		// WRITE ( 1, *) R
+		//       ========= this out
+		args, end := separateArgsParen(p.ns[p.ident:])
+		p.ident += end
+
+		// Pattern:
+		//  WRITE( UNIT = ..., FMT = ...)
+		// Other parameters are ignored
+
+		// Part : UNIT
+		unit := string(args[0][0].b)
+		if len(args[0]) == 3 {
+			unit = string(args[0][2].b)
+		}
+		if unit == "*" {
+			unit = "6"
+		}
+
+		// Part: FMT
+		fmts := args[1][0]
+		if len(args[1]) == 3 {
+			fmts = args[1][2]
+		}
+
+		var fs string
+		if fmts.tok == token.INT {
+			line := p.getLineByLabel(fmts.b)
+			fs = p.parseFormat(line[2:])
+		} else if fmts.tok == token.MUL {
+			// Example: *
+			fs = "\" %v\\n\""
+		} else {
+			// Example :
+			// '(A80)'
+			ns := scan(fmts.b[2 : len(fmts.b)-2])
+			fs = p.parseFormat(ns)
+		}
+
+		p.ns = append(p.ns[:start+2], append(scan([]byte(fmt.Sprintf("%v , %v )", unit, fs))), p.ns[p.ident:]...)...)
+
+		p.ident = start
+	}
+	start := p.ident
+	p.ns = append(p.ns[:p.ident], append([]node{{tok: ftCall, b: []byte("call")}}, p.ns[p.ident:]...)...)
+
+	p.ident++
 	p.expect(ftWrite)
+	p.ns[p.ident].tok = token.IDENT
+	p.ns[p.ident].b = []byte("intrinsic.WRITE")
 	p.ident++
 	p.expect(token.LPAREN)
 
-	// WRITE ( 1, *) R
-	//       ========= this out
-	args, end := separateArgsParen(p.ns[p.ident:])
-	p.ident += end
-
-	// Pattern:
-	//  WRITE( UNIT = ..., FMT = ...)
-	// Other parameters are ignored
-
-	// Part : UNIT
-	unit := string(args[0][0].b)
-	if len(args[0]) == 3 {
-		unit = string(args[0][2].b)
-	}
-	if unit == "*" {
-		unit = "6"
-	}
-
-	// Part: FMT
-	fmts := args[1][0]
-	if len(args[1]) == 3 {
-		fmts = args[1][2]
-	}
-
-	var fs string
-	if fmts.tok == token.INT {
-		line := p.getLineByLabel(fmts.b)
-		fs = p.parseFormat(line[2:])
-	} else if fmts.tok == token.MUL {
-		// Example: *
-		fs = "\" %s\\n\""
-	} else {
-		// Example :
-		// '(A80)'
-		ns := scan(fmts.b[2 : len(fmts.b)-2])
-		fs = p.parseFormat(ns)
-	}
-
-	// TRANSA , TRANSB , SAME , ERR
-	for end = p.ident; p.ns[end].tok != ftNewLine; end++ {
-	}
-
-	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
-
-	s := fmt.Sprintf("intrinsic.WRITE(%s,%s)", unit, fs)
-
-	ast, err := goparser.ParseExpr(s)
-	if err != nil {
-		panic(fmt.Errorf("pos:%v\nSource : %v\n Error: %v", p.ns[p.ident].pos, s, err))
-	}
-	if p.ident != end {
-		tempArgs, _ := separateArgsParen(append(append([]node{
-			{tok: token.LPAREN, b: []byte("(")},
-		}, p.ns[p.ident:end]...), node{tok: token.RPAREN, b: []byte(")")}))
-
-		for _, ta := range tempArgs {
-			list, ok := explodeFor(ta)
-			if ok {
-				for i := range list {
-					ast.(*goast.CallExpr).Args = append(ast.(*goast.CallExpr).Args,
-						p.parseExprNodes(list[i]))
-				}
-				continue
-			} else {
-				if p.ns[p.ident].tok == token.LPAREN {
-					if v, ok := p.initVars.get(string(p.ns[p.ident+1].b)); ok && v.typ.isArray() {
-						// ( IDIM ( I )  , I = 1  ,  NIDIM )
-						// ( A ( I , J ) , J = 1  ,  NIDIM )
-						//               ^
-						//               |
-						//               find this
-						args, end := separateArgsParen(p.ns[p.ident:])
-
-						s := fmt.Sprintf("intrinsic.WRITE(%s,%s,%s)", unit, fs,
-							nodesToString(args[0]))
-
-						ast := p.parseExprNodes(scan([]byte(s)))
-
-						f := p.createForArguments(append(args[1], args[2]...), ast)
-
-						p.ident += end
-						stmts = append(stmts, &f)
-						return
-					}
-				}
-			}
-			ast.(*goast.CallExpr).Args = append(ast.(*goast.CallExpr).Args,
-				p.parseExprNodes(ta))
+	counter := 0
+	for ; ; p.ident++ {
+		if p.ns[p.ident].tok == token.LPAREN {
+			counter++
+		}
+		if p.ns[p.ident].tok == token.RPAREN {
+			counter--
+		}
+		if counter == 0 {
+			break
 		}
 	}
-	stmts = append(stmts, &goast.ExprStmt{
-		X: ast,
-	})
+	p.ns[p.ident].tok = token.COMMA
+	p.ns[p.ident].b = []byte(",")
+	for ; ; p.ident++ {
+		if p.ns[p.ident].tok == ftNewLine {
+			break
+		}
+	}
+	p.ns = append(p.ns[:p.ident], append([]node{
+		{tok: token.RPAREN, b: []byte(")")},
+	}, p.ns[p.ident:]...)...)
 
-	p.ident = end
+	p.ident = start
 
-	return
+	return p.parseStmt()
 }
 
 func (p *parser) getLineByLabel(label []byte) (fs []node) {
@@ -284,85 +266,17 @@ func (p *parser) parseFormat(in []node) (s string) {
 //  READ ( NIN , FMT = * ) ( IDIM ( I ) , I = 1 , NIDIM )
 func (p *parser) parseRead() (stmts []goast.Stmt) {
 	p.expect(ftRead)
-	p.ident++
-	p.expect(token.LPAREN)
+	p.ns[p.ident].tok = ftWrite
 
-	args, end := separateArgsParen(p.ns[p.ident:])
-	p.ident += end
+	stmts = p.parseStmt()
 
-	// Pattern:
-	//  READ ( NIN , FMT = * ) TS
-	// Other parameters are ignored
-
-	// Part : UNIT
-	unit := string(args[0][0].b)
-	if len(args[0]) == 3 {
-		unit = string(args[0][2].b)
-	}
-
-	// Part: FMT
-	fmts := args[1][0]
-	if len(args[1]) == 3 {
-		fmts = args[1][2]
-	}
-
-	var fs string
-	if fmts.tok == token.INT {
-		line := p.getLineByLabel(fmts.b)
-		fs = p.parseFormat(line[2:])
-	} else if fmts.tok == token.MUL {
-		// Example: *
-		fs = "\"%v\""
-	} else {
-		// Example :
-		// '(A80)'
-		ns := scan(fmts.b[2 : len(fmts.b)-2])
-		fs = p.parseFormat(ns)
-	}
-
-	// TRANSA , TRANSB , SAME , ERR
-	for end = p.ident; p.ns[end].tok != ftNewLine; end++ {
-	}
-
-	p.addImport("github.com/Konstantin8105/f4go/intrinsic")
-
-	if p.ns[p.ident].tok == token.LPAREN {
-		if v, ok := p.initVars.get(string(p.ns[p.ident+1].b)); ok && v.typ.isArray() {
-
-			// TODO : remove because we have explode
-
-			// ( IDIM ( I )  , I = 1  ,  NIDIM )
-			// ( A ( I , J ) , J = 1  ,  NIDIM )
-			//               ^
-			//               |
-			//               find this
-			args, end := separateArgsParen(p.ns[p.ident:])
-
-			s := fmt.Sprintf("intrinsic.READ(%s,%s,%s)", unit, fs,
-				nodesToString(args[0]))
-
-			ast := p.parseExprNodes(scan([]byte(s)))
-
-			f := p.createForArguments(append(args[1], args[2]...), ast)
-
-			p.ident += end
-			stmts = append(stmts, &f)
-			return
+	if e, ok := stmts[0].(*goast.ExprStmt); ok {
+		if c, ok := e.X.(*goast.CallExpr); ok {
+			if sel, ok := c.Fun.(*goast.SelectorExpr); ok {
+				sel.Sel.Name = "READ"
+			}
 		}
 	}
-
-	s := fmt.Sprintf("intrinsic.READ(%s,%s,%s)", unit, fs,
-		nodesToString(p.ns[p.ident:end]))
-
-	ast, err := goparser.ParseExpr(s)
-	if err != nil {
-		panic(fmt.Errorf("%s:%v", s, err))
-	}
-	stmts = append(stmts, &goast.ExprStmt{
-		X: ast,
-	})
-
-	p.ident = end
 
 	return
 }

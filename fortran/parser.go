@@ -127,9 +127,9 @@ func (p parser) getArrayLen(name string) int {
 		panic("Cannot find variable : " + name)
 	}
 	lenArray := len(v.typ.arrayNode)
-	if v.typ.baseType == "string" {
-		lenArray--
-	}
+	// 	if v.typ.baseType == "string" {
+	// 		lenArray--
+	// 	}
 	return lenArray
 }
 
@@ -306,7 +306,7 @@ func Parse(b []byte, packageName string) (_ goast.File, errs []error) {
 				}
 				nameFields = append(nameFields, &goast.Field{
 					Names: []*goast.Ident{goast.NewIdent(varName)},
-					Type:  goast.NewIdent(string(varType)),
+					Type:  goast.NewIdent("*" + string(varType)),
 				})
 			}
 			fields = append(fields, &goast.Field{
@@ -507,7 +507,7 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 		p.ns = comb
 		p.ident--
 
-		fmt.Fprintf(os.Stdout, "Add fake PROGRAM MAIN in pos : %v", p.ns[p.ident].pos)
+		fmt.Fprintf(os.Stdout, "Add fake PROGRAM MAIN in pos : %v\n", p.ns[p.ident].pos)
 	}
 
 	return
@@ -611,98 +611,22 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 	}()
 	for i := range []varInitialization(p.initVars) {
 		name := ([]varInitialization(p.initVars)[i]).name
+		assign := strings.Contains(name, "COMMON.") || strings.Contains(name, returnPostfix)
 		goT := ([]varInitialization(p.initVars)[i]).typ
 		switch p.getArrayLen(name) {
 		case 0:
-			decl := goast.GenDecl{
-				Tok: token.VAR,
-				Specs: []goast.Spec{
-					&goast.ValueSpec{
-						Names: []*goast.Ident{
-							goast.NewIdent(name),
-						},
-						Type: goast.NewIdent(
-							goT.String()),
-					},
-				},
-			}
-			if val, ok := p.constants[name]; ok {
-				decl.Specs[0].(*goast.ValueSpec).Values = []goast.Expr{
-					p.parseExprNodes(val),
-				}
-			} else if v, ok := p.initVars.get(name); ok && v.typ.baseType == "string" {
-				decl.Specs[0].(*goast.ValueSpec).Values = []goast.Expr{
-					&goast.CallExpr{
-						Fun: goast.NewIdent("make"),
-						Args: []goast.Expr{
-							&goast.ArrayType{Elt: goast.NewIdent("byte")},
-							goast.NewIdent(nodesToString(v.typ.arrayNode[0])),
-						},
-					},
-				}
-
-			}
-			vars = append(vars, &goast.DeclStmt{Decl: &decl})
-
-		case 1: // vector
-			arrayType := goT.getBaseType()
-			for i := 0; i < p.getArrayLen(name); i++ {
-				arrayType = "[]" + arrayType
-			}
-			size, ok := p.getSize(name, 0)
-			if !ok {
-				vars = append(vars, &goast.DeclStmt{
-					Decl: &goast.GenDecl{
-						Tok: token.VAR,
-						Specs: []goast.Spec{
-							&goast.ValueSpec{
-								Names: []*goast.Ident{
-									goast.NewIdent(name),
-								},
-								Type: goast.NewIdent(
-									goT.String()),
-							},
-						},
-					},
-				})
-				continue
-			}
-			tok := token.DEFINE
-			if strings.Contains(name, "COMMON.") {
-				tok = token.ASSIGN
-			}
-			vars = append(vars, &goast.AssignStmt{
-				Lhs: []goast.Expr{goast.NewIdent(name)},
-				Tok: tok,
-				Rhs: []goast.Expr{
-					&goast.CallExpr{
-						Fun:    goast.NewIdent("make"),
-						Lparen: 1,
-						Args: []goast.Expr{
-							goast.NewIdent(arrayType),
-							goast.NewIdent(strconv.Itoa(size)),
-						},
-					}},
-			})
-
-		case 2: // matrix
 
 			fset := token.NewFileSet() // positions are relative to fset
 			src := `package main
 func main() {
-	MATRIX := make([][]%s, %d)
-	for u := 0; u < %d; u++ {
-		MATRIX[u] = make([]%s, %d)
-	}
+	MATRIX := new(%s)
 }
 `
 			var (
-				subName  = "MATRIX"
-				size0, _ = p.getSize(name, 0)
-				size1, _ = p.getSize(name, 1)
-				typ      = goT.getBaseType()
+				subName = "MATRIX"
+				typ     = goT.getBaseType()
 			)
-			s := fmt.Sprintf(src, typ, size0, size0, typ, size1)
+			s := fmt.Sprintf(src, typ)
 			f, err := goparser.ParseFile(fset, "", s, 0)
 			if err != nil {
 				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
@@ -714,7 +638,76 @@ func main() {
 			goast.Walk(r, f)
 
 			list := f.Decls[0].(*goast.FuncDecl).Body.List
-			if strings.Contains(name, "COMMON.") {
+			if assign {
+				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
+			}
+
+			vars = append(vars, list...)
+
+		case 1: // vector
+
+			fset := token.NewFileSet() // positions are relative to fset
+			src := `package main
+func main() {
+	MATRIX := func() (*[]%s){ arr:=make([]%s, %d); return &arr}()
+}
+`
+			var (
+				subName  = "MATRIX"
+				size0, _ = p.getSize(name, 0)
+				typ      = goT.getBaseType()
+			)
+			s := fmt.Sprintf(src, typ, typ, size0)
+			f, err := goparser.ParseFile(fset, "", s, 0)
+			if err != nil {
+				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
+					err, s, goT.arrayNode))
+			}
+			var r replacer
+			r.from = subName
+			r.to = name
+			goast.Walk(r, f)
+
+			list := f.Decls[0].(*goast.FuncDecl).Body.List
+			if assign {
+				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
+			}
+
+			vars = append(vars, list...)
+
+		case 2: // matrix
+
+			fset := token.NewFileSet() // positions are relative to fset
+			src := `package main
+func main() {
+	MATRIX := func()(*[][]%s){
+		arr := make([][]%s, %d)
+		for u := 0; u < %d; u++ {
+			arr[u] = make([]%s, %d)
+		}
+		return &arr
+	}()
+}
+`
+			var (
+				subName  = "MATRIX"
+				size0, _ = p.getSize(name, 0)
+				size1, _ = p.getSize(name, 1)
+				typ      = goT.getBaseType()
+			)
+			s := fmt.Sprintf(src, typ, typ, size0, size0, typ, size1)
+			f, err := goparser.ParseFile(fset, "", s, 0)
+			if err != nil {
+				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
+					err, s, goT.arrayNode))
+			}
+			var r replacer
+			r.from = subName
+			r.to = name
+			goast.Walk(r, f)
+
+			list := f.Decls[0].(*goast.FuncDecl).Body.List
+			if assign {
 				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
 			}
 
@@ -724,13 +717,16 @@ func main() {
 			fset := token.NewFileSet() // positions are relative to fset
 			src := `package main
 func main() {
-	MATRIX := make([][][]%s, %d)
-	for u := 0; u < %d; u++ {
-		MATRIX[u] = make([][]%s, %d)
-		for w := 0; w < %d; w++ {
-			MATRIX[u][w] = make([]%s, %d)
+	MATRIX := func()(*[][][]%s) {
+		arr := make([][][]%s, %d)
+		for u := 0; u < %d; u++ {
+			arr[u] = make([][]%s, %d)
+			for w := 0; w < %d; w++ {
+				arr[u][w] = make([]%s, %d)
+			}
 		}
-	}
+		return &arr
+	}()
 }
 `
 			var (
@@ -740,7 +736,7 @@ func main() {
 				size2, _ = p.getSize(name, 2)
 				typ      = goT.getBaseType()
 			)
-			s := fmt.Sprintf(src, typ, size0, size0, typ, size1, size1, typ, size2)
+			s := fmt.Sprintf(src, typ, typ, size0, size0, typ, size1, size1, typ, size2)
 			f, err := goparser.ParseFile(fset, "", s, 0)
 			if err != nil {
 				panic(fmt.Errorf("Error: %v\nSource:\n%s\npos=%s",
@@ -753,7 +749,7 @@ func main() {
 			goast.Walk(r, f)
 
 			list := f.Decls[0].(*goast.FuncDecl).Body.List
-			if strings.Contains(name, "COMMON.") {
+			if assign {
 				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
 			}
 
@@ -801,7 +797,7 @@ func main() {
 			goast.Walk(r, f)
 
 			list := f.Decls[0].(*goast.FuncDecl).Body.List
-			if strings.Contains(name, "COMMON.") {
+			if assign {
 				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
 			}
 
@@ -854,7 +850,7 @@ func main() {
 			goast.Walk(r, f)
 
 			list := f.Decls[0].(*goast.FuncDecl).Body.List
-			if strings.Contains(name, "COMMON.") {
+			if assign {
 				list[0].(*goast.AssignStmt).Tok = token.ASSIGN
 			}
 
@@ -874,91 +870,98 @@ type callArg struct {
 	p *parser
 }
 
+func isIgnoreCall(call *goast.CallExpr) bool {
+	if sel, ok := call.Fun.(*goast.SelectorExpr); ok {
+		if name, ok := sel.X.(*goast.Ident); ok {
+			switch name.Name {
+			case
+				"math",
+				"real",
+				"fmt":
+				return true
+
+			case
+				"intrinsic":
+				if sel.Sel.Name == "READ" {
+					return false
+				}
+				return true
+			}
+		}
+	}
+
+	if id, ok := call.Fun.(*goast.Ident); ok {
+		switch id.Name {
+		case "append",
+			"panic":
+			return true
+		}
+	}
+
+	return false
+}
+
 // Example
 //  From :
 // ab_min(3, 14)
 //  To:
 // ab_min(func() *int { y := 3; return &y }(), func() *int { y := 14; return &y }())
-func (c callArg) Visit(node goast.Node) (w goast.Visitor) {
-	if call, ok := node.(*goast.CallExpr); ok && call != nil {
+func (c callArg) Visit(node goast.Node) goast.Visitor {
+	call, ok := node.(*goast.CallExpr)
+	if !ok {
+		return c
+	}
+	if call == nil {
+		return nil
+	}
+	if isIgnoreCall(call) {
+		return c
+	}
 
-		if sel, ok := call.Fun.(*goast.SelectorExpr); ok {
-			if name, ok := sel.X.(*goast.Ident); ok {
-				if name.Name == "math" || name.Name == "fmt" {
-					goto end
-				}
-			}
-		}
-		if call, ok := node.(*goast.CallExpr); ok {
-			if id, ok := call.Fun.(*goast.Ident); ok {
-				if id.Name == "append" {
-					return nil
-				}
-				if id.Name == "panic" {
-					return nil
-				}
-			}
-		}
-
-		for i := range call.Args {
-			switch a := call.Args[i].(type) {
-			case *goast.BasicLit:
-				switch a.Kind {
-				case token.STRING:
+	for i := range call.Args {
+		switch a := call.Args[i].(type) {
+		case *goast.BasicLit:
+			switch a.Kind {
+			case token.STRING:
+				call.Args[i] = goast.NewIdent(
+					fmt.Sprintf("func()*[]byte{y:=[]byte(%s);return &y}()", a.Value))
+				if len(a.Value) == 3 {
+					a.Value = strings.Replace(a.Value, "\"", "'", -1)
 					call.Args[i] = goast.NewIdent(
-						fmt.Sprintf("func()*[]byte{y:=[]byte(%s);return &y}()", a.Value))
-					if len(a.Value) == 3 {
-						a.Value = strings.Replace(a.Value, "\"", "'", -1)
-						call.Args[i] = goast.NewIdent(
-							fmt.Sprintf("func()*byte{y:=byte(%s);return &y}()", a.Value))
-					}
-				case token.INT:
-					call.Args[i] = goast.NewIdent(
-						fmt.Sprintf("func()*int{y:=%s;return &y}()", a.Value))
-				case token.FLOAT:
-					call.Args[i] = goast.NewIdent(
-						fmt.Sprintf("func()*float64{y:=%s;return &y}()", a.Value))
-				case token.CHAR:
-					call.Args[i] = goast.NewIdent(
-						fmt.Sprintf("func()*byte{y:=%s;return &y}()", a.Value))
-				default:
-					panic(fmt.Errorf(
-						"Not support basiclit token: %T ", a.Kind))
+						fmt.Sprintf("func()*byte{y:=byte(%s);return &y}()", a.Value))
 				}
-
-			case *goast.Ident: // TODO : not correct for array
-				id := call.Args[i].(*goast.Ident)
-				id.Name = "&(" + id.Name + ")"
-
-			case *goast.IndexExpr:
-				call.Args[i] = &goast.UnaryExpr{
-					Op: token.AND,
-					X: &goast.ParenExpr{
-						Lparen: 1,
-						X:      call.Args[i],
-					},
-				}
-
-			case *goast.CallExpr:
-			//	var ident goast.Ident
-			//	ident, ok := a.Fun.(*goast.Ident)
-			//	if ok {
-			//		continue
-			//	}
-			//	returnType, ok := p.functionReturnType[ident.Name]
-			//	if ok {
-			//		continue
-			//	}
-			// TODO: convection function return type (int) to (*int)
-
+			case token.INT:
+				call.Args[i] = goast.NewIdent(
+					fmt.Sprintf("func()*int{y:=%s;return &y}()", a.Value))
+			case token.FLOAT:
+				call.Args[i] = goast.NewIdent(
+					fmt.Sprintf("func()*float64{y:=%s;return &y}()", a.Value))
+			case token.CHAR:
+				call.Args[i] = goast.NewIdent(
+					fmt.Sprintf("func()*byte{y:=%s;return &y}()", a.Value))
 			default:
-				// TODO:
-				//	goast.Print(token.NewFileSet(), a)
-				//	panic(fmt.Errorf("Not support arg call token: %T ", a))
+				panic(fmt.Errorf(
+					"Not support basiclit token: %T ", a.Kind))
 			}
+
+		case *goast.Ident, *goast.IndexExpr, *goast.ParenExpr:
+			// from:  NAME
+			// to  : &NAME
+			call.Args[i] = &goast.UnaryExpr{
+				Op: token.AND,
+				X: &goast.ParenExpr{
+					Lparen: 1,
+					X:      call.Args[i],
+				},
+			}
+
+		default:
+			// TODO:
+			// goast.Print(token.NewFileSet(), a)
+			// panic(fmt.Errorf("Not support arg call token: %T ", a))
 		}
 	}
-end:
+
 	return c
 }
 
@@ -992,6 +995,8 @@ func (p *parser) parseProgram() (decl goast.Decl) {
 	}
 	return
 }
+
+const returnPostfix string = "_RETURN"
 
 // parseSubroutine  is parsed SUBROUTINE, FUNCTION, PROGRAM
 // Example :
@@ -1039,16 +1044,18 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	}
 
 	// Add return type is exist
-	returnName := name + "_RES"
+	returnName := name + returnPostfix
 	if len(returnType) > 0 {
+		typ := parseType(returnType)
 		fd.Type.Results = &goast.FieldList{
 			List: []*goast.Field{
 				{
 					Names: []*goast.Ident{goast.NewIdent(returnName)},
-					Type:  goast.NewIdent(parseType(returnType).String()),
+					Type:  goast.NewIdent("*" + typ.String()),
 				},
 			},
 		}
+		p.initVars.add(returnName, typ)
 	}
 	defer func() {
 		// change function name variable to returnName
@@ -1093,7 +1100,7 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	//  *a
 	v := initVis()
 	for _, arg := range arguments {
-		v.c[arg] = "*" + arg
+		v.c[arg] = arg
 	}
 	goast.Walk(v, fd.Body)
 
@@ -1321,6 +1328,104 @@ func (p *parser) parseDoWhile() (sDo goast.ForStmt) {
 	return
 }
 
+// Examples:
+// CALL XERBLA ( 'CGEMM ' , INFO )
+// CALL NORET
+func (p *parser) parseCall() goast.Stmt {
+	{
+		begin := p.ident
+		p.expect(ftCall)
+		p.ident++
+		p.expect(token.IDENT)
+		p.ident++
+		start := p.ident
+
+		// parse names and values
+		var args [][]node
+		{
+			var nodes []node
+			addNode := func() {
+				args = append(args, nodes)
+				nodes = make([]node, 0)
+			}
+			counter := 0
+			for ; p.ident < len(p.ns); p.ident++ {
+				if p.ns[p.ident].tok == ftNewLine {
+					break
+				}
+				if p.ns[p.ident].tok == token.COMMENT {
+					continue
+				}
+				if p.ns[p.ident].tok == token.LPAREN {
+					counter++
+					if counter == 1 {
+						continue
+					}
+				}
+				if p.ns[p.ident].tok == token.RPAREN {
+					counter--
+					if counter == 0 {
+						continue
+					}
+				}
+				if p.ns[p.ident].tok == token.COMMA && counter == 1 {
+					addNode()
+					continue
+				}
+				nodes = append(nodes, p.ns[p.ident])
+			}
+			addNode()
+		}
+
+		// Explode loops
+		{
+			var exp [][]node
+			for i := range args {
+				e, ok := explodeFor(args[i])
+				if ok {
+					exp = append(exp, e...)
+					continue
+				}
+				exp = append(exp, args[i])
+			}
+			args = exp
+		}
+
+		// merge nodes
+		{
+			finish := p.ident
+			var inject []node
+			inject = append(inject, node{tok: token.LPAREN, b: []byte("(")})
+			for i := range args {
+				inject = append(inject, args[i]...)
+				if i != len(args)-1 {
+					inject = append(inject, node{tok: token.COMMA, b: []byte(",")})
+				}
+			}
+			inject = append(inject, node{tok: token.RPAREN, b: []byte(")")})
+
+			p.ns = append(p.ns[:start], append(inject, p.ns[finish:]...)...)
+			p.ident = begin
+		}
+	}
+
+	p.expect(ftCall)
+	p.ident++
+	start := p.ident
+	for ; p.ns[p.ident].tok != ftNewLine; p.ident++ {
+	}
+	f := p.parseExpr(start, p.ident)
+	if p.ident-start == 1 {
+		f = &goast.CallExpr{
+			Fun: goast.NewIdent(string(p.ns[start].b)),
+		}
+	}
+	p.expect(ftNewLine)
+	return &goast.ExprStmt{
+		X: f,
+	}
+}
+
 func (p *parser) parseDo() (sDo goast.ForStmt) {
 	p.expect(ftDo)
 	p.ident++
@@ -1339,7 +1444,7 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 	}
 
 	p.expect(token.IDENT)
-	name := string(p.ns[p.ident].b)
+	name := p.ns[p.ident]
 
 	p.ident++
 	p.expect(token.ASSIGN)
@@ -1363,9 +1468,9 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 	}
 	sDo.Init = &goast.AssignStmt{
 		Lhs: []goast.Expr{
-			goast.NewIdent(name),
+			p.parseExprNodes([]node{name}),
 		},
-		Tok: token.ASSIGN,
+		Tok: token.ASSIGN, // =
 		Rhs: []goast.Expr{
 			p.parseExpr(start, p.ident),
 		},
@@ -1376,6 +1481,10 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 	// Cond is expression
 	p.ident++
 	start = p.ident
+	p.ns = append(p.ns[:start], append([]node{
+		name,
+		{tok: token.LEQ, b: []byte{'<', '='}},
+	}, p.ns[start:]...)...)
 	counter = 0
 	for ; p.ident < len(p.ns); p.ident++ {
 		if p.ns[p.ident].tok == token.LPAREN {
@@ -1391,15 +1500,11 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 			break
 		}
 	}
-	sDo.Cond = &goast.BinaryExpr{
-		X:  goast.NewIdent(name),
-		Op: token.LEQ,
-		Y:  p.parseExpr(start, p.ident),
-	}
+	sDo.Cond = p.parseBinary(start, p.ident)
 
 	if p.ns[p.ident].tok == ftNewLine {
 		sDo.Post = &goast.IncDecStmt{
-			X:   goast.NewIdent(name),
+			X:   p.parseExprNodes([]node{name}),
 			Tok: token.INC,
 		}
 	} else {
@@ -1414,8 +1519,8 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 			}
 		}
 		sDo.Post = &goast.AssignStmt{
-			Lhs: []goast.Expr{goast.NewIdent(name)},
-			Tok: token.ADD_ASSIGN,
+			Lhs: []goast.Expr{p.parseExprNodes([]node{name})},
+			Tok: token.ADD_ASSIGN, // +=
 			Rhs: []goast.Expr{p.parseExpr(start, p.ident)},
 		}
 	}
@@ -1427,6 +1532,19 @@ func (p *parser) parseDo() (sDo goast.ForStmt) {
 		List:   p.parseListStmt(),
 	}
 
+	return
+}
+
+func (p *parser) parseBinary(start, finish int) (expr goast.Expr) {
+	expr = p.parseExpr(start, finish)
+	if b, ok := expr.(*goast.BinaryExpr); ok {
+		if _, ok := b.X.(*goast.CallExpr); ok {
+			b.X = &goast.ParenExpr{X: &goast.StarExpr{X: b.X}}
+		}
+		if _, ok := b.Y.(*goast.CallExpr); ok {
+			b.Y = &goast.ParenExpr{X: &goast.StarExpr{X: b.Y}}
+		}
+	}
 	return
 }
 
@@ -1452,7 +1570,7 @@ func (p *parser) parseIf() (sIf goast.IfStmt) {
 		}
 	}
 
-	sIf.Cond = p.parseExpr(start, p.ident)
+	sIf.Cond = p.parseBinary(start, p.ident)
 
 	p.expect(token.RPAREN)
 	p.ident++
@@ -1655,21 +1773,8 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	case ftCall:
 		// Example:
 		// CALL XERBLA ( 'CGEMM ' , INFO )
-		p.expect(ftCall)
-		p.ident++
-		start := p.ident
-		for ; p.ns[p.ident].tok != ftNewLine; p.ident++ {
-		}
-		f := p.parseExpr(start, p.ident)
-		if ident, ok := f.(*goast.Ident); ok {
-			f = &goast.CallExpr{
-				Fun: ident,
-			}
-		}
-		stmts = append(stmts, &goast.ExprStmt{
-			X: f,
-		})
-		p.expect(ftNewLine)
+		sCall := p.parseCall()
+		stmts = append(stmts, sCall)
 
 	case ftIntrinsic:
 		// Example:
@@ -1855,10 +1960,16 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 				Tok: token.ASSIGN, // =
 				Rhs: []goast.Expr{p.parseExpr(pos+1, p.ident)},
 			}
+			if f, ok := assign.Rhs[0].(*goast.CallExpr); ok {
+				if !isIgnoreCall(f) {
+					assign.Rhs[0] = &goast.ParenExpr{X: &goast.StarExpr{X: assign.Rhs[0]}}
+				}
+			}
 			stmts = append(stmts, &assign)
 		} else {
+			nodes := p.parseExpr(start, p.ident)
 			stmts = append(stmts, &goast.ExprStmt{
-				X: p.parseExpr(start, p.ident),
+				X: nodes,
 			})
 		}
 
@@ -2115,148 +2226,131 @@ func (p *parser) parseData() (stmts []goast.Stmt) {
 		expr   goast.Expr
 		isByte bool
 	}
+
+	for _, name := range names {
+		_, ok := p.initVars.get(nodesToString(name[:1]))
+		if !ok {
+			p.initVars.add(nodesToString(name[:1]), goType{
+				baseType: "float64",
+			})
+		}
+	}
+
+namesExplode:
+	for i := range names {
+		name := names[i]
+
+		v, ok := p.initVars.get(nodesToString(name[:1]))
+		if !ok {
+			continue
+		}
+		lenArray := p.getArrayLen(v.name)
+
+		// L(1,1) but size of len is 3
+		exs := 0
+		for i := range name {
+			if name[i].tok == token.COMMA {
+				exs++
+			}
+			if name[i].tok == token.LPAREN {
+				exs++
+			}
+		}
+
+		if lenArray == exs {
+			continue
+		}
+
+		//          prefix|  | postfix
+		// P    ->      P(|  |  )       -> P(1,1   )   , P(2,1   )   , P(1,2   )   , P(2,2   )   //
+		// P(1) ->      P(|  |,1)       -> P(1,1 ,1)   , P(1,2 ,1)   , P(1,2 ,1)   , P(2,2 ,1)   //
+
+		var prefix []node
+		prefix = append([]node{name[0]}, node{tok: token.LPAREN, b: []byte("(")})
+
+		var postfix []node
+		postfix = append(postfix, node{tok: token.RPAREN, b: []byte(")")})
+		if len(name) > 1 {
+			postfix = append([]node{{tok: token.COMMA, b: []byte(",")}}, name[2:len(name)]...)
+		}
+
+		var inject [][]node
+		switch lenArray - exs {
+		case 1:
+			var (
+				s1, _    = v.typ.getMinLimit(lenArray - 1 - exs)
+				size1, _ = p.getSize(v.name, lenArray-1-exs)
+			)
+			for i := 1; i <= size1; i++ {
+				var sl []node
+				sl = append(sl, prefix...)
+				sl = append(sl,
+					node{tok: token.INT, b: []byte(strconv.Itoa(s1 + i - 1))},
+				)
+				sl = append(sl, postfix...)
+				inject = append(inject, sl)
+			}
+		case 2:
+			var (
+				s1, _    = v.typ.getMinLimit(lenArray - 1 - exs - 1)
+				size1, _ = p.getSize(v.name, lenArray-1-exs-1)
+				s2, _    = v.typ.getMinLimit(lenArray - 1 - exs)
+				size2, _ = p.getSize(v.name, lenArray-1-exs)
+			)
+			for j := 1; j <= size2; j++ {
+				for i := 1; i <= size1; i++ {
+					var sl []node
+					sl = append(sl, prefix...)
+					sl = append(sl,
+						node{tok: token.INT, b: []byte(strconv.Itoa(s1 + i - 1))},
+						node{tok: token.COMMA, b: []byte(",")},
+						node{tok: token.INT, b: []byte(strconv.Itoa(s2 + j - 1))},
+					)
+					sl = append(sl, postfix...)
+					inject = append(inject, sl)
+				}
+			}
+		case 3:
+			var (
+				s1, _    = v.typ.getMinLimit(lenArray - 1 - exs - 2)
+				size1, _ = p.getSize(v.name, lenArray-1-exs-2)
+				s2, _    = v.typ.getMinLimit(lenArray - 1 - exs - 1)
+				size2, _ = p.getSize(v.name, lenArray-1-exs-1)
+				s3, _    = v.typ.getMinLimit(lenArray - 1 - exs)
+				size3, _ = p.getSize(v.name, lenArray-1-exs)
+			)
+			for k := 1; k <= size3; k++ {
+				for j := 1; j <= size2; j++ {
+					for i := 1; i <= size1; i++ {
+						var sl []node
+						sl = append(sl, prefix...)
+						sl = append(sl,
+							node{tok: token.INT, b: []byte(strconv.Itoa(s1 + i - 1))},
+							node{tok: token.COMMA, b: []byte(",")},
+							node{tok: token.INT, b: []byte(strconv.Itoa(s2 + j - 1))},
+							node{tok: token.COMMA, b: []byte(",")},
+							node{tok: token.INT, b: []byte(strconv.Itoa(s3 + k - 1))},
+						)
+						sl = append(sl, postfix...)
+						inject = append(inject, sl)
+					}
+				}
+			}
+		}
+
+		names = append(names[:i], append(inject, names[i+1:]...)...)
+		goto namesExplode
+	}
+
 	var nameExpr []tExpr
 	for _, name := range names {
-		if len(name) == 1 {
-			// LL                       - value
-			// LL                       - vector fully
-			// LL                       - matrix fully
-			v, ok := p.initVars.get(nodesToString(name))
-			if !ok {
-				p.initVars.add(nodesToString(name), goType{
-					baseType: "float64",
-				})
-				v, _ = p.initVars.get(nodesToString(name))
-			}
-			lenArray := p.getArrayLen(v.name)
-			isByte := v.typ.getBaseType() == "byte"
-			switch lenArray {
-			case 0:
-				nameExpr = append(nameExpr, tExpr{
-					expr:   p.parseExprNodes(name),
-					isByte: isByte,
-				})
-			case 1: // vector
-				size, ok := p.getSize(v.name, 0)
-				if !ok {
-					panic("Not ok : " + v.name)
-				}
-				for i := 0; i < size; i++ {
-					nameExpr = append(nameExpr, tExpr{
-						expr: &goast.IndexExpr{
-							X:      goast.NewIdent(nodesToString(name)),
-							Lbrack: 1,
-							Index: &goast.BasicLit{
-								Kind:  token.INT,
-								Value: strconv.Itoa(i),
-							},
-						},
-						isByte: isByte})
-				}
-			case 2: // matrix
-				size0, _ := p.getSize(v.name, 0)
-				size1, _ := p.getSize(v.name, 1)
-				for i := 0; i < size0; i++ {
-					for j := 0; j < size1; j++ {
-						nameExpr = append(nameExpr, tExpr{
-							expr: &goast.IndexExpr{
-								X: &goast.IndexExpr{
-									X:      goast.NewIdent(nodesToString(name)),
-									Lbrack: 1,
-									Index: &goast.BasicLit{
-										Kind:  token.INT,
-										Value: strconv.Itoa(j),
-									},
-								},
-								Lbrack: 1,
-								Index: &goast.BasicLit{
-									Kind:  token.INT,
-									Value: strconv.Itoa(i),
-								},
-							},
-							isByte: isByte})
-					}
-				}
-			case 3: //matrix ()()()
-				size0, _ := p.getSize(v.name, 0)
-				size1, _ := p.getSize(v.name, 1)
-				size2, _ := p.getSize(v.name, 2)
-				for k := 0; k < size2; k++ {
-					for j := 0; j < size1; j++ {
-						for i := 0; i < size0; i++ {
-							nameExpr = append(nameExpr, tExpr{
-								expr: &goast.IndexExpr{
-									X: &goast.IndexExpr{
-										X: &goast.IndexExpr{
-											X:      goast.NewIdent(nodesToString(name)),
-											Lbrack: 1,
-											Index: &goast.BasicLit{
-												Kind:  token.INT,
-												Value: strconv.Itoa(i),
-											},
-										},
-										Lbrack: 1,
-										Index: &goast.BasicLit{
-											Kind:  token.INT,
-											Value: strconv.Itoa(j),
-										},
-									},
-									Lbrack: 1,
-									Index: &goast.BasicLit{
-										Kind:  token.INT,
-										Value: strconv.Itoa(k),
-									},
-								},
-								isByte: isByte})
-						}
-					}
-				}
-			default:
-				panic("Not acceptable type 1 : " + nodesToString(name))
-			}
-
-			continue
-		}
-
-		if v, ok := p.initVars.get(string(name[0].b)); ok {
-			isByte := v.typ.getBaseType() == "byte"
-
-			str := nodesToString(name)
-			str = strings.Replace(str, "(", "[", -1)
-			str = strings.Replace(str, ")", "]", -1)
-			str = strings.Replace(str, ",", "][", -1)
-			na := []byte(str)
-			col := 0
-			for i := 0; ; i++ {
-				if i > len(na)-1 {
-					break
-				}
-				if na[i] == ']' {
-					varinit, ok := p.initVars.get(string(name[0].b))
-					if !ok {
-						break
-					}
-					size, ok := varinit.typ.getMinLimit(col)
-					if !ok {
-						break
-					}
-					corner := "-(" + strconv.Itoa(size) + ")"
-					na = append(na[:i-1], append([]byte(corner), na[i-1:]...)...)
-					i += len(corner)
-					col++
-				}
-			}
-			str = string(na)
-
-			nameExpr = append(nameExpr, tExpr{
-				expr:   goast.NewIdent(str),
-				isByte: isByte,
-			})
-
-			continue
-		}
-
-		panic("Not acceptable type 3 : " + nodesToString(name))
+		v, _ := p.initVars.get(nodesToString(name[:1]))
+		isByte := v.typ.getBaseType() == "byte"
+		n := p.parseExprNodes(name)
+		nameExpr = append(nameExpr, tExpr{
+			expr:   n,
+			isByte: isByte,
+		})
 	}
 
 mul:
@@ -2286,6 +2380,32 @@ mul:
 		}
 		values = append(values[:k], append(inject, values[k+1:]...)...)
 		goto mul
+	}
+
+	for k := range values {
+		for j := range values[k] {
+			// [[STRING, `"123456"`, {898 24}]]
+			if values[k][j].tok != token.STRING {
+				continue
+			}
+			if len(values[k][j].b) < 4 {
+				continue
+			}
+
+			var inject [][]node
+			for r := range values[k][j].b {
+				if r == 0 || r == len(values[k][j].b)-1 {
+					continue
+				}
+				inject = append(inject, []node{{
+					tok: token.STRING,
+					b:   []byte{'\'', values[k][j].b[r], '\''},
+				}})
+			}
+			values = append(values[:k], append(inject, values[k+1:]...)...)
+
+			goto mul
+		}
 	}
 
 	if len(nameExpr) != len(values) {
@@ -2327,7 +2447,7 @@ mul:
 
 	if len(nameExpr) > 0 {
 		var assign goast.AssignStmt
-		assign.Tok = token.ASSIGN
+		assign.Tok = token.ASSIGN // =
 
 		for i := range nameExpr {
 			if nameExpr[i].isByte {
@@ -2427,6 +2547,7 @@ func (p *parser) parseGoto() (stmts []goast.Stmt) {
 //  PARAMETER ( ONE = ( 1.0E+0 , 0.0E+0 )  , ZERO = 0.0E+0 )
 //  PARAMETER ( LV = 2 )
 func (p *parser) parseParameter() (stmts []goast.Stmt) {
+	start := p.ident
 	p.expect(ftParameter)
 	p.ident++
 	p.expect(token.LPAREN)
@@ -2466,6 +2587,32 @@ func (p *parser) parseParameter() (stmts []goast.Stmt) {
 
 	p.expect(token.RPAREN)
 	p.ident++
+
+	p.ident = start
+
+	p.ns[p.ident].tok = ftNewLine
+	p.ident++
+	p.ns[p.ident].tok = ftNewLine
+	counter = 1
+	for ; p.ident < len(p.ns); p.ident++ {
+		if p.ns[p.ident].tok == token.LPAREN {
+			counter++
+		}
+		if p.ns[p.ident].tok == token.RPAREN {
+			counter--
+		}
+		if p.ns[p.ident].tok == token.RPAREN && counter == 0 {
+			p.ns[p.ident].tok = ftNewLine
+			p.ns[p.ident].b = []byte("\n")
+			break
+		}
+		if p.ns[p.ident].tok == token.COMMA && counter == 1 {
+			p.ns[p.ident].tok = ftNewLine
+			p.ns[p.ident].b = []byte("\n")
+			continue
+		}
+	}
+	p.ident = start
 	return
 }
 
@@ -2473,24 +2620,24 @@ func (p *parser) parseAssign() (stmts []goast.Stmt) {
 	p.expect(ftAssign)
 	p.ident++
 
-	statement := string(p.ns[p.ident].b)
+	statement := p.ident
 	p.ident++
 
 	// ignore TO
 	p.ident++
 
-	intVar := string(p.ns[p.ident].b)
+	intVar := p.ident
 	p.ident++
 	stmts = append(stmts, &goast.ExprStmt{
-		X: goast.NewIdent("// ASSIGN " + statement + " TO " + intVar),
+		X: goast.NewIdent(fmt.Sprintf("// ASSIGN %v TO %v", string(p.ns[statement].b), string(p.ns[intVar].b))),
 	}, &goast.AssignStmt{
-		Lhs: []goast.Expr{goast.NewIdent(intVar)},
+		Lhs: []goast.Expr{p.parseExpr(intVar, intVar+1)},
 		Tok: token.ASSIGN,
-		Rhs: []goast.Expr{goast.NewIdent(statement)},
+		Rhs: []goast.Expr{p.parseExpr(statement, statement+1)},
 	}, &goast.AssignStmt{
 		Lhs: []goast.Expr{goast.NewIdent("_")},
 		Tok: token.ASSIGN,
-		Rhs: []goast.Expr{goast.NewIdent(intVar)},
+		Rhs: []goast.Expr{p.parseExpr(intVar, intVar+1)},
 	})
 
 	return
@@ -2601,6 +2748,8 @@ func (p *parser) parseCommon() (stmts []goast.Stmt) {
 		if index := strings.Index(names[i], "("); index > 0 {
 			name = name[:index]
 		}
+		var inject []node
+		n := scan([]byte(names[i]))
 		if _, ok := p.initVars.get(name); !ok {
 			// from:
 			//    COMMON LOC(3), T(1)
@@ -2608,35 +2757,37 @@ func (p *parser) parseCommon() (stmts []goast.Stmt) {
 			//    INTEGER LOC(3)
 			//    REAL T(1)
 			//    COMMON LOC(3), T(1)
-			var inject []node
+
+			// INTEGER name
 			inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
 			if i == 0 {
 				inject = append(inject, node{tok: ftInteger, b: []byte("INTEGER")})
 			} else {
 				inject = append(inject, node{tok: ftReal, b: []byte("REAL")})
 			}
-			n := scan([]byte(names[i]))
 			inject = append(inject, n...)
 			inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
-
-			if strings.Contains(names[i], "(") {
-				inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
-				if i == 0 {
-					inject = append(inject, node{tok: ftInteger, b: []byte("INTEGER")})
-				} else {
-					inject = append(inject, node{tok: ftReal, b: []byte("REAL")})
-				}
-				n[0].b = append([]byte("COMMON."+blockName+"."), n[0].b...)
-				inject = append(inject, n...)
-				inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
-			}
-
-			p.ns = append(p.ns[:p.ident], append(inject, p.ns[p.ident:]...)...)
 		}
 
+		// INTEGER COMMON.blockName.name
+		n = scan([]byte(names[i]))
+		inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
+		if i == 0 {
+			inject = append(inject, node{tok: ftInteger, b: []byte("INTEGER")})
+		} else {
+			inject = append(inject, node{tok: ftReal, b: []byte("REAL")})
+		}
+		n[0].b = append([]byte("COMMON."+blockName+"."), n[0].b...)
+		n[0].tok = token.IDENT
+		inject = append(inject, n...)
+		inject = append(inject, node{tok: ftNewLine, b: []byte("\n")})
+
+		p.ns = append(p.ns[:p.ident], append(inject, p.ns[p.ident:]...)...)
+
+		// name = COMMON.blockName.name
 		stmts = append(stmts, &goast.AssignStmt{
 			Lhs: []goast.Expr{goast.NewIdent(name)},
-			Tok: token.ASSIGN,
+			Tok: token.ASSIGN, // =
 			Rhs: []goast.Expr{goast.NewIdent("COMMON." + blockName + "." + name)},
 		})
 	}
