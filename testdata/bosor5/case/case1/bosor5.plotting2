@@ -1,0 +1,78 @@
+
+BOSORPLOT INTERACTIVE SESSION NO. 2
+
+(There are two alternatives: 1 use xgraph, or 2 generate PostScript file)
+
+Alternative 1: use xgraph to get plots on your screen:
+------------------------ Alternative 1 --------------------------------
+bush-> bosorplot
+Please enter the BOSOR5 case name: 1
+
+Do you want to use Xgraph or create a PostScript file? (Choose X or P) x
+
+One moment please...
+
+Text file(s) have been created containing plot data.  The names of the
+files explain to a greater or lesser extent what the data represent.
+Some plot files contain data for more than one plot.
+1)      1..R,Z_EIGENMODE_1--N_10
+2)      1..R,Z_EIGENMODE_1--N_2
+CR)     to QUIT
+Please choose the number of the file you wish to plot: 2
+Plotting: Undeformed & Deformed Axial Station as a function of Radius
+------------------ end of Alternative 1, using xgraph ------------------
+
+or
+
+Alternative 2: generate PostScript file:
+------------------------ Alternative 2 --------------------------------
+bush-> bosorplot
+Please enter the BOSOR5 case name: 1
+
+Do you want to use Xgraph or create a PostScript file? (Choose X or P) p
+
+One moment please...
+
+Text file(s) have been created containing plot data.  The names of the
+files explain to a greater or lesser extent what the data represent.
+Some plot files contain data for more than one plot.
+1)      1..R,Z_EIGENMODE_1--N_10
+2)      1..R,Z_EIGENMODE_1--N_2
+CR)     to QUIT
+Please choose the number of the file you wish to plot: 2
+Plotting: Undeformed & Deformed Axial Station as a function of Radius
+
+The PostScript file, metafile.ps, has been created.
+Please choose one of the three options below:
+
+   1) Rename the PostScript file this is useful if
+      you don't have access to a PostScript printer on your
+      machine, but you wish to save to a file so you can later
+      transfer it to a different machine for printing.
+
+         Example:  mv metafile.ps plot1.ps
+
+   2) Enter an "lpr" command.  This is useful if your default
+      printer is not PostScript, but there is a PostScript
+      printer available on your system.
+
+         Example:  lpr -PApplelaser metafile.ps
+
+   3) Press the return key.  This executes the command:
+
+                   lpr metafile.ps
+
+      This assumes that your default printer is a PostScript
+      printer.
+
+Enter your command> <carriage return>
+Printing PostScript plot on the default printer...
+
+Text file(s) have been created containing plot data.  The names of the
+files explain to a greater or lesser extent what the data represent.
+Some plot files contain data for more than one plot.
+1)      1..R,Z_EIGENMODE_1--N_10
+2)      1..R,Z_EIGENMODE_1--N_2
+CR)     to QUIT
+Please choose the number of the file you wish to plot: <carriage return>
+---------- end of Alternative 2, generate Postscript file --------------

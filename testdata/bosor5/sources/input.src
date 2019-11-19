@@ -1,0 +1,352 @@
+C=DECK      INPUT
+      PROGRAM INPUT
+C
+C  PURPOSE IS TO ALLOW USER TO PROVIDE INPUT DATA FOR BOSOR5
+C  INTERACTIVELY.
+C
+#if hp700
+$hp9000_800 intrinsics
+#endif
+      CHARACTER*1 ANS, upcase
+      CHARACTER*28 CASE
+      common/case/casename
+      character*28 casename
+      character*32 fname
+#if cnvx
+      external signal_handler
+      integer dummying, signal
+      dummyint = signal(2, signal_handler, -1)
+#endif
+#if sgi
+      integer signal_handler
+      external signal_handler
+      integer dummyint, signal
+      dummyint = signal(2, signal_handler, -1)
+#endif
+#if star
+      integer signal_handler
+      external signal_handler
+      call signal(2, signal_handler)
+#endif
+C BEG FEB 2009
+#if hp700
+C     call getarg(2, casename)
+      call getarg(1, casename)
+#else
+      call getarg(1,casename)
+#endif
+C END FEB 2009
+C
+      CASE = casename
+C
+      WRITE(6,'(1X,A)')' '
+      WRITE(6,'(1X,A)')' Do you want to provide data for a new'
+      WRITE(6,'(1X,A)')' structural segment, or to add data to'
+      WRITE(6,'(1X,A)')' that for an existing structural segment?'
+      WRITE(6,'(1X,A,$)')' (Please answer Y or N) '
+      READ(5,'(A)') ANS
+C
+      IF (upcase(ANS).EQ.'Y') GO TO 10
+      WRITE(6,'(1X,A)')' '
+      WRITE(6,'(1X,A)')' Have you supplied data for all structural'
+      WRITE(6,'(1X,A,$)')' segments ? (Please answer Y or N) '
+      READ(5,'(A)') ANS
+      IF (upcase(ANS).EQ.'N') GO TO 10
+      WRITE(6,'(1X,A)')' '
+      WRITE(6,'(1X,A,$)')' Do you want to supply global data (Y or N)? '
+      READ(5,'(A)') ANS
+      IF (upcase(ANS).EQ.'N') GO TO 20
+      GO TO 15
+C
+   10 CONTINUE
+      CALL SEGMT(CASE)
+C
+      WRITE(6,'(1X,A)')' '
+      WRITE(6,'(1X,A,$)')' Want to add more structural segments? '
+      READ(5,'(A)') ANS
+      IF (upcase(ANS).EQ.'Y') GO TO 10
+      WRITE(6,'(1X,A)')' '
+      WRITE(6,'(1X,A)')' Have you supplied data for all structural'
+      WRITE(6,'(1X,A,$)')' segments? (Please answer Y or N) '
+      READ(5,'(A)') ANS
+      IF (upcase(ANS).EQ.'N') GO TO 20
+   15 CONTINUE
+      WRITE(6,'(1X,A)')' '
+      WRITE(6,'(1X,A)')' Next, give global input and input for'
+      WRITE(6,'(1X,A)')' constraint conditions. Do you want to'
+      WRITE(6,'(1X,A,$)')' supply these data now (Y or N)? '
+      READ(5,'(A)') ANS
+      IF (upcase(ANS).EQ.'N') GO TO 20
+C
+      CALL BOUNDY(CASE)
+C
+   20 CONTINUE
+C
+      WRITE(6,'(1X,A)')' '
+      WRITE(6,'(1X,A)')' If you have completed input for all structural'
+      WRITE(6,'(1X,A)')' segments and for the constraint conditions,'
+      WRITE(6,'(1X,A)')' next give the command ASSEMBLE  .'
+C
+      END
+C
+C
+C
+C=DECK      BOUNDARY
+C
+C  PURPOSE IS TO SET UP DATA FOR GLOBAL DATA AND BOUNDARY CONDITIONS.
+C
+      SUBROUTINE BOUNDY(CASE)
+      COMMON/PRMFIL/IFILE,IFILE2,IOUT,IPRM(5)   
+      COMMON/PRMOUT/IFILE3,IFILE4   
+      COMMON/INDAT/INFILE
+      CHARACTER*4 ANSOUT,  CHARAC
+      CHARACTER*28 CASE
+      LOGICAL ANSL1     
+      logical exists
+C
+      IFILE = 2   
+      IFILE2= 4   
+      IFILE3 = 7  
+C
+C FOLLOWING USED FOR VAX/VMS..
+c     OPEN(UNIT=IFILE,FILE='BOSOR5:PROMPT.DAT',STATUS='OLD',READONLY)
+c     OPEN(UNIT=IFILE2,FILE='BOSOR5:PROMPT2.DAT',STATUS='OLD',READONLY)
+c     OPEN(UNIT=IFILE3,FILE='BOSOR5:PROMPT3.DAT',STATUS='OLD',READONLY)
+C END VAX/VMS OPEN STATEMENTS
+C
+C FOLLOWING USED FOR UNIX...
+      OPEN(UNIT=IFILE,FILE='PROMPT.DAT',STATUS='OLD')
+      OPEN(UNIT=IFILE2,FILE='PROMPT2.DAT',STATUS='OLD')
+      OPEN(UNIT=IFILE3,FILE='PROMPT3.DAT',STATUS='OLD')
+#if rs6k
+      rewind(IFILE)
+      rewind(IFILE2)
+      rewind(IFILE3)
+#endif
+
+C END UNIX OPEN STATEMENTS
+C
+      inquire(FILE=case, EXIST=exists)
+      if (exists) then
+	OPEN(UNIT=17,FILE=CASE,STATUS='OLD')
+#if rs6k
+        rewind(17)
+#endif
+      else
+	OPEN(UNIT=17,FILE=CASE,STATUS='NEW')
+      endif
+C
+      INDIC = 0
+      IPRE  = 1
+      INDSIG= 0
+      CALL NFILEB(IFILE3,INFILE,IOUT,NSEG,INDIC,IPRE,INDSIG,CASE)
+C
+      CALL GLOB2(2)
+C
+      REWIND IFILE
+      CALL DATUM (IFILE,60,0,0,INT,REALL,CHARAC,IOUT,0,1)   
+C     
+    2 CONTINUE    
+      DO 100 ISEG = 1,NSEG    
+C     
+      WRITE(6,*)' CONSTRAINT CONDITIONS FOR SEGMENT NO. ISEG =',ISEG    
+      WRITE(IOUT,35) ISEG,ISEG,ISEG,ISEG
+   35 FORMAT(6X,'H',9X,'$'/
+     1 6X,'H',9X,'$ CONSTRAINT CONDITIONS FOR SEGMENT NO.',4I5)
+      REWIND IFILE
+      CALL POLES
+      CALL BOUND
+      CALL JUNCT
+C
+  100 CONTINUE
+C
+      CALL RIGID
+C
+      CLOSE(UNIT=IOUT,STATUS='KEEP')
+      RETURN
+      END
+C
+C
+C
+C=DECK      NFILEB
+      SUBROUTINE NFILEB(IFILE3,INFILE,IOUT,NSEG,INDIC,IPRE,INDSIG,
+     1                  FNAME)
+C
+C    PURPOSE IS TO NAME THE OUTPUT FILE AND OPEN FILES.
+C
+C  INPUT DATA...
+C
+C  IFILE3 = FILE WHERE PROMPTS ARE STORED (PROMPT3.DAT)
+C  INFILE = UNIT NUMBER FOR INPUT DATA (5 OR 25)
+C
+C  OUTPUT DATA...
+C
+C  IOUT   = UNIT NUMBER FOR IMAGE OF INTERACTIVE SESSION
+C  NSEG  = NUMBER OF SEGMENTS (FILE VERSION NUMBER MINUS ONE)
+C BEG OCT 1995
+C     CHARACTER *34 VNAME, CN*2, FNAME*9
+      CHARACTER *34 VNAME, CN*3, FNAME*9
+C END OCT 1995
+      CHARACTER*4 ANSOUT,CHARAC
+      LOGICAL ANSL1
+C
+      IOUT = 17
+      INFILE = 5
+      REWIND IFILE3
+      CALL DATUM(IFILE3,580,1,1,NSEG,REALL,CHARAC,10,0,1)
+C
+      N = NSEG + 1
+      IF(N.GE.10) THEN
+C BEG OCT 1995
+         IF (N.LE.99) WRITE(CN,'(I2)') N
+         IF (N.GT.99) WRITE(CN,'(I3)') N
+C END OCT 1995
+      ELSE
+         WRITE(CN,'(I1)') N
+      ENDIF
+C
+      I=INDEX(FNAME,' ')
+      IF(I.NE.0) THEN
+         VNAME=FNAME(:I-1)//'.SEG'//CN
+      ELSE
+         VNAME=FNAME//'.SEG'//CN
+      ENDIF
+C
+      CALL REREAD(IOUT,IFILE3,INFILE,VNAME)
+C
+      RETURN
+      END
+C
+C
+C
+C=DECK      SEGMENT
+C
+C  PURPOSE IS TO SET UP DATA FOR A SINGLE SEGMENT.
+C
+      SUBROUTINE SEGMT(CASE)
+      COMMON/PRMFIL/IFILE,IFILE2,IOUT,IPRM(5)   
+      COMMON/PRMOUT/IFILE3,IFILE4   
+      COMMON/INDAT/INFILE
+      COMMON/SEGEND/R1,Z1,R2,Z2,IFLAG1,IFLAG2,IFLAG3,IFLAG4,IFLAG5
+      CHARACTER*4 ANSOUT,CHARAC
+      CHARACTER*28 CASE
+      LOGICAL ANSL1     
+      logical exists
+C
+      IFLAG1 = 1
+      IFLAG2 = 0
+      IFLAG3 = 0
+      IFILE = 2   
+      IFILE2= 4   
+      IFILE3 = 7  
+C
+C FOLLOWING USED FOR VAX/VMS..
+c     OPEN(UNIT=IFILE,FILE='BOSOR5:PROMPT.DAT',STATUS='OLD',READONLY)
+c     OPEN(UNIT=IFILE2,FILE='BOSOR5:PROMPT2.DAT',STATUS='OLD',READONLY)
+c     OPEN(UNIT=IFILE3,FILE='BOSOR5:PROMPT3.DAT',STATUS='OLD',READONLY)
+C END VAX/VMS OPEN STATEMENTS
+C
+C FOLLOWING USED FOR UNIX...
+      OPEN(UNIT=IFILE,FILE='PROMPT.DAT',STATUS='OLD')
+      OPEN(UNIT=IFILE2,FILE='PROMPT2.DAT',STATUS='OLD')
+      OPEN(UNIT=IFILE3,FILE='PROMPT3.DAT',STATUS='OLD')
+#if rs6k
+      rewind(IFILE)
+      rewind(IFILE2)
+      rewind(IFILE3)
+#endif
+C END UNIX OPEN STATEMENTS
+C
+      inquire(FILE=case, EXIST=exists)
+      if (exists) then
+	OPEN(UNIT=17, FILE=case, STATUS='OLD')
+#if rs6k
+        rewind(17)
+#endif
+      else
+	OPEN(UNIT=17, FILE=case, STATUS='NEW')
+      endif
+C
+      INDIC = 0
+      IPRE  = 1
+      INDSIG = 0
+      THETAM = 180.
+      CALL NFILE(IFILE3,INFILE,IOUT,ISEG,INDIC,IPRE,THETAM,INDSIG,CASE)
+C
+      IF (ISEG.EQ.1) CALL GLOB1(NSEG)
+      REWIND IFILE2
+      IF (ISEG.EQ.1)
+     1CALL DATUM(IFILE2,100,0,0,INT,REALL,CHARAC,IOUT,0,1)
+      WRITE(IOUT,35) ISEG,ISEG,ISEG,ISEG,ISEG,ISEG,ISEG,ISEG
+   35 FORMAT(6X,'H',9X,'$'/6X,'H',9X,'$ SEGMENT NUMBER',8I5)
+C
+      CALL MESH
+      CALL GEOM
+      CALL IMPERF
+      CALL REFSUR
+      IFLAG2 = 1
+      CALL RINGS(NRINGS)
+      IFLAG2 = 0
+C   ELASTIC FOUNDATION STIFFNESS...
+      REWIND IFILE2
+      CALL DATUM(IFILE2,190,1,2,INT,FSTIF,CHARAC,IOUT,0,1)
+C
+      CALL THERM
+      CALL PRESS
+      CALL LINLOD(NRINGS)
+      CALL WALL
+C
+      CLOSE(UNIT=IOUT,STATUS='KEEP')
+      RETURN
+      END
+C
+C
+C
+C=DECK      NFILE
+      SUBROUTINE NFILE(IFILE3,INFILE,IOUT,ISEG,INDIC,IPRE,THETAM,INDSIG,
+     1                 FNAME)
+C
+C    PURPOSE IS TO NAME THE OUTPUT FILE AND OPEN FILES.
+C
+C  INPUT DATA...
+C
+C  IFILE3 = FILE WHERE PROMPTS ARE STORED (PROMPT3.DAT)
+C  INFILE = UNIT NUMBER FOR INPUT DATA (5 OR 25)
+C
+C  OUTPUT DATA...
+C
+C  IOUT   = UNIT NUMBER FOR IMAGE OF INTERACTIVE SESSION
+C  ISEG  = SEGMENT NUMBER (FILE VERSION NUMBER)
+C
+C BEG OCT 1995
+C     CHARACTER *34 VNAME, CN*2, FNAME*9
+      CHARACTER *34 VNAME, CN*3, FNAME*9
+C END OCT 1995
+      CHARACTER*4 ANSOUT,CHARAC
+      LOGICAL ANSL1
+C
+      IOUT = 17
+      INFILE = 5
+C
+      REWIND IFILE3
+      CALL DATUM(IFILE3,570,1,1,ISEG, REALL,CHARAC,10,0,1)
+C
+      IF(ISEG.GE.10) THEN
+C BEG OCT 1995
+         IF (ISEG.LE.99) WRITE(CN,'(I2)') ISEG
+         IF (ISEG.GT.99) WRITE(CN,'(I3)') ISEG
+C END OCT 1995
+      ELSE
+         WRITE(CN,'(I1)') ISEG
+      ENDIF
+C
+      I=INDEX(FNAME,' ')
+      IF(I.NE.0) THEN
+         VNAME=FNAME(:I-1)//'.SEG'//CN
+      ELSE
+         VNAME=FNAME//'.SEG'//CN
+      ENDIF
+C
+      CALL REREAD(IOUT,IFILE3,INFILE,VNAME)
+      RETURN
+      END

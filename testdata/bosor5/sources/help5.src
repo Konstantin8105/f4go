@@ -1,0 +1,36 @@
+C=DECK      HELP5
+      PROGRAM HELP5
+C
+C   PURPOSE IS TO USE BOSOR5 HELP FILE
+C
+#if hp700
+$hp9000_800 intrinsics
+#endif
+      CHARACTER*80 TEXT
+      CHARACTER*8 TOPICS(2), WORD*8
+      parameter ( length = 20 )
+      character*10    blank, topic, subtop
+      blank = '          '
+      call GETARG ( 1, topic )
+      m = index(topic,blank)
+C
+      NTOPIC = 0
+      IF (M .eq. 0) THEN
+      call GETARG ( 2, subtop )
+      text( 1:10)     = topic
+      text(11:length) = subtop
+      J = 0
+      I = 1
+ 1000 CALL GETTOK(TEXT(1:length),J,1,WORD,N)
+      IF (N.GT.0.AND.I.LE.2) THEN
+        TOPICS(I) = WORD
+        NTOPIC    = I
+        I = I + 1
+        GO TO 1000
+      ENDIF
+      ENDIF
+C
+      CALL HELPER('BOSOR5/BOSOR5.HLP',TOPICS,NTOPIC,0,22,IERR)
+C
+      STOP
+      END

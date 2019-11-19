@@ -1,0 +1,1898 @@
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/assemble.src /home/progs/bosor5/objects.x86_64/assemble.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/13259
+Splitting source file: /home/progs/bosor5/sources/assemble.src
+assmbl.f
+fopena.f
+eol.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing assmbl.F to assmbl.f
+Compiling assmbl.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing eol.F to eol.f
+Compiling eol.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing fopena.F to fopena.f
+Compiling fopena.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/assemble.a
+ar: creating /home/progs/bosor5/objects.x86_64/assemble.a
+a - assmbl.o
+a - eol.o
+a - fopena.o
+Remove temporary directory: /home/progs/temp/13259
+Exiting updateobj.
+------------------------------------------
+cp /home/progs/bosor5/objects.x86_64/assemble.a /home/progs/bosor5/libraries.x86_64/assemble.a
+ar xv /home/progs/bosor5/libraries.x86_64/assemble.a assmbl.o
+x - assmbl.o
+gfortran -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O -o /home/progs/bosor5/execute/assemble.x86_64 assmbl.o /home/progs/bosor5/libraries.x86_64/assemble.a
+/bin/rm -f assmbl.o
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/arrays.src /home/progs/bosor5/objects.x86_64/arrays.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/13371
+Splitting source file: /home/progs/bosor5/sources/arrays.src
+arrays.f
+stabil.f
+fillb.f
+getb1.f
+getc.f
+getd.f
+getp.f
+getrnt.f
+getrot.f
+getwwd.f
+getg.f
+founda.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing arrays.F to arrays.f
+Compiling arrays.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing fillb.F to fillb.f
+Compiling fillb.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing founda.F to founda.f
+Compiling founda.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing getb1.F to getb1.f
+Compiling getb1.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing getc.F to getc.f
+Compiling getc.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing getd.F to getd.f
+Compiling getd.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing getg.F to getg.f
+Compiling getg.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+getg.f:14.17:
+
+      GJR = RING(27)                                                    
+                 1
+Warning: Array reference at (1) is out of bounds (27 > 26) in dimension 1
+Preprocessing getp.F to getp.f
+Compiling getp.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing getrnt.F to getrnt.f
+Compiling getrnt.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing getrot.F to getrot.f
+Compiling getrot.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing getwwd.F to getwwd.f
+Compiling getwwd.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing stabil.F to stabil.f
+Compiling stabil.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/arrays.a
+ar: creating /home/progs/bosor5/objects.x86_64/arrays.a
+a - arrays.o
+a - fillb.o
+a - founda.o
+a - getb1.o
+a - getc.o
+a - getd.o
+a - getg.o
+a - getp.o
+a - getrnt.o
+a - getrot.o
+a - getwwd.o
+a - stabil.o
+Remove temporary directory: /home/progs/temp/13371
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/buckle.src /home/progs/bosor5/objects.x86_64/buckle.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/13466
+Splitting source file: /home/progs/bosor5/sources/buckle.src
+buckle.f
+add2.f
+eband2.f
+ortho2.f
+vec.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing add2.F to add2.f
+Compiling add2.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing buckle.F to buckle.f
+Compiling buckle.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing eband2.F to eband2.f
+Compiling eband2.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing ortho2.F to ortho2.f
+Compiling ortho2.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing vec.F to vec.f
+Compiling vec.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/buckle.a
+ar: creating /home/progs/bosor5/objects.x86_64/buckle.a
+a - add2.o
+a - buckle.o
+a - eband2.o
+a - ortho2.o
+a - vec.o
+Remove temporary directory: /home/progs/temp/13466
+Exiting updateobj.
+------------------------------------------
+cd /home/progs/util &&\
+fpp -P -Dx86_64 gasp.F gasp.f &&\
+        gfortran -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O -c  gasp.f &&\
+        mv gasp.o gasp_x86_64.o &&\
+        /bin/rm -f gasp.f &&\
+        gcc -Dx86_64 -Dlinux -D_gfc95_ -D_linux_ -g -O3 -c bio_x86_64.c &&\
+        ar rv /home/progs/bosor5/objects.x86_64/gasp.a gasp_x86_64.o bio_x86_64.o
+ar: creating /home/progs/bosor5/objects.x86_64/gasp.a
+a - gasp_x86_64.o
+a - bio_x86_64.o
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/main.src /home/progs/bosor5/objects.x86_64/main.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/13548
+Splitting source file: /home/progs/bosor5/sources/main.src
+main.f
+main1.f
+loads.f
+solve.f
+factor.f
+factr.f
+funct.f
+matmu4.f
+tfunct.f
+tload.f
+listpl.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing factor.F to factor.f
+Compiling factor.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing factr.F to factr.f
+Compiling factr.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing funct.F to funct.f
+Compiling funct.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing listpl.F to listpl.f
+Compiling listpl.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing loads.F to loads.f
+Compiling loads.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing main.F to main.f
+Compiling main.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing main1.F to main1.f
+Compiling main1.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing matmu4.F to matmu4.f
+Compiling matmu4.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing solve.F to solve.f
+Compiling solve.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing tfunct.F to tfunct.f
+Compiling tfunct.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing tload.F to tload.f
+Compiling tload.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/main.a
+ar: creating /home/progs/bosor5/objects.x86_64/main.a
+a - factor.o
+a - factr.o
+a - funct.o
+a - listpl.o
+a - loads.o
+a - main.o
+a - main1.o
+a - matmu4.o
+a - solve.o
+a - tfunct.o
+a - tload.o
+Remove temporary directory: /home/progs/temp/13548
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/pre11.src /home/progs/bosor5/objects.x86_64/pre11.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/13638
+Splitting source file: /home/progs/bosor5/sources/pre11.src
+pre11.f
+apreb.f
+fillbp.f
+getwwp.f
+pgetb.f
+pgetc.f
+soln.f
+prerng.f
+prests.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing apreb.F to apreb.f
+Compiling apreb.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing fillbp.F to fillbp.f
+Compiling fillbp.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing getwwp.F to getwwp.f
+Compiling getwwp.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing pgetb.F to pgetb.f
+Compiling pgetb.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing pgetc.F to pgetc.f
+Compiling pgetc.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing pre11.F to pre11.f
+Compiling pre11.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing prerng.F to prerng.f
+Compiling prerng.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing prests.F to prests.f
+Compiling prests.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing soln.F to soln.f
+Compiling soln.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/pre11.a
+ar: creating /home/progs/bosor5/objects.x86_64/pre11.a
+a - apreb.o
+a - fillbp.o
+a - getwwp.o
+a - pgetb.o
+a - pgetc.o
+a - pre11.o
+a - prerng.o
+a - prests.o
+a - soln.o
+Remove temporary directory: /home/progs/temp/13638
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/pre22.src /home/progs/bosor5/objects.x86_64/pre22.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/13718
+Splitting source file: /home/progs/bosor5/sources/pre22.src
+pre22.f
+plocal.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing plocal.F to plocal.f
+Compiling plocal.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing pre22.F to pre22.f
+Compiling pre22.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/pre22.a
+ar: creating /home/progs/bosor5/objects.x86_64/pre22.a
+a - plocal.o
+a - pre22.o
+Remove temporary directory: /home/progs/temp/13718
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/pre33.src /home/progs/bosor5/objects.x86_64/pre33.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/13763
+Splitting source file: /home/progs/bosor5/sources/pre33.src
+pre33.f
+plast.f
+prntc.f
+rplast.f
+flow.f
+fdsbar.f
+cstran.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing cstran.F to cstran.f
+Compiling cstran.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing fdsbar.F to fdsbar.f
+Compiling fdsbar.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing flow.F to flow.f
+Compiling flow.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing plast.F to plast.f
+Compiling plast.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing pre33.F to pre33.f
+Compiling pre33.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing prntc.F to prntc.f
+Compiling prntc.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing rplast.F to rplast.f
+Compiling rplast.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+rplast.f:231.11:
+
+      RING(27) = C(10)*RC(KKK)                                          
+           1
+Warning: Array reference at (1) is out of bounds (27 > 20) in dimension 1
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/pre33.a
+ar: creating /home/progs/bosor5/objects.x86_64/pre33.a
+a - cstran.o
+a - fdsbar.o
+a - flow.o
+a - plast.o
+a - pre33.o
+a - prntc.o
+a - rplast.o
+Remove temporary directory: /home/progs/temp/13763
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/prompter.src /home/progs/bosor5/objects.x86_64/prompter.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/13833
+Splitting source file: /home/progs/bosor5/sources/prompter.src
+datum.f
+prompt.f
+answer.f
+iblnk.f
+phout.f
+i2c.f
+abort2.f
+nxitem.f
+readff.f
+errex.f
+ansl1.f
+reread.f
+casnam.f
+upcase.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing abort2.F to abort2.f
+Compiling abort2.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing ansl1.F to ansl1.f
+Compiling ansl1.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing answer.F to answer.f
+Compiling answer.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing casnam.F to casnam.f
+Compiling casnam.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing datum.F to datum.f
+Compiling datum.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing errex.F to errex.f
+Compiling errex.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing i2c.F to i2c.f
+Compiling i2c.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing iblnk.F to iblnk.f
+Compiling iblnk.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing nxitem.F to nxitem.f
+Compiling nxitem.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing phout.F to phout.f
+Compiling phout.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing prompt.F to prompt.f
+Compiling prompt.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing readff.F to readff.f
+Compiling readff.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing reread.F to reread.f
+Compiling reread.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing upcase.F to upcase.f
+Compiling upcase.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/prompter.a
+ar: creating /home/progs/bosor5/objects.x86_64/prompter.a
+a - abort2.o
+a - ansl1.o
+a - answer.o
+a - casnam.o
+a - datum.o
+a - errex.o
+a - i2c.o
+a - iblnk.o
+a - nxitem.o
+a - phout.o
+a - prompt.o
+a - readff.o
+a - reread.o
+a - upcase.o
+Remove temporary directory: /home/progs/temp/13833
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/stoget.src /home/progs/bosor5/objects.x86_64/stoget.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/13938
+Splitting source file: /home/progs/bosor5/sources/stoget.src
+storcm.f
+getcom.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing getcom.F to getcom.f
+Compiling getcom.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing storcm.F to storcm.f
+Compiling storcm.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/stoget.a
+ar: creating /home/progs/bosor5/objects.x86_64/stoget.a
+a - getcom.o
+a - storcm.o
+Remove temporary directory: /home/progs/temp/13938
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/util.src /home/progs/bosor5/objects.x86_64/util.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/13983
+Splitting source file: /home/progs/bosor5/sources/util.src
+sr100t.f
+inter.f
+sta.f
+findz.f
+urndm.f
+errex.f
+lastch.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing errex.F to errex.f
+Compiling errex.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing findz.F to findz.f
+Compiling findz.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing inter.F to inter.f
+Compiling inter.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing lastch.F to lastch.f
+Compiling lastch.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing sr100t.F to sr100t.f
+Compiling sr100t.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing sta.F to sta.f
+Compiling sta.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing urndm.F to urndm.f
+Compiling urndm.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/util.a
+ar: creating /home/progs/bosor5/objects.x86_64/util.a
+a - errex.o
+a - findz.o
+a - inter.o
+a - lastch.o
+a - sr100t.o
+a - sta.o
+a - urndm.o
+Remove temporary directory: /home/progs/temp/13983
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updatelib /home/progs/bosor5/libraries.x86_64/bosormain.a /home/progs/bosor5/objects.x86_64/arrays.a /home/progs/bosor5/objects.x86_64/buckle.a /home/progs/bosor5/objects.x86_64/gasp.a /home/progs/bosor5/objects.x86_64/main.a /home/progs/bosor5/objects.x86_64/pre11.a /home/progs/bosor5/objects.x86_64/pre22.a /home/progs/bosor5/objects.x86_64/pre33.a /home/progs/bosor5/objects.x86_64/prompter.a /home/progs/bosor5/objects.x86_64/stoget.a /home/progs/bosor5/objects.x86_64/util.a
+------------------------------------------
+Executing updatelib.
+Using temporary directory: /home/progs/temp/14053
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/arrays.a into directory /home/progs/temp/14053
+x - arrays.o
+x - fillb.o
+x - founda.o
+x - getb1.o
+x - getc.o
+x - getd.o
+x - getg.o
+x - getp.o
+x - getrnt.o
+x - getrot.o
+x - getwwd.o
+x - stabil.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/buckle.a into directory /home/progs/temp/14053
+x - add2.o
+x - buckle.o
+x - eband2.o
+x - ortho2.o
+x - vec.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/gasp.a into directory /home/progs/temp/14053
+x - gasp_x86_64.o
+x - bio_x86_64.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/main.a into directory /home/progs/temp/14053
+x - factor.o
+x - factr.o
+x - funct.o
+x - listpl.o
+x - loads.o
+x - main.o
+x - main1.o
+x - matmu4.o
+x - solve.o
+x - tfunct.o
+x - tload.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/pre11.a into directory /home/progs/temp/14053
+x - apreb.o
+x - fillbp.o
+x - getwwp.o
+x - pgetb.o
+x - pgetc.o
+x - pre11.o
+x - prerng.o
+x - prests.o
+x - soln.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/pre22.a into directory /home/progs/temp/14053
+x - plocal.o
+x - pre22.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/pre33.a into directory /home/progs/temp/14053
+x - cstran.o
+x - fdsbar.o
+x - flow.o
+x - plast.o
+x - pre33.o
+x - prntc.o
+x - rplast.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/prompter.a into directory /home/progs/temp/14053
+x - abort2.o
+x - ansl1.o
+x - answer.o
+x - casnam.o
+x - datum.o
+x - errex.o
+x - i2c.o
+x - iblnk.o
+x - nxitem.o
+x - phout.o
+x - prompt.o
+x - readff.o
+x - reread.o
+x - upcase.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/stoget.a into directory /home/progs/temp/14053
+x - getcom.o
+x - storcm.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/util.a into directory /home/progs/temp/14053
+x - errex.o
+x - findz.o
+x - inter.o
+x - lastch.o
+x - sr100t.o
+x - sta.o
+x - urndm.o
+Now archiving all *.o files into /home/progs/bosor5/libraries.x86_64/bosormain.a
+ar: creating /home/progs/bosor5/libraries.x86_64/bosormain.a
+a - abort2.o
+a - add2.o
+a - ansl1.o
+a - answer.o
+a - apreb.o
+a - arrays.o
+a - bio_x86_64.o
+a - buckle.o
+a - casnam.o
+a - cstran.o
+a - datum.o
+a - eband2.o
+a - errex.o
+a - factor.o
+a - factr.o
+a - fdsbar.o
+a - fillb.o
+a - fillbp.o
+a - findz.o
+a - flow.o
+a - founda.o
+a - funct.o
+a - gasp_x86_64.o
+a - getb1.o
+a - getc.o
+a - getcom.o
+a - getd.o
+a - getg.o
+a - getp.o
+a - getrnt.o
+a - getrot.o
+a - getwwd.o
+a - getwwp.o
+a - i2c.o
+a - iblnk.o
+a - inter.o
+a - lastch.o
+a - listpl.o
+a - loads.o
+a - main.o
+a - main1.o
+a - matmu4.o
+a - nxitem.o
+a - ortho2.o
+a - pgetb.o
+a - pgetc.o
+a - phout.o
+a - plast.o
+a - plocal.o
+a - pre11.o
+a - pre22.o
+a - pre33.o
+a - prerng.o
+a - prests.o
+a - prntc.o
+a - prompt.o
+a - readff.o
+a - reread.o
+a - rplast.o
+a - soln.o
+a - solve.o
+a - sr100t.o
+a - sta.o
+a - stabil.o
+a - storcm.o
+a - tfunct.o
+a - tload.o
+a - upcase.o
+a - urndm.o
+a - vec.o
+Now randomizing library /home/progs/bosor5/libraries.x86_64/bosormain.a
+Remove temporary directory: /home/progs/temp/14053
+Exiting updatelib.
+------------------------------------------
+ar xv /home/progs/bosor5/libraries.x86_64/bosormain.a main.o
+x - main.o
+gfortran -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O -o /home/progs/bosor5/execute/bosormain.x86_64 main.o /home/progs/bosor5/libraries.x86_64/bosormain.a \
+                                     /home/progs/util/ieeexx_x86_64.o
+/bin/rm -f main.o
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/mode.src /home/progs/bosor5/objects.x86_64/mode.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/14152
+Splitting source file: /home/progs/bosor5/sources/mode.src
+post22.f
+pstloc.f
+mode.f
+local.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing local.F to local.f
+Compiling local.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing mode.F to mode.f
+Compiling mode.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing post22.F to post22.f
+Compiling post22.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing pstloc.F to pstloc.f
+Compiling pstloc.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/mode.a
+ar: creating /home/progs/bosor5/objects.x86_64/mode.a
+a - local.o
+a - mode.o
+a - post22.o
+a - pstloc.o
+Remove temporary directory: /home/progs/temp/14152
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/plast.src /home/progs/bosor5/objects.x86_64/plast.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/14207
+Splitting source file: /home/progs/bosor5/sources/plast.src
+pre33.f
+prntc.f
+plast.f
+flow.f
+fdsbar.f
+rplast.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing fdsbar.F to fdsbar.f
+Compiling fdsbar.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing flow.F to flow.f
+Compiling flow.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing plast.F to plast.f
+Compiling plast.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing pre33.F to pre33.f
+Compiling pre33.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing prntc.F to prntc.f
+Compiling prntc.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing rplast.F to rplast.f
+Compiling rplast.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/plast.a
+ar: creating /home/progs/bosor5/objects.x86_64/plast.a
+a - fdsbar.o
+a - flow.o
+a - plast.o
+a - pre33.o
+a - prntc.o
+a - rplast.o
+Remove temporary directory: /home/progs/temp/14207
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/plotit.src /home/progs/bosor5/objects.x86_64/plotit.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/14272
+Splitting source file: /home/progs/bosor5/sources/plotit.src
+plotit.f
+arrow.f
+axis.f
+cseg.f
+cseg10.f
+decml.f
+endplt.f
+eoftv.f
+framev.f
+geoplt.f
+number.f
+plot.f
+ploti.f
+plotop.f
+expand.f
+scaleh.f
+symbol.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing arrow.F to arrow.f
+Compiling arrow.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing axis.F to axis.f
+Compiling axis.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing cseg.F to cseg.f
+Compiling cseg.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing cseg10.F to cseg10.f
+Compiling cseg10.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing decml.F to decml.f
+Compiling decml.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing endplt.F to endplt.f
+Compiling endplt.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing eoftv.F to eoftv.f
+Compiling eoftv.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing expand.F to expand.f
+Compiling expand.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing framev.F to framev.f
+Compiling framev.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing geoplt.F to geoplt.f
+Compiling geoplt.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing number.F to number.f
+Compiling number.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing plot.F to plot.f
+Compiling plot.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing ploti.F to ploti.f
+Compiling ploti.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing plotit.F to plotit.f
+Compiling plotit.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing plotop.F to plotop.f
+Compiling plotop.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing scaleh.F to scaleh.f
+Compiling scaleh.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing symbol.F to symbol.f
+Compiling symbol.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/plotit.a
+ar: creating /home/progs/bosor5/objects.x86_64/plotit.a
+a - arrow.o
+a - axis.o
+a - cseg.o
+a - cseg10.o
+a - decml.o
+a - endplt.o
+a - eoftv.o
+a - expand.o
+a - framev.o
+a - geoplt.o
+a - number.o
+a - plot.o
+a - ploti.o
+a - plotit.o
+a - plotop.o
+a - scaleh.o
+a - symbol.o
+Remove temporary directory: /home/progs/temp/14272
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/post.src /home/progs/bosor5/objects.x86_64/post.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/14392
+Splitting source file: /home/progs/bosor5/sources/post.src
+post.f
+blowup.f
+funct.f
+loads.f
+tload.f
+plots.f
+pinit.f
+dummy.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing blowup.F to blowup.f
+Compiling blowup.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing dummy.F to dummy.f
+Compiling dummy.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing funct.F to funct.f
+Compiling funct.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing loads.F to loads.f
+Compiling loads.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing pinit.F to pinit.f
+Compiling pinit.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing plots.F to plots.f
+Compiling plots.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing post.F to post.f
+Compiling post.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing tload.F to tload.f
+Compiling tload.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/post.a
+ar: creating /home/progs/bosor5/objects.x86_64/post.a
+a - blowup.o
+a - dummy.o
+a - funct.o
+a - loads.o
+a - pinit.o
+a - plots.o
+a - post.o
+a - tload.o
+Remove temporary directory: /home/progs/temp/14392
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updatelib /home/progs/bosor5/libraries.x86_64/bosorpost.a /home/progs/bosor5/objects.x86_64/gasp.a /home/progs/bosor5/objects.x86_64/mode.a /home/progs/bosor5/objects.x86_64/plast.a /home/progs/bosor5/objects.x86_64/plotit.a /home/progs/bosor5/objects.x86_64/post.a /home/progs/bosor5/objects.x86_64/prompter.a /home/progs/bosor5/objects.x86_64/stoget.a /home/progs/bosor5/objects.x86_64/util.a
+------------------------------------------
+Executing updatelib.
+Using temporary directory: /home/progs/temp/14467
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/gasp.a into directory /home/progs/temp/14467
+x - gasp_x86_64.o
+x - bio_x86_64.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/mode.a into directory /home/progs/temp/14467
+x - local.o
+x - mode.o
+x - post22.o
+x - pstloc.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/plast.a into directory /home/progs/temp/14467
+x - fdsbar.o
+x - flow.o
+x - plast.o
+x - pre33.o
+x - prntc.o
+x - rplast.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/plotit.a into directory /home/progs/temp/14467
+x - arrow.o
+x - axis.o
+x - cseg.o
+x - cseg10.o
+x - decml.o
+x - endplt.o
+x - eoftv.o
+x - expand.o
+x - framev.o
+x - geoplt.o
+x - number.o
+x - plot.o
+x - ploti.o
+x - plotit.o
+x - plotop.o
+x - scaleh.o
+x - symbol.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/post.a into directory /home/progs/temp/14467
+x - blowup.o
+x - dummy.o
+x - funct.o
+x - loads.o
+x - pinit.o
+x - plots.o
+x - post.o
+x - tload.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/prompter.a into directory /home/progs/temp/14467
+x - abort2.o
+x - ansl1.o
+x - answer.o
+x - casnam.o
+x - datum.o
+x - errex.o
+x - i2c.o
+x - iblnk.o
+x - nxitem.o
+x - phout.o
+x - prompt.o
+x - readff.o
+x - reread.o
+x - upcase.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/stoget.a into directory /home/progs/temp/14467
+x - getcom.o
+x - storcm.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/util.a into directory /home/progs/temp/14467
+x - errex.o
+x - findz.o
+x - inter.o
+x - lastch.o
+x - sr100t.o
+x - sta.o
+x - urndm.o
+Now archiving all *.o files into /home/progs/bosor5/libraries.x86_64/bosorpost.a
+ar: creating /home/progs/bosor5/libraries.x86_64/bosorpost.a
+a - abort2.o
+a - ansl1.o
+a - answer.o
+a - arrow.o
+a - axis.o
+a - bio_x86_64.o
+a - blowup.o
+a - casnam.o
+a - cseg.o
+a - cseg10.o
+a - datum.o
+a - decml.o
+a - dummy.o
+a - endplt.o
+a - eoftv.o
+a - errex.o
+a - expand.o
+a - fdsbar.o
+a - findz.o
+a - flow.o
+a - framev.o
+a - funct.o
+a - gasp_x86_64.o
+a - geoplt.o
+a - getcom.o
+a - i2c.o
+a - iblnk.o
+a - inter.o
+a - lastch.o
+a - loads.o
+a - local.o
+a - mode.o
+a - number.o
+a - nxitem.o
+a - phout.o
+a - pinit.o
+a - plast.o
+a - plot.o
+a - ploti.o
+a - plotit.o
+a - plotop.o
+a - plots.o
+a - post.o
+a - post22.o
+a - pre33.o
+a - prntc.o
+a - prompt.o
+a - pstloc.o
+a - readff.o
+a - reread.o
+a - rplast.o
+a - scaleh.o
+a - sr100t.o
+a - sta.o
+a - storcm.o
+a - symbol.o
+a - tload.o
+a - upcase.o
+a - urndm.o
+Now randomizing library /home/progs/bosor5/libraries.x86_64/bosorpost.a
+Remove temporary directory: /home/progs/temp/14467
+Exiting updatelib.
+------------------------------------------
+ar xv /home/progs/bosor5/libraries.x86_64/bosorpost.a post.o
+x - post.o
+gfortran -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O -o /home/progs/bosor5/execute/bosorpost.x86_64 post.o /home/progs/bosor5/libraries.x86_64/bosorpost.a \
+                                     /home/progs/util/pakupk_x86_64.o \
+                                     /home/progs/util/ieeexx_x86_64.o
+/bin/rm -f post.o
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/geom.src /home/progs/bosor5/objects.x86_64/geom.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/14562
+Splitting source file: /home/progs/bosor5/sources/geom.src
+geom.f
+geom1.f
+geom2.f
+geom3.f
+geom4.f
+geom5.f
+geomty.f
+getz.f
+imperf.f
+gmfind.f
+angle.f
+shell.f
+arcdrw.f
+curv.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing angle.F to angle.f
+Compiling angle.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing arcdrw.F to arcdrw.f
+Compiling arcdrw.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing curv.F to curv.f
+Compiling curv.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing geom.F to geom.f
+Compiling geom.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing geom1.F to geom1.f
+Compiling geom1.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing geom2.F to geom2.f
+Compiling geom2.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing geom3.F to geom3.f
+Compiling geom3.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing geom4.F to geom4.f
+Compiling geom4.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing geom5.F to geom5.f
+Compiling geom5.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing geomty.F to geomty.f
+Compiling geomty.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing getz.F to getz.f
+Compiling getz.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing gmfind.F to gmfind.f
+Compiling gmfind.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing imperf.F to imperf.f
+Compiling imperf.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing shell.F to shell.f
+Compiling shell.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/geom.a
+ar: creating /home/progs/bosor5/objects.x86_64/geom.a
+a - angle.o
+a - arcdrw.o
+a - curv.o
+a - geom.o
+a - geom1.o
+a - geom2.o
+a - geom3.o
+a - geom4.o
+a - geom5.o
+a - geomty.o
+a - getz.o
+a - gmfind.o
+a - imperf.o
+a - shell.o
+Remove temporary directory: /home/progs/temp/14562
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/hookup.src /home/progs/bosor5/objects.x86_64/hookup.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/14667
+Splitting source file: /home/progs/bosor5/sources/hookup.src
+hookup.f
+getblk.f
+getiw.f
+ishift.f
+zglobe.f
+skilin.f
+wrcon.f
+sort.f
+constr.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing constr.F to constr.f
+Compiling constr.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing getblk.F to getblk.f
+Compiling getblk.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing getiw.F to getiw.f
+Compiling getiw.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing hookup.F to hookup.f
+Compiling hookup.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing ishift.F to ishift.f
+Compiling ishift.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing skilin.F to skilin.f
+Compiling skilin.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing sort.F to sort.f
+Compiling sort.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing wrcon.F to wrcon.f
+Compiling wrcon.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing zglobe.F to zglobe.f
+Compiling zglobe.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/hookup.a
+ar: creating /home/progs/bosor5/objects.x86_64/hookup.a
+a - constr.o
+a - getblk.o
+a - getiw.o
+a - hookup.o
+a - ishift.o
+a - skilin.o
+a - sort.o
+a - wrcon.o
+a - zglobe.o
+Remove temporary directory: /home/progs/temp/14667
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/readit.src /home/progs/bosor5/objects.x86_64/readit.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/14747
+Splitting source file: /home/progs/bosor5/sources/readit.src
+b5read.f
+restor.f
+tload.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing b5read.F to b5read.f
+Compiling b5read.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing restor.F to restor.f
+Compiling restor.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing tload.F to tload.f
+Compiling tload.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/readit.a
+ar: creating /home/progs/bosor5/objects.x86_64/readit.a
+a - b5read.o
+a - restor.o
+a - tload.o
+Remove temporary directory: /home/progs/temp/14747
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/ring.src /home/progs/bosor5/objects.x86_64/ring.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/14797
+Splitting source file: /home/progs/bosor5/sources/ring.src
+rgdata.f
+rngseg.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing rgdata.F to rgdata.f
+Compiling rgdata.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing rngseg.F to rngseg.f
+Compiling rngseg.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/ring.a
+ar: creating /home/progs/bosor5/objects.x86_64/ring.a
+a - rgdata.o
+a - rngseg.o
+Remove temporary directory: /home/progs/temp/14797
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/segmnt.src /home/progs/bosor5/objects.x86_64/segmnt.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/14842
+Splitting source file: /home/progs/bosor5/sources/segmnt.src
+segmnt.f
+loadre.f
+mesh.f
+storit.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing loadre.F to loadre.f
+Compiling loadre.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing mesh.F to mesh.f
+Compiling mesh.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing segmnt.F to segmnt.f
+Compiling segmnt.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing storit.F to storit.f
+Compiling storit.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/segmnt.a
+ar: creating /home/progs/bosor5/objects.x86_64/segmnt.a
+a - loadre.o
+a - mesh.o
+a - segmnt.o
+a - storit.o
+Remove temporary directory: /home/progs/temp/14842
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/wall.src /home/progs/bosor5/objects.x86_64/wall.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/14897
+Splitting source file: /home/progs/bosor5/sources/wall.src
+wallcf.f
+cfb5.f
+findth.f
+funct.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing cfb5.F to cfb5.f
+Compiling cfb5.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing findth.F to findth.f
+Compiling findth.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing funct.F to funct.f
+Compiling funct.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing wallcf.F to wallcf.f
+Compiling wallcf.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/wall.a
+ar: creating /home/progs/bosor5/objects.x86_64/wall.a
+a - cfb5.o
+a - findth.o
+a - funct.o
+a - wallcf.o
+Remove temporary directory: /home/progs/temp/14897
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updatelib /home/progs/bosor5/libraries.x86_64/bosorread.a /home/progs/bosor5/objects.x86_64/gasp.a /home/progs/bosor5/objects.x86_64/geom.a /home/progs/bosor5/objects.x86_64/hookup.a /home/progs/bosor5/objects.x86_64/prompter.a /home/progs/bosor5/objects.x86_64/readit.a /home/progs/bosor5/objects.x86_64/ring.a /home/progs/bosor5/objects.x86_64/segmnt.a /home/progs/bosor5/objects.x86_64/stoget.a /home/progs/bosor5/objects.x86_64/util.a /home/progs/bosor5/objects.x86_64/wall.a
+------------------------------------------
+Executing updatelib.
+Using temporary directory: /home/progs/temp/14952
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/gasp.a into directory /home/progs/temp/14952
+x - gasp_x86_64.o
+x - bio_x86_64.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/geom.a into directory /home/progs/temp/14952
+x - angle.o
+x - arcdrw.o
+x - curv.o
+x - geom.o
+x - geom1.o
+x - geom2.o
+x - geom3.o
+x - geom4.o
+x - geom5.o
+x - geomty.o
+x - getz.o
+x - gmfind.o
+x - imperf.o
+x - shell.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/hookup.a into directory /home/progs/temp/14952
+x - constr.o
+x - getblk.o
+x - getiw.o
+x - hookup.o
+x - ishift.o
+x - skilin.o
+x - sort.o
+x - wrcon.o
+x - zglobe.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/prompter.a into directory /home/progs/temp/14952
+x - abort2.o
+x - ansl1.o
+x - answer.o
+x - casnam.o
+x - datum.o
+x - errex.o
+x - i2c.o
+x - iblnk.o
+x - nxitem.o
+x - phout.o
+x - prompt.o
+x - readff.o
+x - reread.o
+x - upcase.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/readit.a into directory /home/progs/temp/14952
+x - b5read.o
+x - restor.o
+x - tload.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/ring.a into directory /home/progs/temp/14952
+x - rgdata.o
+x - rngseg.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/segmnt.a into directory /home/progs/temp/14952
+x - loadre.o
+x - mesh.o
+x - segmnt.o
+x - storit.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/stoget.a into directory /home/progs/temp/14952
+x - getcom.o
+x - storcm.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/util.a into directory /home/progs/temp/14952
+x - errex.o
+x - findz.o
+x - inter.o
+x - lastch.o
+x - sr100t.o
+x - sta.o
+x - urndm.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/wall.a into directory /home/progs/temp/14952
+x - cfb5.o
+x - findth.o
+x - funct.o
+x - wallcf.o
+Now archiving all *.o files into /home/progs/bosor5/libraries.x86_64/bosorread.a
+ar: creating /home/progs/bosor5/libraries.x86_64/bosorread.a
+a - abort2.o
+a - angle.o
+a - ansl1.o
+a - answer.o
+a - arcdrw.o
+a - b5read.o
+a - bio_x86_64.o
+a - casnam.o
+a - cfb5.o
+a - constr.o
+a - curv.o
+a - datum.o
+a - errex.o
+a - findth.o
+a - findz.o
+a - funct.o
+a - gasp_x86_64.o
+a - geom.o
+a - geom1.o
+a - geom2.o
+a - geom3.o
+a - geom4.o
+a - geom5.o
+a - geomty.o
+a - getblk.o
+a - getcom.o
+a - getiw.o
+a - getz.o
+a - gmfind.o
+a - hookup.o
+a - i2c.o
+a - iblnk.o
+a - imperf.o
+a - inter.o
+a - ishift.o
+a - lastch.o
+a - loadre.o
+a - mesh.o
+a - nxitem.o
+a - phout.o
+a - prompt.o
+a - readff.o
+a - reread.o
+a - restor.o
+a - rgdata.o
+a - rngseg.o
+a - segmnt.o
+a - shell.o
+a - skilin.o
+a - sort.o
+a - sr100t.o
+a - sta.o
+a - storcm.o
+a - storit.o
+a - tload.o
+a - upcase.o
+a - urndm.o
+a - wallcf.o
+a - wrcon.o
+a - zglobe.o
+Now randomizing library /home/progs/bosor5/libraries.x86_64/bosorread.a
+Remove temporary directory: /home/progs/temp/14952
+Exiting updatelib.
+------------------------------------------
+ar xv /home/progs/bosor5/libraries.x86_64/bosorread.a b5read.o
+x - b5read.o
+gfortran -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O -o /home/progs/bosor5/execute/bosorread.x86_64 b5read.o /home/progs/bosor5/libraries.x86_64/bosorread.a \
+                                       /home/progs/util/ieeexx_x86_64.o
+/bin/rm -f b5read.o
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/getsegs.src /home/progs/bosor5/objects.x86_64/getsegs.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/15051
+Splitting source file: /home/progs/bosor5/sources/getsegs.src
+getseg.f
+fopen.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing fopen.F to fopen.f
+Compiling fopen.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing getseg.F to getseg.f
+Compiling getseg.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/getsegs.a
+ar: creating /home/progs/bosor5/objects.x86_64/getsegs.a
+a - fopen.o
+a - getseg.o
+Remove temporary directory: /home/progs/temp/15051
+Exiting updateobj.
+------------------------------------------
+cp /home/progs/bosor5/objects.x86_64/getsegs.a /home/progs/bosor5/libraries.x86_64/getsegs.a
+ar xv /home/progs/bosor5/libraries.x86_64/getsegs.a getseg.o
+x - getseg.o
+gfortran -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O -o /home/progs/bosor5/execute/getsegs.x86_64 getseg.o /home/progs/bosor5/libraries.x86_64/getsegs.a
+/bin/rm -f getseg.o
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/help5.src /home/progs/bosor5/objects.x86_64/help5.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/15158
+Splitting source file: /home/progs/bosor5/sources/help5.src
+help5.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing help5.F to help5.f
+Compiling help5.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/help5.a
+ar: creating /home/progs/bosor5/objects.x86_64/help5.a
+a - help5.o
+Remove temporary directory: /home/progs/temp/15158
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/felippa.src /home/progs/bosor5/objects.x86_64/felippa.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/15198
+Splitting source file: /home/progs/bosor5/sources/felippa.src
+cmatch.f
+getlin.f
+gettok.f
+helper.f
+hmatch.f
+hprint.f
+lenetb.f
+putlin.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing cmatch.F to cmatch.f
+Compiling cmatch.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing getlin.F to getlin.f
+Compiling getlin.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing gettok.F to gettok.f
+Compiling gettok.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing helper.F to helper.f
+Compiling helper.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing hmatch.F to hmatch.f
+Compiling hmatch.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing hprint.F to hprint.f
+Compiling hprint.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing lenetb.F to lenetb.f
+Compiling lenetb.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing putlin.F to putlin.f
+Compiling putlin.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/felippa.a
+ar: creating /home/progs/bosor5/objects.x86_64/felippa.a
+a - cmatch.o
+a - getlin.o
+a - gettok.o
+a - helper.o
+a - hmatch.o
+a - hprint.o
+a - lenetb.o
+a - putlin.o
+Remove temporary directory: /home/progs/temp/15198
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updatelib /home/progs/bosor5/libraries.x86_64/help5.a /home/progs/bosor5/objects.x86_64/help5.a /home/progs/bosor5/objects.x86_64/felippa.a
+------------------------------------------
+Executing updatelib.
+Using temporary directory: /home/progs/temp/15273
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/help5.a into directory /home/progs/temp/15273
+x - help5.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/felippa.a into directory /home/progs/temp/15273
+x - cmatch.o
+x - getlin.o
+x - gettok.o
+x - helper.o
+x - hmatch.o
+x - hprint.o
+x - lenetb.o
+x - putlin.o
+Now archiving all *.o files into /home/progs/bosor5/libraries.x86_64/help5.a
+ar: creating /home/progs/bosor5/libraries.x86_64/help5.a
+a - cmatch.o
+a - getlin.o
+a - gettok.o
+a - help5.o
+a - helper.o
+a - hmatch.o
+a - hprint.o
+a - lenetb.o
+a - putlin.o
+Now randomizing library /home/progs/bosor5/libraries.x86_64/help5.a
+Remove temporary directory: /home/progs/temp/15273
+Exiting updatelib.
+------------------------------------------
+ar xv /home/progs/bosor5/libraries.x86_64/help5.a help5.o
+x - help5.o
+gfortran -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O -o /home/progs/bosor5/execute/help5.x86_64 help5.o /home/progs/bosor5/libraries.x86_64/help5.a
+/bin/rm -f help5.o
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/input.src /home/progs/bosor5/objects.x86_64/input.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/15356
+Splitting source file: /home/progs/bosor5/sources/input.src
+input.f
+boundy.f
+nfileb.f
+segmt.f
+nfile.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing boundy.F to boundy.f
+Compiling boundy.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing input.F to input.f
+Compiling input.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing nfile.F to nfile.f
+Compiling nfile.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing nfileb.F to nfileb.f
+Compiling nfileb.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing segmt.F to segmt.f
+Compiling segmt.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/input.a
+ar: creating /home/progs/bosor5/objects.x86_64/input.a
+a - boundy.o
+a - input.o
+a - nfile.o
+a - nfileb.o
+a - segmt.o
+Remove temporary directory: /home/progs/temp/15356
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/questions.src /home/progs/bosor5/objects.x86_64/questions.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/15416
+Splitting source file: /home/progs/bosor5/sources/questions.src
+quest.f
+glob1.f
+mesh.f
+geom.f
+refsur.f
+sta.f
+imperf.f
+rings.f
+therm.f
+press.f
+linlod.f
+wall.f
+poles.f
+bound.f
+junct.f
+rigid.f
+glob2.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing bound.F to bound.f
+Compiling bound.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing geom.F to geom.f
+Compiling geom.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing glob1.F to glob1.f
+Compiling glob1.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing glob2.F to glob2.f
+Compiling glob2.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing imperf.F to imperf.f
+Compiling imperf.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing junct.F to junct.f
+Compiling junct.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing linlod.F to linlod.f
+Compiling linlod.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing mesh.F to mesh.f
+Compiling mesh.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing poles.F to poles.f
+Compiling poles.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing press.F to press.f
+Compiling press.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing quest.F to quest.f
+Compiling quest.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing refsur.F to refsur.f
+Compiling refsur.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing rigid.F to rigid.f
+Compiling rigid.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing rings.F to rings.f
+Compiling rings.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing sta.F to sta.f
+Compiling sta.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing therm.F to therm.f
+Compiling therm.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing wall.F to wall.f
+Compiling wall.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/questions.a
+ar: creating /home/progs/bosor5/objects.x86_64/questions.a
+a - bound.o
+a - geom.o
+a - glob1.o
+a - glob2.o
+a - imperf.o
+a - junct.o
+a - linlod.o
+a - mesh.o
+a - poles.o
+a - press.o
+a - quest.o
+a - refsur.o
+a - rigid.o
+a - rings.o
+a - sta.o
+a - therm.o
+a - wall.o
+Remove temporary directory: /home/progs/temp/15416
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updatelib /home/progs/bosor5/libraries.x86_64/input.a /home/progs/bosor5/objects.x86_64/input.a /home/progs/bosor5/objects.x86_64/questions.a /home/progs/bosor5/objects.x86_64/prompter.a
+------------------------------------------
+Executing updatelib.
+Using temporary directory: /home/progs/temp/15536
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/input.a into directory /home/progs/temp/15536
+x - boundy.o
+x - input.o
+x - nfile.o
+x - nfileb.o
+x - segmt.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/questions.a into directory /home/progs/temp/15536
+x - bound.o
+x - geom.o
+x - glob1.o
+x - glob2.o
+x - imperf.o
+x - junct.o
+x - linlod.o
+x - mesh.o
+x - poles.o
+x - press.o
+x - quest.o
+x - refsur.o
+x - rigid.o
+x - rings.o
+x - sta.o
+x - therm.o
+x - wall.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/prompter.a into directory /home/progs/temp/15536
+x - abort2.o
+x - ansl1.o
+x - answer.o
+x - casnam.o
+x - datum.o
+x - errex.o
+x - i2c.o
+x - iblnk.o
+x - nxitem.o
+x - phout.o
+x - prompt.o
+x - readff.o
+x - reread.o
+x - upcase.o
+Now archiving all *.o files into /home/progs/bosor5/libraries.x86_64/input.a
+ar: creating /home/progs/bosor5/libraries.x86_64/input.a
+a - abort2.o
+a - ansl1.o
+a - answer.o
+a - bound.o
+a - boundy.o
+a - casnam.o
+a - datum.o
+a - errex.o
+a - geom.o
+a - glob1.o
+a - glob2.o
+a - i2c.o
+a - iblnk.o
+a - imperf.o
+a - input.o
+a - junct.o
+a - linlod.o
+a - mesh.o
+a - nfile.o
+a - nfileb.o
+a - nxitem.o
+a - phout.o
+a - poles.o
+a - press.o
+a - prompt.o
+a - quest.o
+a - readff.o
+a - refsur.o
+a - reread.o
+a - rigid.o
+a - rings.o
+a - segmt.o
+a - sta.o
+a - therm.o
+a - upcase.o
+a - wall.o
+Now randomizing library /home/progs/bosor5/libraries.x86_64/input.a
+Remove temporary directory: /home/progs/temp/15536
+Exiting updatelib.
+------------------------------------------
+ar xv /home/progs/bosor5/libraries.x86_64/input.a input.o
+x - input.o
+gfortran -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O -o /home/progs/bosor5/execute/input.x86_64 input.o /home/progs/bosor5/libraries.x86_64/input.a
+/bin/rm -f input.o
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/mainsetup.src /home/progs/bosor5/objects.x86_64/mainsetup.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/15621
+Splitting source file: /home/progs/bosor5/sources/mainsetup.src
+mains.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing mains.F to mains.f
+Compiling mains.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/mainsetup.a
+ar: creating /home/progs/bosor5/objects.x86_64/mainsetup.a
+a - mains.o
+Remove temporary directory: /home/progs/temp/15621
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updatelib /home/progs/bosor5/libraries.x86_64/mainsetup.a /home/progs/bosor5/objects.x86_64/mainsetup.a /home/progs/bosor5/objects.x86_64/prompter.a /home/progs/bosor5/objects.x86_64/util.a
+------------------------------------------
+Executing updatelib.
+Using temporary directory: /home/progs/temp/15661
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/mainsetup.a into directory /home/progs/temp/15661
+x - mains.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/prompter.a into directory /home/progs/temp/15661
+x - abort2.o
+x - ansl1.o
+x - answer.o
+x - casnam.o
+x - datum.o
+x - errex.o
+x - i2c.o
+x - iblnk.o
+x - nxitem.o
+x - phout.o
+x - prompt.o
+x - readff.o
+x - reread.o
+x - upcase.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/util.a into directory /home/progs/temp/15661
+x - errex.o
+x - findz.o
+x - inter.o
+x - lastch.o
+x - sr100t.o
+x - sta.o
+x - urndm.o
+Now archiving all *.o files into /home/progs/bosor5/libraries.x86_64/mainsetup.a
+ar: creating /home/progs/bosor5/libraries.x86_64/mainsetup.a
+a - abort2.o
+a - ansl1.o
+a - answer.o
+a - casnam.o
+a - datum.o
+a - errex.o
+a - findz.o
+a - i2c.o
+a - iblnk.o
+a - inter.o
+a - lastch.o
+a - mains.o
+a - nxitem.o
+a - phout.o
+a - prompt.o
+a - readff.o
+a - reread.o
+a - sr100t.o
+a - sta.o
+a - upcase.o
+a - urndm.o
+Now randomizing library /home/progs/bosor5/libraries.x86_64/mainsetup.a
+Remove temporary directory: /home/progs/temp/15661
+Exiting updatelib.
+------------------------------------------
+ar xv /home/progs/bosor5/libraries.x86_64/mainsetup.a mains.o
+x - mains.o
+gfortran -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O -o /home/progs/bosor5/execute/mainsetup.x86_64 mains.o /home/progs/bosor5/libraries.x86_64/mainsetup.a
+/bin/rm -f mains.o
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/modify.src /home/progs/bosor5/objects.x86_64/modify.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/15746
+Splitting source file: /home/progs/bosor5/sources/modify.src
+modify.f
+edseg.f
+cnames.f
+blankx.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing blankx.F to blankx.f
+Compiling blankx.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing cnames.F to cnames.f
+Compiling cnames.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing edseg.F to edseg.f
+Compiling edseg.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing modify.F to modify.f
+Compiling modify.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/modify.a
+ar: creating /home/progs/bosor5/objects.x86_64/modify.a
+a - blankx.o
+a - cnames.o
+a - edseg.o
+a - modify.o
+Remove temporary directory: /home/progs/temp/15746
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updatelib /home/progs/bosor5/libraries.x86_64/modify.a /home/progs/bosor5/objects.x86_64/modify.a /home/progs/bosor5/objects.x86_64/input.a /home/progs/bosor5/objects.x86_64/prompter.a /home/progs/bosor5/objects.x86_64/questions.a
+------------------------------------------
+Executing updatelib.
+Using temporary directory: /home/progs/temp/15801
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/modify.a into directory /home/progs/temp/15801
+x - blankx.o
+x - cnames.o
+x - edseg.o
+x - modify.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/input.a into directory /home/progs/temp/15801
+x - boundy.o
+x - input.o
+x - nfile.o
+x - nfileb.o
+x - segmt.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/prompter.a into directory /home/progs/temp/15801
+x - abort2.o
+x - ansl1.o
+x - answer.o
+x - casnam.o
+x - datum.o
+x - errex.o
+x - i2c.o
+x - iblnk.o
+x - nxitem.o
+x - phout.o
+x - prompt.o
+x - readff.o
+x - reread.o
+x - upcase.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/questions.a into directory /home/progs/temp/15801
+x - bound.o
+x - geom.o
+x - glob1.o
+x - glob2.o
+x - imperf.o
+x - junct.o
+x - linlod.o
+x - mesh.o
+x - poles.o
+x - press.o
+x - quest.o
+x - refsur.o
+x - rigid.o
+x - rings.o
+x - sta.o
+x - therm.o
+x - wall.o
+Now archiving all *.o files into /home/progs/bosor5/libraries.x86_64/modify.a
+ar: creating /home/progs/bosor5/libraries.x86_64/modify.a
+a - abort2.o
+a - ansl1.o
+a - answer.o
+a - blankx.o
+a - bound.o
+a - boundy.o
+a - casnam.o
+a - cnames.o
+a - datum.o
+a - edseg.o
+a - errex.o
+a - geom.o
+a - glob1.o
+a - glob2.o
+a - i2c.o
+a - iblnk.o
+a - imperf.o
+a - input.o
+a - junct.o
+a - linlod.o
+a - mesh.o
+a - modify.o
+a - nfile.o
+a - nfileb.o
+a - nxitem.o
+a - phout.o
+a - poles.o
+a - press.o
+a - prompt.o
+a - quest.o
+a - readff.o
+a - refsur.o
+a - reread.o
+a - rigid.o
+a - rings.o
+a - segmt.o
+a - sta.o
+a - therm.o
+a - upcase.o
+a - wall.o
+Now randomizing library /home/progs/bosor5/libraries.x86_64/modify.a
+Remove temporary directory: /home/progs/temp/15801
+Exiting updatelib.
+------------------------------------------
+ar dv /home/progs/bosor5/libraries.x86_64/modify.a input.o
+d - input.o
+ar xv /home/progs/bosor5/libraries.x86_64/modify.a modify.o
+x - modify.o
+gfortran -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O -o /home/progs/bosor5/execute/modify.x86_64 modify.o /home/progs/bosor5/libraries.x86_64/modify.a
+/bin/rm -f modify.o
+csh /home/progs/bin/updateobj gfortran "-Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O" /home/progs/bosor5/sources/postsetup.src /home/progs/bosor5/objects.x86_64/postsetup.a
+------------------------------------------
+Executing updateobj.
+Using temporary directory: /home/progs/temp/15903
+Splitting source file: /home/progs/bosor5/sources/postsetup.src
+posts.f
+blowup.f
+ls: No match.
+Process each .f file with fpp.
+Preprocessing blowup.F to blowup.f
+Compiling blowup.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Preprocessing posts.F to posts.f
+Compiling posts.f source file with flags: -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O
+Archiving all *.o files to: /home/progs/bosor5/objects.x86_64/postsetup.a
+ar: creating /home/progs/bosor5/objects.x86_64/postsetup.a
+a - blowup.o
+a - posts.o
+Remove temporary directory: /home/progs/temp/15903
+Exiting updateobj.
+------------------------------------------
+csh /home/progs/bin/updatelib /home/progs/bosor5/libraries.x86_64/postsetup.a /home/progs/bosor5/objects.x86_64/postsetup.a /home/progs/bosor5/objects.x86_64/prompter.a /home/progs/bosor5/objects.x86_64/util.a
+------------------------------------------
+Executing updatelib.
+Using temporary directory: /home/progs/temp/15948
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/postsetup.a into directory /home/progs/temp/15948
+x - blowup.o
+x - posts.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/prompter.a into directory /home/progs/temp/15948
+x - abort2.o
+x - ansl1.o
+x - answer.o
+x - casnam.o
+x - datum.o
+x - errex.o
+x - i2c.o
+x - iblnk.o
+x - nxitem.o
+x - phout.o
+x - prompt.o
+x - readff.o
+x - reread.o
+x - upcase.o
+Now extracting *.o files from /home/progs/bosor5/objects.x86_64/util.a into directory /home/progs/temp/15948
+x - errex.o
+x - findz.o
+x - inter.o
+x - lastch.o
+x - sr100t.o
+x - sta.o
+x - urndm.o
+Now archiving all *.o files into /home/progs/bosor5/libraries.x86_64/postsetup.a
+ar: creating /home/progs/bosor5/libraries.x86_64/postsetup.a
+a - abort2.o
+a - ansl1.o
+a - answer.o
+a - blowup.o
+a - casnam.o
+a - datum.o
+a - errex.o
+a - findz.o
+a - i2c.o
+a - iblnk.o
+a - inter.o
+a - lastch.o
+a - nxitem.o
+a - phout.o
+a - posts.o
+a - prompt.o
+a - readff.o
+a - reread.o
+a - sr100t.o
+a - sta.o
+a - upcase.o
+a - urndm.o
+Now randomizing library /home/progs/bosor5/libraries.x86_64/postsetup.a
+Remove temporary directory: /home/progs/temp/15948
+Exiting updatelib.
+------------------------------------------
+ar xv /home/progs/bosor5/libraries.x86_64/postsetup.a posts.o
+x - posts.o
+gfortran -Dx86_64 -Dlinux -fcray-pointer -fno-automatic -g -O -o /home/progs/bosor5/execute/postsetup.x86_64 posts.o /home/progs/bosor5/libraries.x86_64/postsetup.a
+/bin/rm -f posts.o

@@ -1,0 +1,45 @@
+# Global directives, torisph.loaddef.input;load-deflection for ext.press.torisphere 
+=title(Load-deflection: perfect & imperfect 2/1 torisphere, ext.p)
+=xlabel(Axial deflection at apex of torispherical head (inches))
+=ylabel(External pressure (psi))
+# data set 1 results for perfect torispherical shell
++legend(Perfect 2/1 torispherical shell )
++setmarker( 0)
+   0.0    0.0
+  0.123  250.
+  0.178  350.
+  0.207  400.
+  0.239  450.
+  0.273  500.
+  0.280  510.
+  0.288  520.
+  0.295  530.
+  0.303  540.
+  0.311  550.
+  0.320  560.
+  0.330  570.
+  0.339  580.
+  0.350  590.
+  0.362  600.
+  0.376  610.
+  0.393  620.
+  0.417  630.
+
+# data set 2 results for imperfect torispherical shell
++legend(Imperfect 2/1 torispherical shell )
++setmarker( 1)
+   0.0    0.0
+   0.151  250.
+   0.229  350.
+   0.276  400.
+   0.287  410.
+   0.298  420.
+   0.309  430.
+   0.322  440.
+   0.335  450.
+   0.350  460.
+   0.366  470.
+   0.386  480.
+   0.411  490.
+   0.447  500.
+

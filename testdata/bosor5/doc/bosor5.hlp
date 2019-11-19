@@ -1,0 +1,1313 @@
+C=DECK      HELP
+> BOSOR5
+? COM        DE         FI
+? OV         PRO        UPD
+*
+.    Help on various BOSOR5 features can be obtained by typing
+.
+.            HELP5 TOPIC SUBTOPIC
+.
+.    in which TOPIC stands for a key word such as COMMAND, DEBUG, FILES,
+.    OVERVIEW, PROGRAMS, or UPDATES; and SUBTOPIC stands for another
+.    key word belonging as a subtopic under either COMMAND, DEBUG,
+.    FILES, OVERVIEW, PROGRAMS, or UPDATES.  For example,
+.
+.            HELP5 COMMAND INPUT
+.
+.    will give you information about providing input data for BOSOR.
+.
+!    Information is available on the following topics:
+!
+! COMMAND        DEBUG         FILES
+! OVERVIEW       PROGRAMS      UPDATES
+!
+! Next, please type HELP5 TOPIC, in which TOPIC stands for one of the
+! topics listed above.
+*
+C=DECK      COMMAND
+> COM
+? ASS    BOSORREAD    BOSORMAIN    BOSORPOST    BOSORPLOT    CHE    CLE
+? GETLIB      GETS      INP        MOD     MAIN      POST        ORD
+? BOSOR5L     PLO
+*
+.   COMMANDS
+.   
+!   Information is available on:
+!  
+! ASSEMBLE    BOSORREAD    BOSORMAIN    BOSORPOST    BOSORPLOT
+! CHECKFILE   CLEANUP      GETLIB       GETSEGS      INPUT      MODIFY
+! MAINSETUP   POSTSETUP    ORDERSEG     BOSOR5LOG     
+!
+! Next, please type HELP5 COMMAND SUBTOPIC, in which SUBTOPIC stands
+! for one of the subtopics listed above.
+*
+> ASS
+?
+*
+.   ASSEMBLE
+.
+.      Causes files 'NAME'.SEGi,  i = 1, 2, ....(NSEG+1), to be
+.      concatenated into a single file, 'NAME'.ALL, in which 'NAME'
+.      is the name you have assigned to the model and NSEG is the
+.      number of structural segments in the model.
+.
+.     FORMAT:
+.
+.                    ASSEMBLE
+.
+.     EXAMPLE OF USE IN A RUNSTREAM:
+.
+.                    INPUT            (supply data for a segment)
+.                    INPUT            (supply data for another segment)
+.                    INPUT            (supply data for boundary cond.)
+.                    ASSEMBLE         (concatenate 'NAME'.SEGi files)
+*
+:
+> BOSORREAD
+?
+*
+.   BOSORREAD
+.
+.      Causes initiation of a batch run of the BOSOR5 preprocessor.
+.      Output data are stored in 'NAME'.OUT  (and in 'NAME'.ERR if
+.      the run bombed before finishing or ran out of computer time).
+.      The fully updated and annotated input "deck" 'NAME'.DOC is also
+.      generated.  The 'NAME'.DOC file is important because it is the
+.      starting point for modifications you may wish to make later.
+.
+.     FORMAT:
+.                    BOSORREAD
+.
+.     EXAMPLE OF USE IN A RUNSTREAM:
+.
+.                    INPUT            (supply data for a segment)
+.                    INPUT            (supply data for boundary cond.)
+.                    ASSEMBLE         (concatenate 'NAME'.SEGi files)
+.                    BOSORREAD        (run the BOSOR5 preprocessor)
+*
+:
+> BOSORMAIN
+?
+*
+.   BOSORMAIN
+.
+.      Causes initiation of a batch run of the BOSOR5 mainprocessor.
+.      Output data are stored in 'NAME'.MAI  (and in 'NAME'.ERR if
+.      the run bombed before finishing or ran out of computer time).
+.      If the run reached a successful termination, the contents of the
+.      'NAME'.MAI file are added to the end of 'NAME'.OUT.
+.
+.     FORMAT:
+.                    BOSORMAIN
+.
+.     EXAMPLE OF USE IN A RUNSTREAM:
+.
+.                    INPUT            (supply data for a segment)
+.                    INPUT            (supply data for boundary cond.)
+.                    ASSEMBLE         (concatenate 'NAME'.SEGi files)
+.                    BOSORREAD        (run the BOSOR5 preprocessor)
+.                    MAINSETUP        (supply data for mainprocessor)
+.                    BOSORMAIN        (run the BOSOR5 mainprocessor)
+*
+:
+> BOSORPOST
+?
+*
+.   BOSORPOST
+.
+.      Causes initiation of a batch run of the BOSOR5 postprocessor.
+.      Output data are stored in 'NAME'.POS  (and in 'NAME'.ERR if
+.      the run bombed before finishing or ran out of computer time).
+.      If the run reached a successful termination, the contents of the
+.      'NAME'.POS file are added to the end of 'NAME'.OUT.
+.
+.     FORMAT:
+.                    BOSORPOST
+.
+.     EXAMPLE OF USE IN A RUNSTREAM:
+.                    INPUT            (supply data for a segment)
+.                    INPUT            (supply data for boundary cond.)
+.                    ASSEMBLE         (concatenate 'NAME'.SEGi files)
+.                    BOSORREAD        (run the BOSOR5 preprocessor)
+.                    MAINSETUP        (supply data for mainprocessor)
+.                    BOSORMAIN        (run the BOSOR5 mainprocessor)
+.                    POSTSETUP        (supply data for postprocessor)
+.                    BOSORPOST        (run the BOSOR5 postprocessor)
+*
+:
+> BOSORPLOT
+?
+*
+.   BOSORPLOT
+.
+.      Causes initiation of batch run of plotting processor.
+.
+.     FORMAT:
+.                   BOSORPLOT
+.
+.     EXAMPLE OF USE IN A RUNSTREAM:
+.
+.                    INPUT            (supply data for a segment)
+.                    INPUT            (supply data for boundary cond.)
+.                    ASSEMBLE         (concatenate 'NAME'.SEGi files)
+.                    BOSORREAD        (run the BOSOR5 preprocessor)
+.                    MAINSETUP        (supply data for mainprocessor)
+.                    BOSORMAIN        (run the BOSOR5 mainprocessor)
+.                    POSTSETUP        (supply data for postprocessor)
+.                    BOSORPOST        (run the BOSOR5 postprocessor)
+.                    BOSORPLOT        (generate plot files *.PLV)
+*
+:
+> CHE
+?
+*
+.   CHECKFILE
+.
+.      Files of the type 'NAME'.SEGi are checked.  It often happens
+.      that you generate 'NAME'.SEGi files, not interactively, but
+.      by copying from other 'NAME'.SEGj files and/or editing. In
+.      doing this, you may no longer be confident that the data in
+.      the new 'NAME'.SEGi file are in the proper order. CHECKFILE
+.      runs the 'NAME'.SEGi file through the interactive processor.
+.      Successful completion yields a completely annotated 'NAME'.SEGi
+.      file that will most likely survive the BOSOR preprocessor.
+.
+.     FORMAT:
+.
+.                   CHECKFILE
+*
+:
+> CLE
+?
+*
+.   CLEANUP
+.
+.      After a batch run, there are many files left in your
+.      subdirectory. CLEANUP deletes all of these except for the
+.      'NAME'.DOC file and a copy of the 'NAME'.DOC file, which it
+.      calls 'NAME'.ALL. Do not use CLEANUP unless you are certain
+.      that your 'NAME'.DOC file is good.
+.
+.     FORMAT:
+.
+.                   CLEANUP
+*
+:
+> GETLIB
+?
+*
+.   GETLIB
+.
+.      Assembles 'PROGRAM'.OBJ into a library 'PROGRAM'.OLB and
+.      deletes 'PROGRAM'.OBJ.
+.
+.     FORMAT:
+.
+.                 GETLIB      or       @GETLIB
+*
+:
+> GETS
+?
+*
+.   GETSEGS
+.
+.      Decomposes the latest 'NAME'.DOC file into 'NAME'.SEGi files.
+.      GETSEGS is very useful in modifying cases.  It is almost always
+.      best to modify 'NAME'.SEGi files rather than the much longer
+.      'NAME'.ALL or 'NAME'.DOC files. The new 'NAME'.SEGi files can
+.      then easily be reassembled into a new 'NAME'.ALL file.
+.
+.     FORMAT:
+.
+.                   GETSEGS
+*
+:
+> INP
+?
+*
+.   INPUT
+.
+.      You supply input data for BOSOR following this command. The
+.      input data are stored on files 'NAME'.SEGn, where 'NAME' is
+.      the name you give the model and  n  is the structural segment
+.      number or  n = NSEG+1  if you are supplying data pertaining
+.      to the entire structure.  (NSEG is the number of structural
+.      segments)
+.
+.      Ordinarily, you supply the input data interactively.
+.      However, if you make a mistake part way through
+.      or want to quit part way through, INPUT will later
+.      accept a partially completed 'NAME'.SEGn file as input, and
+.      process it in a "batch" mode up to the point you were at when
+.      you previously quit the interactive session. INPUT will then
+.      return control to you for further interactive processing.
+.
+.     FORMAT:
+.
+.                   INPUT
+*
+:
+> MOD
+?
+*
+.   MODIFY
+.
+.      This command allows you to edit files with the names 'NAME'.SEGn.
+.      You first answer questions pertaining to a particular category of
+.      structural information. This short interactive session produces
+.      a file with a name such as GEOM.QUE (for meridional geometry),
+.      RINGS.QUE (for discrete rings), LINELOADS.QUE (for line loads),
+.      CONSTRAIN.QUE (for constraint conditions), etc.  Following the
+.      short interactive session, (which you can bypass if a suitable
+.      *.QUE file already exists), MODIFY automatically inserts this
+.      *.QUE file into the proper position in the 'NAME'.SEGn file and,
+.      if you wish, tests the new 'NAME'.SEGn file using the utility
+.      CHECKFILE.
+.
+.MODIFY works because of certain key phrases embedded in the 'NAME'.SEGn
+.files.  These key phrases tell MODIFY where the new data should
+.be inserted.  Because of this, MODIFY should only be used with NAME.SEGn
+.files that have been generated from a good NAME.DOC file via the
+.utility GETSEGS. (GETSEGS disassembles the NAME.DOC file into NAME.SEGn
+.files.) MODIFY may not work when you apply it to NAME.SEGn files that
+.have been generated in some shortcut manner, such as by means copying
+.from other segments or otherwise using the VAX editor to generate
+.NAME.SEGn files.
+.
+.  RECOMMENDED WAY TO MODIFY AN EXISTING CASE:
+.
+.   1. Always start with the NAME.DOC file (assuming this file
+.      is a good one, that is, it was generated by a successful run).
+.
+.   2. Generate new NAME.SEGn files via the following two commands:
+.
+.            CLEANUP       (delete all NAME.* files except .DOC & .ALL)
+.            GETSEGS       (decompose NAME.DOC into NAME.SEGn files)
+.
+.   3. Give the MODIFY command as many times as necessary in order to
+.      convert the NAME.SEGn files to their new forms. (NOTE: it may be
+.      necessary to issue the MODIFY command more than once for a given
+.      segment; see HELP5 FILES QUE for categories of input data that
+.      can be modified via the MODIFY command).
+.
+.   4. When you are satisfied that your NAME.SEGn files now represent
+.      the modified case, type the command ASSEMBLE.
+.
+.   5. Run BOSOR5 preprocessor via the BOSORREAD command.
+.
+.
+.    FORMAT:
+.                         MODIFY
+*
+:
+> MAIN
+?
+*
+.   MAINSETUP
+.
+.      This command allows you interactively to supply data that are
+.      needed before you can execute the BOSOR5 mainprocessor.
+.
+.    FORMAT:
+.                       MAINSETUP
+.
+.     EXAMPLE OF USE IN A RUNSTREAM:
+.
+.                    INPUT            (supply data for a segment)
+.                    INPUT            (supply data for boundary cond.)
+.                    ASSEMBLE         (concatenate 'NAME'.SEGn files)
+.                    BOSORREAD        (run the BOSOR5 preprocessor)
+.                    MAINSETUP        (supply data for mainprocessor)
+.                    BOSORMAIN        (run the BOSOR5 mainprocessor)
+*
+:
+> POST
+?
+*
+.   POSTSETUP
+.
+.      This command allows you interactively to supply data that are
+.      needed before you can execute the BOSOR5 postprocessor.
+.
+.    FORMAT:
+.                       POSTSETUP
+.
+.     EXAMPLE OF USE IN A RUNSTREAM:
+.
+.                    INPUT            (supply data for a segment)
+.                    INPUT            (supply data for boundary cond.)
+.                    ASSEMBLE         (concatenate 'NAME'.SEGn files)
+.                    BOSORREAD        (run the BOSOR5 preprocessor)
+.                    MAINSETUP        (supply data for mainprocessor)
+.                    BOSORMAIN        (run the BOSOR5 mainprocessor)
+.                    POSTSETUP        (supply data for postprocessor)
+.                    BOSORPOST        (run the BOSOR5 postprocessor)
+.
+*
+:
+> ORD
+?
+*
+.   ORDERSEG
+.
+.      This command is used to get 'NAME'.SEGn files back in the
+.      correct order following an editing session on one of them.
+.      Suppose you are editing the file 'NAME'.SEG5 and that you
+.      have 10 'NAME'.SEGn files (n = 1, 2, ... 10) before you
+.      complete the editing session. Suppose that after the editing
+.      session you have 11 'NAME'.SEGn files, with the 11th file
+.      being the newly edited version of 'NAME'.SEG5. ORDERSEG
+.      replaces the old version, in this case 'NAME'.SEG5, with the
+.      highest version number, in this case 'NAME'.SEG11, and then
+.      deletes the highest version number.
+.
+.     FORMAT:
+.
+.                   ORDERSEG
+*
+:
+> BOSOR5L
+?
+*
+.   BOSOR5LOG
+.
+.      This command activates commands for execution of BOSOR5. The
+.      activated commands can be seen by your typing HELP5 OVERVIEW LOG
+.
+.      NOTE: You must include a statement such as
+.
+.               $ BOSOR5LOG :== @DISK:[USERNAME.BOSOR5]BOSOR5
+.
+.      in your LOGIN.COM in order to run BOSOR5.
+.
+.    FORMAT:
+.
+.                BOSOR5LOG
+.
+*
+:
+> PLO
+?
+*
+.   PLOT
+.
+.      This command is used to produce hard copies of plots at
+.      Lockheed Palo Alto Research Laboratories. You must have
+.      PARM.PLV and VECTOR.PLV files before you give this command
+.      or whatever the equivalent command is at your facility.
+.
+.    FORMAT:
+.                  PLOT
+.
+*
+:
+:
+C=DECK      DEBUG
+> DE
+? ALL      BAT      GEN      SEG
+*
+.   DEBUG
+.
+!   Information is available on:
+!
+! ALL      BATCH      GENERAL      SEGMENT
+!
+! Next, please type HELP5 DEBUG SUBTOPIC, in which SUBTOPIC stands
+! for one of the subtopics listed above.
+*
+> ALL
+?
+*
+.   DEBUGGING a 'NAME'.ALL file...
+.
+.      If the batch run terminated within the BOSOR preprocessor
+.      (BOSORREAD), then something is probably wrong with your file
+.      'NAME'.ALL.  The error can usually be easily found by inspec-
+.      tion of the 'NAME'.DOC file, which ends just where the error
+.      occurred. It is possible that incorrect input in one of the
+.      earlier data triggered the bomb, so look carefully at several
+.      entries preceeding the last one in the 'NAME'.DOC file.
+.
+.      Correct the appropriate 'NAME'.SEGn file and reassemble a new
+.      'NAME'.ALL file via the command  ASSEMBLE.  It is best not
+.      merely to fix the 'NAME'.ALL file, because the error will still
+.      be present in one or more of your 'NAME'.SEGn files, which you
+.      may want to use again later.
+*
+:
+> BAT
+?
+*
+.   TRACKING DOWN ERRORS IN BATCH RUNS...
+.
+.In this section it is assumed that the input file 'NAME'.ALL has been
+.successfully assembled. For directions concerning errors committed
+.while generating input for a given segment, see DEBUG SEGMENT.
+.
+.(1) The BOSORALL.LOG file is stored in the main directory.  This file
+.contains the system's error messages.
+.
+.(2) Diagnostic messages are written to files called
+.          'NAME'.ERR      and         'NAME'.OUT
+.'NAME'.ERR will appear in the subdirectory from which the batch
+.run was made only if an error termination occurred.
+.
+.(3) If the error occurred in the preprocessor (BOSORREAD), it will be
+.useful to list the file 'NAME'.DOC, which contains a sort of copy of
+.the input deck up to the point at which the error was encountered.
+.Knowing what the last line of this file is provides a very important
+.clue as to the source of the error.
+*
+:
+> GEN
+?
+*
+.   SOME GENERAL TIPS ON AVOIDING ERRORS AND DEBUGGING INPUT...
+.
+.      1. Do as much of your debugging at the segment level as
+.         possible.  That is, do everything you can to insure that
+.         your 'NAME'.SEGn files are correct before you assemble them
+.         into the much larger and therefore harder-to-edit file,
+.         'NAME'.ALL.  If you have generated 'NAME'.SEGn files via
+.         shortcuts, such as copying from other files or VAX editing,
+.         run these files thru the CHECKFILE utility.
+.
+.      2. If failure occurred in the preprocessor (BOSORREAD), inspect
+.         the 'NAME'.DOC file.  The last line of it will point to the
+.         error.
+.
+.      3. If you are fairly certain that there is a bug in one or
+.         more of the BOSOR processors, write or call the developer:
+.                    Dr. David Bushnell, Dept. 93-30/251
+.                    Lockheed Palo Alto Research Laboratories
+.                    3251 Hanover St., Palo Alto, CA  94304
+.                    (415) 424-3237
+*
+:
+> SEG
+?
+*
+.   RECOVERY FROM ERRORS DURING SEGMENT-BY-SEGMENT INTERACTIVE INPUT...
+.It often happens that as you are answering the many questions you
+.inadvertently hit a wrong key which causes a bomb or you hit a wrong
+.key followed by return. The procedure for recovering from these types
+.of errors is as follows:
+. 1. Do a CONTROL Y to get out of the interactive session and back in
+.    the VAX command mode.
+. 2. Edit the 'NAME'.SEGn file with which you were currently working
+.    in order to remove any wrong entries at its end.  Make sure
+.    that the edited file has the same version number as the pre-
+.    edited file.
+. 3. Give the command  INPUT
+. 4. An early question asks "Are you correcting an existing file?"
+.    Answer this question YES or Y .
+.
+.In this procedure, the portion of the 'NAME'.SEGn file up to where you
+.were when you bombed or erred is used as input rather than your
+.terminal keyboard. Therefore, you do not have to answer interactively
+.all the questions preceeding your error.  When the system reaches the
+.end of the 'NAME'.SEGn file, it gives control back to you. You then
+.complete the interactive session as if nothing bad had happened.
+*
+:
+:
+C=DECK      FILES
+> FI
+? GEN
+? ALL     BLK     DOC     ERR     FOR     LAB      MAI      POS
+? OUT     PLT     PLV     QUE     RAN     IMP      IPP
+? NEW     OBJ     OLB     EXE     COM     BAT      CASE
+*
+.
+.   FILES
+.
+!    Information is available on:
+! GENERAL
+! ALL     BLK     DOC     ERR     FOR     LAB      MAI      POS
+! OUT     PLT     PLV     QUE     RAN     IMP      IPP
+! NEW     OBJ     OLB     EXE     COM     BAT      CASE
+!
+! Next, please type HELP5 FILES SUBTOPIC, in which SUBTOPIC stands
+! for one of the subtopics listed above.
+*
+> GEN
+?
+*
+.   GENERAL INFORMATION ON FILES....
+.
+.      Runs of BOSOR generate many files. Most of these files have
+.      a name such as 'NAME'.SEGn  or  'NAME'.ALL  ,  etc., in which
+.      'NAME' is a name that you assign the case.  The most important
+.      of these files from the user's viewpoint are:
+.
+.     'NAME'.SEGn   'NAME'.ALL   'NAME'.DOC    'NAME'.OUT   'NAME'.ERR
+.
+.     'NAME'.MAI     'NAME'.POS
+*
+:
+> ALL
+?
+*
+.  ALL           ('NAME'.ALL  file)       FILE TYPE:  SYMBOLIC
+.
+.      'NAME'.ALL  is a concatenation of the 'NAME'.SEGn files, 
+.                  n = 1, 2, 3, . . . NSEG + 1, where 'NAME' is the
+.                  name that you assign the case and NSEG is the
+.                  number of structural segments in the entire shell.
+.                  This file must be present before the command
+.                   BOSORREAD is given.
+*
+:
+> BLK
+?
+*
+.  BLK           ('NAME'.BLK  file)       FILE TYPE:  BINARY
+.
+.      'NAME'.BLK  contains contents of labelled common blocks. This
+.                  file must be present before the command  BOSORMAIN
+.                  or the command  BOSORPOST are given.
+*
+:
+> DOC
+?
+*
+.  DOC           ('NAME'.DOC  file)       FILE TYPE:  SYMBOLIC
+.
+.      'NAME'.DOC is a re-annotated copy of 'NAME'.ALL.  'NAME'.DOC
+.                 is generated by the BOSOR preprocessor BOSORREAD.
+.                 It represents a completely annotated input "deck"
+.                 for BOSOR if execution of the preprocessor BOSORREAD
+.                 was successful. This is an important file for
+.                 documenting the case and for using as a starting
+.                 point when generating other cases by modification
+.                 via the utilities GETSEGS and MODIFY.
+*
+:
+> ERR
+?
+*
+.  ERR           ('NAME'.ERR  file)       FILE TYPE:  SYMBOLIC
+.
+.      'NAME'.ERR  contains list output.  This file will not be
+.                 present if the case ran successfully. If the
+.                 case bombed, it will contain whatever output
+.                 had been generated in the processor (pre-, main-
+.                 or post-) that happened to be executing at the
+.                 time the case bombed out.  List this file for
+.                 debugging purposes.
+*
+:
+> FOR
+?
+*
+.  FOR           (FOR0XX.DAT  files)      FILE TYPES:  SYMBOLIC/BINARY
+.
+.      FOR0XX.DAT files are generated at various times during execu-
+.                 tion of various processors. They are scratch files
+.                 and needn't concern the user.
+*
+:
+> LAB
+?
+*
+.  LAB           ('NAME'.LAB  file)       FILE TYPE:  SYMBOLIC
+.
+.      'NAME'.LAB  contains labels for plots.  This file must exist
+.                  before the command  BOSORPLOT is given.
+*
+:
+> MAI
+?
+*
+.  MAI           ('NAME'.MAI file)            FILE TYPE:  SYMBOLIC
+.
+.      'NAME'.MAI contains list output from the mainprocessor. The first
+.                 part contains an image of 'NAME'.IMP, the interactive
+.                 data generated after the command  MAINSETUP. If the
+.                 mainprocessor ran to completion the contents of
+.                 'NAME'.MAI are copied to 'NAME'.OUT.
+.
+*
+:
+> POS
+?
+*
+.  POS           ('NAME'.POS file)            FILE TYPE:  SYMBOLIC
+.
+.      'NAME'.POS contains list output from the postprocessor. The first
+.                 part contains an image of 'NAME'.IPP, the interactive
+.                 data generated after the command  POSTSETUP. If the
+.                 postprocessor ran to completion the contents of
+.                 'NAME'.POS are copied to 'NAME'.OUT.
+.
+*
+:
+> OUT
+?
+*
+.  OUT           ('NAME'.OUT  file)       FILE TYPE:  SYMBOLIC
+.
+.      'NAME'.OUT  contains list output.  The version number depends
+.                  on your runstream: After successful execution of
+.                  BOSORREAD the version is 1; after successful execu-
+.                  tion of the mainprocessor it is 2; after successful
+.                  execution of the postprocessor it is 3; after each
+.                  successful re-execution of the main or post proc-
+.                  cessor the version number increases by one.  If any
+.                  run bombs or if the case terminates because of max.
+.                  computer time, part of the list output is stored in
+.                  'NAME'.ERR and 'NAME'.MAI (for mainprocessor execu-
+.                  tion) and 'NAME'.POS (for postprocessor execution).
+.                  In successful runs of the mainprocessor 'NAME'.MAI
+.                  is added on to 'NAME'.OUT . Same with
+.                  the postprocessor, except the file name is 'NAME'.POS.
+.                  It is a good idea always to list 'NAME'.MAI after
+.                  completion of each mainprocessor run and 'NAME'.POS
+.                  after completion of each postprocessor run.
+*
+:
+> PLT
+?
+*
+.  PLT           ('NAME'.PLT  file)       FILE TYPE:  BINARY
+.
+.      'NAME'.PLT  contains data for plots.  This file must exist
+.                  before the command  BOSORPLOT is given.
+*
+:
+> PLV
+?
+*
+.  PLV           (VECTOR.PLV and PARM.PLV files)     TYPE:  BINARY
+.
+.      *.PLV      files contain data for plotter. These files are
+.                 generated via the command  BOSORPLOT.  You can obtain
+.                 hard copies of your plots by giving whatever command
+.                 is appropriate at your facility. (PLOT at LPARL).
+*
+:
+> QUE
+?
+*
+.  QUE  Various files generated via the command  MODIFY (index),
+.       as listed below:
+.     ===========================================================
+.     Index    Type of BOSOR input data             File generated
+.     -----------------------------------------------------------
+.       1      nodal point distribution in segment       MESH.QUE
+.       2      shape of meridian of segment              GEOM.QUE
+.       3      location of reference surface in wall  REFSURF.QUE
+.       4      initial imperfection shape in segment   IMPERF.QUE
+.       5      discrete rings in segment                RINGS.QUE
+.       6      line loads in segment                LINELOADS.QUE
+.       7      temperature distribution in segment   TEMPTURE.QUE
+.       8      pressure distribution in segment      PRESSURE.QUE
+.       9      wall construction of segment              WALL.QUE
+.      10      dummy position; not yet used             DUMMY.QUE
+.      11      constraint conditions of segment     CONSTRAIN.QUE
+.      12      rigid body motion prevention         RIGIDBODY.QUE
+.      13      global parameters at beginning         GLOBAL1.QUE
+.      14      global parameters after segment data   GLOBAL2.QUE
+.      15      dummy position; not yet used             DUMMY.QUE
+.     =============================================================
+*
+:
+> RAN
+?
+*
+.  RAN           ('NAME'.RAN  file)           FILE TYPE:  BINARY
+.
+.      'NAME'.RAN  contains data base. Must be present for execution
+.                  of BOSORMAIN, BOSORPOST, or BOSORPLOT.
+*
+:
+> IMP
+?
+*
+.  IMP           ('NAME'.IMP  file)           FILE TYPE:  SYMBOLIC
+.
+.      'NAME'.IMP  a file generated by the interactive session that
+.                  follows when you give the command  MAINSETUP. This
+.                  file is needed as input for the batch run BOSORMAIN,
+.                  and an image of it appears at the beginning of the
+.                  'NAME'.MAI file, which contains list output from the
+.                  execution of the mainprocessor.
+*
+:
+> IPP
+?
+*
+.  IPP           ('NAME'.IPP  file)           FILE TYPE:  SYMBOLIC
+.
+.      'NAME'.IPP  a file generated by the interactive session that
+.                  follows when you give the command  POSTSETUP. This
+.                  file is needed as input for the batch run BOSORPOST,
+.                  and an image of it appears at the beginning of the
+.                  'NAME'.POS file, which contains list output from the
+.                  execution of the postprocessor.
+*
+:
+> NEW
+?
+*
+.   NEW           (These are source decks for BOSOR5.  List follows:)
+. ARRAYS.NEW;2             90/90      25-MAR-1986 07:48
+. ASSEMBLE.NEW;5            6/6       26-MAR-1986 10:13
+. BPLOTC.NEW;1             23/24      23-MAR-1985 00:00
+. BPLOTD.NEW;2             71/72      28-MAR-1986 10:31
+. BPLOTT.NEW;1             78/78      24-AUG-1985 17:50
+. BUCKLE.NEW;1             50/51      23-MAR-1985 00:00
+. FELIPPA.NEW;1            51/51      23-MAR-1985 00:00
+. GASPOLD.NEW;2             7/9       29-MAR-1986 10:17
+. GEOM.NEW;1               85/87      23-MAR-1985 00:00
+. GETSEGS.NEW;4             7/9       28-MAR-1986 07:10
+. HELP5.NEW;1               2/3       23-MAR-1985 00:00
+. HOOKUP.NEW;1             86/87      23-MAR-1985 00:00
+. INPUT.NEW;8              16/18      28-MAR-1986 11:07
+. MAIN.NEW;3               91/93      26-MAR-1986 08:37
+. MAINSETUP.NEW;3           7/9       26-MAR-1986 09:56
+. MODE.NEW;1               25/27      23-MAR-1985 00:00
+. MODIFY.NEW;6             24/24      25-MAR-1986 14:58
+. PLAST.NEW;1              57/57      23-MAR-1985 00:00
+. PLOTIT.NEW;1            107/108     23-MAR-1985 00:00
+. POST.NEW;3               39/39      26-MAR-1986 08:40
+. POSTSETUP.NEW;4          12/12      26-MAR-1986 11:50
+. PRE11.NEW;2              74/75      25-MAR-1986 08:00
+. PRE22.NEW;1              24/24      23-MAR-1985 00:00
+. PRE33.NEW;3             100/102     21-JUN-1985 00:00
+. PROMPTER.NEW;8           32/33      11-MAR-1986 07:23
+. QUESTIONS.NEW;3         116/117     25-MAR-1986 15:33
+. READIT.NEW;3             36/36      26-MAR-1986 08:34
+. RING.NEW;1               45/45      23-MAR-1985 00:00
+. SEGMNT.NEW;3             52/54      26-MAR-1986 10:32
+. STOGET.NEW;2             18/18      25-MAR-1986 08:05
+. UTIL.NEW;2               24/24      28-MAR-1986 10:16
+. WALL.NEW;2               62/63      28-MAR-1986 07:56
+. 
+. Total of 32 files, 1517/1545 blocks.
+*
+:
+> OBJ
+?
+*
+.   OBJ          (These object decks must be kept in BOSOR5 directory:)
+.
+.BLIOMF.OBJ;1           11/20    10-MAR-1982 00:00
+.URNDM.OBJ;1             2/4      1-OCT-1981 00:00
+.Total of 2 files, 13/24 blocks.
+*
+:
+> OLB
+?
+*
+.   OLB          (These are BOSOR5 libraries. List follows:)
+. ARRAYS.OLB;6             60/60      26-MAR-1986 09:40
+. ASSEMBLE.OLB;6           10/12      26-MAR-1986 10:14
+. BPLOTC.OLB;1             12/12      23-MAR-1985 00:00
+. BPLOTD.OLB;1             28/30      23-MAR-1985 00:00
+. BUCKLE.OLB;1             40/42      23-MAR-1985 00:00
+. FELIPPA.OLB;1            17/18      23-MAR-1985 00:00
+. GASPOLD.OLB;3             9/9       28-MAR-1986 10:14
+. GEOM.OLB;1               71/72      23-MAR-1985 00:00
+. GETSEGS.OLB;7            10/12      28-MAR-1986 07:10
+. HELP5.OLB;1               5/6       23-MAR-1985 00:00
+. HOOKUP.OLB;1             65/66      23-MAR-1985 00:00
+. INPUT.OLB;9              20/21      28-MAR-1986 11:11
+. MAIN.OLB;7               48/48      26-MAR-1986 08:38
+. MAINSETUP.OLB;7          10/12      26-MAR-1986 09:56
+. MODE.OLB;1               20/21      23-MAR-1985 00:00
+. MODIFY.OLB;9             27/27      26-MAR-1986 09:59
+. PLAST.OLB;1              37/39      23-MAR-1985 00:00
+. PLOTIT.OLB;1             67/69      23-MAR-1985 00:00
+. POST.OLB;7               27/27      26-MAR-1986 08:40
+. POSTSETUP.OLB;10         15/15      26-MAR-1986 11:51
+. PRE11.OLB;4              42/42      25-MAR-1986 08:01
+. PRE22.OLB;1              17/18      23-MAR-1985 00:00
+. PRE33.OLB;7              57/57      21-JUN-1985 00:00
+. PROMPTER.OLB;7           30/30      26-MAR-1986 10:01
+. QUESTIONS.OLB;6         103/105     25-MAR-1986 15:36
+. READIT.OLB;7             28/30      26-MAR-1986 08:34
+. RING.OLB;1               38/39      23-MAR-1985 00:00
+. SEGMNT.OLB;7             38/39      26-MAR-1986 10:34
+. STOGET.OLB;4             25/27      25-MAR-1986 08:05
+. UTIL.OLB;4               18/18      28-MAR-1986 10:17
+. WALL.OLB;4               53/54      28-MAR-1986 07:57
+. 
+. Total of 31 files, 1047/1077 blocks.
+*
+:
+> EXE
+?
+*
+.   EXE          (These are the executable elements in BOSOR5:)
+.
+. ASSEMBLE.EXE;2            7/9       26-MAR-1986 10:14
+. BOSORMAIN.EXE;5         231/231     28-MAR-1986 10:26
+. BOSORPLOT.EXE;2         232/234     23-MAR-1985 00:00
+. BOSORPOST.EXE;3         145/147     28-MAR-1986 10:29
+. BOSORREAD.EXE;5         272/273     28-MAR-1986 10:25
+. GETSEGS.EXE;3             8/9       28-MAR-1986 07:11
+. HELP5.EXE;1              14/15      23-MAR-1985 00:00
+. INPUT.EXE;2              99/99      28-MAR-1986 11:11
+. MAINSETUP.EXE;2          26/27      26-MAR-1986 10:05
+. MODIFY.EXE;1            115/117     26-MAR-1986 10:06
+. POSTSETUP.EXE;3          30/30      26-MAR-1986 11:51
+. 
+. Total of 11 files, 1179/1191 blocks.
+*
+:
+> COM
+?
+*
+.   COM          (These are the BOSOR5 procedures. List follows:)
+. ASSEMBLE.COM;2            1/3       25-MAR-1986 15:43
+. BOSOR5.COM;3              4/6       26-MAR-1986 10:07
+. BOSORMAIN.COM;2           1/3        5-JUN-1985 00:00
+. BOSORPLOT.COM;2           1/3        5-JUN-1985 00:00
+. BOSORPOST.COM;2           1/3        5-JUN-1985 00:00
+. BOSORREAD.COM;1           1/3        5-JUN-1985 00:00
+. CHECKFILE.COM;1           5/6       23-MAR-1985 00:00
+. CLEANUP.COM;2             3/3       26-MAR-1986 11:19
+. FOREIGN.COM;1             4/6       23-MAR-1985 00:00
+. GETLIB.COM;1              1/3       23-MAR-1985 00:00
+. GETSEGS.COM;3             1/3       26-MAR-1986 06:53
+. INPUT.COM;2               1/3       25-MAR-1986 15:42
+. LINKASSEMBLE.COM;1        1/3       23-AUG-1985 11:04
+. LINKBMAINVAX.COM;1        1/3       28-MAR-1986 10:21
+. LINKBPOSTVAX.COM;1        1/3       28-MAR-1986 10:22
+. LINKBREADVAX.COM;1        1/3       28-MAR-1986 10:19
+. LINKGETSEGS.COM;2         1/3       22-AUG-1985 15:40
+. LINKHELP.COM;1            1/3       23-MAR-1985 00:00
+. LINKINPUT.COM;1           1/3       24-AUG-1985 14:17
+. LINKMAINS.COM;2           1/3       26-MAR-1986 06:41
+. LINKMODIFY.COM;1          1/3       24-AUG-1985 15:10
+. LINKPLOT.COM;1            1/3       23-MAR-1985 00:00
+. LINKPOSTS.COM;2           1/3       26-MAR-1986 06:51
+. LOGIN.COM;1               8/9       23-MAR-1985 00:00
+. MAINSETUP.COM;2           1/3       26-MAR-1986 06:38
+. MODIFY.COM;2              1/3       25-MAR-1986 15:44
+. POSTSETUP.COM;3           1/3       26-MAR-1986 06:49
+. QUEUE.COM;1               3/3       23-MAR-1985 00:00
+. 
+. Total of 28 files, 49/99 blocks.
+*
+:
+> BAT
+?
+*
+.   BAT          (*.BAT files for launching BOSOR5 batch runs.)
+.
+. BOSORMAIN.BAT;3           2/3       26-MAR-1986 10:41
+. BOSORPLOT.BAT;4           2/3       14-MAR-1986 09:01
+. BOSORPOST.BAT;3           2/3       26-MAR-1986 10:41
+. BOSORREAD.BAT;3           2/3       26-MAR-1986 10:39
+. 
+. Total of 4 files, 8/12 blocks.
+*
+:
+> CASE
+?
+*
+.   CASE          (This is the BOSOR5 sample case. List follows:)
+.
+.    A discussion of the test case appears in the file CASE1.DIS .
+.    The case is elastic-plastic collapse and bifurcation buckling of
+.    a ring-stiffened cylindrical shell.  The webs of the rings are
+.    treated as shell branches.  The shell was previously optimized
+.    with use of the PANDA computer program.  The files pertaining
+.    to this test case are:
+.
+.CASE1.ALL;1             134/135     10-APR-1987 13:31
+.CASE1.DIS;1              17/18      13-APR-1987 08:55
+.CASE1.DOC;1             134/135     28-MAR-1986 10:38
+.CASE1.MA1;3             117/117     13-JUL-1988 11:49
+.CASE1.MA2;2              40/42      13-JUL-1988 12:11
+.CASE1.MA3;2              38/39      13-JUL-1988 14:37
+.CASE1.PO1;3             136/138     13-JUL-1988 12:23
+.CASE1.PO2;2              62/63      13-JUL-1988 14:48
+.CASE1.PRE;2              77/78      13-JUL-1988 11:55
+.Total of 9 files, 755/813 blocks.
+.
+.     The input data appear in the file CASE1.ALL .
+.     NOTE: In order to run the sample case, copy CASE1.DOC into
+.           CASE1.ALL.  See CASE1.DIS for details. Follow EXACTLY
+.           the sequence of runs listed in CASE1.DIS.
+*
+:
+:
+C=DECK      OVERVIEW
+> OV
+? ANAL      HOW       SAM       SUM       EX       DOC       LOG
+*
+.   OVERVIEW
+.
+!   Information is available on:
+! 
+! ANALYSES      HOWTORUN       SAMPLERUN       SUMMARY
+! EXPERT        DOCUMENTS      LOGIN
+!
+! Next, please type HELP5 OVERVIEW SUBTOPIC, in which SUBTOPIC stands
+! for one of the subtopics listed above.
+*
+> ANAL
+?
+*
+.   TYPES OF ANALYSES AVAILABLE WITH BOSOR5...
+.
+.   The type of analysis is governed by a control integer INDIC:
+.
+. INDIC =
+.      0= nonlinear axisymmetric stress (and collapse) analysis,
+.     -2= stability determinant calculated for increasing load,
+.         until an eigenvalue is or eigenvalues are detected between
+.         two successive load steps. Then a sequence of eigenvalue
+.         problems is set up in order to find the critical circumferen-
+.         tial wavenumber and corresponding critical load.
+.
+.     -3= same as INDIC = -2, except that the prebuckling states for
+.         the series of load steps must have been determined in a
+.         previous run with INDIC = 0 or INDIC = -2.
+*
+:
+> HOW
+?
+*
+.   HOW TO RUN BOSOR...
+.      You first activate BOSOR5 commands via the command BOSOR5LOG.
+.      This command must be given before you do any BOSOR5 work.
+.      Input data are then prepared interactively via the INPUT
+.      command or a series of INPUT commands. Files with the name
+.      'NAME'.SEGn ,  n = 1, 2, 3, . . .(NSEG+1), in which 'NAME' is
+.      a name you assign to the case and NSEG is the number of
+.      structural segments in the model, are then concatenated into
+.      a single file, 'NAME'.ALL, via  ASSEMBLE.  Then a batch run
+.      is initiated via the command  BOSORREAD, which is the BOSOR5
+.      preprocessor. You then set up and execute the mainprocessor via
+.      the commands  MAINSETUP and  BOSORMAIN. You then set up and
+.      execute the postprocessor via the commands  POSTSETUP and
+.       BOSORPOST. Finally, you obtain plots via the command  BOSORPLOT.
+.      SAMPLE RUNSTREAM:
+.
+.                    BOSOR5LOG        (activate BOSOR5 commands)
+.                    INPUT            (supply data for a segment)
+.                    INPUT            (supply data for boundary cond.)
+.                    ASSEMBLE         (concatenate 'NAME'.SEGn files)
+.                    BOSORREAD        (run the BOSOR5 preprocessor)
+.                    MAINSETUP        (supply data for mainprocessor)
+.                    BOSORMAIN        (run the BOSOR5 mainprocessor)
+.                    POSTSETUP        (supply data for postprocessor)
+.                    BOSORPOST        (run the BOSOR5 postprocessor)
+.                    BOSORPLOT        (generate plot files *.PLV)
+*
+:
+> SAM
+?
+*
+.   SAMPLE RUN STREAM FOR BOSOR5....
+.  LINE    COMMAND                         WHAT HAPPENS
+.    1      INPUT       You supply data interactively for segs. and b.c.'s
+.    2      ASSEMBLE    You cause segment data & b.c.'s to be concatenated
+.    3      BOSORREAD   You launch a batch run of the preprocessor
+.    4      MAINSETUP   You supply data interactively for mainprocessor
+.    5      BOSORMAIN   You launch a batch run of the mainprocessor
+.    6      POSTSETUP   You supply data interactively for postprocessor
+.    7      BOSORPOST   You launch a batch run of the postprocessor
+.    8      BOSORPLOT   You launch a batch run for plots
+.    9      MAINSETUP   You want to do a restart on the mainprocessor
+.   10      BOSORMAIN   You launch another batch run of mainprocessor
+.   11      POSTSETUP   More postprocessing desired
+.   12      BOSORPOST   Another batch run of the postprocessor
+.   13      BOSORPLOT   Another batch run for plots
+.   14      CLEANUP     Get rid of all NAME.* files except .DOC & .ALL
+.   15      GETSEGS     NAME.DOC file broken down into segments
+.   16      MODIFY      One of the segments modified in some way
+.   17      MODIFY      Same segment modified again (e.g. more nodes)
+.   18      MODIFY      Another segment or b.c.'s modified
+.   19      ASSEMBLE    Segment data reassembled
+.   20,etc.    Go thru line numbers  3 - 13 again.
+*
+:
+> SUM
+?
+*
+.   SUMMARY of purpose of BOSOR5...
+.
+.In BOSOR5 a complex, branched, stiffened shell of revolution is
+.treated as an assemblage of shell segments or branches, each with its
+.own geometry (flat, cylindrical, spherical, etc), loading, wall
+.construction, and material properties.  In this version of BOSOR5 you
+.provide the input data in a "conversationally" interactive mode on a
+.segment-by-segment basis.
+.
+.Before beginning an interactive session you should already have
+.decided how to divide the structure that you are analyzing into
+.segments and branches, and you should have available to you all
+.dimensions and material properties and loading.  You should also
+.have decided what kind of analysis to perform. 
+.
+.You provide input data interactively.  The prompting
+.information contains references to page numbers and figures and
+.tables that are contained in:
+.
+.           "BOSOR5--a computer program for buckling of elastic-plastic
+.            complex shells of revolution including large deflections
+.            and creep, Vol. 1 User's manual, input data",LMSC-D407166,
+.            December, 1974
+.
+.      NOTE: In this version of BOSOR5 you can have up to 200 shell
+.            segments in the model, not just the 25 segments stated
+.            as a limit in the above reference.
+*
+:
+> EX
+?
+*
+.   SUGGESTIONS FOR EXPERT USERS OF BOSOR5
+.
+.      When you have run quite a few cases on BOSOR, you may want to
+.      modify models by editing the 'NAME'.DOC file or 'NAME'.SEGn files
+.      directly, rather than use the MODIFY utility. Perhaps this will
+.      be quicker.  You can always use the CHECKFILE command to check
+.      'NAME'.SEGn files generated in this way.
+.
+.      The BOSOR data files 'NAME'.SEGn, 'NAME'.ALL, 'NAME'.DOC files
+.      contain a single datum per line whenever they are generated via
+.      BOSOR utilities rather than via VAX editing by you.  However,
+.      as an expert user, you may wish to take advantage of the ability
+.      of the input-handling routines to accept more than one datum on
+.      a line. For example, you can provide for geometry of a cylinder
+.      as follows:
+.                    100., 0., 100., 50.
+.
+.      in which R1 = 100. ;   Z1 = 0. ;   R2 = 100. ;   Z2 = 50.,
+.      rather than allow one line for each of these quantities.  The
+.      'NAME'.SEGn and 'NAME'.ALL files will have the data on one line,
+.      but the 'NAME'.DOC file, following a successful run, will have
+.      each datum on its own line with proper annotation.
+*
+:
+> DOC
+?
+*
+.   DOCUMENTATION FOR BOSOR5....
+.
+.      (A) BACKGROUND MATERIAL ON SHELL BUCKLING....
+.
+.            COMPUTERIZED BUCKLING ANALYSIS OF SHELLS, Nijhoff, The
+.            Netherlands, 1985 (book with many examples of shell
+.            buckling.)
+.
+.           "Plastic Buckling", in PRESSURE VESSELS AND PIPING: DESIGN
+.            TECHNOLOGY-1982, A DECADE OF PROGRESS, ed. by Zamrik and
+.            Dietrich, Book No. G00213, ASME, New York, 1982,pp47-117
+.
+.           "Computerized Analysis of Shells--Governing Equations",
+.            Computers & Structures, Vol. 18, No. 3, pp471-536 (1984)
+.
+.      (B) MATERIAL NEEDED FOR USE OF THE BOSOR5 COMPUTER PROGRAM...
+.
+.           "BOSOR5--a computer program for buckling of elastic-plastic
+.            complex shells of revolution including large deflections
+.            and creep, Vol. 1 User's manual, input data",LMSC-D407166,
+.            December, 1974
+.
+.            BOSOR5ST.ORY  (file contained herein that describes the
+.                           VAX version of BOSOR5)
+.
+.            HELP5         (interactive help file, data in BOSOR5.HLP)
+*
+:
+> LOG
+?
+*
+.   STATEMENTS THAT YOU MUST ACTIVATE IN ORDER TO RUN BOSOR5...
+.
+.$ ASSIGN DISK:[USERNAME.BOSOR5] BOSOR5
+.$ help5     :==  $BOSOR5:help5.exe
+.$ modify    :==  @bosor5:modify
+.$ input     :==  @bosor5:input
+.$ getsegs   :==  @bosor5:getsegs
+.$ cleanup   :==  @bosor5:cleanup
+.$ assemble  :==  @bosor5:assemble
+.$ bosorread :==  @bosor5:bosorread
+.$ bosormain :==  @bosor5:bosormain
+.$ bosorpost :==  @bosor5:bosorpost
+.$ bosorplot :==  @bosor5:bosorplot
+.
+.   These statements are included in the file BOSOR5.COM  .
+.   They are activated by:
+.      1. Your including the statement
+.               $ BOSOR5LOG :== @DISK:[USERNAME.BOSOR5]BOSOR5
+.         in your LOGIN.COM, and
+.      2. Your typing the command   BOSOR5LOG
+*
+:
+:
+C=DECK      PROGRAMS
+> PRO
+? ASSEMBLE      BOSORREAD     BOSORMAIN     BOSORPOST     BOSORPLOT
+? MODIFY        INPUT         GETSEGS       HELP5
+*
+.  PROGRAMS
+.
+!    Information is available on:
+!
+! ASSEMBLE      BOSORREAD     BOSORMAIN     BOSORPOST     BOSORPLOT
+! MODIFY        INPUT         GETSEGS       HELP5
+!
+! Next, please type HELP5 PROGRAMS SUBTOPIC, in which SUBTOPIC stands
+! for one of the subtopics listed above.
+*
+> ASSEMBLE
+?
+*
+.   ASSEMBLE
+.
+.      This program concatenates the NAME.SEGn, n = 1, 2,..(NSEG+1)
+.      files into a single file called NAME.ALL.  The NAME.ALL file
+.      is the file used as input for the batch run initiated by the
+.      command BOSORREAD.
+*
+:
+> MODIFY
+?
+*
+.   MODIFY
+.
+.      User generates blocks of input data stored in annotated files
+.      that are subsequently used to edit 'NAME'.SEG files, thereby
+.      permitting extensive modifications of a case without setting
+.      the whole segment up interactively.  The annotated files are
+.      called *.QUE, in which * is a name such as MESH, GEOM, RINGS,
+.      LINELOADS, DISTLOADS, WALL, etc. (See COMMAND MODIFY)
+*
+:
+> GETSEGS
+?
+*
+.   GETSEGS
+.
+.      Starting with a NAME.DOC file generated from a previously
+.      successfully run case called NAME, the processor GETSEGS
+.      divides the DOC file into NAME.SEGn, n = 1, 2,...(NSEG+1)
+.      segment files.  You should use GETSEGS before you use
+.      MODIFY.
+*
+:
+> INPUT
+?
+*
+.   INPUT
+.
+.      Data for one structural segment are called from the user in an
+.      interactive mode or in a "batch" mode.  A file called 
+.      'NAME'.SEGn is generated, where n is the number of the segment
+.      that the user is working on.
+.
+.      Data pertaining to the entire structure and constraint condition
+.      data are called from the user in an interactive mode or in a
+.      "batch" mode.  Data are stored on a file 'NAME'.SEG(NSEG+1),
+.      where NSEG is the number of segments in the structural model.
+*
+:
+> BOSORREAD
+?
+*
+.   BOSORREAD
+.
+.      The input data from 'NAME'.ALL, which is a concatenation of the
+.      'NAME'.SEGn  files, n = 1, 2, 3, . . . (NSEG+1), are read in
+.      and a new annotated file, 'NAME'.DOC, is generated.  The input
+.      data are massaged as needed for the BOSOR5 mainprocessor.
+.      Output is written to 'NAME'.OUT and 'NAME'.ERR 
+*
+:
+> BOSORMAIN
+?
+*
+.   BOSORMAIN
+.
+.      The main part of the calculations of the case are performed.
+.      Output is written to 'NAME'.OUT  and 'NAME'.MAI  and 'NAME'.ERR.
+*
+:
+> BOSORPOST
+?
+*
+.   BOSORPOST
+.
+.      The solution vectors from BOSORMAIN are processed.  Output is
+.      written to the files 'NAME'.OUT  and  'NAME'.POS  and 'NAME'.ERR
+.      for list output and  'NAME'.PLT  and  'NAME'.LAB  for
+.      for plotting.
+*
+:
+> BOSORPLOT
+?
+*
+.   BOSORPLOT
+.
+.      The input plot files, 'NAME'.PLT and 'NAME'.LAB are used to
+.      generate output files VECTOR.PLV  and  PARM.PLV, suitable for
+.      plotting on a variety of devices.
+*
+:
+> HELP5
+?
+*
+.   HELP5
+.
+.       The help file BOSOR5.HLP is searched for the commands that you
+.       give as arguments for TOPIC  and  SUBTOPIC in your command:
+.
+.              HELP5   TOPIC    SUBTOPIC
+.
+*
+:
+:
+C=DECK      UPDATES
+> UPD
+? NEWS        NEXT
+*
+.   UPDATES
+.
+!   Information is available on:
+! 
+! NEWS           NEXT
+!
+! Next, please type HELP5 UPDATES SUBTOPIC, in which SUBTOPIC stands
+! for one of the subtopics listed above.  (NOTE: New releases of BOSOR5
+! will contain new information in this portion of the BOSOR5 help file.
+*
+> NEWS
+?
+*
+.  BOSOR5 NEWS...
+.
+.      Recently, BOSOR5 has been modified to solve larger problems.
+.      Models can have more segments and more degrees of freedom.
+.
+.  The maximum number of segments is now 200 and the maximum number of
+.  finite difference elements is now 2000. This represents a doubling
+.  of the size of problem that can be handled with BOSOR5. Note that
+.  the maximum number of discrete rings is still 98, however.
+.
+.  The increase in number of segments and degrees of freedom is
+.  particularly advantageous for the analysis of bellows and food
+.  cans, shells of revolution which contain many, many short segments.
+.
+.  In March, 1986, BOSOR5 was further updated so that it would be
+.  easier to convert to operation on a UNIX-based microcomputer.  In
+.  particular, the segment naming was changed from
+.                 NAME.SEG;n
+.  to
+.                 NAME.SEGn
+*
+:
+> NEXT
+?
+*
+.  WATCH THIS SPACE FOR FUTURE UPDATES...
+*
+:
+:

@@ -1,0 +1,510 @@
+ imperfect 2/1 torispherical, external pressure        
+         3      $ NSEG  = number of shell segments (less than 95)
+      H         $
+      H         $ SEGMENT NUMBER    1    1    1    1
+      H         $ NODAL POINT DISTRIBUTION FOLLOWS...
+        71      $ NMESH=no. of node points (5=min.;98=max.)( 1)
+         3      $ NTYPEH= control integer (1 or 2 or 3) for nodal point spacing
+      H         $ REFERENCE SURFACE GEOMETRY FOLLOWS...
+         2      $ NSHAPE= indicator (1,2 or 4) for geometry of meridian
+   0.000000     $ R1     = radius at beginning of segment (see p. P7)
+   0.000000     $ Z1     = axial coordinate at beginning of segment
+   19.03857     $ R2     = radius at end of segment
+   3.807737     $ Z2     = axial coordinate at end of segment
+   0.000000     $ RC     = radius from axis of rev. to center of curvature
+   49.50000     $ ZC     = axial coordinate of center of curvature
+        -1      $ SROT=indicator for direction of increasing arc (-1. or +1.)
+      H         $ IMPERFECTION SHAPE FOLLOWS...
+         1      $ IMP   = indicator for imperfection (0=none, 1=some)
+         4      $ ITYPE = index (1 or 2 or 3 or 4) for imperfection type
+   0.000000     $ Imperfection multiplier, AMPIMP(IMODE)
+         1      $ Starting nodal point number, ISTART(IMODE)
+        73      $ Number of values of WSHAPE to be read, NUMB(IMODE)
+   1.000000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9998000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9975000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9903000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9784000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9618000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9406000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9152000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.8856000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.8520000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.8148000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.7742000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.7305000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.6841000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.6352000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.5843000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.5317000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4778000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4230000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.3677000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.3122000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.2570000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.2025000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.1489000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9676000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+  0.4626000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+ -0.2231000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+ -0.4843000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+ -0.9206000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+ -0.1329000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.1707000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.2053000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.2366000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.2645000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.2888000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3095000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3267000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3402000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3503000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3569000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3603000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3604000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3575000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3518000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3435000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3328000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3200000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3052000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.2888000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.2710000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.2521000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.2324000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.2120000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.1913000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.1704000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.1497000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.1293000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.1094000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.9021001E-01 $ Imperfection normal displacement (normalized), WSHAPE
+ -0.7185000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+ -0.5446000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3817000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+ -0.2306000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+ -0.9209000E-02 $ Imperfection normal displacement (normalized), WSHAPE
+         0      $ Imperfection normal displacement (normalized), WSHAPE
+   0.000000     $ Imperfection normal displacement (normalized), WSHAPE
+   0.000000     $ Imperfection normal displacement (normalized), WSHAPE
+   0.000000     $ Imperfection normal displacement (normalized), WSHAPE
+   0.000000     $ Imperfection normal displacement (normalized), WSHAPE
+   0.000000     $ Imperfection normal displacement (normalized), WSHAPE
+   0.000000     $ Imperfection normal displacement (normalized), WSHAPE
+   0.000000     $ Imperfection normal displacement (normalized), WSHAPE
+   0.000000     $ Imperfection normal displacement (normalized), WSHAPE
+      y         $ Do you want to provide any more imperfection modes?
+ -0.1250000     $ Imperfection multiplier, AMPIMP(IMODE)
+         1      $ Starting nodal point number, ISTART(IMODE)
+        73      $ Number of values of WSHAPE to be read, NUMB(IMODE)
+  0.4321000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4321000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4320000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4317000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4312000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4305000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4297000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4287000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4276000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4264000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4251000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4239000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4227000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4216000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4206000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4199000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4195000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4194000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4198000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4207000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4222000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4244000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4274000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4312000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4360000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4418000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4487000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4567000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4661000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4767000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4887000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.5021000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.5170000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.5332000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.5510000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.5701000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.5907000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.6125000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.6356000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.6598000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.6850000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.7110000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.7376000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.7647000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.7918000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.8188000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.8453000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.8710000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.8956000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9186000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9396000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9583000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9741000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9867000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9956000     $ Imperfection normal displacement (normalized), WSHAPE
+   1.000000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9994000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9933000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9809000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9618000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9353000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9010000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.8585000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.8077000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.7484000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.6807000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.6050000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.5218000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.4320000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.3367000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.2386000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.1638000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.1357000     $ Imperfection normal displacement (normalized), WSHAPE
+      n         $ Do you want to provide any more imperfection modes?
+      H         $ REFERENCE SURFACE LOCATION RELATIVE TO WALL
+         1      $ NTYPEZ= control (1 or 3) for reference surface location
+         3      $ NZVALU= number of meridional callouts for ref. surf.
+         3      $ NTYPE = control for meaning of callout (2=z, 3=r)
+   0.000000     $ R(I)  = radial coordinate of Ith callout, r( 1)
+   14.00000     $ R(I)  = radial coordinate of Ith callout, r( 2)
+   19.03857     $ R(I)  = radial coordinate of Ith callout, r( 3)
+  0.3000000     $ ZVAL  = distance from leftmost surf. to ref. surf.,ZVAL( 1)
+  0.2500000     $ ZVAL  = distance from leftmost surf. to ref. surf.,ZVAL( 2)
+  0.1750000     $ ZVAL  = distance from leftmost surf. to ref. surf.,ZVAL( 3)
+      y         $ Do you want to print out r(s), r'(s), etc. for this segment?
+      H         $ DISCRETE RING INPUT FOLLOWS...
+         0      $ NRINGS= number (max=20) of discrete rings in this segment
+         0      $ K=elastic foundation modulus (e.g. lb/in**3)in this seg.
+      H         $ TEMPERATURE INPUT FOLLOWS...
+      n         $ Do you want general information on loading?
+         0      $ NTSTAT = number of temperature callout points along meridian
+      H         $ PRESSURE INPUT FOLLOWS...
+         2      $ NPSTAT = number of meridional callouts for pressure
+         3      $ NTYPE = control for meaning of loading callout (2=z, 3=r)
+   0.000000     $ R(I)  = radial coordinate of Ith loading callout, r( 1)
+   19.03857     $ R(I)  = radial coordinate of Ith loading callout, r( 2)
+  -1.000000     $ PN(J)= normal pressure at meridional callout pt. no.( 1)
+  -1.000000     $ PN(J)= normal pressure at meridional callout pt. no.( 2)
+         0      $ PT(J)= meridional traction at callout point no.( 1)
+         0      $ PT(J)= meridional traction at callout point no.( 2)
+         1      $ ISTEP = control integer for time variation of pressure
+      n         $ Do you want to print out distributed loads along meridian?
+      H         $ LINE LOAD INPUT FOLLOWS...
+         0      $ LINTYP=control for line loads or disp.(0=none,1=some)
+      H         $ SHELL WALL CONSTRUCTION FOLLOWS...
+      n         $ Do you want to include smeared stiffeners?
+         1      $ LAYERS = number of layers (max. = 6)
+      n         $ Are all the layers of constant thickness?
+         1      $ MATL = type of material for shell wall layer no.( 1)
+   6400000.     $ G(i) = shear modulus of ith layer, G( 1)
+  0.1600000E+08 $ EX(i)= modulus in meridional direction, EX( 1)
+  0.1600000E+08 $ EY(i)= modulus in circumferential direction, EY( 1)
+  0.2500000     $ UXY(i)= Poisson's ratio (EY*UXY = EX*UYX).   UXY( 1)
+  0.4144000E-03 $ SM(i)=mass density (e.g. alum.=.00025 lb-sec**2/in**4),SM( 1)
+         0      $ ALPHA1(i)=coef. thermal exp. in merid. direction, ALPHA1( 1)
+         0      $ ALPHA2(i)=coef. thermal exp. in circ. direction, ALPHA2( 1)
+   1.600000     $ EPSALW(i)=maximum allowable effective strain (in %), EPSALW( 1)
+      y         $ Do you wish to include plasticity in this segment?
+      n         $ Do you wish to include creep in this segment?
+      y         $ Is this a new shell wall material?
+         8      $ NPOINT = number of points in s.s.curve, layer no.( 1)
+         5      $ NITEG=no. integration pts. thru thickness, layer no.( 1)
+      n         $ Do you want to use power law for stress-strain curve?
+   0.000000     $ EPS(i)=strain coordinates of s-s curve, EPS( 1)
+  0.7500000E-02 $ EPS(i)=strain coordinates of s-s curve, EPS( 2)
+  0.8800000E-02 $ EPS(i)=strain coordinates of s-s curve, EPS( 3)
+  0.1020000E-01 $ EPS(i)=strain coordinates of s-s curve, EPS( 4)
+  0.1220000E-01 $ EPS(i)=strain coordinates of s-s curve, EPS( 5)
+  0.1560000E-01 $ EPS(i)=strain coordinates of s-s curve, EPS( 6)
+  0.2000000E-01 $ EPS(i)=strain coordinates of s-s curve, EPS( 7)
+  0.4000000E-01 $ EPS(i)=strain coordinates of s-s curve, EPS( 8)
+         0      $ SIG(i)=stress coordinates of s-s curve, SIG( 1)
+   120000.0     $ SIG(i)=stress coordinates of s-s curve, SIG( 2)
+   138000.0     $ SIG(i)=stress coordinates of s-s curve, SIG( 3)
+   148000.0     $ SIG(i)=stress coordinates of s-s curve, SIG( 4)
+   156000.0     $ SIG(i)=stress coordinates of s-s curve, SIG( 5)
+   164000.0     $ SIG(i)=stress coordinates of s-s curve, SIG( 6)
+   164000.0     $ SIG(i)=stress coordinates of s-s curve, SIG( 7)
+   164000.0     $ SIG(i)=stress coordinates of s-s curve, SIG( 8)
+         3      $ NTIN = number of meridional callouts for variable thickness
+         3      $ NTYPE = control for meaning of thickness callout (2=z, 3=r)
+   0.000000     $ R(I)  = radial coordinate of Ith thickness callout, r( 1)
+   14.00000     $ R(I)  = radial coordinate of Ith thickness callout, r( 2)
+   19.03857     $ R(I)  = radial coordinate of Ith thickness callout, r( 3)
+  0.6000000     $ TIN(i) = thickness at Ith callout, TIN( 1)
+  0.5000000     $ TIN(i) = thickness at Ith callout, TIN( 2)
+  0.3500000     $ TIN(i) = thickness at Ith callout, TIN( 3)
+      n         $ Do you want to have C(i,j) printed for this segment?
+      H         $ END OF DATA FOR THIS SEGMENT
+      H         $
+      H         $ SEGMENT NUMBER    2    2    2    2
+      H         $ NODAL POINT DISTRIBUTION FOLLOWS...
+        31      $ NMESH=no. of node points (5=min.;98=max.)( 2)
+         3      $ NTYPEH= control integer (1 or 2 or 3) for nodal point spacing
+      H         $ REFERENCE SURFACE GEOMETRY FOLLOWS...
+         2      $ NSHAPE= indicator (1,2 or 4) for geometry of meridian
+   19.03857     $ R1     = radius at beginning of segment (see p. P7)
+   3.807737     $ Z1     = axial coordinate at beginning of segment
+   24.75000     $ R2     = radius at end of segment
+   12.37500     $ Z2     = axial coordinate at end of segment
+   15.46879     $ RC     = radius from axis of rev. to center of curvature
+   12.37500     $ ZC     = axial coordinate of center of curvature
+        -1      $ SROT=indicator for direction of increasing arc (-1. or +1.)
+      H         $ IMPERFECTION SHAPE FOLLOWS...
+         1      $ IMP   = indicator for imperfection (0=none, 1=some)
+         4      $ ITYPE = index (1 or 2 or 3 or 4) for imperfection type
+ -0.1250000     $ Imperfection multiplier, AMPIMP(IMODE)
+         1      $ Starting nodal point number, ISTART(IMODE)
+        33      $ Number of values of WSHAPE to be read, NUMB(IMODE)
+  0.1357000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.9725000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+ -0.5003000E-02 $ Imperfection normal displacement (normalized), WSHAPE
+ -0.1374000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.2616000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3707000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.4600000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.5255000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.5632000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.5712000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.5495000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.4996000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.4262000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.3363000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.2376000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.1373000     $ Imperfection normal displacement (normalized), WSHAPE
+ -0.4226000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+  0.4216000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+  0.1117000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.1637000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.1969000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.2115000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.2090000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.1920000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.1637000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.1279000     $ Imperfection normal displacement (normalized), WSHAPE
+  0.8866000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+  0.4977000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+  0.1458000E-01 $ Imperfection normal displacement (normalized), WSHAPE
+   0.000000     $ Imperfection normal displacement (normalized), WSHAPE
+   0.000000     $ Imperfection normal displacement (normalized), WSHAPE
+   0.000000     $ Imperfection normal displacement (normalized), WSHAPE
+         0      $ Imperfection normal displacement (normalized), WSHAPE
+      n         $ Do you want to provide any more imperfection modes?
+      H         $ REFERENCE SURFACE LOCATION RELATIVE TO WALL
+         1      $ NTYPEZ= control (1 or 3) for reference surface location
+         3      $ NZVALU= number of meridional callouts for ref. surf.
+         3      $ NTYPE = control for meaning of callout (2=z, 3=r)
+   19.03857     $ R(I)  = radial coordinate of Ith callout, r( 1)
+   22.00000     $ R(I)  = radial coordinate of Ith callout, r( 2)
+   24.75000     $ R(I)  = radial coordinate of Ith callout, r( 3)
+  0.1750000     $ ZVAL  = distance from leftmost surf. to ref. surf.,ZVAL( 1)
+  0.1250000     $ ZVAL  = distance from leftmost surf. to ref. surf.,ZVAL( 2)
+  0.1000000     $ ZVAL  = distance from leftmost surf. to ref. surf.,ZVAL( 3)
+      n         $ Do you want to print out r(s), r'(s), etc. for this segment?
+      H         $ DISCRETE RING INPUT FOLLOWS...
+         0      $ NRINGS= number (max=20) of discrete rings in this segment
+         0      $ K=elastic foundation modulus (e.g. lb/in**3)in this seg.
+      H         $ TEMPERATURE INPUT FOLLOWS...
+      n         $ Do you want general information on loading?
+         0      $ NTSTAT = number of temperature callout points along meridian
+      H         $ PRESSURE INPUT FOLLOWS...
+         2      $ NPSTAT = number of meridional callouts for pressure
+         3      $ NTYPE = control for meaning of loading callout (2=z, 3=r)
+   19.03857     $ R(I)  = radial coordinate of Ith loading callout, r( 1)
+   24.75000     $ R(I)  = radial coordinate of Ith loading callout, r( 2)
+  -1.000000     $ PN(J)= normal pressure at meridional callout pt. no.( 1)
+  -1.000000     $ PN(J)= normal pressure at meridional callout pt. no.( 2)
+         0      $ PT(J)= meridional traction at callout point no.( 1)
+         0      $ PT(J)= meridional traction at callout point no.( 2)
+         1      $ ISTEP = control integer for time variation of pressure
+      n         $ Do you want to print out distributed loads along meridian?
+      H         $ LINE LOAD INPUT FOLLOWS...
+         0      $ LINTYP=control for line loads or disp.(0=none,1=some)
+      H         $ SHELL WALL CONSTRUCTION FOLLOWS...
+      n         $ Do you want to include smeared stiffeners?
+         1      $ LAYERS = number of layers (max. = 6)
+      n         $ Are all the layers of constant thickness?
+         1      $ MATL = type of material for shell wall layer no.( 1)
+   6400000.     $ G(i) = shear modulus of ith layer, G( 1)
+  0.1600000E+08 $ EX(i)= modulus in meridional direction, EX( 1)
+  0.1600000E+08 $ EY(i)= modulus in circumferential direction, EY( 1)
+  0.2500000     $ UXY(i)= Poisson's ratio (EY*UXY = EX*UYX).   UXY( 1)
+  0.4144000E-03 $ SM(i)=mass density (e.g. alum.=.00025 lb-sec**2/in**4),SM( 1)
+         0      $ ALPHA1(i)=coef. thermal exp. in merid. direction, ALPHA1( 1)
+         0      $ ALPHA2(i)=coef. thermal exp. in circ. direction, ALPHA2( 1)
+   1.600000     $ EPSALW(i)=maximum allowable effective strain (in %), EPSALW( 1)
+      y         $ Do you wish to include plasticity in this segment?
+      n         $ Do you wish to include creep in this segment?
+      n         $ Is this a new shell wall material?
+         3      $ NTIN = number of meridional callouts for variable thickness
+         3      $ NTYPE = control for meaning of thickness callout (2=z, 3=r)
+   19.03857     $ R(I)  = radial coordinate of Ith thickness callout, r( 1)
+   22.00000     $ R(I)  = radial coordinate of Ith thickness callout, r( 2)
+   24.75000     $ R(I)  = radial coordinate of Ith thickness callout, r( 3)
+  0.3500000     $ TIN(i) = thickness at Ith callout, TIN( 1)
+  0.2500000     $ TIN(i) = thickness at Ith callout, TIN( 2)
+  0.2000000     $ TIN(i) = thickness at Ith callout, TIN( 3)
+      n         $ Do you want to have C(i,j) printed for this segment?
+      H         $ END OF DATA FOR THIS SEGMENT
+      H         $
+      H         $ SEGMENT NUMBER    3    3    3    3
+      H         $ NODAL POINT DISTRIBUTION FOLLOWS...
+        51      $ NMESH=no. of node points (5=min.;98=max.)( 3)
+         1      $ NTYPEH= control integer (1 or 2 or 3) for nodal point spacing
+         4      $ NHVALU= number of callouts for nodal point spacing
+         1      $ IHVALU(I)= Ith callout for nodal point spacing, IHVALU( 1)
+        25      $ IHVALU(I)= Ith callout for nodal point spacing, IHVALU( 2)
+        26      $ IHVALU(I)= Ith callout for nodal point spacing, IHVALU( 3)
+        50      $ IHVALU(I)= Ith callout for nodal point spacing, IHVALU( 4)
+  0.2000000     $ HVALU=meridional arc length between nodal points,HVALU( 1)
+  0.2000000     $ HVALU=meridional arc length between nodal points,HVALU( 2)
+   1.000000     $ HVALU=meridional arc length between nodal points,HVALU( 3)
+   1.000000     $ HVALU=meridional arc length between nodal points,HVALU( 4)
+      H         $ REFERENCE SURFACE GEOMETRY FOLLOWS...
+         1      $ NSHAPE= indicator (1,2 or 4) for geometry of meridian
+   24.75000     $ R1     = radius at beginning of segment (see p. P7)
+   12.37500     $ Z1     = axial coordinate at beginning of segment
+   24.75000     $ R2     = radius at end of segment
+   18.00000     $ Z2     = axial coordinate at end of segment
+      H         $ IMPERFECTION SHAPE FOLLOWS...
+         0      $ IMP   = indicator for imperfection (0=none, 1=some)
+      H         $ REFERENCE SURFACE LOCATION RELATIVE TO WALL
+         3      $ NTYPEZ= control (1 or 3) for reference surface location
+  0.1000000     $ ZVAL  = distance from leftmost surf. to reference surf.
+      n         $ Do you want to print out r(s), r'(s), etc. for this segment?
+      H         $ DISCRETE RING INPUT FOLLOWS...
+         0      $ NRINGS= number (max=20) of discrete rings in this segment
+         0      $ K=elastic foundation modulus (e.g. lb/in**3)in this seg.
+      H         $ TEMPERATURE INPUT FOLLOWS...
+      n         $ Do you want general information on loading?
+         0      $ NTSTAT = number of temperature callout points along meridian
+      H         $ PRESSURE INPUT FOLLOWS...
+         2      $ NPSTAT = number of meridional callouts for pressure
+         2      $ NTYPE = control for meaning of loading callout (2=z, 3=r)
+   12.37500     $ Z(I)  = axial coordinate of Ith loading callout, z( 1)
+   18.00000     $ Z(I)  = axial coordinate of Ith loading callout, z( 2)
+   1.000000     $ PN(J)= normal pressure at meridional callout pt. no.( 1)
+   1.000000     $ PN(J)= normal pressure at meridional callout pt. no.( 2)
+         0      $ PT(J)= meridional traction at callout point no.( 1)
+         0      $ PT(J)= meridional traction at callout point no.( 2)
+         1      $ ISTEP = control integer for time variation of pressure
+      n         $ Do you want to print out distributed loads along meridian?
+      H         $ LINE LOAD INPUT FOLLOWS...
+         0      $ LINTYP=control for line loads or disp.(0=none,1=some)
+      H         $ SHELL WALL CONSTRUCTION FOLLOWS...
+      n         $ Do you want to include smeared stiffeners?
+         1      $ LAYERS = number of layers (max. = 6)
+      y         $ Are all the layers of constant thickness?
+         1      $ MATL = type of material for shell wall layer no.( 1)
+  0.2000000     $ T(i) = thickness of ith layer (i=1 = leftmost), T( 1)
+   6400000.     $ G(i) = shear modulus of ith layer, G( 1)
+  0.1600000E+08 $ EX(i)= modulus in meridional direction, EX( 1)
+  0.1600000E+08 $ EY(i)= modulus in circumferential direction, EY( 1)
+  0.2500000     $ UXY(i)= Poisson's ratio (EY*UXY = EX*UYX).   UXY( 1)
+  0.4144000E-03 $ SM(i)=mass density (e.g. alum.=.00025 lb-sec**2/in**4),SM( 1)
+         0      $ ALPHA1(i)=coef. thermal exp. in merid. direction, ALPHA1( 1)
+         0      $ ALPHA2(i)=coef. thermal exp. in circ. direction, ALPHA2( 1)
+   1.600000     $ EPSALW(i)=maximum allowable effective strain (in %), EPSALW( 1)
+      y         $ Do you wish to include plasticity in this segment?
+      n         $ Do you wish to include creep in this segment?
+      n         $ Is this a new shell wall material?
+      n         $ Do you want to have C(i,j) printed for this segment?
+      H         $ END OF DATA FOR THIS SEGMENT
+      H         $
+      H         $ GLOBAL DATA BEGINS...
+      H         $ LOADING TIME FUNCTIONS FOLLOW
+      n         $ Do you want information on time functions for loading?
+         1      $ IUTIME = control for time increment (0 or 1). IUTIME
+   100.0000     $ DTIME = time increment
+   1000.000     $ TMAX = maximum time to be encountered during this case
+         1      $ NFTIME= number of different functions of time
+         2      $ NPOINT=no. of points j for ith load factor F(i,j). i=( 1)
+         0      $ T(i,j)=jth time callout for ith time function, j =( 1)
+   1000000.     $ T(i,j)=jth time callout for ith time function, j =( 2)
+         0      $ F(i,j)=jth value for ith load factor. j =( 1)
+   1000000.     $ F(i,j)=jth value for ith load factor. j =( 2)
+      H         $ CONSTRAINT CONDITIONS FOLLOW....
+         3      $ How many segments are there in the structure?
+      H         $
+      H         $ CONSTRAINT CONDITIONS FOR SEGMENT NO.    1    1    1    1
+      H         $ POLES INPUT FOLLOWS...
+         0      $ Number of poles (places where r=0) in SEGMENT( 1)
+      H         $ INPUT FOR CONSTRAINTS TO GROUND FOLLOWS...
+         0      $ At how many stations is this segment constrained to ground?
+      H         $ JUNCTION CONDITION INPUT FOLLOWS...
+      n         $ Is this segment joined to any lower-numbered segments?
+      H         $
+      H         $ CONSTRAINT CONDITIONS FOR SEGMENT NO.    2    2    2    2
+      H         $ POLES INPUT FOLLOWS...
+         0      $ Number of poles (places where r=0) in SEGMENT( 2)
+      H         $ INPUT FOR CONSTRAINTS TO GROUND FOLLOWS...
+         0      $ At how many stations is this segment constrained to ground?
+      H         $ JUNCTION CONDITION INPUT FOLLOWS...
+      y         $ Is this segment joined to any lower-numbered segments?
+         1      $ At how may stations is this segment joined to previous segs.?
+         1      $ INODE = node in current segment (ISEG) of junction, INODE( 1)
+         1      $ JSEG  = segment no. of lowest segment involved in junction
+        71      $ JNODE = node in lowest segment (JSEG) of junction
+         1      $ IUSTAR= axial displacement (0=not slaved, 1=slaved)
+         1      $ IVSTAR= circumferential displacement (0=not slaved, 1=slaved)
+         1      $ IWSTAR= radial displacement (0=not slaved, 1=slaved)
+         1      $ ICHI  = meridional rotation (0=not slaved, 1=slaved)
+         0      $ D1    = radial component of juncture gap
+         0      $ D2    = axial component of juncture gap
+      y         $ Is this constraint the same for both prebuckling and buckling?
+      H         $
+      H         $ CONSTRAINT CONDITIONS FOR SEGMENT NO.    3    3    3    3
+      H         $ POLES INPUT FOLLOWS...
+         0      $ Number of poles (places where r=0) in SEGMENT( 3)
+      H         $ INPUT FOR CONSTRAINTS TO GROUND FOLLOWS...
+         2      $ At how many stations is this segment constrained to ground?
+         5      $ INODE = nodal point number of constraint to ground, INODE( 1)
+         1      $ IUSTAR=axial displacement constraint (0 or 1 or 2)
+         0      $ IVSTAR= circumferential displacement (0=free, 1=constrained)
+         0      $ IWSTAR=radial displacement(0=free,1=constrained,2=imposed)
+         0      $ ICHI=meridional rotation (0=free,1=constrained,2=imposed)
+         0      $ D1    = radial component of offset of ground support
+         0      $ D2    = axial component of offset of ground support
+      n         $ Is this constraint the same for both prebuckling and buckling?
+         0      $ IUSTARB= axial displacement for buckling or vibration phase
+         0      $ IVSTARB= circ. displacement for buckling or vibration phase
+         0      $ IWSTARB= radial displacement for buckling or vibration
+         0      $ ICHIB  = meridional rotation for buckling or vibration
+        51      $ INODE = nodal point number of constraint to ground, INODE( 2)
+         1      $ IUSTAR=axial displacement constraint (0 or 1 or 2)
+         1      $ IVSTAR= circumferential displacement (0=free, 1=constrained)
+         0      $ IWSTAR=radial displacement(0=free,1=constrained,2=imposed)
+         1      $ ICHI=meridional rotation (0=free,1=constrained,2=imposed)
+         0      $ D1    = radial component of offset of ground support
+         0      $ D2    = axial component of offset of ground support
+      n         $ Is this constraint the same for both prebuckling and buckling?
+         1      $ IUSTARB= axial displacement for buckling or vibration phase
+         1      $ IVSTARB= circ. displacement for buckling or vibration phase
+         1      $ IWSTARB= radial displacement for buckling or vibration
+         1      $ ICHIB  = meridional rotation for buckling or vibration
+      H         $ JUNCTION CONDITION INPUT FOLLOWS...
+      y         $ Is this segment joined to any lower-numbered segments?
+         1      $ At how may stations is this segment joined to previous segs.?
+         1      $ INODE = node in current segment (ISEG) of junction, INODE( 1)
+         2      $ JSEG  = segment no. of lowest segment involved in junction
+        31      $ JNODE = node in lowest segment (JSEG) of junction
+         1      $ IUSTAR= axial displacement (0=not slaved, 1=slaved)
+         1      $ IVSTAR= circumferential displacement (0=not slaved, 1=slaved)
+         1      $ IWSTAR= radial displacement (0=not slaved, 1=slaved)
+         1      $ ICHI  = meridional rotation (0=not slaved, 1=slaved)
+         0      $ D1    = radial component of juncture gap
+         0      $ D2    = axial component of juncture gap
+      y         $ Is this constraint the same for both prebuckling and buckling?
+      H         $ RIGID BODY CONSTRAINT INPUT FOLLOWS...
+      n         $ Given existing constraints, are rigid body modes possible?
+  0.3000000     $ WPRALL= maximum allowable displacement, WPRALL

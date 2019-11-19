@@ -1,0 +1,14 @@
+         0      $ INDIC = analysis type indicator (0 or -2 or -3). INDIC
+      N         $ Type HELP or H for more information on INDIC, N for "no more"
+         0      $ IDEFORM=indicator (0 or 1) for type of plasticity theory
+         1      $ ICPRE = control (0 or 1) for type of eigenvalue problem
+      N         $ Do you want to reverse the rate of loading?
+         4      $ KSTEP = starting time step number
+        10      $ KMAX = maximum (less than 49) time step number
+        10      $ MAXTRL =  maximum number of trials at each load level
+         5      $ ITMAX = maximum number of Newton iterations for each trial
+         1      $ ITIME = control (0 or 1) for time increments
+      N         $ Do you wish to force the material to remain elastic?
+      2600      $ TIME = starting time (need not be zero in initial run)
+        50      $ DTIME = new time increment
+      N         $ Do you want stations where plastic flow occurs listed?

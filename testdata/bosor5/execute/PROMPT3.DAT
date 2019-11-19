@@ -1,0 +1,170 @@
+300.0  
+      Generate proper input data for the following categories by
+      responding with the appropriate index:
+      ===========================================================
+      Index     Type of BOSOR input data            File generated
+      -----------------------------------------------------------
+        1      nodal point distribution in segment       MESH.QUE
+        2      shape of meridian of segment              GEOM.QUE
+        3      location of reference surface in wall  REFSURF.QUE
+        4      initial imperfection shape in segment   IMPERF.QUE
+        5      discrete rings in segment                RINGS.QUE
+        6      line loads in segment                LINELOADS.QUE
+        7      temperature distribution in segment   TEMPTURE.QUE
+        8      pressure distribution in segment      PRESSURE.QUE
+        9      wall construction of segment              WALL.QUE
+       10      dummy position; not yet used             DUMMY.QUE
+       11      constraint conditions of segment     CONSTRAIN.QUE
+       12      rigid body motion prevention         RIGIDBODY.QUE
+       13      global parameters at beginning         GLOBAL1.QUE
+       14      global parameters after segment data   GLOBAL2.QUE
+       15      dummy position; not yet used             DUMMY.QUE
+      =============================================================
+
+320.1 Choose an index (1 or 2 or . . .  14)
+490.1 Do you want to reverse the rate of loading?
+490.2  
+      For example, you may wish to unload from the latest
+      converged step or from some earlier step.
+
+494.0  
+      Unloading from previously plastically deformed states may
+      cause numerical difficulties that are associated mainly with
+      BOSOR5's using an inappropriate tangent stiffness at the first
+      unloading step. Pick the step KSTEP and corresponding time
+      TIME from which you wish to unload and follow one of two
+      stategies (1 or 2).
+
+496.1 Choose the unloading strategy  1   or   2   (or H)
+496.2  
+      The two unloading strategies are as follows:
+      1  Do two executions of the mainprocessor:  In the first,  set
+         KMAX = KSTEP + 1, ITIME = 1, DTIME = 0.  In the second, set
+         KSTEP = previous KSTEP + 1, TIME = previous TIME, ITIME = 1,
+         and  DTIME = some negative value appropriate to the case,
+         and  KMAX  = some value greater than KSTEP appropriate to
+         the case.
+         The first mainprocessor run essentially resets the stiffness
+         to the elastic value and the second mainprocessor run unloads
+         the structure.
+
+      2  Make only a single mainprocessor run, with ITIME = 1, an
+         appropriate negative value for DTIME and positive value for
+         KMAX (KMAX > KSTEP, of course). If you choose this strategy,
+         plastic flow will be prevented by an internally set switch.
+
+      Strategy 1 is preferred.
+
+500.0   
+      Your structure may contain segments that are very short
+      compared to the whole model being analyzed here. This detail
+      will not show up well in plots of the entire undeformed and
+      deformed structure. Therefore you may wish to get expanded
+      plots of these regions. Please identify these regions by
+      segment number and give a magnification factor for each region.
+      Note that the magnification factor must be an integer.
+      The center of the expanded plot will be at the first point of
+      the segment so identified. The extent of structure plotted
+      will of course depend on the magnification factor you choose.
+
+510.1 Are there any regions for which you want expanded plots?
+520.1 Any more regions for which you want expanded plots?
+530.1 Segment number for segment at center of expanded region
+530.2  
+      The first point in the segment will be at the center of
+      the expanded plot.
+
+540.1 Magnification factor (integer) for this expanded region
+540.2  
+      Use integers such as 5, 10, etc. Value depends on how much
+      of the structure you want to include in the expanded region.
+      A factor of unity would merely give you the entire structure
+      again, so the smallest factor is 2.
+
+550.1 Are you correcting, adding to, or checking an existing file?
+550.2  
+      If you are starting a new segment or starting the section on
+      global variables and constraint conditions, the answer should
+      be NO.
+
+      Note that you may only add entries after the last entry in the
+      existing file. In order to change the file in other respects,
+      you must edit it using the VAX edit mode.  Make sure that when
+      you use VAX editing that the version number of the file remains
+      unchanged.
+
+555.1 Indicate what kind of file you are editing (1 or 2)
+555.2  
+      1 indicates a file containing data for one of the segments
+        of the structure, and global data that precede data
+        for Segment 1;
+
+      2 indicates the file containing global data and constraint
+        conditions which follow all the segment data.
+
+560.1 Indicate what kind of file you are adding to (1 or 2)
+560.2
+      1 indicates a file containing data for one of the segments
+        of the structure;
+
+      2 indicates the file containing global data and constraint
+        conditions.
+
+570.1 Which segment is this?
+575.1 For which segment are you modifying the constraints?
+580.1 How many segments in the structure?
+582.1 Do you have a complete tori-ellipsoidal dome?
+582.2
+      If you answer "Y", BOSOR5 reflects the right-hand portion,
+      input for which is depicted on p.P9 of the BOSOR5 user's manual,
+      over to the left side of the centerline of the dome, and the
+      total arc length of the segment becomes double that of the
+      segment you just provided geometry input data for. Note that
+      you are permitted to answer "Y" only if the dome is closed at
+      its apex.
+
+      NOTE: INPUT FOR BOUNDARY AND/OR JUNCTION CONDITIONS MAY BE
+            VERY TRICKY DUE TO POSSIBLE AUTOMATED MODIFICATION OF THE
+            NUMBER OF NODAL POINTS IN THE "DOUBLED" TORI-ELLIPSOIDAL
+            SEGMENT. IT IS BEST IF YOU ALWAYS USE:
+                     NMESH  between 51 and 97 (preferably 97)
+            FOR THE NUMBER OF NODES IN THIS SEGMENT. THEN THE END OF
+            THE NEW "DOUBLED" SEGMENT WILL AUTOMATICALLY HAVE THE
+            SAME NODAL POINT NUMBER, NMESH, THAT YOU JUST SPECIFIED
+            IN YOUR INPUT SESSION.  IF YOU ALWAYS USE NMESH = 97,
+            THERE WILL PROBABLY ALWAYS BE ENOUGH NODES IN THE "DOUBLED"
+            SEGMENT TO AVOID ELEMENT LOCKING.
+      NOTE2:WHEN USING CALLOUTS, ALWAYS USE r (NOT z) AND FOR A CLOSED
+            TOROID FOLLOW THE INPUT SCHEME LISTED IN THE EXAMPLE IN
+            THE FILE ...bosor5/doc/bosor5.news, ITEM 2, DATED NOV 1995.
+
+584.1 Is this segment an INNER part of the toroid?
+584.2 
+      By "INNER" is meant the part of the toroid with negative
+      Gaussian curvature, the portion of the toroid with radius
+      less than the radius, ALPHAT, to the center of the toroid.
+
+      The OUTER part of the toroid is the part with positive
+      Gaussian curvature, the portion of the toroid with radius
+      greater than the radius, ALPHAT, to the center of the toroid.
+
+601.1 Do you want to print out r(s), r'(s), etc. for this segment?
+602.1 Do you want to print out the (z,r) coordinates (input data)?
+603.1 Do you want to print out debugging quantities for geometry?
+604.1 Do you want to print out output Fourier expansion of load?
+605.1 Do you want to print out prestresses at meridional stations?
+606.1 Do you want to print out ref. surf. location and thickness?
+607.1 Do you want to print out the C(i,j) at meridional stations?
+608.1 Do you want to print out thicknesses along the meridian?
+609.1 Do you want to print out thicknesses along the meridian?
+610.1 Do you want to print out distributed loads along meridian?
+702.1 Do you want response to harmonic forcing (INDIC = 3 or 4)?
+704.1 Is the harmonic forcing thru base excitation?
+706.1 Value of acceleration of gravity in this case's units
+710.1 Do you want to list output for segment
+720.1 Do you want to list output for several load steps?
+730.1 Do you want to list prebuckling resultants and ring forces?
+740.1 Do you want to list forces in the discrete rings, if any?
+750.1 Do you want buckling or vib. modal stresses or resultants?
+760.1 Number of circumferential waves
+770.1 DUMMY ENTRY

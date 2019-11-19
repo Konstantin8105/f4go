@@ -1,0 +1,141 @@
+C=DECK      ASSEMBLELIB
+C
+C   THIS IS THE ASSEMBLE LIBRARY  (SOURCE FILE)
+C
+C
+C
+C=DECK      ASSEMBLE
+C
+      PROGRAM ASSMBL
+C
+C  PURPOSE IS TO CONCATENATE 'NAME'.SEGN FILES INTO 'NAME'.ALL
+C
+#if hp700
+$hp9000_800 intrinsics
+#endif
+      CHARACTER*80 PHRASE
+      character*32 VNAM2
+      integer eol, nseg
+      common/case/casename
+      character*28 casename
+      character*3 cnseg
+      character*32 fname
+#if hp700
+      call getarg(2, casename)
+      call getarg(3, cnseg)
+#else
+      call getarg(1, casename)
+      call getarg(2, cnseg)
+#endif
+      read(cnseg, '(i3)') nseg
+      FNAME = casename
+C
+      CALL FOPENA(1,IALL,ISEG,FNAME,VNAM2,NSEG)
+      NLET = INDEX(FNAME,' ') - 1
+      IF (NLET.LE.0) NLET = LEN(FNAME)
+C
+      NSEG1 = NSEG + 1
+      DO 500 N = 1,NSEG1
+      IF (N.GT.1) CALL FOPENA(N,IALL,ISEG,FNAME,VNAM2,NSEG)
+      DO 300 I = 1,10000
+      READ(ISEG,'(A)',ERR = 100, END=400) PHRASE
+      WRITE(IALL,'(A)') PHRASE(1:eol(PHRASE))
+      GO TO 300
+  100 CONTINUE
+      WRITE(6,'(1X,A,I3)')' ERROR READING FILE FOR SEGMENT NO.',N
+      WRITE(6,'(A,A,A,A)')' Input file=',VNAM2,', Output file=',FNAME
+      WRITE(6,'(A,I3)')' Line number=',I
+      WRITE(6,'(A)') PHRASE(1:eol(PHRASE))
+      CALL EXIT
+  300 CONTINUE
+  400 CONTINUE
+      WRITE(6,'(1X,A,A,A,A)') VNAM2,' assembled into      ',
+     1                       FNAME(:NLET),'.ALL'
+  500 CONTINUE
+      WRITE(6,600)
+  600 FORMAT(//' All segment files have been assembled. Now give the'/
+     1' command  BOSORREAD.')
+      CLOSE(UNIT=25,STATUS='KEEP')
+C
+      END
+C
+C
+C
+C=DECK      FOPENA
+      SUBROUTINE FOPENA(N,IALL,ISEG,FNAME,VNAM2,NSEG)
+C
+C  PURPOSE IS TO OPEN THE FILES 'NAME'.ALL AND 'NAME'.SEGn
+C
+C BEG OCT 1995
+C     CHARACTER*32 VNAME, CN*2
+      CHARACTER*32 VNAME, CN*3
+C END OCT 1995
+      character*28 FNAME
+      CHARACTER*32 VNAM2
+      logical exists
+C
+      IF(N.GE.10) THEN
+C BEG OCT 1995
+         IF (N.LE.99) WRITE(CN,'(I2)') N
+         IF (N.GT.99) WRITE(CN,'(I3)') N
+C END OCT 1995
+      ELSE
+         WRITE(CN,'(I1)') N
+      ENDIF
+C
+      I=INDEX(FNAME,' ')
+      IF(I.NE.0) THEN
+         IF (N.EQ.1) VNAME=FNAME(:I-1)//'.ALL'
+         VNAM2=FNAME(:I-1)//'.SEG'//CN
+      ELSE
+         IF (N.EQ.1) VNAME=FNAME//'.ALL'
+         VNAM2=FNAME//'.SEG'//CN
+      ENDIF
+C
+      IALL = 25
+      ISEG = 26
+C VAX/VMS VERSION..
+C     IF (N.EQ.1) OPEN(UNIT=IALL,FILE=VNAME,STATUS='NEW')
+C END VAX/VMS VERSION
+C UNIX VERSION
+      IF (N.EQ.1) then
+	inquire(FILE=vname, EXIST=exists)
+	if (exists) then
+	  OPEN(UNIT=IALL,FILE=VNAME,STATUS='OLD')
+#if rs6k
+	  rewind(IALL)
+#endif
+	else
+	  OPEN(UNIT=IALL,FILE=VNAME,STATUS='NEW')
+	endif
+      endif
+C END UNIX VERSION
+C
+      OPEN(UNIT=ISEG,FILE=VNAM2,STATUS='OLD')
+#if rs6k
+      rewind(ISEG)
+#endif
+C
+      RETURN
+      END
+
+
+c eol returns the position of the last character of data in the line.  eol
+c does not count appended white space.
+      integer function eol(line)
+      character*(*) line
+      character space, CR, TAB
+      integer i
+
+      space = CHAR(32)
+      CR = CHAR(13)
+      TAB = CHAR(9)
+      i = LEN(line)
+      do while ((line(i:i) .eq. space) .or. 
+     1          (line(i:i) .eq. CR) .or.
+     2          (line(i:i) .eq. TAB))
+        i = i-1
+      end do
+      eol = i
+      return
+      end

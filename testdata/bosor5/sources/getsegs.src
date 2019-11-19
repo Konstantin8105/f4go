@@ -1,0 +1,144 @@
+C=DECK      GETSEGSLIB
+C
+C  THIS IS THE GETSEGS LIBRARY  (SOURCE FILE)
+C
+C
+C
+C=DECK      GETSEGS
+C
+      PROGRAM GETSEG
+C
+C  PURPOSE IS TO CREATE 'NAME'.SEG;N FILES STARTING WITH 'NAME'.DOC
+C
+#if hp700
+$hp9000_800 intrinsics
+#endif
+      CHARACTER*80 PHRASE
+      CHARACTER*32 VNAM2
+      common/case/casename
+      character*28 casename
+      character*28 fname
+C BEG FEB 2009
+#if hp700
+C     call getarg(2, casename)
+      call getarg(1, casename)
+#else
+      call getarg(1,casename)
+#endif
+C END FEB 2009
+      fname = casename
+C
+C  OPEN 'NAME'.DOC FILE AND 'NAME'.SEG;1 FILE
+C
+      N = 1
+      CALL FOPEN(N,IDOC,ISEG,FNAME,VNAM2)
+C
+C  CREATE 'NAME'.SEG1 ...
+C
+      DO 10 I = 1,10000
+      READ(IDOC,'(A)') PHRASE
+      ILET1 = INDEX(PHRASE,'$ SEGMENT NUMBER    2')
+      ILET2 = INDEX(PHRASE,'$ GLOBAL DATA BEGINS')
+      LENGTH = LEN(PHRASE)
+      DO 5 K = LENGTH,1,-1
+      J = K
+      IF (PHRASE(K:K).NE.' ') GO TO 7
+    5 CONTINUE
+    7 CONTINUE
+      IF (ILET1.NE.0.OR.ILET2.NE.0) GO TO 15
+      WRITE(ISEG,'(A)') PHRASE(:J)
+   10 CONTINUE
+   15 CONTINUE
+C
+      WRITE(6,'(1X,A,A)')' GETSEGS has just produced the file ',VNAM2
+C
+C   NOW SPLIT THE REST OF THE DOC FILE INTO SEGMENTS...
+C
+      N = N + 1
+      CALL FOPEN(N,IDOC,ISEG,FNAME,VNAM2)
+      WRITE(ISEG,'(A)') PHRASE(:J)
+      DO 40 I = 1,10000
+
+      READ(IDOC,'(A)',END=50) PHRASE
+      ILET1 = INDEX(PHRASE,'$ SEGMENT NUMBER')
+      ILET2 = INDEX(PHRASE,'$ GLOBAL DATA BEGINS')
+      LENGTH = LEN(PHRASE)
+      DO 20 K = LENGTH,1,-1
+      J = K
+      IF (PHRASE(K:K).NE.' ') GO TO 30
+   20 CONTINUE
+   30 CONTINUE
+      IF (ILET1.NE.0.OR.ILET2.NE.0) GO TO 15
+      WRITE(ISEG,'(A)') PHRASE(:J)
+   40 CONTINUE
+   50 CONTINUE
+C
+      WRITE(6,'(1X,A,A)')' GETSEGS has just produced the file ',VNAM2
+      NLET = INDEX(FNAME,' ') - 1
+      IF (NLET.LE.0) NLET = LEN(FNAME)
+      WRITE(6,240) FNAME(:NLET),FNAME(:NLET)
+  240 FORMAT(/' You now have segment files, ',A,'.SEGn  .'/
+     1' Do whatever editing you want to at the segment level'/
+     1' using MODIFY (see HELP5 COMMAND MODIFY), and then'/
+     1' reassemble into a new ',A,'.ALL file with use of  ASSEMBLE')
+C
+      END
+C=DECK      FOPEN
+      SUBROUTINE FOPEN(N,IDOC,ISEG,FNAME,VNAM2)
+C
+C  PURPOSE IS TO OPEN THE FILES 'NAME'.DOC AND 'NAME'.SEG;N
+C
+C BEG OCT 1995
+C     CHARACTER *32 VNAME, CN*2, FNAME*28
+      CHARACTER *32 VNAME, CN*3, FNAME*28
+C END OCT 1995
+      CHARACTER *32 VNAM2,VNAM3
+      logical exists
+C
+      IF(N.GE.10) THEN
+C BEG OCT 1995
+         IF (N.LE.99) WRITE(CN,'(I2)') N
+         IF (N.GT.99) WRITE(CN,'(I3)') N
+C END OCT 1995
+      ELSE
+         WRITE(CN,'(I1)') N
+      ENDIF
+C
+      I=INDEX(FNAME,' ')
+      IF(I.NE.0) THEN
+         IF (N.EQ.1) VNAME=FNAME(:I-1)//'.DOC'
+         VNAM2=FNAME(:I-1)//'.SEG'//CN
+      ELSE
+         IF (N.EQ.1) VNAME=FNAME//'.DOC'
+         VNAM2=FNAME//'.SEG'//CN
+      ENDIF
+C
+      IDOC = 25
+      ISEG = 26
+C
+C     OPEN(UNIT=IDOC,NAME=VNAME,CARRIAGECONTROL='LIST',STATUS='OLD')
+      IF (N.EQ.1) then
+        OPEN(UNIT=IDOC,FILE=VNAME,STATUS='OLD')
+#if rs6k
+	rewind(IDOC)
+#endif
+      endif
+C
+      IF (N.GT.1) CLOSE(UNIT=ISEG,STATUS='KEEP')
+C
+C  OPEN STATEMENT FOR VAX/VMS...
+c     OPEN(UNIT=ISEG,FILE=VNAM2,STATUS='NEW')
+C
+C  OPEN STATEMENT FOR UNIX...
+      inquire(FILE=vnam2, EXIST=exists)
+      if (exists) then
+	OPEN(UNIT=ISEG, FILE=vnam2, STATUS='OLD')
+#if rs6k
+        rewind(iseg)
+#endif
+      else
+	OPEN(UNIT=ISEG, FILE=vnam2, STATUS='NEW')
+      endif
+C
+      RETURN
+      END

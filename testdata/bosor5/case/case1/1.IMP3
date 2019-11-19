@@ -1,0 +1,21 @@
+        -3      $ INDIC = analysis type indicator (0 or -2 or -3). INDIC
+      N         $ Type HELP or H for more information on INDIC, N for "no more"
+         0      $ IDEFORM=indicator (0 or 1) for type of plasticity theory
+         1      $ ICPRE = control (0 or 1) for type of eigenvalue problem
+         6      $ NSTEPS = quantity of time steps for stability calculation
+         3      $ LSTEPS(i)=time step number for buckling, Step no.( 1)
+         4      $ LSTEPS(i)=time step number for buckling, Step no.( 2)
+         5      $ LSTEPS(i)=time step number for buckling, Step no.( 3)
+         6      $ LSTEPS(i)=time step number for buckling, Step no.( 4)
+         7      $ LSTEPS(i)=time step number for buckling, Step no.( 5)
+         8      $ LSTEPS(i)=time step number for buckling, Step no.( 6)
+      2400      $ TIMES(i)=time corresponding to LSTEP(i), Step no.( 1)
+      2600      $ TIMES(i)=time corresponding to LSTEP(i), Step no.( 2)
+      2650      $ TIMES(i)=time corresponding to LSTEP(i), Step no.( 3)
+      2700      $ TIMES(i)=time corresponding to LSTEP(i), Step no.( 4)
+      2750      $ TIMES(i)=time corresponding to LSTEP(i), Step no.( 5)
+      2800      $ TIMES(i)=time corresponding to LSTEP(i), Step no.( 6)
+        10      $ N0B   = starting number of circ. waves (buckling analysis)
+         2      $ NMINB = minimum number of circ. waves  (buckling analysis)
+        12      $ NMAXB = maximum number of circ. waves  (buckling analysis)
+         2      $ INCRB = increment in number of circ. waves (buckling)

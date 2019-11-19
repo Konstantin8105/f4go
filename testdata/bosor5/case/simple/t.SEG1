@@ -1,0 +1,64 @@
+ BOSOR5 TEST                                     
+         1      $ NSEG  = number of shell segments (less than 95)
+      H         $
+      H         $ SEGMENT NUMBER    1    1    1    1    1    1    1    1
+      H         $ NODAL POINT DISTRIBUTION FOLLOWS...
+        31      $ NMESH=no. of node points (5=min.;98=max.)
+         3      $ NTYPEH= control integer (1 or 2 or 3) for nodal point spacing
+      H         $ REFERENCE SURFACE GEOMETRY FOLLOWS...
+         1      $ NSHAPE= indicator (1,2 or 4) for geometry of meridian
+       100      $ R1     = radius at beginning of segment (see p. P7)
+         0      $ Z1     = axial coordinate at beginning of segment
+       100      $ R2     = radius at end of segment
+       100      $ Z2     = axial coordinate at end of segment
+      H         $ IMPERFECTION SHAPE FOLLOWS...
+         0      $ IMP   = indicator for imperfection (0=none, 1=some)
+      H         $ REFERENCE SURFACE LOCATION RELATIVE TO WALL
+         3      $ NTYPEZ= control (1 or 3) for reference surface location
+  0.5000000     $ ZVAL  = distance from leftmost surf. to reference surf.
+      N         $ Do you want to print out r(s), r'(s), etc. for this segment?
+      H         $ DISCRETE RING INPUT FOLLOWS...
+         0      $ NRINGS= number (max=20) of discrete rings in this segment
+         0      $ K=elastic foundation modulus (e.g. lb/in**3)in this seg.
+      H         $ TEMPERATURE INPUT FOLLOWS...
+      N         $ Do you want general information on loading?
+         0      $ NTSTAT = number of temperature callout points along meridian
+      H         $ PRESSURE INPUT FOLLOWS...
+         2      $ NPSTAT = number of meridional callouts for pressure
+         2      $ NTYPE = control for meaning of loading callout (2=z, 3=r)
+         0      $ Z(I)  = axial coordinate of Ith loading callout, z( 1)
+       100      $ Z(I)  = axial coordinate of Ith loading callout, z( 2)
+        -1      $ PN(J)= normal pressure at meridional callout pt. no.( 1)
+        -1      $ PN(J)= normal pressure at meridional callout pt. no.( 2)
+         0      $ PT(J)= meridional traction at callout point no.( 1)
+         0      $ PT(J)= meridional traction at callout point no.( 2)
+         1      $ ISTEP = control integer for time variation of pressure
+      N         $ Do you want to print out distributed loads along meridian?
+      H         $ LINE LOAD INPUT FOLLOWS...
+         0      $ LINTYP=control for line loads or disp.(0=none,1=some)
+      H         $ SHELL WALL CONSTRUCTION FOLLOWS...
+      N         $ Do you want to include smeared stiffeners?
+         1      $ LAYERS = number of layers (max. = 6)
+      Y         $ Are all the layers of constant thickness?
+         1      $ MATL = type of material for shell wall layer no.( 1)
+         1      $ T(i) = thickness of ith layer (i=1 = leftmost), T( 1)
+   3846000      $ G(i) = shear modulus of ith layer, G( 1)
+  0.1000000E+08 $ EX(i)= modulus in meridional direction, EX( 1)
+  0.1000000E+08 $ EY(i)= modulus in circumferential direction, EY( 1)
+  0.3000000     $ UXY(i)= Poisson's ratio (EY*UXY = EX*UYX).   UXY( 1)
+         0      $ ALPHA1(i)=coef. thermal exp. in merid. direction, ALPHA1( 1)
+         0      $ ALPHA2(i)=coef. thermal exp. in circ. direction, ALPHA2( 1)
+      Y         $ Do you wish to include plasticity in this segment?
+      N         $ Do you wish to include creep in this segment?
+      Y         $ Is this a new shell wall material?
+         3      $ NPOINT = number of points in s.s.curve, layer no.( 1)
+         5      $ NITEG=no. integration pts. thru thickness, layer no.( 1)
+      N         $ Do you want to use power law for stress-strain curve?
+         0      $ EPS(i)=strain coordinates of s-s curve, EPS( 1)
+  0.3000000E-02 $ EPS(i)=strain coordinates of s-s curve, EPS( 2)
+         1      $ EPS(i)=strain coordinates of s-s curve, EPS( 3)
+         0      $ SIG(i)=stress coordinates of s-s curve, SIG( 1)
+     30000      $ SIG(i)=stress coordinates of s-s curve, SIG( 2)
+   1000000      $ SIG(i)=stress coordinates of s-s curve, SIG( 3)
+      N         $ Do you want to have C(i,j) printed for this segment?
+      H         $ END OF DATA FOR THIS SEGMENT
