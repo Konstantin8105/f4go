@@ -167,6 +167,7 @@ func getFortranTestFiles(dir string) (files []string, err error) {
 			continue
 		}
 		if !strings.HasSuffix(ent.Name(), ".f") &&
+			!strings.HasSuffix(ent.Name(), ".src") &&
 			!strings.HasSuffix(ent.Name(), ".f90") {
 			continue
 		}
@@ -364,7 +365,8 @@ func TestBlasTesting(t *testing.T) {
 }
 
 func TestData(t *testing.T) {
-	files, err := getFortranTestFiles("./testdata/other")
+	files, err := getFortranTestFiles("./testdata/other/")
+	fmt.Println(files, err)
 	if err != nil {
 		t.Fatal(err)
 	}
