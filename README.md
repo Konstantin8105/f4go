@@ -338,3 +338,4 @@ Operations:
 ### Fortran test sources
 
 * [**LAPACK from lapack3.8.0**](http://netlib.org/lapack/index.html)
+* [**BOSOR5**](http://shellbuckling.com/BOSOR5.php)
