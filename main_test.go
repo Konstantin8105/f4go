@@ -365,7 +365,7 @@ func TestBlasTesting(t *testing.T) {
 }
 
 func TestData(t *testing.T) {
-	files, err := getFortranTestFiles("./testdata/other/")
+	files, err := getFortranTestFiles("./testdata/other/bosor5/bosor5")
 	fmt.Println(files, err)
 	if err != nil {
 		t.Fatal(err)

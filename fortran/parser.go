@@ -2645,6 +2645,7 @@ func (p *parser) parseAssign() (stmts []goast.Stmt) {
 
 // Examples:
 //    COMMON/PDAT/LOC(3), T(1)
+//    COMMON/      /B(160000)
 // Implementation:
 // var COMMON MEMORY
 // type MEMORY struct {
@@ -2669,9 +2670,10 @@ func (p *parser) parseCommon() (stmts []goast.Stmt) {
 	if p.ns[p.ident].tok == token.QUO { // /
 		// find block name
 		p.ident++
-		blockName = string(p.ns[p.ident].b)
-		p.ident++
-
+		if p.ns[p.ident].tok != token.QUO {
+			blockName = string(p.ns[p.ident].b)
+			p.ident++
+		}
 		p.expect(token.QUO) // /
 		p.ident++
 	}
