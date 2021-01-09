@@ -7,8 +7,19 @@ import (
 	goparser "go/parser"
 	"go/token"
 	"strconv"
+	"strings"
 	"unicode"
 )
+
+func (p *parser) convertLineToComment() (stmts []goast.Stmt){
+	line := p.getLine()
+	line = strings.Replace(line, "\n", "\n//", -1)
+	stmts = append(stmts, &goast.ExprStmt{
+		X: goast.NewIdent("// " + line),
+	})
+	p.gotoEndLine()
+	return
+}
 
 // Example:
 //  REWIND NTRA
@@ -43,6 +54,9 @@ func (p *parser) parseRewind() (stmts []goast.Stmt) {
 //
 // write (*, '(I1,A2,I1)') i,'YY',i
 func (p *parser) parseWrite() (stmts []goast.Stmt) {
+
+	return p.convertLineToComment()
+
 	{
 		start := p.ident
 		p.expect(ftWrite)
@@ -265,6 +279,8 @@ func (p *parser) parseFormat(in []node) (s string) {
 //  READ ( NIN , FMT = * ) THRESH
 //  READ ( NIN , FMT = * ) ( IDIM ( I ) , I = 1 , NIDIM )
 func (p *parser) parseRead() (stmts []goast.Stmt) {
+	return p.convertLineToComment()
+
 	p.expect(ftRead)
 	p.ns[p.ident].tok = ftWrite
 
@@ -286,6 +302,8 @@ func (p *parser) parseRead() (stmts []goast.Stmt) {
 //  OPEN ( NOUT , FILE = SUMMRY , STATUS = 'UNKNOWN' )
 //  OPEN ( UNIT = 2 , FILE = "./testdata/main.f" )
 func (p *parser) parseOpen() (stmts []goast.Stmt) {
+	return p.convertLineToComment()
+
 	p.expect(ftOpen)
 	p.ident++
 	p.expect(token.LPAREN)

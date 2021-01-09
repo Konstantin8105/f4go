@@ -115,7 +115,9 @@ func ShowDiff(a, b string) string {
 		if aLine != bLine {
 			diffFlag = "*"
 		}
-		out += fmt.Sprintf("%s %3d %-60s%s\n", diffFlag, lineNumber+1, aLine, bLine)
+		out += fmt.Sprintf("%s %3d %2d/%2d %-60s%s\n", diffFlag, lineNumber+1,
+			len(aLine), len(bLine),
+			aLine, bLine)
 	}
 	return out
 }

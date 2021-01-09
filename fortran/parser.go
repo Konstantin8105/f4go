@@ -1337,6 +1337,21 @@ func (p *parser) parseCall() goast.Stmt {
 		p.expect(ftCall)
 		p.ident++
 		p.expect(token.IDENT)
+		if name := strings.ToUpper(string(p.ns[p.ident].b)); name == "F4GOTESTOK" ||
+			name == "F4GOTESTFAIL" {
+			p.addImport("fmt")
+			p.gotoEndLine()
+			return &goast.ExprStmt{X: &goast.CallExpr{
+				Fun:  &goast.SelectorExpr{
+					X:goast.NewIdent("fmt"),
+					Sel: goast.NewIdent("Printf"),
+				},
+				Args: []goast.Expr{&goast.BasicLit{
+					Kind: token.STRING,
+					Value: "\" " + name + "\\n\"",
+				},
+			}}}
+		}
 		p.ident++
 		start := p.ident
 
