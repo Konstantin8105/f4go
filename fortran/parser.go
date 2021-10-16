@@ -1835,6 +1835,7 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		// TODO: go to next,(30, 50, 70, 90, 110)
 		sGoto := p.parseGoto()
 		stmts = append(stmts, sGoto...)
+		stmts = append(stmts, p.convertLineToComment()...)
 		p.expect(ftNewLine)
 
 	case ftImplicit:

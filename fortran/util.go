@@ -175,6 +175,8 @@ func (p *parser) split(nodes *[]node, pos int) (
 	for rightSeparator = 0; rightSeparator < len(rightPart); rightSeparator++ {
 		var br bool
 		switch rightPart[rightSeparator].tok {
+		case token.ADD, token.SUB:
+			continue
 		case token.INT, token.FLOAT, token.STRING, token.CHAR:
 			br = true
 		case ftReal: // function real
