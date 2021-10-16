@@ -179,8 +179,13 @@ func simplify(filenames []string) {
 			content = re.ReplaceAll(content, []byte("$1"))
 		}
 		{
-			// from: new(int) -> int
-			re := regexp.MustCompile(`new\((?P<name>[[:word:]]*)\)`)
+			// from: A := new(int) -> var A int
+			re := regexp.MustCompile(`(?P<name>[[:word:]]*) := new\((?P<typ>[[:word:]]*)\)`)
+			content = re.ReplaceAll(content, []byte("var $1 $2"))
+		}
+		{
+			// from: (123) -> 123
+			re := regexp.MustCompile(`\((?P<name>[[:digit:]]*)\)`)
 			content = re.ReplaceAll(content, []byte("$1"))
 		}
 		{
