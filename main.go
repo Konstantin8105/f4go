@@ -9,17 +9,23 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"regexp"
 	"runtime"
 	"strings"
 
 	"github.com/Konstantin8105/f4go/fortran"
 )
 
-var packageFlag *string
+var (
+	packageFlag  *string
+	simplifyFlag *bool
+)
 
 func main() {
 	packageFlag = flag.String("p",
 		"main", "set the name of the generated package")
+	simplifyFlag = flag.Bool("s",
+		false, "simplify from (*I) to I of Golang file")
 
 	run()
 }
@@ -38,6 +44,11 @@ func run() {
 	if packageFlag == nil {
 		var s string
 		packageFlag = &s
+	}
+
+	if *simplifyFlag {
+		simplify(flag.Args())
+		return
 	}
 
 	es := parseParallel(flag.Args(), *packageFlag)
@@ -141,4 +152,40 @@ func parseParallel(filenames []string, packageName string) (ess []errorRow) {
 		ess = append(ess, <-results...)
 	}
 	return
+}
+
+func simplify(filenames []string) {
+	for _, file := range filenames {
+		content, err := ioutil.ReadFile(file)
+		if err != nil {
+			panic(err)
+		}
+
+		{
+			// from : (*(L)) -> L
+			re := regexp.MustCompile(`\(\*\((?P<name>[[:word:]]*)\)\)`)
+			content = re.ReplaceAll(content, []byte("$1"))
+		}
+		{
+			// from : (*K)   -> K
+			re := regexp.MustCompile(`\(\*(?P<name>[[:word:]]*)\)`)
+			content = re.ReplaceAll(content, []byte("$1"))
+		}
+		{
+			// from: new(int) -> int
+			re := regexp.MustCompile(`new\((?P<name>[[:word:]]*)\)`)
+			content = re.ReplaceAll(content, []byte("$1"))
+		}
+		{
+			// *int
+			content = bytes.ReplaceAll(content, []byte("*int"), []byte("int"))
+			content = bytes.ReplaceAll(content, []byte("*float"), []byte("float"))
+		}
+		{
+			// *[]int
+			content = bytes.ReplaceAll(content, []byte("*[]"), []byte("[]"))
+		}
+
+		fmt.Fprintf(os.Stdout, "%s\n", string(content))
+	}
 }
