@@ -411,13 +411,17 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 		case ftSubroutine:
 			p.expect(ftSubroutine)
 			p.ident++
-			p.expect(token.IDENT)
+			if p.ns[p.ident].tok == token.IDENT {
+				p.expect(token.IDENT)
+			}
 			internalFunction = append(internalFunction, string(p.ns[p.ident].b))
 			continue
 		case ftProgram:
 			p.expect(ftProgram)
 			p.ident++
-			p.expect(token.IDENT)
+			if p.ns[p.ident].tok == token.IDENT {
+				p.expect(token.IDENT)
+			}
 			internalFunction = append(internalFunction, string(p.ns[p.ident].b))
 			continue
 		}
@@ -1342,15 +1346,15 @@ func (p *parser) parseCall() goast.Stmt {
 			p.addImport("fmt")
 			p.gotoEndLine()
 			return &goast.ExprStmt{X: &goast.CallExpr{
-				Fun:  &goast.SelectorExpr{
-					X:goast.NewIdent("fmt"),
+				Fun: &goast.SelectorExpr{
+					X:   goast.NewIdent("fmt"),
 					Sel: goast.NewIdent("Printf"),
 				},
 				Args: []goast.Expr{&goast.BasicLit{
-					Kind: token.STRING,
+					Kind:  token.STRING,
 					Value: "\" " + name + "\\n\"",
 				},
-			}}}
+				}}}
 		}
 		p.ident++
 		start := p.ident
