@@ -29,6 +29,7 @@ const (
 	ftNewLine
 
 	ftWrite
+	ftPrint
 	ftWhile
 
 	ftParameter
@@ -87,6 +88,7 @@ var o = [...]string{
 	ftNewLine:     "NEW_LINE",
 
 	ftWrite: "WRITE",
+	ftPrint: "PRINT",
 	ftWhile: "WHILE",
 
 	ftParameter: "PARAMETER",

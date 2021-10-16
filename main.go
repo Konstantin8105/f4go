@@ -31,6 +31,13 @@ func main() {
 }
 
 func run() {
+	if packageFlag == nil {
+		packageFlag = new(string)
+	}
+	if simplifyFlag == nil {
+		simplifyFlag = new(bool)
+	}
+
 	// free 1 CPU for other computer stuff
 	runtime.GOMAXPROCS(runtime.GOMAXPROCS(0) - 1)
 

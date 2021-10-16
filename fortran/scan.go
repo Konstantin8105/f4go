@@ -990,6 +990,7 @@ func (s *scanner) scanTokens() {
 		{tok: ftThen, pattern: []string{"THEN"}},
 		{tok: token.RETURN, pattern: []string{"RETURN"}},
 		{tok: ftWrite, pattern: []string{"WRITE"}},
+		{tok: ftPrint, pattern: []string{"PRINT"}},
 		{tok: ftWhile, pattern: []string{"WHILE"}},
 		{tok: ftParameter, pattern: []string{"PARAMETER"}},
 		{tok: ftProgram, pattern: []string{"PROGRAM"}},

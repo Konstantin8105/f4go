@@ -191,7 +191,7 @@ C -----------------------------------------------------
 C calculation
             H(1) = 3
             H(1) = H(1) ** H(1)
-            r = -9.Q+4
+            r = -9.d+4
             p = 1.45
             r = r / 5
             r = r + 1.4**2.1
@@ -425,6 +425,7 @@ C           call funcwrt(2,a(1,1))
 
         SUBROUTINE test_do2( )
             INTEGER I,J,N, VTSAV(2,2), A(2,2) ! TEST COMMENT
+            INTEGER TS, PS
             N = 2 
             DO 140 J=1,N, 1 ! TEST COMMENT
                DO 130 I=1,N ! TEST COMMENT
@@ -433,6 +434,15 @@ C           call funcwrt(2,a(1,1))
                   CALL F4GOTESTOK ! WRITE(*,'(I5)') VTSAV(J,I) ! TEST COMMENT
   130          END DO ! TEST COMMENT
   140       END DO ! TEST COMMENT
+
+            TS = 0
+            PS = 5
+            DO 300 J = 1,PS
+  300              TS = TS+J
+
+  400       PS = TS
+            CALL F4GOTESTOK
+
             RETURN ! TEST COMMENT
         END ! TEST COMMENT
 

@@ -1809,8 +1809,21 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 		stmts = append(stmts, sData...)
 
 	case ftWrite:
-		sWrite := p.parseWrite()
-		stmts = append(stmts, sWrite...)
+		stmts = append(stmts,
+			&goast.ExprStmt{
+				X: goast.NewIdent("// Unused by f4go : " + p.getLine()),
+			},
+			&goast.ExprStmt{
+				goast.NewIdent("fmt.Println(\"WRITE SOMETHING\")"),
+			},
+		)
+		p.gotoEndLine()
+
+	case ftPrint:
+		stmts = append(stmts, &goast.ExprStmt{
+			X: goast.NewIdent("// Unused by f4go : " + p.getLine()),
+		})
+		p.gotoEndLine()
 
 	case ftStop:
 		p.expect(ftStop)
@@ -1867,7 +1880,39 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 
 	case token.INT:
 		labelName := string(p.ns[p.ident].b)
-		if v, ok := p.endLabelDo[labelName]; ok && v > 0 {
+		// From:
+		//
+		// DO 300 J = 1,PS
+		// 300 TS = TS+J
+		//
+		// To:
+		//
+		// DO 300 J = 1,PS
+		// TS = TS+J
+		// 300 END
+		//
+		if v, ok := p.endLabelDo[labelName]; ok && 0 < v {
+			if p.ns[p.ident+1].tok != ftEnd && p.ns[p.ident+1].tok != token.CONTINUE {
+				// go to END
+				var i int
+				for i = p.ident; p.ns[i].tok != ftNewLine &&
+					p.ns[i].tok != token.CONTINUE &&
+					p.ns[i].tok != ftEnd; i++ {
+				}
+				a1 := p.ns[:p.ident]
+				a2 := p.ns[p.ident+1:i]
+				b := append([]node{},
+					node{tok: ftNewLine, b: []byte("\n")},
+					p.ns[p.ident],
+					node{tok: token.CONTINUE, b: []byte("CONTINUE")},
+					node{tok: ftNewLine, b: []byte("\n")})
+				c := p.ns[i:]
+				p.ns = append(a1,append(a2,append(b,c...)...)...)
+				return p.parseStmt()
+			}
+		}
+
+		if v, ok := p.endLabelDo[labelName]; ok && 0 < v {
 			stmts = append(stmts, p.addLabel(p.ns[p.ident].b))
 			// if after END DO, then remove
 			for i := p.ident; p.ns[i].tok != ftNewLine; i++ {
