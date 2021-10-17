@@ -34,9 +34,6 @@ func run() {
 	if packageFlag == nil {
 		packageFlag = new(string)
 	}
-	if simplifyFlag == nil {
-		simplifyFlag = new(bool)
-	}
 
 	// free 1 CPU for other computer stuff
 	runtime.GOMAXPROCS(runtime.GOMAXPROCS(0) - 1)
@@ -51,11 +48,6 @@ func run() {
 	if packageFlag == nil {
 		var s string
 		packageFlag = &s
-	}
-
-	if *simplifyFlag {
-		simplify(flag.Args())
-		return
 	}
 
 	es := parseParallel(flag.Args(), *packageFlag)
@@ -133,6 +125,13 @@ func parse(filename, packageName, goFilename string) (errR []errorRow) {
 	// goimports
 	_, _ = exec.Command("goimport", "-w", goFilename).CombinedOutput()
 
+	if simplifyFlag == nil {
+		simplifyFlag = new(bool)
+	}
+	if *simplifyFlag {
+		simplify(goFilename)
+	}
+
 	return
 }
 
@@ -161,43 +160,46 @@ func parseParallel(filenames []string, packageName string) (ess []errorRow) {
 	return
 }
 
-func simplify(filenames []string) {
-	for _, file := range filenames {
-		content, err := ioutil.ReadFile(file)
-		if err != nil {
-			panic(err)
-		}
+func simplify(filename string) {
+	// read file
+	content, err := ioutil.ReadFile(filename)
+	if err != nil {
+		panic(err)
+	}
 
-		{
-			// from : (*(L)) -> L
-			re := regexp.MustCompile(`\(\*\((?P<name>[[:word:]]*)\)\)`)
-			content = re.ReplaceAll(content, []byte("$1"))
-		}
-		{
-			// from : (*K)   -> K
-			re := regexp.MustCompile(`\(\*(?P<name>[[:word:]]*)\)`)
-			content = re.ReplaceAll(content, []byte("$1"))
-		}
-		{
-			// from: A := new(int) -> var A int
-			re := regexp.MustCompile(`(?P<name>[[:word:]]*) := new\((?P<typ>[[:word:]]*)\)`)
-			content = re.ReplaceAll(content, []byte("var $1 $2"))
-		}
-		{
-			// from: (123) -> 123
-			re := regexp.MustCompile(`\((?P<name>[[:digit:]]*)\)`)
-			content = re.ReplaceAll(content, []byte("$1"))
-		}
-		{
-			// *int
-			content = bytes.ReplaceAll(content, []byte("*int"), []byte("int"))
-			content = bytes.ReplaceAll(content, []byte("*float"), []byte("float"))
-		}
-		{
-			// *[]int
-			content = bytes.ReplaceAll(content, []byte("*[]"), []byte("[]"))
-		}
+	{
+		// from : (*(L)) -> L
+		re := regexp.MustCompile(`\(\*\((?P<name>[[:word:]]*)\)\)`)
+		content = re.ReplaceAll(content, []byte("$1"))
+	}
+	{
+		// from : (*K)   -> K
+		re := regexp.MustCompile(`\(\*(?P<name>[[:word:]]*)\)`)
+		content = re.ReplaceAll(content, []byte("$1"))
+	}
+	{
+		// from: A := new(int) -> var A int
+		re := regexp.MustCompile(`(?P<name>[[:word:]]*) := new\((?P<typ>[[:word:]]*)\)`)
+		content = re.ReplaceAll(content, []byte("var $1 $2"))
+	}
+	{
+		// from: (123) -> 123
+		re := regexp.MustCompile(`\((?P<name>[[:digit:]]*)\)`)
+		content = re.ReplaceAll(content, []byte("$1"))
+	}
+	{
+		// *int
+		content = bytes.ReplaceAll(content, []byte("*int"), []byte("int"))
+		content = bytes.ReplaceAll(content, []byte("*float"), []byte("float"))
+	}
+	{
+		// *[]int
+		content = bytes.ReplaceAll(content, []byte("*[]"), []byte("[]"))
+	}
 
-		fmt.Fprintf(os.Stdout, "%s\n", string(content))
+	// write file
+	err = ioutil.WriteFile(filename, content, 0644)
+	if err != nil {
+		panic(err)
 	}
 }
