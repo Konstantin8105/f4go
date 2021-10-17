@@ -317,6 +317,49 @@ func CAXPY(N *int, CA *complex128, CX *[]complex128, INCX *int, CY *[]complex128
 }
 ```
 
+
+Example of simplification Go code(comments removed for short view):
+
+```go
+package main
+
+func CAXPY(N int, CA *complex128, CX []complex128, INCX int, CY []complex128, INCY int) {
+	var I int
+	var IX int
+	var IY int
+
+	if N <= 0 {
+		return
+	}
+	if (*SCABS1((CA))) == 0.0e+0 {
+		return
+	}
+	if INCX == 1 && INCY == 1 {
+
+		for I = 1; I <= N; I++ {
+			CY[I-1] = CY[I-1] + CA*CX[I-1]
+		}
+	} else {
+
+		IX = 1
+		IY = 1
+		if INCX < 0 {
+			IX = (-N+1)*INCX + 1
+		}
+		if INCY < 0 {
+			IY = (-N+1)*INCY + 1
+		}
+		for I = 1; I <= N; I++ {
+			CY[IY-1] = CY[IY-1] + CA*CX[IX-1]
+			IX = IX + INCX
+			IY = IY + INCY
+		}
+	}
+
+	return
+}
+```
+
 ### Notes
 
 Fortran 77 | Golang
