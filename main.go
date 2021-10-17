@@ -25,7 +25,7 @@ func main() {
 	packageFlag = flag.String("p",
 		"main", "set the name of the generated package")
 	simplifyFlag = flag.Bool("s",
-		false, "simplify from (*I) to I of Golang file")
+		false, "simplify from (*I) to I of Golang file. NO garantee of correct work")
 
 	run()
 }
