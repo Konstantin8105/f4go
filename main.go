@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"regexp"
 	"runtime"
+	"runtime/debug"
 	"strings"
 
 	"github.com/Konstantin8105/f4go/fortran"
@@ -19,14 +20,19 @@ import (
 var (
 	packageFlag  *string
 	simplifyFlag *bool
+	parallelFlag *int
+	verboseFlag  *int
 )
 
 func main() {
 	packageFlag = flag.String("p",
 		"main", "set the name of the generated package")
 	simplifyFlag = flag.Bool("s",
-		false, "simplify from (*I) to I of Golang file. NO garantee of correct work")
-
+		false, "simplify from (*I) to I of Golang file. NOT guaranteed to work correctly")
+	parallelFlag = flag.Int("m",
+		1, "enable parallelism in file processing. Default is only one core")
+	verboseFlag = flag.Int("v",
+		1, "0: error output, 1: print log, 2: print info, 3: print debug")
 	run()
 }
 
@@ -36,12 +42,12 @@ func run() {
 	}
 
 	// free 1 CPU for other computer stuff
-	runtime.GOMAXPROCS(runtime.GOMAXPROCS(0) - 1)
+	runtime.GOMAXPROCS(*parallelFlag)
 
 	flag.Parse()
-
+	fortran.Verbose = *verboseFlag
 	if flag.NArg() < 1 {
-		fmt.Fprintln(os.Stdout, "Please run: f4go -h")
+		fortran.Errorf("Please run: f4go -h")
 		return
 	}
 
@@ -49,10 +55,19 @@ func run() {
 		var s string
 		packageFlag = &s
 	}
+	var es []errorRow
+	if *parallelFlag > 1 {
+		es = parseParallel(flag.Args(), *packageFlag)
+	} else {
+		for _, s := range flag.Args() {
+			fortran.Logf("parsing file %s\n", s)
+			er := parse(s, *packageFlag, "")
+			es = append(es, er...)
+		}
+	}
 
-	es := parseParallel(flag.Args(), *packageFlag)
 	for _, e := range es {
-		fmt.Printf("%20s : %s\n", e.filename, e.err.Error())
+		fortran.Logf("%20s : %s\n", e.filename, e.err.Error())
 	}
 }
 
@@ -67,6 +82,14 @@ func (err errorRow) Error() string {
 
 // parsing to Go code
 func parse(filename, packageName, goFilename string) (errR []errorRow) {
+	defer func() {
+		err := recover()
+		if err != nil {
+			fortran.Errorf("panic parsing %s: %s\n%s", filename, err, string(debug.Stack()))
+			os.Exit(1)
+		}
+	}()
+
 	if packageName == "" {
 		packageName = "main"
 	}
@@ -111,8 +134,6 @@ func parse(filename, packageName, goFilename string) (errR []errorRow) {
 			goFilename = filename[:index] + ".go"
 		}
 	}
-
-	// 	fmt.Println("\n\ngenerate : ", goFilename)
 
 	// save go source
 	if err = ioutil.WriteFile(goFilename, buf.Bytes(), 0644); err != nil {

@@ -77,9 +77,8 @@ type scanner struct {
 var Debug bool = true // false
 
 func scan(b []byte) (ns []node) {
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Begin of scan\n")
-	}
+	Debugf("Begin of scan")
+
 	var s scanner
 	s.nodes = list.New()
 	s.nodes.PushFront(&node{
@@ -97,86 +96,58 @@ func scan(b []byte) (ns []node) {
 	}()
 
 	// separate lines
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: break lines\n")
-	}
+	Debugf("Scan: break lines")
 	s.scanBreakLines()
 
 	// separate comments
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: comments\n")
-	}
+	Debugf("Scan: comments")
 	s.scanComments()
 
 	// merge lines
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: merge lines\n")
-	}
+	Debugf("Scan: merge lines")
 	s.mergeLines()
 
 	// separate strings
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: strings\n")
-	}
+	Debugf("Scan: strings")
 	s.scanStrings()
 
 	// comments !
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: comments !\n")
-	}
+	Debugf("Scan: comments !")
 	s.scanNextComments()
 
 	// preprocessor: add specific spaces
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: tokens with point\n")
-	}
+	Debugf("Scan: tokens with point")
 	s.scanTokenWithPoint()
 
 	// move comments
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: move comments after RPAREN\n")
-	}
+	Debugf("Scan: move comments after RPAREN")
 	s.scanMoveComment()
 
 	// separate on other token
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: tokens\n")
-	}
+	Debugf("Scan: tokens")
 	s.scanTokens()
 
 	// remove empty
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: empty\n")
-	}
+	Debugf("Scan: empty")
 	s.scanEmpty()
 
 	// scan numbers
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: numbers\n")
-	}
+	Debugf("Scan: numbers")
 	s.scanNumbers()
 
 	// remove empty
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: empty\n")
-	}
+	Debugf("Scan: empty")
 	s.scanEmpty()
 
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: after tokens\n")
-	}
+	Debugf("Scan: after tokens")
 	s.scanTokensAfter()
 
 	// remove empty
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: empty\n")
-	}
+	Debugf("Scan: empty")
 	s.scanEmpty()
 
 	// IDENT for undefine
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: undefine idents\n")
-	}
+	Debugf("Scan: undefine idents")
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		switch e.Value.(*node).tok {
 		case ftUndefine:
@@ -186,20 +157,14 @@ func scan(b []byte) (ns []node) {
 	}
 
 	// token GO TO
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: token GOTO\n")
-	}
+	Debugf("Scan: token GOTO")
 	s.scanGoto()
 
 	// postprocessor
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: run postprocessor\n")
-	}
+	Debugf("Scan: run postprocessor")
 	s.postprocessor()
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Scan: end of postprocessor\n")
-	}
 
+	Debugf("Scan: end of postprocessor")
 	return
 }
 
@@ -715,9 +680,9 @@ impl:
 	iter++
 	if iter > 100000 {
 		panic(fmt.Errorf("Too many IMPLICIT iterations"))
-	} else if Debug {
-		fmt.Fprintf(os.Stdout, "finding next IMPLICIT...  %d\n", iter)
 	}
+	Debugf("finding next IMPLICIT...  %d", iter)
+
 	for e := s.nodes.Front(); e != nil; e = e.Next() {
 		if e.Value.(*node).tok != ftImplicit {
 			continue
@@ -954,14 +919,11 @@ func (s *scanner) scanMoveComment() {
 		}
 	}
 	if left != rigth {
-		if Debug {
-			fmt.Fprintf(os.Stdout, "Amount of left and rigth paren is not same: %d != %d\n", left, rigth)
-		}
+		Debugf("Amount of left and rigth paren is not same: %d != %d", left, rigth)
+
 		return
 	}
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Amount of left and rigth paren is same: %d\n", left)
-	}
+	Debugf("Amount of left and rigth paren is same: %d", left)
 }
 
 func (s *scanner) scanTokens() {
@@ -1229,9 +1191,7 @@ numb:
 		}
 	}
 	if again {
-		if Debug {
-			fmt.Fprintf(os.Stdout, "rescan numbers\n")
-		}
+		Debugf("rescan numbers")
 		goto numb
 	}
 }
