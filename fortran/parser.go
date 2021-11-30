@@ -6,7 +6,6 @@ import (
 	goast "go/ast"
 	goparser "go/parser"
 	"go/token"
-	"os"
 	"runtime/debug"
 	"strconv"
 	"strings"
@@ -394,9 +393,7 @@ func (s strChanger) Visit(node goast.Node) (w goast.Visitor) {
 
 // parseNodes
 func (p *parser) parseNodes() (decls []goast.Decl) {
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Parse nodes\n")
-	}
+	Debugf("Parse nodes")
 
 	if p.ident < 0 || p.ident >= len(p.ns) {
 		p.errs = append(p.errs,
@@ -511,7 +508,7 @@ func (p *parser) parseNodes() (decls []goast.Decl) {
 		p.ns = comb
 		p.ident--
 
-		fmt.Fprintf(os.Stdout, "Add fake PROGRAM MAIN in pos : %v\n", p.ns[p.ident].pos)
+		Infof("Add fake PROGRAM MAIN in pos : %v", p.ns[p.ident].pos)
 	}
 
 	return
@@ -606,9 +603,7 @@ func (p *parser) initializeVars() (vars []goast.Stmt) {
 	defer func() {
 		if r := recover(); r != nil {
 			err := fmt.Sprintf("Recover initializeVars : %v", r)
-			if Debug {
-				fmt.Fprintf(os.Stdout, "%s\n", err)
-			}
+			Debugf("%s", err)
 			p.addError(err)
 			p.gotoEndLine()
 		}
@@ -974,9 +969,8 @@ func (c callArg) Visit(node goast.Node) goast.Visitor {
 //  DOUBLE PRECISION FUNCTION DNRM2 ( N , X , INCX )
 //  COMPLEX * 16 FUNCTION ZDOTC ( N , ZX , INCX , ZY , INCY )
 func (p *parser) parseFunction() (decl goast.Decl) {
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Parse function\n")
-	}
+	Debugf("Parse function")
+
 	for i := p.ident; i < len(p.ns) && p.ns[i].tok != ftNewLine; i++ {
 		if p.ns[i].tok == ftFunction {
 			p.ns[i].tok = ftSubroutine
@@ -988,9 +982,8 @@ func (p *parser) parseFunction() (decl goast.Decl) {
 // Example:
 //   PROGRAM MAIN
 func (p *parser) parseProgram() (decl goast.Decl) {
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Parse program\n")
-	}
+	Debugf("Parse program")
+
 	p.expect(ftProgram)
 	p.ns[p.ident].tok = ftSubroutine
 	decl = p.parseSubroutine()
@@ -1008,9 +1001,7 @@ const returnPostfix string = "_RETURN"
 //  PROGRAM MAIN
 //  COMPLEX FUNCTION CDOTU ( N , CX , INCX , CY , INCY )
 func (p *parser) parseSubroutine() (decl goast.Decl) {
-	if Debug {
-		fmt.Fprintf(os.Stdout, "Parse subroutine\n")
-	}
+	Debugf("Parse subroutine")
 
 	defer func() {
 		p.init()
@@ -1043,9 +1034,8 @@ func (p *parser) parseSubroutine() (decl goast.Decl) {
 	p.expect(token.IDENT)
 	name := strings.ToUpper(string(p.ns[p.ident].b))
 	fd.Name = goast.NewIdent(name)
-	if Debug {
-		fmt.Fprintf(os.Stdout, "subroutine name is : %s\n", name)
-	}
+
+	Debugf("subroutine name is : %s", name)
 
 	// Add return type is exist
 	returnName := name + returnPostfix
@@ -1671,9 +1661,8 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 	defer func() {
 		if r := recover(); r != nil {
 			err := fmt.Sprintf("Recover parseStmt pos{%v}: %v", pos, r)
-			if Debug {
-				fmt.Fprintf(os.Stdout, "%s\n", err)
-			}
+			Debugf("%s", err)
+
 			p.addError("stacktrace from panic: \n" + string(debug.Stack()))
 			p.addError(err)
 			p.gotoEndLine()
@@ -1900,14 +1889,14 @@ func (p *parser) parseStmt() (stmts []goast.Stmt) {
 					p.ns[i].tok != ftEnd; i++ {
 				}
 				a1 := p.ns[:p.ident]
-				a2 := p.ns[p.ident+1:i]
+				a2 := p.ns[p.ident+1 : i]
 				b := append([]node{},
 					node{tok: ftNewLine, b: []byte("\n")},
 					p.ns[p.ident],
 					node{tok: token.CONTINUE, b: []byte("CONTINUE")},
 					node{tok: ftNewLine, b: []byte("\n")})
 				c := p.ns[i:]
-				p.ns = append(a1,append(a2,append(b,c...)...)...)
+				p.ns = append(a1, append(a2, append(b, c...)...)...)
 				return p.parseStmt()
 			}
 		}

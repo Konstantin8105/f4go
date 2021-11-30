@@ -6,6 +6,10 @@ import (
 	"math/cmplx"
 )
 
+const (
+	eps = 1.1920928955078125e-07 // math.Pow(2,-23) = 1.1920928955078125e-07 (EPSILON)
+)
+
 func MIN(a, b int) int {
 	if a < b {
 		return a
@@ -46,20 +50,15 @@ func SQRT(a interface{}) float64 {
 }
 
 func MAX(a, b interface{}) float64 {
-	A := castToFloat64(a)
-	B := castToFloat64(b)
-	if A > B {
-		return A
-	}
-	return B
+	return math.Max(castToFloat64(a), castToFloat64(b))
 }
 
 func EPSILON(f float64) float64 {
-	return math.Pow(2, -23)
+	return eps
 }
 
 func CONJG(c complex128) complex128 {
-	return complex128(cmplx.Conj(complex128(c)))
+	return cmplx.Conj(complex128(c))
 }
 
 func DCONJG(c complex128) complex128 {
@@ -67,21 +66,21 @@ func DCONJG(c complex128) complex128 {
 }
 
 func DBLE(a interface{}) float64 {
-	switch a.(type) {
+	switch a := a.(type) {
 	case int:
-		return float64(a.(int))
+		return float64(a)
 	case int32:
-		return float64(a.(int32))
+		return float64(a)
 	case int64:
-		return float64(a.(int64))
+		return float64(a)
 	case float32:
-		return float64(a.(float32))
+		return float64(a)
 	case complex64:
-		return float64(real(a.(complex64)))
+		return float64(real(a))
 	case complex128:
-		return float64(real(a.(complex128)))
+		return float64(real(a))
 	case float64:
-		return a.(float64)
+		return a
 	}
 	panic(fmt.Errorf("Cannot find type : %T", a))
 }
@@ -95,10 +94,7 @@ func CABS(a complex128) float64 {
 }
 
 func SIGN(a float64) float64 {
-	if a < 0.0 {
-		return -1
-	}
-	return 1
+	return math.Copysign(1, a)
 }
 
 func MOD(a, b int) int {
