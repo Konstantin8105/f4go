@@ -207,6 +207,29 @@ func parsingBlas(filename string) error {
 	return fmt.Errorf("%s", s)
 }
 
+func TestFeappv(t *testing.T) {
+	fortran.Debug = testing.Verbose()
+
+	ss, err := filepath.Glob(fmt.Sprintf("./testdata/feappv-master/plot/%s", "*.f"))
+	if err != nil || len(ss) == 0 {
+		t.Fatal(err)
+	}
+
+	var amount int
+
+	for i := range ss {
+		err = parsingBlas(ss[i])
+		if err != nil {
+			t.Logf("Error is not empty in file: %s. %v", ss[i], err)
+			amount++
+		}
+	}
+
+	if float64(amount) > 0.25*float64(len(ss)) {
+		t.Errorf("too mush errors")
+	}
+}
+
 func TestLapack(t *testing.T) {
 
 	fortran.Debug = testing.Verbose()
