@@ -24,6 +24,13 @@ var (
 	verboseFlag  *int
 )
 
+func init() {
+	p := 1
+	parallelFlag = &p
+	v := 1
+	verboseFlag = &v
+}
+
 func main() {
 	packageFlag = flag.String("p",
 		"main", "set the name of the generated package")
