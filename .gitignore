@@ -12,6 +12,7 @@
 *.out
 testdata/*.out
 testdata/*.go
+testdata/**/*.go
 *.o
 testdata/other/*
 testdata/lapack/BLAS/SRC/*.go

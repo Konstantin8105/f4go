@@ -214,6 +214,7 @@ func TestFeappv(t *testing.T) {
 	if err != nil || len(ss) == 0 {
 		t.Fatal(err)
 	}
+	ss = []string{"./testdata/feappv-master/plot/fpplcl.f"} // TODO remove
 
 	var amount int
 

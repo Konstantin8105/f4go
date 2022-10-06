@@ -1,6 +1,7 @@
 package fortran
 
 import (
+	"bytes"
 	"fmt"
 	"go/token"
 	"strconv"
@@ -106,6 +107,13 @@ func fixType(nodes *[]node) {
 		if counter == 0 {
 			break
 		}
+	}
+	if len(*nodes)-1 < end {
+		var buf bytes.Buffer
+		for _, v := range *nodes {
+			fmt.Fprintf(&buf, "%s\n", string(v.b))
+		}
+		panic(fmt.Errorf("Not valid nodes size: %#v\n%s", *nodes, buf.String()))
 	}
 	if (*nodes)[end].tok != token.RPAREN {
 		panic("Not acceptable end : " + string((*nodes)[end].b))
