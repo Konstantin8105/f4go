@@ -12,7 +12,7 @@
 *.out
 testdata/*.out
 testdata/*.go
-testdata/**/*.go
+testdata/feappv-master/plot/*.go
 *.o
 testdata/other/*
 testdata/lapack/BLAS/SRC/*.go
