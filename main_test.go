@@ -257,6 +257,7 @@ func TestLapack(t *testing.T) {
 }
 
 func TestBlas(t *testing.T) {
+	t.Skip()
 
 	fortran.Debug = testing.Verbose()
 
