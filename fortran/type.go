@@ -113,7 +113,8 @@ func fixType(nodes *[]node) {
 		for _, v := range *nodes {
 			fmt.Fprintf(&buf, "%s\n", string(v.b))
 		}
-		panic(fmt.Errorf("Not valid nodes size: %#v\n%s", *nodes, buf.String()))
+		err := fmt.Errorf("Not valid nodes size: %#v\n%s", *nodes, buf.String())
+		panic(err)
 	}
 	if (*nodes)[end].tok != token.RPAREN {
 		panic("Not acceptable end : " + string((*nodes)[end].b))

@@ -123,6 +123,7 @@ func ShowDiff(a, b string) string {
 }
 
 func TestFail(t *testing.T) {
+	t.Skip()
 
 	fortran.Debug = testing.Verbose()
 

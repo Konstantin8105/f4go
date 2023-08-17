@@ -76,6 +76,9 @@ C           call testName("test_types")
 C           call testName("test_concat")
             call test_concat()
 
+C           call testName("test_type_double_point")
+C           call test_type_double_point()
+
 C           call testName("test_save")
             call test_save()
 
@@ -828,6 +831,16 @@ C -----------------------------------------------------
             CALL F4GOTESTOK ! write(*,'(A1)')b
             CALL F4GOTESTOK ! write(*,*)c
         end
+
+C -----------------------------------------------------
+
+C       subroutine test_type_double_point
+C           character (len=5) :: line1 ,line2
+C           line1 = 'hell1'
+C           line2 = 'hell2'
+C           CALL F4GOTESTOK ! write(*,'(A5)')line1
+C           CALL F4GOTESTOK ! write(*,'(A5)')line2
+C       end
 
 C -----------------------------------------------------
 

@@ -160,11 +160,21 @@ func scan(b []byte) (ns []node) {
 	Debugf("Scan: token GOTO")
 	s.scanGoto()
 
+	// ::
+	Debugf("Scan: token DOUBLE_COLON ::")
+	s.scanDoubleColon()
+
 	// postprocessor
 	Debugf("Scan: run postprocessor")
 	s.postprocessor()
 
 	Debugf("Scan: end of postprocessor")
+
+	// show AST tokens
+	//
+	// for e := s.nodes.Front(); e != nil; e = e.Next() {
+	// 	fmt.Println(e)
+	// }
 	return
 }
 
@@ -1193,6 +1203,91 @@ numb:
 	if again {
 		Debugf("rescan numbers")
 		goto numb
+	}
+}
+
+// [CHARACTER, `character`, {838 13}]}
+// [(, `(`, {838 23}]}
+// [IDENT, `LEN`, {838 24}]}
+// [=, `=`, {838 27}]}
+// [INT, `5`, {838 28}]}
+// [), `)`, {838 29}]}
+// [DOUBLE_COLON, `::`, {838 31}]}
+// [IDENT, `LINE1`, {838 34}]}
+//
+// [CHARACTER, `character`, {838 13}]}
+// [(, `(`, {838 23}]}
+// [IDENT, `LEN`, {838 24}]}
+// [=, `=`, {838 27}]}
+// [INT, `5`, {838 28}]}
+// [), `)`, {838 29}]}
+// [DOUBLE_COLON, `::`, {838 31}]}
+// [IDENT, `LINE1`, {838 34}]}
+// [,, `,`, {838 40}]}
+// [IDENT, `LINE2`, {838 41}]}
+//
+// from:
+//
+//	character (len=5) :: line1 ,line2
+//
+// to:
+//
+//	character (len=5) :: line1
+//	character (len=5) :: line2
+func (s *scanner) scanDoubleColon() {
+	for e := s.nodes.Front(); e != nil; e = e.Next() {
+		if !(e.Value.(*node).tok == ftDoubleColon) {
+			continue
+		}
+		// go to begin of fortran line and store the elements
+		first := list.New()
+		so := e
+		p := e
+		for ; p != nil; p = p.Prev() {
+			if p.Value.(*node).tok == ftNewLine {
+				break
+			}
+			c := *(p.Value.(*node))
+			first.PushFront(&c)
+		}
+		begin := p
+		// go to end of fortran line and store the indents
+		var indents [][]node
+		e = e.Next()
+		for p = e; p != nil; p = p.Next() {
+			if p.Value.(*node).tok == ftNewLine {
+				break
+			}
+			if len(indents) == 0 {
+				indents = make([][]node, 1)
+				indents[0] = append(indents[0], *(p.Value.(*node)))
+				continue
+			}
+			if p.Value.(*node).tok == token.COMMA {
+				indents = append(indents, make([]node, 0))
+				continue
+			}
+			l := len(indents) - 1
+			indents[l] = append(indents[l], *(p.Value.(*node)))
+		}
+		// replace to newline and inject new
+		for p := begin.Next(); p != nil; p = p.Next() {
+			if p.Value.(*node).tok == ftNewLine {
+				break
+			}
+			p.Value.(*node).tok = ftNewLine
+		}
+		for i := range indents {
+			for e := first.Front(); e != nil; e = e.Next() {
+				c := *(e.Value.(*node))
+				s.nodes.InsertBefore(&c, so)
+			}
+			for j := range indents[i] {
+				c := indents[i][j]
+				s.nodes.InsertBefore(&c, so)
+			}
+			s.nodes.InsertBefore(&node{tok: ftNewLine, b: []byte("\n")}, so)
+		}
 	}
 }
 
